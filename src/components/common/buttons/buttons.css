@@ -1,0 +1,11 @@
+.sso{
+  width: 20em;
+  height: 4em;
+  background-color: rgb(232, 232, 227);
+  border-color: rgb(229, 231, 235);
+  border-radius: 15px;
+  cursor: pointer;
+}
+.buttonColor{
+  color: rgb(19, 52, 59);
+}
