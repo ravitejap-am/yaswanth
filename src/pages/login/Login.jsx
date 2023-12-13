@@ -6,6 +6,7 @@ import SignUp from '../../components/iam/signUp/SignUp';
 import ManualSignIn from '../../components/iam/manualSignIn/ManualSignIn';
 import Homeheader from '../../layouts/homeheader/HomeHeader';
 import ForgotPassword from '../../components/iam/forgotPassword/ForgotPassword';
+import HomeFooter from '../../layouts/homeFooter/HomeFooter';
 const { Content } = Layout;
 
 const Login = () => {
@@ -38,6 +39,7 @@ const Login = () => {
         )}
         {screen == 'otp' && ''}
       </Content>
+      <HomeFooter />
       {/* add footer */}
     </Layout>
   );

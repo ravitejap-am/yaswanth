@@ -80,30 +80,34 @@ const AuthForm = ({
           />
         </div>
 
-        <br />
         {formType !== 'forgotpassword' && (
-          <div className="titleContainer">
-            <FormTitles title="Password" />
-            :
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              className={
-                isPasswordValid
-                  ? 'inputContainer'
-                  : 'invalid-input inputContainer'
-              }
-            />
-          </div>
+          <>
+            <br />
+            <div className="titleContainer">
+              <FormTitles title="Password" />
+              :
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                className={
+                  isPasswordValid
+                    ? 'inputContainer'
+                    : 'invalid-input inputContainer'
+                }
+              />
+            </div>
+          </>
         )}
 
-        <br />
         {formType === 'signin' && (
-          <div style={{ textAlign: 'end' }}>
-            <a onClick={forgotPasswordHandler}>Forgor Password</a>
-          </div>
+          <>
+            <br />
+            <div style={{ textAlign: 'end' }}>
+              <a onClick={forgotPasswordHandler}>Forgor Password</a>
+            </div>
+          </>
         )}
 
         <br />

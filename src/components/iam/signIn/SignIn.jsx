@@ -3,7 +3,7 @@ import { Layout } from 'antd';
 import SignIntitle from '../../common/titles/SignInWelcomeTitle.jsx';
 import './signin.css';
 import SubTitle from '../../common/titles/SubTitle.jsx';
-import Sso from '../../common/buttons/Sso.jsx';
+import AuthButton from '../../common/buttons/AuthButton.jsx';
 import * as myConst from '../../../constants/loginPage.js';
 // console.log(myConstClass.ENGLISH);
 const { Content } = Layout;
@@ -23,22 +23,22 @@ const SignIn = ({ screenHandler }) => {
     <Content className="mainContainer">
       <SignIntitle title={data.WELCOME} />
       <SubTitle name={data.SIGNIN_OR_SIGNUP_TO_CONTINUE} />
-      <Sso
+      <AuthButton
         buttonHandler={googleButtonHandler}
         name={data.CONTINUE_WITH_GOOGLE}
         type="google"
       />
-      <Sso
+      <AuthButton
         buttonHandler={appleButtonHandler}
         name={data.CONTINUE_WITH_APPLE}
         type="apple"
       />
-      <Sso
+      <AuthButton
         buttonHandler={signInButtonHandler}
         name={data.CONTINUE_WITH_EMAIL}
         type="mail"
       />
-      <Sso
+      <AuthButton
         buttonHandler={signUpButtonHandler}
         name={data.CONTINUE_WITH_REGISTER}
         type="form"

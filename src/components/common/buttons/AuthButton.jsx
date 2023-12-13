@@ -6,7 +6,7 @@ import {
   FormOutlined,
 } from '@ant-design/icons';
 import './buttons.css';
-const Sso = ({ name, type, buttonHandler }) => {
+const AuthButton = ({ name, type, buttonHandler }) => {
   return (
     <div className="sso center butooneffect" onClick={buttonHandler} style={{}}>
       {type == 'google' && (
@@ -41,4 +41,4 @@ const Sso = ({ name, type, buttonHandler }) => {
   );
 };
 
-export default Sso;
+export default AuthButton;
