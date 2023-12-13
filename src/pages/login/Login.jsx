@@ -4,6 +4,8 @@ import './login.css';
 import SignIn from '../../components/iam/signIn/SignIn';
 import SignUp from '../../components/iam/signUp/SignUp';
 import ManualSignIn from '../../components/iam/manualSignIn/ManualSignIn';
+import Homeheader from '../../layouts/homeheader/HomeHeader';
+import ForgotPassword from '../../components/iam/forgotPassword/ForgotPassword';
 const { Content } = Layout;
 
 const Login = () => {
@@ -11,15 +13,27 @@ const Login = () => {
   const screenHandler = (screenName) => {
     setScreen(screenName);
   };
+  let manuvalWidth = screen == 'singnIn' ? '30rem' : '25rem';
+  let manuvalHeight = screen == 'singnIn' ? '25rem' : '20rem';
   return (
     <Layout className="mainLayout center">
-      <Content className="loginContainer center">
+      {/* adding header */}
+      <Homeheader />
+      <Content
+        className="loginContainer center"
+        style={{ minWidth: manuvalWidth, minHeight: manuvalHeight }}
+      >
         {screen == 'singnIn' && <SignIn screenHandler={screenHandler} />}
-        {screen == 'signUp' && <SignUp />}
-        {screen == 'manualSignIn' && <ManualSignIn />}
-        {screen == 'forgotPassword' && ''}
+        {screen == 'signUp' && <SignUp screenHandler={screenHandler} />}
+        {screen == 'manualSignIn' && (
+          <ManualSignIn screenHandler={screenHandler} />
+        )}
+        {screen == 'forgotPassword' && (
+          <ForgotPassword screenHandler={screenHandler} />
+        )}
         {screen == 'otp' && ''}
       </Content>
+      {/* add footer */}
     </Layout>
   );
 };

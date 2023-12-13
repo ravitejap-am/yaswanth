@@ -20,6 +20,12 @@
   /* box-shadow: 0 5px #666; */
   transform: translateY(4px);
 }
+.coloumCenter{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

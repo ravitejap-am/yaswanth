@@ -4,11 +4,11 @@ import * as myConst from '../../../constants/loginPage.js';
 import SignInWelcomeTitle from '../../common/titles/SignInWelcomeTitle';
 import FormTitles from '../../common/titles/FormTitles.jsx';
 import SubTitle from '../../common/titles/SubTitle.jsx';
-import './manuvalsignup.css';
+import './forgotPassword.css';
 const { Content } = Layout;
 let language = 'ENGLISH';
 let data = myConst[language];
-const ManualSignIn = ({ screenHandler }) => {
+const ForgotPassword = ({ screenHandler }) => {
   const [form] = Form.useForm();
   const onFinish = (values) => {
     console.log('Received values:', values);
@@ -17,18 +17,11 @@ const ManualSignIn = ({ screenHandler }) => {
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
   };
-  const validatePassword = (_, value) => {
-    if (value && value.length < 8) {
-      return Promise.reject('Password must be at least 8 characters');
-    } else {
-      return Promise.resolve();
-    }
-  };
 
   return (
     <Content className="coloumCenter" style={{ gap: '1em' }}>
-      <SignInWelcomeTitle title={data.SIGNIN} />
-      <SubTitle name={data.SIGNIN_TO_CONTINUE} />
+      <SignInWelcomeTitle title={data.FORGOT_PASSWORD} />
+      <SubTitle name={data.PLEASE_ENETER_MAIL_TO_CONTINUE} />
       <Form
         name="registration_form"
         onFinish={onFinish}
@@ -49,40 +42,10 @@ const ManualSignIn = ({ screenHandler }) => {
           <Input />
         </Form.Item>
 
-        <Form.Item
-          label={<FormTitles title={data.PASSWORD} />}
-          name="password"
-          rules={[
-            { required: true, message: data.PLEASE_INPUT_YOUR_PASSWORD },
-            { validator: validatePassword },
-          ]}
-        >
-          <Input.Password />
-        </Form.Item>
-        <div style={{ textAlign: 'end' }}>
-          <a
-            onClick={() => {
-              screenHandler('forgotPassword');
-            }}
-          >
-            Forgot Password
-          </a>
-        </div>
-        {/* <Form.Item
-          label={<FormTitles title={data.CONFIRM_PASSWORD} />}
-          name="confirmPassword"
-          rules={[
-            { required: true, message: data.PLEASE_CONFIRM_YOUR_PASSWORD },
-            { validator: validateConfirmPassword },
-          ]}
-        >
-          <Input.Password />
-        </Form.Item> */}
-
         {/* <Sso buttonHandler={onFinish} name={data.REGISTER} type="None" /> */}
         <div className="center" style={{ marginTop: '2em', gap: '2em' }}>
           <Button type="primary" htmlType="submit" style={{ minWidth: '5em' }}>
-            {data.SIGNIN}
+            {data.SUBMIT}
           </Button>
           <Button
             type="default"
@@ -103,4 +66,4 @@ const ManualSignIn = ({ screenHandler }) => {
     </Content>
   );
 };
-export default ManualSignIn;
+export default ForgotPassword;
