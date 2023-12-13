@@ -21,7 +21,12 @@ const Login = () => {
       <Homeheader />
       <Content
         className="loginContainer center"
-        style={{ minWidth: manuvalWidth, minHeight: manuvalHeight }}
+        style={{
+          minWidth: manuvalWidth,
+          minHeight: manuvalHeight,
+          alignItems: 'flex-start',
+          padding: '10px',
+        }}
       >
         {screen == 'singnIn' && <SignIn screenHandler={screenHandler} />}
         {screen == 'signUp' && <SignUp screenHandler={screenHandler} />}
