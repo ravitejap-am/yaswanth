@@ -15,11 +15,12 @@ let english = {
   PLEASE_INPUT_YOUR_PASSWORD: 'Please input your password!',
   PLEASE_CONFIRM_YOUR_PASSWORD: 'Please confirm your password!',
   REGISTER: 'Register',
-  SSO: 'SSO',
+  SSO: 'Back',
   SIGNIN: 'Sign In',
   SIGNIN_TO_CONTINUE: 'Sign in to continue',
   FORGOT_PASSWORD: 'Forgot password',
   PLEASE_ENETER_MAIL_TO_CONTINUE: 'Please enter mail to continue',
+  SUBMIT: 'Submit',
 };
 let hindi = {
   WELCOME: 'स्वागत',
