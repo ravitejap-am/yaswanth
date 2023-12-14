@@ -29,9 +29,10 @@ const ForgotPassword = ({ screenHandler }) => {
       {isMessage && (
         <Message
           messageHandler={messageHandler}
-          type="info"
+          type=""
           message="Link has been sent succesfully,Please check your mail"
           position="bottom-center"
+          theme="dark"
         />
       )}
       <Content className="coloumCenter" style={{ gap: '1em' }}>

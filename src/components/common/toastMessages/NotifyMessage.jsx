@@ -1,9 +1,16 @@
 import React, { useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-const NotifyMessage = ({ messageHandler, message, type, position }) => {
-  const notifyError = (position) =>
-    toast.error(message, {
+const messageTypes = ['error', 'info', 'warn', 'success'];
+const NotifyMessage = ({
+  messageHandler,
+  message,
+  type,
+  position,
+  theme = 'light',
+}) => {
+  const notifyMessage = (position, type) =>
+    toast[type](message, {
       position: position,
       autoClose: 5000,
       hideProgressBar: false,
@@ -11,51 +18,15 @@ const NotifyMessage = ({ messageHandler, message, type, position }) => {
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      theme: 'light',
-      onClose: messageHandler,
-    });
-  const notifyInfo = (position) =>
-    toast.info(message, {
-      position: position,
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: 'light',
-      onClose: messageHandler,
-    });
-  const notifyWarn = (position) =>
-    toast.warn(message, {
-      position: position,
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: 'light',
-      onClose: messageHandler,
-    });
-  const notifySucces = (position) =>
-    toast.success(message, {
-      position: position,
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: 'light',
+      theme: theme,
       onClose: messageHandler,
     });
   useEffect(() => {
-    if (type == 'error') notifyError(position);
-    if (type == 'info') notifyInfo(position);
-    if (type == 'warn') notifyWarn(position);
-    if (type == 'succes') notifySucces(position);
-    // notify();
+    if (messageTypes.includes(type)) {
+      notifyMessage(position, type);
+    } else {
+      notifyMessage(position, 'info');
+    }
   });
   return <ToastContainer />;
 };
