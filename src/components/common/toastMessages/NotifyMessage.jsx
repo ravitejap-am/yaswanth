@@ -28,6 +28,6 @@ const NotifyMessage = ({
       notifyMessage(position, 'info');
     }
   });
-  return <ToastContainer />;
+  return <ToastContainer /> ;
 };
 export default NotifyMessage;
