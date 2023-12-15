@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { UploadOutlined, PlusOutlined } from '@ant-design/icons';
-import { Button, message, Upload, Modal } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
+import { Upload, Modal } from 'antd';
 
 const Document = ({ setFile }) => {
   const [previewOpen, setPreviewOpen] = useState(false);

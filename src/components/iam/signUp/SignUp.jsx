@@ -2,7 +2,6 @@ import React from 'react';
 import { Layout } from 'antd';
 import * as myConst from '../../../constants/loginPage.js';
 import './signup.css';
-import AuthForm from '../../common/forms/AuthForm.jsx';
 import GeneralForm from '../../common/forms/GeneralForm.jsx';
 
 const { Content } = Layout;

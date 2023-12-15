@@ -38,6 +38,7 @@ const GeneralForm = ({
   const onSelectChange = (value) => {
     // form.setFieldsValue({ [item.name]: value });
   };
+
   const elements = {
     email: <Input />,
     text: <Input />,
@@ -51,6 +52,9 @@ const GeneralForm = ({
     description: <TextArea rows={4} />,
     file: <Document setFile={setFileSysytem} />,
   };
+  // const renderFunction = ({})=>{
+  //   return
+  // }
   const normFile = (filesystem) => {
     if (Array.isArray(filesystem)) {
       return filesystem;
@@ -106,6 +110,7 @@ const GeneralForm = ({
               <TextArea rows={item?.row != undefined ? item.row : 4} />
             )}
             {item.type === 'file' && <Document setFile={setFileSysytem} />}
+            {/* {elements[item.type] || <></>} */}
           </Form.Item>
         );
       })}

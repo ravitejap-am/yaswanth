@@ -6,7 +6,6 @@ import FormTitles from '../../common/titles/FormTitles.jsx';
 import SubTitle from '../../common/titles/SubTitle.jsx';
 import './forgotPassword.css';
 import Message from '../../common/toastMessages/NotifyMessage.jsx';
-import AuthForm from '../../common/forms/AuthForm.jsx';
 const { Content } = Layout;
 let language = 'ENGLISH';
 let data = myConst[language];
@@ -35,9 +34,9 @@ const ForgotPassword = ({ screenHandler }) => {
           theme="dark"
         />
       )}
-      <Content className="coloumCenter" style={{ gap: '1em' }}>
+      {/* <Content className="coloumCenter" style={{ gap: '1em' }}>
         <AuthForm formType="forgotpassword" onSuccesHandler={onFinish} />
-      </Content>
+      </Content> */}
     </>
   );
 };
