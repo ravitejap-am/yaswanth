@@ -11,12 +11,23 @@ import {
   Modal,
 } from 'antd';
 import Document from '../upload/file/Document';
+import GeneralButton from '../buttons/GeneralButton';
 const { TextArea } = Input;
 const GeneralForm = ({
   formElements = [],
   onSuccesHandler = () => {},
-  submitButton = { name: 'Submit', color: 'white', backgroundColor: '#4096f' },
-  cancelButton = { name: 'Cancel', color: 'black', backgroundColor: 'white' },
+  submitButton = {
+    name: 'Submit',
+    color: 'white',
+    backgroundColor: '#4096f',
+    type: 'primary',
+  },
+  cancelButton = {
+    name: 'Cancel',
+    color: 'black',
+    backgroundColor: 'white',
+    type: 'default',
+  },
   onCancelHandler = () => {},
   formType = 'nomal',
   forgorPasswordHandler = () => {},
@@ -25,6 +36,8 @@ const GeneralForm = ({
   const [filesystem, setFileSysytem] = useState([]);
   console.log(filesystem);
   const onFinish = (values) => {
+    console.log(values);
+    onSuccesHandler.bind(values);
     console.log('Received values:', values);
   };
 
@@ -44,11 +57,9 @@ const GeneralForm = ({
     text: <Input />,
     password: <Input.Password />,
     confirmPassword: <Input.Password />,
-    checkbox: <Checkbox onChange={onChangeCheckBox} />,
     number: <InputNumber type="number" />,
     switch: <Switch />,
     date: <DatePicker />,
-    select: <Select onChange={onSelectChange} options={[]} />,
     description: <TextArea rows={4} />,
     file: <Document setFile={setFileSysytem} />,
   };
@@ -79,38 +90,28 @@ const GeneralForm = ({
             label={item.label}
             name={item.name}
             rules={item?.rules != undefined ? item.rules : []}
-            //  {item.type === 'file' ? valuePropName="fileList"}
             valuePropName={item.type === 'file' ? item.name : null}
             getValueFromEvent={item.type === 'file' ? normFile : null}
           >
-            {(item.type === 'email' || item.type === 'text') && <Input />}
-            {(item.type === 'password' || item.type === 'confirmPassword') && (
-              <Input.Password />
+            {elements[item.type] || (
+              <>
+                {item.type === 'select' && (
+                  <Select
+                    onChange={(value) => {
+                      form.setFieldsValue({ [item.name]: value });
+                    }}
+                    options={item?.options != undefined ? item?.options : []}
+                  />
+                )}
+                {item.type === 'checkbox' && (
+                  <Checkbox
+                    onChange={(e) => {
+                      form.setFieldsValue({ [item.name]: e.target.checked });
+                    }}
+                  />
+                )}
+              </>
             )}
-            {item.type === 'checkbox' && (
-              <Checkbox
-                onChange={(e) => {
-                  form.setFieldsValue({ [item.name]: e.target.checked });
-                }}
-              />
-            )}
-
-            {item.type === 'number' && <InputNumber type="number" />}
-            {item.type === 'switch' && <Switch />}
-            {item.type === 'date' && <DatePicker />}
-            {item.type === 'select' && (
-              <Select
-                onChange={(value) => {
-                  form.setFieldsValue({ [item.name]: value });
-                }}
-                options={item?.options != undefined ? item?.options : []}
-              />
-            )}
-            {item.type === 'description' && (
-              <TextArea rows={item?.row != undefined ? item.row : 4} />
-            )}
-            {item.type === 'file' && <Document setFile={setFileSysytem} />}
-            {/* {elements[item.type] || <></>} */}
           </Form.Item>
         );
       })}
@@ -123,7 +124,12 @@ const GeneralForm = ({
       )}
       <Form.Item wrapperCol={{ offset: 6, span: 18 }}>
         <div className="center" style={{ gap: '2em', marginTop: '1em' }}>
-          <Button
+          <GeneralButton buttonProps={submitButton} buttonHandler={onFinish} />
+          <GeneralButton
+            buttonProps={cancelButton}
+            buttonHandler={onFinishFailed}
+          />
+          {/* <Button
             type="primary"
             htmlType="submit"
             className="center"
@@ -148,7 +154,7 @@ const GeneralForm = ({
             onClick={onCancelHandler}
           >
             {cancelButton.name}
-          </Button>
+          </Button> */}
         </div>
       </Form.Item>
     </Form>

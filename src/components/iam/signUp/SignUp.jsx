@@ -45,21 +45,21 @@ const SignUp = ({ screenHandler }) => {
         { validator: validatePassword },
       ],
     },
-    // {
-    //   label: 'Confirm Password',
-    //   type: 'confirmPassword',
-    //   name: 'confirmPassword',
-    //   rules: [
-    //     { required: true, message: 'Please confirm your password!' },
-    //     // { validator: validateConfirmPassword },
-    //   ],
-    // },
-    // {
-    //   label: 'Checkbox',
-    //   type: 'checkbox',
-    //   name: 'isSelected',
-    //   rules: [{ required: true, message: 'Please Check the element' }],
-    // },
+    {
+      label: 'Confirm Password',
+      type: 'confirmPassword',
+      name: 'confirmPassword',
+      rules: [
+        { required: true, message: 'Please confirm your password!' },
+        // { validator: validateConfirmPassword },
+      ],
+    },
+    {
+      label: 'Checkbox',
+      type: 'checkbox',
+      name: 'isSelected',
+      rules: [{ required: true, message: 'Please Check the element' }],
+    },
     // {
     //   label: 'Number',
     //   type: 'number',
@@ -78,31 +78,31 @@ const SignUp = ({ screenHandler }) => {
     //   name: 'date',
     //   rules: [{ required: true, message: 'Please  select the Date' }],
     // },
-    // {
-    //   label: 'Select',
-    //   type: 'select',
-    //   name: 'select',
-    //   rules: [{ required: true, message: 'Please  select the somthing' }],
-    //   options: [
-    //     {
-    //       value: 'option1',
-    //       label: 'Option 1',
-    //     },
-    //     {
-    //       value: 'option1',
-    //       label: 'Option 2',
-    //     },
-    //     {
-    //       value: 'option3',
-    //       label: 'Option 3',
-    //     },
-    //     {
-    //       value: 'option4',
-    //       label: 'Option 4',
-    //       disabled: true,
-    //     },
-    //   ],
-    // },
+    {
+      label: 'Select',
+      type: 'select',
+      name: 'select',
+      rules: [{ required: true, message: 'Please  select the somthing' }],
+      options: [
+        {
+          value: 'option1',
+          label: 'Option 1',
+        },
+        {
+          value: 'option1',
+          label: 'Option 2',
+        },
+        {
+          value: 'option3',
+          label: 'Option 3',
+        },
+        {
+          value: 'option4',
+          label: 'Option 4',
+          disabled: true,
+        },
+      ],
+    },
     // {
     //   label: 'Name',
     //   type: 'text',
@@ -121,20 +121,24 @@ const SignUp = ({ screenHandler }) => {
     //   type: 'file',
     //   name: 'fileList',
     // },
+    // {
+    //   label: 'Input Box',
+    //   type: 'text',
+    //   name: 'text',
+    //   rules: [{ required: true, message: 'Please input your Text' }],
+    // },
   ];
   const submitButtonProperty = {
     name: 'Submit',
     color: 'white',
-    // backgroundColor: 'green',
-    // width: '5em',
-    // height: '2em',
+    backgroundColor: '#4096f',
+    type: 'primary',
   };
   const cancelButtonProperty = {
     name: 'Cancel',
     color: 'black',
-    // backgroundColor: 'blue',
-    // width: '5em',
-    // height: '2em',
+    backgroundColor: 'white',
+    type: 'default',
   };
   return (
     <Content className="coloumCenter" style={{ gap: '1em' }}>
