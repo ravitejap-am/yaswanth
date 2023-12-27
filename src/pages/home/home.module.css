@@ -1,0 +1,77 @@
+.card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.LandingPageCard {
+  text-align: center;
+  color: black;
+  margin-top: 100px;
+  margin-bottom: 100px;
+}
+.cardHeading {
+  margin-top: 50px;
+  margin-bottom: 100px;
+  font-size: 36px;
+}
+.banner {
+  margin-top: 50px;
+}
+.bannerCurve {
+  width: 100vw;
+  /* margin-bottom: 100px; */
+}
+.bannerCurveBackground {
+  width: 1835px;
+  background-color: #32016f;
+  height: 185px;
+  border-top-right-radius: 1000px;
+  border-top-left-radius: 1000px;
+}
+.productBanner {
+  position: relative;
+  padding-bottom: 100px;
+  bottom:20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #32016f;
+  text-align: center;
+  color: #fff;
+}
+.Addbannner {
+  width: 786px;
+  height: 496px;
+}
+.AddbannnerSection {
+  margin-bottom: 100px;
+}
+.headingPara {
+  width: 610px;
+  height: 47px;
+  font-size: 38px;
+  /* text-align: center; */
+  margin-left: 100px;
+}
+.addPara {
+  width: 612px;
+  text-align: center;
+  margin-left: 100px;
+}
+.paraHeadingBanner {
+  align-items: center;
+}
+.largeCardComponentLeft {
+  display: flex;
+  /* justify-content: end; */
+  margin-left: 200px;
+  margin-top: 100px;
+  margin-bottom: 100px;
+}
+.largeCardComponentRight {
+  display: flex;
+  justify-content: end;
+  margin-right: 200px;
+  margin-top: 100px;
+  margin-bottom: 100px;
+}

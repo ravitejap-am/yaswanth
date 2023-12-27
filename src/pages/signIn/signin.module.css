@@ -1,45 +1,4 @@
-body {
-  margin: 0;
-  padding: 0;
-  background-color: #eef0f8;
-  overflow-x: hidden;
-  overflow-y: auto;
-  color: #475f7b;
-  font-size: 1rem;
-  font-style: normal;
-  font-weight: 400;
-  font-family: "IBM Plex Sans", sans-serif;
-  line-height: 1.5;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  align-content: center;
-  background: linear-gradient(
-    168deg,
-    rgba(142, 120, 244, 1) 0%,
-    rgba(248, 233, 129, 1) 95%,
-    rgba(249, 232, 128, 1) 100%
-  );
 
-  background-size: cover;
-  background-repeat: no-repeat;
-}
-.main {
-  /* margin-top: 35%; */
-  position: relative;
-  border-bottom: none;
-  display: flex;
-}
-.container {
-  height: 100% !important;
-
-  width: 100%;
-  padding-right: var(--bs-gutter-x, 0.75rem);
-  padding-left: var(--bs-gutter-x, 0.75rem);
-  margin-right: auto;
-  margin-left: auto;
-}
 
 .row {
   display: block;
@@ -83,7 +42,7 @@ col {
   text-align: center;
 }
 .facebook {
-  background-image: url("../../../public/asset/facebookICon.jpg");
+  /* background-image: url("../../../public/asset/facebookICon.jpg"); */
 }
 
 .social-container {
@@ -209,10 +168,10 @@ button {
 .alreadySignIn {
   text-align: center;
 }
-.formSign{
+.formSign {
   width: 500px;
   color: #475f7b;
 }
-.forgetPassword{
+.forgetPassword {
   padding-left: 20px;
 }

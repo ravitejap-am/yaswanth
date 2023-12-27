@@ -1,0 +1,53 @@
+.banner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: 200px;
+  margin-right: 200px;
+}
+.bannerImage {
+  width: 594px;
+  height: 594px;
+}
+.bannerHeading {
+  width: 485px;
+  height: 256px;
+  color: #7529b2;
+  font-size: 50px;
+  font-family: sans-serif;
+}
+.bannerPara {
+  line-height: normal;
+  font-size: 20px;
+  width: 436px;
+  height: 72px;
+  /* margin-top: 10px; */
+  font-family: Arial, Helvetica, sans-serif;
+}
+.bannerParaUnorderList {
+  line-height: normal;
+  font-size: 20px;
+  list-style: none;
+}
+.bannerBtn {
+  display: flex;
+}
+.bannerButton {
+  margin-left: 20px;
+  margin-top: 30px;
+}
+.list {
+  list-style: none;
+  padding: 0%;
+}
+.checklogo {
+  width: 20px;
+  height: 20px;
+}
+.bannerBtn1 {
+  border-radius: 50px;
+  background-color: #7529b2;
+  border: none;
+  box-shadow: var(--shd, 0 1px 4px rgba(0, 0, 0, 0.6));
+}

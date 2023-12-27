@@ -1,0 +1,78 @@
+.headerMain {
+  position: relative;
+  width: 100vw;
+  display: flex;
+  justify-content: space-between;
+  height: 108px;
+  align-items: center;
+  box-shadow: var(--shd, 0 1px 4px rgba(0, 0, 0, 0.6));
+}
+
+.navigation {
+  line-height: 33px;
+  color: rgb(var(--txts, var(--color_14)));
+  transition: var(--trans, color 0.4s ease 0s);
+  display: inline-block;
+  padding: 0 10px;
+  cursor: pointer;
+}
+.appNavigation {
+  background-color: var(
+    --container-corvid-background-color,
+    rgba(var(--bg, var(--color_11)), var(--alpha-bg, 1))
+  );
+  border: var(--container-corvid-border-width, var(--brw, 1px)) solid
+    var(
+      --container-corvid-border-color,
+      rgba(var(--brd, var(--color_15)), var(--alpha-brd, 1))
+    );
+  border-radius: var(--rd, 50px);
+  bottom: 0;
+  box-shadow: var(--shd, 0 1px 4px rgba(0, 0, 0, 0.6));
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 658px;
+  margin-right: 100px;
+}
+
+.homeBtn {
+  background-color: #7529b2;
+  border: solid
+    var(
+      --corvid-border-color,
+      rgba(var(--brd, var(--color_15)), var(--alpha-brd, 1))
+    )
+    var(--corvid-border-width, var(--brw, 0));
+  cursor: pointer !important;
+  border-radius: 50px;
+  box-shadow: var(--shd, 0 1px 4px rgba(0, 0, 0, 0.6));
+  transition: var(
+    --trans1,
+    border-color 0.4s ease 0s,
+    background-color 0.4s ease 0s
+  );
+  align-items: center;
+  box-sizing: border-box;
+  display: flex;
+  min-width: 100%;
+  text-align: initial;
+  width: 150px;
+  height: 50px;
+  justify-content: center;
+}
+.navigationButton {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 50px;
+  width: 330px;
+}
+.appLogo {
+  margin-left: 50px;
+  
+}
+.logo{
+  width: 150px;
+  margin-top: 20px;
+}
