@@ -63,12 +63,12 @@ const SignUp = ({ screenHandler }) => {
     //   name: 'confirmPassword',
     //   rules: [{ required: true, message: 'Please confirm your password!' }],
     // },
-    {
-      label: 'Checkbox',
-      type: 'checkbox',
-      name: 'isSelected',
-      rules: [{ required: true, message: 'Please Check the element' }],
-    },
+    // {
+    //   label: 'Checkbox',
+    //   type: 'checkbox',
+    //   name: 'isSelected',
+    //   rules: [{ required: true, message: 'Please Check the element' }],
+    // },
     // {
     //   label: 'Number',
     //   type: 'number',
@@ -87,31 +87,31 @@ const SignUp = ({ screenHandler }) => {
     //   name: 'date',
     //   rules: [{ required: true, message: 'Please  select the Date' }],
     // },
-    {
-      label: 'Select',
-      type: 'select',
-      name: 'select',
-      rules: [{ required: true, message: 'Please  select the somthing' }],
-      options: [
-        {
-          value: 'option1',
-          label: 'Option 1',
-        },
-        {
-          value: 'option2',
-          label: 'Option 2',
-        },
-        {
-          value: 'option3',
-          label: 'Option 3',
-        },
-        {
-          value: 'option4',
-          label: 'Option 4',
-          disabled: true,
-        },
-      ],
-    },
+    // {
+    //   label: 'Select',
+    //   type: 'select',
+    //   name: 'select',
+    //   rules: [{ required: true, message: 'Please  select the somthing' }],
+    //   options: [
+    //     {
+    //       value: 'option1',
+    //       label: 'Option 1',
+    //     },
+    //     {
+    //       value: 'option2',
+    //       label: 'Option 2',
+    //     },
+    //     {
+    //       value: 'option3',
+    //       label: 'Option 3',
+    //     },
+    //     {
+    //       value: 'option4',
+    //       label: 'Option 4',
+    //       disabled: true,
+    //     },
+    //   ],
+    // },
     // {
     //   label: 'Name',
     //   type: 'text',
@@ -129,7 +129,7 @@ const SignUp = ({ screenHandler }) => {
       label: 'Upload',
       type: 'file',
       name: 'fileList',
-      numberOfImage: 2,
+      numberOfImage: 1,
       fileType: 'image/png',
       fileSize: 1,
       url: 'https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188',

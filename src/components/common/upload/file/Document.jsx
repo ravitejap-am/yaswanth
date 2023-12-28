@@ -28,8 +28,15 @@ const Document = (props) => {
     );
   };
   const fileValidation = (file) => {
-    const isValidFormat = file.type === fileType;
-    if (!isValidFormat) {
+    console.log();
+    let isValidFormat = false;
+    if (fileType != undefined) {
+      isValidFormat = file.type === fileType;
+    } else {
+      isValidFormat = true;
+    }
+
+    if (!isValidFormat && fileType != undefined) {
       message.error(`You can only upload ${fileType} file!`);
       return;
     }

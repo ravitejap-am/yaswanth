@@ -1,3 +1,4 @@
+
 import { Button } from "antd";
 const GeneralButton = ({
   name,
@@ -8,6 +9,7 @@ const GeneralButton = ({
   width,
   height,
   buttonHandler,
+
 }) => {
   console.log(buttonProps);
   return (
@@ -15,7 +17,13 @@ const GeneralButton = ({
       type={type}
       htmlType="submit"
       className="center"
-      onClick={buttonHandler}
+      onClick={() => {
+        if (!!isCallbackData) {
+          buttonHandler(isCallbackData);
+        } else {
+          buttonHandler();
+        }
+      }}
       style={{
         color: color,
         backgroundColor: backgroundColor,
