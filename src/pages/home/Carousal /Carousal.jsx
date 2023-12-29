@@ -9,26 +9,29 @@ const contentStyle = {
   background: "#364d79",
 };
 
-data = [
-  {
-    img: "",
-    content: "",
-  },
-];
+// data = [
+//   {
+//     img: "",
+//     content: "",
+//     heading: "",
+//   },
+// ];
 
 const Carousal = ({ data }) => {
   return (
     <div>
-      <Carousel autoplay>
+      <Carousel autoplay vertical>
         {data.map((index, key) => {
           return (
-            <div key={key}>
-              <div>
-                <img src={index.img} alt="" />
-              </div>
-              <div>
-                <p>{index.content}</p>
-                <h3>{index.heading}</h3>
+            <div className={Style.carousal} key={key}>
+              <div className={Style.carousalDetails}>
+                <div className={Style.carousalImage}>
+                  <img src={index.img} alt="" />
+                </div>
+                <div className={Style.carousalContent}>
+                  <p className={Style.contentPara}> {index.content}</p>
+                  <h3 className={Style.contentHeading}>{index.heading}</h3>
+                </div>
               </div>
             </div>
           );

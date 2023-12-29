@@ -24,7 +24,7 @@ const SignIn = () => {
               <div className="box-round">
                 <div className="text-top">
                   <h2>Let's Get Started</h2>
-                  <p>Sign in to continue to Chat-Bot.</p> 
+                  <p>Sign in to continue to AM-Chat.</p> 
                 </div>
                 <div className="form-content">
                   <form method="post" className="formSign">
@@ -62,7 +62,7 @@ const SignIn = () => {
                           <input type="checkbox" id="checkbox_id" />
                           <label for="basic_checkbox" className="label">
                             Remember me
-                            <span className="forgetPassword">
+                            <span className="forgetPassword" style={{marginLeft:"20px"}}>
                               <i>
                                 <LockFilled />
                               </i>

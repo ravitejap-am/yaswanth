@@ -11,7 +11,7 @@ const Footer = () => {
         </div>
         <div className={Style.footerAddress}>
           <p>
-            Sachmein AI Technologies <br />
+            Aretminds Technologies <br />
             Pvt Ltd. WeWork Prestige Atlanta,
             <br />
             Koramangala, Bangalore, 560034
@@ -19,7 +19,7 @@ const Footer = () => {
         </div>
         <div className={Style.footerRegisteration}>
           <p>
-            GSTIN : 29ABJCS7969K1Z8 <br /> helpdesk@truereach.ai
+            GSTIN : 29ABJCS7969K1Z8 <br /> helpdesk@AM-chat.ai
           </p>
         </div>
       </div>

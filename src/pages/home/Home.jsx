@@ -13,6 +13,10 @@ import LargeCardImage1 from "../../asset/illustration-3-removebg-preview.png";
 import Banner2 from "./LandingPageBanner2/Banner2";
 // import { StarTwoTone } from "@ant-design/icons";
 import LargeCardImage2 from "../../asset/img_employee_exp_1_79932cd732.svg";
+import Carousal from "./Carousal /Carousal";
+import Recognised from "./Recognised/Recognised";
+import { Banner3 } from "./Banner3/Banner3";
+import FQBanner from "./F&QBanner/FQBanner";
 const Home = () => {
   return (
     <>
@@ -79,11 +83,9 @@ const Home = () => {
         <LargeCard
           alignmentLargeCard={"left"}
           largeCardImageInput={LargeCardImage}
-          largeCardHeading={
-            "Simplified Data Analysis across multiple data sources"
-          }
+          largeCardHeading={"Streamlined Data Analysis from Various Sources"}
           largeCardContent={
-            "TrueReach AI makes data analysis simple and approachable for everyone in your organisation. Our platform provides chat based interface for easy of use along with preset visulals which can be personalised for every user."
+            "AM-Chat, the dynamic communication hub, brings you a seamless and intuitive platform for instant conversations. Elevate your messaging experience with our user-friendly interface, ensuring effortless communication and connection."
           }
         />
       </div>
@@ -91,11 +93,9 @@ const Home = () => {
         <LargeCard
           alignmentLargeCard={"right"}
           largeCardImageInput={LargeCardImage1}
-          largeCardHeading={
-            "Simplified Data Analysis across multiple data sources"
-          }
+          largeCardHeading={"Effortlessly Incorporate Your Document"}
           largeCardContent={
-            "TrueReach AI makes data analysis simple and approachable for everyone in your organisation. Our platform provides chat based interface for easy of use along with preset visulals which can be personalised for every user."
+            "AM-Chat seamlessly connects with over , including top-tier industry software, consolidating all your data into a unified platform. Tailored to seamlessly align with your current workflows and tools, AM-Chat ensures swift integration, enabling you to unlock actionable insights without delay."
           }
         />
       </div>
@@ -104,17 +104,50 @@ const Home = () => {
           alignmentLargeCard={"left"}
           largeCardImageInput={LargeCardImage2}
           largeCardHeading={
-            "Simplified Data Analysis across multiple data sources"
+            "Empowering Reports with the Ability to Ask Anything"
           }
           largeCardContent={
-            "TrueReach AI makes data analysis simple and approachable for everyone in your organisation. Our platform provides chat based interface for easy of use along with preset visulals which can be personalised for every user."
+            "AM-Chat simplifies and democratizes data analysis for every member of your organization. Featuring an intuitive chat-based interface, our platform ensures ease of use, coupled with customizable visuals that cater to the unique preferences of each user."
           }
         />
       </div>
       <div className={Style.banner2}>
         <Banner2 />
       </div>
-
+      <div className={Style.customers}>
+        <div className={Style.customersSection}>
+          <h1 className={Style.customersHeading}>Hear It from Our Customers</h1>
+          <Carousal
+            data={[
+              {
+                img: LargeCardImage1,
+                content: "TrueReach AI has been a game-changer for our business. It has helped us uncover insights that we never would have found on our own.",
+                heading: "@ jhone Doe",
+              },
+              {
+                img: LargeCardImage2,
+                content:
+                  "TrueReach AI has been a game-changer for our business. It has helped us uncover insights that we never would have found on our own.",
+                heading: "@ jhone Doe",
+              },
+              {
+                img: LargeCardImage,
+                content: "TrueReach AI has been a game-changer for our business. It has helped us uncover insights that we never would have found on our own",
+                heading: "@Jhone DOe ",
+              },
+            ]}
+          />
+        </div>
+      </div>
+      <div className={Style.recognisedBanner}>
+        <Recognised/>
+      </div>
+      <div>
+        <Banner3/>
+      </div>
+      <div>
+        <FQBanner/>
+      </div>
       <Footer />
     </>
   );

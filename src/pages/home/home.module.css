@@ -31,7 +31,7 @@
 .productBanner {
   position: relative;
   padding-bottom: 100px;
-  bottom:20px;
+  bottom: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -74,4 +74,20 @@
   margin-right: 200px;
   margin-top: 100px;
   margin-bottom: 100px;
+}
+.customers {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 719px;
+  background-color: #e5e6f8;
+}
+.customersSection {
+  width: 860px;
+}
+.customersHeading {
+  font-size: 38px;
+  color: #7529b2;
+  text-align: center;
+
 }

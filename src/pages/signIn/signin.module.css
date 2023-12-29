@@ -171,7 +171,9 @@ button {
 .formSign {
   width: 500px;
   color: #475f7b;
+
 }
 .forgetPassword {
   padding-left: 20px;
+  margin-left: 10px;
 }
