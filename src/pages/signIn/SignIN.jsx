@@ -14,7 +14,6 @@ import {
 
 const SignIn = () => {
   return (
-
     <div className="main">
       <div className="container">
         {" "}
@@ -24,7 +23,7 @@ const SignIn = () => {
               <div className="box-round">
                 <div className="text-top">
                   <h2>Let's Get Started</h2>
-                  <p>Sign in to continue to AM-Chat.</p> 
+                  <p>Sign in to continue to AM-Chat.</p>
                 </div>
                 <div className="form-content">
                   <form method="post" className="formSign">
@@ -46,7 +45,7 @@ const SignIn = () => {
                         <span className="input-group-text">
                           <i>
                             <LockOutlined />
-                          </i>  
+                          </i>
                         </span>
                         <input
                           type="password"
@@ -62,7 +61,10 @@ const SignIn = () => {
                           <input type="checkbox" id="checkbox_id" />
                           <label for="basic_checkbox" className="label">
                             Remember me
-                            <span className="forgetPassword" style={{marginLeft:"20px"}}>
+                            <span
+                              className="forgetPassword"
+                              style={{ marginLeft: "20px" }}
+                            >
                               <i>
                                 <LockFilled />
                               </i>
@@ -88,7 +90,7 @@ const SignIn = () => {
                   </form>
                 </div>
               </div>
-              <div>
+              {/* <div>
                 <p className="social-heading">-Sign With-</p>
                 <div className="social-media">
                   <p className="social-container">
@@ -117,7 +119,7 @@ const SignIn = () => {
                     </a>
                   </p>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

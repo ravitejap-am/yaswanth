@@ -108,7 +108,7 @@ const RegisterUser = () => {
                   </form>
                 </div>
               </div>
-              <div>
+              {/* <div>
                 <p className="social-heading">-Register With-</p>
                 <div className="social-media">
                   <p className="social-container">
@@ -137,7 +137,7 @@ const RegisterUser = () => {
                     </a>
                   </p>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
