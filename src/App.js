@@ -13,9 +13,16 @@ import LockScreen from "./pages/lockerScreen/LockScreen";
 import PageNotFound from "./pages/errorHandler/PageNotFind/PageNotFound";
 import Page505 from "./pages/errorHandler/InternalServerError/Page505";
 import MaintainencePage from "./pages/errorHandler/UnderMaintainence/MaintainencePage";
+import ChatHome from "./pages/chat/ChatHome/ChatHome";
+import { Chat } from "./pages/chat/Chat";
 
 function App() {
   const [screen, setScreen] = useState("beforeLogin");
+  const [isSidebarClicked, setSidebarClicked] = useState(false);
+
+  const handleSidebarClick = () => {
+    setSidebarClicked(!isSidebarClicked);
+  };
   return (
     <Routes>
       <Route path="/" element={<Home />} errorElement={<LoginPageError />} />
@@ -53,6 +60,11 @@ function App() {
       <Route
         path="/undermaintenence"
         element={<MaintainencePage />}
+        errorElement={<LoginPageError />}
+      />
+      <Route
+        path="/chat"
+        element={<Chat />}
         errorElement={<LoginPageError />}
       />
     </Routes>
