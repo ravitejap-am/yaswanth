@@ -1,20 +1,29 @@
-import { Button } from 'antd';
-const GeneralButton = ({ buttonProps, buttonHandler }) => {
+import { Button } from "antd";
+const GeneralButton = ({
+  name,
+  buttonProps,
+  type,
+  color,
+  backgroundColor,
+  width,
+  height,
+  buttonHandler,
+}) => {
   console.log(buttonProps);
   return (
     <Button
-      type={buttonProps.type}
+      type={type}
       htmlType="submit"
       className="center"
       onClick={buttonHandler}
       style={{
-        color: buttonProps.color,
-        backgroundColor: buttonProps.backgroundColor,
-        width: buttonProps.width,
-        height: buttonProps.height,
+        color: color,
+        backgroundColor: backgroundColor,
+        width: width,
+        height: height,
       }}
     >
-      {buttonProps.name}
+      {name}
     </Button>
   );
 };

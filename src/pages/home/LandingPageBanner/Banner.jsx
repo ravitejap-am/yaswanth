@@ -3,6 +3,7 @@ import Style from "./banner.module.css";
 // import BannerImage from "../../../asset/b1.webp";
 import BannerImage from "../../../asset/Capture1-removebg-preview.png";
 import Check from "../../../asset/check.webp";
+import GeneralButton from "../../../components/common/buttons/GeneralButton";
 
 const Banner = () => {
   return (
@@ -43,10 +44,22 @@ const Banner = () => {
         </div>
         <div className={Style.bannerBtn}>
           <div className={Style.bannerButton}>
-            <button className={Style.bannerBtn1}>Watch Demo</button>
+            {/* <button className={Style.bannerBtn1}>Watch Demo</button> */}
+            <GeneralButton
+              name={"Watch Demo"}
+              type={"submit"}
+              backgroundColor={"#f64e60"}
+              color={"#fff"}
+            />
           </div>
           <div className={Style.bannerButton}>
-            <button className={Style.bannerBtn1}>Talks to Us</button>
+            {/* <button className={Style.bannerBtn1}>Talks to Us</button> */}
+            <GeneralButton
+              name={"Talks to Us"}
+              type={"submit"}
+              backgroundColor={"#f64e60"}
+              color={"#fff"}
+            />
           </div>
         </div>
       </div>

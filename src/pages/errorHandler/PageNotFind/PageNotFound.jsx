@@ -2,6 +2,7 @@ import React from "react";
 import Style from "./pageNotFound.module.css";
 import { SearchOutlined } from "@ant-design/icons";
 import PageNotFoundImage from "../../../asset/404.jpg";
+import GeneralButton from "../../../components/common/buttons/GeneralButton";
 
 const PageNotFound = () => {
   return (
@@ -13,15 +14,28 @@ const PageNotFound = () => {
           <p>Looks like,page doesn't exist</p>
         </div>
         <div>
-          <button>Back to dashboard</button>
+          {/* <button>Back to dashboard</button> */}
+          <GeneralButton
+            name={"Back to dashboard"}
+            type={"submit"}
+            backgroundColor={"#f64e60"}
+            color={"#fff"}
+          />
           <form typeof="submit">
             <div>
               <input type="search" />
-              <button type="submit">
+              {/* <button
+               type="submit">
                 <i>
                   <SearchOutlined />
                 </i>
-              </button>
+              </button> */}
+              <GeneralButton
+                name={<SearchOutlined />}
+                type={"submit"}
+                backgroundColor={"#f64e60"}
+                color={"#fff"}
+              />
             </div>
           </form>
         </div>

@@ -1,6 +1,7 @@
 import React from "react";
 import Style from "./footer.module.css";
 import { Link } from "react-router-dom";
+import GeneralButton from "../../../components/common/buttons/GeneralButton";
 
 const Footer = () => {
   return (
@@ -41,7 +42,13 @@ const Footer = () => {
               <input className={Style.footerInput} type="email" />
             </div>
             <div>
-              <button className={Style.footerBtn}> Subscribe</button>
+              {/* <button className={Style.footerBtn}> Subscribe</button> */}
+              <GeneralButton
+                name={"Subscribe"}
+                type={"submit"}
+                backgroundColor={"#f64e60"}
+                color={"#fff"}
+              />
             </div>
           </div>
         </div>

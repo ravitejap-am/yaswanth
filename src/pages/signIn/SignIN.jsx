@@ -1,5 +1,5 @@
 import React from "react";
-import "./signin.module.css";
+import Style from"./signin.module.css";
 import { UserOutlined } from "@ant-design/icons";
 import { LockOutlined } from "@ant-design/icons";
 import { LockFilled } from "@ant-design/icons";
@@ -11,6 +11,7 @@ import {
   faTwitter,
   faInstagram,
 } from "@fortawesome/free-brands-svg-icons";
+import GeneralButton from "../../components/common/buttons/GeneralButton";
 
 const SignIn = () => {
   return (
@@ -75,8 +76,15 @@ const SignIn = () => {
                           </label>
                         </div>
                       </div>
-                      <div className="button">
-                        <button className="btn3"> Sign In</button>
+                      <div className={Style.btn}>
+                        {/* <button className="btn3"> Sign In</button> */}
+
+                        <GeneralButton
+                          name={"Sign In"}
+                          type={"submit"}
+                          backgroundColor={"#f64e60"}
+                          color={"#fff"}
+                        />
                       </div>
                       <div className="alreadySignIn">
                         <p>

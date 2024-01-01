@@ -1,6 +1,7 @@
 import React from "react";
 import Style from "./page505.module.css";
 import Image505 from "../../../asset/500.jpg";
+import GeneralButton from "../../../components/common/buttons/GeneralButton";
 
 function Page505() {
   return (
@@ -14,7 +15,13 @@ function Page505() {
           <p>Internal Server Error !</p>
         </div>
         <div>
-          <button>Back to dashboard</button>
+          {/* <button>Back to dashboard</button> */}
+          <GeneralButton
+            name={"Internal Server Error !"}
+            type={"submit"}
+            backgroundColor={"#f64e60"}
+            color={"#fff"}
+          />
         </div>
         <div>
           --OR--

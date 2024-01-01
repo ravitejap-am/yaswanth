@@ -1,7 +1,8 @@
 import React from "react";
 import "./recoverpassword.module1.css";
 import UserOutlined from "@ant-design/icons";
-import {MailOutlined} from "@ant-design/icons";
+import { MailOutlined } from "@ant-design/icons";
+import GeneralButton from "../../components/common/buttons/GeneralButton";
 
 const RecoveryPasswor = () => {
   return (
@@ -20,7 +21,7 @@ const RecoveryPasswor = () => {
                     <div className="group-form">
                       <div className="input-group">
                         <span className="input-group-text">
-                        <MailOutlined />
+                          <MailOutlined />
                         </span>
                         <input
                           type="email"
@@ -33,7 +34,13 @@ const RecoveryPasswor = () => {
                     <div className="row">
                       <div className="col"></div>
                       <div className="button">
-                        <button className="btn-3"> Reset</button>
+                        {/* <button className="btn-3"> Reset</button> */}
+                        <GeneralButton
+                          name={"Reset"}
+                          type={"submit"}
+                          backgroundColor={"#f64e60"}
+                          color={"#fff"}
+                        />  
                       </div>
                       <div className="alreadySignIn"></div>
                     </div>
