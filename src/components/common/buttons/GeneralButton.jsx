@@ -9,6 +9,7 @@ const GeneralButton = ({
   width,
   height,
   buttonHandler,
+  isCallbackData,
 
 }) => {
   console.log(buttonProps);

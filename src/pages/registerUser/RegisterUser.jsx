@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import "./registerUser.module2.css";
 import { UserOutlined } from "@ant-design/icons";
 import { MailOutlined } from "@ant-design/icons";
 import { LockOutlined } from "@ant-design/icons";
+import { Layout, Form } from "antd";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -12,11 +13,12 @@ import {
   faInstagram,
 } from "@fortawesome/free-brands-svg-icons";
 import GeneralForm from "../../components/common/forms/GeneralForm";
+// import {  Form } from 'antd';
+
 
 const RegisterUser = () => {
-  const handleSignUp = (formData) => {
-    console.log("Signing up with:", formData);
-  };
+  const [form] = Form.useForm();
+  const [filesystem, setFileSysytem] = useState([]);
   const validatePassword = (_, value) => {
     if (value && value.length < 8) {
       return Promise.reject("Password must be at least 8 characters");
@@ -24,20 +26,36 @@ const RegisterUser = () => {
       return Promise.resolve();
     }
   };
-  const validateConfirmPassword = (_, value, { getFieldValue }, values) => {
-    console.log(values);
-    if (value && value !== getFieldValue("password")) {
-      return Promise.reject("Passwords do not match");
-    } else {
+  const validateEmail = (_, value) => {
+    console.log(value);
+    let isValid = value;
+    console.log(value);
+    console.log(isValid);
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    console.log(emailRegex.test(isValid));
+    console.log(!!isValid);
+    if (isValid && emailRegex.test(isValid)) {
       return Promise.resolve();
     }
+    return Promise.reject("Please enter a valid email address!");
   };
+  const submitHandler = (values) => {
+    console.log("submitting....");
+    console.log(values);
+  };
+  const cancelHandler = (errorInfo) => {
+    console.log("Canceling....");
+    console.log(errorInfo);
+  };
+  // const validateConfirmPassword=()=>{
+
+  // }
   const formElements = [
     {
       label: "Full Name",
       type: "text",
       name: "name",
-      iconClass:<UserOutlined/>,
+      iconClass: <UserOutlined />,
       rules: [
         { required: true, message: "Please input your Full Name" },
         { type: "name", message: "Invalid user Name" },
@@ -47,7 +65,7 @@ const RegisterUser = () => {
       label: "Email",
       type: "email",
       name: "email",
-      iconClass:<MailOutlined/>,
+      iconClass: <MailOutlined />,
       rules: [
         { required: true, message: "Please input your Enter your email" },
         { type: "name", message: "Invalid Email" },
@@ -87,6 +105,21 @@ const RegisterUser = () => {
     color: "white",
     backgroundColor: "black",
     type: "primary",
+  };
+  const feedingVariable = {
+    isCancel: false,
+    cancelHandler: cancelHandler,
+    isSubmit: true,
+    submitHandler: submitHandler,
+    submitButtonProperty: submitButtonProperty,
+    // cancelButtonProperty: cancelButtonProperty,
+    formElements: formElements,
+    formType: "normal",
+    forgorPasswordHandler: () => {
+      console.log("forgot Password....");
+    },
+    validateEmail: validateEmail,
+    setFileSysytem: setFileSysytem,
   };
   // const cancelButtonProperty = {
   //   name: "Cancel",
@@ -188,14 +221,15 @@ const RegisterUser = () => {
                     </div>
                   </form> */}
                   <GeneralForm
-                    formElements={formElements}
-                    onSuccesHandler={handleSignUp}
-                    submitButton={submitButtonProperty}
+                    // formElements={formElements}
+                    // onSuccesHandler={handleSignUp}
+                    // submitButton={submitButtonProperty}
                     // cancelButton={cancelButtonProperty}
                     // formType="signin"
                     // forgorPasswordHandler={() => {
                     //   alert('hi');
                     // }}
+                    {...feedingVariable}
                   />
                   <div className="alreadySignIn">
                     <p>

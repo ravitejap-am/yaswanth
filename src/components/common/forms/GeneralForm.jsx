@@ -1,16 +1,8 @@
 import React from "react";
-import {
-  Form,
-  Input,
-  Checkbox,
-  InputNumber,
-  Switch,
-  DatePicker,
-  Select,
-} from "antd";
-
+import { Form, Checkbox, InputNumber, Switch, DatePicker, Select } from "antd";
 import Document from "../upload/file/Document";
 import Button from "../buttons/GeneralButton";
+import Input from "../input/Input";
 
 const { TextArea } = Input;
 
@@ -31,16 +23,6 @@ const GeneralForm = (props) => {
 
   const [form] = Form.useForm();
 
-  const elements = {
-    email: <Input />,
-    text: <Input />,
-    password: <Input.Password />,
-    confirmPassword: <Input.Password />,
-    number: <InputNumber type="number" />,
-    switch: <Switch />,
-    date: <DatePicker />,
-    description: <TextArea rows={4} />,
-  };
   return (
     <Form
       form={form}
@@ -52,11 +34,65 @@ const GeneralForm = (props) => {
       layout="horizontal"
     >
       {formElements.map((item, index) => {
+        const elements = {
+          email: (
+            <Input
+              type={item.type}
+              placeholder={item.label}
+              iconClass={item.iconClass}
+              onChange={(e) => {
+                form.setFieldValue({ [item.name]: e.target.value });
+              }}
+              // required={item.required}
+            />
+          ),
+          text: (
+            <Input
+              type={item.type}
+              placeholder={item.label}
+              iconClass={item.iconClass}
+              onChange={(e) => {
+                form.setFieldValue({ [item.name]: e.target.value });
+              }}
+            />
+          ),
+          password: (
+            <Input
+              type={item.type}
+              placeholder={item.label}
+              iconClass={item.iconClass}
+              onChange={(e) => {
+                form.setFieldValue({ [item.name]: e.target.value });
+              }}
+            />
+          ),
+          confirmPassword: (
+            <Input
+              type={item.type}
+              placeholder={item.label}
+              iconClass={item.iconClass}
+              onChange={(e) => {
+                form.setFieldValue({ [item.name]: e.target.value });
+              }}
+            />
+          ),
+          number: (
+            <InputNumber
+              type={item.type}
+              placeholder={item.label}
+              iconClass={item.iconClass}
+            />
+          ),
+          switch: <Switch />,
+          date: <DatePicker />,
+          description: <TextArea rows={4} />,
+        };
         return (
           <Form.Item
-            label={item.label}
             name={item.name}
             rules={item?.rules != undefined ? item.rules : []}
+            messageVariables={cancelHandler}
+            noStyle
           >
             {elements[item.type] || (
               <>
@@ -98,11 +134,14 @@ const GeneralForm = (props) => {
           </div>
         </>
       )}
-      <Form.Item wrapperCol={{ offset: 6, span: 18 }}>
+      <Form.Item noStyle wrapperCol={{ offset: 6, span: 18 } }>
         <div className="center" style={{ gap: "2em", marginTop: "1em" }}>
           {isSubmit && (
             <Button
               buttonProps={submitButtonProperty}
+              name={submitButtonProperty.name}
+              color={submitButtonProperty.color}
+              backgroundColor={submitButtonProperty.backgroundColor}
               buttonHandler={submitHandler}
             />
           )}
