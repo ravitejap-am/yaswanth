@@ -1,5 +1,5 @@
-import React from 'react';
-import { Layout } from 'antd';
+import React, { useState } from 'react';
+import { Layout, Form } from 'antd';
 import * as myConst from '../../../constants/loginPage.js';
 import './signup.css';
 import GeneralForm from '../../common/forms/GeneralForm.jsx';
@@ -8,9 +8,8 @@ const { Content } = Layout;
 let language = 'ENGLISH';
 let data = myConst[language];
 const SignUp = ({ screenHandler }) => {
-  const handleSignUp = (formData) => {
-    console.log('Signing up with:', formData);
-  };
+  const [form] = Form.useForm();
+  const [filesystem, setFileSysytem] = useState([]);
   const validatePassword = (_, value) => {
     if (value && value.length < 8) {
       return Promise.reject('Password must be at least 8 characters');
@@ -18,13 +17,26 @@ const SignUp = ({ screenHandler }) => {
       return Promise.resolve();
     }
   };
-  const validateConfirmPassword = (_, value, { getFieldValue }, values) => {
-    console.log(values);
-    if (value && value !== getFieldValue('password')) {
-      return Promise.reject('Passwords do not match');
-    } else {
+  const validateEmail = (_, value) => {
+    console.log(value);
+    let isValid = value;
+    console.log(value);
+    console.log(isValid);
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    console.log(emailRegex.test(isValid));
+    console.log(!!isValid);
+    if (isValid && emailRegex.test(isValid)) {
       return Promise.resolve();
     }
+    return Promise.reject('Please enter a valid email address!');
+  };
+  const submitHandler = (values) => {
+    console.log('submitting....');
+    console.log(values);
+  };
+  const cancelHandler = (errorInfo) => {
+    console.log('Canceling....');
+    console.log(errorInfo);
   };
   const formElements = [
     {
@@ -33,7 +45,7 @@ const SignUp = ({ screenHandler }) => {
       name: 'email',
       rules: [
         { required: true, message: 'Please input your email!' },
-        { type: 'email', message: 'Invalid email format' },
+        { validator: validateEmail },
       ],
     },
     {
@@ -45,15 +57,12 @@ const SignUp = ({ screenHandler }) => {
         { validator: validatePassword },
       ],
     },
-    {
-      label: 'Confirm Password',
-      type: 'confirmPassword',
-      name: 'confirmPassword',
-      rules: [
-        { required: true, message: 'Please confirm your password!' },
-        // { validator: validateConfirmPassword },
-      ],
-    },
+    // {
+    //   label: 'Confirm Password',
+    //   type: 'confirmPassword',
+    //   name: 'confirmPassword',
+    //   rules: [{ required: true, message: 'Please confirm your password!' }],
+    // },
     {
       label: 'Checkbox',
       type: 'checkbox',
@@ -89,7 +98,7 @@ const SignUp = ({ screenHandler }) => {
           label: 'Option 1',
         },
         {
-          value: 'option1',
+          value: 'option2',
           label: 'Option 2',
         },
         {
@@ -116,11 +125,15 @@ const SignUp = ({ screenHandler }) => {
     //   rules: [{ required: true, message: 'Please input your text!' }],
     //   row: 3,
     // },
-    // {
-    //   label: 'Upload',
-    //   type: 'file',
-    //   name: 'fileList',
-    // },
+    {
+      label: 'Upload',
+      type: 'file',
+      name: 'fileList',
+      numberOfImage: 2,
+      fileType: 'image/png',
+      fileSize: 1,
+      url: 'https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188',
+    },
     // {
     //   label: 'Input Box',
     //   type: 'text',
@@ -140,18 +153,24 @@ const SignUp = ({ screenHandler }) => {
     backgroundColor: 'white',
     type: 'default',
   };
+  const feedingVariable = {
+    isCancel: true,
+    cancelHandler: cancelHandler,
+    isSubmit: true,
+    submitHandler: submitHandler,
+    submitButtonProperty: submitButtonProperty,
+    cancelButtonProperty: cancelButtonProperty,
+    formElements: formElements,
+    formType: 'normal',
+    forgorPasswordHandler: () => {
+      console.log('forgot Password....');
+    },
+    validateEmail: validateEmail,
+    setFileSysytem: setFileSysytem,
+  };
   return (
     <Content className="coloumCenter" style={{ gap: '1em' }}>
-      <GeneralForm
-        formElements={formElements}
-        onSuccesHandler={handleSignUp}
-        submitButton={submitButtonProperty}
-        cancelButton={cancelButtonProperty}
-        // formType="signin"
-        // forgorPasswordHandler={() => {
-        //   alert('hi');
-        // }}
-      />
+      <GeneralForm {...feedingVariable} />
     </Content>
   );
 };

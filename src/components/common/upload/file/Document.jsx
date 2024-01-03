@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { PlusOutlined } from '@ant-design/icons';
-import { Upload, Modal } from 'antd';
+import { Upload, Modal, message } from 'antd';
 
-const Document = ({ setFile }) => {
+const Document = (props) => {
+  const { setFile, numberOfImage, fileType, fileSize, url, form, name } = props;
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState('');
   const [previewTitle, setPreviewTitle] = useState('');
   const [fileList, setFileList] = useState([]);
+
   const getBase64 = (file) =>
     new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -25,9 +27,29 @@ const Document = ({ setFile }) => {
       file.name || file.url.substring(file.url.lastIndexOf('/') + 1)
     );
   };
-  const handleChange = ({ fileList: newFileList }) => {
-    setFileList(newFileList);
-    setFile(newFileList);
+  const fileValidation = (file) => {
+    const isValidFormat = file.type === fileType;
+    if (!isValidFormat) {
+      message.error(`You can only upload ${fileType} file!`);
+      return;
+    }
+    const isValidSize = file.size / 1024 / 1024 < fileSize;
+    if (!isValidSize) {
+      message.error(`Image must smaller than ${fileSize}MB!`);
+      return;
+    }
+    return isValidFormat && isValidSize;
+  };
+  const handleChange = ({ file: file, fileList: newFileList }) => {
+    const isFileValid = fileValidation(file);
+    if (isFileValid) {
+      console.log(newFileList);
+      setFileList(newFileList);
+      setFile(newFileList);
+      if (form != undefined && !!name) {
+        form.setFieldsValue({ [name]: [...newFileList] });
+      }
+    }
   };
   const uploadButton = (
     <div>
@@ -44,13 +66,13 @@ const Document = ({ setFile }) => {
   return (
     <>
       <Upload
-        action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
+        action={url}
         listType="picture-card"
         fileList={fileList}
         onPreview={handlePreview}
         onChange={handleChange}
       >
-        {fileList.length >= 8 ? null : uploadButton}
+        {fileList.length >= numberOfImage ? null : uploadButton}
       </Upload>
       <Modal
         open={previewOpen}

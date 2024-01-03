@@ -1,203 +1,120 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import {
   Form,
-  // Input,
-  Button,
+  Input,
   Checkbox,
   InputNumber,
   Switch,
   DatePicker,
   Select,
-  Modal,
 } from "antd";
+
 import Document from "../upload/file/Document";
-import GeneralButton from "../buttons/GeneralButton";
-import Input from "../input/Input";
+import Button from "../buttons/GeneralButton";
+
 const { TextArea } = Input;
-const GeneralForm = ({
-  formElements = [],
-  onSuccesHandler = () => {},
-  submitButton,
-  cancelButton,
-  onCancelHandler = () => {},
-  formType = "nomal",
-  forgorPasswordHandler = () => {},
-}) => {
+
+const GeneralForm = (props) => {
+  const {
+    submitHandler,
+    cancelHandler,
+    formElements,
+    submitButtonProperty,
+    cancelButtonProperty,
+    isSubmit,
+    isCancel,
+    formType,
+    forgorPasswordHandler,
+    validateEmail,
+    setFileSysytem,
+  } = props;
+
   const [form] = Form.useForm();
-  const [filesystem, setFileSysytem] = useState([]);
-  console.log(filesystem);
-  const onFinish = (values) => {
-    console.log(values);
-    onSuccesHandler.bind(values);
-    console.log("Received values:", values);
-  };
 
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
+  const elements = {
+    email: <Input />,
+    text: <Input />,
+    password: <Input.Password />,
+    confirmPassword: <Input.Password />,
+    number: <InputNumber type="number" />,
+    switch: <Switch />,
+    date: <DatePicker />,
+    description: <TextArea rows={4} />,
   };
-
-  const onChangeCheckBox = (e) => {
-    // form.setFieldsValue({ [item.name]: e.target.checked });
-  };
-  const onSelectChange = (value) => {
-    // form.setFieldsValue({ [item.name]: value });
-  };
-
-  // const elements = {
-  //   email: <Input />,
-  //   text: <Input />,
-  //   password: <Input.Password />,
-  //   confirmPassword: <Input.Password />,
-  //   number: <InputNumber type="number" />,
-  //   switch: <Switch />,
-  //   date: <DatePicker />,
-  //   description: <TextArea rows={4} />,
-  //   file: <Document setFile={setFileSysytem} />,
-  // };
-  // const elements = {
-  //   email:<input type="email"/>,
-  //   text:<Input type={"text"}/>,
-  //   password: <input type="password"/>,
-  //   confirmPassword: <input type="password"/>,
-  //   number: <input type="number"/>,
-  //   switch: <input type="switch"/>,
-  //   date:  <input type="date"/>,
-  //   description:  <textarea typeof="text"/>,
-  //   file:  <input type="file" />,
-  // };
-  const renderFunction = ({}) => {
-    return;
-  };
-  const normFile = (filesystem) => {
-    if (Array.isArray(filesystem)) {
-      return filesystem;
-    }
-    return filesystem;
-  };
-
   return (
-    <>
-      <Form
-        // name="registration_form"
-        form={form}
-        onFinish={onSuccesHandler}
-        onFinishFailed={onFinishFailed}
-        labelCol={{ span: 10 }}
-        wrapperCol={{ span: 20 }}
-        initialValues={{ remember: true }}
-        layout="horizontal"
-      >
-        {formElements.map((item, index) => {
-          const elements = {
-            email: <Input type={item.type} placeholder={item.label} iconClass={item.iconClass} />,
-            text: <Input type={item.type} placeholder={item.label} iconClass={item.iconClass}/>,
-            password: <Input type={item.type} placeholder={item.label} />,
-            confirmPassword: (
-              <Input type={item.type} placeholder={item.label} />
-            ),
-            number: <Input type={item.type} placeholder={item.label} iconClass={item.iconClass} />,
-            switch: <Input type={item.type} placeholder={item.label} />,
-            date: <Input type={item.type} placeholder={item.label} />,
-            description: <textarea typeof="text" />,
-            file: <Document setFile={setFileSysytem} />,
-          };
-          return (
-            <Form.Item
-              // label={item.label}
-              name={item.name}
-              rules={item?.rules != undefined ? item.rules : []}
-              valuePropName={item.type === "file" ? item.name : null}
-              getValueFromEvent={item.type === "file" ? normFile : null}
-            >
-              {elements[item.type] || (
-                <>
-                  {/* {item.type=="email" &&(
-                  <Input type={item.type} placeholder={item.name} iconClass={item.iconClass}/>
-                )} */}
-                  {item.type === "select" && (
-                    <Select
-                      onChange={(value) => {
-                        form.setFieldsValue({ [item.name]: value });
-                      }}
-                      options={item?.options != undefined ? item?.options : []}
-                    />
-                  )}
-                  {item.type === "select" && (
-                    <Select
-                      onChange={(value) => {
-                        form.setFieldsValue({ [item.name]: value });
-                      }}
-                      options={item?.options != undefined ? item?.options : []}
-                    />
-                  )}
-                  {item.type === "checkbox" && (
-                    <Checkbox
-                      onChange={(e) => {
-                        form.setFieldsValue({ [item.name]: e.target.checked });
-                      }}
-                    />
-                  )}
-                </>
-              )}
-            </Form.Item>
-          );
-        })}
-
-        {formType === "signin" && (
-          <>
-            <div style={{ textAlign: "end" }}>
-              <a onClick={forgorPasswordHandler}>Forget Password</a>
-            </div>
-          </>
-        )}
-        <Form.Item wrapperCol={{ offset: 6, span: 18 }}>
-          <div className="center" style={{ gap: "2em", marginTop: "1em" }}>
-            {submitButton ? (
-              <GeneralButton
-                name={submitButton.name}
-                backgroundColor={submitButton.backgroundColor}
-                color={submitButton.color}
-                buttonProps={submitButton}
-                buttonHandler={onFinish}
-              />
-            ) : null}
-            {cancelButton ? (
-              <GeneralButton
-                buttonProps={cancelButton}
-                buttonHandler={onFinishFailed}
-              />
-            ) : null}
-
-            {/* <Button
-            type="primary"
-            htmlType="submit"
-            className="center"
-            style={{
-              color: submitButton.color,
-              backgroundColor: submitButton.backgroundColor,
-              width: submitButton.width,
-              height: submitButton.height,
-            }}
+    <Form
+      form={form}
+      onFinish={submitHandler}
+      onFinishFailed={cancelHandler}
+      labelCol={{ span: 10 }}
+      wrapperCol={{ span: 20 }}
+      initialValues={{ remember: true }}
+      layout="horizontal"
+    >
+      {formElements.map((item, index) => {
+        return (
+          <Form.Item
+            label={item.label}
+            name={item.name}
+            rules={item?.rules != undefined ? item.rules : []}
           >
-            {submitButton.name}
-          </Button>
-          <Button
-            type="default"
-            style={{
-              color: cancelButton.color,
-              backgroundColor: cancelButton.backgroundColor,
-              width: cancelButton.width,
-              height: cancelButton.height,
-            }}
-            className="center"
-            onClick={onCancelHandler}
-          >
-            {cancelButton.name}
-          </Button> */}
+            {elements[item.type] || (
+              <>
+                {item.type === "checkbox" && (
+                  <Checkbox
+                    onChange={(e) => {
+                      form.setFieldsValue({ [item.name]: e.target.checked });
+                    }}
+                  />
+                )}
+                {item.type === "select" && (
+                  <Select
+                    onChange={(value) => {
+                      form.setFieldsValue({ [item.name]: value });
+                    }}
+                    options={item?.options != undefined ? item?.options : []}
+                  />
+                )}
+                {item?.type === "file" && (
+                  <Document
+                    setFile={setFileSysytem}
+                    numberOfImage={item?.numberOfImage}
+                    fileType={item?.fileType}
+                    fileSize={item?.fileSize}
+                    url={item?.url}
+                    form={form}
+                    name={item?.name}
+                  />
+                )}
+              </>
+            )}
+          </Form.Item>
+        );
+      })}
+      {formType === "signin" && (
+        <>
+          <div style={{ textAlign: "end" }}>
+            <a onClick={forgorPasswordHandler}>Forgor Password</a>
           </div>
-        </Form.Item>
-      </Form>
-    </>
+        </>
+      )}
+      <Form.Item wrapperCol={{ offset: 6, span: 18 }}>
+        <div className="center" style={{ gap: "2em", marginTop: "1em" }}>
+          {isSubmit && (
+            <Button
+              buttonProps={submitButtonProperty}
+              buttonHandler={submitHandler}
+            />
+          )}
+          {isCancel && (
+            <Button
+              buttonProps={cancelButtonProperty}
+              buttonHandler={cancelHandler}
+            />
+          )}
+        </div>
+      </Form.Item>
+    </Form>
   );
 };
 
