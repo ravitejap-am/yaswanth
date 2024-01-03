@@ -1,7 +1,7 @@
 import React from "react";
 import Styles from "./header.module.css";
 import Logo from "../../../asset/LOGO1.png";
-
+import GeneralButton from "../../../components/common/buttons/GeneralButton";
 
 const Header = () => {
   return (
@@ -24,10 +24,22 @@ const Header = () => {
         </div>
         <div className={Styles.navigationButton}>
           <div>
-            <button className={Styles.homeBtn}>Sign In</button>
+            {/* <button className={Styles.homeBtn}>Sign In</button> */}
+            <GeneralButton
+              name={"Sign In"}
+              type={"submit"}
+              backgroundColor={"#f64e60"}
+              color={"#ffff"}
+            />
           </div>
           <div>
-            <button className={Styles.homeBtn}>Sign Up</button>
+            {/* <button className={Styles.homeBtn}>Sign Up</button> */}
+            <GeneralButton
+              name={"Sign Up"}
+              type={"submit"}
+              backgroundColor={"#f64e60"}
+              color={"#ffff"}
+            />
           </div>
         </div>
       </div>

@@ -14,8 +14,8 @@ const Sidebar = ({ isIconClicked, onIconClick }) => {
             className={`logo-perplexity ${isIconClicked ? "icon-clicked" : ""}`}
           >
             {/* <img src={logoimg} alt="perplexity" /> */}
-            <h2 style={{ display: isIconClicked ? "none" : "block" }}>
-              perplexity
+            <h2 style={{ display: isIconClicked ? "none" : "block" , fontSize:36 }}>
+              AM-Chat
             </h2>
             <div
               className="collaps"

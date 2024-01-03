@@ -9,7 +9,7 @@ import RegisterUser from "./pages/registerUser/RegisterUser";
 // import SignIN from '.';
 import SignIn from "./pages/signIn/SignIN";
 import RecoveryPasswor from "./pages/recoveryPassword/RecoveryPasswor";
-import LockScreen from "./pages/lockerScreen/LockScreen";
+// import LockScreen from "./pages/lockerScreen/LockScreen";
 import PageNotFound from "./pages/errorHandler/PageNotFind/PageNotFound";
 import Page505 from "./pages/errorHandler/InternalServerError/Page505";
 import MaintainencePage from "./pages/errorHandler/UnderMaintainence/MaintainencePage";
@@ -42,11 +42,11 @@ function App() {
         element={<RecoveryPasswor />}
         errorElement={<LoginPageError />}
       />
-      <Route
+      {/* <Route
         path="/lockscreen"
         element={<LockScreen />}
         errorElement={<LoginPageError />}
-      />
+      /> */}
       <Route
         path="/pagenotfound"
         element={<PageNotFound />}

@@ -11,8 +11,89 @@ import {
   faTwitter,
   faInstagram,
 } from "@fortawesome/free-brands-svg-icons";
+import GeneralForm from "../../components/common/forms/GeneralForm";
 
 const RegisterUser = () => {
+  const handleSignUp = (formData) => {
+    console.log("Signing up with:", formData);
+  };
+  const validatePassword = (_, value) => {
+    if (value && value.length < 8) {
+      return Promise.reject("Password must be at least 8 characters");
+    } else {
+      return Promise.resolve();
+    }
+  };
+  const validateConfirmPassword = (_, value, { getFieldValue }, values) => {
+    console.log(values);
+    if (value && value !== getFieldValue("password")) {
+      return Promise.reject("Passwords do not match");
+    } else {
+      return Promise.resolve();
+    }
+  };
+  const formElements = [
+    {
+      label: "Full Name",
+      type: "text",
+      name: "name",
+      iconClass:<UserOutlined/>,
+      rules: [
+        { required: true, message: "Please input your Full Name" },
+        { type: "name", message: "Invalid user Name" },
+      ],
+    },
+    {
+      label: "Email",
+      type: "email",
+      name: "email",
+      iconClass:<MailOutlined/>,
+      rules: [
+        { required: true, message: "Please input your Enter your email" },
+        { type: "name", message: "Invalid Email" },
+      ],
+    },
+
+    {
+      label: "Password",
+      type: "password",
+      name: "password",
+      rules: [
+        { required: true, message: "Please input your password!" },
+        { validator: validatePassword },
+      ],
+    },
+    {
+      label: "Confirm Password",
+      type: "password",
+      name: "confirmPassword",
+      rules: [
+        { required: true, message: "Please confirm your password!" },
+        // { validator: validateConfirmPassword },
+      ],
+    },
+    // {
+    //   label: "Remember me",
+    //   type: "checkbox",
+    //   name: "checkbox",
+    //   rules: [
+    //     { required: true, message: "Please check" },
+    //     // { validator: validatePassword },
+    //   ],
+    // },
+  ];
+  const submitButtonProperty = {
+    name: "Sign Up",
+    color: "white",
+    backgroundColor: "black",
+    type: "primary",
+  };
+  // const cancelButtonProperty = {
+  //   name: "Cancel",
+  //   color: "black",
+  //   backgroundColor: "white",
+  //   type: "default",
+  // };
   return (
     <div className="main">
       <div className="container">
@@ -26,7 +107,7 @@ const RegisterUser = () => {
                   <p>Register a new membership</p>
                 </div>
                 <div className="form-content">
-                  <form method="post" className="formRegisterUser">
+                  {/* <form method="post" className="formRegisterUser">
                     <div className="group-form">
                       <div className="input-group">
                         <span className="input-group-text">
@@ -105,7 +186,25 @@ const RegisterUser = () => {
                         </p>
                       </div>
                     </div>
-                  </form>
+                  </form> */}
+                  <GeneralForm
+                    formElements={formElements}
+                    onSuccesHandler={handleSignUp}
+                    submitButton={submitButtonProperty}
+                    // cancelButton={cancelButtonProperty}
+                    // formType="signin"
+                    // forgorPasswordHandler={() => {
+                    //   alert('hi');
+                    // }}
+                  />
+                  <div className="alreadySignIn">
+                    <p>
+                      Already have an account?{" "}
+                      <a href="" className="danger-text">
+                        Sign Up
+                      </a>
+                    </p>
+                  </div>
                 </div>
               </div>
               {/* <div>
