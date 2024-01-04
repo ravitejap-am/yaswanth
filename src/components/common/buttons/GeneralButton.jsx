@@ -1,4 +1,3 @@
-
 import { Button } from "antd";
 const GeneralButton = ({
   name,
@@ -10,7 +9,7 @@ const GeneralButton = ({
   height,
   buttonHandler,
   isCallbackData,
-
+  boxShadow,
 }) => {
   console.log(buttonProps);
   return (
@@ -30,6 +29,7 @@ const GeneralButton = ({
         backgroundColor: backgroundColor,
         width: width,
         height: height,
+        boxShadow: boxShadow,
       }}
     >
       {name}

@@ -65,7 +65,7 @@ function App() {
       />
       <Route
         path="/signin"
-        element={<SignUp />}
+        element={<SignIn />}
         errorElement={<LoginPageError />}
       />
     </Routes>

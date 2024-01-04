@@ -143,6 +143,9 @@ const GeneralForm = (props) => {
               color={submitButtonProperty.color}
               backgroundColor={submitButtonProperty.backgroundColor}
               buttonHandler={submitHandler}
+              width={submitButtonProperty.width}
+              height={submitButtonProperty.height}
+              boxShadow={submitButtonProperty.boxShadow}
             />
           )}
           {isCancel && (

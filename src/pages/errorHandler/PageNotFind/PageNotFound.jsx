@@ -9,7 +9,7 @@ const PageNotFound = () => {
     <div className={Style.PageNotFound}>
       <div className={Style.container}>
         <div>
-          <img src={PageNotFoundImage} alt="" />
+          <img className={Style.image} src={PageNotFoundImage} alt="" />
           <h1>Page Not Found !</h1>
           <p>Looks like,page doesn't exist</p>
         </div>
@@ -21,23 +21,18 @@ const PageNotFound = () => {
             backgroundColor={"#f64e60"}
             color={"#fff"}
           />
-          <form typeof="submit">
+          {/* <form typeof="submit">
             <div>
               <input type="search" />
-              {/* <button
-               type="submit">
-                <i>
-                  <SearchOutlined />
-                </i>
-              </button> */}
-              <GeneralButton
+
+              {/* <GeneralButton
                 name={<SearchOutlined />}
                 type={"submit"}
                 backgroundColor={"#f64e60"}
                 color={"#fff"}
-              />
-            </div>
-          </form>
+              /> */}
+            {/* </div>
+          </form> */} 
         </div>
       </div>
     </div>

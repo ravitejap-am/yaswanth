@@ -1,23 +1,12 @@
-import React from "react";
-import Style from "./signin.module.css";
-import { UserOutlined } from "@ant-design/icons";
-import { LockOutlined } from "@ant-design/icons";
-import { LockFilled } from "@ant-design/icons";
+import React, { useState } from "react";
+import { Form } from "antd";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faYoutube,
-  faFacebook,
-  faTwitter,
-  faInstagram,
-} from "@fortawesome/free-brands-svg-icons";
-import GeneralButton from "../../components/common/buttons/GeneralButton";
+import { UserOutlined } from "@ant-design/icons";
 import GeneralForm from "../../components/common/forms/GeneralForm";
 
 const SignIn = () => {
-  const handleSignUp = (formData) => {
-    console.log("Signing up with:", formData);
-  };
+  const [form] = Form.useForm();
+  const [filesystem, setFileSysytem] = useState([]);
   const validatePassword = (_, value) => {
     if (value && value.length < 8) {
       return Promise.reject("Password must be at least 8 characters");
@@ -25,19 +14,34 @@ const SignIn = () => {
       return Promise.resolve();
     }
   };
-  const validateConfirmPassword = (_, value, { getFieldValue }, values) => {
-    console.log(values);
-    if (value && value !== getFieldValue("password")) {
-      return Promise.reject("Passwords do not match");
-    } else {
+  const validateEmail = (_, value) => {
+    console.log(value);
+    let isValid = value;
+    console.log(value);
+    console.log(isValid);
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    console.log(emailRegex.test(isValid));
+    console.log(!!isValid);
+    if (isValid && emailRegex.test(isValid)) {
       return Promise.resolve();
     }
+    return Promise.reject("Please enter a valid email address!");
   };
+  const submitHandler = (values) => {
+    console.log("submitting....");
+    console.log(values);
+  };
+  const cancelHandler = (errorInfo) => {
+    console.log("Canceling....");
+    console.log(errorInfo);
+  };
+
   const formElements = [
     {
       label: "User Name",
       type: "text",
       name: "name",
+      iconClass: <UserOutlined />,
       rules: [
         { required: true, message: "Please input your User Name" },
         { type: "name", message: "Invalid user Name" },
@@ -52,23 +56,29 @@ const SignIn = () => {
         { validator: validatePassword },
       ],
     },
-    {
-      label: "Remember me",
-      type: "checkbox",
-      name: "checkbox",
-      rules: [
-        { required: true, message: "Please check" },
-        // { validator: validatePassword },
-      ],
-    },
   ];
   const submitButtonProperty = {
     name: "Sign In",
     color: "white",
-    backgroundColor: "black",
+    backgroundColor: "#f64e60",
     type: "primary",
+    width: "400px",
   };
-
+  const feedingVariable = {
+    isCancel: false,
+    cancelHandler: cancelHandler,
+    isSubmit: true,
+    submitHandler: submitHandler,
+    submitButtonProperty: submitButtonProperty,
+    // cancelButtonProperty: cancelButtonProperty,
+    formElements: formElements,
+    formType: "normal",
+    forgorPasswordHandler: () => {
+      console.log("forgot Password....");
+    },
+    validateEmail: validateEmail,
+    setFileSysytem: setFileSysytem,
+  };
   return (
     <div className="main">
       <div className="container">
@@ -152,14 +162,15 @@ const SignIn = () => {
                     </div>
                   </form>  */}
                   <GeneralForm
-                    formElements={formElements}
-                    onSuccesHandler={handleSignUp}
-                    submitButton={submitButtonProperty}
+                    // formElements={formElements}
+                    // onSuccesHandler={handleSignUp}
+                    // submitButton={submitButtonProperty}
                     // cancelButton={cancelButtonProperty}
-                    formType="signin"
+                    // formType="signin"
                     // forgorPasswordHandler={() => {
                     //   alert('hi');
                     // }}
+                    {...feedingVariable}
                   />
                   <div className="alreadySignIn">
                     <p>

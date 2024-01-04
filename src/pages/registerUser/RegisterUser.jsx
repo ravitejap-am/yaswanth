@@ -2,21 +2,13 @@ import React, { useState } from "react";
 import "./registerUser.module2.css";
 import { UserOutlined } from "@ant-design/icons";
 import { MailOutlined } from "@ant-design/icons";
-import { LockOutlined } from "@ant-design/icons";
-import { Layout, Form } from "antd";
+import { Form } from "antd";
+import NotifyMessage from "../../components/common/toastMessages/NotifyMessage";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faYoutube,
-  faFacebook,
-  faTwitter,
-  faInstagram,
-} from "@fortawesome/free-brands-svg-icons";
 import GeneralForm from "../../components/common/forms/GeneralForm";
-// import {  Form } from 'antd';
-
 
 const RegisterUser = () => {
+  const [signupMessage,setSignupMessage]=useState("")
   const [form] = Form.useForm();
   const [filesystem, setFileSysytem] = useState([]);
   const validatePassword = (_, value) => {
@@ -42,6 +34,8 @@ const RegisterUser = () => {
   const submitHandler = (values) => {
     console.log("submitting....");
     console.log(values);
+    setSignupMessage("you succefully signUp")
+    
   };
   const cancelHandler = (errorInfo) => {
     console.log("Canceling....");
@@ -90,21 +84,13 @@ const RegisterUser = () => {
         // { validator: validateConfirmPassword },
       ],
     },
-    // {
-    //   label: "Remember me",
-    //   type: "checkbox",
-    //   name: "checkbox",
-    //   rules: [
-    //     { required: true, message: "Please check" },
-    //     // { validator: validatePassword },
-    //   ],
-    // },
   ];
   const submitButtonProperty = {
     name: "Sign Up",
     color: "white",
-    backgroundColor: "black",
+    backgroundColor: "#f64e60",
     type: "primary",
+    width: "100px",
   };
   const feedingVariable = {
     isCancel: false,
@@ -121,12 +107,7 @@ const RegisterUser = () => {
     validateEmail: validateEmail,
     setFileSysytem: setFileSysytem,
   };
-  // const cancelButtonProperty = {
-  //   name: "Cancel",
-  //   color: "black",
-  //   backgroundColor: "white",
-  //   type: "default",
-  // };
+
   return (
     <div className="main">
       <div className="container">
@@ -140,141 +121,22 @@ const RegisterUser = () => {
                   <p>Register a new membership</p>
                 </div>
                 <div className="form-content">
-                  {/* <form method="post" className="formRegisterUser">
-                    <div className="group-form">
-                      <div className="input-group">
-                        <span className="input-group-text">
-                          <UserOutlined />
-                        </span>
-                        <input
-                          type="text"
-                          className="form-control"
-                          placeholder="Full Name"
-                        />
-                      </div>
-                    </div>
-                    <div className="group-form">
-                      <div className="input-group">
-                        <span className="input-group-text">
-                          <i>
-                            <MailOutlined />
-                          </i>
-                        </span>
-                        <input
-                          type="email"
-                          className="form-control"
-                          placeholder="Email"
-                        />
-                      </div>
-                    </div>
-                    <div className="group-form">
-                      <div className="input-group">
-                        <span className="input-group-text">
-                          <i>
-                            <LockOutlined />
-                          </i>
-                        </span>
-                        <input
-                          type="password"
-                          className="form-control"
-                          placeholder="Password"
-                        />
-                      </div>
-                    </div>
-                    <div className="group-form">
-                      <div className="input-group">
-                        <span className="input-group-text">
-                          <i>
-                            <LockOutlined />
-                          </i>
-                        </span>
-                        <input
-                          type="password"
-                          className="form-control"
-                          placeholder="Retype Password"
-                        />
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col">
-                        <div className="checkbox">
-                          <input type="checkbox" id="checkbox_id" />
-                          <label for="basic_checkbox">
-                            I agree to the
-                            <a href="#" className="text-warning">
-                              <b>Terms</b>
-                            </a>
-                          </label>
-                        </div>
-                      </div>
-                      <div className="button">
-                        <button className="btn2"> Sign Up</button>
-                      </div>
-                      <div className="alreadySignIn">
-                        <p>
-                          Already have an account?{" "}
-                          <a href="" className="danger-text">
-                            Sign Up
-                          </a>
-                        </p>
-                      </div>
-                    </div>
-                  </form> */}
-                  <GeneralForm
-                    // formElements={formElements}
-                    // onSuccesHandler={handleSignUp}
-                    // submitButton={submitButtonProperty}
-                    // cancelButton={cancelButtonProperty}
-                    // formType="signin"
-                    // forgorPasswordHandler={() => {
-                    //   alert('hi');
-                    // }}
-                    {...feedingVariable}
-                  />
+                  <GeneralForm {...feedingVariable} />
                   <div className="alreadySignIn">
                     <p>
                       Already have an account?{" "}
                       <a href="" className="danger-text">
-                        Sign Up
+                        Sign In
                       </a>
                     </p>
                   </div>
                 </div>
               </div>
-              {/* <div>
-                <p className="social-heading">-Register With-</p>
-                <div className="social-media">
-                  <p className="social-container">
-                    <a
-                      href="https://www.youtube.com/c/jamesqquick"
-                      className="youtube social"
-                    >
-                      <FontAwesomeIcon icon={faYoutube} size="3x" color="red" />
-                    </a>
-
-                    <a
-                      href="http://www.instagram.com/larnbuildteach"
-                      className="instagram social"
-                    >
-                      <FontAwesomeIcon
-                        icon={faInstagram}
-                        size="3x"
-                        color="black"
-                      />
-                    </a>
-                    <a
-                      href="https://wwww.twitter.com"
-                      className="twitter social"
-                    >
-                      <FontAwesomeIcon icon={faTwitter} size="3x" />
-                    </a>
-                  </p>
-                </div>
-              </div> */}
             </div>
           </div>
         </div>
       </div>
+      {signupMessage?<NotifyMessage message={signupMessage}/>:null}
     </div>
   );
 };

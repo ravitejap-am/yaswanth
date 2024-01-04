@@ -8,7 +8,7 @@ function Page505() {
     <div className={Style.page505}>
       <div className={Style.container}>
         <div>
-          <img src={Image505} alt="" />
+          <img className={Style.image} src={Image505} alt="" />
         </div>
         <div>
           <h1>Uh-Ah</h1>
