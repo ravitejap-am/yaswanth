@@ -25,7 +25,7 @@ const PageNotFound = () => {
             <div>
               <input type="search" />
 
-              {/* <GeneralButton
+                {/* <GeneralButton
                 name={<SearchOutlined />}
                 type={"submit"}
                 backgroundColor={"#f64e60"}

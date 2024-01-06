@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Form } from "antd";
-
 import { UserOutlined } from "@ant-design/icons";
 import GeneralForm from "../../components/common/forms/GeneralForm";
 
@@ -92,86 +91,7 @@ const SignIn = () => {
                   <p>Sign in to continue to AM-Chat.</p>
                 </div>
                 <div className="form-content">
-                  {/* <form method="post" className="formSign">
-                    <div className="group-form">
-                      <div className="input-group">
-                        <span className="input-group-text">
-                          <UserOutlined />
-                        </span>
-                        <input
-                          type="text"
-                          className="form-control"
-                          placeholder="User Name"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="group-form">
-                      <div className="input-group">
-                        <span className="input-group-text">
-                          <i>
-                            <LockOutlined />
-                          </i>
-                        </span>
-                        <input
-                          type="password"
-                          className="form-control"
-                          placeholder="Password"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="row">
-                      <div className="col">
-                        <div className="checkbox">
-                          <input type="checkbox" id="checkbox_id" />
-                          <label for="basic_checkbox" className="label">
-                            Remember me
-                            <span
-                              className="forgetPassword"
-                              style={{ marginLeft: "20px" }}
-                            >
-                              <i>
-                                <LockFilled />
-                              </i>
-                              <a href="#" className="text-warning">
-                                <b>Forget Password</b>
-                              </a>
-                            </span>
-                          </label>
-                        </div>
-                      </div>
-                      <div className={Style.btn}>
-                        {/* <button className="btn3"> Sign In</button> */}
-                  {/* 
-                        <GeneralButton
-                          name={"Sign In"}
-                          type={"submit"}
-                          backgroundColor={"#f64e60"}
-                          color={"#fff"}
-                        />
-                      </div>
-                      <div className="alreadySignIn">
-                        <p>
-                          Do have an account ?{" "}
-                          <a href="" className="danger-text">
-                            Sign Up
-                          </a>
-                        </p>
-                      </div>
-                    </div>
-                  </form>  */}
-                  <GeneralForm
-                    // formElements={formElements}
-                    // onSuccesHandler={handleSignUp}
-                    // submitButton={submitButtonProperty}
-                    // cancelButton={cancelButtonProperty}
-                    // formType="signin"
-                    // forgorPasswordHandler={() => {
-                    //   alert('hi');
-                    // }}
-                    {...feedingVariable}
-                  />
+                  <GeneralForm {...feedingVariable} />
                   <div className="alreadySignIn">
                     <p>
                       Do have an account ?{" "}

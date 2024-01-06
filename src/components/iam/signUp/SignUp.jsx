@@ -43,6 +43,7 @@ const SignUp = ({ screenHandler }) => {
       label: 'Email',
       type: 'email',
       name: 'email',
+      required:"required",
       rules: [
         { required: true, message: 'Please input your email!' },
         { validator: validateEmail },

@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import Style from "./input.module.css";
 import { EyeOutlined, EyeInvisibleOutlined } from "@ant-design/icons";
 
-const Input = ({ type, placeholder, iconClass ,onChange,required }) => {
+const Input = ({ type, placeholder, iconClass, onChange, required }) => {
   const [visible, setVisible] = useState(false);
   const handleOnClick = () => {
     setVisible(!visible);
   };
- 
+
   return (
     <div className={Style.groupform}>
       <div className={Style.inputgroup}>
