@@ -1,11 +1,15 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { Form } from "antd";
-import { UserOutlined } from "@ant-design/icons";
+import { MailOutlined } from "@ant-design/icons";
 import GeneralForm from "../../components/common/forms/GeneralForm";
+import { sendLoginDetails } from "../../config/api";
+import axios from "axios";
 
 const SignIn = () => {
   const [form] = Form.useForm();
   const [filesystem, setFileSysytem] = useState([]);
+  console.log(form);
   const validatePassword = (_, value) => {
     if (value && value.length < 8) {
       return Promise.reject("Password must be at least 8 characters");
@@ -26,9 +30,26 @@ const SignIn = () => {
     }
     return Promise.reject("Please enter a valid email address!");
   };
-  const submitHandler = (values) => {
+  const submitHandler = async (values) => {
     console.log("submitting....");
     console.log(values);
+    const url = "http://localhost:8081/users/login";
+
+    try {
+      const response = await axios.post(url, values, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      // Handle the response as needed
+      console.log("Registration successful:", response);
+    } catch (error) {
+      // Handle errors
+      // console.error("Registration failed:", error.response.data);
+      console.log(error);
+    }
+    // sendLoginDetails(values);
   };
   const cancelHandler = (errorInfo) => {
     console.log("Canceling....");
@@ -37,12 +58,12 @@ const SignIn = () => {
 
   const formElements = [
     {
-      label: "User Name",
-      type: "text",
-      name: "name",
-      iconClass: <UserOutlined />,
+      label: "Enter Email",
+      type: "email",
+      name: "email",
+      iconClass: <MailOutlined />,
       rules: [
-        { required: true, message: "Please input your User Name" },
+        { required: true, message: "Please input your email" },
         { type: "name", message: "Invalid user Name" },
       ],
     },
@@ -77,6 +98,7 @@ const SignIn = () => {
     },
     validateEmail: validateEmail,
     setFileSysytem: setFileSysytem,
+    formType: "signin",
   };
   return (
     <div className="main">
@@ -92,12 +114,13 @@ const SignIn = () => {
                 </div>
                 <div className="form-content">
                   <GeneralForm {...feedingVariable} />
+
                   <div className="alreadySignIn">
                     <p>
                       Do have an account ?{" "}
-                      <a href="" className="danger-text">
+                      <Link className="danger-text" to={"/registerUser"}>
                         Sign Up
-                      </a>
+                      </Link>
                     </p>
                   </div>
                 </div>

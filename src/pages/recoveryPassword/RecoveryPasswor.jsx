@@ -4,6 +4,8 @@ import { Form } from "antd";
 import UserOutlined from "@ant-design/icons";
 import { MailOutlined } from "@ant-design/icons";
 import GeneralForm from "../../components/common/forms/GeneralForm";
+import { recoverPassword } from "../../config/api";
+// import {}
 
 import GeneralButton from "../../components/common/buttons/GeneralButton";
 
@@ -33,6 +35,8 @@ const RecoveryPasswor = () => {
   const submitHandler = (values) => {
     console.log("submitting....");
     console.log(values);
+    const data = recoverPassword(values);
+    console.log(data);
   };
   const cancelHandler = (errorInfo) => {
     console.log("Canceling....");

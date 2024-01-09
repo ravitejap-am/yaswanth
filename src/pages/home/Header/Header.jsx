@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Styles from "./header.module.css";
 import Logo from "../../../asset/LOGO1.png";
 import GeneralButton from "../../../components/common/buttons/GeneralButton";
@@ -25,21 +26,26 @@ const Header = () => {
         <div className={Styles.navigationButton}>
           <div>
             {/* <button className={Styles.homeBtn}>Sign In</button> */}
-            <GeneralButton
-              name={"Sign In"}
-              type={"submit"}
-              backgroundColor={"#f64e60"}
-              color={"#ffff"}
-            />
+            <Link to={"/signin"}>
+              <GeneralButton
+                name={"Sign In"}
+                type={"submit"}
+                backgroundColor={"#f64e60"}
+                color={"#ffff"}
+              />
+            </Link>
           </div>
           <div>
-            {/* <button className={Styles.homeBtn}>Sign Up</button> */}
+            <Link to={"/registerUser"} style={{}}>
             <GeneralButton
               name={"Sign Up"}
               type={"submit"}
               backgroundColor={"#f64e60"}
               color={"#ffff"}
             />
+            </Link>
+            {/* <button className={Styles.homeBtn}>Sign Up</button> */}
+            
           </div>
         </div>
       </div>

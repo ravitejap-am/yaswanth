@@ -7,7 +7,7 @@ const GeneralButton = ({
   backgroundColor,
   width,
   height,
-  buttonHandler,
+  // buttonHandler,
   isCallbackData,
   boxShadow,
 }) => {
@@ -19,9 +19,9 @@ const GeneralButton = ({
       className="center"
       onClick={() => {
         if (!!isCallbackData) {
-          buttonHandler(isCallbackData);
+          // buttonHandler(isCallbackData);
         } else {
-          buttonHandler();
+          // buttonHandler();
         }
       }}
       style={{

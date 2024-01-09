@@ -1,16 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./registerUser.module2.css";
 import { UserOutlined } from "@ant-design/icons";
 import { MailOutlined } from "@ant-design/icons";
 import { Form } from "antd";
 import NotifyMessage from "../../components/common/toastMessages/NotifyMessage";
+import { registerDetails } from "../../config/api";
+import axios from "axios";
 
 import GeneralForm from "../../components/common/forms/GeneralForm";
+import { Link } from "react-router-dom";
 
 const RegisterUser = () => {
-  const [signupMessage,setSignupMessage]=useState("")
+  // const [registrationMessage, setRegistationMessgae] = useState("");
+  const [signupMessage, setSignupMessage] = useState();
   const [form] = Form.useForm();
   const [filesystem, setFileSysytem] = useState([]);
+
   const validatePassword = (_, value) => {
     if (value && value.length < 8) {
       return Promise.reject("Password must be at least 8 characters");
@@ -31,12 +36,37 @@ const RegisterUser = () => {
     }
     return Promise.reject("Please enter a valid email address!");
   };
-  const submitHandler = (values) => {
+  const submitHandler = async (values) => {
     console.log("submitting....");
     console.log(values);
-    setSignupMessage("you succefully signUp")
-    
+
+    const url = "http://localhost:8081/users/register";
+    const data = values;
+
+    try {
+      const response = await axios.post(url, data, {
+        headers: {
+          "Content-Type": "application/json",
+          // "Authorization": "Bearer YOUR_ACCESS_TOKEN"
+        },
+      });
+
+      // Handle the response as needed
+      console.log("Registration successful:", response.data.message);
+      setSignupMessage(response.data.message);
+      // useEffect(() => {
+        
+      // });
+    } catch (error) {
+      // Handle errors
+      console.error("Registration failed:", error.response.data.message);
+      setSignupMessage(error.response.data.message);
+    }
+    //  const res= registerDetails(values);
+    // console.log(res);
   };
+  console.log(signupMessage);
+
   const cancelHandler = (errorInfo) => {
     console.log("Canceling....");
     console.log(errorInfo);
@@ -125,9 +155,10 @@ const RegisterUser = () => {
                   <div className="alreadySignIn">
                     <p>
                       Already have an account?{" "}
-                      <a href="" className="danger-text">
+                      <Link to={"/signin"} className="danger-text">
                         Sign In
-                      </a>
+                      </Link>
+                      <a href=""></a>
                     </p>
                   </div>
                 </div>
@@ -136,7 +167,9 @@ const RegisterUser = () => {
           </div>
         </div>
       </div>
-      {signupMessage?<NotifyMessage message={signupMessage}/>:null}
+      {signupMessage ? (
+        <NotifyMessage message={signupMessage ? signupMessage : null} />
+      ) : null}
     </div>
   );
 };

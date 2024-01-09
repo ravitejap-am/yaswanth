@@ -3,6 +3,8 @@ import { Form, Checkbox, InputNumber, Switch, DatePicker, Select } from "antd";
 import Document from "../upload/file/Document";
 import Button from "../buttons/GeneralButton";
 import Input from "../input/Input";
+import { LockFilled } from "@ant-design/icons";
+import { Link } from "react-router-dom"; 
 
 const { TextArea } = Input;
 
@@ -129,12 +131,20 @@ const GeneralForm = (props) => {
       })}
       {formType === "signin" && (
         <>
-          <div style={{ textAlign: "end" }}>
-            <a onClick={forgorPasswordHandler}>Forgor Password</a>
-          </div>
+          <Link
+            to={"/recoverypassword"}
+            style={{ display: "flex", justifyContent: "end" }}
+          >
+            <p>
+              <span>
+                <LockFilled />
+              </span>
+              Forgot password
+            </p>
+          </Link>
         </>
       )}
-      <Form.Item noStyle wrapperCol={{ offset: 6, span: 18 } }>
+      <Form.Item noStyle wrapperCol={{ offset: 6, span: 18 }}>
         <div className="center" style={{ gap: "2em", marginTop: "1em" }}>
           {isSubmit && (
             <Button
