@@ -13,10 +13,12 @@ import LargeCardImage1 from "../../asset/illustration-3-removebg-preview.png";
 import Banner2 from "./LandingPageBanner2/Banner2";
 // import { StarTwoTone } from "@ant-design/icons";
 import LargeCardImage2 from "../../asset/img_employee_exp_1_79932cd732.svg";
-import Carousal from "./Carousal /Carousal";
+// import Carousal from "./Carousal/Carousal";
+// import Carousal from "./Carousal/Carousal";
 import Recognised from "./Recognised/Recognised";
 import { Banner3 } from "./Banner3/Banner3";
 import FQBanner from "./F&QBanner/FQBanner";
+import Carousal from "./Carousal/Carousal";
 const Home = () => {
   return (
     <>
