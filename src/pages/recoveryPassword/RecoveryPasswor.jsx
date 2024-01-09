@@ -4,6 +4,8 @@ import { Form } from "antd";
 import UserOutlined from "@ant-design/icons";
 import { MailOutlined } from "@ant-design/icons";
 import GeneralForm from "../../components/common/forms/GeneralForm";
+import NotifyMessage from '../../components/common/toastMessages/NotifyMessage'
+import axios from 'axios'
 import { recoverPassword } from "../../config/api";
 // import {}
 
@@ -12,6 +14,8 @@ import GeneralButton from "../../components/common/buttons/GeneralButton";
 const RecoveryPasswor = () => {
   const [form] = Form.useForm();
   const [filesystem, setFileSysytem] = useState([]);
+  const [message,setMessage] = useState("")
+
   const validatePassword = (_, value) => {
     if (value && value.length < 8) {
       return Promise.reject("Password must be at least 8 characters");
@@ -32,10 +36,33 @@ const RecoveryPasswor = () => {
     }
     return Promise.reject("Please enter a valid email address!");
   };
-  const submitHandler = (values) => {
+  const submitHandler = async(values) => {
     console.log("submitting....");
     console.log(values);
-    const data = recoverPassword(values);
+    // const data = recoverPassword(values);
+    const url = "http://localhost:8081/users/forgetPassword";
+    const data = values;
+
+    try {
+      const response = await axios.post(url, data, {
+        headers: {
+          "Content-Type": "application/json",
+          // "Authorization": "Bearer YOUR_ACCESS_TOKEN"
+        },
+      });
+
+      // Handle the response as needed
+      console.log("Mail send to your email:", response.data.message);
+      setMessage(response.data.message);
+      // useEffect(() => {
+        
+      // });
+    } catch (error) {
+      // Handle errors
+      console.error("Enter a valid email:", error.response.data.message);
+      setMessage(error.response.data.message);
+    }
+    
     console.log(data);
   };
   const cancelHandler = (errorInfo) => {
@@ -99,6 +126,9 @@ const RecoveryPasswor = () => {
           </div>
         </div>
       </div>
+      {message ? (
+        <NotifyMessage message={message ? message : null} />
+      ) : null}
     </div>
   );
 };

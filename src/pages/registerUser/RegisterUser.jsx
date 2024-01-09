@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import "./registerUser.module2.css";
 import { UserOutlined } from "@ant-design/icons";
 import { MailOutlined } from "@ant-design/icons";
-import { Form } from "antd";
+import { Form, message } from "antd";
 import NotifyMessage from "../../components/common/toastMessages/NotifyMessage";
-import { registerDetails } from "../../config/api";
+import Spinner from "../../components/common/spinner/Spinner";
+// import { registerDetails } from "../../config/api";
 import axios from "axios";
 
 import GeneralForm from "../../components/common/forms/GeneralForm";
@@ -13,6 +14,7 @@ import { Link } from "react-router-dom";
 const RegisterUser = () => {
   // const [registrationMessage, setRegistationMessgae] = useState("");
   const [signupMessage, setSignupMessage] = useState();
+  const [loader, setLoader] = useState(false);
   const [form] = Form.useForm();
   const [filesystem, setFileSysytem] = useState([]);
 
@@ -44,6 +46,7 @@ const RegisterUser = () => {
     const data = values;
 
     try {
+      setLoader(true);
       const response = await axios.post(url, data, {
         headers: {
           "Content-Type": "application/json",
@@ -52,15 +55,21 @@ const RegisterUser = () => {
       });
 
       // Handle the response as needed
-      console.log("Registration successful:", response.data.message);
-      setSignupMessage(response.data.message);
+      console.log("Registration successful:", response.data);
+      setSignupMessage(response.data.data);
+      setLoader(false);
+      AbortSignal(1000)
+      setSignupMessage("")
+      // {message?setLoader(false):setLoader(true)}
       // useEffect(() => {
-        
+
       // });
     } catch (error) {
       // Handle errors
-      console.error("Registration failed:", error.response.data.message);
+      console.error("Registration failed:", error.response.data);
       setSignupMessage(error.response.data.message);
+      setLoader(false);
+      // {message?setLoader(false):setLoader(true)}
     }
     //  const res= registerDetails(values);
     // console.log(res);
@@ -120,7 +129,7 @@ const RegisterUser = () => {
     color: "white",
     backgroundColor: "#f64e60",
     type: "primary",
-    width: "100px",
+    width: "400px",
   };
   const feedingVariable = {
     isCancel: false,
@@ -150,18 +159,24 @@ const RegisterUser = () => {
                   <h2>Get started with Us</h2>
                   <p>Register a new membership</p>
                 </div>
-                <div className="form-content">
-                  <GeneralForm {...feedingVariable} />
-                  <div className="alreadySignIn">
-                    <p>
-                      Already have an account?{" "}
-                      <Link to={"/signin"} className="danger-text">
-                        Sign In
-                      </Link>
-                      <a href=""></a>
-                    </p>
+                {loader ? (
+                  <Spinner />
+                ) : (
+                  <div>
+                    <div className="form-content">
+                      <GeneralForm {...feedingVariable} />
+                      <div className="alreadySignIn">
+                        <p>
+                          Already have an account?{" "}
+                          <Link to={"/signin"} className="danger-text">
+                            Sign In
+                          </Link>
+                          <a href=""></a>
+                        </p>
+                      </div>
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
             </div>
           </div>

@@ -6,15 +6,16 @@ import LoginPageError from "./pages/errorHandler/LoginPageError";
 // import Login from './pages/login/Login';
 import Home from "./pages/home/Home";
 import RegisterUser from "./pages/registerUser/RegisterUser";
-import SignUp from '../src/components/iam/signUp/SignUp';
+import SignUp from "../src/components/iam/signUp/SignUp";
 import SignIn from "./pages/signIn/SignIN";
 import RecoveryPasswor from "./pages/recoveryPassword/RecoveryPasswor";
 // import LockScreen from "./pages/lockerScreen/LockScreen";
 import PageNotFound from "./pages/errorHandler/PageNotFind/PageNotFound";
 import Page505 from "./pages/errorHandler/InternalServerError/Page505";
 import MaintainencePage from "./pages/errorHandler/UnderMaintainence/MaintainencePage";
-import ChatHome from "./pages/chat/ChatHome/ChatHome";
-import { Chat } from "./pages/chat/Chat";
+// import ChatHome from "./pages/chat/ChatHome/ChatHome";
+// import ChatHome from "./pages/chat/ChatHome/ChatHome";
+import Chat  from "./pages/chat/Chat";
 
 function App() {
   const [screen, setScreen] = useState("beforeLogin");

@@ -3,7 +3,7 @@ import Sidebar from "./SideBar/SideBar";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ChatHome from "./ChatHome/ChatHome";
 
-export const Chat = () => {
+ const Chat = () => {
   const [isSidebarClicked, setSidebarClicked] = useState(false);
 
   const handleSidebarClick = () => {
@@ -34,3 +34,4 @@ export const Chat = () => {
     </div>
   );
 };
+export default Chat;
