@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Styles from "./header.module.css";
-import Logo from "../../../asset/LOGO1.png";
+import Logo from "../../../asset/Vector.png";
 import GeneralButton from "../../../components/common/buttons/GeneralButton";
 
 const Header = () => {
@@ -9,11 +9,10 @@ const Header = () => {
     <div className={Styles.headerMain}>
       <div className={Styles.appHeading}>
         <div className={Styles.appLogo}>
-          <i>
-            <img className={Styles.logo} src={Logo} />
-            {/* <image /> */}
-          </i>
-          {/* <span className={Styles.appName}>AM_Chat</span> */}
+          <span className="am-chat-title">AM Chat</span>
+          <span className={Styles.appName}>
+            <img src={Logo} alt="" />
+          </span>
         </div>
       </div>
       <div className={Styles.appNavigation}>
@@ -24,28 +23,27 @@ const Header = () => {
           <span className={Styles.navigation}>More</span>
         </div>
         <div className={Styles.navigationButton}>
-          <div>
+          <div className="btn-color">
             {/* <button className={Styles.homeBtn}>Sign In</button> */}
-            <Link to={"/signin"}>
-              <GeneralButton
-                name={"Sign In"}
-                type={"submit"}
-                backgroundColor={"#f64e60"}
-                color={"#ffff"}
-              />
-            </Link>
+            {/* <Link to={"/signin"}> */}
+            <GeneralButton
+              name={"Sign In"}
+              type={"submit"}
+              // backgroundColor={"#f64e60"}
+              color={"#F8FAFC"}
+            />
+            {/* </Link> */}
           </div>
-          <div>
-            <Link to={"/registerUser"} style={{}}>
+          <div className="btn-color-signup">
+            {/* <Link to={"/registerUser"}> */}
             <GeneralButton
               name={"Sign Up"}
               type={"submit"}
-              backgroundColor={"#f64e60"}
-              color={"#ffff"}
+              // backgroundColor={"#f64e60"}
+              color={"#F8FAFC"}
             />
-            </Link>
+            {/* </Link> */}
             {/* <button className={Styles.homeBtn}>Sign Up</button> */}
-            
           </div>
         </div>
       </div>

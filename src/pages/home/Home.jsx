@@ -19,6 +19,8 @@ import Recognised from "./Recognised/Recognised";
 import { Banner3 } from "./Banner3/Banner3";
 import FQBanner from "./F&QBanner/FQBanner";
 import Carousal from "./Carousal/Carousal";
+import { Divider } from "antd";
+import AIChatBot from "./AIChat/AIChatBot";
 const Home = () => {
   return (
     <>
@@ -26,38 +28,16 @@ const Home = () => {
       <div className={Style.banner}>
         <Banner />
       </div>
-
-      <div className={Style.LandingPageCard}>
-        <h1 className={Style.cardHeading}> Why Choose AM-CHAT ?</h1>
-        <div className={Style.card}>
-          <div>
-            <Card
-              cardHeading={"Completely Offload Your Data Reporting Effort"}
-              cardContent={
-                "Simply add our agent to your reporting module. Our agent responds to natural language requests, delivering in-depth reports and analyses without any manual intervention"
-              }
-              cardImage={CardLogo}
-            />
-          </div>
-          <div>
-            <Card
-              cardHeading={"Completely Offload Your Data Reporting Effort"}
-              cardContent={
-                "Simply add our agent to your reporting module. Our agent responds to natural language requests, delivering in-depth reports and analyses without any manual intervention"
-              }
-              cardImage={CardLogo}
-            />
-          </div>
-          <div>
-            <Card
-              cardHeading={"Completely Offload Your Data Reporting Effort"}
-              cardContent={
-                "Simply add our agent to your reporting module. Our agent responds to natural language requests, delivering in-depth reports and analyses without any manual intervention"
-              }
-              cardImage={CardLogo}
-            />
-          </div>
+      <div className={Style.divider}>
+        <div className={Style.dividerMainUlStyle}>
+          <p>Scalability</p>
+          <p>Consistency</p>
+          <p>Personalization</p>
+          <p>Task Automation</p>
         </div>
+      </div>
+      <div className={Style.LandingPageCard}>
+        <AIChatBot />
       </div>
       <section className={Style.AddbannnerSection}>
         <div className={Style.bannerCurve}>
@@ -123,7 +103,8 @@ const Home = () => {
             data={[
               {
                 img: LargeCardImage1,
-                content: "TrueReach AI has been a game-changer for our business. It has helped us uncover insights that we never would have found on our own.",
+                content:
+                  "TrueReach AI has been a game-changer for our business. It has helped us uncover insights that we never would have found on our own.",
                 heading: "@ jhone Doe",
               },
               {
@@ -134,7 +115,8 @@ const Home = () => {
               },
               {
                 img: LargeCardImage,
-                content: "TrueReach AI has been a game-changer for our business. It has helped us uncover insights that we never would have found on our own",
+                content:
+                  "TrueReach AI has been a game-changer for our business. It has helped us uncover insights that we never would have found on our own",
                 heading: "@Jhone DOe ",
               },
             ]}
@@ -142,13 +124,13 @@ const Home = () => {
         </div>
       </div>
       <div className={Style.recognisedBanner}>
-        <Recognised/>
+        <Recognised />
       </div>
       <div>
-        <Banner3/>
+        <Banner3 />
       </div>
       <div>
-        <FQBanner/>
+        <FQBanner />
       </div>
       <Footer />
     </>

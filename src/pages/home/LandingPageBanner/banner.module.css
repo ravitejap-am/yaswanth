@@ -1,4 +1,10 @@
 .banner {
+  background: linear-gradient(
+    114deg,
+    #0f172a 51.52%,
+    #152346 73.32%,
+    #1a2e5e 92.75%
+  );
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,18 +18,23 @@
 }
 .bannerHeading {
   width: 485px;
-  height: 256px;
-  color: #7529b2;
-  font-size: 50px;
-  font-family: sans-serif;
+  height: 180px;
+  color: #ffffff;
+  font-family: Montserrat;
+  font-size: 55px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 50px;
+  padding: 2px;
 }
 .bannerPara {
-  line-height: normal;
-  font-size: 20px;
-  width: 436px;
-  height: 72px;
-  /* margin-top: 10px; */
-  font-family: Arial, Helvetica, sans-serif;
+  margin-top: 0px !important;
+  color: var(--Neutral-200, #e2e8f0);
+  font-family: Lato;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px;
 }
 .bannerParaUnorderList {
   line-height: normal;
@@ -34,8 +45,23 @@
   display: flex;
 }
 .bannerButton {
-  margin-left: 20px;
-  margin-top: 30px;
+  display: flex;
+  width: 110px;
+  height: 36px;
+  padding: 10px 16px;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: 30px;
+  background: var(--Brand-500, #6366f1);
+  color: #f8fafc;
+}
+.home-banner-frame-icon {
+  width: 20%;
+  height: 10px;
+  transform: rotate(28.544deg);
+  flex-shrink: 10;
+  margin: -15px;
 }
 .list {
   list-style: none;

@@ -2,70 +2,49 @@ import React from "react";
 import Style from "./banner.module.css";
 // import BannerImage from "../../../asset/b1.webp";
 import BannerImage from "../../../asset/Capture1-removebg-preview.png";
-import Check from "../../../asset/check.webp";
+import frame from "../../../asset/Frame 1.png";
+// import backgroundSVGHome from "../../../asset/Layer1.png";
+import backgroundSVGHome from "../../../asset/—Pngtree—man in shirt smiles and_13146336 1.png";
 import GeneralButton from "../../../components/common/buttons/GeneralButton";
 
 const Banner = () => {
   return (
-    <div className={Style.banner}>
+    <div
+      className={Style.banner}
+      // style={{ backgroundImage: `url(${backgroundSVGHome})` }}
+    >
       <div>
         <div>
           <h1 className={Style.bannerHeading}>
-            Explore with ease! Our smart AI easily finds the answers.
+            Unleash the
+            <br />
+            Power of
+            <br />
+            Conversational
+            <br />
+            Technology”
           </h1>
         </div>
         <div className={Style.bannerPara}>
-          <p>Maximize text analytics affordably with</p>
+          <p>
+            Horem ipsum dolor sit amet, consectetur adipiscing elit. Horem ipsum
+            dolor sit amet, consectetur adipiscing elit. sit amet, consectetur
+            adipisc
+          </p>
         </div>
-        <div className={Style.bannerParaUnorderList}>
-          <ul className={Style.list}>
-            <li>
-              <span>
-                {" "}
-                <img src={Check} className={Style.checklogo} alt="" />{" "}
-              </span>
-              Efficient data lake management.
-            </li>
-            <li>
-              <span>
-                {" "}
-                <img src={Check} className={Style.checklogo} alt="" />{" "}
-              </span>
-              AI-powered actionable insights.
-            </li>
-            <li>
-              <span>
-                {" "}
-                <img src={Check} className={Style.checklogo} alt="" />{" "}
-              </span>
-              Simply ask in natural language.
-            </li>
-          </ul>
-        </div>
+        <div className={Style.bannerParaUnorderList}></div>
         <div className={Style.bannerBtn}>
           <div className={Style.bannerButton}>
-            {/* <button className={Style.bannerBtn1}>Watch Demo</button> */}
-            <GeneralButton
-              name={"Watch Demo"}
-              type={"submit"}
-              backgroundColor={"#f64e60"}
-              color={"#fff"}
-            />
-          </div>
-          <div className={Style.bannerButton}>
-            {/* <button className={Style.bannerBtn1}>Talks to Us</button> */}
-            <GeneralButton
-              name={"Talks to Us"}
-              type={"submit"}
-              backgroundColor={"#f64e60"}
-              color={"#fff"}
-            />
+            <GeneralButton name={"Watch Demo"} type={"submit"} color={"#fff"} />
+            <img src={frame} alt="" className="home-banner-frame-icon" />
           </div>
         </div>
       </div>
       <div>
         <img className={Style.bannerImage} src={BannerImage} />
       </div>
+
+      <div className={Style.dividerFirstHomePage}></div>
     </div>
   );
 };
