@@ -21,6 +21,9 @@ import FQBanner from "./F&QBanner/FQBanner";
 import Carousal from "./Carousal/Carousal";
 import { Divider } from "antd";
 import AIChatBot from "./AIChat/AIChatBot";
+import Idea from "./Idea/Idea";
+import AISolution from "./AISolution/AISolution";
+import HowItWorks from "./HowItWorks/HowItWorks";
 const Home = () => {
   return (
     <>
@@ -30,38 +33,23 @@ const Home = () => {
       </div>
       <div className={Style.divider}>
         <div className={Style.dividerMainUlStyle}>
-          <p>Scalability</p>
-          <p>Consistency</p>
-          <p>Personalization</p>
-          <p>Task Automation</p>
+          <p>Secure</p>
+          <p>Personalized</p>
+          <p>knowledge Base</p>
+          <p>Scalable</p>
         </div>
       </div>
-      <div className={Style.LandingPageCard}>
+      <div className={Style.LandingPageCard} id="ai_page">
         <AIChatBot />
       </div>
-      <section className={Style.AddbannnerSection}>
-        <div className={Style.bannerCurve}>
-          <div className={Style.bannerCurveBackground}></div>
-        </div>
-        <div className={Style.productBanner}>
-          <div>
-            <div className={Style.paraHeadingBanner}>
-              <h1 className={Style.headingPara}>
-                Tap into the potential of your data
-              </h1>
-              <p className={Style.addPara}>
-                Transform your documents into valuable insights, enabling
-                informed decisions and propelling your business forward. Our
-                user-friendly, intuitive AI platform is here to guide you on the
-                path to success.
-              </p>
-            </div>
-
-            <img className={Style.Addbannner} src={Addbannner} alt="" />
-          </div>
-        </div>
-      </section>
-      <div className={Style.largeCardComponentLeft}>
+      <div className={Style.IdeaPageStyle} id="idea_page">
+        <Idea />
+      </div>
+      {/* <div className="AI_Solution_Style" id=""> */}
+      <AISolution />
+      {/* </div> */}
+      <HowItWorks />
+      {/* <div className={Style.largeCardComponentLeft}>
         <LargeCard
           alignmentLargeCard={"left"}
           largeCardImageInput={LargeCardImage}
@@ -128,10 +116,10 @@ const Home = () => {
       </div>
       <div>
         <Banner3 />
-      </div>
-      <div>
+      </div> */}
+      {/* <div>
         <FQBanner />
-      </div>
+      </div> */}
       <Footer />
     </>
   );

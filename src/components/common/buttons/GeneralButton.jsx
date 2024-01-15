@@ -10,6 +10,8 @@ const GeneralButton = ({
   // buttonHandler,
   isCallbackData,
   boxShadow,
+  borderRadius,
+  icons
 }) => {
   console.log(buttonProps);
   return (
@@ -30,9 +32,11 @@ const GeneralButton = ({
         width: width,
         height: height,
         boxShadow: boxShadow,
+        borderRadius:borderRadius
       }}
     >
       {name}
+      <img src={icons} style={{marginLeft:"8px"}} alt=""/>
     </Button>
   );
 };

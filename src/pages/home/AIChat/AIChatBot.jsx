@@ -22,12 +22,11 @@ function AIChatBot() {
   };
 
   const contentArray = [
-    "ipsum dolor sit ggipsum dolor sit",
-    "ipsum dolor dolor sit",
-    "ipsum dolor sit ggipsum dolor sit",
-    "ipsum dolor dolor sit",
-    "ipsum dolor sit ggipsum dolor sit",
-    "ipsum dolor dolor sit",
+    "Can you tell me about GDPR policy?",
+    "PCI compliance?",
+    "PII compliance?",
+    "Can you explain what's wrong with my lab report? ",
+    " Can you explain the Pythagorean theorem?",
   ];
 
   return (
@@ -35,12 +34,12 @@ function AIChatBot() {
       <div style={containerStyle}>
         <div style={backgroundStyle} className="AI_Chat_bot_Center_div_content">
           <div className="AI_chat_bot_heading">
-            <span className="AI_chat_title">AI Chat Bot</span>
+            <span className="AI_chat_title">AM Chat / GenAI Chat Bot</span>
           </div>
           <div className="AI_chat_second_heading">
             <span className="AI_chat_secont_title">
-              Horem ipsum dolor sit amet, consectetur adipiscing elit. Horem
-              ipsum dolor sit amet,.
+              Utilize the power of generative AI to interact with your
+              documents.
             </span>
           </div>
           <div className="AI_chat_Parent_Card">
@@ -65,7 +64,11 @@ function AIChatBot() {
               </div>
 
               <div className="AI_chat_input_box">
-                <Search name={"Ask anything.."} />
+                <Search
+                  name={
+                    "Explore your organizational knowledge base using the power of GenAI."
+                  }
+                />
               </div>
             </Card>
           </div>

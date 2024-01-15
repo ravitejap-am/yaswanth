@@ -5,6 +5,22 @@ import Logo from "../../../asset/Vector.png";
 import GeneralButton from "../../../components/common/buttons/GeneralButton";
 
 const Header = () => {
+  const scrollSmoothById = () => {
+    const element = document.getElementById("ai_page");
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+  const scrollSmoothByIdBlog = () => {
+    const element = document.getElementById("idea_page");
+    if (element) {
+      element.scrollIntoView({
+        behavior: "smooth",
+        block: "end",
+        inline: "nearest",
+      });
+    }
+  };
   return (
     <div className={Styles.headerMain}>
       <div className={Styles.appHeading}>
@@ -18,9 +34,14 @@ const Header = () => {
       <div className={Styles.appNavigation}>
         <div className={Styles.navigationPages}>
           <span className={Styles.navigation}>Home</span>
-          <span className={Styles.navigation}>Product</span>
-          <span className={Styles.navigation}>Blog</span>
+          <span className={Styles.navigation} onClick={scrollSmoothById}>
+            Product
+          </span>
+          <span className={Styles.navigation} onCanPlay={scrollSmoothByIdBlog}>
+            Blog
+          </span>
           <span className={Styles.navigation}>More</span>
+          <span className={Styles.navigation}>Contact Form</span>
         </div>
         <div className={Styles.navigationButton}>
           <div className="btn-color">
