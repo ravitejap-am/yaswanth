@@ -4,7 +4,7 @@ import Document from "../upload/file/Document";
 import Button from "../buttons/GeneralButton";
 import Input from "../input/Input";
 import { LockFilled } from "@ant-design/icons";
-import { Link } from "react-router-dom"; 
+import { Link } from "react-router-dom";
 
 const { TextArea } = Input;
 
@@ -39,27 +39,32 @@ const GeneralForm = (props) => {
         const elements = {
           email: (
             <Input
+              labelName={item.labelName ? item.label : null}
               type={item.type}
-              placeholder={item.label}
+              placeholder={item.labelName ? null : item.label}
               iconClass={item.iconClass}
               onChange={(e) => {
                 form.setFieldValue({ [item.name]: e.target.value });
               }}
+              style={item.style}
               // required={item.required}
             />
           ),
           text: (
             <Input
+              labelName={item.labelName ? item.label : null}
               type={item.type}
               placeholder={item.label}
               iconClass={item.iconClass}
               onChange={(e) => {
                 form.setFieldValue({ [item.name]: e.target.value });
               }}
+              style={item.style}
             />
           ),
           password: (
             <Input
+              labelName={item.labelName ? item.label : null}
               type={item.type}
               placeholder={item.label}
               iconClass={item.iconClass}
@@ -70,16 +75,32 @@ const GeneralForm = (props) => {
           ),
           confirmPassword: (
             <Input
+              labelName={item.labelName ? item.label : null}
               type={item.type}
               placeholder={item.label}
               iconClass={item.iconClass}
               onChange={(e) => {
                 form.setFieldValue({ [item.name]: e.target.value });
               }}
+              style={item.style}
+            />
+          ),
+
+          comment: (
+            <Input
+              labelName={item.labelName ? item.label : null}
+              type={item.type}
+              placeholder={item.label}
+              iconClass={item.iconClass}
+              onChange={(e) => {
+                form.setFieldValue({ [item.name]: e.target.value });
+              }}
+              style={item.style}
             />
           ),
           number: (
             <InputNumber
+              labelName={item.labelName ? item.label : null}
               type={item.type}
               placeholder={item.label}
               iconClass={item.iconClass}
@@ -94,6 +115,7 @@ const GeneralForm = (props) => {
             name={item.name}
             rules={item?.rules != undefined ? item.rules : []}
             messageVariables={cancelHandler}
+            style={item.style}
             noStyle
           >
             {elements[item.type] || (
@@ -106,12 +128,19 @@ const GeneralForm = (props) => {
                   />
                 )}
                 {item.type === "select" && (
-                  <Select
-                    onChange={(value) => {
-                      form.setFieldsValue({ [item.name]: value });
-                    }}
-                    options={item?.options != undefined ? item?.options : []}
-                  />
+                  <div>
+                    <div style={{ marginBottom: "8px", color: "#fff" }}>
+                      <label>{item.label}</label>
+                    </div>
+                    <Select
+                      onChange={(value) => {
+                        form.setFieldsValue({ [item.name]: value });
+                      }}
+                      options={item?.options != undefined ? item?.options : []}
+                      style={item.style}
+                      labelName={item.labelName ? item.label : null}
+                    />
+                  </div>
                 )}
                 {item?.type === "file" && (
                   <Document

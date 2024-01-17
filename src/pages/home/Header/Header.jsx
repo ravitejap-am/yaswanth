@@ -16,8 +16,15 @@ const Header = () => {
     if (element) {
       element.scrollIntoView({
         behavior: "smooth",
-        block: "end",
-        inline: "nearest",
+      });
+    }
+  };
+
+  const scrollSmoothToContactUpPage = () => {
+    const element = document.getElementById("Contact_Up");
+    if (element) {
+      element.scrollIntoView({
+        behavior: "smooth",
       });
     }
   };
@@ -37,11 +44,16 @@ const Header = () => {
           <span className={Styles.navigation} onClick={scrollSmoothById}>
             Product
           </span>
-          <span className={Styles.navigation} onCanPlay={scrollSmoothByIdBlog}>
+          <span className={Styles.navigation} onClick={scrollSmoothByIdBlog}>
             Blog
           </span>
           <span className={Styles.navigation}>More</span>
-          <span className={Styles.navigation}>Contact Form</span>
+          <span
+            className={Styles.navigation}
+            onClick={scrollSmoothToContactUpPage}
+          >
+            Contact Form
+          </span>
         </div>
         <div className={Styles.navigationButton}>
           <div className="btn-color">

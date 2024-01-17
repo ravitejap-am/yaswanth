@@ -24,6 +24,8 @@ import AIChatBot from "./AIChat/AIChatBot";
 import Idea from "./Idea/Idea";
 import AISolution from "./AISolution/AISolution";
 import HowItWorks from "./HowItWorks/HowItWorks";
+import RightPlan from "./RightPlan/RightPlan";
+import ContactUp from "./ContactUs/ContactUp";
 const Home = () => {
   return (
     <>
@@ -49,6 +51,8 @@ const Home = () => {
       <AISolution />
       {/* </div> */}
       <HowItWorks />
+      <RightPlan />
+      <ContactUp id="Contact_Up" />
       {/* <div className={Style.largeCardComponentLeft}>
         <LargeCard
           alignmentLargeCard={"left"}
@@ -58,8 +62,8 @@ const Home = () => {
             "AM-Chat, the dynamic communication hub, brings you a seamless and intuitive platform for instant conversations. Elevate your messaging experience with our user-friendly interface, ensuring effortless communication and connection."
           }
         />
-      </div>
-      <div className={Style.largeCardComponentRight}>
+      </div> */}
+      {/* <div className={Style.largeCardComponentRight}>
         <LargeCard
           alignmentLargeCard={"right"}
           largeCardImageInput={LargeCardImage1}

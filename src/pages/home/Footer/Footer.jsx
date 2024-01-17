@@ -13,9 +13,20 @@ const Footer = () => {
     <div className={Style.footerMain}>
       <div className={Style.footerFIrstCOntent}>
         <div className={Style.footerAddress}>
-          <p>
-            AM-ChatBOT <img src={Vector} alt="" /> <br />
-            Privacy Policy | Terms & Conditions ,
+          <p className="footer_p_tag" style={{ color: "#FFF" }}>
+            AM-ChatBOT{" "}
+            <img
+              src={Vector}
+              alt=""
+              style={{ marginBottom: "4px", marginLeft: "-3px" }}
+            />
+          </p>
+          <p
+            className="footer_p_tag_2"
+            style={{ color: "#FFF", fontSize: "14px" }}
+          >
+            {" "}
+            Privacy Policy | Terms & Conditions
           </p>
         </div>
         <div className={Style.footer_social_links}>
@@ -25,25 +36,22 @@ const Footer = () => {
         </div>
       </div>
       <div className={Style.centeredText}>
-        <p>@2024. All rights reserved by Aretminds</p>
+        <p style={{ color: "#FFF", fontSize: "14px" }}>
+          @2024. All rights reserved by Areteminds
+        </p>
       </div>
       <div className={Style.footerFIrstCOntent}>
-        <p className="footer_p_tag">
+        <p className="footer_p_tag" style={{ color: "#FFF", fontSize: "14px" }}>
           {" "}
-          <img src={img4} alt="" /> 4th Cross, Ramanjaneya Layout Marathahalli,
-          Bangalore India
+          <img src={img4} alt="" /> 4th Cross, Ramanjaneya Layout
+          <p style={{ marginLeft: "28px" }}>Marathahalli, Bangalore India</p>
         </p>
-        <p>
-          <a href="">
-            {" "}
-            <img src={img5} alt="" />
-            sales@areteminds.com
-          </a>
+        <p className="footer_p_tag" style={{ color: "#FFF", fontSize: "14px" }}>
+          <img src={img5} alt="" />
+          sales@areteminds.com
         </p>
-        <p>
-          <a href="">
-            <img src={img6} alt="" /> +91 9663205304
-          </a>
+        <p style={{ color: "#FFF", fontSize: "14px" }}>
+          <img src={img6} alt="" /> +91 9663205304
         </p>
       </div>
     </div>
