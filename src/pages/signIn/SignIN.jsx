@@ -68,6 +68,7 @@ const SignIn = () => {
         { required: true, message: "Please input your email" },
         { type: "email", message: "Invalid email format" },
       ],
+      style:{}
     },
     {
       label: "Password",

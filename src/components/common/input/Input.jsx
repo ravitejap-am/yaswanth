@@ -2,7 +2,15 @@ import React, { useState } from "react";
 import Style from "./input.module.css";
 // import { EyeOutlined, EyeInvisibleOutlined } from "@ant-design/icons";
 
-const Input = ({ type, placeholder, iconClass, onChange, required }) => {
+const Input = ({
+  type,
+  placeholder,
+  iconClass,
+  onChange,
+  required,
+  style,
+  labelName,
+}) => {
   const [visible, setVisible] = useState(false);
   const handleOnClick = () => {
     setVisible(!visible);
@@ -22,16 +30,21 @@ const Input = ({ type, placeholder, iconClass, onChange, required }) => {
               {visible ? <EyeInvisibleOutlined /> : <EyeOutlined />}
             </i>
           </span>
-        ) : null} */}
+        {/* ) : null} */}
+        <div className={Style.labelStyle}>
+          <label>{labelName ? labelName : null}</label>
+          <input
+            type={visible ? "text" : type}
+            className={Style.formStyle}
+            placeholder={placeholder}
+            // value
+            onChange={onChange}
+            required={required}
+            style={style}
+          />
+        </div>
+        <br />
 
-        <input
-          type={visible ? "text" : type}
-          className="form-control"
-          placeholder={placeholder}
-          // value
-          onChange={onChange}
-          required={required}
-        />
       </div>
     </div>
   );

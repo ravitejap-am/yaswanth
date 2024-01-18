@@ -1,87 +1,55 @@
 import React from "react";
 import Style from "./home.module.css";
 import Header from "./Header/Header";
-import Homeheader from "../../layouts/homeheader/HomeHeader";
 import Footer from "./Footer/Footer";
-import Card from "./LandingPageCard/Card";
-import CardLogo from "../../asset/svgexport-1.svg";
 import Banner from "./LandingPageBanner/Banner";
-import Addbannner from "../../asset/Group 40.webp";
-import LargeCard from "./LargeCard/LargeCard";
-import LargeCardImage from "../../asset/industillust-1.png";
-import LargeCardImage1 from "../../asset/illustration-3-removebg-preview.png";
-import Banner2 from "./LandingPageBanner2/Banner2";
-// import { StarTwoTone } from "@ant-design/icons";
-import LargeCardImage2 from "../../asset/img_employee_exp_1_79932cd732.svg";
-// import Carousal from "./Carousal/Carousal";
-// import Carousal from "./Carousal/Carousal";
-import Recognised from "./Recognised/Recognised";
-import { Banner3 } from "./Banner3/Banner3";
-import FQBanner from "./F&QBanner/FQBanner";
-import Carousal from "./Carousal/Carousal";
+import AIChatBot from "./AIChat/AIChatBot";
+import Idea from "./Idea/Idea";
+import AISolution from "./AISolution/AISolution";
+import HowItWorks from "./HowItWorks/HowItWorks";
+import RightPlan from "./RightPlan/RightPlan";
+import ContactUp from "./ContactUs/ContactUp";
 const Home = () => {
   return (
     <>
-      <Header />
-      <div className={Style.banner}>
+      <div style={{ position: "fixed" }}>
+        {" "}
+        <Header />
+      </div>
+
+      <div className={Style.banner} id="Home_page">
         <Banner />
       </div>
-
-      <div className={Style.LandingPageCard}>
-        <h1 className={Style.cardHeading}> Why Choose AM-CHAT ?</h1>
-        <div className={Style.card}>
-          <div>
-            <Card
-              cardHeading={"Completely Offload Your Data Reporting Effort"}
-              cardContent={
-                "Simply add our agent to your reporting module. Our agent responds to natural language requests, delivering in-depth reports and analyses without any manual intervention"
-              }
-              cardImage={CardLogo}
-            />
-          </div>
-          <div>
-            <Card
-              cardHeading={"Completely Offload Your Data Reporting Effort"}
-              cardContent={
-                "Simply add our agent to your reporting module. Our agent responds to natural language requests, delivering in-depth reports and analyses without any manual intervention"
-              }
-              cardImage={CardLogo}
-            />
-          </div>
-          <div>
-            <Card
-              cardHeading={"Completely Offload Your Data Reporting Effort"}
-              cardContent={
-                "Simply add our agent to your reporting module. Our agent responds to natural language requests, delivering in-depth reports and analyses without any manual intervention"
-              }
-              cardImage={CardLogo}
-            />
-          </div>
+      <div className={Style.divider}>
+        <div className={Style.dividerMainUlStyle}>
+          <p>Secure</p>
+          <p>Personalized</p>
+          <p>knowledge Base</p>
+          <p>Scalable</p>
         </div>
       </div>
-      <section className={Style.AddbannnerSection}>
-        <div className={Style.bannerCurve}>
-          <div className={Style.bannerCurveBackground}></div>
-        </div>
-        <div className={Style.productBanner}>
-          <div>
-            <div className={Style.paraHeadingBanner}>
-              <h1 className={Style.headingPara}>
-                Tap into the potential of your data
-              </h1>
-              <p className={Style.addPara}>
-                Transform your documents into valuable insights, enabling
-                informed decisions and propelling your business forward. Our
-                user-friendly, intuitive AI platform is here to guide you on the
-                path to success.
-              </p>
-            </div>
+      <div className={Style.LandingPageCard} id="ai_page">
+        <AIChatBot />
+      </div>
+      <div className={Style.IdeaPageStyle} id="idea_page">
+        <Idea />
+      </div>
+      {/* <div className="AI_Solution_Style" id=""> */}
+      <AISolution />
+      {/* </div> */}
+      <div id="Plan_Page">
+        <HowItWorks />
+      </div>
 
-            <img className={Style.Addbannner} src={Addbannner} alt="" />
-          </div>
-        </div>
-      </section>
-      <div className={Style.largeCardComponentLeft}>
+      <div id="Plan_page">
+        <RightPlan />
+      </div>
+
+      <div id="Contact_Up">
+        <ContactUp />
+      </div>
+
+      {/* <div className={Style.largeCardComponentLeft}>
         <LargeCard
           alignmentLargeCard={"left"}
           largeCardImageInput={LargeCardImage}
@@ -90,8 +58,8 @@ const Home = () => {
             "AM-Chat, the dynamic communication hub, brings you a seamless and intuitive platform for instant conversations. Elevate your messaging experience with our user-friendly interface, ensuring effortless communication and connection."
           }
         />
-      </div>
-      <div className={Style.largeCardComponentRight}>
+      </div> */}
+      {/* <div className={Style.largeCardComponentRight}>
         <LargeCard
           alignmentLargeCard={"right"}
           largeCardImageInput={LargeCardImage1}
@@ -123,7 +91,8 @@ const Home = () => {
             data={[
               {
                 img: LargeCardImage1,
-                content: "TrueReach AI has been a game-changer for our business. It has helped us uncover insights that we never would have found on our own.",
+                content:
+                  "TrueReach AI has been a game-changer for our business. It has helped us uncover insights that we never would have found on our own.",
                 heading: "@ jhone Doe",
               },
               {
@@ -134,7 +103,8 @@ const Home = () => {
               },
               {
                 img: LargeCardImage,
-                content: "TrueReach AI has been a game-changer for our business. It has helped us uncover insights that we never would have found on our own",
+                content:
+                  "TrueReach AI has been a game-changer for our business. It has helped us uncover insights that we never would have found on our own",
                 heading: "@Jhone DOe ",
               },
             ]}
@@ -142,14 +112,14 @@ const Home = () => {
         </div>
       </div>
       <div className={Style.recognisedBanner}>
-        <Recognised/>
+        <Recognised />
       </div>
       <div>
-        <Banner3/>
-      </div>
-      <div>
-        <FQBanner/>
-      </div>
+        <Banner3 />
+      </div> */}
+      {/* <div>
+        <FQBanner />
+      </div> */}
       <Footer />
     </>
   );

@@ -1,0 +1,120 @@
+.Right_Plan_Main_Card {
+  width: 100%;
+  height: 700px;
+  padding: 0px 0px 0;
+  margin: -40px 0px 0px 0px;
+  background: linear-gradient(
+    114deg,
+    #0f172a 51.52%,
+    #152346 73.32%,
+    #1a2e5e 92.75%
+  );
+  justify-content: center;
+}
+
+.Right_Plan_Gat_Started_button {
+  display: flex;
+  width: 282.001px;
+  height: 50px;
+  padding: 10px 16px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  border-radius: 30px;
+  background: var(--Brand-500, #6366f1);
+}
+.Right_Plan_Three_Container {
+  justify-content: center;
+  width: 100%;
+  display: flex;
+  gap: 40px;
+  margin-top: 50px;
+}
+.Right_Plan_Content {
+  width: 290px;
+  height: 390px;
+  border-radius: 10px;
+  border: 2px solid var(--Brand-700, #4338ca);
+  background: var(--Neutral-800, #1e293b);
+  padding: 20px;
+}
+.Right_Plan_Below_Content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-top: 15px;
+}
+.Right_Plan_Gernal_Button {
+  margin-top: -12px;
+}
+.Right_Plan_Content_Title {
+  color: #ffffff;
+  font-family: Montserrat;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 3px;
+}
+.Right_Plan_Top_Content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.Right_Plan_Top_Content_Title {
+  color: var(--White, #fff);
+  font-family: Montserrat;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 300;
+  margin-bottom: -30px;
+  /* line-height: 40px; */
+}
+.Right_Plan_Top_Content_SubTitle {
+  color: var(--Neutral-200, #e2e8f0);
+  text-align: center;
+  font-family: Lato;
+  font-size: 14px;
+  margin-top: 35px;
+}
+
+.Right_Plan_below_Content_Sub_Div {
+  display: flex;
+  align-items: center;
+  height: 35px;
+}
+.Right_Plan_Content_Sub_Div {
+  width: 295px;
+  color: var(--Neutral-400, #94a3b8);
+  font-family: Lato;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 28px;
+}
+.Right_Plan_Content_Price {
+  color: #ffffff;
+  font-family: Montserrat;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 0px;
+}
+.per-month {
+  color: var(--Neutral-400, #94a3b8);
+  font-family: Lato;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+}
+.Right_Plan_below_Content_P_Tag {
+  padding-left: 17px !important;
+  color: var(--Neutral-200, #e2e8f0);
+  font-family: Lato;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+}

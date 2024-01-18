@@ -17,6 +17,7 @@ import ResetPassword from "./pages/setPassword/ResetPassword";
 import AmchatMainUser from "./pages/chatmain/userChat/AMChatMainUser";
 import UserProfile from "./pages/chatmain/UserProfile";
 import PersonalInformation from "./pages/chatmain/PersonalInformation";
+import AMChatAdminHome from "./pages/AMChatAdmin/AMChatAdminHome";
   
 function App() {
   const [screen, setScreen] = useState("beforeLogin");
@@ -28,6 +29,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Home />} errorElement={<LoginPageError />} />
+      <Route path="/dashboardadmin" element={<AMChatAdminHome />} />
       <Route
         path="/registerUser"
         element={<RegisterUser />}

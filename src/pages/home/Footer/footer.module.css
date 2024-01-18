@@ -1,50 +1,62 @@
 .footerMain {
-  /* bottom: 0%; */
   position: relative;
-  height: 570px !important;
-  background-color: #32016f;
-  color: #fff;
-  /* width: 612px; */
-  display: flex;
+  height: 300px !important;
+  width: 100%;
+  background-color: #0f172a;
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.footer_p_tag {
+  color: #ffffff !important;
+  font-family: Lato;
+  font-size: 14px;
+  font-style: normal;
+  line-height: 20px;
+}
+.footer_p_tag_2 {
+  color: #ffffff;
+
+  /* text-sm */
+  font-family: Lato;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px; /* 142.857% */
 }
 .footerFIrstCOntent {
-  padding-top: 100px;
-  padding-left: 100px;
-  width: 610px;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+  margin-right: 10px;
   display: block;
+}
+.footerAddress {
+  width: 100%;
+}
+
+.footerFIrstCOntent p {
+  margin-bottom: 10px;
+}
+
+.footerFIrstCOntent img {
+  margin-right: 10px;
 }
 .footerEmail {
   display: block;
 }
-.footerBtn {
+.footer_social_links {
+  display: flex;
+  gap: 10px;
 }
-.footerInput {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  background-color: var(
-    --corvid-background-color,
-    rgba(var(--bg, 255, 255, 255), var(--alpha-bg, 1))
-  );
-  border-color: var(
-    --corvid-border-color,
-    rgba(var(--brd, 227, 227, 227), var(--alpha-brd, 1))
-  );
-  border-radius: var(--corvid-border-radius, var(--rd, 0));
-  border-style: solid;
-  border-width: var(--corvid-border-width, var(--brw, 1px));
-  box-shadow: var(--shd, 0 0 0 transparent);
-  box-sizing: border-box !important;
-  direction: var(--inputDirection, "inherit");
-  font: var(--fnt, var(--font_8));
-  margin: 0;
-  max-width: 100%;
-  min-height: var(--inputHeight);
-  padding: var(--textPadding);
-  padding-inline-end: var(--textPadding_end);
-  padding-inline-start: var(--textPadding_start);
-  text-align: var(--inputAlign, "inherit");
-  text-overflow: ellipsis;
-  width: 100%;
+
+.footer_social_links img {
+  width: 30px;
+  height: 30px;
+}
+.centeredText {
+  padding-top: 250px;
+  margin-right: 40px;
 }

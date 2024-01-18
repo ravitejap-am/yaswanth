@@ -1,69 +1,56 @@
 import React from "react";
 import Style from "./banner.module.css";
 // import BannerImage from "../../../asset/b1.webp";
-import BannerImage from "../../../asset/Capture1-removebg-preview.png";
-import Check from "../../../asset/check.webp";
+import BannerImage from "../../../asset/banner-img.png";
+import BannerImage1 from "../../../asset/Group.png";
+
+import frame from "../../../asset/Frame 1.png";
+// import backgroundSVGHome from "../../../asset/Layer1.png";
+import backgroundSVGHome from "../../../asset/—Pngtree—man in shirt smiles and_13146336 1.png";
 import GeneralButton from "../../../components/common/buttons/GeneralButton";
 
 const Banner = () => {
   return (
-    <div className={Style.banner}>
+    <div
+      className={Style.banner}
+      // style={{ backgroundImage: `url(${backgroundSVGHome})` }}
+    >
+      <div className="background_image"></div>
       <div>
         <div>
           <h1 className={Style.bannerHeading}>
-            Explore with ease! Our smart AI easily finds the answers.
+            Unleash the
+            <br />
+            Power of your
+            <br />
+            enterprise's content
+            <br />
+            documents with GenAI.
           </h1>
         </div>
         <div className={Style.bannerPara}>
-          <p>Maximize text analytics affordably with</p>
+          <p>
+            Explore, learn, and chat with the knowledge base created from <br />
+            your enterprise's documents or content using the power of GenAI.
+          </p>
         </div>
-        <div className={Style.bannerParaUnorderList}>
-          <ul className={Style.list}>
-            <li>
-              <span>
-                {" "}
-                <img src={Check} className={Style.checklogo} alt="" />{" "}
-              </span>
-              Efficient data lake management.
-            </li>
-            <li>
-              <span>
-                {" "}
-                <img src={Check} className={Style.checklogo} alt="" />{" "}
-              </span>
-              AI-powered actionable insights.
-            </li>
-            <li>
-              <span>
-                {" "}
-                <img src={Check} className={Style.checklogo} alt="" />{" "}
-              </span>
-              Simply ask in natural language.
-            </li>
-          </ul>
-        </div>
+        <div className={Style.bannerParaUnorderList}></div>
         <div className={Style.bannerBtn}>
           <div className={Style.bannerButton}>
-            {/* <button className={Style.bannerBtn1}>Watch Demo</button> */}
             <GeneralButton
-              name={"Watch Demo"}
+              name={"Get Started"}
               type={"submit"}
-              backgroundColor={"#f64e60"}
-              color={"#fff"}
-            />
-          </div>
-          <div className={Style.bannerButton}>
-            {/* <button className={Style.bannerBtn1}>Talks to Us</button> */}
-            <GeneralButton
-              name={"Talks to Us"}
-              type={"submit"}
-              backgroundColor={"#f64e60"}
-              color={"#fff"}
+              color={"#f8fafc"}
+              borderRadius={"30px"}
+              backgroundColor={"#6366f1"}
+              icons={frame}
+              width={"140px"}
+              height={"45px"}
             />
           </div>
         </div>
       </div>
-      <div>
+      <div className="main_side_image_div">
         <img className={Style.bannerImage} src={BannerImage} />
       </div>
     </div>
