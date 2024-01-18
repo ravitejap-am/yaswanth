@@ -67,7 +67,7 @@ function App() {
         errorElement={<LoginPageError />}
       />
       <Route
-      path="/AmChatMainUser"
+      path="/git"
       element={<AmchatMainUser/>}
      />
 
