@@ -15,10 +15,11 @@
 }
 .idea_chid_div {
   display: flex;
-  gap: 100px;
   align-items: center;
+  gap: 50px;
   padding: 20px;
   width: 75%;
+  margin-left: -70px;
 }
 .bannerBtn1 {
   border-radius: 50px;
@@ -66,8 +67,8 @@
   height: 94px;
   flex-shrink: 0;
 }
-.idea_page_banner_image3_style {
+/* .idea_page_banner_image3_style {
   position: relative;
   top: -50px;
   left: 300px;
-}
+} */

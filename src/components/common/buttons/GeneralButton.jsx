@@ -10,6 +10,7 @@ const GeneralButton = ({
   // buttonHandler,
   isCallbackData,
   boxShadow,
+  // borderRadius,
   borderRadius,
   icons
 }) => {

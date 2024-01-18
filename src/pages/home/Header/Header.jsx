@@ -28,6 +28,32 @@ const Header = () => {
       });
     }
   };
+  const scrollSmoothToHomePage = () => {
+    const element = document.getElementById("Home_page");
+    if (element) {
+      element.scrollIntoView({
+        behavior: "smooth",
+      });
+    }
+  };
+
+  const scrollSmoothToHowItWorks = () => {
+    const element = document.getElementById("Plan_Page");
+    if (element) {
+      element.scrollIntoView({
+        behavior: "smooth",
+      });
+    }
+  };
+
+  const scrollSmoothToPlan = () => {
+    const element = document.getElementById("Plan_Page");
+    if (element) {
+      element.scrollIntoView({
+        behavior: "smooth",
+      });
+    }
+  };
   return (
     <div className={Styles.headerMain}>
       <div className={Styles.appHeading}>
@@ -40,14 +66,20 @@ const Header = () => {
       </div>
       <div className={Styles.appNavigation}>
         <div className={Styles.navigationPages}>
-          <span className={Styles.navigation}>Home</span>
+          <span className={Styles.navigation} onClick={scrollSmoothToHomePage}>
+            Home
+          </span>
           <span className={Styles.navigation} onClick={scrollSmoothById}>
-            Product
+            Solutions
           </span>
-          <span className={Styles.navigation} onClick={scrollSmoothByIdBlog}>
+          <span className={Styles.navigation} onClick={scrollSmoothToHowItWorks}>How it Works</span>
+          {/* <span className={Styles.navigation} onClick={scrollSmoothByIdBlog}>
             Blog
+          </span> */}
+
+          <span className={Styles.navigation} onClick={scrollSmoothToPlan}>
+            Plans
           </span>
-          <span className={Styles.navigation}>More</span>
           <span
             className={Styles.navigation}
             onClick={scrollSmoothToContactUpPage}

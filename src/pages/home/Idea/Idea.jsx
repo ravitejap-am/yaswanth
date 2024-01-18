@@ -3,7 +3,7 @@ import "./Idea.css";
 import tickSign from "../../../asset/tick.png";
 import GeneralButton from "../../../components/common/buttons/GeneralButton";
 import frame from "../../../asset/Frame 1.png";
-import ideaImage from "../../../asset/ideaRectangle 21.png";
+import ideaImage from "../../../asset/about.png";
 import BannerImage3 from "../../../asset/banner-box-2.png";
 
 function Idea() {
@@ -57,11 +57,15 @@ function Idea() {
           </div>
         </div>
 
-        <div>
+        <div
+          style={{
+            width: "40%",
+            height: "60%",
+            marginTop: "-25px",
+            marginLeft: "-30px",
+          }}
+        >
           <img src={ideaImage} alt="" />
-          <div className="idea_page_banner_image3_style">
-            <img className="bannerImage3" src={BannerImage3} alt="" />
-          </div>
         </div>
       </div>
     </div>

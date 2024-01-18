@@ -1,25 +1,8 @@
 import React from "react";
 import Style from "./home.module.css";
 import Header from "./Header/Header";
-import Homeheader from "../../layouts/homeheader/HomeHeader";
 import Footer from "./Footer/Footer";
-import Card from "./LandingPageCard/Card";
-import CardLogo from "../../asset/svgexport-1.svg";
 import Banner from "./LandingPageBanner/Banner";
-import Addbannner from "../../asset/Group 40.webp";
-import LargeCard from "./LargeCard/LargeCard";
-import LargeCardImage from "../../asset/industillust-1.png";
-import LargeCardImage1 from "../../asset/illustration-3-removebg-preview.png";
-import Banner2 from "./LandingPageBanner2/Banner2";
-// import { StarTwoTone } from "@ant-design/icons";
-import LargeCardImage2 from "../../asset/img_employee_exp_1_79932cd732.svg";
-// import Carousal from "./Carousal/Carousal";
-// import Carousal from "./Carousal/Carousal";
-import Recognised from "./Recognised/Recognised";
-import { Banner3 } from "./Banner3/Banner3";
-import FQBanner from "./F&QBanner/FQBanner";
-import Carousal from "./Carousal/Carousal";
-import { Divider } from "antd";
 import AIChatBot from "./AIChat/AIChatBot";
 import Idea from "./Idea/Idea";
 import AISolution from "./AISolution/AISolution";
@@ -29,8 +12,12 @@ import ContactUp from "./ContactUs/ContactUp";
 const Home = () => {
   return (
     <>
-      <Header />
-      <div className={Style.banner}>
+      <div style={{ position: "fixed" }}>
+        {" "}
+        <Header />
+      </div>
+
+      <div className={Style.banner} id="Home_page">
         <Banner />
       </div>
       <div className={Style.divider}>
@@ -50,9 +37,18 @@ const Home = () => {
       {/* <div className="AI_Solution_Style" id=""> */}
       <AISolution />
       {/* </div> */}
-      <HowItWorks />
-      <RightPlan />
-      <ContactUp id="Contact_Up" />
+      <div id="Plan_Page">
+        <HowItWorks />
+      </div>
+
+      <div id="Plan_page">
+        <RightPlan />
+      </div>
+
+      <div id="Contact_Up">
+        <ContactUp />
+      </div>
+
       {/* <div className={Style.largeCardComponentLeft}>
         <LargeCard
           alignmentLargeCard={"left"}

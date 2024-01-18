@@ -48,7 +48,12 @@ const Footer = () => {
         </p>
         <p className="footer_p_tag" style={{ color: "#FFF", fontSize: "14px" }}>
           <img src={img5} alt="" />
-          sales@areteminds.com
+          <a
+            href="mailto:sales@areteminds.com"
+            style={{ textDecoration: "none", color: "#FFF" }}
+          >
+            sales@areteminds.com
+          </a>
         </p>
         <p style={{ color: "#FFF", fontSize: "14px" }}>
           <img src={img6} alt="" /> +91 9663205304

@@ -15,7 +15,8 @@ import Page505 from "./pages/errorHandler/InternalServerError/Page505";
 import MaintainencePage from "./pages/errorHandler/UnderMaintainence/MaintainencePage";
 // import ChatHome from "./pages/chat/ChatHome/ChatHome";
 // import ChatHome from "./pages/chat/ChatHome/ChatHome";
-import Chat  from "./pages/chat/Chat";
+import Chat from "./pages/chat/Chat";
+import AMChatAdminHome from "./pages/AMChatAdmin/AMChatAdminHome";
 
 function App() {
   const [screen, setScreen] = useState("beforeLogin");
@@ -27,6 +28,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Home />} errorElement={<LoginPageError />} />
+      <Route path="/dashboardadmin" element={<AMChatAdminHome />} />
       <Route
         path="/registerUser"
         element={<RegisterUser />}

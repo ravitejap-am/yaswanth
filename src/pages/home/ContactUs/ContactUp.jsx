@@ -13,7 +13,7 @@ const ContactUp = () => {
       label: "Name",
       type: "text",
       style: {
-        width: "500px",
+        width: "495px",
         borderRadius: "40px",
         border: "1px solid var(--Brand-700, #4338CA)",
         backgroundColor: "transparent",
@@ -26,7 +26,7 @@ const ContactUp = () => {
       label: "Email",
       type: "email",
       style: {
-        width: "500px",
+        width: "495px",
         borderRadius: "40px",
         border: "1px solid var(--Brand-700, #4338CA)",
         backgroundColor: "transparent",
@@ -43,10 +43,13 @@ const ContactUp = () => {
       type: "select",
       style: {
         width: "520px",
+        height: "38px",
         borderRadius: "40px",
-        border: "1px solid var(--Brand-700, #4338CA) !important",
+        border: "1px solid var(--Brand-700, #4338CA)",
+        backgroundColor: "transparent",
+        marginBottom:"13px"
       },
-      className: "transparent-dropdown", // Add this line
+      className: "transparent-dropdown",
       labelName: true,
       options: [
         { value: "basic", label: "Basic Plan" },
@@ -60,10 +63,11 @@ const ContactUp = () => {
       label: "Comment",
       type: "text",
       style: {
-        width: "500px",
+        width: "495px",
         borderRadius: "40px",
         border: "1px solid var(--Brand-700, #4338CA)",
         backgroundColor: "transparent",
+        // marginTop:"10px"
       },
       labelName: true,
       rules: [{ required: true, message: "Please enter your comment" }],
@@ -78,9 +82,9 @@ const ContactUp = () => {
     name: "Submit",
     color: "#ffffff",
     backgroundColor: "var(--Brand-500, #6366F1)",
-    width: "540px",
+    width: "520px",
     height: "50px",
-    borderRadius: "28px !important",
+    borderRadius: "28px",
   };
 
   const feedingVariable = {
@@ -95,7 +99,6 @@ const ContactUp = () => {
     forgorPasswordHandler: () => {
       console.log("forgot Password....");
     },
-    // selectStyle: { width: "500px" },
   };
 
   return (

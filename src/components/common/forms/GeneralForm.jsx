@@ -3,6 +3,7 @@ import { Form, Checkbox, InputNumber, Switch, DatePicker, Select } from "antd";
 import Document from "../upload/file/Document";
 import Button from "../buttons/GeneralButton";
 import Input from "../input/Input";
+import Dropdown from ".././dropDown/dropDown";
 import { LockFilled } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 
@@ -54,7 +55,7 @@ const GeneralForm = (props) => {
             <Input
               labelName={item.labelName ? item.label : null}
               type={item.type}
-              placeholder={item.label}
+              placeholder={item.labelName ? null : item.label}
               iconClass={item.iconClass}
               onChange={(e) => {
                 form.setFieldValue({ [item.name]: e.target.value });
@@ -90,7 +91,7 @@ const GeneralForm = (props) => {
             <Input
               labelName={item.labelName ? item.label : null}
               type={item.type}
-              placeholder={item.label}
+              placeholder={item.labelName ? null : item.label}
               iconClass={item.iconClass}
               onChange={(e) => {
                 form.setFieldValue({ [item.name]: e.target.value });
@@ -129,16 +130,23 @@ const GeneralForm = (props) => {
                 )}
                 {item.type === "select" && (
                   <div>
-                    <div style={{ marginBottom: "8px", color: "#fff" }}>
+                    <div style={{ marginBottom: "2px", color: "#fff" }}>
                       <label>{item.label}</label>
                     </div>
-                    <Select
+                    {/* <Select
                       onChange={(value) => {
                         form.setFieldsValue({ [item.name]: value });
                       }}
                       options={item?.options != undefined ? item?.options : []}
                       style={item.style}
+                    /> */}
+                    <Dropdown
                       labelName={item.labelName ? item.label : null}
+                      options={item?.options != undefined ? item?.options : []}
+                      onSelect={(value) => {
+                        form.setFieldsValue({ [item.name]: value });
+                      }}
+                      style={item.style}
                     />
                   </div>
                 )}
@@ -185,6 +193,7 @@ const GeneralForm = (props) => {
               width={submitButtonProperty.width}
               height={submitButtonProperty.height}
               boxShadow={submitButtonProperty.boxShadow}
+              borderRadius={submitButtonProperty.borderRadius}
             />
           )}
           {isCancel && (
