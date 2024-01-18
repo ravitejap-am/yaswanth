@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Style from "./input.module.css";
-import { EyeOutlined, EyeInvisibleOutlined } from "@ant-design/icons";
+// import { EyeOutlined, EyeInvisibleOutlined } from "@ant-design/icons";
 
 const Input = ({ type, placeholder, iconClass, onChange, required }) => {
   const [visible, setVisible] = useState(false);
@@ -16,13 +16,13 @@ const Input = ({ type, placeholder, iconClass, onChange, required }) => {
             <i>{iconClass ? iconClass : null}</i>
           </span>
         ) : null}
-        {type === "password" ? (
+        {/* {type === "password" ? (
           <span className={Style.inputgrouptext}>
             <i onClick={handleOnClick}>
               {visible ? <EyeInvisibleOutlined /> : <EyeOutlined />}
             </i>
           </span>
-        ) : null}
+        ) : null} */}
 
         <input
           type={visible ? "text" : type}

@@ -1,0 +1,90 @@
+.userprofile-screen {
+    background: linear-gradient(114deg, #0F172A 51.52%, #152346 73.32%, #1A2E5E 92.75%);
+    /* max-height: 100vh;
+    max-width: 100vw; */
+
+}
+
+.userprofile-main {
+    display: flex;
+
+}
+
+.back-button {
+    color: var(--Neutral-100, #F1F5F9);
+    font-family: Lato;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px;
+    color: rgba(241, 245, 249, 1);
+    background-color: transparent;
+
+}
+
+.userprofile-header {
+    display: flex;
+
+}
+
+.userprofile-account {
+    margin-left: 700px;
+    margin-bottom: 10px;
+}
+
+.userprofile-pofilecontainer {
+    margin-top: 25px;
+    width: 77vw;
+    height: 93vh;
+    border-radius: 15px;
+    background: var(--Neutral-200, #E2E8F0);
+}
+
+.info-bar {
+    border-radius: 10.457px;
+    background: var(--White, #FFF);
+    box-shadow: 0px 2.789px 6.972px 3.486px rgba(0, 0, 0, 0.09);
+    width: 77vw;
+    height: 45px;
+    flex-shrink: 0;
+}
+
+
+/* personal information page css */
+.personal-contentcard {
+    width: 900px;
+    height: 525px;
+    flex-shrink: 0;
+    border-radius: 10.457px;
+    background: var(--White, #FFF);
+    box-shadow: 0px 2.789px 6.972px 3.486px rgba(0, 0, 0, 0.09);
+}
+
+.user-profile-content {
+    display: flex;
+}
+
+.user-profile-img {
+    margin-top: 50px;
+    margin-left: 30px;
+    width: 80px;
+    height: 80px;
+    flex-shrink: 0;
+    border-radius: 100px;
+    background: url('../../asset/AretemindLogo.jpg'), lightgray 0px 0px / 100% 100% no-repeat;
+}
+.edit-profilepic{
+    margin-top: 54px;
+    margin-left: 60px;
+    cursor: pointer;
+    height: 20px;
+    width: 20px;
+}
+.user-profle-name{
+    margin-top: 60px;
+    margin-left: 20px;
+}
+.personalinfo-user-Status{
+    margin-top: 0px;
+    margin-left: 10px;
+}

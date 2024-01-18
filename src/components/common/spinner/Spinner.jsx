@@ -6,10 +6,11 @@ const Spinner = () => {
   return (
     <div style={{ backgroundColor: "transparent",display:"flex",justifyContent:"center",alignItems:"center" }}>
       <Spin
+       fullscreen
         indicator={
           <LoadingOutlined
             style={{
-              height: "30vh",
+              // height: "30vh",
               backgroundColor: "transparent",
               fontSize: 100,
             }}

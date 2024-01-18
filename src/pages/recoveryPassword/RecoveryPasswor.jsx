@@ -7,14 +7,14 @@ import GeneralForm from "../../components/common/forms/GeneralForm";
 import NotifyMessage from '../../components/common/toastMessages/NotifyMessage'
 import axios from 'axios'
 import { recoverPassword } from "../../config/api";
-// import {}
 
 import GeneralButton from "../../components/common/buttons/GeneralButton";
+import { toast } from "react-toastify";
 
 const RecoveryPasswor = () => {
   const [form] = Form.useForm();
   const [filesystem, setFileSysytem] = useState([]);
-  const [message,setMessage] = useState("")
+  const [message, setMessage] = useState("")
 
   const validatePassword = (_, value) => {
     if (value && value.length < 8) {
@@ -36,10 +36,7 @@ const RecoveryPasswor = () => {
     }
     return Promise.reject("Please enter a valid email address!");
   };
-  const submitHandler = async(values) => {
-    console.log("submitting....");
-    console.log(values);
-    // const data = recoverPassword(values);
+  const submitHandler = async (values) => {
     const url = "http://localhost:8081/users/forgetPassword";
     const data = values;
 
@@ -47,22 +44,22 @@ const RecoveryPasswor = () => {
       const response = await axios.post(url, data, {
         headers: {
           "Content-Type": "application/json",
-          // "Authorization": "Bearer YOUR_ACCESS_TOKEN"
         },
       });
 
-      // Handle the response as needed
-      console.log("Mail send to your email:", response.data.message);
-      setMessage(response.data.message);
-      // useEffect(() => {
-        
-      // });
+      console.log("Mail sent to your email:", response.data.message);
+      toast.success("An email has been sent to the given email id with a reset password link.");
     } catch (error) {
-      // Handle errors
-      console.error("Enter a valid email:", error.response.data.message);
-      setMessage(error.response.data.message);
+      console.error("Error:", error.response.data.message);
+
+      if (error.response && error.response.status === 404) {
+        toast.error("Entered email id is not registered. Please enter a valid email id.");
+      } else {
+        toast.error("An error occurred. Please try again.");
+      }
     }
-    
+
+
     console.log(data);
   };
   const cancelHandler = (errorInfo) => {
@@ -77,7 +74,7 @@ const RecoveryPasswor = () => {
       label: "Email",
       type: "email",
       name: "email",
-      iconClass: <MailOutlined />,
+      // iconClass: <MailOutlined />,
       rules: [
         { required: true, message: "Please input your Enter your email" },
         { type: "name", message: "Invalid Email" },
@@ -85,11 +82,13 @@ const RecoveryPasswor = () => {
     },
   ];
   const submitButtonProperty = {
-    name: "Reset",
+    name: "Submit",
     color: "white",
-    backgroundColor: "#f64e60",
+    backgroundColor: "#6366F1",
     type: "primary",
     width: "400px",
+    height: "47px",
+    borderRadius: "30px"
   };
   const feedingVariable = {
     isCancel: false,
@@ -116,7 +115,10 @@ const RecoveryPasswor = () => {
             <div className="row mainContent">
               <div className="box-round">
                 <div className="text-top">
-                  <h2>Recover Password</h2>
+                  <h2>Forgot Password</h2>
+                  <p>Please use your organization email id.
+                  </p>
+
                 </div>
                 <div className="form-content">
                   <GeneralForm {...feedingVariable} />

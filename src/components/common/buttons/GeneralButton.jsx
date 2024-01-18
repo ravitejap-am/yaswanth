@@ -10,6 +10,7 @@ const GeneralButton = ({
   // buttonHandler,
   isCallbackData,
   boxShadow,
+  borderRadius
 }) => {
   console.log(buttonProps);
   return (
@@ -30,6 +31,7 @@ const GeneralButton = ({
         width: width,
         height: height,
         boxShadow: boxShadow,
+        borderRadius:borderRadius
       }}
     >
       {name}

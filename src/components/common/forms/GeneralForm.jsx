@@ -58,6 +58,16 @@ const GeneralForm = (props) => {
               }}
             />
           ),
+          tel: (
+            <Input
+              type={item.type}
+              placeholder={item.label}
+              iconClass={item.iconClass}
+              onChange={(e) => {
+                form.setFieldValue({ [item.name]: e.target.value });
+              }}
+            />
+          ),
           password: (
             <Input
               type={item.type}
@@ -129,21 +139,7 @@ const GeneralForm = (props) => {
           </Form.Item>
         );
       })}
-      {formType === "signin" && (
-        <>
-          <Link
-            to={"/recoverypassword"}
-            style={{ display: "flex", justifyContent: "end" }}
-          >
-            <p>
-              <span>
-                <LockFilled />
-              </span>
-              Forgot password
-            </p>
-          </Link>
-        </>
-      )}
+      
       <Form.Item noStyle wrapperCol={{ offset: 6, span: 18 }}>
         <div className="center" style={{ gap: "2em", marginTop: "1em" }}>
           {isSubmit && (
@@ -156,6 +152,7 @@ const GeneralForm = (props) => {
               width={submitButtonProperty.width}
               height={submitButtonProperty.height}
               boxShadow={submitButtonProperty.boxShadow}
+              borderRadius={submitButtonProperty.borderRadius}
             />
           )}
           {isCancel && (
@@ -166,6 +163,21 @@ const GeneralForm = (props) => {
           )}
         </div>
       </Form.Item>
+      {formType === "signin" && (
+        <>
+          <Link
+            to={"/recoverypassword"}
+            style={{ display: "flex", justifyContent: "center", color:"Black" }}
+          >
+            <p>
+              <span>
+                {/* <LockFilled /> */}
+              </span>
+              Forgot your password
+            </p>
+          </Link>
+        </>
+      )}
     </Form>
   );
 };

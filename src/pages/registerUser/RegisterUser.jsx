@@ -1,22 +1,25 @@
 import React, { useEffect, useState } from "react";
 import "./registerUser.module2.css";
-import { UserOutlined } from "@ant-design/icons";
-import { MailOutlined } from "@ant-design/icons";
 import { Form, message } from "antd";
 import NotifyMessage from "../../components/common/toastMessages/NotifyMessage";
 import Spinner from "../../components/common/spinner/Spinner";
-// import { registerDetails } from "../../config/api";
 import axios from "axios";
-
 import GeneralForm from "../../components/common/forms/GeneralForm";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const RegisterUser = () => {
-  // const [registrationMessage, setRegistationMessgae] = useState("");
   const [signupMessage, setSignupMessage] = useState();
   const [loader, setLoader] = useState(false);
   const [form] = Form.useForm();
   const [filesystem, setFileSysytem] = useState([]);
+
+  useEffect(() => {
+    // Show toast when signupMessage changes
+    if (signupMessage) {
+      toast.success(signupMessage);
+    }
+  }, [signupMessage]);
 
   const validatePassword = (_, value) => {
     if (value && value.length < 8) {
@@ -25,24 +28,17 @@ const RegisterUser = () => {
       return Promise.resolve();
     }
   };
+
   const validateEmail = (_, value) => {
-    console.log(value);
-    let isValid = value;
-    console.log(value);
-    console.log(isValid);
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    console.log(emailRegex.test(isValid));
-    console.log(!!isValid);
-    if (isValid && emailRegex.test(isValid)) {
+    if (value && emailRegex.test(value)) {
       return Promise.resolve();
     }
     return Promise.reject("Please enter a valid email address!");
   };
-  const submitHandler = async (values) => {
-    console.log("submitting....");
-    console.log(values);
 
-    const url = "http://localhost:8081/users/register";
+  const submitHandler = async (values) => {
+    const url = "https://jsonplaceholder.cypress.io/posts";
     const data = values;
 
     try {
@@ -50,45 +46,38 @@ const RegisterUser = () => {
       const response = await axios.post(url, data, {
         headers: {
           "Content-Type": "application/json",
-          // "Authorization": "Bearer YOUR_ACCESS_TOKEN"
         },
       });
 
-      // Handle the response as needed
       console.log("Registration successful:", response.data);
-      setSignupMessage(response.data.data);
-      setLoader(false);
-      AbortSignal(1000)
-      setSignupMessage("")
-      // {message?setLoader(false):setLoader(true)}
-      // useEffect(() => {
-
-      // });
+      toast.success("Congratulations!! You are successfully signed up with your organization email id.");
     } catch (error) {
-      // Handle errors
-      console.error("Registration failed:", error.response.data);
-      setSignupMessage(error.response.data.message);
+      console.error("Registration failed:", error.response?.data);
+
+      if (error.response && error.response.status === 400) {
+        toast.error("Please sign up with your organization email id. If your organization is not registered with us, please reach out to sales@areteminds.com");
+      }
+      // else if (error.response && error.response.status === 403) {
+      //   toast.warn("Please sign up with your organization email id. If your organization is not registered with us, please reach out to sales@areteminds.com");
+      // } 
+      else {
+        toast.error("An error occurred. Please try again.");
+      }
+    } finally {
       setLoader(false);
-      // {message?setLoader(false):setLoader(true)}
     }
-    //  const res= registerDetails(values);
-    // console.log(res);
   };
-  console.log(signupMessage);
 
   const cancelHandler = (errorInfo) => {
     console.log("Canceling....");
     console.log(errorInfo);
   };
-  // const validateConfirmPassword=()=>{
 
-  // }
   const formElements = [
     {
       label: "Full Name",
       type: "text",
       name: "name",
-      iconClass: <UserOutlined />,
       rules: [
         { required: true, message: "Please input your Full Name" },
         { type: "name", message: "Invalid user Name" },
@@ -98,46 +87,46 @@ const RegisterUser = () => {
       label: "Email",
       type: "email",
       name: "email",
-      iconClass: <MailOutlined />,
       rules: [
         { required: true, message: "Please input your Enter your email" },
         { type: "name", message: "Invalid Email" },
       ],
     },
-
     {
       label: "Password",
       type: "password",
       name: "password",
       rules: [
-        { required: true, message: "Please input your password!" },
+        { required: true, message: "Please input valid password!" },
         { validator: validatePassword },
       ],
     },
     {
-      label: "Confirm Password",
+      label: " Confirm Password",
       type: "password",
       name: "confirmPassword",
       rules: [
         { required: true, message: "Please confirm your password!" },
-        // { validator: validateConfirmPassword },
       ],
     },
   ];
+
   const submitButtonProperty = {
     name: "Sign Up",
     color: "white",
-    backgroundColor: "#f64e60",
+    backgroundColor: "#6366F1",
     type: "primary",
     width: "400px",
+    height: "50px",
+    borderRadius: "35px"
   };
+
   const feedingVariable = {
     isCancel: false,
     cancelHandler: cancelHandler,
     isSubmit: true,
     submitHandler: submitHandler,
     submitButtonProperty: submitButtonProperty,
-    // cancelButtonProperty: cancelButtonProperty,
     formElements: formElements,
     formType: "normal",
     forgorPasswordHandler: () => {
@@ -150,41 +139,37 @@ const RegisterUser = () => {
   return (
     <div className="main">
       <div className="container">
-        {" "}
         <div className="row">
           <div className="col">
             <div className="row mainContent">
               <div className="box-round">
                 <div className="text-top">
-                  <h2>Get started with Us</h2>
-                  <p>Register a new membership</p>
+                  <h2>Sign Up</h2>
+                  <p>Please sign up with your organization email id. If your <br />organization is not registered with us, please reach out to <br />sales@areteminds.com</p>
                 </div>
-                {loader ? (
-                  <Spinner />
-                ) : (
-                  <div>
-                    <div className="form-content">
-                      <GeneralForm {...feedingVariable} />
-                      <div className="alreadySignIn">
-                        <p>
-                          Already have an account?{" "}
-                          <Link to={"/signin"} className="danger-text">
-                            Sign In
-                          </Link>
-                          <a href=""></a>
-                        </p>
-                      </div>
+
+                <div>
+                  <div className="form-content">
+                    <GeneralForm {...feedingVariable} />
+                    <div className="alreadySignIn">
+                      <p>
+                        Already have an account?{" "}
+                        <Link to={"/signin"} className="danger-text">
+                          Sign In
+                        </Link>
+                        <a href=""></a>
+                      </p>
                     </div>
                   </div>
-                )}
+                </div>
+
               </div>
             </div>
           </div>
         </div>
       </div>
-      {signupMessage ? (
-        <NotifyMessage message={signupMessage ? signupMessage : null} />
-      ) : null}
+      {loader ? <Spinner /> : null}
+      <NotifyMessage message={signupMessage ? signupMessage : null} errorHandle={false} />
     </div>
   );
 };

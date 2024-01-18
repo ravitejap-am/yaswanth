@@ -1,12 +1,10 @@
 import { useState } from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import LoginPageError from "./pages/errorHandler/LoginPageError";
 // import Login from './pages/login/Login';
 import Home from "./pages/home/Home";
 import RegisterUser from "./pages/registerUser/RegisterUser";
-import SignUp from "../src/components/iam/signUp/SignUp";
 import SignIn from "./pages/signIn/SignIN";
 import RecoveryPasswor from "./pages/recoveryPassword/RecoveryPasswor";
 // import LockScreen from "./pages/lockerScreen/LockScreen";
@@ -15,8 +13,11 @@ import Page505 from "./pages/errorHandler/InternalServerError/Page505";
 import MaintainencePage from "./pages/errorHandler/UnderMaintainence/MaintainencePage";
 // import ChatHome from "./pages/chat/ChatHome/ChatHome";
 // import ChatHome from "./pages/chat/ChatHome/ChatHome";
-import Chat  from "./pages/chat/Chat";
-
+import ResetPassword from "./pages/setPassword/ResetPassword";
+import AmchatMainUser from "./pages/chatmain/userChat/AMChatMainUser";
+import UserProfile from "./pages/chatmain/UserProfile";
+import PersonalInformation from "./pages/chatmain/PersonalInformation";
+  
 function App() {
   const [screen, setScreen] = useState("beforeLogin");
   const [isSidebarClicked, setSidebarClicked] = useState(false);
@@ -59,17 +60,33 @@ function App() {
         element={<MaintainencePage />}
         errorElement={<LoginPageError />}
       />
-      <Route
-        path="/chat"
-        element={<Chat />}
-        errorElement={<LoginPageError />}
-      />
+
       <Route
         path="/signin"
         element={<SignIn />}
         errorElement={<LoginPageError />}
       />
+      <Route
+      path="/AmChatMainUser"
+      element={<AmchatMainUser/>}
+     />
+
+      <Route
+        path="/ResetPassword"
+        element={<ResetPassword />}/>
+
+        <Route
+        path="/UserProfile"
+        element={<UserProfile/>}/>
+
+        <Route
+        path="/PersonalInformation"
+        element={<PersonalInformation/>}/>
     </Routes>
+    
+
+
+
   );
 }
 
