@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Form } from "antd";
-import { MailOutlined } from "@ant-design/icons";
 import GeneralForm from "../../components/common/forms/GeneralForm";
-import { sendLoginDetails } from "../../config/api";
 import axios from "axios";
+import { toast } from 'react-toastify';
+import NotifyMessage from '../../components/common/toastMessages/NotifyMessage';
 
 const SignIn = () => {
   const [form] = Form.useForm();
   const [filesystem, setFileSysytem] = useState([]);
-  console.log(form);
+
   const validatePassword = (_, value) => {
     if (value && value.length < 8) {
       return Promise.reject("Password must be at least 8 characters");
@@ -17,23 +17,17 @@ const SignIn = () => {
       return Promise.resolve();
     }
   };
+
   const validateEmail = (_, value) => {
-    console.log(value);
-    let isValid = value;
-    console.log(value);
-    console.log(isValid);
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    console.log(emailRegex.test(isValid));
-    console.log(!!isValid);
-    if (isValid && emailRegex.test(isValid)) {
+    if (value && emailRegex.test(value)) {
       return Promise.resolve();
     }
     return Promise.reject("Please enter a valid email address!");
   };
+
   const submitHandler = async (values) => {
-    console.log("submitting....");
-    console.log(values);
-    const url = "http://localhost:8081/users/login";
+    const url = "https://jsonplaceholder.typicode.com/users"; //dummy Api
 
     try {
       const response = await axios.post(url, values, {
@@ -42,14 +36,23 @@ const SignIn = () => {
         },
       });
 
-      // Handle the response as needed
-      console.log("Registration successful:", response);
+      console.log("Login successful:", response);
+      toast.error("Your email ID is not registered. Please Sign Up.");
     } catch (error) {
-      // Handle errors
-      // console.error("Registration failed:", error.response.data);
-      console.log(error);
+      console.error("Login failed:", error.response);
+
+      if (error.response && error.response.status === 404) {
+        toast.error("Your email ID is not registered. Please Sign Up.");
+      } else if (error.response && error.response.status === 400) {
+        toast.error("Invalid email or password");
+      } else if (error.response && error.response.status === 403) {
+        toast.error("Your organization email domain is not registered with us. Please reach out to sales@areteminds.com");
+      } else if (error.response && error.response.status === 403) {
+        toast.error("Looks like your account has been closed. Please check with your organizational admin.");
+      } else {
+        toast.error("An error occurred. Please try again.");
+      }
     }
-    // sendLoginDetails(values);
   };
   const cancelHandler = (errorInfo) => {
     console.log("Canceling....");
@@ -58,14 +61,14 @@ const SignIn = () => {
 
   const formElements = [
     {
-      label: "Enter Email",
+      label: "Email",
       type: "email",
       name: "email",
-      iconClass: <MailOutlined />,
       rules: [
         { required: true, message: "Please input your email" },
-        { type: "name", message: "Invalid user Name" },
+        { type: "email", message: "Invalid email format" },
       ],
+      style:{}
     },
     {
       label: "Password",
@@ -77,20 +80,23 @@ const SignIn = () => {
       ],
     },
   ];
+
   const submitButtonProperty = {
-    name: "Sign In",
+    name: "Login",
     color: "white",
-    backgroundColor: "#f64e60",
+    backgroundColor: "#6366F1",
     type: "primary",
-    width: "400px",
+    width: "436px",
+    height: "50px",
+    borderRadius: "30px",
   };
+
   const feedingVariable = {
     isCancel: false,
     cancelHandler: cancelHandler,
     isSubmit: true,
     submitHandler: submitHandler,
     submitButtonProperty: submitButtonProperty,
-    // cancelButtonProperty: cancelButtonProperty,
     formElements: formElements,
     formType: "normal",
     forgorPasswordHandler: () => {
@@ -100,18 +106,19 @@ const SignIn = () => {
     setFileSysytem: setFileSysytem,
     formType: "signin",
   };
+
   return (
     <div className="main">
       <div className="container">
-        {" "}
         <div className="row">
           <div className="col">
             <div className="row mainContent">
               <div className="box-round">
                 <div className="text-top">
-                  <h2>Let's Get Started</h2>
-                  <p>Sign in to continue to AM-Chat.</p>
+                  <h2>Sign In</h2>
+                  <p>Please sign in with your organization email id</p>
                 </div>
+
                 <div className="form-content">
                   <GeneralForm {...feedingVariable} />
 
@@ -129,6 +136,7 @@ const SignIn = () => {
           </div>
         </div>
       </div>
+      <NotifyMessage/>
     </div>
   );
 };

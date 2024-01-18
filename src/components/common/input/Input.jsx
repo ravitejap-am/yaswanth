@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Style from "./input.module.css";
-import { EyeOutlined, EyeInvisibleOutlined } from "@ant-design/icons";
+// import { EyeOutlined, EyeInvisibleOutlined } from "@ant-design/icons";
 
 const Input = ({
   type,
@@ -24,18 +24,18 @@ const Input = ({
             <i>{iconClass ? iconClass : null}</i>
           </span>
         ) : null}
-        {type === "password" ? (
+        {/* {type === "password" ? (
           <span className={Style.inputgrouptext}>
             <i onClick={handleOnClick}>
               {visible ? <EyeInvisibleOutlined /> : <EyeOutlined />}
             </i>
           </span>
-        ) : null}
+        {/* ) : null} */}
         <div className={Style.labelStyle}>
           <label>{labelName ? labelName : null}</label>
           <input
             type={visible ? "text" : type}
-            className="form-control"
+            className={Style.formStyle}
             placeholder={placeholder}
             // value
             onChange={onChange}
@@ -44,6 +44,7 @@ const Input = ({
           />
         </div>
         <br />
+
       </div>
     </div>
   );

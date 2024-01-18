@@ -63,6 +63,16 @@ const GeneralForm = (props) => {
               style={item.style}
             />
           ),
+          tel: (
+            <Input
+              type={item.type}
+              placeholder={item.label}
+              iconClass={item.iconClass}
+              onChange={(e) => {
+                form.setFieldValue({ [item.name]: e.target.value });
+              }}
+            />
+          ),
           password: (
             <Input
               labelName={item.labelName ? item.label : null}
@@ -166,21 +176,7 @@ const GeneralForm = (props) => {
           </Form.Item>
         );
       })}
-      {formType === "signin" && (
-        <>
-          <Link
-            to={"/recoverypassword"}
-            style={{ display: "flex", justifyContent: "end" }}
-          >
-            <p>
-              <span>
-                <LockFilled />
-              </span>
-              Forgot password
-            </p>
-          </Link>
-        </>
-      )}
+      
       <Form.Item noStyle wrapperCol={{ offset: 6, span: 18 }}>
         <div className="center" style={{ gap: "2em", marginTop: "1em" }}>
           {isSubmit && (
@@ -204,6 +200,21 @@ const GeneralForm = (props) => {
           )}
         </div>
       </Form.Item>
+      {formType === "signin" && (
+        <>
+          <Link
+            to={"/recoverypassword"}
+            style={{ display: "flex", justifyContent: "center", color:"Black" }}
+          >
+            <p>
+              <span>
+                {/* <LockFilled /> */}
+              </span>
+              Forgot your password
+            </p>
+          </Link>
+        </>
+      )}
     </Form>
   );
 };
