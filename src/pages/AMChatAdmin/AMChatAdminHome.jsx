@@ -4,7 +4,7 @@ import AMChat from './AMChatBackgound/AMChat'
 function AMChatAdminHome() {
   return (
     <div>
-      <AMChat/>
+      <AMChat renderComponent="SuperAdminAMChatCard"/>   
     </div>
   )
 }

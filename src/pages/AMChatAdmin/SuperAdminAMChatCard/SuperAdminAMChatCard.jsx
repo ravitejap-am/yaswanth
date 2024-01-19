@@ -7,16 +7,16 @@ import circle1 from "../../../asset/AmChatSuperAdmin/Group23.png";
 import circle2 from "../../../asset/AmChatSuperAdmin/Group24.png";
 import profile from "../../../asset/AmChatSuperAdmin/profile.png";
 import Logo from "../../../asset/Vector.png";
-import Search from "antd/es/input/Search";
+import Search from "../../../components/common/search/Search";
 // import flowImage from "../../../asset/AmChatSuperAdmin/Flow.svg";
 
 function SuperAdminAMChatCard() {
   const contentArray = [
-    "Can you tell me about GDPR policy?",
-    "PCI compliance?",
-    "PII compliance?",
-    "Can you explain what's wrong with my lab report? ",
-    " Can you explain the Pythagorean theorem?",
+    "Could you help me with the maternity policy of my organization?",
+    "Can you tell me about GDPR compliance.  Which I should follow in my organization?",
+    "Can you explain me the Pythagoras theorem based on. ",
+    "Can you tell me what's wrong in my lab reports?  ",
+    "Can you explain me the quantum mechanics? ",
   ];
   return (
     <div className={Styles.superAdminMainCardDivStyle}>
@@ -45,16 +45,12 @@ function SuperAdminAMChatCard() {
                 <img src={circle1} alt="" />
               </div>
               <div className={Styles.titlePriceStyle}>
-                <div>
-                  <p className={Styles.titleStyle}>Total Documents Uploaded</p>
-                </div>
-                <div>
-                  <p className={Styles.priceStyle}>500</p>
-                </div>
+                <p className={Styles.titleStyle}>Total Documents Uploaded</p>
+                <p className={Styles.priceStyle}>500</p>
               </div>
             </div>
 
-            <div>
+            <div className={Styles.flowImageParentDiv}>
               <img src={flow} alt="" className={Styles.flowImageStyle} />
               <img
                 src={flowImage2}
@@ -96,47 +92,39 @@ function SuperAdminAMChatCard() {
 
         <div>
           <Card className={Styles.superAdminCardStyles}>
-            <div>
-              <div className="AI_chat_Parent_Card">
-                <Card className="AM_Chat_Main_Card">
-                  <div className="AM_Chat_Main_Card_Title_Div">
-                    <div>
-                      <div className={Styles.appHeading}>
-                        <div className={Styles.appLogo}>
-                          <span className="am-chat-title">AM-Chat</span>
-                          <span className={Styles.appName}>
-                            <img src={Logo} alt="" />
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="AM_chat_first_title">
-                      <div>Hello, I’m AM-Chat</div>
-                      <div className="AM_chat_second_title">
-                        How can I help you today?
-                      </div>
-                    </div>
+            <div className={Styles.AMChatMainCardTitleDiv}>
+              <div className={Styles.SuperAdminAmChatStyle}>
+                <div className={Styles.appHeading}>
+                  <div className={Styles.appLogo}>
+                    <span className={Styles.amChatTitle}>AM-Chat</span>
+                    <span className={Styles.appName}>
+                      <img src={Logo} alt="" />
+                    </span>
                   </div>
-
-                  <div className="Example_main_div">
-                    <div className="Card_message_example_main">
-                      {contentArray.map((content, index) => (
-                        <p key={index} className="Card_message_example">
-                          {content}
-                        </p>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="AI_chat_input_box">
-                    <Search
-                      name={
-                        "Explore your organizational knowledge base using the power of GenAI."
-                      }
-                    />
-                  </div>
-                </Card>
+                </div>
               </div>
+              <div className={Styles.superAdminAMChatMiddleDiv}>
+                <div className={Styles.AMChatFirstTitle}>
+                  Hello, I’m AM-Chat
+                </div>
+                <div className={Styles.AMChatSecondTitle}>
+                  How can I help you today?
+                </div>
+              </div>
+            </div>
+
+            <div className="Example_main_div">
+              <div className="Card_message_example_main">
+                {contentArray.map((content, index) => (
+                  <p key={index} className="Card_message_example">
+                    {content}
+                  </p>
+                ))}
+              </div>
+            </div>
+
+            <div className={Styles.AIChatInputBox}>
+              <Search name={"Ask anything.."} />
             </div>
           </Card>
         </div>

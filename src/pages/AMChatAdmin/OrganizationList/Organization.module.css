@@ -1,0 +1,57 @@
+.superAdminMainCardDivStyle {
+  width: 96% !important;
+  height: 100%;
+  margin: 20px;
+  border-radius: 15px;
+  background: var(--Neutral-50, #f8fafc);
+}
+.superAdminCardStyle {
+  width: 100%;
+  height: 800px !important;
+}
+.superAdminMiddleParentDiv {
+  width: 96%;
+  height: 100%;
+  border-radius: 15px;
+  background: var(--Neutral-50, #f8fafc);
+  padding: 20px;
+}
+.superAdminProfileName {
+  color: var(--Brand-900, #312e81);
+
+  /* text-3xl/font-semibold */
+  font-family: Montserrat;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 36px; /* 120% */
+}
+.AdminProfileStyle {
+  width: 25%;
+  height: 35%;
+}
+.SuperAdminProfileStyle {
+  color: var(--Neutral-900, #0f172a);
+  margin-left: 10px;
+  font-family: Lato;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 28px;
+}
+.superAdminProfileCardStyle {
+  display: flex;
+  flex-direction: row;
+  gap: 60%;
+}
+.bannerBtn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.OrganizationListTable {
+  padding-top: 25px;
+}
+.tableHeadLabelStyle {
+  font-weight: 1.2rem;
+}

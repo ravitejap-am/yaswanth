@@ -39,7 +39,7 @@
   font-size: 18px;
   font-style: normal;
   font-weight: 600;
-  line-height: 28px; /* 155.556% */
+  line-height: 28px;
 }
 .superAdminProfileCardStyle {
   display: flex;
@@ -50,14 +50,14 @@
   /* display: flex; */
 }
 .superAdminMiddleCardCircle1Style {
-  margin-top: 37px;
+  margin-top: 20px;
   margin-right: 29px;
   margin-left: 23px;
 }
 .superAdminMiddleChildDiv {
   display: flex;
   justify-content: space-between;
-  height: 118px;
+  height: 100px;
 }
 .superAdminMiddleCardStyle {
   width: 490px;
@@ -66,18 +66,23 @@
   justify-content: center;
   align-items: center;
 }
+.flowImageParentDiv {
+  margin-top: -6px;
+  height: 100%;
+  width: 100%;
+}
 .flowImageStyle {
   width: 100%;
-  height: 25px;
   position: relative;
-  top: -18px;
-  border-radius: 10px;
+  top: -35px;
+  border-radius: 20px;
 }
 .flowBelowImageStyle {
   width: 100%;
-  height: 25px;
-  border-radius: 10px;
-  margin-top: -30px;
+  position: relative;
+  bottom: 50px;
+  border-radius: 20px;
+  
 }
 .row {
   display: flex;
@@ -89,9 +94,10 @@
 .priceStyle {
   color: var(--Neutral-900, #0f172a);
   font-family: Montserrat;
-  font-size: 30px;
+  font-size: 28px;
   font-style: normal;
-  font-weight: 700;
+  font-weight: 600;
+  margin-top: -20px;
 }
 .titleStyle {
   color: var(--Neutral-900, #0f172a);
@@ -102,8 +108,8 @@
   line-height: 20px;
 }
 .titlePriceStyle {
+  /* height: 20px !important; */
 }
-
 .superAdminCardStyles {
   width: 100%;
   height: 664px;
@@ -117,7 +123,7 @@
   font-style: normal;
   font-weight: 700;
   line-height: 24px;
-  margin-left: 50px;
+  /* margin-left: 50px; */
 }
 .am-chat-title {
   color: var(--Neutral-900, #0f172a);
@@ -147,7 +153,10 @@
   background: var(--White, #fff);
   box-shadow: 0px 2.789px 6.972px 3.486px rgba(0, 0, 0, 0.09);
 }
-.AM_chat_first_title {
+.superAdminAMChatMiddleDiv {
+  margin-top: 80px;
+}
+.AMChatFirstTitle {
   color: var(--Brand-900, #312e81);
   font-family: Montserrat;
   font-size: 24px;
@@ -157,7 +166,7 @@
   justify-content: center;
   align-items: center;
 }
-.AM_chat_second_title {
+.AMChatSecondTitle {
   color: var(--Black, #000);
   font-family: Lato;
   font-size: 16px;
@@ -168,18 +177,34 @@
   justify-content: center;
   padding-top: 10px;
 }
-.AM_Chat_Main_Card_Title_Div {
-  display: flex;
+.AMChatMainCardTitleDiv {
+  display: block;
   justify-content: center;
   width: 100%;
   text-align: center;
+  padding-top: 60px;
+}
+.amChatTitle {
+  color: var(--Neutral-900, #0f172a);
+  font-family: "Red Rose";
+  font-size: 43.333px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 65px;
+}
+.SuperAdminAmChatStyle {
+  display: contents;
+  justify-content: center;
+  align-items: center;
 }
 
 .Example_main_div {
-  padding-top: 50px;
+  padding-top: 10px;
 }
-.AI_chat_input_box {
+.AIChatInputBox {
   padding-top: 20px;
+  width: 988px;
+  height: 70px;
 }
 .Card_message_example {
   display: inline-flex;
