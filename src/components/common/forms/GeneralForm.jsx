@@ -71,6 +71,7 @@ const GeneralForm = (props) => {
               onChange={(e) => {
                 form.setFieldValue({ [item.name]: e.target.value });
               }}
+              style={item.style}
             />
           ),
           password: (
@@ -82,7 +83,9 @@ const GeneralForm = (props) => {
               onChange={(e) => {
                 form.setFieldValue({ [item.name]: e.target.value });
               }}
+              style={item.style}
             />
+            
           ),
           confirmPassword: (
             <Input

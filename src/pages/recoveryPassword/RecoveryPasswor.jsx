@@ -86,7 +86,7 @@ const RecoveryPasswor = () => {
     color: "white",
     backgroundColor: "#6366F1",
     type: "primary",
-    width: "400px",
+    width: "456px",
     height: "47px",
     borderRadius: "30px"
   };

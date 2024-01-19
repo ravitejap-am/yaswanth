@@ -18,7 +18,10 @@ import AmchatMainUser from "./pages/chatmain/userChat/AMChatMainUser";
 import UserProfile from "./pages/chatmain/UserProfile";
 import PersonalInformation from "./pages/chatmain/PersonalInformation";
 import AMChatAdminHome from "./pages/AMChatAdmin/AMChatAdminHome";
-  
+import ChangePassword from "./pages/chatmain/ChangePassword";
+import Plans from "./pages/chatmain/Plans";
+import OrgAdmin from "./pages/chatmain/organizationadmin/OrgAdmin";
+import AddUser from "./pages/chatmain/organizationadmin/AddUser";
 function App() {
   const [screen, setScreen] = useState("beforeLogin");
   const [isSidebarClicked, setSidebarClicked] = useState(false);
@@ -81,9 +84,21 @@ function App() {
         path="/UserProfile"
         element={<UserProfile/>}/>
 
-        <Route
+        {/* <Route
         path="/PersonalInformation"
-        element={<PersonalInformation/>}/>
+        element={<PersonalInformation/>}/> */}
+
+        {/* <Route
+        path="/changepassword"
+        element={<ChangePassword/>}/> */}
+
+        <Route
+        path="/adduser"
+        element={<AddUser/>}/>
+
+        <Route
+        path="orgadmin"
+        element={<OrgAdmin/>}/>
     </Routes>
     
 

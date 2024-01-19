@@ -1,25 +1,42 @@
 .userprofile-screen {
     background: linear-gradient(114deg, #0F172A 51.52%, #152346 73.32%, #1A2E5E 92.75%);
-    /* max-height: 100vh;
-    max-width: 100vw; */
-
+    width: 100vw;
+    height: 800px;
 }
 
 .userprofile-main {
     display: flex;
+}
+
+.sidebar-amchat {
+    margin-top: 20px;
 
 }
 
-.back-button {
+.sidebar-amchat h2 {
+    color: var(--White, #FFF);
+    font-family: Lato;
+    font-size: 28.667px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 43px;
+    /* 150% */
+}
+
+.back-link {
+    margin-top: 70px;
     color: var(--Neutral-100, #F1F5F9);
     font-family: Lato;
     font-size: 16px;
     font-style: normal;
     font-weight: 700;
     line-height: 24px;
-    color: rgba(241, 245, 249, 1);
-    background-color: transparent;
 
+}
+
+.left-back-icon {
+    margin-right: 10px;
+    margin-top: 10px;
 }
 
 .userprofile-header {
@@ -29,13 +46,56 @@
 
 .userprofile-account {
     margin-left: 700px;
-    margin-bottom: 10px;
+    margin-bottom: 0px;
+}
+
+.userprofile-account-name {
+    margin-top: -20px;
+    display: flex;
+
+}
+
+.userprofile-account-name h2 {
+    color: var(--Brand-700, #4338CA);
+
+    /* text-lg */
+    font-family: Lato;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 28px;
+    /* 155.556% */
+}
+
+.userprofile-profile {
+    color: var(--Brand-900, #312E81);
+
+    /* text-2xl/font-semibold */
+    font-family: Montserrat;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 32px;
+    /* 133.333% */
+    margin-left: 20px;
+}
+
+.profile-account-img {
+    margin-top: 10px;
+    margin-right: 10px;
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    border-radius: 50px;
+    border: 1px solid var(--Brand-700, #4338CA);
+    /* background: url(../../asset/—Pngtree—man\ in\ shirt\ smiles\ and_13146336\ 1.png); */
 }
 
 .userprofile-pofilecontainer {
+    margin-left: -20px;
     margin-top: 25px;
     width: 77vw;
-    height: 93vh;
+    height: 740px;
     border-radius: 15px;
     background: var(--Neutral-200, #E2E8F0);
 }
@@ -44,16 +104,66 @@
     border-radius: 10.457px;
     background: var(--White, #FFF);
     box-shadow: 0px 2.789px 6.972px 3.486px rgba(0, 0, 0, 0.09);
-    width: 77vw;
+    width: 942px;
     height: 45px;
     flex-shrink: 0;
+    margin-left: 20px;
 }
 
+.info-bar {
+    color: var(--Neutral-900, #0F172A);
+    font-family: Lato;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px;
+}
+
+.barinfo-personalinfo {
+    margin-left: 20px;
+    color: var(--Neutral-900, #0F172A);
+
+    /* text-base */
+    font-family: Lato;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 24px;
+    text-decoration: none;
+
+
+}
+
+.barinfo-changepassword {
+    margin-left: 40px;
+    color: var(--Neutral-900, #0F172A);
+    font-family: Lato;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px;
+    text-align: center;
+    text-decoration: none;
+}
+
+.barinfo-plans {
+    margin-left: 40px;
+    color: var(--Neutral-900, #0F172A);
+    font-family: Lato;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 24px;
+    text-decoration: none;
+
+}
 
 /* personal information page css */
 .personal-contentcard {
-    width: 900px;
-    height: 525px;
+    margin-top: 35px;
+    margin-right: 20px;
+    width: 940px;
+    height: 409px;
     flex-shrink: 0;
     border-radius: 10.457px;
     background: var(--White, #FFF);
@@ -73,18 +183,160 @@
     border-radius: 100px;
     background: url('../../asset/AretemindLogo.jpg'), lightgray 0px 0px / 100% 100% no-repeat;
 }
-.edit-profilepic{
+
+.edit-profilepic {
     margin-top: 54px;
     margin-left: 60px;
     cursor: pointer;
     height: 20px;
     width: 20px;
 }
-.user-profle-name{
+
+.user-profle-name {
     margin-top: 60px;
     margin-left: 20px;
 }
-.personalinfo-user-Status{
-    margin-top: 0px;
+
+.personalinfo-user-Status {
+    /* margin-bottom: 10px; */
     margin-left: 10px;
+    color: var(--Neutral-700, #334155);
+    font-family: Lato;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 28px;
 }
+
+.startchat-button {
+    margin-top: 50px;
+}
+
+.personalinfo-user-Status p {
+    margin-top: -10px;
+}
+
+.personalinput-allfields {
+    display: flex;
+    margin-top: 20px;
+}
+
+.prsnolinfo-inputdields input {
+    border-radius: 30px;
+    border: 1px solid var(--Neutral-400, #94A3B8);
+    background: var(--Neutral-300, #CBD5E1);
+    width: 356px;
+    height: 40px;
+    flex-shrink: 0;
+}
+
+.prsnolinfo-inputdields {
+    margin-left: 20px;
+}
+
+.active-dropdown-input {
+    margin-top: 10px;
+    border-radius: 30px;
+    border: 1px solid var(--Neutral-400, #94A3B8);
+    width: 356px;
+    height: 40px;
+    flex-shrink: 0;
+}
+
+
+/* ChangePassword css */
+.changepassword-main {
+
+    margin-top: 35px;
+    width: 940px;
+    height: 340px;
+    flex-shrink: 0;
+    border-radius: 10.457px;
+    background: var(--White, #FFF);
+    box-shadow: 0px 2.789px 6.972px 3.486px rgba(0, 0, 0, 0.09);
+}
+
+.changepassword-input {}
+
+/* plans css */
+.plans-main {
+    margin-top: 35px;
+    border-radius: 10.457px;
+    background: var(--White, #FFF);
+    box-shadow: 0px 2.789px 6.972px 3.486px rgba(0, 0, 0, 0.09);
+    width: 940px;
+    margin-left: 1px;
+}
+
+.active-plan h2 {
+    color: var(--Neutral-900, #0F172A);
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 32px;
+
+}
+
+.active-plan {
+    margin-left: 25px;
+}
+
+.active-plan p {
+    color: var(--Neutral-700, #334155);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+
+}
+
+.note-p-text p {
+    color: var(--Red-rose-600, #E11D48);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+}
+
+.right-icon {
+    margin-right: 5px;
+}
+
+.userprofile-footer {
+    color: var(--White, #FFF);
+
+    /* text-sm */
+    font-family: Lato;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    /* 142.857% */
+    text-align: center;
+    margin-left: 30px;
+}
+
+
+.info-bar-content a {
+    margin-left: 20px;
+    color: var(--Neutral-900, #0F172A);
+    font-family: Lato;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 24px;
+    text-decoration: none;
+    position: relative; 
+  }
+  
+  .info-bar-content a.active-link::after {
+    content: "";
+    display: block;
+    background: url('../../asset/Line.png') repeat-x center bottom;
+    height: 3px; 
+    width: 100%; 
+    position: absolute;
+    bottom: 0;
+    left: 0; 
+    top:37px
+  }

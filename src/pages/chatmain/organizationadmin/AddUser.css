@@ -1,0 +1,7 @@
+.adduser-screen{
+    width: 1118px;
+height: 940px;
+flex-shrink: 0;
+border-radius: 15px;
+background: var(--Neutral-50, #F8FAFC);
+}
