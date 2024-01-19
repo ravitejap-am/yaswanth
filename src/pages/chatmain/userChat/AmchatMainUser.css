@@ -1,7 +1,7 @@
 .amchat-main {
   display: flex;
   background: linear-gradient(114deg, #0F172A 51.52%, #152346 73.32%, #1A2E5E 92.75%);
-  height: auto;
+  height: 100%;
 }
 
 .sidebar-amchat {

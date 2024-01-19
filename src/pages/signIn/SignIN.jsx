@@ -68,7 +68,7 @@ const SignIn = () => {
         { required: true, message: "Please input your email" },
         { type: "email", message: "Invalid email format" },
       ],
-      style:{}
+      style:{} 
     },
     {
       label: "Password",
@@ -86,7 +86,7 @@ const SignIn = () => {
     color: "white",
     backgroundColor: "#6366F1",
     type: "primary",
-    width: "436px",
+    width: "456px",
     height: "50px",
     borderRadius: "30px",
   };

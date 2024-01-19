@@ -37,6 +37,7 @@ const GeneralForm = (props) => {
       initialValues={{ remember: true }}
       layout="horizontal"
     >
+
       {grid ? (
         <div style={grid}>
           {formElements.map((item, index) => {
