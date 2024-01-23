@@ -7,6 +7,11 @@ import axios from "axios";
 import GeneralForm from "../../components/common/forms/GeneralForm";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import Footer from "../../pages/home/Footer/Footer";
+import Header from "../home/Header/Header";
+import SignHeader from "../home/SignHeader/SignHeader";
+
+
 
 const RegisterUser = () => {
   const [signupMessage, setSignupMessage] = useState();
@@ -75,7 +80,16 @@ const RegisterUser = () => {
 
   const formElements = [
     {
-      label: "Full Name",
+      label: "First Name",
+      type: "text",
+      name: "name",
+      rules: [
+        { required: true, message: "Please input your Full Name" },
+        { type: "name", message: "Invalid user Name" },
+      ],
+    },
+    {
+      label: "Last Name",
       type: "text",
       name: "name",
       rules: [
@@ -137,41 +151,49 @@ const RegisterUser = () => {
   };
 
   return (
-    <div className="main">
-      <div className="container">
-        <div className="row">
-          <div className="col">
-            <div className="row mainContent">
-              <div className="box-round">
-                <div className="text-top">
-                  <h2>Sign Up</h2>
-                  <p>Please sign up with your organization email id. If your <br />organization is not registered with us, please reach out to <br />sales@areteminds.com</p>
-                </div>
-
-                <div>
-                  <div className="form-content">
-                    <GeneralForm {...feedingVariable} />
-                    <div className="alreadySignIn">
-                      <p>
-                        Already have an account?{" "}
-                        <Link to={"/signin"} className="danger-text">
-                          Sign In
-                        </Link>
-                        <a href=""></a>
-                      </p>
+    <>
+      <div>
+        <SignHeader />
+        <div className="main">
+          <div className="container">
+            <div className="row">
+              <div className="col">
+                <div className="row mainContent">
+                  <div className="box-round">
+                    <div className="text-top">
+                      <h2>Sign Up</h2>
+                      <p>Please sign up with your organization email id. If your <br />organization is not registered with us, please reach out to <br />sales@areteminds.com</p>
                     </div>
+
+                    <div>
+                      <div className="form-content">
+                        <GeneralForm {...feedingVariable} />
+                        <div className="alreadySignIn">
+                          <p>
+                            Already have an account?{" "}
+                            <Link to={"/signin"} className="danger-text">
+                              Sign In
+                            </Link>
+                            <a href=""></a>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
                   </div>
                 </div>
-
               </div>
             </div>
           </div>
+          {loader ? <Spinner /> : null}
+          <NotifyMessage message={signupMessage ? signupMessage : null} errorHandle={false} />
+          <Footer />
         </div>
       </div>
-      {loader ? <Spinner /> : null}
-      <NotifyMessage message={signupMessage ? signupMessage : null} errorHandle={false} />
-    </div>
+
+    </>
   );
+
 };
 
 export default RegisterUser;

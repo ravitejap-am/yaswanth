@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Style from "./dropDown.madule.css";
 
-function Dropdown({ options, onSelect, style }) {
+function Dropdown({ options, onSelect, style, placeholder }) {
   const [selectedOption, setSelectedOption] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -50,7 +50,7 @@ function Dropdown({ options, onSelect, style }) {
               className="dropdown-item"
               onClick={() => handleSelect(option)}
             >
-              {option.label}
+              {/* {option.label ? placeholder : null} */}
             </div>
           ))}
         </div>

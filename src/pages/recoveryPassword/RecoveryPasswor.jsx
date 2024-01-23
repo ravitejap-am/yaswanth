@@ -7,9 +7,12 @@ import GeneralForm from "../../components/common/forms/GeneralForm";
 import NotifyMessage from '../../components/common/toastMessages/NotifyMessage'
 import axios from 'axios'
 import { recoverPassword } from "../../config/api";
+import Footer from "../../pages/home/Footer/Footer";
+
 
 import GeneralButton from "../../components/common/buttons/GeneralButton";
 import { toast } from "react-toastify";
+import SignHeader from "../home/SignHeader/SignHeader";
 
 const RecoveryPasswor = () => {
   const [form] = Form.useForm();
@@ -107,6 +110,8 @@ const RecoveryPasswor = () => {
   };
 
   return (
+    <>
+    <SignHeader/>
     <div className="main">
       <div className="container">
         {" "}
@@ -131,7 +136,9 @@ const RecoveryPasswor = () => {
       {message ? (
         <NotifyMessage message={message ? message : null} />
       ) : null}
+      <Footer/>
     </div>
+    </>
   );
 };
 

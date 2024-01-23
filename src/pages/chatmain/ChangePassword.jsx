@@ -28,6 +28,7 @@ const ChangePassword = ({ setFileSysytem, validateEmail }) => {
             width: "150px",
             height: "50px",
             borderRadius: "35px",
+            
         },
         formElements: [
             {
@@ -38,7 +39,7 @@ const ChangePassword = ({ setFileSysytem, validateEmail }) => {
                   { required: true, message: "Please input a valid password!" },
                   { validator: validatePassword },
                 ],
-                style: { width: "350px" ,marginTop:"20px",marginLeft:"20px"}
+                style: { width: "350px" ,marginTop:"40px",marginLeft:"20px"}
               },
               {
                 label: "New Password",

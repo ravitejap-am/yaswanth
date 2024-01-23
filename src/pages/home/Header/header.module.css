@@ -81,7 +81,7 @@
   height: 50px;
   justify-content: center;
 }
-.am-chat-title {
+.amChatTitle {
   color: var(--White, #fff);
   font-family: Red Rose;
   font-size: 16px;

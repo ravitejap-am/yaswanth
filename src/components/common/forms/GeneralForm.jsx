@@ -22,6 +22,7 @@ const GeneralForm = (props) => {
     forgorPasswordHandler,
     validateEmail,
     setFileSysytem,
+    grid,
   } = props;
 
   const [form] = Form.useForm();
@@ -36,150 +37,308 @@ const GeneralForm = (props) => {
       initialValues={{ remember: true }}
       layout="horizontal"
     >
-      {formElements.map((item, index) => {
-        const elements = {
-          email: (
-            <Input
-              labelName={item.labelName ? item.label : null}
-              type={item.type}
-              placeholder={item.labelName ? null : item.label}
-              iconClass={item.iconClass}
-              onChange={(e) => {
-                form.setFieldValue({ [item.name]: e.target.value });
-              }}
-              style={item.style}
-              // required={item.required}
-            />
-          ),
-          text: (
-            <Input
-              labelName={item.labelName ? item.label : null}
-              type={item.type}
-              placeholder={item.labelName ? null : item.label}
-              iconClass={item.iconClass}
-              onChange={(e) => {
-                form.setFieldValue({ [item.name]: e.target.value });
-              }}
-              style={item.style}
-            />
-          ),
-          tel: (
-            <Input
-              type={item.type}
-              placeholder={item.label}
-              iconClass={item.iconClass}
-              onChange={(e) => {
-                form.setFieldValue({ [item.name]: e.target.value });
-              }}
-              style={item.style}
-            />
-          ),
-          password: (
-            <Input
-              labelName={item.labelName ? item.label : null}
-              type={item.type}
-              placeholder={item.label}
-              iconClass={item.iconClass}
-              onChange={(e) => {
-                form.setFieldValue({ [item.name]: e.target.value });
-              }}
-              style={item.style}
-            />
-            
-          ),
-          confirmPassword: (
-            <Input
-              labelName={item.labelName ? item.label : null}
-              type={item.type}
-              placeholder={item.label}
-              iconClass={item.iconClass}
-              onChange={(e) => {
-                form.setFieldValue({ [item.name]: e.target.value });
-              }}
-              style={item.style}
-            />
-          ),
 
-          comment: (
-            <Input
-              labelName={item.labelName ? item.label : null}
-              type={item.type}
-              placeholder={item.labelName ? null : item.label}
-              iconClass={item.iconClass}
-              onChange={(e) => {
-                form.setFieldValue({ [item.name]: e.target.value });
-              }}
-              style={item.style}
-            />
-          ),
-          number: (
-            <InputNumber
-              labelName={item.labelName ? item.label : null}
-              type={item.type}
-              placeholder={item.label}
-              iconClass={item.iconClass}
-            />
-          ),
-          switch: <Switch />,
-          date: <DatePicker />,
-          description: <TextArea rows={4} />,
-        };
-        return (
-          <Form.Item
-            name={item.name}
-            rules={item?.rules != undefined ? item.rules : []}
-            messageVariables={cancelHandler}
-            style={item.style}
-            noStyle
-          >
-            {elements[item.type] || (
-              <>
-                {item.type === "checkbox" && (
-                  <Checkbox
-                    onChange={(e) => {
-                      form.setFieldsValue({ [item.name]: e.target.checked });
-                    }}
-                  />
-                )}
-                {item.type === "select" && (
-                  <div>
-                    <div style={{ marginBottom: "2px", color: "#fff" }}>
-                      <label>{item.label}</label>
-                    </div>
-                    {/* <Select
+      {grid ? (
+        <div style={grid}>
+          {formElements.map((item, index) => {
+            const elements = {
+              email: (
+                <Input
+                  labelName={item.labelName ? item.label : null}
+                  type={item.type}
+                  placeholder={item.labelName ? null : item.label}
+                  iconClass={item.iconClass}
+                  onChange={(e) => {
+                    form.setFieldValue({ [item.name]: e.target.value });
+                  }}
+                  style={item.style}
+                  // required={item.required}
+                />
+              ),
+              text: (
+                <Input
+                  labelName={item.labelName ? item.label : null}
+                  type={item.type}
+                  placeholder={item.labelName ? null : item.label}
+                  iconClass={item.iconClass}
+                  onChange={(e) => {
+                    form.setFieldValue({ [item.name]: e.target.value });
+                  }}
+                  style={item.style}
+                />
+              ),
+              tel: (
+                <Input
+                  type={item.type}
+                  placeholder={item.label}
+                  iconClass={item.iconClass}
+                  onChange={(e) => {
+                    form.setFieldValue({ [item.name]: e.target.value });
+                  }}
+                />
+              ),
+              password: (
+                <Input
+                  labelName={item.labelName ? item.label : null}
+                  type={item.type}
+                  placeholder={item.label}
+                  iconClass={item.iconClass}
+                  onChange={(e) => {
+                    form.setFieldValue({ [item.name]: e.target.value });
+                  }}
+                  style={item.style}
+                />
+              ),
+              confirmPassword: (
+                <Input
+                  labelName={item.labelName ? item.label : null}
+                  type={item.type}
+                  placeholder={item.label}
+                  iconClass={item.iconClass}
+                  onChange={(e) => {
+                    form.setFieldValue({ [item.name]: e.target.value });
+                  }}
+                  style={item.style}
+                />
+              ),
+
+
+              comment: (
+                <Input
+                  labelName={item.labelName ? item.label : null}
+                  type={item.type}
+                  placeholder={item.labelName ? null : item.label}
+                  iconClass={item.iconClass}
+                  onChange={(e) => {
+                    form.setFieldValue({ [item.name]: e.target.value });
+                  }}
+                  style={item.style}
+                />
+              ),
+              number: (
+                <InputNumber
+                  labelName={item.labelName ? item.label : null}
+                  type={item.type}
+                  placeholder={item.label}
+                  iconClass={item.iconClass}
+                />
+              ),
+              switch: <Switch />,
+              date: <DatePicker />,
+              description: <TextArea rows={4} />,
+            };
+            return (
+              <Form.Item
+                name={item.name}
+                rules={item?.rules != undefined ? item.rules : []}
+                messageVariables={cancelHandler}
+                style={item.style}
+                noStyle
+              >
+                {elements[item.type] || (
+                  <>
+                    {item.type === "checkbox" && (
+                      <Checkbox
+                        onChange={(e) => {
+                          form.setFieldsValue({
+                            [item.name]: e.target.checked,
+                          });
+                        }}
+                      />
+                    )}
+                    {item.type === "select" && (
+                      <div>
+                      {item.labelName?<div style={{ marginBottom: "2px", color: "#fff" }}>
+                          <label>{item.labelName?item.label:null}</label>
+                        </div>:null}
+                        
+                        {/* <Select
                       onChange={(value) => {
                         form.setFieldsValue({ [item.name]: value });
                       }}
                       options={item?.options != undefined ? item?.options : []}
                       style={item.style}
                     /> */}
-                    <Dropdown
-                      labelName={item.labelName ? item.label : null}
-                      options={item?.options != undefined ? item?.options : []}
-                      onSelect={(value) => {
+                        <Dropdown
+                          labelName={item.labelName ? item.label : null}
+                          options={
+                            item?.options != undefined ? item?.options : []
+                          }
+                          onSelect={(value) => {
+                            form.setFieldsValue({ [item.name]: value });
+                          }}
+                          style={item.style}
+                          placeholder={item.labelName ? null : item.label}
+                        />
+                      </div>
+                    )}
+                    {item?.type === "file" && (
+                      <Document
+                        setFile={setFileSysytem}
+                        numberOfImage={item?.numberOfImage}
+                        fileType={item?.fileType}
+                        fileSize={item?.fileSize}
+                        url={item?.url}
+                        form={form}
+                        name={item?.name}
+                      />
+                    )}
+                  </>
+                )}
+              </Form.Item>
+            );
+          })}
+        </div>
+      ) : (
+        <div>
+          {" "}
+          {formElements.map((item, index) => {
+            const elements = {
+              email: (
+                <Input
+                  labelName={item.labelName ? item.label : null}
+                  type={item.type}
+                  placeholder={item.labelName ? null : item.label}
+                  iconClass={item.iconClass}
+                  onChange={(e) => {
+                    form.setFieldValue({ [item.name]: e.target.value });
+                  }}
+                  style={item.style}
+                  // required={item.required}
+                />
+              ),
+              text: (
+                <Input
+                  labelName={item.labelName ? item.label : null}
+                  type={item.type}
+                  placeholder={item.labelName ? null : item.label}
+                  iconClass={item.iconClass}
+                  onChange={(e) => {
+                    form.setFieldValue({ [item.name]: e.target.value });
+                  }}
+                  style={item.style}
+                />
+              ),
+              tel: (
+                <Input
+                  type={item.type}
+                  placeholder={item.label}
+                  iconClass={item.iconClass}
+                  onChange={(e) => {
+                    form.setFieldValue({ [item.name]: e.target.value });
+                  }}
+                />
+              ),
+              password: (
+                <Input
+                  labelName={item.labelName ? item.label : null}
+                  type={item.type}
+                  placeholder={item.label}
+                  iconClass={item.iconClass}
+                  onChange={(e) => {
+                    form.setFieldValue({ [item.name]: e.target.value });
+                  }}
+                />
+              ),
+              confirmPassword: (
+                <Input
+                  labelName={item.labelName ? item.label : null}
+                  type={item.type}
+                  placeholder={item.label}
+                  iconClass={item.iconClass}
+                  onChange={(e) => {
+                    form.setFieldValue({ [item.name]: e.target.value });
+                  }}
+                  style={item.style}
+                />
+              ),
+
+              comment: (
+                <Input
+                  labelName={item.labelName ? item.label : null}
+                  type={item.type}
+                  placeholder={item.labelName ? null : item.label}
+                  iconClass={item.iconClass}
+                  onChange={(e) => {
+                    form.setFieldValue({ [item.name]: e.target.value });
+                  }}
+                  style={item.style}
+                />
+              ),
+              number: (
+                <InputNumber
+                  labelName={item.labelName ? item.label : null}
+                  type={item.type}
+                  placeholder={item.label}
+                  iconClass={item.iconClass}
+                />
+              ),
+              switch: <Switch />,
+              date: <DatePicker />,
+              description: <TextArea rows={4} />,
+            };
+            return (
+              <Form.Item
+                name={item.name}
+                rules={item?.rules != undefined ? item.rules : []}
+                messageVariables={cancelHandler}
+                style={item.style}
+                noStyle
+              >
+                {elements[item.type] || (
+                  <>
+                    {item.type === "checkbox" && (
+                      <Checkbox
+                        onChange={(e) => {
+                          form.setFieldsValue({
+                            [item.name]: e.target.checked,
+                          });
+                        }}
+                      />
+                    )}
+                    {item.type === "select" && (
+                      <div>
+                        <div style={{ marginBottom: "2px", color: "#fff" }}>
+                          <label>{item.label}</label>
+                        </div>
+                        {/* <Select
+                      onChange={(value) => {
                         form.setFieldsValue({ [item.name]: value });
                       }}
+                      options={item?.options != undefined ? item?.options : []}
                       style={item.style}
-                    />
-                  </div>
+                    /> */}
+                        <Dropdown
+                          labelName={item.labelName ? item.label : null}
+                          options={
+                            item?.options != undefined ? item?.options : []
+                          }
+                          onSelect={(value) => {
+                            form.setFieldsValue({ [item.name]: value });
+                          }}
+                          style={item.style}
+                        />
+                      </div>
+                    )}
+                    {item?.type === "file" && (
+                      <Document
+                        setFile={setFileSysytem}
+                        numberOfImage={item?.numberOfImage}
+                        fileType={item?.fileType}
+                        fileSize={item?.fileSize}
+                        url={item?.url}
+                        form={form}
+                        name={item?.name}
+                      />
+                    )}
+                  </>
                 )}
-                {item?.type === "file" && (
-                  <Document
-                    setFile={setFileSysytem}
-                    numberOfImage={item?.numberOfImage}
-                    fileType={item?.fileType}
-                    fileSize={item?.fileSize}
-                    url={item?.url}
-                    form={form}
-                    name={item?.name}
-                  />
-                )}
-              </>
-            )}
-          </Form.Item>
-        );
-      })}
-      
+              </Form.Item>
+            );
+          })}
+        </div>
+      )}
+
       <Form.Item noStyle wrapperCol={{ offset: 6, span: 18 }}>
         <div className="center" style={{ gap: "2em", marginTop: "1em" }}>
           {isSubmit && (
@@ -198,7 +357,15 @@ const GeneralForm = (props) => {
           {isCancel && (
             <Button
               buttonProps={cancelButtonProperty}
-              buttonHandler={cancelHandler}
+              name={cancelButtonProperty.name}
+              color={cancelButtonProperty.color}
+              backgroundColor={cancelButtonProperty.backgroundColor}
+              buttonHandler={submitHandler}
+              width={cancelButtonProperty.width}
+              height={cancelButtonProperty.height}
+              boxShadow={cancelButtonProperty.boxShadow}
+              borderRadius={cancelButtonProperty.borderRadius}
+              // buttonHandler={cancelHandler}
             />
           )}
         </div>
@@ -207,12 +374,14 @@ const GeneralForm = (props) => {
         <>
           <Link
             to={"/recoverypassword"}
-            style={{ display: "flex", justifyContent: "center", color:"Black" }}
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              color: "Black",
+            }}
           >
             <p>
-              <span>
-                {/* <LockFilled /> */}
-              </span>
+              <span>{/* <LockFilled /> */}</span>
               Forgot your password
             </p>
           </Link>

@@ -29,15 +29,13 @@ const UserProfile = () => {
                 type="primary"
                 color="white"
                 backgroundColor="#6366F1"
-                width="100px"
+                width="150px"
                 padding="10px 16px"
                 height="40px"
                 borderRadius="30px"
                 icons={frame1}
-
               />
             </div>
-
             <div className="back-link">
               <Link to="/AmchatMainUser"><img className='left-back-icon' src={lefticon} alt="" />Back to chat</Link>
             </div>

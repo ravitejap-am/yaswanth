@@ -37,18 +37,19 @@
   /* flex-grow: 1; */
   border-radius: 15px;
   background: var(--Neutral-200, #E2E8F0);
-  width: 76vw;
-  height: auto;
+  width: 980px;
+  height: 720px;
   margin-top: 20px;
   margin-bottom: 20px;
 }
 
 .chat-profile {
+  margin-top: 5px;
   margin-left: 40px;
   border-radius: 15px;
   background: var(--Neutral-200, #E2E8F0);
-  width: 70vw;
-  height: 70vh;
+  width: 903px;
+  height: 500px;
   flex-shrink: 0;
   justify-content: center;
   text-align: center;
@@ -60,21 +61,21 @@
 
 .chatui-text {}
 
-.chatui-AmChat-text {
+.chatui-AmChat-text p{
   color: var(--Neutral-900, #0F172A);
   font-family: Lato, 'Red Rose', sans-serif;
   font-size: 43.333px;
   font-style: normal;
   font-weight: 700;
-  line-height: 65px;
   text-align: center;
+  position: relative;
+  top: 80px;
 }
 
 .chat-hello-text h2 {
   text-align: center;
   color: #312E81;
-  /* position: relative; */
-  top: 60px;
+  margin-top: 120px;
 }
 
 .chat-hello-text p {
@@ -87,7 +88,8 @@
 }
 
 .input-main input {
-  width: 870px;
+  margin-top:28px;
+  width: 850px;
   height: 45px;
   border-radius: 35px;
   border: 1px solid var(--Neutral-400, #94A3B8);
@@ -117,7 +119,7 @@
   font-size: 12px;
   font-style: normal;
   font-weight: 400;
-  line-height: 16px;
+  margin-left: 20px;
   /* 133.333% */
 }
 
@@ -146,14 +148,14 @@
 
 .document-card {
   display: flex;
-  margin-left: 30px;
+  margin-left: 40px;
   width: 900px;
   height: 90px;
   flex-shrink: 0;
-
   border-radius: 10.457px;
   background: var(--White, #FFF);
   box-shadow: 0px 2.789px 6.972px 3.486px rgba(0, 0, 0, 0.09);
+  margin-bottom: -20px;
 }
 .document-upload-text{
   color: var(--Neutral-900, #0F172A);
@@ -185,5 +187,38 @@ font-style: normal;
 font-weight: 700;
 margin-left: 2px;
 margin-top: 0px;
+}
+.orgadmin-chats{
+margin-top: 100px;
 
+}
+.orgadmin-chats p{
+  border-radius: 30px;
+background: var(--Neutral-800, #1E293B);
+width: 220px;
+height: 40px;
+flex-shrink: 0;
+text-align: left;
+text-align: left;
+margin-right: 18px;
+color: #E2E8F0;
+padding-left: 10px;
+cursor: pointer;
+}
+.orgadmin-threedot{
+  position: relative;
+  top: 8px;
+  left: 1px;
+  cursor: pointer;
+}
+.orgadmin-chats h3{
+  color: #E2E8F0;
+  cursor: pointer;
+}
+.orgadmin-threedot-two{
+  position: relative;
+  left: 60px;
+  top: 9px;
+  cursor: pointer;
+  
 }

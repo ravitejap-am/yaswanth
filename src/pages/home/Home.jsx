@@ -28,20 +28,20 @@ const Home = () => {
           <p>Scalable</p>
         </div>
       </div>
-      <div className={Style.LandingPageCard} id="ai_page">
+      <div className={Style.LandingPageCard}>
         <AIChatBot />
       </div>
       <div className={Style.IdeaPageStyle} id="idea_page">
         <Idea />
       </div>
-      {/* <div className="AI_Solution_Style" id=""> */}
+      <div className="AI_Solution_Style" id="ai_page">
       <AISolution />
-      {/* </div> */}
-      <div id="Plan_Page">
-        <HowItWorks />
       </div>
-
-      <div id="Plan_page">
+      <div id="How_it_works">
+      <HowItWorks />
+      </div>
+      
+      <div id="Plan_Page">
         <RightPlan />
       </div>
 
