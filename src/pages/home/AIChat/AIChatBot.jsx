@@ -43,7 +43,7 @@ function AIChatBot() {
             </span>
           </div>
           <div className="AI_chat_Parent_Card">
-            <Card className="AM_Chat_Main_Card">
+            <div className="AM_Chat_Main_Card">
               <div className="AM_Chat_Main_Card_Title_Div">
                 <div className="AM_chat_first_title">
                   <div>Hello, I’m AM-Chat</div>
@@ -70,7 +70,7 @@ function AIChatBot() {
                   }
                 />
               </div>
-            </Card>
+            </div>
           </div>
         </div>
       </div>

@@ -32,7 +32,7 @@ function Dropdown({ options, onSelect, style, placeholder }) {
         }}
         style={style}
       >
-        <option value="" disabled>
+        <option value="" disabled style={{ marginLeft: "-20px" }}>
           Select an option
         </option>
         {options.map((option) => (

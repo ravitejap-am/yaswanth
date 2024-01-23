@@ -12,7 +12,8 @@ const GeneralButton = ({
   boxShadow,
   // borderRadius,
   borderRadius,
-  icons
+  border,
+  icons,
 }) => {
   console.log(buttonProps);
   return (
@@ -33,11 +34,12 @@ const GeneralButton = ({
         width: width,
         height: height,
         boxShadow: boxShadow,
-        borderRadius:borderRadius
+        borderRadius: borderRadius,
+        border: border,
       }}
     >
       {name}
-      <img src={icons} style={{marginLeft:"8px"}} alt=""/>
+      <img src={icons} style={{ marginLeft: "8px" }} alt="" />
     </Button>
   );
 };

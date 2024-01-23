@@ -1,61 +1,34 @@
-import React from "react";
+// Header.jsx
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Styles from "./header.module.css";
 import Logo from "../../../asset/Vector.png";
 import GeneralButton from "../../../components/common/buttons/GeneralButton";
 
 const Header = () => {
-  const scrollSmoothById = () => {
-    const element = document.getElementById("ai_page");
+  const [scroll, setScroll] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScroll(window.scrollY > 0);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  const scrollToElement = (elementId) => {
+    const element = document.getElementById(elementId);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
     }
   };
-  const scrollSmoothByIdBlog = () => {
-    const element = document.getElementById("idea_page");
-    if (element) {
-      element.scrollIntoView({
-        behavior: "smooth",
-      });
-    }
-  };
 
-  const scrollSmoothToContactUpPage = () => {
-    const element = document.getElementById("Contact_Up");
-    if (element) {
-      element.scrollIntoView({
-        behavior: "smooth",
-      });
-    }
-  };
-  const scrollSmoothToHomePage = () => {
-    const element = document.getElementById("Home_page");
-    if (element) {
-      element.scrollIntoView({
-        behavior: "smooth",
-      });
-    }
-  };
-
-  const scrollSmoothToHowItWorks = () => {
-    const element = document.getElementById("How_it_works");
-    if (element) {
-      element.scrollIntoView({
-        behavior: "smooth",
-      });
-    }
-  };
-
-  const scrollSmoothToPlan = () => {
-    const element = document.getElementById("Plan_Page");
-    if (element) {
-      element.scrollIntoView({
-        behavior: "smooth",
-      });
-    }
-  };
   return (
-    <div className={Styles.headerMain}>
+    <div className={`${Styles.headerMain} ${scroll ? Styles.scrolled : ""}`}>
       <div className={Styles.appHeading}>
         <div className={Styles.appLogo}>
           <span className={Styles.amChatTitle}>AM Chat</span>
@@ -66,40 +39,43 @@ const Header = () => {
       </div>
       <div className={Styles.appNavigation}>
         <div className={Styles.navigationPages}>
-          <span className={Styles.navigation} onClick={scrollSmoothToHomePage}>
+          <span
+            className={Styles.navigation}
+            onClick={() => scrollToElement("Home_page")}
+          >
             Home
           </span>
-          <span className={Styles.navigation} onClick={scrollSmoothById}>
+          <span
+            className={Styles.navigation}
+            onClick={() => scrollToElement("ai_page")}
+          >
             Solutions
           </span>
           <span
             className={Styles.navigation}
-            onClick={scrollSmoothToHowItWorks}
+            onClick={() => scrollToElement("How_it_works")}
           >
             How it Works
           </span>
-          {/* <span className={Styles.navigation} onClick={scrollSmoothByIdBlog}>
-            Blog
-          </span> */}
-
-          <span className={Styles.navigation} onClick={scrollSmoothToPlan}>
+          <span
+            className={Styles.navigation}
+            onClick={() => scrollToElement("Plan_Page")}
+          >
             Plans
           </span>
           <span
             className={Styles.navigation}
-            onClick={scrollSmoothToContactUpPage}
+            onClick={() => scrollToElement("Contact_Up")}
           >
             Contact Form
           </span>
         </div>
         <div className={Styles.navigationButton}>
           <div className="btn-color">
-            {/* <button className={Styles.homeBtn}>Sign In</button> */}
             <Link to={"/signIn"} style={{ textDecoration: "none" }}>
               <GeneralButton
                 name={"Sign In"}
                 type={"submit"}
-                // backgroundColor={"#f64e60"}
                 color={"#F8FAFC"}
               />
             </Link>
@@ -109,11 +85,9 @@ const Header = () => {
               <GeneralButton
                 name={"Sign Up"}
                 type={"submit"}
-                // backgroundColor={"#f64e60"}
                 color={"#F8FAFC"}
               />
             </Link>
-            {/* <button className={Styles.homeBtn}>Sign Up</button> */}
           </div>
         </div>
       </div>

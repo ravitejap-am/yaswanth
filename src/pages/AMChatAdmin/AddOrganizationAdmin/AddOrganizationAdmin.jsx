@@ -18,8 +18,8 @@ function AddOrganizationAdmin() {
       labelName: false,
     },
     {
-      name: "Address",
-      label: "Address",
+      name: "Street 1",
+      label: "Street 1",
       type: "text",
       style: {
         width: "445px",
@@ -28,15 +28,11 @@ function AddOrganizationAdmin() {
         backgroundColor: "transparent",
       },
       labelName: false,
-      rules: [
-        { required: true, message: "Please enter your email" },
-        { type: "email", message: "Please enter a valid email address" },
-      ],
+      rules: [{ required: true, message: "Please enter Street 1" }],
     },
-
     {
-      name: "Contact Person",
-      label: "Contact Person",
+      name: "Street 2",
+      label: "Street 2",
       type: "text",
       style: {
         width: "445px",
@@ -45,52 +41,74 @@ function AddOrganizationAdmin() {
         backgroundColor: "transparent",
       },
       labelName: false,
-      rules: [
-        { required: true, message: "Please enter your email" },
-        { type: "email", message: "Please enter a valid email address" },
-      ],
     },
     {
-      name: "plan",
-      label: "Select Plan",
+      name: "City",
+      label: "City",
       type: "select",
+      options: [
+        { label: "Select a City", value: "" },
+        { label: "City 1", value: "city1" },
+        { label: "City 2", value: "city2" },
+      ],
       style: {
-        width: "470px",
-        height: "48px",
+        width: "469px",
+        height: "50px",
         borderRadius: "40px",
         border: "1px solid var(--Brand-700, #4338CA)",
         backgroundColor: "transparent",
-        marginBottom: "13px",
       },
-      className: "transparent-dropdown",
       labelName: false,
-      options: [
-        { value: "basic", label: "Basic Plan" },
-        { value: "premium", label: "Premium Plan" },
-        { value: "pro", label: "Pro Plan" },
-      ],
-      rules: [{ required: true, message: "Please select a plan" }],
+      rules: [{ required: true, message: "Please select City" }],
     },
     {
-      name: "Select Status",
-      label: "Select Status",
+      name: "State",
+      label: "State",
       type: "select",
+      options: [
+        { label: "State 1", value: "state1" },
+        { label: "State 2", value: "state2" },
+      ],
       style: {
-        width: "470px",
-        height: "48px",
+        width: "469px",
+        height: "50px",
         borderRadius: "40px",
         border: "1px solid var(--Brand-700, #4338CA)",
         backgroundColor: "transparent",
-        marginBottom: "13px",
       },
-      className: "transparent-dropdown",
       labelName: false,
+      rules: [{ required: true, message: "Please select State" }],
+    },
+    {
+      name: "Country",
+      label: "Country",
+      type: "select",
       options: [
-        { value: "basic", label: "Basic Plan" },
-        { value: "premium", label: "Premium Plan" },
-        { value: "pro", label: "Pro Plan" },
+        { label: "Country 1", value: "country1" },
+        { label: "Country 2", value: "country2" },
       ],
-      rules: [{ required: true, message: "Please select a plan" }],
+      style: {
+        width: "469px",
+        height: "50px",
+        borderRadius: "40px",
+        border: "1px solid var(--Brand-700, #4338CA)",
+        backgroundColor: "transparent",
+      },
+      labelName: false,
+      rules: [{ required: true, message: "Please select Country" }],
+    },
+    {
+      name: "Zipcode",
+      label: "Zipcode",
+      type: "text",
+      style: {
+        width: "445px",
+        borderRadius: "40px",
+        border: "1px solid var(--Brand-700, #4338CA)",
+        backgroundColor: "transparent",
+      },
+      labelName: false,
+      rules: [{ required: true, message: "Please enter Zipcode" }],
     },
   ];
 
@@ -103,24 +121,48 @@ function AddOrganizationAdmin() {
   };
 
   const submitButtonProperty = {
-    name: "Submit",
-    color: "#ffffff",
-    backgroundColor: "var(--Brand-500, #6366F1)",
-    width: "520px",
+    display: "flex",
+    width: "130px",
     height: "50px",
-    borderRadius: "28px",
+    padding: "10px 16px",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: "8px",
+    flexShrink: "0",
+    borderRadius: "30px",
+    backgroundColor: "var(--Brand-500, #6366F1) !important;", // Use backgroundColor instead of background
+    color: "#FFFFFF",
+    fontFamily: "Into Lato",
+    fontSize: "16px",
+    fontStyle: "normal",
+    fontWeight: "700",
+    lineHeight: "24px",
+    name: "Submit",
   };
 
   const cancelButtonProperty = {
-    name: "Cancel",
-    color: "#ffffff",
-    backgroundColor: "var(--Brand-500, #6366F1)",
-    width: "520px",
+    display: "flex",
+    width: "130px",
     height: "50px",
-    borderRadius: "28px",
+    padding: "10px 16px",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: "8px",
+    flexShrink: "0",
+    borderRadius: "30px",
+    border: "1px solid var(--Neutral-600, #475569)",
+    color: "#334155 !important",
+    fontFamily: " Into Lato",
+    fontSize: "16px",
+    fontStyle: "normal",
+    fontWeight: "700",
+    lineHeight: "24px",
+    name: "Cancel",
   };
+
   const feedingVariable = {
     isCancel: true,
+
     cancelHandler: cancelHandler,
     isSubmit: true,
     submitHandler: submitHandler,
@@ -136,22 +178,26 @@ function AddOrganizationAdmin() {
 
   return (
     <div className={Styles.superAdminMainCardDivStyle}>
-      <div className={Styles.superAdminMiddleParentDiv}>
-        <div className={Styles.superAdminProfileCardStyle}>
-          <div>
-            <p className={Styles.superAdminProfileName}>Add Organization</p>
+      <div className={Styles.superAdminSecondMainDiv}>
+        <div className={Styles.superAdminMiddleParentDiv}>
+          <div className={Styles.superAdminProfileCardStyle}>
+            <div>
+              <p className={Styles.superAdminProfileName}>Add Organization</p>
+            </div>
+            <div
+              className={Styles.superAdminProfileImgNameStyle}
+              style={{ display: "flex", alignItems: "center" }}
+            >
+              <img src={profile} alt="" className={Styles.AdminProfileStyle} />
+              <span className={Styles.SuperAdminProfileStyle}>
+                Lian Vendiar
+              </span>
+            </div>
           </div>
-          <div
-            className={Styles.superAdminProfileImgNameStyle}
-            style={{ display: "flex", alignItems: "center" }}
-          >
-            <img src={profile} alt="" className={Styles.AdminProfileStyle} />
-            <span className={Styles.SuperAdminProfileStyle}>Lian Vendiar</span>
-          </div>
-        </div>
 
-        <div className={Styles.addOrganizationAdminSecondDiv}>
-          <GeneralForm {...feedingVariable} />
+          <div className={Styles.addOrganizationAdminSecondDiv}>
+            <GeneralForm {...feedingVariable} />
+          </div>
         </div>
       </div>
     </div>

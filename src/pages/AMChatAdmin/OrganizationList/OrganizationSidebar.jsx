@@ -25,7 +25,7 @@ function OrganizationSidebar() {
             </div>
           </div>
 
-          <div className={Styles.bannerBtn}>
+          {/* <div className={Styles.bannerBtn}>
             <div className={Styles.bannerButton}>
               <GeneralButton
                 name={"Start New Chat"}
@@ -38,7 +38,7 @@ function OrganizationSidebar() {
                 height={"45px"}
               />
             </div>
-          </div>
+          </div> */}
 
           <div className={Styles.container}>
             <div className={Styles.SuperAdminChildContainer}>
@@ -60,7 +60,7 @@ function OrganizationSidebar() {
               </span>
             </div>
             <br />
-            <div className={Styles.SuperAdminChildContainer}>
+            {/* <div className={Styles.SuperAdminChildContainer}>
               <span>
                 <img src={userImage} alt="" />
                 <Link
@@ -72,14 +72,16 @@ function OrganizationSidebar() {
                   </p>
                 </Link>
               </span>
-            </div>
+            </div> */}
           </div>
         </div>
         <OrganizationList />
       </div>
       <div className={Styles.AMChatFooterStyle}>
         <footer className="AMChat-admin-footer">
-          <p>@2024. All rights reserved by AM Chatbot</p>
+          <p className={Styles.footerPTagStyle}>
+            @2024. All rights reserved by AM Chatbot
+          </p>
         </footer>
       </div>
     </>

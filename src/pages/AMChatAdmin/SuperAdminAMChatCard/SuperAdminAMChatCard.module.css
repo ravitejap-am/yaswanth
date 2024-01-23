@@ -1,15 +1,13 @@
 .superAdminMainCardDivStyle {
-  width: 96% !important;
+  width: 100% !important;
   height: 100%;
-  margin: 20px;
+  margin: 1%;
   border-radius: 15px;
   background: var(--Neutral-200, #e2e8f0);
 }
 .superAdminCardStyle {
   width: 100%;
   height: 800px !important;
-}
-.superAdminMiddleCardStyle {
 }
 .superAdminMiddleParentDiv {
   width: 96%;
@@ -22,29 +20,29 @@
   color: var(--Brand-900, #312e81);
 
   /* text-3xl/font-semibold */
-  font-family: Montserrat;
-  font-size: 30px;
+  font-family: Into, "sans-serif";
+  font-size: 24px;
   font-style: normal;
   font-weight: 600;
-  line-height: 36px; /* 120% */
+  line-height: 32px; /* 120% */
 }
 .AdminProfileStyle {
   width: 25%;
-  height: 35%;
+  height: 50%;
 }
 .SuperAdminProfileStyle {
   color: var(--Neutral-900, #0f172a);
   margin-left: 10px;
-  font-family: Lato;
+  font-family: Into, "sans-serif";
   font-size: 18px;
   font-style: normal;
   font-weight: 600;
-  line-height: 28px;
 }
 .superAdminProfileCardStyle {
   display: flex;
   flex-direction: row;
-  gap: 66%;
+  justify-content: space-between;
+  width: 100%;
 }
 .superAdminProfileImgNameStyle {
   /* display: flex; */
@@ -82,7 +80,6 @@
   position: relative;
   bottom: 50px;
   border-radius: 20px;
-  
 }
 .row {
   display: flex;
@@ -93,7 +90,7 @@
 }
 .priceStyle {
   color: var(--Neutral-900, #0f172a);
-  font-family: Montserrat;
+  font-family: Into, "sans-serif";
   font-size: 28px;
   font-style: normal;
   font-weight: 600;
@@ -101,7 +98,7 @@
 }
 .titleStyle {
   color: var(--Neutral-900, #0f172a);
-  font-family: Lato;
+  font-family: Into, "sans-serif";
   font-size: 14px;
   font-style: normal;
   font-weight: 600;
@@ -112,7 +109,7 @@
 }
 .superAdminCardStyles {
   width: 100%;
-  height: 664px;
+  height: 720px;
   margin-top: 20px;
   border: none !important;
   border-radius: none;
@@ -127,18 +124,21 @@
 }
 .am-chat-title {
   color: var(--Neutral-900, #0f172a);
-  font-family: Lato;
+  font-family: Into "Lato";
   font-size: 43.333px;
   font-style: normal;
   font-weight: 700;
   line-height: 65px; /* 150% */
 }
 .appName {
-  width: 12px;
-  height: 12.571px;
+  width: 20px;
+  height: 20px;
   flex-shrink: 0;
   stroke-width: 1px;
   stroke: #53a5df;
+  position: relative;
+  top: -20px;
+  left: -3px;
 }
 .AI_chat_Parent_Card {
   display: flex;
@@ -158,7 +158,7 @@
 }
 .AMChatFirstTitle {
   color: var(--Brand-900, #312e81);
-  font-family: Montserrat;
+  font-family: Into, "sans-serif";
   font-size: 24px;
   font-style: normal;
   font-weight: 600;
@@ -168,15 +168,16 @@
 }
 .AMChatSecondTitle {
   color: var(--Black, #000);
-  font-family: Lato;
+  font-family: Inter, sans-serif;
   font-size: 16px;
   font-style: normal;
   font-weight: 600;
-  line-height: 24px;
+  /* line-height: 24px; */
   display: flex;
   justify-content: center;
   padding-top: 10px;
 }
+
 .AMChatMainCardTitleDiv {
   display: block;
   justify-content: center;
@@ -186,7 +187,7 @@
 }
 .amChatTitle {
   color: var(--Neutral-900, #0f172a);
-  font-family: "Red Rose";
+  font-family: Into "Red Rose";
   font-size: 43.333px;
   font-style: normal;
   font-weight: 700;
@@ -203,7 +204,7 @@
 }
 .AIChatInputBox {
   padding-top: 20px;
-  width: 988px;
+  width: 100%;
   height: 70px;
 }
 .Card_message_example {
@@ -218,4 +219,12 @@
   border-radius: 30px;
   border: 1px solid var(--Neutral-300, #cbd5e1);
   color: #475569;
+  color: var(--Neutral-600, #475569);
+
+  /* text-xs */
+  font-family: Into, "Lato";
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 16px; /* 133.333% */
 }

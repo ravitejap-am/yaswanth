@@ -1,17 +1,38 @@
 .headerMain {
   width: 100vw;
   height: 108px;
-  display: inline-flex;
-  align-items: center !important;
-  padding-left: 100px !important;
+  display: flex;
+  align-items: center;
+  padding-left: 100px;
   gap: 234px;
+}
+@media only screen and (max-width: 768px) {
+  .headerMain {
+    padding-left: 20px;
+    margin-right: 20px;
+    gap: 20px;
+  }
+
+  .appNavigation {
+    margin-right: 20px;
+  }
+
+  .navigationPages {
+    margin-right: 0;
+  }
+
+  .navigationButton {
+    margin-left: 20px;
+  }
+}
+
+.scrolled {
   background: linear-gradient(
     114deg,
     #0f172a 51.52%,
     #152346 73.32%,
     #1a2e5e 92.75%
   );
-  
 }
 
 .navigation {

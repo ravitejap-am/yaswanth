@@ -8,6 +8,7 @@ import userImage from "../../../asset/AmChatSuperAdmin/users.png";
 import circle from "../../../asset/AmChatSuperAdmin/Ellipse 6.png";
 import SuperAdminAMChatCard from "../SuperAdminAMChatCard/SuperAdminAMChatCard";
 import OrganizationList from "../OrganizationList/OrganizationList";
+import GroupCircleDot from "../../../asset/AmChatSuperAdmin/Group2306.png";
 import { Link } from "react-router-dom";
 
 function AMChat({ renderComponent }) {
@@ -18,8 +19,8 @@ function AMChat({ renderComponent }) {
           <div className={Styles.AMChatSuperAdminSidebar}>
             <div className={Styles.appLogo}>
               <span className={Styles.amChatTitle}>AM-Chat</span>
-              <span className={Styles.appName}>
-                <img src={Logo} alt="" />
+              <span>
+                <img src={Logo} alt="" className={Styles.appName} />
               </span>
             </div>
           </div>
@@ -27,13 +28,13 @@ function AMChat({ renderComponent }) {
           <div className={Styles.bannerBtn}>
             <div className={Styles.bannerButton}>
               <GeneralButton
-                name={"Get Started"}
+                name={"Start New Chat"}
                 type={"submit"}
                 color={"#f8fafc"}
                 borderRadius={"30px"}
                 backgroundColor={"#6366f1"}
                 icons={frame}
-                width={"140px"}
+                width={"148px"}
                 height={"45px"}
               />
             </div>
@@ -41,7 +42,6 @@ function AMChat({ renderComponent }) {
 
           <div className={Styles.container}>
             <div className={Styles.SuperAdminChildContainer}>
-              {/* <button> */}
               <span>
                 <img src={organizationimage} alt="" />
                 <Link
@@ -51,17 +51,22 @@ function AMChat({ renderComponent }) {
                   <p className={Styles.organizationTextStyle}>Organizations</p>
                 </Link>
               </span>
-              {/* </button> */}
             </div>
             <br />
-            <div className={Styles.SuperAdminChildContainer}>
-              <span>
-                <img src={userImage} alt="" />
-                <p className={Styles.organizationTextStyle}>
-                  Organization Admin
-                </p>
-              </span>
-            </div>
+            {/* <div className={Styles.SuperAdminChildContainer}>
+              <Link
+                to="/dashboardadmin/organizationadminlist"
+                style={{ textDecoration: "none" }}
+              >
+                <span>
+                  <img src={userImage} alt="" />
+
+                  <p className={Styles.organizationTextStyle}>
+                    Organization Admin
+                  </p>
+                </span>
+              </Link>
+            </div> */}
           </div>
 
           <div className={Styles.AMchatMainDiv}>
@@ -71,7 +76,11 @@ function AMChat({ renderComponent }) {
                 <p className={Styles.AmChatChatPlaceholder}>
                   How to upload my Docume...{" "}
                 </p>{" "}
-                <img src={circle} alt="" className={Styles.AmChatCircleStyle} />
+                <img
+                  src={GroupCircleDot}
+                  alt=""
+                  className={Styles.AmChatCircleStyle}
+                />
               </div>
               <br />
               <div className={Styles.AmChatBelowTwoDiv}>
@@ -81,18 +90,23 @@ function AMChat({ renderComponent }) {
                 >
                   What is AM-Chat?
                 </p>
-                <img src={circle} alt="" className={Styles.AmChatCircleStyle} />
+                <img
+                  src={GroupCircleDot}
+                  alt=""
+                  className={Styles.AmChatCircleStyle}
+                />
               </div>
             </div>
           </div>
         </div>
 
-        {renderComponent === "SuperAdminAMChatCard" && <SuperAdminAMChatCard />}
-        {renderComponent === "OrganizationList" && <OrganizationList />}
+        <SuperAdminAMChatCard />
       </div>
       <div className={Styles.AMChatFooterStyle}>
         <footer className="AMChat-admin-footer">
-          <p>@2024. All rights reserved by AM Chatbot</p>
+          <p className={Styles.footerPTagStyle}>
+            @2024. All rights reserved by AM Chatbot
+          </p>
         </footer>
       </div>
     </>

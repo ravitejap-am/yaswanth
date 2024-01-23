@@ -18,6 +18,14 @@ function SuperAdminAMChatCard() {
     "Can you tell me what's wrong in my lab reports?  ",
     "Can you explain me the quantum mechanics? ",
   ];
+  const searchStyles = {
+    width: "96%",
+    height: "70px",
+    borderRadius: "35px",
+    border: "1px solid #94a3b8",
+    color: "#94a3b8",
+    paddingLeft: "30px",
+  };
   return (
     <div className={Styles.superAdminMainCardDivStyle}>
       <div className={Styles.superAdminMiddleParentDiv}>
@@ -27,7 +35,10 @@ function SuperAdminAMChatCard() {
           </div>
           <div
             className={Styles.superAdminProfileImgNameStyle}
-            style={{ display: "flex", alignItems: "center" }}
+            style={{
+              display: "flex",
+              alignItems: "center",
+            }}
           >
             <img src={profile} alt="" className={Styles.AdminProfileStyle} />
             <span className={Styles.SuperAdminProfileStyle}>Lian Vendiar</span>
@@ -45,7 +56,7 @@ function SuperAdminAMChatCard() {
                 <img src={circle1} alt="" />
               </div>
               <div className={Styles.titlePriceStyle}>
-                <p className={Styles.titleStyle}>Total Documents Uploaded</p>
+                <p className={Styles.titleStyle}>Organizations</p>
                 <p className={Styles.priceStyle}>500</p>
               </div>
             </div>
@@ -71,7 +82,7 @@ function SuperAdminAMChatCard() {
               </div>
               <div className={Styles.titlePriceStyle}>
                 <div className={Styles.titleStyle}>
-                  <p>Total Active Users</p>
+                  <p>Documents Uploaded</p>
                 </div>
                 <div>
                   <p className={Styles.priceStyle}>500</p>
@@ -97,18 +108,18 @@ function SuperAdminAMChatCard() {
                 <div className={Styles.appHeading}>
                   <div className={Styles.appLogo}>
                     <span className={Styles.amChatTitle}>AM-Chat</span>
-                    <span className={Styles.appName}>
-                      <img src={Logo} alt="" />
+                    <span>
+                      <img src={Logo} alt="" className={Styles.appName} />
                     </span>
                   </div>
                 </div>
               </div>
               <div className={Styles.superAdminAMChatMiddleDiv}>
                 <div className={Styles.AMChatFirstTitle}>
-                  Hello, I’m AM-Chat
+                  <p>Hello, I’m AM-Chat</p>
                 </div>
                 <div className={Styles.AMChatSecondTitle}>
-                  How can I help you today?
+                  <p>How can I help you today?</p>
                 </div>
               </div>
             </div>
@@ -124,7 +135,7 @@ function SuperAdminAMChatCard() {
             </div>
 
             <div className={Styles.AIChatInputBox}>
-              <Search name={"Ask anything.."} />
+              <Search name={"Ask anything.."} style={searchStyles} />
             </div>
           </Card>
         </div>

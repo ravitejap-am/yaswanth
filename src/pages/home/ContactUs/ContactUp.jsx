@@ -42,16 +42,17 @@ const ContactUp = () => {
       label: "Select Plan",
       type: "select",
       style: {
-        width: "520px",
-        height: "38px",
+        width: "515px",
+        height: "50px",
         borderRadius: "40px",
         border: "1px solid var(--Brand-700, #4338CA)",
         backgroundColor: "transparent",
-        marginBottom:"13px"
+        marginBottom: "13px",
       },
       className: "transparent-dropdown",
       labelName: true,
       options: [
+        { value: "", label: "Select an option", disabled: true },
         { value: "basic", label: "Basic Plan" },
         { value: "premium", label: "Premium Plan" },
         { value: "pro", label: "Pro Plan" },
@@ -64,6 +65,7 @@ const ContactUp = () => {
       type: "text",
       style: {
         width: "495px",
+        height: "70px",
         borderRadius: "40px",
         border: "1px solid var(--Brand-700, #4338CA)",
         backgroundColor: "transparent",
@@ -85,6 +87,7 @@ const ContactUp = () => {
     width: "520px",
     height: "50px",
     borderRadius: "28px",
+    boxShadow: "none",
   };
 
   const feedingVariable = {
@@ -111,7 +114,6 @@ const ContactUp = () => {
             style={{ width: "79%", height: "358px", marginTop: "90px" }}
           />
         </div>
-
         <div className="Contact-us-page-ant-form">
           <div>
             <p className="Contact-us-form-title">Contact Us</p>

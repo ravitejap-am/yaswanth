@@ -18,7 +18,7 @@ const Banner = () => {
       <div className="background_image"></div>
       <div>
         <div>
-          <h1 className={Style.bannerHeading}>
+          <p className={Style.bannerHeading}>
             Unleash the
             <br />
             Power of your
@@ -26,7 +26,7 @@ const Banner = () => {
             enterprise's content
             <br />
             documents with GenAI.
-          </h1>
+          </p>
         </div>
         <div className={Style.bannerPara}>
           <p>
