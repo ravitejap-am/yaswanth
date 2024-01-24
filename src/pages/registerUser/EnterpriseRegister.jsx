@@ -161,7 +161,7 @@ const EnterpriseRegister = () => {
               <div className="col">
                 <div className="row mainContent">
                   <div className="box-round">
-                    <div className="text-top">
+                    <div className="enterprise-text-top">
                       <h2>Enterprise Sign Up</h2>
                       <p>Please sign up with your organization email id. If your <br />organization is not registered with us, please reach out to <br />sales@areteminds.com</p>
                     </div>
