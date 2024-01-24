@@ -26,11 +26,14 @@
 .back-link {
     margin-top: 70px;
     color: var(--Neutral-100, #F1F5F9);
-    font-family: Lato;
     font-size: 16px;
     font-style: normal;
     font-weight: 700;
     line-height: 24px;
+    text-decoration: none;
+    color: #FFF;
+    background-color: transparent;
+    
 
 }
 
@@ -112,7 +115,7 @@
 
 .info-bar {
     color: var(--Neutral-900, #0F172A);
-    font-family: Lato;
+    /* font-family: Lato; */
     font-size: 16px;
     font-style: normal;
     font-weight: 700;
@@ -122,9 +125,8 @@
 .barinfo-personalinfo {
     margin-left: 20px;
     color: var(--Neutral-900, #0F172A);
-
-    /* text-base */
-    font-family: Lato;
+    text-align: center;
+    justify-content: center;
     font-size: 16px;
     font-style: normal;
     font-weight: 600;
@@ -137,7 +139,6 @@
 .barinfo-changepassword {
     margin-left: 40px;
     color: var(--Neutral-900, #0F172A);
-    font-family: Lato;
     font-size: 16px;
     font-style: normal;
     font-weight: 700;
@@ -149,7 +150,6 @@
 .barinfo-plans {
     margin-left: 40px;
     color: var(--Neutral-900, #0F172A);
-    font-family: Lato;
     font-size: 16px;
     font-style: normal;
     font-weight: 600;
@@ -246,7 +246,6 @@
 
 /* ChangePassword css */
 .changepassword-main {
-
     margin-top: 35px;
     width: 940px;
     height: 340px;
@@ -320,23 +319,22 @@
 .info-bar-content a {
     margin-left: 20px;
     color: var(--Neutral-900, #0F172A);
-    font-family: Lato;
     font-size: 16px;
     font-style: normal;
     font-weight: 600;
     line-height: 24px;
     text-decoration: none;
-    position: relative; 
-  }
-  
-  .info-bar-content a.active-link::after {
+    position: relative;
+}
+
+.info-bar-content a.active-link::after {
     content: "";
     display: block;
     background: url('../../asset/Line.png') repeat-x center bottom;
-    height: 3px; 
-    width: 100%; 
+    height: 3px;
+    width: 100%;
     position: absolute;
     bottom: 0;
-    left: 0; 
-    top:37px
-  }
+    left: 0;
+    top: 37px
+}

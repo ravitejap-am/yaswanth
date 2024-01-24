@@ -1,16 +1,16 @@
 import React from "react";
 import Logo from "../../../asset/Vector.png";
-import Styles from "../AMChatBackgound/AMChat.module.css";
+// import 
+import Styles from "../../AMChatAdmin/AMChatBackgound/AMChat.module.css";
 import GeneralButton from "../../../components/common/buttons/GeneralButton";
 import frame from "../../../asset/Frame 1.png";
 import organizationimage from "../../../asset/AmChatSuperAdmin/Frame 2301.png";
 import userImage from "../../../asset/AmChatSuperAdmin/users.png";
 import { Link } from "react-router-dom";
 import arrorLink from "../../../asset/AmChatSuperAdmin/arrow-left.png";
-import OrganizationAdminListSidebar from "../OrganizationAdminList/OrganizationAdminListSidebar";
-import AddOrganizationAdmin from "./AddOrganizationAdmin";
-
-function AddOrganizationAdminSidebar() {
+// import OrganizationAdminListSidebar from "../OrganizationAdminList/OrganizationAdminListSidebar";
+import OrgAddDocument from '../../chatmain/orgadddocument/OrgAddDocument'
+function OrgAddDocumentSidebar() {
   return (
     <>
       <div className={Styles.AMChatMainDiv}>
@@ -24,7 +24,7 @@ function AddOrganizationAdminSidebar() {
             </div>
           </div>
 
-          {/* <div className={Styles.bannerBtn}>
+          <div className={Styles.bannerBtn}>
             <div className={Styles.bannerButton}>
               <GeneralButton
                 name={"Start New Chat"}
@@ -37,7 +37,7 @@ function AddOrganizationAdminSidebar() {
                 height={"45px"}
               />
             </div>
-          </div> */}
+          </div>
 
           <div className={Styles.container}>
             <div className={Styles.SuperAdminChildContainer}>
@@ -54,38 +54,30 @@ function AddOrganizationAdminSidebar() {
                   to="/dashboardadmin/organizationlist"
                   style={{ textDecoration: "none" }}
                 >
-                  <p className={Styles.organizationTextStyle}>Organizations</p>
+                  <p className={Styles.organizationTextStyle}>Users</p>
                 </Link>
               </span>
             </div>
             <br />
-
-            {/* <div className={Styles.SuperAdminChildContainer}>
+            <div className={Styles.SuperAdminChildContainer}>
               <span>
                 <img src={userImage} alt="" />
-                <Link
-                  to="/dashboardadmin/organizationadminlist"
-                  style={{ textDecoration: "none" }}
-                >
-                  <p className={Styles.organizationTextStyle}>
-                    Organization Admin
-                  </p>
-                </Link>
+                <p className={Styles.organizationTextStyle}>
+                  Documents
+                </p>
               </span>
-            </div> */}
+            </div>
           </div>
         </div>
-        <AddOrganizationAdmin />
+        <OrgAddDocument />
       </div>
       <div className={Styles.AMChatFooterStyle}>
         <footer className="AMChat-admin-footer">
-          <p className={Styles.footerPTagStyle}>
-            @2024. All rights reserved by AM Chatbot
-          </p>
+          <p>@2024. All rights reserved by AM Chatbot</p>
         </footer>
       </div>
     </>
   );
 }
 
-export default AddOrganizationAdminSidebar;
+export default OrgAddDocumentSidebar;

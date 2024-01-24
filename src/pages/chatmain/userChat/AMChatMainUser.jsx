@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import './AmchatMainUser.css';
 import arrow from '../../../asset/inputarrow.png'
 import docuementicon from '../../../asset/Group 23 (1).png'
+import GeneralButton from '../../../components/common/buttons/GeneralButton';
+import frame1 from '../../../asset/Frame 1.png'
+import threedot from '../../../asset/threedot.png'
 
 const AmchatMainUser = () => {
   const [chat, setChat] = useState('');
@@ -24,9 +27,24 @@ const AmchatMainUser = () => {
     <div className='amchat-main'>
       <div className='sidebar-amchat'>
         <h2>AM-Chat</h2>
-        <button className='start-chat' onClick={handleStartChat}>
-          StartChat
-        </button>
+        <div className='startchat-button'>
+          <GeneralButton
+            name="Start New Chat"
+            type="primary"
+            color="white"
+            backgroundColor="#6366F1"
+            width="150px"
+            padding="10px 16px"
+            height="40px"
+            borderRadius="30px"
+            icons={frame1}
+          />
+        </div>
+        <div className='orgadmin-chats'>
+          <h3>Chats</h3>
+          <p className='orgadmin-chat'>How to upload my Docume.<img className='orgadmin-threedot' src={threedot} alt="" /></p>
+          <p>What is AM-Chat? <img className='orgadmin-threedot-two' src={threedot} alt="" /></p>
+        </div>
       </div>
       <div className='chat-profile-container'>
         <div className='userchatHeader'>
@@ -51,7 +69,7 @@ const AmchatMainUser = () => {
           <div className="chatui-card">
             <div className='chatui-text'>
               <div className="chatui-AmChat-text">
-                <p>AM-Chat <img src="" alt="" /></p>
+                <p >AM-Chat</p>
               </div>
               <div className='chat-hello-text'>
                 <h2>Hello, I’m AM-Chat</h2>

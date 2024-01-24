@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import "./registerUser.module2.css";
 import { Form, message } from "antd";
@@ -7,13 +8,13 @@ import axios from "axios";
 import GeneralForm from "../../components/common/forms/GeneralForm";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import Footer from "../../pages/home/Footer/Footer";
-import Header from "../home/Header/Header";
+import Footer from "../home/Footer/Footer";
+import './EnterpriseRegister.css'
 import SignHeader from "../home/SignHeader/SignHeader";
 
 
 
-const RegisterUser = () => {
+const EnterpriseRegister = () => {
   const [signupMessage, setSignupMessage] = useState();
   const [loader, setLoader] = useState(false);
   const [form] = Form.useForm();
@@ -161,17 +162,17 @@ const RegisterUser = () => {
                 <div className="row mainContent">
                   <div className="box-round">
                     <div className="text-top">
-                      <h2>Sign Up</h2>
+                      <h2>Enterprise Sign Up</h2>
                       <p>Please sign up with your organization email id. If your <br />organization is not registered with us, please reach out to <br />sales@areteminds.com</p>
                     </div>
 
                     <div>
                       <div className="form-content">
                         <GeneralForm {...feedingVariable} />
-                        <div className="alreadySignIn">
+                        <div className="Enterprise-alreadySignIn">
                           <p>
                             Already have an account?{" "}
-                            <Link to={"/signin"} className="danger-text">
+                            <Link to={"/#"} className="danger-text">
                               Sign In
                             </Link>
                             <a href=""></a>
@@ -196,4 +197,4 @@ const RegisterUser = () => {
 
 };
 
-export default RegisterUser;
+export default EnterpriseRegister;

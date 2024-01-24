@@ -1,0 +1,41 @@
+.signheader-main{
+    background: var(--Neutral-200, #E2E8F0);
+}
+.signheader-content {
+    display: flex;
+    justify-content: space-between;
+    height: 100px;
+}
+
+.signheader-buttoncontent {
+    display: flex;
+    align-items: center;
+    margin: 4px;  
+}
+
+.signheader-account {
+    margin-right: 10px;  
+}
+
+.signheader-amchattext{
+    margin-left: 35px;
+    color: var(--Neutral-900, #0F172A);
+/* font-family: "Red Rose"; */
+font-size: 16px;
+font-style: normal;
+font-weight: 700;
+line-height: 24px;
+margin-top: 10px;
+}
+.signheader-account{
+    margin-right: 10px;
+    margin-top: 10px;
+}
+.signheader-btn{
+    margin-right: 30px;
+    margin-top: 10px;
+}
+.headerVector-icon{
+    position: relative;
+    bottom: 8px;
+}

@@ -7,6 +7,7 @@ function RightPlan() {
   return (
     <div>
       <div className="Right_Plan_Main_Card">
+      <br /><br /><br />
         <div className="Right_Plan_Top_Content">
           <div>
             <p className="Right_Plan_Top_Content_Title">

@@ -165,3 +165,36 @@
   font-style: normal;
   font-weight: 1.2rem;
 }
+
+.AMChatFooterStyle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(
+    114deg,
+    #0f172a 51.52%,
+    #152346 73.32%,
+    #1a2e5e 92.75%
+  );
+  border-style: none;
+  margin-top: -20px;
+}
+.organizationTextStyle {
+  color: var(--White, #fff);
+  text-align: right;
+  font-family: Lato;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  margin-left: 15px;
+}
+.AMchatMainDiv {
+  margin-top: 30px;
+}
+.AMChatFooterStyle {
+  color: var(--White, #fff);
+  font-family: Lato;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 1.2rem;
+}

@@ -5,6 +5,8 @@ import GeneralForm from "../../components/common/forms/GeneralForm";
 import axios from "axios";
 import { toast } from 'react-toastify';
 import NotifyMessage from '../../components/common/toastMessages/NotifyMessage';
+import Footer  from "../../pages/home/Footer/Footer";
+import SignHeader from "../home/SignHeader/SignHeader";
 
 const SignIn = () => {
   const [form] = Form.useForm();
@@ -108,6 +110,8 @@ const SignIn = () => {
   };
 
   return (
+    <>
+    <SignHeader/>
     <div className="main">
       <div className="container">
         <div className="row">
@@ -137,7 +141,9 @@ const SignIn = () => {
         </div>
       </div>
       <NotifyMessage/>
+      <Footer/>
     </div>
+    </>
   );
 };
 

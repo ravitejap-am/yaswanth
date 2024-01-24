@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, createRef } from "react";
 import img1 from "../../../asset/contact.png";
 import GeneralForm from "../../../components/common/forms/GeneralForm";
 import { Form, Input, Select } from "antd";
@@ -7,6 +7,14 @@ import "./ContactUp.css";
 const { Option } = Select;
 
 const ContactUp = () => {
+  const formRef = createRef();
+
+  useEffect(() => {
+    // Scroll to the top of the form when the component mounts
+    if (formRef.current) {
+      formRef.current.scrollIntoView({ behavior: "auto" });
+    }
+  }, []);
   const formElements = [
     {
       name: "name",
@@ -106,6 +114,7 @@ const ContactUp = () => {
 
   return (
     <div className="Contact-us-page-main-div">
+    <br /><br /><br />
       <div className="Contact-us-page-child-div">
         <div className="Contact-usi-left-side-img">
           <img

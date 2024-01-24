@@ -1,5 +1,5 @@
 import React from "react";
-import Styles from "./Organization.module.css";
+import Styles from "../../AMChatAdmin/OrganizationAdminList/OrganizationAdminList.module.css";
 import profile from "../../../asset/AmChatSuperAdmin/profile.png";
 import GeneralButton from "../../../components/common/buttons/GeneralButton";
 import frame from "../../../asset/AmChatSuperAdmin/plus-sm.png";
@@ -17,78 +17,51 @@ import Checkbox from "@mui/material/Checkbox";
 import IconButton from "@mui/material/IconButton";
 import editIcon from "../../../asset/AmChatSuperAdmin/pencil-alt.png";
 import deleteIcon from "../../../asset/AmChatSuperAdmin/Frame 2302.png";
-import dropdownIcon from "../../../asset/AmChatSuperAdmin/dropDownIcon.png";
-import Select from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
 import { Link } from "react-router-dom";
-import Search from "../../../components/common/search/Search";
-import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
-import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-import SerchImages from "../../../asset/AmChatSuperAdmin/Group2305.png";
-import eyesolid from "../../../asset/AmChatSuperAdmin/eye-solid.svg";
 
-function OrganizationList() {
-  const searchStyles = {
-    width: "300px",
-    height: "45px",
-    borderRadius: "42px",
-    fontFamily: "Inter, sans-serif",
-    backgroundColor: "#EEF2FF",
-    display: "flex",
-    alignItems: "center",
-  };
-
+function OrgDocumentList() {
   const rows = [
     {
       id: 1,
-      name: "Org 1",
-      address: "Address 1",
-      contactPerson: "John Doe",
-      plans: "Basic",
+      name: "John Doe",
+      email: "john.doe@example.com",
+      lastChat: "12:00 PM",
+      totalChat: 20,
       status: "Active",
     },
     {
       id: 2,
-      name: "Org 2",
-      address: "Address 2",
-      contactPerson: "Jane Doe",
-      plans: "Premium",
+      name: "Jane Doe",
+      email: "jane.doe@example.com",
+      lastChat: "12:00 PM",
+      totalChat: 15,
       status: "Inactive",
     },
     {
       id: 3,
-      name: "Org 2",
-      address: "Address 2",
-      contactPerson: "Jane Doe",
-      plans: "Premium",
-      status: "Inactive",
+      name: "Alice Smith",
+      email: "alice.smith@example.com",
+      lastChat: "9:00 PM",
+      totalChat: 30,
+      status: "Active",
     },
     {
       id: 4,
-      name: "Org 2",
-      address: "Address 2",
-      contactPerson: "Jane Doe",
-      plans: "Premium",
-      status: "Inactive",
+      name: "Bob Johnson",
+      email: "bob.johnson@example.com",
+      lastChat: "1:00 PM",
+      totalChat: 25,
+      status: "Active",
     },
     {
       id: 5,
-      name: "Org 2",
-      address: "Address 2",
-      contactPerson: "Jane Doe",
-      plans: "Premium",
+      name: "Eve Wilson",
+      email: "eve.wilson@example.com",
+      lastChat: "10:00 AM",
+      totalChat: 10,
       status: "Inactive",
     },
-    {
-      id: 6,
-      name: "Org 2",
-      address: "Address 2",
-      contactPerson: "Jane Doe",
-      plans: "Premium",
-      status: "Inactive",
-    },
-    // Add 8 more entries with similar structure
+    // Add more entries with similar structure
   ];
 
   const [page, setPage] = React.useState(0);
@@ -114,23 +87,12 @@ function OrganizationList() {
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
-  const handlePreviousPageButtonClick = () => {
-    setPage((prevPage) => Math.max(0, prevPage - 1));
-  };
-
-  const handleNextPageButtonClick = () => {
-    setPage((prevPage) =>
-      Math.min(rows.length / rowsPerPage - 1, prevPage + 1)
-    );
-  };
   return (
     <div className={Styles.superAdminMainCardDivStyle}>
       <div className={Styles.superAdminMiddleParentDiv}>
         <div className={Styles.superAdminProfileCardStyle}>
           <div>
-            <p className={Styles.superAdminOrganizationListName}>
-              Organization List
-            </p>
+            <p className={Styles.superAdminProfileName}>User List</p>
           </div>
           <div
             className={Styles.superAdminProfileImgNameStyle}
@@ -141,32 +103,25 @@ function OrganizationList() {
           </div>
         </div>
 
-        <div className={Styles.bannerBtn}>
-          <div className={Styles.OrganizationListFilterSerchBox}>
-            <Search
-              name={"Search name here."}
-              styles={searchStyles}
-              searchImage={SerchImages}
-              imageHeight={"46px"}
-              imageMarginLeft={20}
-            />
-          </div>
-          <div className={Styles.bannerButton}>
-            <Link
-              to="/dashboardadmin/addorganizationadmin"
-              style={{ textDecoration: "none" }}
-            >
-              <GeneralButton
-                name={"Add Organization"}
-                type={"submit"}
-                color={"#f8fafc"}
-                borderRadius={"30px"}
-                backgroundColor={"#6366f1"}
-                icons={frame}
-                width={"158px"}
-                height={"45px"}
-              />
-            </Link>
+        <div>
+          <div className={Styles.bannerBtn}>
+            <div className={Styles.bannerButton}>
+              <Link
+                to="/dashboardadmin/addorganizationadmin"
+                style={{ textDecoration: "none" }}
+              >
+                <GeneralButton
+                  name={"Add User"}
+                  type={"submit"}
+                  color={"#f8fafc"}
+                  borderRadius={"30px"}
+                  backgroundColor={"#6366f1"}
+                  icons={frame}
+                  width={"132px"}
+                  height={"45px"}
+                />
+              </Link>
+            </div>
           </div>
         </div>
 
@@ -174,7 +129,7 @@ function OrganizationList() {
           <Paper>
             <TableContainer>
               <Table
-                sx={{ width: "100%" }}
+                sx={{ minWidth: 750 }}
                 aria-labelledby="tableTitle"
                 size={"medium"}
                 aria-label="enhanced table"
@@ -195,49 +150,49 @@ function OrganizationList() {
                           variant="body1"
                           style={{ fontWeight: "bold" }}
                         >
-                          Organization Name
+                          Name
                         </Typography>
                       </TableSortLabel>
                     </TableCell>
                     <TableCell>
                       <TableSortLabel
-                        active={orderBy === "address"}
-                        direction={orderBy === "address" ? order : "asc"}
-                        onClick={(e) => handleRequestSort(e, "address")}
+                        active={orderBy === "email"}
+                        direction={orderBy === "email" ? order : "asc"}
+                        onClick={(e) => handleRequestSort(e, "email")}
                       >
                         <Typography
                           variant="body1"
                           style={{ fontWeight: "bold" }}
                         >
-                          Address
+                          Email
                         </Typography>
                       </TableSortLabel>
                     </TableCell>
                     <TableCell>
                       <TableSortLabel
-                        active={orderBy === "contactPerson"}
-                        direction={orderBy === "contactPerson" ? order : "asc"}
-                        onClick={(e) => handleRequestSort(e, "contactPerson")}
+                        active={orderBy === "lastChat"}
+                        direction={orderBy === "lastChat" ? order : "asc"}
+                        onClick={(e) => handleRequestSort(e, "lastChat")}
                       >
                         <Typography
                           variant="body1"
                           style={{ fontWeight: "bold" }}
                         >
-                          Contact Person
+                          Last Chat
                         </Typography>
                       </TableSortLabel>
                     </TableCell>
                     <TableCell>
                       <TableSortLabel
-                        active={orderBy === "plans"}
-                        direction={orderBy === "plans" ? order : "asc"}
-                        onClick={(e) => handleRequestSort(e, "plans")}
+                        active={orderBy === "totalChat"}
+                        direction={orderBy === "totalChat" ? order : "asc"}
+                        onClick={(e) => handleRequestSort(e, "totalChat")}
                       >
                         <Typography
                           variant="body1"
                           style={{ fontWeight: "bold" }}
                         >
-                          Plans
+                          Total Chat
                         </Typography>
                       </TableSortLabel>
                     </TableCell>
@@ -279,31 +234,11 @@ function OrganizationList() {
                         <TableCell component="th" scope="row">
                           {row.name}
                         </TableCell>
-                        <TableCell>{row.address}</TableCell>
-                        <TableCell>{row.contactPerson}</TableCell>
-                        <TableCell>{row.plans}</TableCell>
+                        <TableCell>{row.email}</TableCell>
+                        <TableCell>{row.lastChat}</TableCell>
+                        <TableCell>{row.totalChat}</TableCell>
+                        <TableCell>{row.status}</TableCell>
                         <TableCell>
-                          <FormControl>
-                            <Select
-                              style={{ border: "none", borderRadius: "none" }}
-                              value={row.status}
-                              onChange={(e) => {
-                                console.log(e.target.value);
-                              }}
-                            >
-                              <MenuItem value="Active">Active</MenuItem>
-                              <MenuItem value="Inactive">Inactive</MenuItem>
-                            </Select>
-                          </FormControl>
-                        </TableCell>
-                        <TableCell>
-                          <IconButton aria-label="view">
-                            <img
-                              src={eyesolid}
-                              alt="View"
-                              style={{ width: 24, height: 24 }}
-                            />
-                          </IconButton>
                           <IconButton aria-label="edit">
                             <img src={editIcon} alt="Edit" />
                           </IconButton>
@@ -329,31 +264,6 @@ function OrganizationList() {
               page={page}
               onPageChange={handleChangePage}
               onRowsPerPageChange={handleChangeRowsPerPage}
-              ActionsComponent={(props) => (
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    padding: "16px",
-                  }}
-                >
-                  <IconButton
-                    onClick={handlePreviousPageButtonClick}
-                    disabled={page === 0}
-                  >
-                    <NavigateBeforeIcon />
-                  </IconButton>
-                  <div>
-                    {props.page + 1} of {Math.ceil(rows.length / rowsPerPage)}
-                  </div>
-                  <IconButton
-                    onClick={handleNextPageButtonClick}
-                    disabled={page === Math.ceil(rows.length / rowsPerPage) - 1}
-                  >
-                    <NavigateNextIcon />
-                  </IconButton>
-                </div>
-              )}
             />
           </Paper>
         </div>
@@ -362,4 +272,4 @@ function OrganizationList() {
   );
 }
 
-export default OrganizationList;
+export default OrgDocumentList;

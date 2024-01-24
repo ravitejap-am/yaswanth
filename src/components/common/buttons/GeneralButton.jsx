@@ -1,4 +1,5 @@
 import { Button } from "antd";
+
 const GeneralButton = ({
   name,
   buttonProps,
@@ -43,4 +44,5 @@ const GeneralButton = ({
     </Button>
   );
 };
+
 export default GeneralButton;

@@ -4,6 +4,8 @@ import GeneralForm from "../../components/common/forms/GeneralForm";
 import axios from 'axios';
 import NotifyMessage from '../../components/common/toastMessages/NotifyMessage';
 import { toast } from 'react-toastify';
+import Footer  from "../../pages/home/Footer/Footer";
+import SignHeader from '../home/SignHeader/SignHeader';
 
 
 const ResetPassword = () => {
@@ -93,6 +95,8 @@ const ResetPassword = () => {
   };
 
   return (
+    <>
+    <SignHeader/>
     <div className="main">
       <div className="container">
         <div className="row">
@@ -123,7 +127,9 @@ const ResetPassword = () => {
           </div>
         </div>
       </div>
+      <Footer/>
     </div>
+    </>
   );
 }
 

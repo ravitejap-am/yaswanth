@@ -3,6 +3,7 @@ import "./AIChatBot.css";
 import LargeCardImage2 from "../../../asset/Frame.png";
 import { Card } from "antd";
 import Search from "../../../components/common/search/Search";
+import SerchImages from "../../../asset/Group2290.png";
 
 function AIChatBot() {
   const containerStyle = {
@@ -68,6 +69,7 @@ function AIChatBot() {
                   name={
                     "Explore your organizational knowledge base using the power of GenAI."
                   }
+                  searchImage={SerchImages}
                 />
               </div>
             </div>

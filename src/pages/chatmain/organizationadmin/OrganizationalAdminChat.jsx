@@ -7,11 +7,10 @@ import circle1 from "../../../asset/AmChatSuperAdmin/Group23.png";
 import circle2 from "../../../asset/AmChatSuperAdmin/Group24.png";
 import profile from "../../../asset/AmChatSuperAdmin/profile.png";
 import Logo from "../../../asset/Vector.png";
-import Group2290 from "../../../asset/Group2290.png";
 import Search from "../../../components/common/search/Search";
 // import flowImage from "../../../asset/AmChatSuperAdmin/Flow.svg";
 
-function SuperAdminAMChatCard() {
+function OrganizationalAdminChat() {
   const contentArray = [
     "Could you help me with the maternity policy of my organization?",
     "Can you tell me about GDPR compliance.  Which I should follow in my organization?",
@@ -19,14 +18,6 @@ function SuperAdminAMChatCard() {
     "Can you tell me what's wrong in my lab reports?  ",
     "Can you explain me the quantum mechanics? ",
   ];
-  const searchStyles = {
-    width: "96%",
-    height: "70px",
-    borderRadius: "35px",
-    border: "1px solid #94a3b8",
-    color: "#94a3b8",
-    paddingLeft: "30px",
-  };
   return (
     <div className={Styles.superAdminMainCardDivStyle}>
       <div className={Styles.superAdminMiddleParentDiv}>
@@ -36,10 +27,7 @@ function SuperAdminAMChatCard() {
           </div>
           <div
             className={Styles.superAdminProfileImgNameStyle}
-            style={{
-              display: "flex",
-              alignItems: "center",
-            }}
+            style={{ display: "flex", alignItems: "center" }}
           >
             <img src={profile} alt="" className={Styles.AdminProfileStyle} />
             <span className={Styles.SuperAdminProfileStyle}>Lian Vendiar</span>
@@ -57,7 +45,7 @@ function SuperAdminAMChatCard() {
                 <img src={circle1} alt="" />
               </div>
               <div className={Styles.titlePriceStyle}>
-                <p className={Styles.titleStyle}>Organizations</p>
+                <p className={Styles.titleStyle}>Total Documents Uploaded</p>
                 <p className={Styles.priceStyle}>500</p>
               </div>
             </div>
@@ -83,7 +71,7 @@ function SuperAdminAMChatCard() {
               </div>
               <div className={Styles.titlePriceStyle}>
                 <div className={Styles.titleStyle}>
-                  <p>Documents Uploaded</p>
+                  <p>Total Active Users</p>
                 </div>
                 <div>
                   <p className={Styles.priceStyle}>500</p>
@@ -109,18 +97,18 @@ function SuperAdminAMChatCard() {
                 <div className={Styles.appHeading}>
                   <div className={Styles.appLogo}>
                     <span className={Styles.amChatTitle}>AM-Chat</span>
-                    <span>
-                      <img src={Logo} alt="" className={Styles.appName} />
+                    <span className={Styles.appName}>
+                      <img src={Logo} alt="" />
                     </span>
                   </div>
                 </div>
               </div>
               <div className={Styles.superAdminAMChatMiddleDiv}>
                 <div className={Styles.AMChatFirstTitle}>
-                  <p>Hello, I’m AM-Chat</p>
+                  Hello, I’m AM-Chat
                 </div>
                 <div className={Styles.AMChatSecondTitle}>
-                  <p>How can I help you today?</p>
+                  How can I help you today?
                 </div>
               </div>
             </div>
@@ -136,11 +124,7 @@ function SuperAdminAMChatCard() {
             </div>
 
             <div className={Styles.AIChatInputBox}>
-              <Search
-                name={"Ask anything.."}
-                style={searchStyles}
-                searchImage={Group2290}
-              />
+              <Search name={"Ask anything.."} />
             </div>
           </Card>
         </div>
@@ -149,4 +133,4 @@ function SuperAdminAMChatCard() {
   );
 }
 
-export default SuperAdminAMChatCard;
+export default OrganizationalAdminChat;

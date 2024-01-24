@@ -18,6 +18,16 @@ function Dropdown({ options, onSelect, style, placeholder }) {
     }
   };
 
+  const placeholderStyle = {
+    color: "var(--Neutral-600, #475569)",
+    paddingLeft: "10px",
+    fontFamily: "Into Lato",
+    fontSize: "16px",
+    fontStyle: "normal",
+    fontWeight: "400",
+    lineHeight: "24px",
+  };
+
   return (
     <div className={Style.dropdownContainer}>
       <select
@@ -30,10 +40,10 @@ function Dropdown({ options, onSelect, style, placeholder }) {
           );
           handleSelect(selectedOption);
         }}
-        style={style}
+        style={{ ...style, marginLeft: "" }}
       >
-        <option value="" disabled style={{ marginLeft: "-20px" }}>
-          Select an option
+        <option value="" disabled style={placeholderStyle}>
+          {placeholder || "Select an option"}
         </option>
         {options.map((option) => (
           <option key={option.value} value={option.value}>
@@ -43,14 +53,14 @@ function Dropdown({ options, onSelect, style, placeholder }) {
       </select>
 
       {isOpen && (
-        <div className="dropdown-list">
+        <div className={Style["dropdown-list"]}>
           {options.map((option) => (
             <div
               key={option.value}
-              className="dropdown-item"
+              className={Style["dropdown-item"]}
               onClick={() => handleSelect(option)}
             >
-              {/* {option.label ? placeholder : null} */}
+              {option.label}
             </div>
           ))}
         </div>

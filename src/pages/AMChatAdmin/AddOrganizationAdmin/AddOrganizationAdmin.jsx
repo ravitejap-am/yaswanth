@@ -1,8 +1,11 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import Styles from "./AddOrganizationAdmin.module.css";
 import profile from "../../../asset/AmChatSuperAdmin/profile.png";
 import GeneralForm from "../../../components/common/forms/GeneralForm";
 function AddOrganizationAdmin() {
+  const navigate = useNavigate();
+
   const formElements = [
     {
       name: "Organization Name",
@@ -118,6 +121,8 @@ function AddOrganizationAdmin() {
 
   const cancelHandler = (values) => {
     console.log("Form values:", values);
+    // Redirect to /dashboardadmin/organizationlist
+    navigate("/dashboardadmin/organizationlist");
   };
 
   const submitButtonProperty = {
@@ -130,7 +135,7 @@ function AddOrganizationAdmin() {
     gap: "8px",
     flexShrink: "0",
     borderRadius: "30px",
-    backgroundColor: "var(--Brand-500, #6366F1) !important;", // Use backgroundColor instead of background
+    backgroundColor: "var(--Brand-500, #6366F1)",
     color: "#FFFFFF",
     fontFamily: "Into Lato",
     fontSize: "16px",

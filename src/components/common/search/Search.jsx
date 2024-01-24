@@ -1,9 +1,15 @@
 // components/common/search/Search.js
 import React from "react";
 import "./Search.css";
-import sendImage from "../../../asset/Group2290.png";
 
-function Search({ name, searchImage, styles }) {
+function Search({
+  name,
+  searchImage,
+  styles,
+  imageWidth,
+  imageHeight,
+  imageMarginLeft,
+}) {
   return (
     <div>
       <div className="input_field_main_div">
@@ -13,8 +19,16 @@ function Search({ name, searchImage, styles }) {
           className="input_filed_style with-icon"
           style={styles}
         />
-        <div className="icon-container">
-          <img src={searchImage} alt="" className="icon" />
+        <div
+          className="icon-container"
+          style={{ marginLeft: `${imageMarginLeft}px` }}
+        >
+          <img
+            src={searchImage}
+            alt=""
+            className="icon"
+            style={{ width: imageWidth, height: imageHeight }}
+          />
         </div>
       </div>
     </div>

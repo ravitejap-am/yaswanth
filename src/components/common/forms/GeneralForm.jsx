@@ -353,10 +353,7 @@ const GeneralForm = (props) => {
         >
           {isSubmit && (
             <Button
-              buttonProps={{
-                ...submitButtonProperty,
-                backgroundColor: submitButtonProperty.background, // Use background instead of backgroundColor
-              }}
+              backgroundColor={submitButtonProperty.backgroundColor}
               name={submitButtonProperty.name}
               color={submitButtonProperty.color}
               buttonHandler={submitHandler}
@@ -372,8 +369,8 @@ const GeneralForm = (props) => {
               name={cancelButtonProperty.name}
               color={cancelButtonProperty.color}
               border={cancelButtonProperty.border}
-              // backgroundColor={cancelButtonProperty.backgroundColor}
-              backgroundColor={cancelButtonProperty.background}
+              backgroundColor={cancelButtonProperty.backgroundColor}
+              // backgroundColor={cancelButtonProperty.background}
               buttonHandler={submitHandler}
               width={cancelButtonProperty.width}
               height={cancelButtonProperty.height}
