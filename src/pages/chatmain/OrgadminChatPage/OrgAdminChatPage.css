@@ -9,12 +9,12 @@
 .orgadminchat-chat-container {
   border-radius: 15px;
   background: var(--Neutral-200, #E2E8F0);
-  width: 999px;
+  width: 82vw;
   height: 720px;
   margin-top: 20px;
   margin-bottom: 20px;
   position: relative;
-  margin-right: 20px;
+  margin-left: 20px;
 }
 
 .orgadminchat-document-card {
@@ -52,7 +52,7 @@
   margin-left: 40px;
   border-radius: 15px;
   background: var(--Neutral-200, #E2E8F0);
-  width: 703px;
+  width: 55vw;
   height: 570px;
   flex-shrink: 0;
   justify-content: center;
@@ -121,16 +121,16 @@
 .orgadminchat-chat-arrow {
   position: relative;
   display: flex;
-  bottom: 38px;
-  left: 625px;
+  bottom: 2.5rem;
+  left: 39rem;
   cursor: pointer;
   width: 40px;
 }
 
 .orgadminchat-orgadmin-input-main input {
   margin-top: 25px;
-  width: 650px;
-  height: 45px;
+  width: 50vw;
+  height: 8vh;
   border-radius: 35px;
   border: 1px solid var(--Neutral-400, #94A3B8);
   padding-right: 50px;
@@ -186,15 +186,16 @@
 }
 
 .orgadminchat-orgadmindocument-card {
-  padding-top: 81.668px;
+  /* padding-top: 81.668px; */
   justify-content: center;
   align-items: center;
   position: relative;
-  right: 250px;
+  right: 18rem;
   top: 140px;
   display: flex;
 }
-.orgadminchat-document-icon{
+
+.orgadminchat-document-icon {
   margin-right: 15px;
   position: relative;
   bottom: 8px;
@@ -208,68 +209,162 @@
 }
 
 .orgadminchat-orgadmindocument-card {
-  background-color: #f0f0f0; 
-  border: 1px solid #ccc;   
-  padding: 15px;            
-  border-radius: 8px;     
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  padding: 15px;
+  border-radius: 8px;
   text-align: left;
-  width: 190px;
-  height: 100px;         
+  width: 18vw;
+  height: 18vh;
 }
-.orgadminchat-orgadmindocument-card h2{
+
+.orgadminchat-orgadmindocument-card h2 {
   position: relative;
   bottom: 15px;
   color: var(--Neutral-900, #0F172A);
-font-size: 18px;
-font-style: normal;
-font-weight: 600;
-line-height: 20px; /* 142.857% */
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 20px;
+  /* 142.857% */
 
 }
-.document-value{
+
+.document-value {
   color: var(--Neutral-900, #0F172A);
-/* font-family: Montserrat; */
-font-size: 30px;
-font-style: normal;
-font-weight: 700;
-line-height: 36px;
-position: relative;
-right: 80px;
-top: 15px;
+  /* font-family: Montserrat; */
+  font-size: 2rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 36px;
+  position: relative;
+  right: 5rem;
+  top: 15px;
 }
-.orgadminchat-orgadmin-activeuser-card{
-  background-color: #f0f0f0; 
-  border: 1px solid #ccc;   
-  padding: 15px;            
-  border-radius: 8px;     
+
+.orgadminchat-orgadmin-activeuser-card {
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  padding: 15px;
+  border-radius: 8px;
   text-align: left;
-  width: 210px;
-  height: 100px; 
+  width: 18vw;
+  height: 18vh;
 
 }
 
-.orgadminchat-orgadmin-activeuser-card h2{
+.orgadminchat-orgadmin-activeuser-card h2 {
   position: relative;
   bottom: 15px;
   color: var(--Neutral-900, #0F172A);
-font-size: 18px;
-font-style: normal;
-font-weight: 600;
-line-height: 20px; /* 142.857% */
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 20px;
+  /* 142.857% */
 
 }
+
 .orgadminchat-document-icon {
   width: 30px;
   height: 30px;
   margin-top: -10px;
   margin-left: 5px;
 }
+
 .orgadminchat-orgadmin-activeuser-card {
-  /* padding-top: 81.668px; */
-  justify-content: center;
-  align-items: center;
+  /* justify-content: center;
+  align-items: center; */
   position: relative;
-  right: 250px;
+  right: 18rem;
   top: 140px;
   display: flex;
+  margin-top: 20px;
+}
+
+.orgadmin-activeuser-card {
+  position: relative;
+  right: 18rem;
+  top: 140px;
+  display: flex;
+  margin-top: 20px;
+}
+
+.orgadmin-activeuser-card {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-top: 20px;
+  border-radius: 10.457px;
+  background: var(--White, #FFF);
+  height: 43vh;
+}
+
+/* Add orgadminchat- prefix to all class names */
+.orgadminchat-screen {
+  margin: 0;
+  padding: 0;
+}
+
+.orgadmin-activeuser-card,
+.orgadmin-user-card {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-top: 20px;
+  border-radius: 10.457px;
+  background: var(--White, #FFF);
+  height: auto; /* Set height to auto to allow for dynamic content */
+}
+
+.orgadmin-user-card {
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+.orgadmin-user-card img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.orgadmin-user-card h2 {
+  margin-left: 15px;
+  font-size: 16px;
+  color: #333;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.orgadmin-user-card p {
+  font-size: 14px;
+  color: #333; /* Changed color from #888 to #333 */
+  font-size: 10px;
+  font-weight: 400;
+  position: relative;
+  bottom: 15px;
+  left: 20px;
+}
+
+.user-table td {
+  margin: 0;
+  padding: 8px; /* Adjust padding as needed */
+  text-align: left;
+}
+
+/* Add this style for better spacing */
+.background-bar {
+  width: 100%;
+  height: 1px;
+  background: var(--Neutral-300, #CBD5E1);
+  margin: 4px 0;
+}
+.profile-pic{
+  margin-right:10px ;
+}
+.orgadmin-lastseen{
 }
