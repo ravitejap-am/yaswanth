@@ -18,18 +18,21 @@ const SignHeader = () => {
                         <Link to="/registerUser">Don’t have an account?</Link>
                     </div>
                     <div className='signheader-btn'>
-                        <GeneralButton
-                            name="Sign Up"
-                            type="primary"
-                            color="white"
-                            backgroundColor="#6366F1"
-                            width="120px"
-                            padding="10px 16px"
-                            height="40px"
-                            borderRadius="30px"
-                            icons={""}
+                        <Link to="/registerUser" style={{textDecoration:"none"}}>
+                            <GeneralButton
+                                name="Sign Up"
+                                type="primary"
+                                color="white"
+                                backgroundColor="#6366F1"
+                                width="120px"
+                                padding="10px 16px"
+                                height="40px"
+                                borderRadius="30px"
+                                icons={""}
 
-                        />
+                            />
+                        </Link>
+
                     </div>
                 </div>
             </div>

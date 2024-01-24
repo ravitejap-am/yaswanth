@@ -12,6 +12,9 @@ import { Link } from "react-router-dom";
 import arrorLink from "../../../asset/arrow-left.png";
 import OrgUserList from "../../../pages/chatmain/orguserlist/OrgUserList";
 import OrgAdminChatPage from "../../chatmain/OrgadminChatPage/OrgAdminChatPage";
+import documentIcon from '../../../asset/Group 23 (1).png'
+import vectoricon from '../../../asset/vectoricon.png'
+import './OrgAdminChatPage.css'
 function OrgAdminChatSidebar() {
   return (
     <>
@@ -71,7 +74,24 @@ function OrgAdminChatSidebar() {
             </div>
           </div>
         </div>
-        <OrgAdminChatPage/>
+        <OrgAdminChatPage />
+        <div className='orgadminchat-orgadmin-cards'>
+          <div className='orgadminchat-orgadmindoc-card'>
+            <div className='orgadminchat-orgadmindocument-card'>
+              <img className='orgadminchat-document-icon' src={documentIcon} alt="Document" />
+              <h2>Documents</h2>
+              <h1 className="document-value">500</h1>
+              {/* <img src={vectoricon} alt="pic" /> */}
+              
+            </div>
+          </div>
+          <div className='orgadminchat-orgadmin-activeuser-card'>
+          <img className='orgadminchat-document-icon' src={documentIcon} alt="Document" />
+              <h2>Active Users</h2>
+              <h1 className="document-value">500</h1>
+              {/* <img src={vectoricon} alt="pic" /> */}
+          </div>
+        </div>
       </div>
       <div className={Styles.AMChatFooterStyle}>
         <footer className="AMChat-admin-footer">

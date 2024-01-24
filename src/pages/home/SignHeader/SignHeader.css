@@ -4,7 +4,6 @@
 .signheader-content {
     display: flex;
     justify-content: space-between;
-    height: 100px;
 }
 
 .signheader-buttoncontent {
