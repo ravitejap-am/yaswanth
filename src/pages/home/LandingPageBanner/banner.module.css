@@ -22,15 +22,12 @@
   height: 65%;
 }
 .bannerHeading {
-  width: 100%;
-  height: 100;
-  color: #ffffff;
-  font-family: Inter, sans-serif;
-  font-size: 55px;
+  color: var(--White, #fff);
+  font-family:  system-ui;
+  font-size: 50px;
   font-style: normal;
-  font-weight: 600;
-  line-height: 68px;
-  padding: 2px;
+  font-weight: 550;
+  line-height: 52px;
 }
 .bannerPara {
   margin-top: -20px !important;

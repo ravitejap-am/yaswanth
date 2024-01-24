@@ -1,7 +1,9 @@
 .App {
   text-align: center;
 }
-
+p {
+  font-family: system-ui;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -78,7 +80,7 @@ body {
 
     rgba(105, 238, 245, 1) 100%
   ); */
-  background-color: #E2E8F0;
+  background-color: #e2e8f0;
 
   background-repeat: no-repeat;
 }

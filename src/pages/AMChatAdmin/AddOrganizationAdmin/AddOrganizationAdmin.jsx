@@ -1,8 +1,10 @@
 import React from "react";
+import { Tabs } from "antd";
 import { useNavigate } from "react-router-dom";
 import Styles from "./AddOrganizationAdmin.module.css";
 import profile from "../../../asset/AmChatSuperAdmin/profile.png";
 import GeneralForm from "../../../components/common/forms/GeneralForm";
+import MainTabNavigationAddOrg from "./AddOrganizationTabNavigation/MainTabNavigationAddOrg";
 function AddOrganizationAdmin() {
   const navigate = useNavigate();
 
@@ -201,7 +203,8 @@ function AddOrganizationAdmin() {
           </div>
 
           <div className={Styles.addOrganizationAdminSecondDiv}>
-            <GeneralForm {...feedingVariable} />
+            {/* <GeneralForm {...feedingVariable} /> */}
+            <MainTabNavigationAddOrg/>
           </div>
         </div>
       </div>
