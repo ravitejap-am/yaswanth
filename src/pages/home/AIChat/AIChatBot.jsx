@@ -3,6 +3,7 @@ import "./AIChatBot.css";
 import LargeCardImage2 from "../../../asset/Frame.png";
 import { Card } from "antd";
 import Search from "../../../components/common/search/Search";
+import SerchImages from "../../../asset/Group2290.png";
 
 function AIChatBot() {
   const containerStyle = {
@@ -43,7 +44,7 @@ function AIChatBot() {
             </span>
           </div>
           <div className="AI_chat_Parent_Card">
-            <Card className="AM_Chat_Main_Card">
+            <div className="AM_Chat_Main_Card">
               <div className="AM_Chat_Main_Card_Title_Div">
                 <div className="AM_chat_first_title">
                   <div>Hello, I’m AM-Chat</div>
@@ -68,9 +69,10 @@ function AIChatBot() {
                   name={
                     "Explore your organizational knowledge base using the power of GenAI."
                   }
+                  searchImage={SerchImages}
                 />
               </div>
-            </Card>
+            </div>
           </div>
         </div>
       </div>

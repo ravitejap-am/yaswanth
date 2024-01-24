@@ -10,9 +10,10 @@
   );
   display: flex;
   justify-content: flex-start;
+  /* position: fixed; */
 }
 .AMChatSidebar {
-  width: 300px;
+  width: 248px;
   height: 100%;
   justify-content: center;
   background: transparent;
@@ -22,7 +23,7 @@
   color: var(--Neutral-100, #f1f5f9);
   -webkit-text-stroke-width: 1;
   -webkit-text-stroke-color: var(--Neutral-900, #0f172a);
-  font-family: Lato;
+  font-family: Into "Lato";
   font-size: 18px;
   font-style: normal;
   font-weight: 700;
@@ -39,7 +40,7 @@
 }
 .AmChatChatPlaceholder {
   color: var(--Neutral-300, #cbd5e1);
-  font-family: Lato;
+  font-family: Into "Lato";
   font-size: 10px;
   font-style: normal;
   font-weight: 300;
@@ -110,17 +111,59 @@
 }
 .amChatTitle {
   color: var(--White, #fff);
-  font-family: Red Rose;
+  font-family: Into "Red Rose";
   font-size: 25px;
   font-style: normal;
   font-weight: 500;
 }
 .appName {
-  width: 12px;
-  height: 12.571px;
+  width: 18px;
+  height: 19.571px;
   flex-shrink: 0;
   stroke-width: 1px;
   stroke: #53a5df;
+  margin-top: -20px !important;
+}
+
+.AMChatFooterStyle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(
+    114deg,
+    #0f172a 51.52%,
+    #152346 73.32%,
+    #1a2e5e 92.75%
+  );
+  border-style: none;
+  margin-top: -20px;
+  color: var(--White, #fff);
+  font-family: Lato;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+}
+.footerPTagStyle {
+  margin-left: 150px;
+}
+.organizationTextStyle {
+  color: var(--White, #fff);
+  text-align: right;
+  font-family: Into "Lato";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+}
+.AMchatMainDiv {
+  margin-top: 30px;
+}
+.AMChatFooterStyle {
+  color: var(--White, #fff);
+  font-family: Lato;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 1.2rem;
 }
 
 .AMChatFooterStyle {

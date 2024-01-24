@@ -1,7 +1,7 @@
 .superAdminMainCardDivStyle {
-  width: 96% !important;
+  width: 100% !important;
   height: 100%;
-  margin: 20px;
+  margin: 1%;
   border-radius: 15px;
   background: var(--Neutral-50, #f8fafc);
 }
@@ -20,15 +20,15 @@
   color: var(--Brand-900, #312e81);
 
   /* text-3xl/font-semibold */
-  font-family: Montserrat;
-  font-size: 30px;
+  font-family: Into, Montserrat;
+  font-size: 24px;
   font-style: normal;
   font-weight: 600;
-  line-height: 36px; /* 120% */
+  line-height: 32px; /* 120% */
 }
 .AdminProfileStyle {
   width: 25%;
-  height: 35%;
+  height: 50%;
 }
 .SuperAdminProfileStyle {
   color: var(--Neutral-900, #0f172a);
@@ -42,7 +42,8 @@
 .superAdminProfileCardStyle {
   display: flex;
   flex-direction: row;
-  gap: 50%;
+  justify-content: space-between;
+  width: 100%;
 }
 .bannerBtn {
   display: flex;

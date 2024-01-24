@@ -25,17 +25,17 @@
   width: 100%;
   height: 100;
   color: #ffffff;
-  font-family: Montserrat;
-  font-size: 40px;
+  font-family: Inter, sans-serif;
+  font-size: 55px;
   font-style: normal;
-  font-weight: 500;
-  line-height: 50px;
+  font-weight: 600;
+  line-height: 68px;
   padding: 2px;
 }
 .bannerPara {
   margin-top: -20px !important;
   color: var(--Neutral-200, #e2e8f0);
-  font-family: Lato;
+  font-family: Inter, Lato;
   font-size: 16px;
   font-style: normal;
   font-weight: 600;

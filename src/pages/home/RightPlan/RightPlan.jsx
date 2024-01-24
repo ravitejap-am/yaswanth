@@ -7,6 +7,7 @@ function RightPlan() {
   return (
     <div>
       <div className="Right_Plan_Main_Card">
+      <br /><br /><br />
         <div className="Right_Plan_Top_Content">
           <div>
             <p className="Right_Plan_Top_Content_Title">
@@ -21,7 +22,7 @@ function RightPlan() {
         <div className="Right_Plan_Three_Container">
           <div className="Right_Plan_Content">
             <div>
-              <p className="Right_Plan_Content_Title">Premium</p>
+              <p className="Right_Plan_Content_Title">Freemium</p>
               <p className="Right_Plan_Content_Sub_Div">
                 {" "}
                 All the get us started will take the user to the contact us
@@ -76,7 +77,7 @@ function RightPlan() {
 
           <div className="Right_Plan_Content">
             <div>
-              <p className="Right_Plan_Content_Title">Platinum</p>
+              <p className="Right_Plan_Content_Title">Standard </p>
               <p className="Right_Plan_Content_Sub_Div">
                 {" "}
                 Best fit for organization with 50 to 100 users or ten to 50

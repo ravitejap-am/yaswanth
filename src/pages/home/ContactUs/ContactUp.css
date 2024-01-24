@@ -1,6 +1,6 @@
 .Contact-us-page-main-div {
   width: 100%;
-  height: 650px;
+  height: 950px;
   background: linear-gradient(
     114deg,
     #0f172a 51.52%,
@@ -24,11 +24,11 @@
 }
 .Contact-us-form-title {
   color: var(--White, #fff);
-
-  font-family: Montserrat;
+  font-family: Into, Montserrat;
   font-size: 36px;
   font-style: normal;
   font-weight: 600;
+  margin-left: 20px;
 }
 .Contact-us-form-sub-title {
   display: flex;
@@ -36,9 +36,10 @@
   flex-direction: column;
   justify-content: center;
   color: #ffffff;
-  font-family: Lato;
+  font-family: Into, "Lato";
   font-size: 16px;
   font-style: normal;
+  margin-left: 20px;
 }
 .Contact-Us-General-Form-Style {
   display: flex;
@@ -47,4 +48,3 @@
   align-items: flex-start;
   gap: 18px;
 }
-

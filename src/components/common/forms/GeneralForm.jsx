@@ -29,6 +29,7 @@ const GeneralForm = (props) => {
 
   return (
     <Form
+      style={{ padding: "18px" }}
       form={form}
       onFinish={submitHandler}
       onFinishFailed={cancelHandler}
@@ -37,7 +38,6 @@ const GeneralForm = (props) => {
       initialValues={{ remember: true }}
       layout="horizontal"
     >
-
       {grid ? (
         <div style={grid}>
           {formElements.map((item, index) => {
@@ -86,7 +86,6 @@ const GeneralForm = (props) => {
                   onChange={(e) => {
                     form.setFieldValue({ [item.name]: e.target.value });
                   }}
-                  style={item.style}
                 />
               ),
               confirmPassword: (
@@ -101,7 +100,6 @@ const GeneralForm = (props) => {
                   style={item.style}
                 />
               ),
-
 
               comment: (
                 <Input
@@ -148,10 +146,12 @@ const GeneralForm = (props) => {
                     )}
                     {item.type === "select" && (
                       <div>
-                      {item.labelName?<div style={{ marginBottom: "2px", color: "#fff" }}>
-                          <label>{item.labelName?item.label:null}</label>
-                        </div>:null}
-                        
+                        {item.labelName ? (
+                          <div style={{ marginBottom: "2px", color: "#fff" }}>
+                            <label>{item.labelName ? item.label : null}</label>
+                          </div>
+                        ) : null}
+
                         {/* <Select
                       onChange={(value) => {
                         form.setFieldsValue({ [item.name]: value });
@@ -316,7 +316,9 @@ const GeneralForm = (props) => {
                           onSelect={(value) => {
                             form.setFieldsValue({ [item.name]: value });
                           }}
-                          style={item.style}
+                          style={{ ...item.style, marginLeft: "10px" }}
+                          // style={item.style}
+                          placeholder={item.labelName ? null : item.label}
                         />
                       </div>
                     )}
@@ -340,13 +342,20 @@ const GeneralForm = (props) => {
       )}
 
       <Form.Item noStyle wrapperCol={{ offset: 6, span: 18 }}>
-        <div className="center" style={{ gap: "2em", marginTop: "1em" }}>
+        <div
+          className="center"
+          style={{
+            gap: "2em",
+            marginTop: "1em",
+            display: "flex",
+            justifyContent: "flex-start",
+          }}
+        >
           {isSubmit && (
             <Button
-              buttonProps={submitButtonProperty}
+              backgroundColor={submitButtonProperty.backgroundColor}
               name={submitButtonProperty.name}
               color={submitButtonProperty.color}
-              backgroundColor={submitButtonProperty.backgroundColor}
               buttonHandler={submitHandler}
               width={submitButtonProperty.width}
               height={submitButtonProperty.height}
@@ -359,7 +368,9 @@ const GeneralForm = (props) => {
               buttonProps={cancelButtonProperty}
               name={cancelButtonProperty.name}
               color={cancelButtonProperty.color}
+              border={cancelButtonProperty.border}
               backgroundColor={cancelButtonProperty.backgroundColor}
+              // backgroundColor={cancelButtonProperty.background}
               buttonHandler={submitHandler}
               width={cancelButtonProperty.width}
               height={cancelButtonProperty.height}

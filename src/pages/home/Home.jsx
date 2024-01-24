@@ -35,17 +35,17 @@ const Home = () => {
         <Idea />
       </div>
       <div className="AI_Solution_Style" id="ai_page">
-      <AISolution />
+        <AISolution />
       </div>
       <div id="How_it_works">
-      <HowItWorks />
+        <HowItWorks />
       </div>
-      
+
       <div id="Plan_Page">
         <RightPlan />
       </div>
-
-      <div id="Contact_Up">
+      <section id="Contact_Up"></section>
+      <div>
         <ContactUp />
       </div>
 

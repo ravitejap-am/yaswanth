@@ -63,18 +63,23 @@ function OrganizationAdminListSidebar() {
             <div className={Styles.SuperAdminChildContainer}>
               <span>
                 <img src={userImage} alt="" />
-                <p className={Styles.organizationTextStyle}>
-                  Organization Admin
-                </p>
+                <Link
+                  to="/dashboardadmin/organizationadminlist"
+                  style={{ textDecoration: "none" }}
+                >
+                  <p className={Styles.organizationTextStyle}>
+                    Organization Admin
+                  </p>
+                </Link>
               </span>
             </div>
           </div>
         </div>
-        <OrganizationAdminList/>
+        <OrganizationAdminList />
       </div>
       <div className={Styles.AMChatFooterStyle}>
         <footer className="AMChat-admin-footer">
-          <p>@2024. All rights reserved by AM Chatbot</p>
+          <p className={Styles.footerPTagStyle}>@2024. All rights reserved by AM Chatbot</p>
         </footer>
       </div>
     </>

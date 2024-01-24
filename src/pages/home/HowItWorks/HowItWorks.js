@@ -5,6 +5,7 @@ function HowItWorks() {
   return (
     <>
       <div className="How_It_Works_Main_Div">
+      <br /><br /><br />
         <div className="How_It_Works_Left_Side_div">
           <div>
             <div className="Main_Title_of_HowItWorks">
