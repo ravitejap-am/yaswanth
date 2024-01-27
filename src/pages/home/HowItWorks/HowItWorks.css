@@ -13,7 +13,7 @@
   justify-content: space-between;
   justify-content: center;
   align-items: center;
-  /* gap: 50px; */
+  gap: 50px;
 }
 .Main_Title_of_HowItWorks {
   color: #ffffff;
@@ -30,6 +30,7 @@
   flex-direction: row;
   padding: 50px;
   margin-top: 310px;
+  margin-left: 50px;
 }
 .How_it_works_Your_Org {
   color: var(--Neutral-200, #e2e8f0);

@@ -1,44 +1,53 @@
 import React from "react";
-import { Tabs } from "antd";
+import { Link } from "react-router-dom";
+import Styles from "./AddOrganization.module.css";
+const tabNavigations = ({ selectedTab, handleTabChange }) => {
+  return (
+    <div className={Styles.infoBarMain}>
+      <div className={Styles.infoBar}>
+        <div className="info-bar-content">
+          <Link
+            to="#"
+            className={`barinfo-personalinfo ${
+              selectedTab === "personalinformation" ? "active-link" : ""
+            }`}
+            onClick={() => handleTabChange("personalinformation")}
+          >
+            Organization Info
+          </Link>
+          <Link
+            to="#"
+            className={`barinfo-plans ${
+              selectedTab === "organizationadmin" ? "active-link" : ""
+            }`}
+            onClick={() => handleTabChange("organizationadmin")}
+          >
+            Organization Admin
+          </Link>
 
-const onChange = (key) => {
-  console.log(key);
+          <Link
+            to="#"
+            className={`barinfo-plans ${
+              selectedTab === "organizationdomains" ? "active-link" : ""
+            }`}
+            onClick={() => handleTabChange("organizationdomains")}
+          >
+            Organization Domains
+          </Link>
+
+          <Link
+            to="#"
+            className={`barinfo-plans ${
+              selectedTab === "subscriptionplan" ? "active-link" : ""
+            }`}
+            onClick={() => handleTabChange("subscriptionplan")}
+          >
+            Subscription Plan
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
 };
 
-const items = [
-  {
-    key: "1",
-    label: "Tab 1",
-    children: "Content of Tab Pane 1",
-  },
-  {
-    key: "2",
-    label: "Tab 2",
-    children: "Content of Tab Pane 2",
-  },
-  {
-    key: "3",
-    label: "Tab 3",
-    children: "Content of Tab Pane 3",
-  },
-  {
-    key: "4",
-    label: "ForE Tab",
-    children: "Content of ForE Tab Pane",
-  },
-];
-
-const MainTabNavigationAddOrg = () => (
-  <div>
-    <h1>MainTabNavigationAddOrg Component</h1>
-    <Tabs defaultActiveKey="1" onChange={onChange}>
-      {items.map((item) => (
-        <Tabs.TabPane key={item.key} tab={item.label}>
-          {item.children}
-        </Tabs.TabPane>
-      ))}
-    </Tabs>
-  </div>
-);
-
-export default MainTabNavigationAddOrg;
+export default tabNavigations;

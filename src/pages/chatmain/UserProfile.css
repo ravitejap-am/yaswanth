@@ -110,9 +110,14 @@
     width: 942px;
     height: 45px;
     flex-shrink: 0;
-    margin-left: 20px;
+    /* margin-left: 20px; */
+    justify-content: center;
+    align-items: center;
 }
-
+.info-bar-main{
+    justify-content: center;
+    align-items: center;
+}
 .info-bar {
     color: var(--Neutral-900, #0F172A);
     /* font-family: Lato; */
@@ -120,6 +125,7 @@
     font-style: normal;
     font-weight: 700;
     line-height: 24px;
+
 }
 
 .barinfo-personalinfo {

@@ -15,7 +15,27 @@ import OrgAdminChatPage from "../../chatmain/OrgadminChatPage/OrgAdminChatPage";
 import documentIcon from '../../../asset/Group 23 (1).png'
 import vectoricon from '../../../asset/vectoricon.png'
 import './OrgAdminChatPage.css'
+import profilepic from '../../../asset/Base.png'
 function OrgAdminChatSidebar() {
+  const users = [
+    {
+      profile_img: { profilepic },
+      username: "Radhi Gupta",
+      lastseen: "Last chat time : 5:00 PM"
+    },
+    {
+      profile_img: { profilepic },
+      username: "Radhi Gupta",
+      lastseen: "Last chat time : 5:00 PM"
+    },
+    {
+      profile_img: { profilepic },
+      username: "Radhi Gupta",
+      lastseen: "Last chat time : 5:00 PM"
+    },
+
+
+  ]
   return (
     <>
       <div className={Styles.AMChatMainDiv}>
@@ -82,16 +102,37 @@ function OrgAdminChatSidebar() {
               <h2>Documents</h2>
               <h1 className="document-value">500</h1>
               {/* <img src={vectoricon} alt="pic" /> */}
-              
+
             </div>
           </div>
           <div className='orgadminchat-orgadmin-activeuser-card'>
-          <img className='orgadminchat-document-icon' src={documentIcon} alt="Document" />
-              <h2>Active Users</h2>
-              <h1 className="document-value">500</h1>
-              {/* <img src={vectoricon} alt="pic" /> */}
+            <img className='orgadminchat-document-icon' src={documentIcon} alt="Document" />
+            <h2>Active Users</h2>
+            <h1 className="document-value">500</h1>
           </div>
+          <div className="orgadmin-activeuser-card">
+            <table className="user-table">
+              <thead>
+                <tr>
+                </tr>
+              </thead>
+              <tbody>
+                {users.map((user, index) => (
+                  <tr key={index}>
+                    <td>
+                      <img className="profile-pic" src={user.profile_img}  />
+                      {user.username}
+                      <td className="orgadmin-lastseen">{user.lastseen}</td>
+
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
         </div>
+
       </div>
       <div className={Styles.AMChatFooterStyle}>
         <footer className="AMChat-admin-footer">

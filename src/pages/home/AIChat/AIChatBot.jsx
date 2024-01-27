@@ -35,13 +35,13 @@ function AIChatBot() {
       <div style={containerStyle}>
         <div style={backgroundStyle} className="AI_Chat_bot_Center_div_content">
           <div className="AI_chat_bot_heading">
-            <span className="AI_chat_title">AM Chat / GenAI Chat Bot</span>
+            <span className="AI_chat_title">AM Chat / Gen AI Chatbot</span>
           </div>
           <div className="AI_chat_second_heading">
-            <span className="AI_chat_secont_title">
+            <div className="AI_chat_secont_title">
               Utilize the power of generative AI to interact with your
               documents.
-            </span>
+            </div>
           </div>
           <div className="AI_chat_Parent_Card">
             <div className="AM_Chat_Main_Card">

@@ -14,7 +14,6 @@ import TableSortLabel from "@mui/material/TableSortLabel";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import Checkbox from "@mui/material/Checkbox";
-import IconButton from "@mui/material/IconButton";
 import editIcon from "../../../asset/AmChatSuperAdmin/pencil-alt.png";
 import deleteIcon from "../../../asset/AmChatSuperAdmin/Frame 2302.png";
 import dropdownIcon from "../../../asset/AmChatSuperAdmin/dropDownIcon.png";
@@ -23,10 +22,13 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import { Link } from "react-router-dom";
 import Search from "../../../components/common/search/Search";
+import IconButton from "@mui/material/IconButton";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import SerchImages from "../../../asset/AmChatSuperAdmin/Group2305.png";
 import eyesolid from "../../../asset/AmChatSuperAdmin/eye-solid.svg";
+import { Pagination } from "antd";
+// import "antd/dist/antd.css";
 
 function OrganizationList() {
   const searchStyles = {
@@ -37,6 +39,7 @@ function OrganizationList() {
     backgroundColor: "#EEF2FF",
     display: "flex",
     alignItems: "center",
+    marginRight: "18px",
   };
 
   const rows = [
@@ -123,6 +126,17 @@ function OrganizationList() {
       Math.min(rows.length / rowsPerPage - 1, prevPage + 1)
     );
   };
+
+  const itemRender = (_, type, originalElement) => {
+    if (type === "prev") {
+      return <a>Previous</a>;
+    }
+    if (type === "next") {
+      return <a>Next</a>;
+    }
+    return originalElement;
+  };
+
   return (
     <div className={Styles.superAdminMainCardDivStyle}>
       <div className={Styles.superAdminMiddleParentDiv}>
@@ -321,40 +335,24 @@ function OrganizationList() {
                 </TableBody>
               </Table>
             </TableContainer>
-            <TablePagination
-              rowsPerPageOptions={[5, 10, 25]}
-              component="div"
-              count={rows.length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
-              ActionsComponent={(props) => (
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    padding: "16px",
-                  }}
-                >
-                  <IconButton
-                    onClick={handlePreviousPageButtonClick}
-                    disabled={page === 0}
-                  >
-                    <NavigateBeforeIcon />
-                  </IconButton>
-                  <div>
-                    {props.page + 1} of {Math.ceil(rows.length / rowsPerPage)}
-                  </div>
-                  <IconButton
-                    onClick={handleNextPageButtonClick}
-                    disabled={page === Math.ceil(rows.length / rowsPerPage) - 1}
-                  >
-                    <NavigateNextIcon />
-                  </IconButton>
-                </div>
-              )}
-            />
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "flex-end",
+                alignItems: "center",
+                marginTop: "16px",
+                gap: "20px",
+              }}
+            >
+              <div>Total {rows.length} items</div>
+              <Pagination
+                total={rows.length}
+                itemRender={itemRender}
+                pageSize={rowsPerPage}
+                current={page}
+                onChange={(newPage) => setPage(newPage)}
+              />
+            </div>
           </Paper>
         </div>
       </div>

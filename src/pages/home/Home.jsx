@@ -24,7 +24,7 @@ const Home = () => {
         <div className={Style.dividerMainUlStyle}>
           <p>Secure</p>
           <p>Personalized</p>
-          <p>knowledge Base</p>
+          <p>Knowledge Base</p>
           <p>Scalable</p>
         </div>
       </div>

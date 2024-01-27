@@ -1,9 +1,9 @@
 .App {
   text-align: center;
 }
-p {
+/* p {
   font-family: system-ui;
-}
+} */
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -13,8 +13,7 @@ p {
   justify-content: center;
   align-items: center;
 }
-.butooneffect:hover {
-}
+
 
 .butooneffect:active {
   /* background-color: transparent; */

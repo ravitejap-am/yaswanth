@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 import Plans from "./Plans";
 import PersonalInformation from "./PersonalInformation";
 import ChangePassword from "./ChangePassword";
-import GeneralButton from "../../components/common/buttons/GeneralButton"; // Update the path accordingly
+import GeneralButton from "../../components/common/buttons/GeneralButton";
+import TabNavigation from "./tabNaviagation";
 import frame1 from "../../asset/Frame 1.png";
 import lefticon from "../../asset/arrow-left.png";
 
@@ -59,35 +60,11 @@ const UserProfile = () => {
               </div>
             </div>
           </div>
-          <div className="info-bar">
-            <div className="info-bar-content">
-              <Link
-                className={`barinfo-personalinfo ${
-                  selectedTab === "personalinformation" ? "active-link" : ""
-                }`}
-                onClick={() => handleTabChange("personalinformation")}
-              >
-                Personal Information
-              </Link>
-              <Link
-                to="#"
-                className={`barinfo-changepassword ${
-                  selectedTab === "changepassword" ? "active-link" : ""
-                }`}
-                onClick={() => handleTabChange("changepassword")}
-              >
-                Change Password
-              </Link>
-              <Link
-                to="#"
-                className={`barinfo-plans ${
-                  selectedTab === "plans" ? "active-link" : ""
-                }`}
-                onClick={() => handleTabChange("plans")}
-              >
-                Plans
-              </Link>
-            </div>
+          <TabNavigation
+            selectedTab={selectedTab}
+            handleTabChange={handleTabChange}
+          />
+          <div>
             {selectedTab === "personalinformation" && <PersonalInformation />}
             {selectedTab === "changepassword" && <ChangePassword />}
             {selectedTab === "plans" && <Plans />}
