@@ -15,16 +15,17 @@
 
 .sidebar-amchat h2 {
     color: var(--White, #FFF);
-    font-family: Lato;
+    /* font-family: Lato; */
     font-size: 28.667px;
     font-style: normal;
     font-weight: 700;
     line-height: 43px;
-    /* 150% */
 }
 
+
 .back-link {
-    margin-top: 70px;
+    position: relative;
+    top: 70px;
     color: var(--Neutral-100, #F1F5F9);
     font-size: 16px;
     font-style: normal;
@@ -33,13 +34,20 @@
     text-decoration: none;
     color: #FFF;
     background-color: transparent;
+    text-decoration: none;
     
 
 }
+.backlink-text{
+    text-decoration: none;
+    color: var(--Neutral-100, #F1F5F9);
 
+}
 .left-back-icon {
+    position: relative;
     margin-right: 10px;
     margin-top: 10px;
+    top: 5px;
 }
 
 .userprofile-header {
@@ -55,14 +63,20 @@
 .userprofile-account-name {
     margin-top: -20px;
     display: flex;
+    margin-left: 20px;
 
+}
+.userprofile-pic{
+    position: relative;
+    top: 30px;
+    right: 20px;
 }
 
 .userprofile-account-name h2 {
     color: var(--Brand-700, #4338CA);
 
     /* text-lg */
-    font-family: Lato;
+    /* font-family: Lato; */
     font-size: 18px;
     font-style: normal;
     font-weight: 600;
@@ -83,7 +97,7 @@
     margin-left: 20px;
 }
 
-.profile-account-img {
+/* .profile-account-img {
     margin-top: 10px;
     margin-right: 10px;
     width: 40px;
@@ -91,8 +105,9 @@
     flex-shrink: 0;
     border-radius: 50px;
     border: 1px solid var(--Brand-700, #4338CA);
-    /* background: url(../../asset/—Pngtree—man\ in\ shirt\ smiles\ and_13146336\ 1.png); */
-}
+    background: url('../../asset/Base.png'), lightgray 0px 0px / 100% 100% no-repeat;
+
+} */
 
 .userprofile-pofilecontainer {
     margin-left: -20px;
@@ -107,21 +122,23 @@
     border-radius: 10.457px;
     background: var(--White, #FFF);
     box-shadow: 0px 2.789px 6.972px 3.486px rgba(0, 0, 0, 0.09);
-    width: 942px;
-    height: 45px;
+    width: 73vw;
+    height: 7vh;
     flex-shrink: 0;
     /* margin-left: 20px; */
-    justify-content: center;
-    align-items: center;
+    /* justify-content: center;
+    align-items: center; */
 }
-.info-bar-main{
+.info-bar-main {
+    display: flex;
     justify-content: center;
     align-items: center;
+    
 }
 .info-bar {
     color: var(--Neutral-900, #0F172A);
     /* font-family: Lato; */
-    font-size: 16px;
+    font-size: 1rem;
     font-style: normal;
     font-weight: 700;
     line-height: 24px;
@@ -164,22 +181,22 @@
 
 }
 
-/* personal information page css */
 .personal-contentcard {
-    margin-top: 35px;
-    margin-right: 20px;
-    width: 940px;
+    margin-top: 20px;
+    width: 73.5vw;
     height: 409px;
     flex-shrink: 0;
     border-radius: 10.457px;
     background: var(--White, #FFF);
     box-shadow: 0px 2.789px 6.972px 3.486px rgba(0, 0, 0, 0.09);
+    justify-content: center;
+    align-items: center;
+    margin-left: 20px;
 }
 
 .user-profile-content {
     display: flex;
 }
-
 .user-profile-img {
     margin-top: 50px;
     margin-left: 30px;
@@ -207,7 +224,7 @@
     /* margin-bottom: 10px; */
     margin-left: 10px;
     color: var(--Neutral-700, #334155);
-    font-family: Lato;
+    /* font-family: Lato; */
     font-size: 18px;
     font-style: normal;
     font-weight: 700;
@@ -234,43 +251,49 @@
     width: 356px;
     height: 40px;
     flex-shrink: 0;
+    padding-left: 10px;
 }
 
 .prsnolinfo-inputdields {
     margin-left: 20px;
+    margin-top: 20px;
 }
 
 .active-dropdown-input {
     margin-top: 10px;
     border-radius: 30px;
     border: 1px solid var(--Neutral-400, #94A3B8);
-    width: 356px;
+    width: 359px;
     height: 40px;
     flex-shrink: 0;
+    padding-left: 10px;
+    cursor: pointer;
 }
 
 
 /* ChangePassword css */
 .changepassword-main {
-    margin-top: 35px;
-    width: 940px;
+    margin-top: 20px;
+    width: 73.5vw;
     height: 340px;
     flex-shrink: 0;
     border-radius: 10.457px;
     background: var(--White, #FFF);
     box-shadow: 0px 2.789px 6.972px 3.486px rgba(0, 0, 0, 0.09);
+    margin-left: 20px;
+
 }
 
 .changepassword-input {}
 
 /* plans css */
 .plans-main {
-    margin-top: 35px;
+    margin-top: 20px;
     border-radius: 10.457px;
     background: var(--White, #FFF);
     box-shadow: 0px 2.789px 6.972px 3.486px rgba(0, 0, 0, 0.09);
-    width: 940px;
-    margin-left: 1px;
+    width: 73.5vw;
+    margin-left: 20px;
 }
 
 .active-plan h2 {
@@ -321,6 +344,14 @@
     margin-left: 30px;
 }
 
+.info-bar-content{
+    display: flex;
+}
+.user-personal-information,
+.user-change-password,
+.user-plans{
+    margin-top: 7px;
+}
 
 .info-bar-content a {
     margin-left: 20px;
@@ -342,5 +373,5 @@
     position: absolute;
     bottom: 0;
     left: 0;
-    top: 37px
+    top: 28px
 }

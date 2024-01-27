@@ -15,27 +15,11 @@ import OrgAdminChatPage from "../../chatmain/OrgadminChatPage/OrgAdminChatPage";
 import documentIcon from '../../../asset/Group 23 (1).png'
 import vectoricon from '../../../asset/vectoricon.png'
 import './OrgAdminChatPage.css'
-import profilepic from '../../../asset/Base.png'
+import base from '../../../asset/Base.png'
+import vector from '../../../asset/vectoricon.png'
+import threedot from '../../../asset/threedot.png'
 function OrgAdminChatSidebar() {
-  const users = [
-    {
-      profile_img: { profilepic },
-      username: "Radhi Gupta",
-      lastseen: "Last chat time : 5:00 PM"
-    },
-    {
-      profile_img: { profilepic },
-      username: "Radhi Gupta",
-      lastseen: "Last chat time : 5:00 PM"
-    },
-    {
-      profile_img: { profilepic },
-      username: "Radhi Gupta",
-      lastseen: "Last chat time : 5:00 PM"
-    },
 
-
-  ]
   return (
     <>
       <div className={Styles.AMChatMainDiv}>
@@ -63,16 +47,8 @@ function OrgAdminChatSidebar() {
               />
             </div>
           </div>
-
           <div className={Styles.container}>
             <div className={Styles.SuperAdminChildContainer}>
-              <span>
-                <img src={arrorLink} alt="" />
-                <Link to="/dashboardadmin" style={{ textDecoration: "none" }}>
-                  <p className={Styles.organizationTextStyle}>Back to Chat</p>{" "}
-                </Link>
-              </span>
-
               <span>
                 <img src={organizationimage} alt="" />
                 <Link
@@ -84,6 +60,7 @@ function OrgAdminChatSidebar() {
               </span>
             </div>
             <br />
+
             <div className={Styles.SuperAdminChildContainer}>
               <span>
                 <img src={userImage} alt="" />
@@ -93,50 +70,25 @@ function OrgAdminChatSidebar() {
               </span>
             </div>
           </div>
-        </div>
-        <OrgAdminChatPage />
-        <div className='orgadminchat-orgadmin-cards'>
-          <div className='orgadminchat-orgadmindoc-card'>
-            <div className='orgadminchat-orgadmindocument-card'>
-              <img className='orgadminchat-document-icon' src={documentIcon} alt="Document" />
-              <h2>Documents</h2>
-              <h1 className="document-value">500</h1>
-              {/* <img src={vectoricon} alt="pic" /> */}
-
+          <div className="side-questions-main">
+            <h3>Chats</h3>
+            <div className="side-questions">
+              <p>How to upload my Docume...</p>
+            </div>
+            <div className="side-questions">
+              <p>What is AM-Chat?</p>
             </div>
           </div>
-          <div className='orgadminchat-orgadmin-activeuser-card'>
-            <img className='orgadminchat-document-icon' src={documentIcon} alt="Document" />
-            <h2>Active Users</h2>
-            <h1 className="document-value">500</h1>
-          </div>
-          <div className="orgadmin-activeuser-card">
-            <table className="user-table">
-              <thead>
-                <tr>
-                </tr>
-              </thead>
-              <tbody>
-                {users.map((user, index) => (
-                  <tr key={index}>
-                    <td>
-                      <img className="profile-pic" src={user.profile_img}  />
-                      {user.username}
-                      <td className="orgadmin-lastseen">{user.lastseen}</td>
-
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
 
         </div>
+
+        <OrgAdminChatPage />
+        {/* dkd */}
 
       </div>
       <div className={Styles.AMChatFooterStyle}>
         <footer className="AMChat-admin-footer">
-          <p>@2024. All rights reserved by AM Chatbot</p>
+          <p>@2024. All rights reserved by Areteminds</p>
         </footer>
       </div>
     </>

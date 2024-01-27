@@ -63,7 +63,7 @@
 
 .chatui-AmChat-text p{
   color: var(--Neutral-900, #0F172A);
-  font-family: Lato, 'Red Rose', sans-serif;
+  /* font-family: Lato, 'Red Rose', sans-serif; */
   font-size: 43.333px;
   font-style: normal;
   font-weight: 700;
@@ -171,7 +171,7 @@ margin-left: 15px;
 }
 
 .amchatmain-user-profile {
-  margin-left: 600px;
+  margin-left: 530px;
 }
 
 .document-icon {
@@ -211,6 +211,20 @@ cursor: pointer;
   left: 1px;
   cursor: pointer;
 }
+.amchatmain-user-profile{
+  display: flex;
+  position: relative;
+  right: 40px;
+}
+.amchat-profile-pic{
+  margin-top: 20px;
+  position: relative;
+  right: 15px;
+}
+
+
+
+
 .orgadmin-chats h3{
   color: #E2E8F0;
   cursor: pointer;
@@ -220,5 +234,29 @@ cursor: pointer;
   left: 60px;
   top: 9px;
   cursor: pointer;
-  
+}
+.amchatmain-user-name h2{
+  padding-left: 20px;
+  width: 260px;
+  color: var(--Brand-900, #312E81);
+
+/* text-3xl/font-semibold */
+/* font-family: Montserrat; */
+font-size: 30px;
+font-style: normal;
+font-weight: 700;
+line-height: 36px;
+}
+.amchat-vector-img{
+  margin-bottom: 15px;
+  margin-left: -10px;
+  height: 35px;
+  width: 35px;
+}
+.amchat-vector-img-sidebar{
+  height: 30px;
+  width: 30px;
+  position: relative;
+  bottom: 10px;
+  right: 10px;
 }

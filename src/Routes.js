@@ -60,7 +60,7 @@ const Rout = () => {
         element={<MaintainencePage />}
         errorElement={<LoginPageError />}
       />
-      <Route path="/AmChatMainUser" element={<AmchatMainUser />} />
+      <Route path="/userchat" element={<AmchatMainUser />} />
       <Route path="/dashboardadmin" element={<AMChatAdminHome />} />
       <Route
         path="/dashboardadmin/organizationlist"

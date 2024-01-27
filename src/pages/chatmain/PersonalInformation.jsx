@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './UserProfile.css';
 import GeneralForm from "../../components/common/forms/GeneralForm";
 import editprofilepic from '../../asset/editprofilepic.png';
+import baseprofile from '../../asset/base64.png'
 
 const PersonalInformation = ({ setFileSysytem, validateEmail }) => {
 
@@ -21,7 +22,7 @@ const PersonalInformation = ({ setFileSysytem, validateEmail }) => {
         { required: true, message: "Please input your Full Name" },
         { type: "name", message: "Invalid user Name" },
       ],
-      style: { width: "350px",height:"30px",marginLeft:'20px' }
+      style: { width: "350px", height: "30px", marginLeft: '20px' }
     },
     {
       label: "Email",
@@ -31,7 +32,7 @@ const PersonalInformation = ({ setFileSysytem, validateEmail }) => {
         { required: true, message: "Please input your Enter your email" },
         { type: "name", message: "Invalid Email" },
       ],
-      style: { width: "350px",height:"30px",marginLeft:'20px'}
+      style: { width: "350px", height: "30px", marginLeft: '20px', backgroundColor:"#CBD5E1" }
     },
   ];
 
@@ -43,7 +44,6 @@ const PersonalInformation = ({ setFileSysytem, validateEmail }) => {
     width: "150px",
     height: "45px",
     borderRadius: "35px",
-    marginRight:"100px"
   };
 
   const feedingVariable = {
@@ -81,9 +81,9 @@ const PersonalInformation = ({ setFileSysytem, validateEmail }) => {
         </div>
         <div className='prsnolinfo-inputdields'>
           <input type="text"
-            placeholder='organization name'
-            value={"Marvel Web  Pvt. ltd."}
-            onChange={(e) => setOrgName("Marvel Web  Pvt. ltd.")}
+            placeholder='Organization name'
+            value={orgName}
+            onChange={(e) => setOrgName(e.target.value)}
           />
           <select className='active-dropdown-input'>
             {userStatusOptions.map((option) => (

@@ -5,9 +5,19 @@ import GeneralForm from "../../../components/common/forms/GeneralForm";
 
 function AddOrgUser() {
   const formElements = [
+  //     {
+  //   name: "Document File",
+  //   label: "Document File",
+  //   type: "file",
+  //   style: {
+  //     width: "405px",
+  //   },
+  //   rules: [{ required: true, message: "Please upload a document file" }],
+  //   labelName: false,
+  // },
     {
-      name: "User Name",
-      label: "User Name",
+      name: "First Name",
+      label: "First Name",
       type: "text",
       style: {
         width: "405px",
@@ -19,8 +29,22 @@ function AddOrgUser() {
       labelName: false,
     },
     {
+      name: "Last Name",
+      label: "Last Name",
+      type: "text",
+      style: {
+        width: "405px",
+        borderRadius: "40px",
+        border: "1px solid var(--Brand-700, #4338CA)",
+        backgroundColor: "transparent",
+      },
+      rules: [{ required: true, message: "Please enter your name" }],
+      labelName: false,
+    },
+
+    {
       name: "Email",
-      label: "User Email",
+      label: "Email",
       type: "text",
       rules: [
         { required: true, message: "Please input your email" },
@@ -103,7 +127,9 @@ function AddOrgUser() {
 
         <GeneralForm {...feedingVariable} />
       </div>
+      
     </div>
+    
   </div>
   )
 }
