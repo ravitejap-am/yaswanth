@@ -1,45 +1,54 @@
 import React from "react";
 import "./HowItWorks.css";
 import img1 from "../../../asset/how-it-works.png";
+import img2 from "../../../asset/AmChatSuperAdmin/Group2307.png";
 function HowItWorks() {
   return (
     <>
       <div className="How_It_Works_Main_Div">
-      <br /><br /><br />
+        <br />
+        <br />
+        <br />
         <div className="How_It_Works_Left_Side_div">
           <div>
             <div className="Main_Title_of_HowItWorks">
               <span>How It works</span>
             </div>
             <br />
-            <span className="Sub_Title_of_how_it_Works">
-              Organization onboarding
-            </span>
-            <br />
-            <span className="how_to_works_span_text">
-              Reach out to our sales team at sales@aritminds.com or fill up the
-              following form, give the link to reach out to. <br />
-            </span>
-            <span className="Sub_Title_of_how_it_Works">Sign Up</span>
-            <br />
-            <span className="how_to_works_span_text">
-              Sign up using our organization admin, your organizational email.{" "}
-              <br />
-            </span>
-            <span className="Sub_Title_of_how_it_Works">Sign In</span>
-            <br />
-            <span className="how_to_works_span_text">
-              Use your organization email to sign in to AM Chatbot and start
-              exploring. <br />
-            </span>
-            <span className="Sub_Title_of_how_it_Works">
-              Explore and Engage
-            </span>
-            <br />
-            <span className="how_to_works_span_text">
-              Start interacting with the documents uploaded by your organization
-              and let the data talk.
-            </span>
+            <div className="How_it_works_container">
+              <div className="How_it_works_imge2">
+                {/* <div>
+                  <img src={img2} alt="" />
+                </div> */}
+                <span className="Sub_Title_of_how_it_Works">
+                  Organization onboarding
+                </span>
+                <br />
+                <span className="how_to_works_span_text">
+                  Reach out to our sales team at sales@aritminds.com or fill up
+                  the form on our Contact Us page. <br />
+                </span>
+                <span className="Sub_Title_of_how_it_Works">Sign Up</span>
+                <br />
+                <span className="how_to_works_span_text">
+                  Sign up using your details, email, and set up your password.{" "}
+                  <br />
+                </span>
+                <span className="Sub_Title_of_how_it_Works">Sign In</span>
+                <br />
+                <span className="how_to_works_span_text">
+                  Use your organizational email and your password. <br />
+                </span>
+                <span className="Sub_Title_of_how_it_Works">
+                  Explore and Engage
+                </span>
+                <br />
+                <span className="how_to_works_span_text">
+                  Start interacting with the documents uploaded by your
+                  organization and let the data talk.
+                </span>
+              </div>
+            </div>
           </div>
         </div>
 

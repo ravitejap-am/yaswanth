@@ -1,16 +1,32 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+// SignIn.js
+import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import { Form } from "antd";
 import GeneralForm from "../../components/common/forms/GeneralForm";
 import axios from "axios";
-import { toast } from 'react-toastify';
-import NotifyMessage from '../../components/common/toastMessages/NotifyMessage';
-import Footer  from "../../pages/home/Footer/Footer";
+import { toast } from "react-toastify";
+import NotifyMessage from "../../components/common/toastMessages/NotifyMessage";
+import Footer from "../../pages/home/Footer/Footer";
 import SignHeader from "../home/SignHeader/SignHeader";
+import { setToken } from "../../store/actions";
 
 const SignIn = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [form] = Form.useForm();
   const [filesystem, setFileSysytem] = useState([]);
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+
+  useEffect(() => {
+    if (showSuccessMessage) {
+      const timer = setTimeout(() => {
+        navigate("/dashboardadmin");
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [showSuccessMessage, navigate]);
 
   const validatePassword = (_, value) => {
     if (value && value.length < 8) {
@@ -29,7 +45,7 @@ const SignIn = () => {
   };
 
   const submitHandler = async (values) => {
-    const url = "https://jsonplaceholder.typicode.com/users"; //dummy Api
+    const url = "http://54.161.113.196:8080/users/login";
 
     try {
       const response = await axios.post(url, values, {
@@ -39,7 +55,13 @@ const SignIn = () => {
       });
 
       console.log("Login successful:", response);
-      toast.error("Your email ID is not registered. Please Sign Up.");
+      toast.success("User login successfully!!");
+
+      // Dispatch the action to store the token in Redux
+      dispatch(setToken(response.data.data.jwtToken));
+
+      // Show the success message and trigger the redirection
+      setShowSuccessMessage(true);
     } catch (error) {
       console.error("Login failed:", error.response);
 
@@ -48,14 +70,19 @@ const SignIn = () => {
       } else if (error.response && error.response.status === 400) {
         toast.error("Invalid email or password");
       } else if (error.response && error.response.status === 403) {
-        toast.error("Your organization email domain is not registered with us. Please reach out to sales@areteminds.com");
+        toast.error(
+          "Your organization email domain is not registered with us. Please reach out to sales@areteminds.com"
+        );
       } else if (error.response && error.response.status === 403) {
-        toast.error("Looks like your account has been closed. Please check with your organizational admin.");
+        toast.error(
+          "Looks like your account has been closed. Please check with your organizational admin."
+        );
       } else {
         toast.error("An error occurred. Please try again.");
       }
     }
   };
+
   const cancelHandler = (errorInfo) => {
     console.log("Canceling....");
     console.log(errorInfo);
@@ -70,7 +97,7 @@ const SignIn = () => {
         { required: true, message: "Please input your email" },
         { type: "email", message: "Invalid email format" },
       ],
-      style:{} 
+      style: {},
     },
     {
       label: "Password",
@@ -111,38 +138,38 @@ const SignIn = () => {
 
   return (
     <>
-    <SignHeader/>
-    <div className="main">
-      <div className="container">
-        <div className="row">
-          <div className="col">
-            <div className="row mainContent">
-              <div className="box-round">
-                <div className="text-top">
-                  <h2>Sign In</h2>
-                  <p>Please sign in with your organization email id</p>
-                </div>
+      <SignHeader />
+      <div className="main">
+        <div className="container">
+          <div className="row">
+            <div className="col">
+              <div className="row mainContent">
+                <div className="box-round">
+                  <div className="text-top">
+                    <h2>Sign In</h2>
+                    <p>Please sign in with your organization email id</p>
+                  </div>
 
-                <div className="form-content">
-                  <GeneralForm {...feedingVariable} />
+                  <div className="form-content">
+                    <GeneralForm {...feedingVariable} />
 
-                  <div className="alreadySignIn">
-                    <p>
-                      Do have an account ?{" "}
-                      <Link className="danger-text" to={"/registerUser"}>
-                        Sign Up
-                      </Link>
-                    </p>
+                    <div className="alreadySignIn">
+                      <p>
+                        Do have an account ?{" "}
+                        <Link className="danger-text" to={"/registerUser"}>
+                          Sign Up
+                        </Link>
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+        <NotifyMessage />
+        <Footer />
       </div>
-      <NotifyMessage/>
-      <Footer/>
-    </div>
     </>
   );
 };

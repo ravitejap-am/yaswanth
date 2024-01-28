@@ -75,6 +75,12 @@
   padding-left: 10px;
 }
 
+.bannerPareInnerTextStyle {
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+}
+
 .bannerImage3 {
   width: 245px;
   height: 94px;

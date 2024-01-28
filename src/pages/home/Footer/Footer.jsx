@@ -13,7 +13,10 @@ const Footer = () => {
     <div className={Style.footerMain}>
       <div className={Style.footerFIrstCOntent}>
         <div className={Style.footerAddress}>
-          <p className="footer_p_tag" style={{ color: "#FFF" }}>
+          <p
+            className="footer_p_tag"
+            style={{ color: "#FFF", marginTop: "-15px" }}
+          >
             AM-ChatBOT{" "}
             <img
               src={Vector}
@@ -29,7 +32,10 @@ const Footer = () => {
             Privacy Policy | Terms & Conditions
           </p>
         </div>
-        <div className={Style.footer_social_links}>
+        <div
+          className={Style.footer_social_links}
+          style={{ marginTop: "20px" }}
+        >
           <img src={img1} alt="" />
           <img src={img2} alt="" />
           <img src={img3} alt="" />

@@ -8,6 +8,7 @@ import frame from "../../../asset/Frame 1.png";
 // import backgroundSVGHome from "../../../asset/Layer1.png";
 import backgroundSVGHome from "../../../asset/—Pngtree—man in shirt smiles and_13146336 1.png";
 import GeneralButton from "../../../components/common/buttons/GeneralButton";
+import { Link } from "react-router-dom";
 
 const Banner = () => {
   return (
@@ -19,9 +20,9 @@ const Banner = () => {
           <p className={Style.bannerHeading}>
             Unleash the
             <br />
-            Power of your
+            power of your
             <br />
-            enterprise's content
+            enterprise
             <br />
             documents with
             <br />
@@ -31,22 +32,24 @@ const Banner = () => {
         <div className={Style.bannerPara}>
           <p>
             Explore, learn, and chat with the knowledge base created from <br />
-            your enterprise's documents or content using the power of GenAI.
+            your enterprise documents.
           </p>
         </div>
         <div className={Style.bannerParaUnorderList}></div>
         <div className={Style.bannerBtn}>
           <div className={Style.bannerButton}>
-            <GeneralButton
-              name={"Get Started"}
-              type={"submit"}
-              color={"#f8fafc"}
-              borderRadius={"30px"}
-              backgroundColor={"#6366f1"}
-              icons={frame}
-              width={"140px"}
-              height={"45px"}
-            />
+            <Link to="/signIn" style={{ textDecoration: "none" }}>
+              <GeneralButton
+                name={"Get Started"}
+                type={"submit"}
+                color={"#f8fafc"}
+                borderRadius={"30px"}
+                backgroundColor={"#6366f1"}
+                icons={frame}
+                width={"140px"}
+                height={"45px"}
+              />
+            </Link>
           </div>
         </div>
       </div>
