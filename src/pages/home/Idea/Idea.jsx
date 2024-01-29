@@ -21,7 +21,7 @@ function Idea() {
               Use the knowledge of your organizational documents at your
               fingertips.
               <br /> Upload your organizational documents to a completely secure
-              Gen AI solution and start interacting with your documents
+              Gen AI solution and start interacting with your documents.
             </p>
           </div>
           <div className="bannerParaUnorderList">

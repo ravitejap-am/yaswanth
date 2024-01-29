@@ -24,8 +24,18 @@ function Page505() {
           />
         </div>
         <div>
-          --OR--
-          <p>PLease try some time</p>
+          <br />
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              marginLeft: "-30px",
+            }}
+          >
+            --OR--
+          </div>
+
+          <p>Please try some time</p>
         </div>
       </div>
     </div>
