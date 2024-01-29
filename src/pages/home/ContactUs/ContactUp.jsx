@@ -126,7 +126,7 @@ const ContactUp = () => {
           <img
             src={img1}
             alt="contact-image"
-            style={{ width: "79%", height: "358px", marginTop: "90px" }}
+            className="contact-us-image-style"
           />
         </div>
         <div className="Contact-us-page-ant-form">

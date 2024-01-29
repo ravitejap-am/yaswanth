@@ -24,9 +24,9 @@
 .bannerHeading {
   color: var(--White, #fff);
   font-family: Montserrat;
-  font-size: 3.0rem;
+  font-size: 3.4rem;
   font-style: normal;
-  /* font-weight: 500; */
+  font-weight: 500;
   line-height: 52px;
 }
 .bannerPara {

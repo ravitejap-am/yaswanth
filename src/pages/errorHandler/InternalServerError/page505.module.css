@@ -13,3 +13,8 @@
   width: 200px;
   height: 200px;
 }
+.internalServerErrorDiv {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+}

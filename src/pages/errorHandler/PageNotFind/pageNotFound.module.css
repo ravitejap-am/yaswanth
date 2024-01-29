@@ -4,12 +4,17 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: var(--Neutral-200, #E2E8F0);
+  background: var(--Neutral-200, #e2e8f0);
 
   background-repeat: no-repeat;
   /* background-color: ; */
 }
-.image{
+.image {
   width: 200px;
   height: 200px;
+}
+.container {
+  display: grid;
+  justify-content: center;
+  align-items: center;
 }

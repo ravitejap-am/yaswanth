@@ -3,11 +3,12 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: rgb(181, 100, 229);
-  background: linear-gradient(
-    114deg,
-    #0f172a 51.52%,
-    #152346 73.32%,
-    #1a2e5e 92.75%
-  );
+  background: var(--Neutral-200, #e2e8f0);
+}
+.image {
+  width: 200px;
+  height: 200px;
+}
+.imageAndLoder{
+  display: flex;
 }

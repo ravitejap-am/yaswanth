@@ -12,6 +12,10 @@
   justify-content: flex-start;
   /* position: fixed; */
 }
+
+@media(max-width:1100){
+  
+}
 .AMChatSidebar {
   width: 248px;
   height: 100%;
@@ -187,9 +191,6 @@
   font-style: normal;
   font-weight: 500;
   margin-left: 15px;
-}
-.AMchatMainDiv {
-  margin-top: 30px;
 }
 .AMChatFooterStyle {
   color: var(--White, #fff);

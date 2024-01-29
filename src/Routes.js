@@ -17,7 +17,7 @@ import OrganizationList from "./pages/AMChatAdmin/OrganizationList/OrganizationL
 import OrganizationSidebar from "./pages/AMChatAdmin/OrganizationList/OrganizationSidebar";
 import OrganizationAdminListSidebar from "./pages/AMChatAdmin/OrganizationAdminList/OrganizationAdminListSidebar";
 import AddOrganizationAdminSidebar from "./pages/AMChatAdmin/AddOrganizationAdmin/AddOrganizationAdminSidebar";
-import OrgAdminSidebar from './pages/chatmain/organizationadmin/OrgAdminSidebar.jsx';
+import OrgAdminSidebar from "./pages/chatmain/organizationadmin/OrgAdminSidebar.jsx";
 import OrgUserList from "./pages/chatmain/orguserlist/OrgUserList.jsx";
 import SignHeader from "./pages/home/SignHeader/SignHeader.jsx";
 import OrgUserListSidebar from "./pages/chatmain/orguserlist/OrgUserListSidebar.jsx";
@@ -25,6 +25,7 @@ import OrgDocumentListSidebar from "./pages/chatmain/orgdocumentlist/OrgDocument
 import OrgAddDocumentSidebar from "./pages/chatmain/orgadddocument/OrgAddDocumentSidebar.jsx";
 import OrgAdminChatSidebar from "./pages/chatmain/OrgadminChatPage/OrgAdminChatSidebar.jsx";
 import EnterpriseRegister from "./pages/registerUser/EnterpriseRegister.jsx";
+import SearchUIAIChatSidebar from "./pages/AMChatAdmin/SearchUIAMChat.jsx/SearchUIAIChatSidebar.jsx";
 
 const Rout = () => {
   return (
@@ -74,17 +75,17 @@ const Rout = () => {
         path="/dashboardadmin/addorganizationadmin"
         element={<AddOrganizationAdminSidebar />}
       />
+      <Route path="/chat" element={<SearchUIAIChatSidebar />} />
       <Route path="/ResetPassword" element={<ResetPassword />} />
       <Route path="/UserProfile" element={<UserProfile />} />
       <Route path="/PersonalInformation" element={<PersonalInformation />} />
 
-      <Route path="/adduser" element={<OrgAdminSidebar/>}/>
-      <Route path="/orguserlist" element={<OrgUserListSidebar/>}/>
-      <Route path="/orgdocumentList" element={<OrgDocumentListSidebar/>}/>
-      <Route path="/orgadddocument" element={<OrgAddDocumentSidebar/>}/>
-      <Route path="/orgadminchat" element={<OrgAdminChatSidebar/>}/>
-      <Route path="/enterpriseregister" element={<EnterpriseRegister/>}/>
-
+      <Route path="/adduser" element={<OrgAdminSidebar />} />
+      <Route path="/orguserlist" element={<OrgUserListSidebar />} />
+      <Route path="/orgdocumentList" element={<OrgDocumentListSidebar />} />
+      <Route path="/orgadddocument" element={<OrgAddDocumentSidebar />} />
+      <Route path="/orgadminchat" element={<OrgAdminChatSidebar />} />
+      <Route path="/enterpriseregister" element={<EnterpriseRegister />} />
     </Routes>
   );
 };

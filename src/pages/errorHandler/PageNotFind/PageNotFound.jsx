@@ -18,7 +18,7 @@ const PageNotFound = () => {
           <GeneralButton
             name={"Back to dashboard"}
             type={"submit"}
-            backgroundColor={"#f64e60"}
+            backgroundColor={"var(--Brand-500, #6366F1)"}
             color={"#fff"}
           />
           {/* <form typeof="submit">
@@ -31,8 +31,8 @@ const PageNotFound = () => {
                 backgroundColor={"#f64e60"}
                 color={"#fff"}
               /> */}
-            {/* </div>
-          </form> */} 
+          {/* </div>
+          </form> */}
         </div>
       </div>
     </div>
