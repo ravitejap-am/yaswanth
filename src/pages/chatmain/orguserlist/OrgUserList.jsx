@@ -1,5 +1,5 @@
 import React from "react";
-import Styles from "../../AMChatAdmin/OrganizationAdminList/OrganizationAdminList.module.css";
+import Styles from "./OrgUserList.module.css";
 import profile from "../../../asset/AmChatSuperAdmin/profile.png";
 import GeneralButton from "../../../components/common/buttons/GeneralButton";
 import frame from "../../../asset/AmChatSuperAdmin/plus-sm.png";
@@ -33,7 +33,7 @@ function OrgUserList() {
     display: "flex",
     alignItems: "center",
   };
-  
+
   const rows = [
     {
       id: 1,
@@ -93,7 +93,9 @@ function OrgUserList() {
       <div className={Styles.superAdminMiddleParentDiv}>
         <div className={Styles.superAdminProfileCardStyle}>
           <div>
-            <p className={Styles.superAdminProfileName}>Document List</p>
+            <p className={Styles.superAdminOrganizationListName}>
+              Document List
+            </p>
           </div>
           <div
             className={Styles.superAdminProfileImgNameStyle}
@@ -104,8 +106,7 @@ function OrgUserList() {
           </div>
         </div>
 
-        <div>
-          <div className={Styles.bannerBtn}>
+        <div className={Styles.bannerBtn}>
           <div className={Styles.OrganizationListFilterSerchBox}>
             <Search
               name={"Search name here."}
@@ -115,23 +116,22 @@ function OrgUserList() {
               imageMarginLeft={20}
             />
           </div>
-            <div className={Styles.bannerButton}>
-              <Link
-                to="/orgadddocument"
-                style={{ textDecoration: "none" }}
-              >
-                <GeneralButton
-                  name={"Add Document"}
-                  type={"submit"}
-                  color={"#f8fafc"}
-                  borderRadius={"30px"}
-                  backgroundColor={"#6366f1"}
-                  icons={frame}
-                  width={"132px"}
-                  height={"45px"}
-                />
-              </Link>
-            </div>
+          <div className={Styles.bannerButton}>
+            <Link
+              to="/addorgdocument"
+              style={{ textDecoration: "none" }}
+            >
+              <GeneralButton
+                name={"Add Document"}
+                type={"submit"}
+                color={"#f8fafc"}
+                borderRadius={"30px"}
+                backgroundColor={"#6366f1"}
+                icons={frame}
+                width={"158px"}
+                height={"48px"}
+              />
+            </Link>
           </div>
         </div>
 

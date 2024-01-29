@@ -35,18 +35,19 @@
   text-align: center;
 }
 .dividerMainUlStyle {
-  display: inline-flex;
+  display: flex;
   justify-content: center;
   align-items: center;
   padding: 18px 0px 0px 0px;
   gap: 90px;
   color: var(--Neutral-400, #94a3b8);
-  font-family: Lato;
+  font-family: "Into", "Lato", sans-serif;
   font-size: 20px;
-  font-style: normal;
-  font-weight: 800;
-  line-height: 20px; /* 100% */
+  font-weight: 600;
+  line-height: 1.2; /* Adjusted line-height for better spacing */
+  text-align: center; /* Center the text */
 }
+
 .productBanner {
   position: relative;
   padding-bottom: 100px;

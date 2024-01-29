@@ -10,6 +10,8 @@ import { Link } from "react-router-dom";
 import arrorLink from "../../../asset/AmChatSuperAdmin/arrow-left.png";
 // import OrganizationAdminListSidebar from "../OrganizationAdminList/OrganizationAdminListSidebar";
 import OrgAddDocument from '../../chatmain/orgadddocument/OrgAddDocument'
+import usersicon from '../../../asset/users.png'
+import documenticon from '../../../asset/document1.png'
 function OrgAddDocumentSidebar() {
   return (
     <>
@@ -43,15 +45,15 @@ function OrgAddDocumentSidebar() {
             <div className={Styles.SuperAdminChildContainer}>
               <span>
                 <img src={arrorLink} alt="" />
-                <Link to="/dashboardadmin" style={{ textDecoration: "none" }}>
+                <Link to="/userchat" style={{ textDecoration: "none" }}>
                   <p className={Styles.organizationTextStyle}>Back to Chat</p>{" "}
                 </Link>
               </span>
 
               <span>
-                <img src={organizationimage} alt="" />
+                <img src={usersicon} alt="" />
                 <Link
-                  to="/dashboardadmin/organizationlist"
+                  to="/or"
                   style={{ textDecoration: "none" }}
                 >
                   <p className={Styles.organizationTextStyle}>Users</p>
@@ -61,7 +63,7 @@ function OrgAddDocumentSidebar() {
             <br />
             <div className={Styles.SuperAdminChildContainer}>
               <span>
-                <img src={userImage} alt="" />
+                <img src={documenticon} alt="" />
                 <p className={Styles.organizationTextStyle}>
                   Documents
                 </p>

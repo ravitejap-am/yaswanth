@@ -11,10 +11,8 @@ import GeneralButton from "../../../components/common/buttons/GeneralButton";
 
 const Banner = () => {
   return (
-    <div
-      className={Style.banner}
-      // style={{ backgroundImage: `url(${backgroundSVGHome})` }}
-    >
+    <div className={Style.banner}>
+      <div style={{ backgroundImage: `url(${BannerImage1})` }}></div>
       <div className="background_image"></div>
       <div>
         <div>
@@ -25,7 +23,9 @@ const Banner = () => {
             <br />
             enterprise's content
             <br />
-            documents with GenAI.
+            documents with
+            <br />
+            Gen AI
           </p>
         </div>
         <div className={Style.bannerPara}>

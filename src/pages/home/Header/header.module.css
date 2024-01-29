@@ -3,16 +3,21 @@
   height: 108px;
   display: flex;
   align-items: center;
-  padding-left: 100px;
-  gap: 234px;
+  padding-left: 20px;
+  gap: 100px;
 }
-@media only screen and (max-width: 768px) {
+
+@media only screen and (min-width: 769px) {
   .headerMain {
-    padding-left: 20px;
-    margin-right: 20px;
-    gap: 20px;
+    padding-left: 100px;
   }
 
+  .appNavigation {
+    margin-right: 100px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
   .appNavigation {
     margin-right: 20px;
   }
@@ -34,25 +39,20 @@
     #1a2e5e 92.75%
   );
 }
-
 .navigation {
   line-height: 33px;
-  color: rgb(var(--txts, var(--color_14)));
+  color: #cbd5e1;
   transition: var(--trans, color 0.4s ease 0s);
   display: inline-block;
   padding: 0 10px;
   cursor: pointer;
-  color: #cbd5e1;
   font-family: Lato;
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
   line-height: 20px;
 }
-.navigationPages {
-  width: 100%;
-  margin-right: -11px;
-}
+
 .appName {
   width: 12px;
   height: 12.571px;
@@ -73,8 +73,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 658px;
-  margin-right: 100px;
+  /* width: 500px; */
+  margin-left: 82px;
 }
 
 .homeBtn {
@@ -112,9 +112,6 @@
 }
 .navigationButton {
   display: flex;
-  justify-content: space-between;
-  margin-left: 50px;
-  width: 200px;
   color: #f8fafc;
   font-family: Lato;
   font-size: 16px;
@@ -129,9 +126,9 @@
   font-style: normal;
   font-weight: 700;
   line-height: 24px;
-  color: var(--White, #fff);
-  margin-left: 50px;
+  margin-left: 40px;
 }
+
 .logo {
   width: 150px;
   margin-top: 20px;

@@ -5,6 +5,7 @@ import documentIcon from '../../../asset/Group 23 (1).png';
 import base from '../../../asset/Base.png'
 import vector from '../../../asset/vectoricon.png'
 import documentIconpink from '../../../asset/Group 23.png'
+// import './OrgAdminChatPageSidebar.module.css'
 
 const OrgAdminChatPage = () => {
     const users = [

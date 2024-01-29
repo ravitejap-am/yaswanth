@@ -56,6 +56,10 @@ const ContactUp = () => {
         border: "1px solid var(--Brand-700, #4338CA)",
         backgroundColor: "transparent",
         marginBottom: "13px",
+        paddingLeft: "10px",
+        paddingRight: "20px",
+        appearance: "border",
+        color: "#fff",
       },
       className: "transparent-dropdown",
       labelName: true,
@@ -114,7 +118,9 @@ const ContactUp = () => {
 
   return (
     <div className="Contact-us-page-main-div">
-    <br /><br /><br />
+      <br />
+      <br />
+      <br />
       <div className="Contact-us-page-child-div">
         <div className="Contact-usi-left-side-img">
           <img

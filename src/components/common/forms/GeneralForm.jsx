@@ -52,7 +52,7 @@ const GeneralForm = (props) => {
                     form.setFieldValue({ [item.name]: e.target.value });
                   }}
                   style={item.style}
-                  // required={item.required}
+                // required={item.required}
                 />
               ),
               text: (
@@ -204,7 +204,7 @@ const GeneralForm = (props) => {
                     form.setFieldValue({ [item.name]: e.target.value });
                   }}
                   style={item.style}
-                  // required={item.required}
+                // required={item.required}
                 />
               ),
               text: (
@@ -357,10 +357,13 @@ const GeneralForm = (props) => {
               name={submitButtonProperty.name}
               color={submitButtonProperty.color}
               buttonHandler={submitHandler}
+              marginLeft={submitButtonProperty.marginLeft}
+              marginTop={submitButtonProperty.marginTop}
               width={submitButtonProperty.width}
               height={submitButtonProperty.height}
               boxShadow={submitButtonProperty.boxShadow}
               borderRadius={submitButtonProperty.borderRadius}
+              fontSize={submitButtonProperty.fontSize}
             />
           )}
           {isCancel && (
@@ -376,7 +379,8 @@ const GeneralForm = (props) => {
               height={cancelButtonProperty.height}
               boxShadow={cancelButtonProperty.boxShadow}
               borderRadius={cancelButtonProperty.borderRadius}
-              // buttonHandler={cancelHandler}
+              fontSize={cancelButtonProperty.fontSize}
+            // buttonHandler={cancelHandler}
             />
           )}
         </div>

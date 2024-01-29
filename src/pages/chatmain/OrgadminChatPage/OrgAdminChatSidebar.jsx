@@ -1,6 +1,6 @@
 import React from "react";
 import Logo from "../../../asset/Vector.png";
-import Styles from "../../AMChatAdmin/AMChatBackgound/AMChat.module.css";
+import Styles from "./OrgAdminChatPageSidebar.module.css";
 import GeneralButton from "../../../components/common/buttons/GeneralButton";
 import frame from "../../../asset/Frame 1.png";
 import organizationimage from "../../../asset/AmChatSuperAdmin/Frame 2301.png";
@@ -18,6 +18,8 @@ import './OrgAdminChatPage.css'
 import base from '../../../asset/Base.png'
 import vector from '../../../asset/vectoricon.png'
 import threedot from '../../../asset/threedot.png'
+import usersicon from '../../../asset/users.png'
+import documenticon from '../../../asset/document1.png'
 function OrgAdminChatSidebar() {
 
   return (
@@ -50,9 +52,9 @@ function OrgAdminChatSidebar() {
           <div className={Styles.container}>
             <div className={Styles.SuperAdminChildContainer}>
               <span>
-                <img src={organizationimage} alt="" />
+                <img src={usersicon} alt="" />
                 <Link
-                  to="/dashboardadmin/organizationlist"
+                  to="/orguserlist"
                   style={{ textDecoration: "none" }}
                 >
                   <p className={Styles.organizationTextStyle}>Users</p>
@@ -63,7 +65,7 @@ function OrgAdminChatSidebar() {
 
             <div className={Styles.SuperAdminChildContainer}>
               <span>
-                <img src={userImage} alt="" />
+                <img src={documenticon} alt="" />
                 <p className={Styles.organizationTextStyle}>
                   Document
                 </p>

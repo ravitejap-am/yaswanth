@@ -24,17 +24,17 @@ function Idea() {
             </p>
           </div>
           <div className="bannerParaUnorderList">
-            <div>
+            <div className="bannerPareInnerTextStyle">
               <img src={tickSign} alt="" />{" "}
               <> Your organizational documents are completely secure</>
             </div>
-            <div>
+            <div className="bannerPareInnerTextStyle">
               <img src={tickSign} alt="" />{" "}
               <>
                 Your documents are loaded in a private instance of GenAI modal
               </>
             </div>
-            <div>
+            <div className="bannerPareInnerTextStyle">
               <img src={tickSign} alt="" />{" "}
               <> None of your documents are completely secured</>
             </div>
@@ -59,10 +59,9 @@ function Idea() {
 
         <div
           style={{
+            // marginRight: "152",
             width: "40%",
             height: "60%",
-            marginTop: "-25px",
-            marginLeft: "-30px",
           }}
         >
           <img src={ideaImage} alt="" />

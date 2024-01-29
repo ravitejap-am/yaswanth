@@ -31,7 +31,8 @@ function Dropdown({ options, onSelect, style, placeholder }) {
   return (
     <div className={Style.dropdownContainer}>
       <select
-        className="dropdown-header"
+        className={Style.dropdownHeader}
+        id="select"
         value={selectedOption ? selectedOption.value : ""}
         onChange={(e) => {
           const selectedValue = e.target.value;
@@ -42,8 +43,11 @@ function Dropdown({ options, onSelect, style, placeholder }) {
         }}
         style={{ ...style, marginLeft: "" }}
       >
-        <option value="" disabled style={placeholderStyle}>
-          {placeholder || "Select an option"}
+        <option value="" labelColor="#FFF" disabled style={placeholderStyle}>
+          <div style={{ paddingLeft: "10px", color: "white" }}>
+            {" "}
+            {placeholder || "Select an option"}
+          </div>
         </option>
         {options.map((option) => (
           <option key={option.value} value={option.value}>
@@ -53,7 +57,7 @@ function Dropdown({ options, onSelect, style, placeholder }) {
       </select>
 
       {isOpen && (
-        <div className={Style["dropdown-list"]}>
+        <div className={Style["dropdown-list"]} style={{ color: "black" }}>
           {options.map((option) => (
             <div
               key={option.value}

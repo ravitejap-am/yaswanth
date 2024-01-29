@@ -1,5 +1,5 @@
 import React from "react";
-import Styles from "../../AMChatAdmin/OrganizationAdminList/OrganizationAdminList.module.css";
+import Styles from "./OrgDocument.module.css";
 import profile from "../../../asset/AmChatSuperAdmin/profile.png";
 import GeneralButton from "../../../components/common/buttons/GeneralButton";
 import frame from "../../../asset/AmChatSuperAdmin/plus-sm.png";
@@ -18,8 +18,19 @@ import IconButton from "@mui/material/IconButton";
 import editIcon from "../../../asset/AmChatSuperAdmin/pencil-alt.png";
 import deleteIcon from "../../../asset/AmChatSuperAdmin/Frame 2302.png";
 import { Link } from "react-router-dom";
+import Search from "../../../components/common/search/Search";
+import SerchImages from "../../../asset/AmChatSuperAdmin/Group2305.png";
 
 function OrgDocumentList() {
+  const searchStyles = {
+    width: "300px",
+    height: "45px",
+    borderRadius: "42px",
+    fontFamily: "Inter, sans-serif",
+    backgroundColor: "#EEF2FF",
+    display: "flex",
+    alignItems: "center",
+  };
   const rows = [
     {
       id: 1,
@@ -61,7 +72,6 @@ function OrgDocumentList() {
       totalChat: 10,
       status: "Inactive",
     },
-    // Add more entries with similar structure
   ];
 
   const [page, setPage] = React.useState(0);
@@ -92,7 +102,9 @@ function OrgDocumentList() {
       <div className={Styles.superAdminMiddleParentDiv}>
         <div className={Styles.superAdminProfileCardStyle}>
           <div>
-            <p className={Styles.superAdminProfileName}>User List</p>
+            <p className={Styles.superAdminOrganizationListName}>
+              User List
+            </p>
           </div>
           <div
             className={Styles.superAdminProfileImgNameStyle}
@@ -103,28 +115,34 @@ function OrgDocumentList() {
           </div>
         </div>
 
-        <div>
-          <div className={Styles.bannerBtn}>
-            <div className={Styles.bannerButton}>
-              <Link
-                to="/adduser"
-                style={{ textDecoration: "none" }}
-              >
-                <GeneralButton
-                  name={"Add User"}
-                  type={"submit"}
-                  color={"#f8fafc"}
-                  borderRadius={"30px"}
-                  backgroundColor={"#6366f1"}
-                  icons={frame}
-                  width={"132px"}
-                  height={"45px"}
-                />
-              </Link>
-            </div>
+        <div className={Styles.bannerBtn}>
+          <div className={Styles.OrganizationListFilterSerchBox}>
+            <Search
+              name={"Search name here."}
+              styles={searchStyles}
+              searchImage={SerchImages}
+              imageHeight={"46px"}
+              imageMarginLeft={20}
+            />
+          </div>
+          <div className={Styles.bannerButton}>
+            <Link
+              to="/adduser"
+              style={{ textDecoration: "none" }}
+            >
+              <GeneralButton
+                name={"Add User"}
+                type={"submit"}
+                color={"#f8fafc"}
+                borderRadius={"30px"}
+                backgroundColor={"#6366f1"}
+                icons={frame}
+                width={"158px"}
+                height={"48px"}
+              />
+            </Link>
           </div>
         </div>
-
         <div className={Styles.OrganizationListTable}>
           <Paper>
             <TableContainer>

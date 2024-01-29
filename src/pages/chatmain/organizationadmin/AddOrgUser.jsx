@@ -1,5 +1,5 @@
 import React from "react";
-import Styles from "../../AMChatAdmin/AddOrganizationAdmin/AddOrganizationAdmin.module.css";
+import Styles from "./OrgAdminChatSidebar.module.css";
 import profile from "../../../asset/AmChatSuperAdmin/profile.png";
 import GeneralForm from "../../../components/common/forms/GeneralForm";
 

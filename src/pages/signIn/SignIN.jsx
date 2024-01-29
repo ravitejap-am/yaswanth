@@ -5,7 +5,7 @@ import GeneralForm from "../../components/common/forms/GeneralForm";
 import axios from "axios";
 import { toast } from 'react-toastify';
 import NotifyMessage from '../../components/common/toastMessages/NotifyMessage';
-import Footer  from "../../pages/home/Footer/Footer";
+import Footer from "../../pages/home/Footer/Footer";
 import SignHeader from "../home/SignHeader/SignHeader";
 
 const SignIn = () => {
@@ -70,7 +70,7 @@ const SignIn = () => {
         { required: true, message: "Please input your email" },
         { type: "email", message: "Invalid email format" },
       ],
-      style:{} 
+      style: {}
     },
     {
       label: "Password",
@@ -84,13 +84,26 @@ const SignIn = () => {
   ];
 
   const submitButtonProperty = {
-    name: "Login",
+    name: "Sign Up",
     color: "white",
     backgroundColor: "#6366F1",
     type: "primary",
-    width: "456px",
+    width: "467px",
     height: "50px",
-    borderRadius: "30px",
+    borderRadius: "35px",
+    marginTop: ".6em",
+    fontSize: "0.7rem"
+  };
+  const buttonProps = {
+    name: 'Sign Up',
+    type: 'primary',
+    color: 'white',
+    backgroundColor: '#6366F1',
+    width: '120px',
+    padding: '10px 16px',
+    height: '40px',
+    borderRadius: '30px',
+    icons: '',
   };
 
   const feedingVariable = {
@@ -111,38 +124,46 @@ const SignIn = () => {
 
   return (
     <>
-    <SignHeader/>
-    <div className="main">
-      <div className="container">
-        <div className="row">
-          <div className="col">
-            <div className="row mainContent">
-              <div className="box-round">
-                <div className="text-top">
-                  <h2>Sign In</h2>
-                  <p>Please sign in with your organization email id</p>
-                </div>
+      <div className="signin-header">
+        <SignHeader
+          title='AM-Chat'
+          linkText="Don't have an account?"
+          linkTo='/registeruser'
+          buttonText={buttonProps.name}
+          buttonProps={buttonProps}
+        />
+      </div>
+      <div className="main">
+        <div className="container">
+          <div className="row">
+            <div className="col">
+              <div className="row mainContent">
+                <div className="box-round">
+                  <div className="text-top">
+                    <h2>Sign In</h2>
+                    <p>Please sign in with your organization email id</p>
+                  </div>
 
-                <div className="form-content">
-                  <GeneralForm {...feedingVariable} />
+                  <div className="form-content">
+                    <GeneralForm {...feedingVariable} />
 
-                  <div className="alreadySignIn">
+                    {/* <div className="alreadySignIn">
                     <p>
                       Do have an account ?{" "}
                       <Link className="danger-text" to={"/registerUser"}>
                         Sign Up
                       </Link>
                     </p>
+                  </div> */}
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+        <NotifyMessage />
+        <Footer />
       </div>
-      <NotifyMessage/>
-      <Footer/>
-    </div>
     </>
   );
 };

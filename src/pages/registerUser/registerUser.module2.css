@@ -11,7 +11,7 @@ col {
   width: 100%;
 }
 .form-content {
-  padding: 40px !important;
+  padding: 0px !important;
   /* max-width: 500px; */
   /* min-width: 300px; */
 }
@@ -165,4 +165,7 @@ a {
 .formRegisterUser {
   color: #475f7b;
   width: 500px;
+}
+.signup-footer{
+  /* margin-top: 10px; */
 }
