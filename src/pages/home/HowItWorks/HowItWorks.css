@@ -40,13 +40,16 @@
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
-  line-height: 20px; 
+  line-height: 20px;
   margin-left: 100px;
   margin-bottom: 25px;
 }
 .How_It_Works_Container {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  width: 50%;
+}
+.How_it_works_imge2 {
 }
 .how_to_works_span_text {
   color: #94a3b8;
@@ -56,6 +59,15 @@
   font-style: normal;
   font-weight: 400;
   line-height: 20px;
+}
+.how_it_works_second_div {
+  display: flex;
+  justify-content: space-around;
+}
+
+.how_it_works_child_div {
+  flex: 1;
+  text-align: center; /* Adjust as needed */
 }
 
 .How__it_Works_Right_Side_div {

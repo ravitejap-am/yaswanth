@@ -21,7 +21,7 @@ function AISolution() {
     {
       img: img3,
       title: "Multilingual Support",
-      subTitle: "Use the gen AI based chat in your language. ",
+      subTitle: "Use the Gen AI based chat in your language. ",
     },
     {
       img: img4,
@@ -36,7 +36,7 @@ function AISolution() {
     <br /><br /><br />
       <div className="AI_Solution-title_style">
         <div className="AI_Solution_title_style">
-          <span>Explore a Gen Ai Chatbot Solution for your Business</span>
+          <span>Explore a Gen AI Chatbot Solution for your Business</span>
         </div>
         <br />
         <div className="AI_Solution_title_style2">

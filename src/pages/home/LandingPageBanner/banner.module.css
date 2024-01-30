@@ -23,8 +23,8 @@
 }
 .bannerHeading {
   color: var(--White, #fff);
-  font-family: system-ui;
-  font-size: 50px;
+  font-family: Montserrat;
+  font-size: 3.4rem;
   font-style: normal;
   font-weight: 500;
   line-height: 52px;

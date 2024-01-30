@@ -12,7 +12,7 @@ const Plans = () => {
         <p><img className='right-icon' src={righticon} alt="" />Upload size 2 MB.</p>
         <p><img className='right-icon' src={righticon} alt="" />Max 10 chats free</p>
         <div className='note-p-text'>
-        <p >Note: Your plan is expire on 3rd Feb, 2024</p>
+        <p >Note: Your plan is due on 3rd Feb, 2024</p>
 
         </div>
       </div>

@@ -189,7 +189,7 @@
 .personal-contentcard {
     margin-top: 20px;
     width: 73.5vw;
-    height: 409px;
+    height: 419px;
     flex-shrink: 0;
     border-radius: 10.457px;
     background: var(--White, #FFF);
@@ -380,6 +380,7 @@ user-profle-name h2{
     line-height: 24px;
     text-decoration: none;
     position: relative;
+    top: 10px;
 }
 
 .info-bar-content a.active-link::after {

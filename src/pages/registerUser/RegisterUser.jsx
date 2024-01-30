@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./registerUser.module2.css";
+import * as constants from "../../constants/Constant";
 import { Form, message } from "antd";
 import NotifyMessage from "../../components/common/toastMessages/NotifyMessage";
 import Spinner from "../../components/common/spinner/Spinner";
@@ -11,8 +12,6 @@ import Footer from "../../pages/home/Footer/Footer";
 import Header from "../home/Header/Header";
 import SignHeader from "../home/SignHeader/SignHeader";
 
-
-
 const RegisterUser = () => {
   const [signupMessage, setSignupMessage] = useState();
   const [loader, setLoader] = useState(false);
@@ -20,7 +19,6 @@ const RegisterUser = () => {
   const [filesystem, setFileSysytem] = useState([]);
 
   useEffect(() => {
-    // Show toast when signupMessage changes
     if (signupMessage) {
       toast.success(signupMessage);
     }
@@ -43,30 +41,36 @@ const RegisterUser = () => {
   };
 
   const submitHandler = async (values) => {
-    const url = "https://jsonplaceholder.cypress.io/posts";
-    const data = values;
+    const apiUrl = `${constants.BASE_API_URL}${constants.SIGNUP_ENDPOINT}`;
+    const data = {
+      firstName: values.name,
+      lastName: values.name,
+      email: values.email,
+      password: values.password,
+      confirmPassword: values.confirmPassword,
+    };
 
     try {
       setLoader(true);
-      const response = await axios.post(url, data, {
+      const response = await axios.post(apiUrl, data, {
         headers: {
           "Content-Type": "application/json",
         },
       });
 
       console.log("Registration successful:", response.data);
-      toast.success("Congratulations!! You are successfully signed up with your organization email id.");
+      setSignupMessage(
+        "Congratulations!! You are successfully signed up with your organization email id."
+      );
     } catch (error) {
       console.error("Registration failed:", error.response?.data);
 
       if (error.response && error.response.status === 400) {
-        toast.error("Please sign up with your organization email id. If your organization is not registered with us, please reach out to sales@areteminds.com");
-      }
-      // else if (error.response && error.response.status === 403) {
-      //   toast.warn("Please sign up with your organization email id. If your organization is not registered with us, please reach out to sales@areteminds.com");
-      // } 
-      else {
-        toast.error("An error occurred. Please try again.");
+        setSignupMessage(
+          "Please sign up with your organization email id. If your organization is not registered with us, please reach out to sales@areteminds.com"
+        );
+      } else {
+        setSignupMessage("An error occurred. Please try again.");
       }
     } finally {
       setLoader(false);
@@ -119,9 +123,7 @@ const RegisterUser = () => {
       label: " Confirm Password",
       type: "password",
       name: "confirmPassword",
-      rules: [
-        { required: true, message: "Please confirm your password!" },
-      ],
+      rules: [{ required: true, message: "Please confirm your password!" }],
     },
   ];
 
@@ -186,7 +188,13 @@ const RegisterUser = () => {
                   <div className="box-round">
                     <div className="text-top">
                       <h2>Sign Up</h2>
-                      <p>Please sign up with your organization email id. If your <br />organization is not registered with us, please reach out to <br />sales@areteminds.com</p>
+                      <p>
+                        Please sign up with your organization email id. If your{" "}
+                        <br />
+                        organization is not registered with us, please reach out
+                        to <br />
+                        sales@areteminds.com
+                      </p>
                     </div>
                   </div>
                   <div>
@@ -214,10 +222,8 @@ const RegisterUser = () => {
           <Footer />
         </div>
       </div>
-
     </>
   );
-
 };
 
 export default RegisterUser;

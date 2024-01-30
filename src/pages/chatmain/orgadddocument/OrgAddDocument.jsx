@@ -16,7 +16,7 @@ function OrgAddDocument() {
         borderRadius: "40px",
         border: "1px solid var(--Brand-700, #4338CA)",
         backgroundColor: "transparent",
-        marginBottom: "20px", // Added margin at the bottom
+        marginBottom: "20px", 
       },
       rules: [{ required: true, message: "Please enter your Document Name" }],
       labelName: false,
@@ -30,7 +30,7 @@ function OrgAddDocument() {
       if (values.hasOwnProperty("Document File")) {
         const formData = new FormData();
         formData.append("documentName", values["Document Name"]);
-        formData.append("documentFile", values["Document File"][0]); // Assuming it's a single file
+        formData.append("documentFile", values["Document File"][0]); 
 
         console.log("FormData:", formData);
 
@@ -58,10 +58,10 @@ function OrgAddDocument() {
   const documentProps = {
     setFile: (fileList) => {}, 
     numberOfImage: 1, 
-    fileType: "application/pdf", // Set the correct file type for PDF
+    fileType: "application/pdf", 
     fileSize: 10, 
-    url: "http://your-upload-url", // Set your upload endpoint
-    form: undefined, // Pass the form if needed
+    url: "http://54.161.113.196:8080/document", 
+    form: undefined, 
     name: "Document File", 
   };
 
@@ -115,8 +115,11 @@ function OrgAddDocument() {
         </div>
 
         <div className={Styles.addOrganizationAdminSecondDiv}>
-          <Document {...documentProps} />
+        <Document {...documentProps} />
+
           <GeneralForm {...feedingVariable} />
+          <div>
+          </div>
         </div>
       </div>
     </div>

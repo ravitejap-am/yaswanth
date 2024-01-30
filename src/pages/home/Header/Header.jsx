@@ -30,7 +30,7 @@ const Header = () => {
   return (
     <div className={`${Styles.headerMain} ${scroll ? Styles.scrolled : ""}`}>
       <div className={Styles.appLogo}>
-        <span className={Styles.amChatTitle}>AM Chat</span>
+        <span className={Styles.amChatTitle}>AM-Chat</span>
         <span className={Styles.appName}>
           <img src={Logo} alt="" />
         </span>
@@ -64,7 +64,7 @@ const Header = () => {
           className={Styles.navigation}
           onClick={() => scrollToElement("Contact_Up")}
         >
-          Contact Form
+          Contact Us
         </span>
       </div>
       <div className={Styles.navigationButton}>

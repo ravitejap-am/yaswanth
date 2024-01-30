@@ -27,7 +27,7 @@ function AIChatBot() {
     "PCI compliance?",
     "PII compliance?",
     "Can you explain what's wrong with my lab report? ",
-    " Can you explain the Pythagorean theorem?",
+    " Can you explain the pythagoras theorem?",
   ];
 
   return (
@@ -35,7 +35,7 @@ function AIChatBot() {
       <div style={containerStyle}>
         <div style={backgroundStyle} className="AI_Chat_bot_Center_div_content">
           <div className="AI_chat_bot_heading">
-            <span className="AI_chat_title">AM Chat / Gen AI Chatbot</span>
+            <span className="AI_chat_title">AM-Chat / Gen AI Chatbot</span>
           </div>
           <div className="AI_chat_second_heading">
             <div className="AI_chat_secont_title">

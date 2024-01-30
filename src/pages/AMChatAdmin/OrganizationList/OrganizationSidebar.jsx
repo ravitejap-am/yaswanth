@@ -1,12 +1,7 @@
 import React from "react";
 import Logo from "../../../asset/Vector.png";
 import Styles from "../AMChatBackgound/AMChat.module.css";
-import GeneralButton from "../../../components/common/buttons/GeneralButton";
-import frame from "../../../asset/Frame 1.png";
 import organizationimage from "../../../asset/AmChatSuperAdmin/Frame 2301.png";
-import userImage from "../../../asset/AmChatSuperAdmin/users.png";
-import circle from "../../../asset/AmChatSuperAdmin/Ellipse 6.png";
-import SuperAdminAMChatCard from "../SuperAdminAMChatCard/SuperAdminAMChatCard";
 import OrganizationList from "../OrganizationList/OrganizationList";
 import { Link } from "react-router-dom";
 import arrorLink from "../../../asset/AmChatSuperAdmin/arrow-left.png";

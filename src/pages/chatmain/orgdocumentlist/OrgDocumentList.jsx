@@ -20,6 +20,7 @@ import deleteIcon from "../../../asset/AmChatSuperAdmin/Frame 2302.png";
 import { Link } from "react-router-dom";
 import Search from "../../../components/common/search/Search";
 import SerchImages from "../../../asset/AmChatSuperAdmin/Group2305.png";
+import Serach from '../../../components/common/search/Search'
 
 function OrgDocumentList() {
   const searchStyles = {
@@ -122,7 +123,7 @@ function OrgDocumentList() {
               styles={searchStyles}
               searchImage={SerchImages}
               imageHeight={"46px"}
-              imageMarginLeft={20}
+              imageMarginLeft={2}
             />
           </div>
           <div className={Styles.bannerButton}>

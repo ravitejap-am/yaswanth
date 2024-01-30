@@ -91,3 +91,8 @@
   line-height: 20px; /* 142.857% */
   color: #e2e8f0;
 }
+.AI_Solution_Content_Title_Style {
+  white-space: nowrap;
+}
+
+/* Other styles... */

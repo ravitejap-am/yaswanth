@@ -340,7 +340,7 @@ const GeneralForm = (props) => {
           })}
         </div>
       )}
-
+      
       <Form.Item noStyle wrapperCol={{ offset: 6, span: 18 }}>
         <div
           className="center"

@@ -27,6 +27,11 @@ function Dropdown({ options, onSelect, style, placeholder }) {
     fontWeight: "400",
     lineHeight: "24px",
   };
+  const dropdownHeaderStyle = {
+    background: isOpen
+      ? "linear-gradient(114deg, #0F172A 51.52%, #152346 73.32%, #1A2E5E 92.75%)"
+      : "var(--Neutral-900, #0f172a)",
+  };
 
   return (
     <div className={Style.dropdownContainer}>
@@ -41,7 +46,7 @@ function Dropdown({ options, onSelect, style, placeholder }) {
           );
           handleSelect(selectedOption);
         }}
-        style={{ ...style, marginLeft: "" }}
+        style={{ ...style, marginLeft: "", ...dropdownHeaderStyle }}
       >
         <option value="" labelColor="#FFF" disabled style={placeholderStyle}>
           <div style={{ paddingLeft: "10px", color: "white" }}>

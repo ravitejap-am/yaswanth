@@ -51,7 +51,7 @@ const ResetPassword = () => {
   ];
 
   const submitButtonProperty = {
-    name: "Sign Up",
+    name: "Submit",
     color: "white",
     backgroundColor: "#6366F1",
     type: "primary",
@@ -125,7 +125,7 @@ const ResetPassword = () => {
             <div className="row mainContent">
               <div className="box-round">
                 <div className="text-top">
-                  <h2>Reset Password</h2>
+                  <h2>Set Password</h2>
                   <p>Please use your organization email id.</p>
                 </div>
 

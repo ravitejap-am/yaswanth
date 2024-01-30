@@ -467,3 +467,7 @@
   left: 10px;
   color: var(--Neutral-300, #CBD5E1);
 }
+.orgchat-icon{
+  margin-left: -8px;
+  margin-bottom: 10px;
+}

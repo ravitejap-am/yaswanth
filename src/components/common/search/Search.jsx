@@ -9,7 +9,15 @@ function Search({
   imageWidth,
   imageHeight,
   imageMarginLeft,
+  onSearchImageClick, 
+  iconId
 }) {
+  const handleSearchImageClick = () => {
+    if (onSearchImageClick) {
+      onSearchImageClick();
+    }
+  };
+
   return (
     <div>
       <div className="input_field_main_div">
@@ -21,13 +29,15 @@ function Search({
         />
         <div
           className="icon-container"
+          id={`${iconId?iconId:null}`}
           style={{ marginLeft: `${imageMarginLeft}px` }}
         >
           <img
             src={searchImage}
             alt=""
             className="icon"
-            style={{ width: imageWidth, height: imageHeight }}
+            style={{ width: imageWidth, height: imageHeight, cursor: "pointer" }}
+            onClick={handleSearchImageClick} 
           />
         </div>
       </div>

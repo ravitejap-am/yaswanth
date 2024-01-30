@@ -25,7 +25,7 @@ import SerchImages from "../../../asset/AmChatSuperAdmin/Group2305.png";
 
 function OrgUserList() {
   const searchStyles = {
-    width: "300px",
+    width: "250px",
     height: "45px",
     borderRadius: "42px",
     fontFamily: "Inter, sans-serif",
@@ -114,6 +114,8 @@ function OrgUserList() {
               searchImage={SerchImages}
               imageHeight={"46px"}
               imageMarginLeft={20}
+              // iconId={}
+            
             />
           </div>
           <div className={Styles.bannerButton}>
