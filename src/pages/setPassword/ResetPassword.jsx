@@ -51,13 +51,26 @@ const ResetPassword = () => {
   ];
 
   const submitButtonProperty = {
-    name: "Reset Password",
+    name: "Submit",
     color: "white",
     backgroundColor: "#6366F1",
     type: "primary",
-    width: "456px",
+    width: "467px",
     height: "50px",
-    borderRadius: "30px"
+    borderRadius: "35px",
+    marginTop: ".7em",
+    fontSize: "0.9rem"
+  };
+  const buttonProps = {
+    name: 'Sign Up',
+    type: 'primary',
+    color: 'white',
+    backgroundColor: '#6366F1',
+    width: '120px',
+    padding: '10px 16px',
+    height: '40px',
+    borderRadius: '30px',
+    icons: '',
   };
 
   const feedingVariable = {
@@ -96,7 +109,15 @@ const ResetPassword = () => {
 
   return (
     <>
-    <SignHeader/>
+    <div className='resetpassword-header'>
+    <SignHeader
+            title='AM-Chat'
+            linkText="Don't have an account?"
+            linkTo='/registeruser'
+            buttonText={buttonProps.name} 
+            buttonProps={buttonProps}
+          />
+    </div>
     <div className="main">
       <div className="container">
         <div className="row">
@@ -104,7 +125,7 @@ const ResetPassword = () => {
             <div className="row mainContent">
               <div className="box-round">
                 <div className="text-top">
-                  <h2>Reset Password</h2>
+                  <h2>Set Password</h2>
                   <p>Please use your organization email id.</p>
                 </div>
 

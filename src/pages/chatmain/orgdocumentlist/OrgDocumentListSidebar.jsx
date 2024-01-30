@@ -11,6 +11,8 @@ import userImage from "../../../asset/AmChatSuperAdmin/users.png";
 import { Link } from "react-router-dom";
 import arrorLink from "../../../asset/arrow-left.png";
 import OrgDocumentList from '../../../pages/chatmain/orgdocumentlist/OrgDocumentList'
+import usersicon from '../../../asset/users.png'
+import documenticon from '../../../asset/document1.png'
 function OrgDocumentListSidebar() {
   return (
     <>
@@ -50,7 +52,7 @@ function OrgDocumentListSidebar() {
               </span>
 
               <span>
-                <img src={organizationimage} alt="" />
+                <img src={usersicon} alt="" />
                 <Link
                   to="/orguserlist"
                   style={{ textDecoration: "none" }}
@@ -62,7 +64,7 @@ function OrgDocumentListSidebar() {
             <br />
             <div className={Styles.SuperAdminChildContainer}>
               <span>
-                <img src={userImage} alt="" />
+                <img src={documenticon} alt="" />
                 <p className={Styles.organizationTextStyle}>
                   Document
                 </p>

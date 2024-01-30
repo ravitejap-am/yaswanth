@@ -85,13 +85,26 @@ const RecoveryPasswor = () => {
     },
   ];
   const submitButtonProperty = {
-    name: "Submit",
+    name: "Sign Up",
     color: "white",
     backgroundColor: "#6366F1",
     type: "primary",
-    width: "456px",
-    height: "47px",
-    borderRadius: "30px"
+    width: "467px",
+    height: "50px",
+    borderRadius: "35px",
+    marginTop: ".7em",
+    fontSize: "0.9rem"
+  };
+  const buttonProps = {
+    name: 'Sign Up',
+    type: 'primary',
+    color: 'white',
+    backgroundColor: '#6366F1',
+    width: '120px',
+    padding: '10px 16px',
+    height: '40px',
+    borderRadius: '30px',
+    icons: '',
   };
   const feedingVariable = {
     isCancel: false,
@@ -111,7 +124,15 @@ const RecoveryPasswor = () => {
 
   return (
     <>
-    <SignHeader/>
+    <div className="recoverpassword-header">
+    <SignHeader
+            title='AM-Chat'
+            linkText="Don't have an account?"
+            linkTo='/registeruser'
+            buttonText={buttonProps.name} 
+            buttonProps={buttonProps}
+          />
+    </div>
     <div className="main">
       <div className="container">
         {" "}

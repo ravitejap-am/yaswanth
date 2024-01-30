@@ -32,7 +32,7 @@ const PersonalInformation = ({ setFileSysytem, validateEmail }) => {
         { required: true, message: "Please input your Enter your email" },
         { type: "name", message: "Invalid Email" },
       ],
-      style: { width: "350px", height: "30px", marginLeft: '20px', backgroundColor:"#CBD5E1" }
+      style: { width: "350px", height: "30px", marginLeft: '20px', backgroundColor: "#CBD5E1" }
     },
   ];
 
@@ -43,7 +43,8 @@ const PersonalInformation = ({ setFileSysytem, validateEmail }) => {
     type: "primary",
     width: "150px",
     height: "45px",
-    borderRadius: "35px",
+    borderRadius: "34px",
+    marginLeft:"19px",
   };
 
   const feedingVariable = {

@@ -132,10 +132,25 @@ const RegisterUser = () => {
     color: "white",
     backgroundColor: "#6366F1",
     type: "primary",
-    width: "456px",
+    width: "467px",
     height: "50px",
     borderRadius: "35px",
+    marginTop: ".7em",
+    fontSize: "0.9rem"
   };
+
+  const buttonProps = {
+    name: 'Sign In',
+    type: 'primary',
+    color: 'white',
+    backgroundColor: '#6366F1',
+    width: '120px',
+    padding: '10px 16px',
+    height: '40px',
+    borderRadius: '30px',
+    icons: '',
+  };
+
 
   const feedingVariable = {
     isCancel: false,
@@ -155,7 +170,16 @@ const RegisterUser = () => {
   return (
     <>
       <div>
-        <SignHeader />
+        <div className="Signup-header">
+          <SignHeader
+            title='AM-Chat'
+            // linkText="Don't have an account?"
+            linkTo='/signin'
+            buttonText={buttonProps.name} 
+            buttonProps={buttonProps}
+          />
+
+        </div>
         <div className="main">
           <div className="container">
             <div className="row">
@@ -172,20 +196,19 @@ const RegisterUser = () => {
                         sales@areteminds.com
                       </p>
                     </div>
-
-                    <div>
-                      <div className="form-content">
-                        <GeneralForm {...feedingVariable} />
-                        <div className="alreadySignIn">
-                          <p>
-                            Already have an account?{" "}
-                            <Link to={"/signin"} className="danger-text">
-                              Sign In
-                            </Link>
-                            <a href=""></a>
-                          </p>
-                        </div>
-                      </div>
+                  </div>
+                  <div>
+                    <div className="form-content">
+                      <GeneralForm {...feedingVariable} />
+                      {/* <div className="alreadySignIn">
+                        <p>
+                          Already have an account?{" "}
+                          <Link to={"/signin"} className="danger-text">
+                            Sign In
+                          </Link>
+                          <a href=""></a>
+                        </p>
+                      </div> */}
                     </div>
                   </div>
                 </div>
@@ -193,10 +216,9 @@ const RegisterUser = () => {
             </div>
           </div>
           {loader ? <Spinner /> : null}
-          <NotifyMessage
-            message={signupMessage ? signupMessage : null}
-            errorHandle={false}
-          />
+          <NotifyMessage message={signupMessage ? signupMessage : null} errorHandle={false} />
+        </div>
+        <div className="signup-footer">
           <Footer />
         </div>
       </div>

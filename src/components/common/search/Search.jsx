@@ -10,6 +10,7 @@ function Search({
   imageHeight,
   imageMarginLeft,
   onSearchImageClick, 
+  iconId
 }) {
   const handleSearchImageClick = () => {
     if (onSearchImageClick) {
@@ -28,6 +29,7 @@ function Search({
         />
         <div
           className="icon-container"
+          id={`${iconId?iconId:null}`}
           style={{ marginLeft: `${imageMarginLeft}px` }}
         >
           <img

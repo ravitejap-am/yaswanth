@@ -8,13 +8,14 @@ const GeneralButton = ({
   backgroundColor,
   width,
   height,
-  // buttonHandler,
+  marginLeft,  // buttonHandler,
   isCallbackData,
   boxShadow,
   // borderRadius,
   borderRadius,
   border,
   icons,
+  marginTop,
 }) => {
   console.log(buttonProps);
   return (
@@ -37,6 +38,8 @@ const GeneralButton = ({
         boxShadow: boxShadow,
         borderRadius: borderRadius,
         border: border,
+        marginLeft:marginLeft,
+        marginTop:marginTop
       }}
     >
       {name}

@@ -12,7 +12,7 @@ const TabNavigation = ({ selectedTab, handleTabChange }) => {
           }`}
           onClick={() => handleTabChange("personalinformation")}
         >
-          Personal Information
+          Personal Info
         </Link>
         <Link
           to="#"

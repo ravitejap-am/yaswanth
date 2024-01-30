@@ -80,12 +80,13 @@ const Rout = () => {
       <Route path="/UserProfile" element={<UserProfile />} />
       <Route path="/PersonalInformation" element={<PersonalInformation />} />
 
-      <Route path="/adduser" element={<OrgAdminSidebar />} />
-      <Route path="/orguserlist" element={<OrgUserListSidebar />} />
-      <Route path="/orgdocumentList" element={<OrgDocumentListSidebar />} />
-      <Route path="/orgadddocument" element={<OrgAddDocumentSidebar />} />
-      <Route path="/orgadminchat" element={<OrgAdminChatSidebar />} />
-      <Route path="/enterpriseregister" element={<EnterpriseRegister />} />
+      <Route path="/adduser" element={<OrgAdminSidebar/>}/>
+      <Route path="/orgdocumentList" element={<OrgUserListSidebar/>}/>
+      <Route path="/orguserlist" element={<OrgDocumentListSidebar/>}/>
+      <Route path="/orgadddocument" element={<OrgAddDocumentSidebar/>}/>
+      <Route path="/orgadminchat" element={<OrgAdminChatSidebar/>}/>
+      <Route path="/enterpriseregister" element={<EnterpriseRegister/>}/>
+
     </Routes>
   );
 };

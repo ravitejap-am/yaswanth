@@ -1,6 +1,7 @@
-.signheader-main{
+.signheader-main {
     background: var(--Neutral-200, #E2E8F0);
 }
+
 .signheader-content {
     display: flex;
     justify-content: space-between;
@@ -9,32 +10,47 @@
 .signheader-buttoncontent {
     display: flex;
     align-items: center;
-    margin: 4px;  
+    margin: 4px;
 }
 
 .signheader-account {
-    margin-right: 10px;  
+    margin-right: 10px;
 }
 
-.signheader-amchattext{
+.signheader-amchattext {
     margin-left: 35px;
     color: var(--Neutral-900, #0F172A);
-/* font-family: "Red Rose"; */
-font-size: 16px;
-font-style: normal;
-font-weight: 700;
-line-height: 24px;
-margin-top: 10px;
+    font-family: Lato;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px;
+    margin-top: 10px;
 }
-.signheader-account{
+
+.signheader-account {
     margin-right: 10px;
     margin-top: 10px;
 }
-.signheader-btn{
+
+.signheader-btn {
     margin-right: 30px;
     margin-top: 10px;
 }
-.headerVector-icon{
+
+.headerVector-icon {
     position: relative;
     bottom: 8px;
+}
+
+.signin-link {
+    text-decoration: none;
+    color: var(--Brand-900, #312E81);
+
+    font-family: Lato;
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    /* 142.857% */
 }

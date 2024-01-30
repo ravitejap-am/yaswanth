@@ -11,6 +11,8 @@ import arrorLink from "../../../asset/AmChatSuperAdmin/arrow-left.png";
 // import OrganizationAdminListSidebar from "../OrganizationAdminList/OrganizationAdminListSidebar";
 import AddOrganizationAdmin from "./AddOrgUser";
 import AddOrgUser from "./AddOrgUser";
+import usersicon from '../../../asset/users.png'
+import documenticon from '../../../asset/document1.png'
 
 function OrgAdminSidebar() {
   return (
@@ -51,7 +53,7 @@ function OrgAdminSidebar() {
               </span>
 
               <span>
-                <img src={organizationimage} alt="" />
+                <img src={usersicon} alt="" />
                 <Link
                   to="/dashboardadmin/organizationlist"
                   style={{ textDecoration: "none" }}
@@ -63,7 +65,7 @@ function OrgAdminSidebar() {
             <br />
             <div className={Styles.SuperAdminChildContainer}>
               <span>
-                <img src={userImage} alt="" />
+                <img src={documenticon} alt="" />
                 <p className={Styles.organizationTextStyle}>
                   Documents
                 </p>

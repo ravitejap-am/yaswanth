@@ -16,7 +16,7 @@
 .sidebar-amchat h2 {
     color: var(--White, #FFF);
     /* font-family: Lato; */
-    font-size: 28.667px;
+    font-size: 22.667px;
     font-style: normal;
     font-weight: 700;
     line-height: 43px;
@@ -35,14 +35,16 @@
     color: #FFF;
     background-color: transparent;
     text-decoration: none;
-    
+
 
 }
-.backlink-text{
+
+.backlink-text {
     text-decoration: none;
     color: var(--Neutral-100, #F1F5F9);
 
 }
+
 .left-back-icon {
     position: relative;
     margin-right: 10px;
@@ -66,7 +68,8 @@
     margin-left: 20px;
 
 }
-.userprofile-pic{
+
+.userprofile-pic {
     position: relative;
     top: 30px;
     right: 20px;
@@ -89,7 +92,7 @@
 
     /* text-2xl/font-semibold */
     font-family: Montserrat;
-    font-size: 20px;
+    font-size: 17px;
     font-style: normal;
     font-weight: 600;
     line-height: 32px;
@@ -125,16 +128,18 @@
     width: 73vw;
     height: 7vh;
     flex-shrink: 0;
-    /* margin-left: 20px; */
+    margin-left: 20px;
     /* justify-content: center;
     align-items: center; */
 }
+
 .info-bar-main {
     display: flex;
     justify-content: center;
     align-items: center;
-    
+
 }
+
 .info-bar {
     color: var(--Neutral-900, #0F172A);
     /* font-family: Lato; */
@@ -184,7 +189,7 @@
 .personal-contentcard {
     margin-top: 20px;
     width: 73.5vw;
-    height: 409px;
+    height: 419px;
     flex-shrink: 0;
     border-radius: 10.457px;
     background: var(--White, #FFF);
@@ -197,6 +202,7 @@
 .user-profile-content {
     display: flex;
 }
+
 .user-profile-img {
     margin-top: 50px;
     margin-left: 30px;
@@ -218,6 +224,17 @@
 .user-profle-name {
     margin-top: 60px;
     margin-left: 20px;
+    color: var(--Neutral-900, #0F172A);
+
+    font-family: Montserrat;
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 32px;
+    /* 133.333% */
+}
+user-profle-name h2{
+    
 }
 
 .personalinfo-user-Status {
@@ -248,7 +265,7 @@
     border-radius: 30px;
     border: 1px solid var(--Neutral-400, #94A3B8);
     background: var(--Neutral-300, #CBD5E1);
-    width: 356px;
+    width: 350px;
     height: 40px;
     flex-shrink: 0;
     padding-left: 10px;
@@ -256,15 +273,15 @@
 
 .prsnolinfo-inputdields {
     margin-left: 20px;
-    margin-top: 20px;
+    margin-top: 28px;
 }
 
 .active-dropdown-input {
-    margin-top: 10px;
+    margin-top: 26px;
     border-radius: 30px;
     border: 1px solid var(--Neutral-400, #94A3B8);
-    width: 359px;
-    height: 40px;
+    width: 362px;
+    height: 43px;
     flex-shrink: 0;
     padding-left: 10px;
     cursor: pointer;
@@ -344,12 +361,13 @@
     margin-left: 30px;
 }
 
-.info-bar-content{
+.info-bar-content {
     display: flex;
 }
+
 .user-personal-information,
 .user-change-password,
-.user-plans{
+.user-plans {
     margin-top: 7px;
 }
 
@@ -362,6 +380,7 @@
     line-height: 24px;
     text-decoration: none;
     position: relative;
+    top: 10px;
 }
 
 .info-bar-content a.active-link::after {
