@@ -89,6 +89,9 @@
     font-weight: 1.2rem;
     white-space: nowrap; /* Prevent text wrapping */
   }
+  .iconId{
+    
+  }
   
   /* Adjust the following styles to ensure responsiveness */
   @media (max-width: 768px) {
