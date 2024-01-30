@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Style from "./dropDown.madule.css";
 
-function Dropdown({ options, onSelect, style, placeholder }) {
+function Dropdown({ options, onSelect, style, placeholder, headerStyle }) {
   const [selectedOption, setSelectedOption] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -27,10 +27,12 @@ function Dropdown({ options, onSelect, style, placeholder }) {
     fontWeight: "400",
     lineHeight: "24px",
   };
+
   const dropdownHeaderStyle = {
     background: isOpen
-      ? "linear-gradient(114deg, #0F172A 51.52%, #152346 73.32%, #1A2E5E 92.75%)"
-      : "var(--Neutral-900, #0f172a)",
+      ? // ? "linear-gradient(114deg, #0F172A 51.52%, #152346 73.32%, #1A2E5E 92.75%)"
+        ""
+      : headerStyle || "",
   };
 
   return (

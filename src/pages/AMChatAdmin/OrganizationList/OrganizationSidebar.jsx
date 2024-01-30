@@ -75,7 +75,7 @@ function OrganizationSidebar() {
       <div className={Styles.AMChatFooterStyle}>
         <footer className="AMChat-admin-footer">
           <p className={Styles.footerPTagStyle}>
-            @2024. All rights reserved by AM Chatbot
+            @2024. All rights reserved by Areteminds
           </p>
         </footer>
       </div>

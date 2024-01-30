@@ -79,7 +79,7 @@ function OrganizationAdminListSidebar() {
       </div>
       <div className={Styles.AMChatFooterStyle}>
         <footer className="AMChat-admin-footer">
-          <p className={Styles.footerPTagStyle}>@2024. All rights reserved by AM Chatbot</p>
+          <p className={Styles.footerPTagStyle}>@2024. All rights reserved by Areteminds</p>
         </footer>
       </div>
     </>

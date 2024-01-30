@@ -59,7 +59,9 @@ const ContactUp = () => {
         paddingLeft: "10px",
         paddingRight: "20px",
         appearance: "border",
-        color: "#fff",
+        // color: "#fff",
+        background:
+          "linear-gradient(114deg, #0f172a 51.52%, #152346 73.32%, #1a2e5e 92.75%)",
       },
       className: "transparent-dropdown",
       labelName: true,
