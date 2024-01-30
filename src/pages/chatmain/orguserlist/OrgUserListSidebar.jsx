@@ -26,7 +26,7 @@ function OrgUserListSidebar() {
           </div>
 
           <div className={Styles.bannerBtn}>
-            <div className={Styles.bannerButton}>
+            {/* <div className={Styles.bannerButton}>
               <GeneralButton
                 name={"Start New Chat"}
                 type={"submit"}
@@ -37,14 +37,14 @@ function OrgUserListSidebar() {
                 width={"140px"}
                 height={"45px"}
               />
-            </div>
+            </div> */}
           </div>
 
           <div className={Styles.container}>
             <div className={Styles.SuperAdminChildContainer}>
               <span>
                 <img src={arrorLink} alt="" />
-                <Link to="/dashboardadmin" style={{ textDecoration: "none" }}>
+                <Link to="/userchat" style={{ textDecoration: "none" }}>
                   <p className={Styles.organizationTextStyle}>Back to Chat</p>{" "}
                 </Link>
               </span>
@@ -52,7 +52,7 @@ function OrgUserListSidebar() {
               <span>
                 <img src={organizationimage} alt="" />
                 <Link
-                  to="/dashboardadmin/organizationlist"
+                  to="/orguserlist"
                   style={{ textDecoration: "none" }}
                 >
                   <p className={Styles.organizationTextStyle}>Users</p>
@@ -74,7 +74,7 @@ function OrgUserListSidebar() {
       </div>
       <div className={Styles.AMChatFooterStyle}>
         <footer className="AMChat-admin-footer">
-          <p>@2024. All rights reserved by AM Chatbot</p>
+          <p>@2024. All rights reserved by Areteminds</p>
         </footer>
       </div>
     </>

@@ -1,6 +1,3 @@
-/* OrgAdminChatPage.css */
-
-/* Add orgadminchat- prefix to all class names */
 .orgadminchat-screen {
   margin: 0;
   padding: 0;
@@ -9,12 +6,13 @@
 .orgadminchat-chat-container {
   border-radius: 15px;
   background: var(--Neutral-200, #E2E8F0);
-  width: 82vw;
+  width: 80vw;
   height: 720px;
   margin-top: 20px;
   margin-bottom: 20px;
   position: relative;
-  margin-left: 20px;
+  margin-left: 15px;
+  right: 10px;
 }
 
 .orgadminchat-document-card {
@@ -26,7 +24,7 @@
   border-radius: 10.457px;
   background: var(--White, #FFF);
   box-shadow: 0px 2.789px 6.972px 3.486px rgba(0, 0, 0, 0.09);
-  margin-bottom: -20px;
+  margin-left: 10px;
 }
 
 .orgadminchat-document-upload-text {
@@ -53,7 +51,7 @@
   border-radius: 15px;
   background: var(--Neutral-200, #E2E8F0);
   width: 55vw;
-  height: 570px;
+  height: 100vh;
   flex-shrink: 0;
   justify-content: center;
   text-align: center;
@@ -61,6 +59,8 @@
   background: var(--White, #FFF);
   box-shadow: 0px 2.789px 6.972px 3.486px rgba(0, 0, 0, 0.09);
   margin-bottom: 20px;
+  position: relative;
+  bottom: 20px;
 }
 
 .orgadminchat-chat-ui-am-chat-text p {
@@ -77,7 +77,7 @@
 .orgadminchat-chat-hello-text h2 {
   text-align: center;
   color: #312E81;
-  margin-top: 190px;
+  margin-top: 143px;
 }
 
 .orgadminchat-chat-hello-text p {
@@ -119,12 +119,10 @@
 }
 
 .orgadminchat-chat-arrow {
-  position: relative;
-  display: flex;
-  bottom: 2.5rem;
-  left: 39rem;
   cursor: pointer;
   width: 40px;
+  margin-top: 35px;
+  margin-left: -65px;
 }
 
 .orgadminchat-orgadmin-input-main input {
@@ -136,6 +134,13 @@
   padding-right: 50px;
   padding-left: 20px;
   box-sizing: border-box;
+  justify-content: center;
+  align-items: center;
+  margin-left: 30px;
+}
+
+.orgadminchat-orgadmin-input-main {
+  display: flex;
 }
 
 .orgadminchat-chats {
@@ -177,7 +182,14 @@
 }
 
 .orgadminchat-user-name {
-  color: var(--Neutral-900, #0F172A);
+  color: var(--Brand-900, #312E81);
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 36px;
+  margin-left: 39px;
+  position: relative;
+  top: 20px;
 }
 
 .orgadminchat-chat-user-profile {
@@ -185,27 +197,24 @@
   right: 20px;
 }
 
-.orgadminchat-orgadmindocument-card {
-  /* padding-top: 81.668px; */
-  justify-content: center;
-  align-items: center;
+.orgadminchat-document-icon {
+  /* margin-right: 15px; */
   position: relative;
-  right: 18rem;
-  top: 140px;
-  display: flex;
 }
 
-.orgadminchat-document-icon {
-  margin-right: 15px;
+.vector-card-image {
   position: relative;
-  bottom: 8px;
+  margin-top: -10px;
+}
+
+.vector-image {
+  width: 260px;
 }
 
 .orgadminchat-document-icon {
   width: 30px;
   height: 30px;
-  margin-top: -10px;
-  margin-left: 5px;
+
 }
 
 .orgadminchat-orgadmindocument-card {
@@ -213,33 +222,94 @@
   border: 1px solid #ccc;
   padding: 15px;
   border-radius: 8px;
-  text-align: left;
+  text-align: center;
   width: 18vw;
   height: 18vh;
+  display: flex;
+  margin-left: 10px;
+  margin-top: -14px;
+
 }
 
 .orgadminchat-orgadmindocument-card h2 {
-  position: relative;
-  bottom: 15px;
   color: var(--Neutral-900, #0F172A);
   font-size: 1rem;
   font-style: normal;
   font-weight: 600;
   line-height: 20px;
-  /* 142.857% */
+  margin-left: 20px;
+  /* margin-bottom: 35px; */
+
 
 }
 
 .document-value {
   color: var(--Neutral-900, #0F172A);
   /* font-family: Montserrat; */
-  font-size: 2rem;
+  font-size: 30px;
   font-style: normal;
   font-weight: 700;
   line-height: 36px;
+  margin-top: 35px;
   position: relative;
-  right: 5rem;
-  top: 15px;
+  right: 80px;
+
+}
+
+.orgadmin-activeuser-card {
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  padding: 5px;
+  border-radius: 8px;
+  text-align: left;
+  width: 20vw;
+  height: 18vh;
+  margin-left: 10px;
+
+
+
+}
+
+.orgadmin-activeuser-main {
+  position: relative;
+  /* bottom: 100px; */
+}
+
+.orgadminchat-orgadmin-activeuser-card h2 {
+  color: var(--Neutral-900, #0F172A);
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 20px;
+  margin-left: 20px;
+
+}
+
+.orgadminchat-document-icon {
+  width: 40px;
+  height: 40px;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.activeusers-value {
+  color: var(--Neutral-900, #0F172A);
+  /* font-family: Montserrat; */
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 36px;
+  margin-top: 35px;
+  position: relative;
+  right: 80px;
+
+}
+
+.orgadminchat-activeuser-icon {
+  width: 40px;
+  height: 40px;
+  margin-top: 10px;
+  margin-left: 10px;
 }
 
 .orgadminchat-orgadmin-activeuser-card {
@@ -247,45 +317,23 @@
   border: 1px solid #ccc;
   padding: 15px;
   border-radius: 8px;
-  text-align: left;
+  text-align: center;
   width: 18vw;
   height: 18vh;
-
-}
-
-.orgadminchat-orgadmin-activeuser-card h2 {
-  position: relative;
-  bottom: 15px;
-  color: var(--Neutral-900, #0F172A);
-  font-size: 1rem;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 20px;
-  /* 142.857% */
-
-}
-
-.orgadminchat-document-icon {
-  width: 30px;
-  height: 30px;
-  margin-top: -10px;
-  margin-left: 5px;
-}
-
-.orgadminchat-orgadmin-activeuser-card {
-  /* justify-content: center;
-  align-items: center; */
-  position: relative;
-  right: 18rem;
-  top: 140px;
   display: flex;
-  margin-top: 20px;
+  margin-left: 10px;
+
+}
+
+.vector-image-activeuser {
+  position: relative;
+  bottom: 10px;
+  margin-top: -24px;
+  width: 260px;
+  margin-left: 10px;
 }
 
 .orgadmin-activeuser-card {
-  position: relative;
-  right: 18rem;
-  top: 140px;
   display: flex;
   margin-top: 20px;
 }
@@ -297,7 +345,7 @@
   margin-top: 20px;
   border-radius: 10.457px;
   background: var(--White, #FFF);
-  height: 43vh;
+  height: 42vh;
 }
 
 /* Add orgadminchat- prefix to all class names */
@@ -306,16 +354,18 @@
   padding: 0;
 }
 
-.orgadmin-activeuser-card,
+/* .orgadmin-activeuser-card,
 .orgadmin-user-card {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  margin-top: 20px;
+  
   border-radius: 10.457px;
   background: var(--White, #FFF);
-  height: auto; /* Set height to auto to allow for dynamic content */
-}
+  height: auto;
+  position: relative;
+  bottom: 90px;
+} */
 
 .orgadmin-user-card {
   text-align: center;
@@ -342,7 +392,8 @@
 
 .orgadmin-user-card p {
   font-size: 14px;
-  color: #333; /* Changed color from #888 to #333 */
+  color: #333;
+  /* Changed color from #888 to #333 */
   font-size: 10px;
   font-weight: 400;
   position: relative;
@@ -352,19 +403,76 @@
 
 .user-table td {
   margin: 0;
-  padding: 8px; /* Adjust padding as needed */
   text-align: left;
 }
 
-/* Add this style for better spacing */
 .background-bar {
   width: 100%;
   height: 1px;
   background: var(--Neutral-300, #CBD5E1);
   margin: 4px 0;
 }
-.profile-pic{
-  margin-right:10px ;
+
+
+
+.orgadminchat-chat-user-profile-main {
+  display: flex;
 }
-.orgadmin-lastseen{
+
+.orgadminchat-chat-user-profile-image {
+  margin-top: 15px;
+  margin-right: 30px;
+
+}
+
+.orgadmin-profilepic {
+  height: 40px;
+  width: 40px;
+}
+
+.orgadminchat-chat-user-profile p {
+  color: var(--Neutral-900, #475569);
+  /* font-family: Lato; */
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  position: relative;
+  bottom: 25px;
+  margin-left: 15px;
+}
+
+.orgadmin-lastseen {
+  position: relative;
+  left: 30px;
+}
+
+.orgadmin-profile-pic {
+  position: relative;
+  right: 26px;
+  top: 18px;
+}
+
+
+.orgadminchat-chat-content-head {
+  display: flex;
+}
+.side-questions-main{
+  justify-content: left;
+  /* margin-left: -10px; */
+}
+.side-questions {
+  border-radius: 30px;
+  background: var(--Neutral-800, #1E293B);
+  width: 180px;
+  height: 40px;
+  font-size: 12px;
+  text-align: left;
+  margin-top: 5px;
+  
+}
+.side-questions p{
+  position: relative;
+  top: 10px;
+  left: 10px;
+  color: var(--Neutral-300, #CBD5E1);
 }

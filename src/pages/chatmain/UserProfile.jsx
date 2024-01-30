@@ -8,6 +8,7 @@ import GeneralButton from "../../components/common/buttons/GeneralButton";
 import TabNavigation from "./tabNaviagation";
 import frame1 from "../../asset/Frame 1.png";
 import lefticon from "../../asset/arrow-left.png";
+import base from '../../asset/Base.png'
 
 const UserProfile = () => {
   const [selectedTab, setSelectedTab] = useState("personalinformation");
@@ -38,7 +39,7 @@ const UserProfile = () => {
               />
             </div>
             <div className="back-link">
-              <Link to="/AmchatMainUser">
+              <Link className="backlink-text" to="/userchat">
                 <img className="left-back-icon" src={lefticon} alt="" />
                 Back to chat
               </Link>
@@ -52,7 +53,7 @@ const UserProfile = () => {
             </div>
             <div className="userprofile-account">
               <div className="userprofile-pic">
-                <img src="" alt="" />
+                <img src={base} alt="" />
               </div>
               <div className="userprofile-account-name">
                 <div className="profile-account-img"></div>
@@ -72,7 +73,7 @@ const UserProfile = () => {
         </div>
       </div>
       <div className="userprofile-footer">
-        <p>@2024. All rights reserved by AM Chatbot.</p>
+        <p>@2024. All rights reserved by Areteminds</p>
       </div>
     </div>
   );

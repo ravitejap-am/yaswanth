@@ -107,7 +107,7 @@ function OrgDocumentList() {
           <div className={Styles.bannerBtn}>
             <div className={Styles.bannerButton}>
               <Link
-                to="/dashboardadmin/addorganizationadmin"
+                to="/adduser"
                 style={{ textDecoration: "none" }}
               >
                 <GeneralButton

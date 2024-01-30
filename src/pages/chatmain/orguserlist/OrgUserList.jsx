@@ -18,8 +18,22 @@ import IconButton from "@mui/material/IconButton";
 import editIcon from "../../../asset/AmChatSuperAdmin/pencil-alt.png";
 import deleteIcon from "../../../asset/AmChatSuperAdmin/Frame 2302.png";
 import { Link } from "react-router-dom";
+import styles from '../../../pages/AMChatAdmin/OrganizationList/Organization.module.css'
+import Search from "../../../components/common/search/Search";
+import SerchImages from "../../../asset/AmChatSuperAdmin/Group2305.png";
+
 
 function OrgUserList() {
+  const searchStyles = {
+    width: "300px",
+    height: "45px",
+    borderRadius: "42px",
+    fontFamily: "Inter, sans-serif",
+    backgroundColor: "#EEF2FF",
+    display: "flex",
+    alignItems: "center",
+  };
+  
   const rows = [
     {
       id: 1,
@@ -92,9 +106,18 @@ function OrgUserList() {
 
         <div>
           <div className={Styles.bannerBtn}>
+          <div className={Styles.OrganizationListFilterSerchBox}>
+            <Search
+              name={"Search name here."}
+              styles={searchStyles}
+              searchImage={SerchImages}
+              imageHeight={"46px"}
+              imageMarginLeft={20}
+            />
+          </div>
             <div className={Styles.bannerButton}>
               <Link
-                to="/dashboardadmin/addorganizationadmin"
+                to="/orgadddocument"
                 style={{ textDecoration: "none" }}
               >
                 <GeneralButton

@@ -5,6 +5,8 @@ import docuementicon from '../../../asset/Group 23 (1).png'
 import GeneralButton from '../../../components/common/buttons/GeneralButton';
 import frame1 from '../../../asset/Frame 1.png'
 import threedot from '../../../asset/threedot.png'
+import base from '../../../asset/Base.png'
+import vector1 from '../../../asset/VectorAmchat(1).png'
 
 const AmchatMainUser = () => {
   const [chat, setChat] = useState('');
@@ -26,7 +28,7 @@ const AmchatMainUser = () => {
   return (
     <div className='amchat-main'>
       <div className='sidebar-amchat'>
-        <h2>AM-Chat</h2>
+        <h2>AM-Chat <img className='amchat-vector-img-sidebar' src={vector1} alt="" /></h2>
         <div className='startchat-button'>
           <GeneralButton
             name="Start New Chat"
@@ -52,6 +54,10 @@ const AmchatMainUser = () => {
             <h2>Welcome, Clayton</h2>
           </div>
           <div className='amchatmain-user-profile'>
+            <div className='amchaitmain-profilepic'>
+              <img className='amchat-profile-pic' src={base} alt="" />
+            </div>
+            <div className='amchatmain-profilename'> </div>
             <h3>Clayton Santos</h3>
           </div>
         </div>
@@ -69,7 +75,7 @@ const AmchatMainUser = () => {
           <div className="chatui-card">
             <div className='chatui-text'>
               <div className="chatui-AmChat-text">
-                <p >AM-Chat</p>
+                <p >AM-Chat <img className='amchat-vector-img' src={vector1} alt="" /> </p>
               </div>
               <div className='chat-hello-text'>
                 <h2>Hello, I’m AM-Chat</h2>
@@ -102,7 +108,11 @@ const AmchatMainUser = () => {
             </div>
           </div>
         </div>
+        <div className="userprofile-footer">
+          <p>@2024. All rights reserved by Areteminds</p>
+        </div>
       </div>
+
     </div>
   );
 };
