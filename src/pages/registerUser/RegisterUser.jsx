@@ -173,7 +173,7 @@ const RegisterUser = () => {
         <div className="Signup-header">
           <SignHeader
             title='AM-Chat'
-            // linkText="Don't have an account?"
+            linkText="Have an account??"
             linkTo='/signin'
             buttonText={buttonProps.name} 
             buttonProps={buttonProps}

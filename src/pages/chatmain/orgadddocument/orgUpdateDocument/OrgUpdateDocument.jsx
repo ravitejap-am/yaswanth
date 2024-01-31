@@ -1,49 +1,40 @@
-import React, { useState } from "react";
-import Styles from "./OrgAddDocumentSidebar.module.css";
-import profile from "../../../asset/AmChatSuperAdmin/profile.png";
-import GeneralForm from "../../../components/common/forms/GeneralForm";
-import Document from "../../../components/common/upload/file/Document";
+import React from "react";
+import Styles from "./OrgUpdateDocument.module.css";
+import profile from "../../../../asset/AmChatSuperAdmin/profile.png";
+import GeneralForm from "../../../../components/common/forms/GeneralForm";
 import axios from "axios";
+import Document from "../../../../components/common/upload/file/Document";
 
-function OrgAddDocument() {
-  const [file, setFile] = useState(null);
-
+function OrgUpdateDocument() {
   const formElements = [
-    {
-      name: "Document Name",
-      label: "Document Name",
-      type: "text",
-      style: {
-        width: "405px",
-        borderRadius: "40px",
-        border: "1px solid var(--Brand-700, #4338CA)",
-        backgroundColor: "transparent",
-        marginBottom: "20px",
-      },
-      rules: [{ required: true, message: "Please enter your Document Name" }],
-      labelName: false,
-    },
+    // {
+    //   name: "Document Name",
+    //   label: "Current Document Name",
+    //   type: "text",
+    //   style: {
+    //     width: "405px",
+    //     borderRadius: "40px",
+    //     border: "1px solid var(--Brand-700, #4338CA)",
+    //     backgroundColor: "transparent",
+    //     marginBottom: "20px", 
+    //   },
+    //   rules: [{ required: true, message: "Please enter your Document Name" }],
+    //   labelName: false,
+    // },
   ];
 
   const submitHandler = async (values) => {
     try {
       console.log("Submitting form with values:", values);
 
-      if (file) {
+      if (values.hasOwnProperty("Document File")) {
         const formData = new FormData();
         formData.append("documentName", values["Document Name"]);
-        formData.append("documentFile", file);
+        formData.append("documentFile", values["Document File"][0]); 
 
         console.log("FormData:", formData);
 
-        const token = "your_jwt_token_here"; 
-
-        const response = await axios.post("http://54.161.113.196:8080/document", formData, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'multipart/form-data',
-          },
-        });
+        const response = await axios.post("http://54.161.113.196:8080/document", formData);
 
         console.log("API Response:", response);
 
@@ -53,7 +44,7 @@ function OrgAddDocument() {
           console.error("Failed to upload document");
         }
       } else {
-        console.error("Document File is missing");
+        console.error("Document File field is missing in form values");
       }
     } catch (error) {
       console.error("Error uploading document:", error);
@@ -65,16 +56,17 @@ function OrgAddDocument() {
   };
 
   const documentProps = {
-    setFile: (fileList) => setFile(fileList[0]),
-    numberOfImage: 1,
-    fileType: "application/pdf",
-    fileSize: 10,
-    form: undefined,
-    name: "Document File",
+    setFile: (fileList) => {}, 
+    numberOfImage: 1, 
+    fileType: "application/pdf", 
+    fileSize: 10, 
+    url: "http://54.161.113.196:8080/document", 
+    form: undefined, 
+    name: "Document File", 
   };
 
   const submitButtonProperty = {
-    name: "Add",
+    name: "Update",
     color: "#ffffff",
     backgroundColor: "var(--Brand-500, #6366F1)",
     width: "150px",
@@ -111,7 +103,7 @@ function OrgAddDocument() {
       <div className={Styles.superAdminMiddleParentDiv}>
         <div className={Styles.superAdminProfileCardStyle}>
           <div>
-            <p className={Styles.superAdminProfileName}>Add Document</p>
+            <p className={Styles.superAdminProfileName}>Upload Correct Document</p>
           </div>
           <div
             className={Styles.superAdminProfileImgNameStyle}
@@ -123,13 +115,15 @@ function OrgAddDocument() {
         </div>
 
         <div className={Styles.addOrganizationAdminSecondDiv}>
-          <Document {...documentProps} />
+        <Document {...documentProps} />
+
           <GeneralForm {...feedingVariable} />
-          <div></div>
+          <div>
+          </div>
         </div>
       </div>
     </div>
   );
 }
 
-export default OrgAddDocument;
+export default OrgUpdateDocument;

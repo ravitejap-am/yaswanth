@@ -59,7 +59,12 @@
   font-weight: 500;
   line-height: 20px; */
 }
-
+.headerMain {
+  width: 100%;
+}
+.scrolled {
+  width: 100%;
+}
 .appName {
   width: 12px;
   height: 12.571px;

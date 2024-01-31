@@ -21,11 +21,12 @@ import { Link } from "react-router-dom";
 import styles from '../../../pages/AMChatAdmin/OrganizationList/Organization.module.css'
 import Search from "../../../components/common/search/Search";
 import SerchImages from "../../../asset/AmChatSuperAdmin/Group2305.png";
-
+import { Margin } from "@mui/icons-material";
+import upload from '../../../asset/uploadlatesticon.png'
 
 function OrgUserList() {
   const searchStyles = {
-    width: "250px",
+    width: "300px",
     height: "45px",
     borderRadius: "42px",
     fontFamily: "Inter, sans-serif",
@@ -114,8 +115,8 @@ function OrgUserList() {
               searchImage={SerchImages}
               imageHeight={"46px"}
               imageMarginLeft={20}
-              // iconId={}
-            
+            // iconId="marginlrgt:40px"
+
             />
           </div>
           <div className={Styles.bannerButton}>
@@ -177,7 +178,7 @@ function OrgUserList() {
                       </Typography>
                     </TableCell>
                     <TableCell>
-                      <Typography variant="body1" style={{ fontWeight: "bold" }}>
+                      <Typography variant="body1" style={{ fontWeight: "bold", marginLeft: "20px" }}>
                         Actions
                       </Typography>
                     </TableCell>
@@ -199,7 +200,14 @@ function OrgUserList() {
                         <TableCell>{row.status}</TableCell>
                         <TableCell>
                           <IconButton aria-label="edit">
+                            <Link to="/editdocument">
                             <img src={editIcon} alt="Edit" />
+                            </Link>
+                          </IconButton>
+                          <IconButton aria-label="Upload">
+                            <Link to="/updatedocument">
+                              <img className={Styles.uploadicon} src={upload} alt="Uploaddocument" />
+                            </Link>
                           </IconButton>
                           <IconButton aria-label="delete">
                             <img src={deleteIcon} alt="Delete" />

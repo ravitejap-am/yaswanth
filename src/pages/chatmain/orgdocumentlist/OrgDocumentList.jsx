@@ -240,7 +240,6 @@ function OrgDocumentList() {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {/* Map through the data and create rows */}
                   {rows
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row) => (
@@ -259,7 +258,10 @@ function OrgDocumentList() {
                         <TableCell>{row.status}</TableCell>
                         <TableCell>
                           <IconButton aria-label="edit">
+                            <Link to="/edituser">
                             <img src={editIcon} alt="Edit" />
+
+                            </Link>
                           </IconButton>
                           <IconButton aria-label="delete">
                             <img src={deleteIcon} alt="Delete" />

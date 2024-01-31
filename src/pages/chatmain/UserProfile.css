@@ -15,11 +15,13 @@
 
 .sidebar-amchat h2 {
     color: var(--White, #FFF);
-    /* font-family: Lato; */
-    font-size: 22.667px;
+    font-family: Lato;
+    font-size: 25px;
     font-style: normal;
-    font-weight: 700;
-    line-height: 43px;
+    font-weight: 500;
+    line-height: 43px; /* 150% */
+    margin-left: 50px;
+    margin-top: 18px;
 }
 
 
@@ -249,7 +251,8 @@ user-profle-name h2{
 }
 
 .startchat-button {
-    margin-top: 50px;
+    margin-top: 45px;
+    margin-left: 25px;
 }
 
 .personalinfo-user-Status p {

@@ -89,7 +89,17 @@
     font-weight: 1.2rem;
     white-space: nowrap; /* Prevent text wrapping */
   }
-  
+  .iconId{
+    margin-left: 10px;
+
+  }
+  .uploadicon{
+    height:18px;
+    width: 18px;
+    color: black;
+    
+  }
+
   /* Adjust the following styles to ensure responsiveness */
   @media (max-width: 768px) {
     .tableHeadLabelStyle,
