@@ -31,9 +31,9 @@ function RightPlan() {
             </div>
 
             <div>
-              <p class="Right_Plan_Content_Price">
-                <span class="price">$ 9.99</span>
-                <span class="per-month">/Month</span>
+              <p className="Right_Plan_Content_Price">
+                <span className="price">$ 9.99</span>
+                <span className="per-month">/Month</span>
               </p>
             </div>
             <div className="Right_Plan_Gernal_Button">

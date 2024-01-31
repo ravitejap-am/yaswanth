@@ -13,7 +13,7 @@ function Idea() {
       <div className="idea_chid_div">
         <div>
           <div className="bannerHeading">
-            We provide a secure, personalized, and scalable Gen AI chatbot for
+            We provide a Secure, Personalized and Scalable Gen AI Chatbot for
             your organization
           </div>
           <div className="bannerPara">

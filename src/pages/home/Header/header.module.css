@@ -1,5 +1,5 @@
 .headerMain {
-  width: 100vw;
+  width: 102%;
   height: 108px;
   display: flex;
   align-items: center;
@@ -40,17 +40,24 @@
   );
 }
 .navigation {
+  color: var(--neutral-300, #cbd5e1);
+  text-align: left;
+  font-family: var(--text-sm-font-family, "Lato-Regular", sans-serif);
+  font-size: var(--text-sm-font-size, 14px);
+  line-height: var(--text-sm-line-height, 20px);
+  font-weight: var(--text-sm-font-weight, 400);
+  position: relative;
   line-height: 33px;
   color: #cbd5e1;
   transition: var(--trans, color 0.4s ease 0s);
   display: inline-block;
   padding: 0 10px;
   cursor: pointer;
-  font-family: Lato;
+  /* font-family: Lato;
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
-  line-height: 20px;
+  line-height: 20px; */
 }
 
 .appName {

@@ -2,8 +2,10 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Styles from "./header.module.css";
-import Logo from "../../../asset/Vector.png";
+import Logo from "../../../asset/images/logo.png";
 import GeneralButton from "../../../components/common/buttons/GeneralButton";
+import menuImg from "../../../asset/images/menu.png";
+import logoFooter from "../../../asset/images/logo-footer.png";
 
 const Header = () => {
   const [scroll, setScroll] = useState(false);
@@ -30,10 +32,10 @@ const Header = () => {
   return (
     <div className={`${Styles.headerMain} ${scroll ? Styles.scrolled : ""}`}>
       <div className={Styles.appLogo}>
-        <span className={Styles.amChatTitle}>AM-Chat</span>
-        <span className={Styles.appName}>
+        {/* <span className={Styles.amChatTitle}>AM-Chat</span> */}
+        {/* <span className={Styles.appName}> */}
           <img src={Logo} alt="" />
-        </span>
+        {/* </span> */}
       </div>
       <div className={Styles.appNavigation}>
         <span
@@ -80,6 +82,62 @@ const Header = () => {
         </div>
       </div>
     </div>
+    // <section class="bg-dark">
+    //   <nav class="navbar navbar-expand-lg fixed-top ">
+    //     <div class="container">
+    //       <div class="title-box">
+    //         <a class="navbar-brand " href="landing.html">
+    //           <img src={logoFooter} class="img-fluid" />
+    //         </a>
+    //         <button
+    //           class="navbar-toggler"
+    //           type="button"
+    //           data-bs-toggle="collapse"
+    //           data-bs-target="#navbarSupportedContent"
+    //           aria-controls="navbarSupportedContent"
+    //           aria-expanded="false"
+    //           aria-label="Toggle navigation"
+    //         >
+    //           <img src={menuImg} class="img-fluid" />
+    //         </button>
+    //       </div>
+
+    //       <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    //         <ul class="navbar-nav mx-auto justify-content-lg-center">
+    //           {/* <li class="nav-item dropdown">
+    //                         <a href="#" class="close-icon"><img src="images/close.svg" class="img-fluid"/></a>
+    //                     </li> */}
+    //           <li class="nav-item dropdown">
+    //             <a class="nav-link active" href="#Solutions">
+    //               Solutions
+    //             </a>
+    //           </li>
+    //           <li class="nav-item ">
+    //             <a class="nav-link" href="#How-it-Works">
+    //               How it Works
+    //             </a>
+    //           </li>
+
+    //           <li class="nav-item ">
+    //             <a class="nav-link" href="#Plans">
+    //               Plans
+    //             </a>
+    //           </li>
+    //           <li class="nav-item ">
+    //             <a class="nav-link" href="#contact-us">
+    //               Contact Us
+    //             </a>
+    //           </li>
+    //         </ul>
+    //       </div>
+
+    //       <div class="d-lg-flex mob-view">
+    //         <a class="btn btn-blue me-2">Sign In</a>
+    //         <a class="btn btn-blue">Sign Up</a>
+    //       </div>
+    //     </div>
+    //   </nav>
+    // </section>
   );
 };
 

@@ -2,6 +2,9 @@ import React from "react";
 import "./HowItWorks.css";
 import img1 from "../../../asset/how-it-works.png";
 import img2 from "../../../asset/AmChatSuperAdmin/Group2307.png";
+import img3 from "../../../asset/images/how-it-works-step.png";
+import img4 from "../../../asset/images/link.png";
+import { Step } from "@mui/material";
 function HowItWorks() {
   return (
     <>
@@ -17,9 +20,6 @@ function HowItWorks() {
             <br />
             <div className="How_it_works_container">
               <div className="How_it_works_imge2">
-                {/* <div>
-                  <img src={img2} alt="" />
-                </div> */}
                 <span className="Sub_Title_of_how_it_Works">
                   Organization onboarding
                 </span>

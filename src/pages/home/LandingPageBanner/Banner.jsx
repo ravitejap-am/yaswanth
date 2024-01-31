@@ -20,18 +20,18 @@ const Banner = () => {
           <p className={Style.bannerHeading}>
             Unleash the
             <br />
-            power of your
+            Power of your
             <br />
-            enterprise
+            Enterprise
             <br />
-            documents with
+            Documents with
             <br />
             Gen AI
           </p>
         </div>
         <div className={Style.bannerPara}>
           <p>
-            Explore, learn, and chat with the knowledge base created from <br />
+            Explore, learn and chat with the knowledge base created from <br />
             your enterprise documents.
           </p>
         </div>

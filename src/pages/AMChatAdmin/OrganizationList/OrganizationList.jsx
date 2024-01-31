@@ -318,9 +318,12 @@ function OrganizationList() {
                               style={{ width: 24, height: 24 }}
                             />
                           </IconButton>
-                          <IconButton aria-label="edit">
-                            <img src={editIcon} alt="Edit" />
-                          </IconButton>
+                          <Link to="/EditAddOrganizationAdmin">
+                            <IconButton aria-label="edit">
+                              <img src={editIcon} alt="Edit" />
+                            </IconButton>
+                          </Link>
+
                           <IconButton aria-label="delete">
                             <img src={deleteIcon} alt="Delete" />
                           </IconButton>

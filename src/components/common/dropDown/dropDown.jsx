@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Style from "./dropDown.madule.css";
 
-function Dropdown({ options, onSelect, style, placeholder, headerStyle }) {
+function Dropdown({ options, onSelect, style, placeholder }) {
   const [selectedOption, setSelectedOption] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -18,23 +18,6 @@ function Dropdown({ options, onSelect, style, placeholder, headerStyle }) {
     }
   };
 
-  const placeholderStyle = {
-    color: "var(--Neutral-600, #475569)",
-    paddingLeft: "10px",
-    fontFamily: "Into Lato",
-    fontSize: "16px",
-    fontStyle: "normal",
-    fontWeight: "400",
-    lineHeight: "24px",
-  };
-
-  const dropdownHeaderStyle = {
-    background: isOpen
-      ? // ? "linear-gradient(114deg, #0F172A 51.52%, #152346 73.32%, #1A2E5E 92.75%)"
-        ""
-      : headerStyle || "",
-  };
-
   return (
     <div className={Style.dropdownContainer}>
       <select
@@ -48,30 +31,33 @@ function Dropdown({ options, onSelect, style, placeholder, headerStyle }) {
           );
           handleSelect(selectedOption);
         }}
-        style={{ ...style, marginLeft: "", ...dropdownHeaderStyle }}
+        style={style}
       >
-        <option value="" labelColor="#FFF" disabled style={placeholderStyle}>
-          <div style={{ paddingLeft: "10px", color: "white" }}>
+        <option value="" labelColor="black" disabled >
+          <div style={{ paddingLeft: "10px", color: "black" }}>
             {" "}
             {placeholder || "Select an option"}
           </div>
         </option>
-        {options.map((option) => (
-          <option key={option.value} value={option.value}>
+          {options.map((option) => (
+            <option style={{color:"black"}} key={option.value} value={option.value}>
+          
             {option.label}
-          </option>
-        ))}
+            
+              
+            </option>
+          ))}
       </select>
 
       {isOpen && (
-        <div className={Style["dropdown-list"]} style={{ color: "black" }}>
+        <div>
           {options.map((option) => (
             <div
               key={option.value}
-              className={Style["dropdown-item"]}
+              style={{ color: "black" }}
               onClick={() => handleSelect(option)}
             >
-              {option.label}
+              <div>{option.label}</div>
             </div>
           ))}
         </div>

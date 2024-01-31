@@ -43,22 +43,33 @@
   padding-top: 50px;
 }
 .AI_chat_title {
-  color: var(--White, #fff);
-  font-family: Montserrat, sans-serif;
-  font-size: 36px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 1.111;
+  color: #ffffff;
+  text-align: left;
+  font-family: var(
+    --text-4-xl-font-semibold-font-family,
+    "Montserrat-SemiBold",
+    sans-serif
+  );
+  font-size: var(--text-4-xl-font-semibold-font-size, 36px);
+  line-height: var(--text-4-xl-font-semibold-line-height, 40px);
+  font-weight: var(--text-4-xl-font-semibold-font-weight, 500);
+  /* position: relative; */
+  display: flex;
+  align-items: center;
+  /* justify-content: flex-start; */
 }
 
 .AI_chat_secont_title {
-  color: var(--Neutral-200, #e2e8f0);
+  color: var(--neutral-200, #e2e8f0);
   text-align: center;
-  margin-top: 10px;
-  font-family: "Lato", sans-serif; /* Ensure fallback to sans-serif */
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
+  font-family: var(--text-sm-font-family, "Lato-Regular", sans-serif);
+  font-size: var(--text-sm-font-size, 14px);
+  line-height: var(--text-sm-line-height, 20px);
+  /* font-weight: var(--text-sm-font-weight, 400);
+  position: relative; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .AM_Chat_Main_Card {
@@ -108,7 +119,17 @@
   flex-shrink: 0;
   border-radius: 30px;
   border: 1px solid var(--Neutral-300, #cbd5e1);
-  color: #475569;
+  color: var(--neutral-600, #475569);
+  /* text-align: left; */
+  font-family: var(--text-xs-font-family, "Lato-Regular", sans-serif);
+  font-size: var(--text-xs-font-size, 12px);
+  line-height: var(--text-xs-line-height, 16px);
+  font-weight: var(--text-xs-font-weight, 400);
+  /* position: relative;
+  width: 197px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; */
 }
 
 .Example_main_div {

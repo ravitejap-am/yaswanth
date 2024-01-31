@@ -20,8 +20,25 @@
   font-family: Montserrat;
   font-size: 36px;
   font-style: normal;
-  font-weight: 600;
+  font-weight: 500;
   line-height: 40px;
+}
+.how-it-work-section {
+  padding: 70px 0;
+}
+
+.how-it-work-section .steps-points h3 {
+  color: #fff;
+  font-family: Montserrat;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 32px;
+}
+.how-it-work-section .steps-points p {
+  color: #94a3b8;
+  max-width: 360px;
+  width: 100%;
 }
 .How_It_Works_Left_Side_div {
   width: 32%;

@@ -22,10 +22,6 @@
     height: auto;
   }
 
-  .Contact-usi-left-side-img {
-    width: 70%;
-    height: auto;
-  }
   .contact-us-image-style {
     width: 38%;
     height: 150px;
@@ -37,10 +33,21 @@
   height: 100%;
   margin-top: 90px;
 }
+/* .Contact-usi-left-side-img {
+    width: 70%;
+    height: auto;
+  } */
 .Contact-usi-left-side-img {
   width: 40%;
   height: 50%;
 }
+
+@media (max-width: 1105px) {
+  .Contact-usi-left-side-img {
+    display: none; /* Hide the image on screens 1105 pixels or smaller */
+  }
+}
+
 .Contact-us-form-title {
   color: var(--White, #fff);
   font-family: Into, Montserrat;
@@ -66,4 +73,68 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 18px;
+}
+
+.contact-section {
+  padding: 70px 0;
+}
+.contact-section form {
+  margin-top: 20px;
+}
+.contact-section form label {
+  font-size: 16px;
+  color: #fff;
+  line-height: 24px;
+  margin-bottom: 10px;
+}
+.contact-section form .form-control {
+  border-radius: 40px;
+  border: 1px solid#4338CA;
+  height: 50px;
+  background-color: transparent;
+  color: #fff;
+}
+.contact-section form textarea.form-control {
+  height: 100%;
+  border-radius: 70px;
+  color: #fff;
+}
+.contact-section form option {
+  color: #000;
+}
+.contact-section form .submit-btn {
+  background-color: #6366f1;
+  font-size: 16px;
+  line-height: 24px;
+  border-radius: 30px;
+  color: #fff;
+  font-weight: 500;
+  padding: 12px 10px;
+  border: 0;
+  width: 100%;
+  margin-top: 20px;
+}
+.contact-section form .submit-btn:hover,
+.contact-section form .submit-btn:focus,
+.contact-section form .submit-btn:active {
+  background-color: #0f172a;
+  color: #fff;
+}
+/* Inside your ContactUp.css or a separate CSS file */
+.custom-dropdown .ant-select-dropdown {
+  background: transparent !important;
+}
+
+.custom-dropdown .ant-select-item {
+  background: linear-gradient(
+    114deg,
+    #0f172a 51.52%,
+    #152346 73.32%,
+    #1a2e5e 92.75%
+  ) !important;
+  color: #fff !important;
+}
+
+.custom-dropdown .ant-select-item-option-active {
+  background-color: #4338ca !important; /* Highlight color for the selected option */
 }

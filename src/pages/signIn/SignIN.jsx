@@ -4,8 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { Form } from "antd";
 import GeneralForm from "../../components/common/forms/GeneralForm";
 import axios from "axios";
-import { toast } from 'react-toastify';
-import NotifyMessage from '../../components/common/toastMessages/NotifyMessage';
+import { toast } from "react-toastify";
+import NotifyMessage from "../../components/common/toastMessages/NotifyMessage";
 import Footer from "../../pages/home/Footer/Footer";
 import SignHeader from "../home/SignHeader/SignHeader";
 import { setToken } from "../../store/actions";
@@ -56,8 +56,10 @@ const SignIn = () => {
       console.log("Login successful:", response);
       toast.success("User login successfully!!");
 
-      dispatch(setToken(response.data.data.jwtToken));
-
+      dispatch(setToken(response.data.jwtToken));
+      console.log("====================================");
+      console.log(dispatch(setToken(response.data.jwtToken)));
+      console.log("====================================");
       setShowSuccessMessage(true);
     } catch (error) {
       console.error("Login failed:", error.response);
@@ -94,7 +96,7 @@ const SignIn = () => {
         { required: true, message: "Please input your email" },
         { type: "email", message: "Invalid email format" },
       ],
-      style: {}
+      style: {},
     },
     {
       label: "Password",
@@ -116,18 +118,18 @@ const SignIn = () => {
     height: "50px",
     borderRadius: "35px",
     marginTop: ".6em",
-    fontSize: "0.7rem"
+    fontSize: "0.7rem",
   };
   const buttonProps = {
-    name: 'Sign Up',
-    type: 'primary',
-    color: 'white',
-    backgroundColor: '#6366F1',
-    width: '120px',
-    padding: '10px 16px',
-    height: '40px',
-    borderRadius: '30px',
-    icons: '',
+    name: "Sign Up",
+    type: "primary",
+    color: "white",
+    backgroundColor: "#6366F1",
+    width: "120px",
+    padding: "10px 16px",
+    height: "40px",
+    borderRadius: "30px",
+    icons: "",
   };
 
   const feedingVariable = {
@@ -150,9 +152,9 @@ const SignIn = () => {
     <>
       <div className="signin-header">
         <SignHeader
-          title='AM-Chat'
+          title="AM-Chat"
           linkText="Don't have an account?"
-          linkTo='/registeruser'
+          linkTo="/registeruser"
           buttonText={buttonProps.name}
           buttonProps={buttonProps}
         />

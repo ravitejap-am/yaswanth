@@ -70,12 +70,10 @@
   align-items: center;
   text-align: center;
   color: var(--White, #fff);
-
-  /* text-4xl/font-semibold */
   font-family: Montserrat;
   font-size: 36px;
   font-style: normal;
-  font-weight: 600;
+  font-weight: 500;
   line-height: 40px;
   color: #ffffff;
 }

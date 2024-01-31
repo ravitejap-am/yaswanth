@@ -26,6 +26,9 @@ import OrgAddDocumentSidebar from "./pages/chatmain/orgadddocument/OrgAddDocumen
 import OrgAdminChatSidebar from "./pages/chatmain/OrgadminChatPage/OrgAdminChatSidebar.jsx";
 import EnterpriseRegister from "./pages/registerUser/EnterpriseRegister.jsx";
 import SearchUIAIChatSidebar from "./pages/AMChatAdmin/SearchUIAMChat.jsx/SearchUIAIChatSidebar.jsx";
+import EditAddOrganizationAdmin from "./pages/AMChatAdmin/EditOrganizationAdmin/EditAddOrganizationAdmin.jsx";
+import EditAddOrganizationAdminSidebar from "./pages/AMChatAdmin/EditOrganizationAdmin/EditAddOrganizationAdminSidebar.jsx";
+import PrivacyPolicy from "./pages/Policy/PrivacyPolicy.jsx";
 
 const Rout = () => {
   return (
@@ -75,18 +78,22 @@ const Rout = () => {
         path="/dashboardadmin/addorganizationadmin"
         element={<AddOrganizationAdminSidebar />}
       />
+      <Route
+        path="/EditAddOrganizationAdmin"
+        element={<EditAddOrganizationAdminSidebar />}
+      />
+      <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
       <Route path="/chat" element={<SearchUIAIChatSidebar />} />
       <Route path="/ResetPassword" element={<ResetPassword />} />
       <Route path="/UserProfile" element={<UserProfile />} />
       <Route path="/PersonalInformation" element={<PersonalInformation />} />
 
-      <Route path="/adduser" element={<OrgAdminSidebar/>}/>
-      <Route path="/orgdocumentList" element={<OrgUserListSidebar/>}/>
-      <Route path="/orguserlist" element={<OrgDocumentListSidebar/>}/>
-      <Route path="/orgadddocument" element={<OrgAddDocumentSidebar/>}/>
-      <Route path="/orgadminchat" element={<OrgAdminChatSidebar/>}/>
-      <Route path="/enterpriseregister" element={<EnterpriseRegister/>}/>
-
+      <Route path="/adduser" element={<OrgAdminSidebar />} />
+      <Route path="/orgdocumentList" element={<OrgUserListSidebar />} />
+      <Route path="/orguserlist" element={<OrgDocumentListSidebar />} />
+      <Route path="/orgadddocument" element={<OrgAddDocumentSidebar />} />
+      <Route path="/orgadminchat" element={<OrgAdminChatSidebar />} />
+      <Route path="/enterpriseregister" element={<EnterpriseRegister />} />
     </Routes>
   );
 };
