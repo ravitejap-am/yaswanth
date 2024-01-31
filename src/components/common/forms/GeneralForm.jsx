@@ -397,7 +397,7 @@ const GeneralForm = (props) => {
           >
             <p>
               <span>{/* <LockFilled /> */}</span>
-              Forgot your password
+              Forgot your password ?
             </p>
           </Link>
         </>

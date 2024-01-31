@@ -26,6 +26,13 @@ import OrgAddDocumentSidebar from "./pages/chatmain/orgadddocument/OrgAddDocumen
 import OrgAdminChatSidebar from "./pages/chatmain/OrgadminChatPage/OrgAdminChatSidebar.jsx";
 import EnterpriseRegister from "./pages/registerUser/EnterpriseRegister.jsx";
 import SearchUIAIChatSidebar from "./pages/AMChatAdmin/SearchUIAMChat.jsx/SearchUIAIChatSidebar.jsx";
+import Error405 from '../src/pages/errorHandler/error405/Error405.jsx'
+import Error404 from "./pages/errorHandler/error404/Error404.jsx";
+import OrgUpdateDocument from "./pages/chatmain/orgadddocument/orgUpdateDocument/OrgUpdateDocument.jsx";
+import OrgUpdateDocumentSidebar from "./pages/chatmain/orgadddocument/orgUpdateDocument/OrgUpdateDocumentSidebar.jsx";
+import OrgEditDocumentSidebar from "./pages/chatmain/orgadddocument/orgEditDocument/OrgEditDocumentSidebar.jsx";
+import EditOrgUser from "./pages/chatmain/organizationadmin/editorguser/EditOrgUser.jsx";
+import EditOrgUserSidebar from "./pages/chatmain/organizationadmin/editorguser/EditOrgUserSidebar.jsx";
 
 const Rout = () => {
   return (
@@ -86,6 +93,11 @@ const Rout = () => {
       <Route path="/orgadddocument" element={<OrgAddDocumentSidebar/>}/>
       <Route path="/orgadminchat" element={<OrgAdminChatSidebar/>}/>
       <Route path="/enterpriseregister" element={<EnterpriseRegister/>}/>
+      <Route path="/error405" element={<Error405/>}/>
+      <Route path="/error404" element={<Error404/>}/>
+      <Route path="/updatedocument" element={<OrgUpdateDocumentSidebar/>}/>
+      <Route path="/editdocument" element={<OrgEditDocumentSidebar/>}/>
+      <Route path="/edituser" element={<EditOrgUserSidebar/>}/>
 
     </Routes>
   );
