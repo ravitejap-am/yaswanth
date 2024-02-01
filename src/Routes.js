@@ -36,6 +36,8 @@ import OrgUpdateDocumentSidebar from "./pages/chatmain/orgadddocument/orgUpdateD
 import OrgEditDocumentSidebar from "./pages/chatmain/orgadddocument/orgEditDocument/OrgEditDocumentSidebar.jsx";
 import EditOrgUser from "./pages/chatmain/organizationadmin/editorguser/EditOrgUser.jsx";
 import EditOrgUserSidebar from "./pages/chatmain/organizationadmin/editorguser/EditOrgUserSidebar.jsx";
+import TermAndCondition from "./pages/Terms&Conditions/TermAndCondition.jsx";
+// import TermsAndConditions from "./pages/Terms&Conditions/Terms&Conditions.jsx";
 
 
 const Rout = () => {
@@ -107,6 +109,7 @@ const Rout = () => {
       <Route path="/updatedocument" element={<OrgUpdateDocumentSidebar/>}/>
       <Route path="/editdocument" element={<OrgEditDocumentSidebar/>}/>
       <Route path="/edituser" element={<EditOrgUserSidebar/>}/>
+      <Route path="termsandconditions" element={<TermAndCondition/>}/>
 
     </Routes>
   );

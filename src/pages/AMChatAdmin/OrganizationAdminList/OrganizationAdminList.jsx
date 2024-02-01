@@ -54,7 +54,6 @@ function OrganizationAdminList() {
       email: "eve.wilson@example.com",
       organizationName: "Org 5",
     },
-    // Add more entries with similar structure
   ];
 
   const [page, setPage] = React.useState(0);

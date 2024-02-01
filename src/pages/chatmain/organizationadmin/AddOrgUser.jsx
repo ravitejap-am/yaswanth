@@ -75,6 +75,8 @@ function AddOrgUser() {
     width: '150px',
     height: '50px',
     borderRadius: '28px',
+    marginTop:"10px"
+
   };
 
   const cancelButtonProperty = {
@@ -84,6 +86,8 @@ function AddOrgUser() {
     width: '150px',
     height: '50px',
     borderRadius: '28px',
+    marginTop:"10px"
+
   };
 
   const feedingVariable = {
@@ -112,20 +116,17 @@ function AddOrgUser() {
             className={Styles.superAdminProfileImgNameStyle}
             style={{ display: 'flex', alignItems: 'center' }}
           >
-            <Tooltip text="Click to upload profile photo" onClick={handleProfileImageUpload}>
-              <img src={profile} alt="" className={Styles.AdminProfileStyle} />
-            </Tooltip>
+            <img src={profile} alt="" className={Styles.AdminProfileStyle} />
             <span className={Styles.SuperAdminProfileStyle}>Lian Vendiar</span>
           </div>
         </div>
 
         <div className={Styles.addOrganizationAdminSecondDiv}>
           <div className={Styles.imageUploadSection}>
-            <Tooltip text="Click to change image" onClick={handlePhotographImageUpload}>
+            <Tooltip text="Click here to upload image" onClick={handlePhotographImageUpload}>
               <img className={Styles.photographImage} src={photograph} alt="pic" />
             </Tooltip>
           </div>
-
           <GeneralForm {...feedingVariable} />
         </div>
       </div>

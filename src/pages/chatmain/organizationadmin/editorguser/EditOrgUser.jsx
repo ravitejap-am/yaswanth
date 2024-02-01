@@ -2,6 +2,10 @@ import React from "react";
 import Styles from "./EditOrgUserSidebar.module.css";
 import profile from "../../../../asset/AmChatSuperAdmin/profile.png";
 import GeneralForm from "../../../../components/common/forms/GeneralForm";
+import photograph from '../../../../asset/photograph.png';
+import Tooltip from '../Tooltip';
+
+
 
 function EditOrgUser() {
   const formElements = [
@@ -62,7 +66,9 @@ function EditOrgUser() {
 
 
   ];
-
+  const handlePhotographImageUpload = () => {
+    console.log('Upload photograph image logic goes here');
+  };
   const submitHandler = (values) => {
     console.log("Form values:", values);
   };
@@ -78,6 +84,7 @@ function EditOrgUser() {
     width: "150px",
     height: "50px",
     borderRadius: "28px",
+    marginTop:"10px"
   };
 
   const cancelButtonProperty = {
@@ -87,6 +94,8 @@ function EditOrgUser() {
     width: "150px",
     height: "50px",
     borderRadius: "28px",
+    marginTop:"10px"
+
     
   };
   const feedingVariable = {
@@ -121,9 +130,11 @@ function EditOrgUser() {
       </div>
 
       <div className={Styles.addOrganizationAdminSecondDiv}>
-        <div className={Styles.imageUploadSection}>
-          {/* <button ></button> */}
-        </div>
+      <div className={Styles.imageUploadSection}>
+            <Tooltip text="Click here to upload image" onClick={handlePhotographImageUpload}>
+              <img className={Styles.photographImage} src={photograph} alt="pic" />
+            </Tooltip>
+          </div>
 
         <GeneralForm {...feedingVariable} />
       </div>

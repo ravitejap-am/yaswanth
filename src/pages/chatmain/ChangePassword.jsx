@@ -28,6 +28,7 @@ const ChangePassword = ({ setFileSysytem, validateEmail }) => {
             width: "150px",
             height: "50px",
             borderRadius: "35px",
+            marginTop:"5px"
             
         },
         formElements: [
@@ -64,6 +65,8 @@ const ChangePassword = ({ setFileSysytem, validateEmail }) => {
         formType: "normal",
         validateEmail: validateEmail,
         setFileSysytem: setFileSysytem,
+        grid: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }
+
     };
 
     return (

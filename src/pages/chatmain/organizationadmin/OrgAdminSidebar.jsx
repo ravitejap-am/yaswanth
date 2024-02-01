@@ -28,7 +28,7 @@ function OrgAdminSidebar() {
             </div>
           </div>
 
-          <div className={Styles.bannerBtn}>
+          {/* <div className={Styles.bannerBtn}>
             <div className={Styles.bannerButton}>
               <GeneralButton
                 name={"Start New Chat"}
@@ -41,13 +41,13 @@ function OrgAdminSidebar() {
                 height={"45px"}
               />
             </div>
-          </div>
+          </div> */}
 
           <div className={Styles.container}>
             <div className={Styles.SuperAdminChildContainer}>
               <span>
                 <img src={arrorLink} alt="" />
-                <Link to="/dashboardadmin" style={{ textDecoration: "none" }}>
+                <Link to="/userchat" style={{ textDecoration: "none" }}>
                   <p className={Styles.organizationTextStyle}>Back to Chat</p>{" "}
                 </Link>
               </span>
@@ -55,7 +55,7 @@ function OrgAdminSidebar() {
               <span>
                 <img src={usersicon} alt="" />
                 <Link
-                  to="/dashboardadmin/organizationlist"
+                  to="/orguserlist"
                   style={{ textDecoration: "none" }}
                 >
                   <p className={Styles.organizationTextStyle}>Users</p>
@@ -66,9 +66,11 @@ function OrgAdminSidebar() {
             <div className={Styles.SuperAdminChildContainer}>
               <span>
                 <img src={documenticon} alt="" />
+                <Link to="/orgdocumentlist" style={{ textDecoration: "none" }} >
                 <p className={Styles.organizationTextStyle}>
                   Documents
                 </p>
+                </Link>
               </span>
             </div>
           </div>

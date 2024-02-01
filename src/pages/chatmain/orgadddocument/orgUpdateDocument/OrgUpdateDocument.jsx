@@ -30,7 +30,7 @@ function OrgUpdateDocument() {
       if (values.hasOwnProperty("Document File")) {
         const formData = new FormData();
         formData.append("documentName", values["Document Name"]);
-        formData.append("documentFile", values["Document File"][0]); 
+        formData.append("documentFile", values["Document File"][0]);
 
         console.log("FormData:", formData);
 
@@ -56,13 +56,13 @@ function OrgUpdateDocument() {
   };
 
   const documentProps = {
-    setFile: (fileList) => {}, 
-    numberOfImage: 1, 
-    fileType: "application/pdf", 
-    fileSize: 10, 
-    url: "http://54.161.113.196:8080/document", 
-    form: undefined, 
-    name: "Document File", 
+    setFile: (fileList) => { },
+    numberOfImage: 1,
+    fileType: "application/pdf",
+    fileSize: 10,
+    url: "http://54.161.113.196:8080/document",
+    form: undefined,
+    name: "Document File",
   };
 
   const submitButtonProperty = {
@@ -115,7 +115,11 @@ function OrgUpdateDocument() {
         </div>
 
         <div className={Styles.addOrganizationAdminSecondDiv}>
-        <Document {...documentProps} />
+          <div style={{ marginLeft: "20px" }}>
+            <Document {...documentProps} />
+
+          </div>
+
 
           <GeneralForm {...feedingVariable} />
           <div>

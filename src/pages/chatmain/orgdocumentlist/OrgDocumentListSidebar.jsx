@@ -1,6 +1,6 @@
 import React from "react";
 import Logo from "../../../asset/Vector.png";
-import Styles from "../../AMChatAdmin/AMChatBackgound/AMChat.module.css";
+import Styles from "./OrgDocumentListSidebar.module.css";
 import GeneralButton from "../../../components/common/buttons/GeneralButton";
 import frame from "../../../asset/Frame 1.png";
 import organizationimage from "../../../asset/AmChatSuperAdmin/Frame 2301.png";
@@ -65,9 +65,13 @@ function OrgDocumentListSidebar() {
             <div className={Styles.SuperAdminChildContainer}>
               <span>
                 <img src={documenticon} alt="" />
+                <Link to="/orgdocumentlist"
+                  style={{ textDecoration: "none" }}
+                >
                 <p className={Styles.organizationTextStyle}>
                   Document
                 </p>
+                </Link>
               </span>
             </div>
           </div>

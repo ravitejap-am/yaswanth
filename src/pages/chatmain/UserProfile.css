@@ -75,13 +75,13 @@
     position: relative;
     top: 30px;
     right: 20px;
+    height: 40px;
+    width: 40px;
 }
 
 .userprofile-account-name h2 {
     color: var(--Brand-700, #4338CA);
 
-    /* text-lg */
-    /* font-family: Lato; */
     font-size: 18px;
     font-style: normal;
     font-weight: 600;
@@ -191,7 +191,7 @@
 .personal-contentcard {
     margin-top: 20px;
     width: 73.5vw;
-    height: 419px;
+    height: 519px;
     flex-shrink: 0;
     border-radius: 10.457px;
     background: var(--White, #FFF);
@@ -224,14 +224,14 @@
 }
 
 .user-profle-name {
-    margin-top: 60px;
+    margin-top: 45px;
     margin-left: 20px;
     color: var(--Neutral-900, #0F172A);
 
     font-family: Montserrat;
-    font-size: 1.5rem;
+    font-size: 1rem;
     font-style: normal;
-    font-weight: 600;
+    font-weight: 500;
     line-height: 32px;
     /* 133.333% */
 }
@@ -256,7 +256,7 @@ user-profle-name h2{
 }
 
 .personalinfo-user-Status p {
-    margin-top: -10px;
+    margin-top: -20px;
 }
 
 .personalinput-allfields {
@@ -327,6 +327,7 @@ user-profle-name h2{
 
 .active-plan {
     margin-left: 25px;
+    height: 350px;
 }
 
 .active-plan p {

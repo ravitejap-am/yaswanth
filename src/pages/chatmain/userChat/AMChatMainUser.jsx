@@ -57,8 +57,9 @@ const AmchatMainUser = () => {
             <div className='amchaitmain-profilepic'>
               <img className='amchat-profile-pic' src={base} alt="" />
             </div>
-            <div className='amchatmain-profilename'> </div>
+            <div className='amchatmain-profilename'> 
             <h3>Clayton Santos</h3>
+            </div>
           </div>
         </div>
         <div className='document-card'>
