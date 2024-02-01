@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./AIChatBot.css";
 import LargeCardImage2 from "../../../asset/Frame.png";
 import { Card } from "antd";
@@ -6,6 +6,8 @@ import Search from "../../../components/common/search/Search";
 import SerchImages from "../../../asset/Group2290.png";
 
 function AIChatBot() {
+  const [alertShown, setAlertShown] = useState(false);
+
   const containerStyle = {
     display: "flex",
     justifyContent: "center",
@@ -26,9 +28,14 @@ function AIChatBot() {
     "Can you tell me about GDPR policy?",
     "PCI compliance?",
     "PII compliance?",
-    "Can you explain what's wrong with my lab report? ",
-    " Can you explain the pythagoras theorem?",
+    "Can you explain what's wrong with my lab report?",
+    "Can you explain the Pythagorean theorem?",
   ];
+
+  const handleSearchClick = () => {
+    setAlertShown(true);
+    // Additional logic can be added here if needed
+  };
 
   return (
     <div className="AIChatBotMainDiv">
@@ -65,12 +72,22 @@ function AIChatBot() {
               </div>
 
               <div className="AI_chat_input_box">
+                {alertShown
+                  ? "Please contact our sales team at sales@areteminds.com"
+                  : null}
                 <Search
                   name={
                     "Explore your organizational knowledge base using the power of GenAI."
                   }
                   searchImage={SerchImages}
+                  onClick={handleSearchClick}
+                  readOnly={true}
                 />
+                {alertShown && (
+                  <div className="alert-message">
+                    Please contact our sales team at sales@areteminds.com
+                  </div>
+                )}
               </div>
             </div>
           </div>

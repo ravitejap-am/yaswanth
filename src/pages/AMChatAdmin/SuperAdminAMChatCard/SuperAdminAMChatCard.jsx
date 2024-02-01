@@ -147,6 +147,7 @@ function SuperAdminAMChatCard() {
               style={searchStyles}
               searchImage={Group2290}
               onSearchImageClick={handleSearchImageClick}
+              readOnly={false}
             />
             {/* </Link> */}
           </div>

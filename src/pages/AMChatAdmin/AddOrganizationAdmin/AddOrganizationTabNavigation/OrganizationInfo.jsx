@@ -64,6 +64,7 @@ function OrganizationInfo() {
         paddingRight: "20px",
         appearance: "border",
         color: "#475569",
+        marginTop: "10px",
       },
       labelName: false,
       rules: [{ required: true, message: "Please select Country" }],

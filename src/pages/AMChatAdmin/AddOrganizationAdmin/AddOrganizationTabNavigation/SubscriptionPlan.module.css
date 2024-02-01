@@ -1,13 +1,12 @@
 label {
   display: block;
-  font-size: 18px;
+  font-size: 1rem !important;
   margin-bottom: 10px;
 }
 
 input[type="radio"] {
   margin-right: 5px;
 }
-
 
 /* Optional: Add styles for selected plan */
 label input[type="radio"]:checked {

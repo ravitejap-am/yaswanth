@@ -13,8 +13,7 @@
   /* position: fixed; */
 }
 
-@media(max-width:1100){
-  
+@media (max-width: 1100) {
 }
 .AMChatSidebar {
   width: 248px;
@@ -44,17 +43,18 @@
 }
 .AmChatChatPlaceholder {
   color: var(--Neutral-300, #cbd5e1);
-  font-family: Into "Lato";
-  font-size: 10px;
-  font-style: normal;
-  font-weight: 300;
-  /* display: flex;
-  justify-content: flex-start; */
+  font-family: var(--text-base-font-family, "Lato-SemiBold", sans-serif);
+  font-size: var(--text-base-font-size, 0.675rem);
+  line-height: var(--text-base-line-height, 24px);
+  font-weight: var(--text-base-font-weight, 500);
 }
 .AMChatSuperAdminSidebar {
-  margin-top: 45px;
-  margin-right: 20px;
+  stroke: #53a5df;
+  margin-top: -20px !important;
+  margin-left: 35px;
   display: flex;
+  width: 120px;
+  height: 125px;
   justify-content: center;
   align-items: center;
 }
@@ -92,7 +92,6 @@
 }
 
 .bannerBtn {
-  margin-top: 60px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -120,14 +119,6 @@
   font-style: normal;
   font-weight: 500;
 }
-.appName {
-  width: 18px;
-  height: 19.571px;
-  flex-shrink: 0;
-  stroke-width: 1px;
-  stroke: #53a5df;
-  margin-top: -20px !important;
-}
 
 .AMChatFooterStyle {
   display: flex;
@@ -150,6 +141,10 @@
 }
 .footerPTagStyle {
   margin-left: 150px;
+  font-family: var(--text-base-font-family, "Lato-SemiBold", sans-serif);
+  font-size: var(--text-base-font-size, 14px);
+  line-height: var(--text-base-line-height, 24px);
+  font-weight: var(--text-base-font-weight, 500);
 }
 .organizationTextStyle {
   color: var(--White, #fff);
@@ -186,11 +181,11 @@
 .organizationTextStyle {
   color: var(--White, #fff);
   text-align: right;
-  font-family: Lato;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 500;
-  margin-left: 15px;
+  margin-left: 5px;
+  font-family: var(--text-base-font-family, "Lato-SemiBold", sans-serif);
+  font-size: var(--text-base-font-size, 1rem);
+  line-height: var(--text-base-line-height, 24px);
+  font-weight: var(--text-base-font-weight, 500);
 }
 .AMChatFooterStyle {
   color: var(--White, #fff);

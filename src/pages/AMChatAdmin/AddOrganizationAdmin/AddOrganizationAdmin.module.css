@@ -1,6 +1,6 @@
 .superAdminMainCardDivStyle {
   width: 100%;
-  height: 130vh !important;
+  height: 90vh !important;
   min-height: 752px !important;
   border-radius: 15px;
   padding: 15px 10px 0 0;
@@ -11,6 +11,24 @@
   border-radius: 15px;
   background: var(--Neutral-200, #e2e8f0);
 }
+.appLogo {
+  /* width: 120px !important;
+  height: 20px; */
+}
+.SuperAdminChildContainer {
+  margin-top: 20px !important;
+}
+.AMChatSuperAdminSidebar {
+  stroke: #53a5df;
+  margin-top: -20px !important;
+  margin-left: 10px;
+  display: flex;
+  width: 120px;
+  height: 125px;
+  justify-content: center;
+  align-items: center;
+}
+
 .addOrganizationAdminSecondDiv {
   width: 98%;
   height: 100%;
@@ -33,7 +51,7 @@
 }
 .superAdminProfileName {
   color: var(--Brand-900, #312e81);
-  font-family: Into, "sans-serif";
+  font-family: Into, Montserrat;
   font-size: 24px;
   font-style: normal;
   font-weight: 600;

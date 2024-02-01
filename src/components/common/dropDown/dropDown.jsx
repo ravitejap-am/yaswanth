@@ -18,10 +18,12 @@ function Dropdown({ options, onSelect, style, placeholder }) {
     }
   };
 
+  console.log('====================================');
+  console.log(style );
+  console.log('====================================');
   return (
-    <div className={Style.dropdownContainer}>
+    <div >
       <select
-        className={Style.dropdownHeader}
         id="select"
         value={selectedOption ? selectedOption.value : ""}
         onChange={(e) => {

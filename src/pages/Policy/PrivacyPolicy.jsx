@@ -23,8 +23,7 @@ const PrivacyPolicy = () => {
         <p className={Styles.PrivacyPolicyContentStyle}>
           We use Your Personal data to provide and improve the Service. By using
           the Service, You agree to the collection and use of information in
-          accordance with this Privacy Policy. This Privacy Policy has been
-          created with the help of the{" "}
+          accordance with this Privacy Policy. 
           <a
             href="https://www.termsfeed.com/privacy-policy-generator/"
             target="_blank"
@@ -556,24 +555,6 @@ const PrivacyPolicy = () => {
           its absolute security.
         </p>
         <h2 className={Styles.privacyPolicySubSubHeading}>
-          Children's Privacy
-        </h2>
-        <p className={Styles.PrivacyPolicyContentStyle}>
-          Our Service does not address anyone under the age of 13. We do not
-          knowingly collect personally identifiable information from anyone
-          under the age of 13. If You are a parent or guardian and You are aware
-          that Your child has provided Us with Personal Data, please contact Us.
-          If We become aware that We have collected Personal Data from anyone
-          under the age of 13 without verification of parental consent, We take
-          steps to remove that information from Our servers.
-        </p>
-        <p className={Styles.PrivacyPolicyContentStyle}>
-          If We need to rely on consent as a legal basis for processing Your
-          information and Your country requires consent from a parent, We may
-          require Your parent's consent before We collect and use that
-          information.
-        </p>
-        <h2 className={Styles.privacyPolicySubSubHeading}>
           Links to Other Websites
         </h2>
         <p className={Styles.PrivacyPolicyContentStyle}>
@@ -608,22 +589,6 @@ const PrivacyPolicy = () => {
           If you have any questions about this Privacy Policy, You can contact
           us:
         </p>
-        <ul>
-          <li>
-            <p className={Styles.PrivacyPolicyContentStyle}>
-              {" "}
-              By visiting this page on our website:{" "}
-            </p>
-            <a
-              href="http://areteminds.amchat.com/terms-conditions"
-              rel="external
-nofollow noopener"
-              target="_blank"
-            >
-              http://areteminds.amchat.com/terms-conditions
-            </a>
-          </li>
-        </ul>
         <br />
         <br />
       </div>
