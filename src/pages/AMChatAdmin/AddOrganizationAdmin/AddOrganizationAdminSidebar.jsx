@@ -1,5 +1,5 @@
 import React from "react";
-import Logo from "../../../asset/Vector.png";
+import Logo from "../../../asset/images/logo.png";
 import Styles from "../AMChatBackgound/AMChat.module.css";
 import GeneralButton from "../../../components/common/buttons/GeneralButton";
 import frame from "../../../asset/Frame 1.png";
@@ -16,12 +16,7 @@ function AddOrganizationAdminSidebar() {
       <div className={Styles.AMChatMainDiv}>
         <div className={Styles.AMChatSidebar}>
           <div className={Styles.AMChatSuperAdminSidebar}>
-            <div className={Styles.appLogo}>
-              <span className={Styles.amChatTitle}>AM-Chat</span>
-              <span className={Styles.appName}>
-                <img src={Logo} alt="" />
-              </span>
-            </div>
+            <img src={Logo} alt="" />
           </div>
 
           {/* <div className={Styles.bannerBtn}>

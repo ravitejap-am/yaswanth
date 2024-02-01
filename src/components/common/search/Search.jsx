@@ -10,7 +10,9 @@ function Search({
   imageHeight,
   imageMarginLeft,
   onSearchImageClick, 
-  iconId
+  iconId,
+  placeholders,
+  readOnly
 }) {
   const handleSearchImageClick = () => {
     if (onSearchImageClick) {
@@ -21,11 +23,13 @@ function Search({
   return (
     <div>
       <div className="input_field_main_div">
+
         <input
           type="text"
           placeholder={name}
           className="input_filed_style with-icon"
           style={styles}
+          readOnly={readOnly}
         />
         <div
           className="icon-container"

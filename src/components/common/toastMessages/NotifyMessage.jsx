@@ -73,7 +73,7 @@ const NotifyMessage = ({
       pauseOnFocusLoss
       draggable
       pauseOnHover
-      style={{ left: "45%" }}  // Adjust the left position as needed
+      style={{ left: "45%" }}  
     />
   );
 };

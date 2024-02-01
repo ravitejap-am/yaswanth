@@ -1,5 +1,5 @@
 import React from "react";
-import Logo from "../../../asset/Vector.png";
+import Logo from "../../../asset/images/logo.png";
 import Styles from "./AMChat.module.css";
 import GeneralButton from "../../../components/common/buttons/GeneralButton";
 import frame from "../../../asset/Frame 1.png";
@@ -17,12 +17,7 @@ function AMChat({ renderComponent }) {
       <div className={Styles.AMChatMainDiv}>
         <div className={Styles.AMChatSidebar}>
           <div className={Styles.AMChatSuperAdminSidebar}>
-            <div className={Styles.appLogo}>
-              <span className={Styles.amChatTitle}>AM-Chat</span>
-              <span>
-                <img src={Logo} alt="" className={Styles.appName} />
-              </span>
-            </div>
+            <img src={Logo} alt="" className={Styles.appName} />
           </div>
 
           <div className={Styles.bannerBtn}>

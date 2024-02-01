@@ -1,5 +1,5 @@
 .headerMain {
-  width: 102%;
+  width: 100svh;
   height: 108px;
   display: flex;
   align-items: center;
@@ -63,7 +63,7 @@
   width: 100%;
 }
 .scrolled {
-  width: 100%;
+  width: 100vw;
 }
 .appName {
   width: 12px;
@@ -132,6 +132,7 @@
   line-height: 24px;
 }
 .appLogo {
+  width: 2.5rem;
   color: var(--White, #fff);
   font-family: Lato !important;
   font-size: 16px;

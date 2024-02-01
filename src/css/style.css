@@ -1,0 +1,589 @@
+/* @font-face {
+  font-family: "Montserrat";
+  src: url("../fonts/AnyConv.com__Montserrat-Black.woff") format("woff2"),
+    url("../fonts/AnyConv.com__Montserrat-Black.woff2") format("woff");
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("../fonts/AnyConv.com__MontserratAlternates-SemiBold.woff2")
+      format("woff2"),
+    url("../fonts/AnyConv.com__Montserrat-SemiBold.woff") format("woff");
+  font-weight: 600;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("../fonts/AnyConv.com__Montserrat-ExtraBold.woff") format("woff2"),
+    url("../fonts/AnyConv.com__Montserrat-ExtraBold.woff2") format("woff");
+  font-weight: bolder;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("../fonts/AnyConv.com__Montserrat-ExtraLight.woff") format("woff2"),
+    url("../fonts/AnyConv.com__Montserrat-ExtraLight.woff2") format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("../fonts/AnyConv.com__Montserrat-Medium.woff") format("woff2"),
+    url("../fonts/AnyConv.com__Montserrat-Medium.woff2") format("woff");
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("../fonts/AnyConv.com__Montserrat-Regular.woff") format("woff2"),
+    url("../fonts/AnyConv.com__Montserrat-Regular.woff2") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Lato";
+  src: url("../fonts/Lato-Bold.woff2") format("woff2"),
+    url("../fonts/Lato-Bold.woff") format("woff");
+  font-weight: 600;
+  font-style: 600;
+}
+
+@font-face {
+  font-family: "Lato";
+  src: url("../fonts/Lato-Regular.woff2") format("woff2"),
+    url("../fonts/Lato-Regular.woff") format("woff");
+  font-weight: 500;
+  font-style: 500;
+}
+
+:root {
+  --color-1: #94a3b8;
+  --color-2: #4338ca;
+  --color-3: #fff;
+  --color-4: #000;
+  --color-5: #e2e8f0;
+}
+
+html,
+body div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.navbar-toggler:focus {
+  box-shadow: none;
+}
+a:hover {
+  color: inherit;
+}
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+
+body {
+  font-family: "Lato";
+  vertical-align: middle;
+  font-size: 14px;
+  color: var(--black2);
+  overflow-x: hidden;
+  font-weight: 500;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  line-height: 20px;
+  background: linear-gradient(
+    114deg,
+    #0f172a 51.52%,
+    #152346 73.32%,
+    #1a2e5e 92.75%
+  );
+}
+
+body:hover {
+  cursor: var(--curser-default);
+}
+
+[data-aos] {
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+[data-aos].animated {
+  visibility: visible;
+  opacity: 1;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  box-shadow: none;
+  outline: none;
+}
+
+button:hover,
+button:focus {
+  box-shadow: none;
+  outline: none;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+blockquote,
+q {
+  quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+
+.btn-blue {
+  background-color: #6366f1;
+  font-size: 16px;
+  line-height: 24px;
+  border-radius: 30px;
+  color: #fff;
+  font-weight: 500;
+  padding: 12px 10px;
+  max-width: 140px;
+  width: 100%;
+  min-width: 130px;
+}
+
+.common-h2 {
+  font-family: Montserrat;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 40px;
+  color: #fff;
+
+  margin-bottom: 14px;
+}
+.common-p {
+  color: #e2e8f0;
+}
+.btn-blue:hover,
+.btn-blue:focus,
+.btn-blue:active {
+  background-color: #1e293b;
+  color: #fff;
+}
+
+
+
+nav .nav-link {
+  color: #cbd5e1;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+nav .nav-link:hover {
+  color: #fff;
+}
+.bg-dark nav {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+.close-btn {
+  font-size: 1.5rem;
+  background: transparent;
+  border-color: transparent;
+  color: white;
+  transition: 1s ease all;
+  cursor: pointer;
+  outline: none;
+}
+.close-btn:hover {
+  color: grey;
+  transform: rotate(360deg);
+}
+.logo {
+  justify-self: center;
+  align-items: center;
+  height: 40px;
+  margin: 0.6em 1em;
+}
+
+
+.bg-dark {
+  background: linear-gradient(
+    114deg,
+    #0f172a 51.52%,
+    #152346 73.32%,
+    #1a2e5e 92.75%
+  );
+}
+.bg-blue {
+  background: linear-gradient(
+    114deg,
+    #0f172a 51.52%,
+    #152346 73.32%,
+    #1a2e5e 92.75%
+  );
+}
+.bg-dark::after {
+  content: "";
+  background-image: url(../asset/images/banner-wave.png);
+  background-position: bottom;
+  background-size: cover;
+  width: 100%;
+ 
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -12rem;
+  height: 100%;
+  background-repeat: no-repeat;
+  mix-blend-mode: overlay;
+}
+
+.banner-content {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.banner-content h1 {
+  color: #fff;
+
+  font-family: "Montserrat";
+  font-size: 55px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 68px;
+  margin-bottom: 20px;
+  max-width: 480px;
+  width: 100%;
+}
+.banner-section {
+  position: relative;
+  z-index: 1;
+}
+.banner-content p {
+  color: #e2e8f0;
+  margin-bottom: 28px;
+  font-size: 16px;
+
+  font-weight: 400;
+  line-height: 24px;
+  max-width: 480px;
+  width: 100%;
+}
+
+
+.keywords {
+  background-color: #1e293b;
+  padding: 40px 0;
+  position: relative;
+  z-index: 0;
+}
+.keywords h1 {
+  font-size: 20px;
+  font-weight: 600;
+  opacity: 0.76;
+  color: #94a3b8;
+}
+
+.chat-section {
+  background-color: #0f172a;
+  padding: 70px 0;
+  position: relative;
+  z-index: 1;
+}
+.chat-section::before {
+  content: "";
+  background-image: url(../asset/images/dot-pattern.png);
+
+  background-position: top;
+  width: 100%;
+  position: absolute;
+
+  top: 0;
+  height: 100%;
+  background-repeat: no-repeat;
+}
+
+.about-section {
+  padding: 70px 0;
+}
+.about-section .about-points {
+  margin-top: 40px;
+  margin-bottom: 25px;
+}
+.about-section .about-points div {
+  margin-bottom: 10px;
+}
+.about-section .about-points div p {
+  color: #e2e8f0;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22px;
+  vertical-align: top;
+  margin-top: -5px;
+  margin-left: 12px;
+}
+
+.explore-section {
+  padding: 70px 0;
+}
+.explore-section .col-md-3 {
+  padding: 0 22px;
+}
+.explore-section .box img {
+  margin-bottom: 25px;
+}
+.explore-section .box h3 {
+  color: #fff;
+  font-family: Montserrat;
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 10px;
+  line-height: 28px;
+}
+.explore-section .box p {
+  color: #94a3b8;
+}
+
+
+.how-it-work-section {
+  padding: 70px 0;
+}
+
+.how-it-work-section .steps-points h3 {
+  color: #fff;
+  font-family: Montserrat;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 32px;
+}
+.how-it-work-section .steps-points p {
+  color: #94a3b8;
+  max-width: 360px;
+  width: 100%;
+}
+
+
+.plans-section {
+  padding: 70px 0;
+}
+.plans-section .plan-card {
+  border-radius: 10px;
+  border: 2px solid #4338ca;
+  background: #1e293b;
+  padding: 36px 32px;
+}
+.plans-section .plan-card h3 {
+  color: #fff;
+  font-family: Montserrat;
+  font-size: 24px;
+  font-weight: 500;
+}
+.plans-section .plan-card p {
+  font-size: 18px;
+  color: #94a3b8;
+  line-height: 28px;
+}
+.plans-section .plan-card h1 {
+  margin-top: 25px;
+  color: #fff;
+  font-size: 36px;
+  font-family: Montserrat;
+  font-weight: 600;
+  margin-right: 4px;
+}
+.plans-section .plan-card h1 small {
+  color: #94a3b8;
+  font-weight: 400;
+  font-size: 14px;
+}
+.plans-section .btn-blue {
+  max-width: unset;
+  width: 100%;
+}
+
+.plans-points {
+  margin-top: 40px;
+}
+.plans-points div {
+  margin-bottom: 15px;
+}
+.plans-points div p {
+  color: #e2e8f0;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22px !important;
+  vertical-align: top;
+  margin-top: -5px;
+  margin-left: 12px;
+}
+
+.contact-section {
+  padding: 70px 0;
+}
+.contact-section form {
+  margin-top: 20px;
+}
+.contact-section form label {
+  font-size: 16px;
+  color: #fff;
+  line-height: 24px;
+  margin-bottom: 10px;
+}
+.contact-section form .form-control {
+  border-radius: 40px;
+  border: 1px solid#4338CA;
+  height: 50px;
+  background-color: transparent;
+  color: #fff;
+}
+.contact-section form textarea.form-control {
+  height: 100%;
+  border-radius: 70px;
+  color: #fff;
+}
+.contact-section form option {
+  color: #000;
+}
+.contact-section form .submit-btn {
+  background-color: #6366f1;
+  font-size: 16px;
+  line-height: 24px;
+  border-radius: 30px;
+  color: #fff;
+  font-weight: 500;
+  padding: 12px 10px;
+  border: 0;
+  width: 100%;
+  margin-top: 20px;
+}
+.contact-section form .submit-btn:hover,
+.contact-section form .submit-btn:focus,
+.contact-section form .submit-btn:active {
+  background-color: #0f172a;
+  color: #fff;
+}
+
+footer {
+  background-color: #0f172a;
+  padding: 54px 0 8px;
+}
+footer p,
+footer p a {
+  color: #fff;
+}
+
+.contact-footer a {
+  margin-bottom: 20px;
+  line-height: 20px;
+}
+.contact-footer a span {
+  margin-top: -4px;
+  color: #fff;
+  margin-left: 10px;
+} */

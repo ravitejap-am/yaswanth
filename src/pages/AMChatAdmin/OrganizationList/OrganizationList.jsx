@@ -297,7 +297,7 @@ function OrganizationList() {
                         <TableCell>{row.contactPerson}</TableCell>
                         <TableCell>{row.plans}</TableCell>
                         <TableCell>
-                          <FormControl>
+                          <FormControl style={{ width: "110px" }}>
                             <Select
                               style={{ border: "none", borderRadius: "none" }}
                               value={row.status}
