@@ -7,6 +7,7 @@ const tabNavigations = ({ selectedTab, handleTabChange }) => {
       <div className={Styles.infoBar}>
         <div className="info-bar-content">
           <Link
+            style={{ textDecoration: "none" }}
             to="#"
             className={`barinfo-personalinfo ${
               selectedTab === "personalinformation" ? "active-link" : ""
@@ -16,6 +17,7 @@ const tabNavigations = ({ selectedTab, handleTabChange }) => {
             Organization Info
           </Link>
           <Link
+            style={{ textDecoration: "none" }}
             to="#"
             className={`barinfo-plans ${
               selectedTab === "organizationadmin" ? "active-link" : ""
@@ -26,6 +28,7 @@ const tabNavigations = ({ selectedTab, handleTabChange }) => {
           </Link>
 
           <Link
+            style={{ textDecoration: "none" }}
             to="#"
             className={`barinfo-plans ${
               selectedTab === "organizationdomains" ? "active-link" : ""
@@ -36,6 +39,7 @@ const tabNavigations = ({ selectedTab, handleTabChange }) => {
           </Link>
 
           <Link
+            style={{ textDecoration: "none" }}
             to="#"
             className={`barinfo-plans ${
               selectedTab === "subscriptionplan" ? "active-link" : ""

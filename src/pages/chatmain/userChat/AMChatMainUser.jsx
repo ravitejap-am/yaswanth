@@ -1,122 +1,121 @@
-import React, { useState } from 'react';
-import './AmchatMainUser.css';
-import arrow from '../../../asset/inputarrow.png'
-import docuementicon from '../../../asset/Group 23 (1).png'
-import GeneralButton from '../../../components/common/buttons/GeneralButton';
-import frame1 from '../../../asset/Frame 1.png'
-import threedot from '../../../asset/threedot.png'
-import base from '../../../asset/Base.png'
-import vector1 from '../../../asset/logo.png'
+import { Card } from "antd";
+import React from "react";
+import Styles from "./AmchatMainUser.module.css";
+import flow from "../../../asset/AmChatSuperAdmin/flow.png";
+import flowImage2 from "../../../asset/AmChatSuperAdmin/flow2.png";
+import circle1 from "../../../asset/AmChatSuperAdmin/Group23.png";
+import circle2 from "../../../asset/AmChatSuperAdmin/Group24.png";
+import profile from "../../../asset/AmChatSuperAdmin/profile.png";
+import Logo from "../../../asset/Vector.png";
+import Group2290 from "../../../asset/Group2290.png";
+import Search from "../../../components/common/search/Search";
+import { Link, useNavigate } from "react-router-dom";
+// import flowImage from "../../../asset/AmChatSuperAdmin/Flow.svg";
 
 const AmchatMainUser = () => {
-  const [chat, setChat] = useState('');
-
-  const handleStartChat = () => {
-    console.log("start chatButton clicked");
+  const navigate = useNavigate();
+  const contentArray = [
+    "Could you help me with the maternity policy of my organization?",
+    "Can you tell me about GDPR compliance.  Which I should follow in my organization?",
+    "Can you explain me the Pythagoras theorem based on. ",
+    "Can you tell me what's wrong in my lab reports?  ",
+    "Can you explain me the quantum mechanics? ",
+  ];
+  const searchStyles = {
+    width: "96%",
+    height: "70px",
+    borderRadius: "35px",
+    border: "1px solid #94a3b8",
+    color: "#94a3b8",
+    paddingLeft: "30px",
   };
-
-  const handleQuestionClick = (question) => {
-    console.log(`Question clicked: ${question}`);
-    setChat(question);
+  const handleSearchImageClick = () => {
+    navigate("/chat");
   };
-
-  const arrowButton = () => {
-    console.log("arrowButton clicked");
-    console.log(chat);
-  };
-
   return (
-    <div className='amchat-main'>
-      <div className='sidebar-amchat'>
-        <div className='image-container'>
-        <img className='amchat-vector-img-sidebar' src={vector1} alt="" />
-
-        </div>
-        <div className='startchat-button'>
-          <GeneralButton
-            name="Start New Chat"
-            type="primary"
-            color="white"
-            backgroundColor="#6366F1"
-            width="150px"
-            padding="10px 16px"
-            height="40px"
-            borderRadius="30px"
-            icons={frame1}
-          />
-        </div>
-        <div className='orgadmin-chats'>
-          <h3>Chats</h3>
-          <p className='orgadmin-chat'>How to upload my Docume.<img className='orgadmin-threedot' src={threedot} alt="" /></p>
-          <p>What is AM-Chat? <img className='orgadmin-threedot-two' src={threedot} alt="" /></p>
-        </div>
-      </div>
-      <div className='chat-profile-container'>
-        <div className='userchatHeader'>
-          <div className='amchatmain-user-name'>
-            <h2>Welcome, Clayton</h2>
+    <div className={Styles.superAdminMainCardDivStyle}>
+      <div className={Styles.superAdminMiddleParentDiv}>
+        <div className={Styles.superAdminProfileCardStyle}>
+          <div>
+            <p className={Styles.superAdminProfileName}>Welcome, Lian</p>
           </div>
-          <div className='amchatmain-user-profile'>
-            <div className='amchaitmain-profilepic'>
-              <img className='amchat-profile-pic' src={base} alt="" />
-            </div>
-            <div className='amchatmain-profilename'> 
-            <h3>Clayton Santos</h3>
-            </div>
+          <div
+            className={Styles.superAdminProfileImgNameStyle}
+            style={{
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <img src={profile} alt="" className={Styles.AdminProfileStyle} />
+            <span className={Styles.SuperAdminProfileStyle}>Lian Vendiar</span>
           </div>
         </div>
-        <div className='document-card'>
-          <img className='document-icon' src={docuementicon} alt="" />
-          <div className='document-upload-text'>
-            <h3>Document Uploaded</h3>
-            <h1 className='document-quantity'>500</h1>
-
-          </div>
-
-        </div>
-        <div className='chat-profile'>
-
-          <div className="chatui-card">
-            <div className='chatui-text'>
-              <div className="chatui-AmChat-text">
-                <p >AM-Chat <img className='amchat-vector-img' src={vector1} alt="" /> </p>
+        <div className={Styles.superAdminMiddleChildDiv}>
+          <div
+            className={Styles.superAdminMiddleCardStyle}
+            style={{ backgroundColor: "#FFFFFF" }}
+          >
+            <div style={{ display: "flex" }}>
+              {" "}
+              <div className={Styles.superAdminMiddleCardCircle1Style}>
+                {" "}
+                <img src={circle1} alt="" />
               </div>
-              <div className='chat-hello-text'>
-                <h2>Hello, I’m AM-Chat</h2>
+              <div className={Styles.titlePriceStyle}>
+                <p className={Styles.titleStyle}>Documents Uploaded</p>
+                <p className={Styles.priceStyle}>500</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* <div> */}
+        <Card className={Styles.superAdminCardStyles}>
+          <div className={Styles.AMChatMainCardTitleDiv}>
+            <div className={Styles.SuperAdminAmChatStyle}>
+              <div className={Styles.appHeading}>
+                <div className={Styles.appLogo}>
+                  <span className={Styles.amChatTitle}>AM-Chat</span>
+                  <span>
+                    <img src={Logo} alt="" className={Styles.appName} />
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div className={Styles.superAdminAMChatMiddleDiv}>
+              <div className={Styles.AMChatFirstTitle}>
+                <p>Hello, I’m AM-Chat</p>
+              </div>
+              <div className={Styles.AMChatSecondTitle}>
                 <p>How can I help you today?</p>
               </div>
             </div>
-            <div className="trending-questions">
-              <div className="question-row-first">
-                <p onClick={() => handleQuestionClick('Could you help me with the maternity policy of my organization?')}>Could you help me with the <br /> maternity policy of my organization?</p>
-                <p onClick={() => handleQuestionClick('Can you tell me about GDPR compliance Which I should follow in my organization?')}>Can you tell me about GDPR compliance. <br />Which I should follow in my organization?</p>
-              </div>
-              <div className="question-row-second">
-                <p onClick={() => handleQuestionClick('Can you explain me the Pythagoras theorem based on Pythagoras theorem based on')}>Can you explain me the<br /> Pythagoras theorem based on</p>
-                <p onClick={() => handleQuestionClick('Can you tell me  what`s wrong in my lab reports? ')}>Can you tell me  what`s<br /> wrong in my lab reports?</p>
-                <p onClick={() => handleQuestionClick('Can you explain me the quantum mechanics? ')}> Can you explain me the <br /> quantum mechanics?  </p>
-              </div>
-            </div>
-            <div className="input-main">
-              <div className="input-container">
-                <input
-                  type="text"
-                  placeholder="Ask Anything"
-                  value={chat}
-                  onChange={(e) => setChat(e.target.value)}
-                />
-              </div>
-              <div className='chat-arrow' onClick={arrowButton}>
-                <img src={arrow} alt="arrowpic" />
-              </div>
+          </div>
+
+          <div className="Example_main_div">
+            <div className="Card_message_example_main">
+              {contentArray.map((content, index) => (
+                <p key={index} className="Card_message_example">
+                  {content}
+                </p>
+              ))}
             </div>
           </div>
-        </div>
-        <div className="userprofile-footer">
-          <p>@2024. All rights reserved by Areteminds</p>
-        </div>
-      </div>
 
+          <div className={Styles.AIChatInputBox}>
+            <Link to="/chat">
+              <Search
+                name={"Ask anything.."}
+                style={searchStyles}
+                searchImage={Group2290}
+                onSearchImageClick={handleSearchImageClick}
+                readOnly={false}
+              />
+            </Link>
+          </div>
+        </Card>
+        {/* </div> */}
+      </div>
     </div>
   );
 };

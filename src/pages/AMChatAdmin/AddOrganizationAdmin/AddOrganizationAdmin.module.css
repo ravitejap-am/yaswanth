@@ -49,10 +49,7 @@
   background: var(--Neutral-50, #f8fafc);
   padding: 20px;
 }
-.appName {
-  width: 87px;
-  height: 30px;
-}
+
 .superAdminProfileName {
   color: var(--Brand-900, #312e81);
   font-family: Into, Montserrat;

@@ -18,12 +18,15 @@ import IconButton from "@mui/material/IconButton";
 import editIcon from "../../../asset/AmChatSuperAdmin/pencil-alt.png";
 import deleteIcon from "../../../asset/AmChatSuperAdmin/Frame 2302.png";
 import { Link } from "react-router-dom";
-import styles from '../../../pages/AMChatAdmin/OrganizationList/Organization.module.css'
+import styles from "../../../pages/AMChatAdmin/OrganizationList/Organization.module.css";
 import Search from "../../../components/common/search/Search";
 import SerchImages from "../../../asset/AmChatSuperAdmin/Group2305.png";
 import { Margin } from "@mui/icons-material";
-import upload from '../../../asset/uploadlatesticon.png'
+import upload from "../../../asset/uploadlatesticon.png";
 import { Pagination } from "antd";
+import { FormControl, MenuItem } from "@mui/material";
+import Select from "@mui/material/Select";
+
 function OrgUserList() {
   const searchStyles = {
     width: "300px",
@@ -33,6 +36,7 @@ function OrgUserList() {
     backgroundColor: "#EEF2FF",
     display: "flex",
     alignItems: "center",
+    marginRight: "18px",
   };
   const itemRender = (_, type, originalElement) => {
     if (type === "prev") {
@@ -124,15 +128,10 @@ function OrgUserList() {
               searchImage={SerchImages}
               imageHeight={"46px"}
               imageMarginLeft={20}
-            // iconId="marginlrgt:40px"
-
             />
           </div>
           <div className={Styles.bannerButton}>
-            <Link
-              to="/orgadddocument"
-              style={{ textDecoration: "none" }}
-            >
+            <Link to="/orgadddocument" style={{ textDecoration: "none" }}>
               <GeneralButton
                 name={"Add Document"}
                 type={"submit"}
@@ -165,29 +164,46 @@ function OrgUserList() {
                       />
                     </TableCell>
                     <TableCell>
-                      <TableSortLabel onClick={(e) => handleRequestSort(e, "documentName")}>
-                        <Typography variant="body1" style={{ fontWeight: "bold" }}>
+                      <TableSortLabel
+                        onClick={(e) => handleRequestSort(e, "documentName")}
+                      >
+                        <Typography
+                          variant="body1"
+                          style={{ fontWeight: "bold" }}
+                        >
                           Document Name
                         </Typography>
                       </TableSortLabel>
                     </TableCell>
                     <TableCell>
-                      <Typography variant="body1" style={{ fontWeight: "bold" }}>
+                      <Typography
+                        variant="body1"
+                        style={{ fontWeight: "bold" }}
+                      >
                         Size
                       </Typography>
                     </TableCell>
                     <TableCell>
-                      <Typography variant="body1" style={{ fontWeight: "bold" }}>
+                      <Typography
+                        variant="body1"
+                        style={{ fontWeight: "bold" }}
+                      >
                         Version
                       </Typography>
                     </TableCell>
                     <TableCell>
-                      <Typography variant="body1" style={{ fontWeight: "bold" }}>
+                      <Typography
+                        variant="body1"
+                        style={{ fontWeight: "bold" }}
+                      >
                         Status
                       </Typography>
                     </TableCell>
                     <TableCell>
-                      <Typography variant="body1" style={{ fontWeight: "bold", marginLeft: "20px" }}>
+                      <Typography
+                        variant="body1"
+                        style={{ fontWeight: "bold", marginLeft: "20px" }}
+                      >
                         Actions
                       </Typography>
                     </TableCell>
@@ -199,27 +215,42 @@ function OrgUserList() {
                     .map((row) => (
                       <TableRow key={row.id}>
                         <TableCell padding="checkbox">
-                          <Checkbox inputProps={{ "aria-labelledby": row.documentName }} />
+                          <Checkbox
+                            inputProps={{ "aria-labelledby": row.documentName }}
+                          />
                         </TableCell>
                         <TableCell component="th" scope="row">
                           {row.documentName}
                         </TableCell>
                         <TableCell>{row.size}</TableCell>
                         <TableCell>{row.version}</TableCell>
-                        <TableCell>{row.status}</TableCell>
+                        <TableCell>
+                          <FormControl style={{ width: "110px" }}>
+                            <Select
+                              style={{ border: "none", borderRadius: "none" }}
+                              value={row.status}
+                              onChange={(e) => {
+                                console.log(e.target.value);
+                              }}
+                            >
+                              <MenuItem value="Active">Active</MenuItem>
+                              <MenuItem value="Inactive">Inactive</MenuItem>
+                            </Select>
+                          </FormControl>
+                        </TableCell>
                         <TableCell>
                           <Link to="/editdocument">
-
                             <IconButton aria-label="edit">
-
                               <img src={editIcon} alt="Edit" />
-
                             </IconButton>
                           </Link>
                           <Link to="/updatedocument">
-
                             <IconButton aria-label="Upload">
-                              <img className={Styles.uploadicon} src={upload} alt="Uploaddocument" />
+                              <img
+                                className={Styles.uploadicon}
+                                src={upload}
+                                alt="Uploaddocument"
+                              />
                             </IconButton>
                           </Link>
 

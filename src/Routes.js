@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import {
   Routes,
   Route,
@@ -14,35 +14,26 @@ import RecoveryPasswor from "./pages/recoveryPassword/RecoveryPasswor";
 import PageNotFound from "./pages/errorHandler/PageNotFind/PageNotFound";
 import Page505 from "./pages/errorHandler/InternalServerError/Page505";
 import MaintainencePage from "./pages/errorHandler/UnderMaintainence/MaintainencePage";
-import ResetPassword from "./pages/setPassword/ResetPassword";
-import AmchatMainUser from "./pages/chatmain/userChat/AMChatMainUser";
-import UserProfile from "./pages/chatmain/UserProfile";
-import PersonalInformation from "./pages/chatmain/PersonalInformation";
 import AMChatAdminHome from "./pages/AMChatAdmin/AMChatAdminHome";
-import OrganizationList from "./pages/AMChatAdmin/OrganizationList/OrganizationList";
 import OrganizationSidebar from "./pages/AMChatAdmin/OrganizationList/OrganizationSidebar";
 import OrganizationAdminListSidebar from "./pages/AMChatAdmin/OrganizationAdminList/OrganizationAdminListSidebar";
 import AddOrganizationAdminSidebar from "./pages/AMChatAdmin/AddOrganizationAdmin/AddOrganizationAdminSidebar";
 import OrgAdminSidebar from "./pages/chatmain/organizationadmin/OrgAdminSidebar.jsx";
-import OrgUserList from "./pages/chatmain/orguserlist/OrgUserList.jsx";
-import SignHeader from "./pages/home/SignHeader/SignHeader.jsx";
 import OrgUserListSidebar from "./pages/chatmain/orguserlist/OrgUserListSidebar.jsx";
 import OrgDocumentListSidebar from "./pages/chatmain/orgdocumentlist/OrgDocumentListSidebar.jsx";
 import OrgAddDocumentSidebar from "./pages/chatmain/orgadddocument/OrgAddDocumentSidebar.jsx";
 import OrgAdminChatSidebar from "./pages/chatmain/OrgadminChatPage/OrgAdminChatSidebar.jsx";
 import EnterpriseRegister from "./pages/registerUser/EnterpriseRegister.jsx";
-import SearchUIAIChatSidebar from "./pages/AMChatAdmin/SearchUIAMChat.jsx/SearchUIAIChatSidebar.jsx";
-import EditAddOrganizationAdmin from "./pages/AMChatAdmin/EditOrganizationAdmin/EditAddOrganizationAdmin.jsx";
 import EditAddOrganizationAdminSidebar from "./pages/AMChatAdmin/EditOrganizationAdmin/EditAddOrganizationAdminSidebar.jsx";
 import PrivacyPolicy from "./pages/Policy/PrivacyPolicy.jsx";
 import Error405 from "../src/pages/errorHandler/error405/Error405.jsx";
 import Error404 from "./pages/errorHandler/error404/Error404.jsx";
-import OrgUpdateDocument from "./pages/chatmain/orgadddocument/orgUpdateDocument/OrgUpdateDocument.jsx";
 import OrgUpdateDocumentSidebar from "./pages/chatmain/orgadddocument/orgUpdateDocument/OrgUpdateDocumentSidebar.jsx";
 import OrgEditDocumentSidebar from "./pages/chatmain/orgadddocument/orgEditDocument/OrgEditDocumentSidebar.jsx";
-import EditOrgUser from "./pages/chatmain/organizationadmin/editorguser/EditOrgUser.jsx";
 import EditOrgUserSidebar from "./pages/chatmain/organizationadmin/editorguser/EditOrgUserSidebar.jsx";
 import TermAndCondition from "./pages/Terms&Conditions/TermAndCondition.jsx";
+import AMChatMainUserSidebar from "./pages/chatmain/userChat/AMChatMainUserSidebar.jsx";
+import SearchUIAIChatSidebar from "./pages/AMChatAdmin/SearchUIAMChat.jsx/SearchUIAIChatSidebar.jsx";
 // import TermsAndConditions from "./pages/Terms&Conditions/Terms&Conditions.jsx";
 
 const Rout = () => {
@@ -90,7 +81,8 @@ const Rout = () => {
           element={<MaintainencePage />}
           errorElement={<LoginPageError />}
         />
-        <Route path="/userchat" element={<AmchatMainUser />} />
+        <Route path="/userchat" element={<AMChatMainUserSidebar />} />
+        <Route path="/chat" element={<SearchUIAIChatSidebar />} />
         <Route path="/dashboardadmin" element={<AMChatAdminHome />} />
         <Route
           path="/dashboardadmin/organizationlist"
@@ -109,7 +101,6 @@ const Rout = () => {
           element={<EditAddOrganizationAdminSidebar />}
         />
         <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
-
         <Route path="/adduser" element={<OrgAdminSidebar />} />
         <Route path="/orgdocumentList" element={<OrgUserListSidebar />} />
         <Route path="/orguserlist" element={<OrgDocumentListSidebar />} />
@@ -134,6 +125,7 @@ const Rout = () => {
         <Route path="/updatedocument" element={<OrgUpdateDocumentSidebar />} />
         <Route path="/editdocument" element={<OrgEditDocumentSidebar />} />
         <Route path="/edituser" element={<EditOrgUserSidebar />} />
+        <Route path="/UserProfile" element={<UserProfile />} />
       </Route>
     </Routes>
   );

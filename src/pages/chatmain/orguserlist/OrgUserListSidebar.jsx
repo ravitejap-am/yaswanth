@@ -11,8 +11,8 @@ import userImage from "../../../asset/AmChatSuperAdmin/users.png";
 import { Link } from "react-router-dom";
 import arrorLink from "../../../asset/arrow-left.png";
 import OrgUserList from "../../../pages/chatmain/orguserlist/OrgUserList";
-import usersicon from '../../../asset/users.png'
-import documenticon from '../../../asset/document1.png'
+import usersicon from "../../../asset/users.png";
+import documenticon from "../../../asset/document1.png";
 function OrgUserListSidebar() {
   return (
     <>
@@ -41,7 +41,7 @@ function OrgUserListSidebar() {
               />
             </div> */}
           </div>
-
+          
           <div className={Styles.container}>
             <div className={Styles.SuperAdminChildContainer}>
               <span>
@@ -53,14 +53,12 @@ function OrgUserListSidebar() {
 
               <span>
                 <img src={usersicon} alt="" />
-                <Link to="/orguserlist"
-                  style={{ textDecoration: "none" }}
-                >
+                <Link to="/orguserlist" style={{ textDecoration: "none" }}>
                   <p className={Styles.organizationTextStyle}>Users</p>
                 </Link>
               </span>
             </div>
-            <br />
+            {/* <br />
             <div className={Styles.SuperAdminChildContainer}>
               <span>
                 <img src={documenticon} alt="" />
@@ -72,10 +70,10 @@ function OrgUserListSidebar() {
                 </p>
                 </Link>
               </span>
-            </div>
+            </div> */}
           </div>
         </div>
-        <OrgUserList/>
+        <OrgUserList />
       </div>
       <div className={Styles.AMChatFooterStyle}>
         <footer className="AMChat-admin-footer">

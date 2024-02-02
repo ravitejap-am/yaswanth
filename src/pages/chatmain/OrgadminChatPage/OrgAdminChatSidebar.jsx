@@ -85,7 +85,6 @@ function OrgAdminChatSidebar() {
         </div>
 
         <OrgAdminChatPage />
-        {/* dkd */}
 
       </div>
       <div className={Styles.AMChatFooterStyle}>

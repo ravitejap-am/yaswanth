@@ -21,9 +21,20 @@ import { Link } from "react-router-dom";
 import Search from "../../../components/common/search/Search";
 import SerchImages from "../../../asset/AmChatSuperAdmin/Group2305.png";
 import { Pagination } from "antd";
-
+import Select from "@mui/material/Select";
+import { FormControl, MenuItem } from "@mui/material";
 
 function OrgDocumentList() {
+  const searchStyles = {
+    width: "300px",
+    height: "45px",
+    borderRadius: "42px",
+    fontFamily: "Inter, sans-serif",
+    backgroundColor: "#EEF2FF",
+    display: "flex",
+    alignItems: "center",
+    marginRight: "18px",
+  };
   const [selectedStatus, setSelectedStatus] = useState("All");
   const rows = [
     {
@@ -100,21 +111,18 @@ function OrgDocumentList() {
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
-    const handleStatusChange = (event, userId) => {
-      const updatedRows = rows.map((row) =>
-        row.id === userId ? { ...row, status: event.target.value } : row
-      );
-
-    };
+  const handleStatusChange = (event, userId) => {
+    const updatedRows = rows.map((row) =>
+      row.id === userId ? { ...row, status: event.target.value } : row
+    );
+  };
 
   return (
     <div className={Styles.superAdminMainCardDivStyle}>
       <div className={Styles.superAdminMiddleParentDiv}>
         <div className={Styles.superAdminProfileCardStyle}>
           <div>
-            <p className={Styles.superAdminOrganizationListName}>
-              User List
-            </p>
+            <p className={Styles.superAdminOrganizationListName}>User List</p>
           </div>
           <div
             className={Styles.superAdminProfileImgNameStyle}
@@ -127,21 +135,15 @@ function OrgDocumentList() {
 
         <div className={Styles.bannerBtn}>
           <div className={Styles.OrganizationListFilterSerchBox}>
-            <Search
-              name={"Search name here."}
-              styles={{
-                width: "300px",
-                height: "45px",
-                borderRadius: "42px",
-                fontFamily: "Inter, sans-serif",
-                backgroundColor: "#EEF2FF",
-                display: "flex",
-                alignItems: "center",
-              }}
-              searchImage={SerchImages}
-              imageHeight={"46px"}
-              imageMarginLeft={2}
-            />
+            <div className={Styles.OrganizationListFilterSerchBox}>
+              <Search
+                name={"Search name here."}
+                styles={searchStyles}
+                searchImage={SerchImages}
+                imageHeight={"46px"}
+                imageMarginLeft={20}
+              />
+            </div>
           </div>
           <div className={Styles.bannerButton}>
             <Link to="/adduser" style={{ textDecoration: "none" }}>
@@ -256,7 +258,9 @@ function OrgDocumentList() {
                 <TableBody>
                   {rows
                     .filter((row) =>
-                      selectedStatus === "All" ? true : row.status === selectedStatus
+                      selectedStatus === "All"
+                        ? true
+                        : row.status === selectedStatus
                     )
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row) => (
@@ -273,16 +277,19 @@ function OrgDocumentList() {
                         <TableCell>{row.lastChat}</TableCell>
                         <TableCell>{row.totalChat}</TableCell>
                         <TableCell>
-                          <select
-                            value={row.status}
-                            onChange={(e) => handleStatusChange(e, row.id)}
-                            style={{ width: "100px", height: "40px", textAlignLast: "center", textIndent: "0.01px",cursor:"pointer" }}
-                          >
-                            <option value="Active">Active</option>
-                            <option value="Inactive">Inactive</option>
-                          </select>
+                          <FormControl style={{ width: "110px" }}>
+                            <Select
+                              style={{ border: "none", borderRadius: "none" }}
+                              value={row.status}
+                              onChange={(e) => {
+                                console.log(e.target.value);
+                              }}
+                            >
+                              <MenuItem value="Active">Active</MenuItem>
+                              <MenuItem value="Inactive">Inactive</MenuItem>
+                            </Select>
+                          </FormControl>
                         </TableCell>
-
 
                         <TableCell>
                           <Link to="/edituser">

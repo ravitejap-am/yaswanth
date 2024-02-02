@@ -161,7 +161,7 @@ function OrganizationList() {
               name={"Search name here."}
               styles={searchStyles}
               searchImage={SerchImages}
-              imageHeight={"46px"}
+              imageHeight={"47px"}
               imageMarginLeft={20}
             />
           </div>

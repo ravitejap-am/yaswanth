@@ -51,7 +51,7 @@ function OrgDocumentListSidebar() {
                 </Link>
               </span>
 
-              <span>
+              {/* <span>
                 <img src={usersicon} alt="" />
                 <Link
                   to="/orguserlist"
@@ -59,7 +59,7 @@ function OrgDocumentListSidebar() {
                 >
                   <p className={Styles.organizationTextStyle}>Users</p>
                 </Link>
-              </span>
+              </span> */}
             </div>
             <br />
             <div className={Styles.SuperAdminChildContainer}>

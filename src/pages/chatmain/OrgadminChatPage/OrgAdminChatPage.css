@@ -5,7 +5,7 @@
 
 .orgadminchat-chat-container {
   border-radius: 15px;
-  background: var(--Neutral-200, #E2E8F0);
+  background: var(--Neutral-200, #e2e8f0);
   width: 80vw;
   height: 97%;
   margin-top: 20px;
@@ -22,13 +22,13 @@
   height: 90px;
   flex-shrink: 0;
   border-radius: 10.457px;
-  background: var(--White, #FFF);
+  background: var(--White, #fff);
   box-shadow: 0px 2.789px 6.972px 3.486px rgba(0, 0, 0, 0.09);
   margin-left: 10px;
 }
 
 .orgadminchat-document-upload-text {
-  color: var(--Neutral-900, #0F172A);
+  color: var(--Neutral-900, #0f172a);
   font-size: 14px;
   font-style: normal;
   font-weight: 600;
@@ -37,7 +37,7 @@
 }
 
 .orgadminchat-document-quantity {
-  color: var(--Neutral-900, #0F172A);
+  color: var(--Neutral-900, #0f172a);
   font-size: 30px;
   font-style: normal;
   font-weight: 700;
@@ -49,20 +49,20 @@
   margin-top: 5px;
   margin-left: 10px;
   border-radius: 15px;
-  background: var(--Neutral-200, #E2E8F0);
+  background: var(--Neutral-200, #e2e8f0);
   width: 90%;
-  height: 100vh;
+  height: 95vh;
   justify-content: center;
   text-align: center;
   border-radius: 10.457px;
-  background: var(--White, #FFF);
+  background: var(--White, #fff);
   box-shadow: 0px 2.789px 6.972px 3.486px rgba(0, 0, 0, 0.09);
   margin-bottom: 20px;
 }
 
 .orgadminchat-chat-ui-am-chat-text p {
-  color: var(--Neutral-900, #0F172A);
-  font-family: Lato, 'Red Rose', sans-serif;
+  color: var(--Neutral-900, #0f172a);
+  font-family: Lato, "Red Rose", sans-serif;
   font-size: 43.333px;
   font-style: normal;
   font-weight: 700;
@@ -73,7 +73,7 @@
 
 .orgadminchat-chat-hello-text h2 {
   text-align: center;
-  color: #312E81;
+  color: #312e81;
   margin-top: 143px;
 }
 
@@ -97,7 +97,7 @@
 
 .orgadminchat-trending-questions p {
   border-radius: 20px;
-  border: 1px solid var(--Neutral-300, #CBD5E1);
+  border: 1px solid var(--Neutral-300, #cbd5e1);
   padding: 10px;
   margin: 5px;
   cursor: pointer;
@@ -127,7 +127,7 @@
   width: 690px;
   height: 8vh;
   border-radius: 35px;
-  border: 1px solid var(--Neutral-400, #94A3B8);
+  border: 1px solid var(--Neutral-400, #94a3b8);
   padding-right: 50px;
   padding-left: 20px;
   box-sizing: border-box;
@@ -146,13 +146,13 @@
 
 .orgadminchat-chats p {
   border-radius: 30px;
-  background: var(--Neutral-800, #1E293B);
+  background: var(--Neutral-800, #1e293b);
   width: 220px;
   height: 40px;
   flex-shrink: 0;
   text-align: left;
   margin-right: 18px;
-  color: #E2E8F0;
+  color: #e2e8f0;
   padding-left: 10px;
   cursor: pointer;
 }
@@ -165,7 +165,7 @@
 }
 
 .orgadminchat-chats h3 {
-  color: #E2E8F0;
+  color: #e2e8f0;
   cursor: pointer;
 }
 
@@ -179,7 +179,7 @@
 }
 
 .orgadminchat-user-name {
-  color: var(--Brand-900, #312E81);
+  color: var(--Brand-900, #312e81);
   font-size: 20px;
   font-style: normal;
   font-weight: 700;
@@ -211,7 +211,6 @@
 .orgadminchat-document-icon {
   width: 30px;
   height: 30px;
-
 }
 
 .orgadminchat-orgadmindocument-card {
@@ -220,28 +219,25 @@
   padding: 15px;
   border-radius: 8px;
   text-align: center;
-  width: 18vw;
+  width: 82%;
   height: 18vh;
   display: flex;
   margin-left: 10px;
   margin-top: 5px;
-
 }
 
 .orgadminchat-orgadmindocument-card h2 {
-  color: var(--Neutral-900, #0F172A);
+  color: var(--Neutral-900, #0f172a);
   font-size: 1rem;
   font-style: normal;
   font-weight: 600;
   line-height: 20px;
   margin-left: 20px;
   /* margin-bottom: 35px; */
-
-
 }
 
 .document-value {
-  color: var(--Neutral-900, #0F172A);
+  color: var(--Neutral-900, #0f172a);
   /* font-family: Montserrat; */
   font-size: 30px;
   font-style: normal;
@@ -250,7 +246,6 @@
   margin-top: 35px;
   position: relative;
   right: 80px;
-
 }
 
 .orgadmin-activeuser-card {
@@ -259,27 +254,18 @@
   padding: 5px;
   border-radius: 8px;
   text-align: left;
-  width: 20vw;
+  width: 90%;
   height: 18vh;
   margin-left: 10px;
-
-
-
-}
-
-.orgadmin-activeuser-main {
-  position: relative;
-  /* bottom: 100px; */
 }
 
 .orgadminchat-orgadmin-activeuser-card h2 {
-  color: var(--Neutral-900, #0F172A);
+  color: var(--Neutral-900, #0f172a);
   font-size: 1rem;
   font-style: normal;
   font-weight: 600;
   line-height: 20px;
   margin-left: 20px;
-
 }
 
 .orgadminchat-document-icon {
@@ -290,7 +276,7 @@
 }
 
 .activeusers-value {
-  color: var(--Neutral-900, #0F172A);
+  color: var(--Neutral-900, #0f172a);
   /* font-family: Montserrat; */
   font-size: 30px;
   font-style: normal;
@@ -299,7 +285,6 @@
   margin-top: 35px;
   position: relative;
   right: 80px;
-
 }
 
 .orgadminchat-activeuser-icon {
@@ -315,11 +300,10 @@
   padding: 15px;
   border-radius: 8px;
   text-align: center;
-  width: 18vw;
+  width: 82%;
   height: 18vh;
   display: flex;
   margin-left: 10px;
-
 }
 
 .vector-image-activeuser {
@@ -332,17 +316,15 @@
 
 .orgadmin-activeuser-card {
   display: flex;
-  margin-top: 20px;
 }
 
 .orgadmin-activeuser-card {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  margin-top: 20px;
   border-radius: 10.457px;
-  background: var(--White, #FFF);
-  height: 42vh;
+  background: var(--White, #fff);
+  height: 100%;
 }
 
 /* .orgadmin-activeuser-card,
@@ -400,11 +382,9 @@
 .background-bar {
   width: 100%;
   height: 1px;
-  background: var(--Neutral-300, #CBD5E1);
+  background: var(--Neutral-300, #cbd5e1);
   margin: 4px 0;
 }
-
-
 
 .orgadminchat-chat-user-profile-main {
   display: flex;
@@ -413,7 +393,6 @@
 .orgadminchat-chat-user-profile-image {
   margin-top: 15px;
   margin-right: 30px;
-
 }
 
 .orgadmin-profilepic {
@@ -443,31 +422,29 @@
   top: 18px;
 }
 
-
 .orgadminchat-chat-content-head {
   display: flex;
 }
-.side-questions-main{
+.side-questions-main {
   justify-content: left;
   /* margin-left: -10px; */
 }
 .side-questions {
   border-radius: 30px;
-  background: var(--Neutral-800, #1E293B);
+  background: var(--Neutral-800, #1e293b);
   width: 180px;
   height: 40px;
   font-size: 12px;
   text-align: left;
   margin-top: 5px;
-  
 }
-.side-questions p{
+.side-questions p {
   position: relative;
   top: 10px;
   left: 10px;
-  color: var(--Neutral-300, #CBD5E1);
+  color: var(--Neutral-300, #cbd5e1);
 }
-.orgchat-icon{
+.orgchat-icon {
   margin-left: -8px;
   margin-bottom: 10px;
 }
