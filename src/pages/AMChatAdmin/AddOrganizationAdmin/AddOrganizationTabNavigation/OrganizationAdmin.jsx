@@ -112,6 +112,7 @@ function OrganizationAdmin() {
     cancelButtonProperty: cancelButtonProperty,
     formElements: formElements,
     formType: "normal",
+    grid: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px" },
   };
 
   return (

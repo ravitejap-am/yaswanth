@@ -16,7 +16,7 @@ function AddOrganizationAdminSidebar() {
       <div className={Styles.AMChatMainDiv}>
         <div className={Styles.AMChatSidebar}>
           <div className={Styles.AMChatSuperAdminSidebar}>
-            <img src={Logo} alt="" />
+            <img src={Logo} alt="" className={Styles.appName} />
           </div>
 
           {/* <div className={Styles.bannerBtn}>
@@ -38,7 +38,7 @@ function AddOrganizationAdminSidebar() {
             <div className={Styles.SuperAdminChildContainer}>
               <span>
                 <img src={arrorLink} alt="" />
-                <Link to="/dashboardadmin" style={{ textDecoration: "none" }}>
+                <Link to="/dashboardadmin/organizationlist" style={{ textDecoration: "none" }}>
                   <p className={Styles.organizationTextStyle}>Back to Chat</p>{" "}
                 </Link>
               </span>

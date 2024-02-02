@@ -33,7 +33,7 @@
 }
 .superAdminProfileName {
   color: var(--Brand-900, #312e81);
-  font-family: Into, "sans-serif";
+  font-family: Into, Montserrat;
   font-size: 24px;
   font-style: normal;
   font-weight: 600;

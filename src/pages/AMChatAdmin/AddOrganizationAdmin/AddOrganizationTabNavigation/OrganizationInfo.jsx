@@ -59,7 +59,7 @@ function OrganizationInfo() {
         borderRadius: "40px",
         border: "1px solid var(--Brand-700, #4338CA)",
         backgroundColor: "transparent",
-        marginBottom: "13px",
+        margin: "10px 0", // Adjusted for consistent spacing
         paddingLeft: "10px",
         paddingRight: "20px",
         appearance: "border",
@@ -83,7 +83,7 @@ function OrganizationInfo() {
         borderRadius: "40px",
         border: "1px solid var(--Brand-700, #4338CA)",
         backgroundColor: "transparent",
-        marginBottom: "13px",
+        margin: "10px 0", // Adjusted for consistent spacing
         paddingLeft: "10px",
         paddingRight: "20px",
         appearance: "border",
@@ -107,7 +107,7 @@ function OrganizationInfo() {
         borderRadius: "40px",
         border: "1px solid var(--Brand-700, #4338CA)",
         backgroundColor: "transparent",
-        marginBottom: "13px",
+        margin: "10px 0", // Adjusted for consistent spacing
         paddingLeft: "10px",
         paddingRight: "20px",
         appearance: "border",
@@ -116,7 +116,6 @@ function OrganizationInfo() {
       labelName: false,
       rules: [{ required: true, message: "Please select City" }],
     },
-
     {
       name: "Zipcode",
       label: "Zipcode",
@@ -126,6 +125,7 @@ function OrganizationInfo() {
         borderRadius: "40px",
         border: "1px solid var(--Brand-700, #4338CA)",
         backgroundColor: "transparent",
+        margin: "10px 0", // Adjusted for consistent spacing
       },
       labelName: false,
       rules: [{ required: true, message: "Please enter Zipcode" }],

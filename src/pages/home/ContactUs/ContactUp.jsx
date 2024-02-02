@@ -58,8 +58,7 @@ const ContactUp = () => {
         marginBottom: "13px",
         paddingLeft: "10px",
         color: "#FFF",
-
-         marginLeft: "0px",
+        marginRight: "-10px 0px",
       },
       dropdownClassName: "custom-dropdown",
       labelName: true,

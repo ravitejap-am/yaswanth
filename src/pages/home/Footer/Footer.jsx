@@ -7,6 +7,7 @@ import img4 from "../../../asset/footer/Frame22.png";
 import img5 from "../../../asset/footer/Frame23.png";
 import img6 from "../../../asset/footer/phone.png";
 import Vector from "../../../asset/Vector.png";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -28,8 +29,19 @@ const Footer = () => {
             className="footer_p_tag_2"
             style={{ color: "#FFF", fontSize: "14px" }}
           >
-            {" "}
-            Privacy Policy | Terms & Conditions
+            <Link
+              to="/PrivacyPolicy"
+              style={{ color: "#FFF", textDecoration: "underline" }}
+            >
+              Privacy Policy
+            </Link>{" "}
+            |{" "}
+            <Link
+              to="/terms-and-conditions"
+              style={{ color: "#FFF", textDecoration: "underline" }}
+            >
+              Terms & Conditions
+            </Link>
           </p>
         </div>
         <div

@@ -33,6 +33,7 @@ function AIChatBot() {
   ];
 
   const handleSearchClick = () => {
+    // Update the state to show the alert
     setAlertShown(true);
     // Additional logic can be added here if needed
   };
@@ -72,9 +73,6 @@ function AIChatBot() {
               </div>
 
               <div className="AI_chat_input_box">
-                {alertShown
-                  ? "Please contact our sales team at sales@areteminds.com"
-                  : null}
                 <Search
                   name={
                     "Explore your organizational knowledge base using the power of GenAI."
