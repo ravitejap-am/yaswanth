@@ -9,6 +9,7 @@ import NotifyMessage from "../../components/common/toastMessages/NotifyMessage";
 import Footer from "../../pages/home/Footer/Footer";
 import SignHeader from "../home/SignHeader/SignHeader";
 import { setToken } from "../../store/actions";
+import * as constants from "../../constants/Constant";
 
 const SignIn = () => {
   const dispatch = useDispatch();
@@ -44,7 +45,7 @@ const SignIn = () => {
   };
 
   const submitHandler = async (values) => {
-    const url = "http://54.161.113.196:8080/users/login";
+    const url = `${constants.BASE_API_URL}${constants.SIGNIN_ENDPOINT}`;
 
     try {
       const response = await axios.post(url, values, {
@@ -56,22 +57,26 @@ const SignIn = () => {
       console.log("Login successful:", response);
       toast.success("User login successfully!!");
 
-      dispatch(setToken(response.data.jwtToken));
-      console.log("====================================");
-      console.log(dispatch(setToken(response.data.jwtToken)));
-      console.log("====================================");
+      dispatch(setToken(response.data.data.jwtToken));
       setShowSuccessMessage(true);
     } catch (error) {
       console.error("Login failed:", error.response);
-
       if (error.response && error.response.status === 404) {
         toast.error("Your email ID is not registered. Please Sign Up.");
       } else if (error.response && error.response.status === 400) {
-        toast.error("Invalid email or password");
+        toast.error(
+          "User not verified. Please complete the verification or registration process."
+        );
+      } else if (error.response && error.response.status === 423) {
+        toast.error(
+          "Your Account is locked due to invalid attempts.Please reset your password Using the forgetPassword."
+        );
       } else if (error.response && error.response.status === 403) {
         toast.error(
           "Your organization email domain is not registered with us. Please reach out to sales@areteminds.com"
         );
+      } else if (error.response && error.response.status === 401) {
+        toast.error("Invalid username or password");
       } else if (error.response && error.response.status === 403) {
         toast.error(
           "Looks like your account has been closed. Please check with your organizational admin."
@@ -172,15 +177,6 @@ const SignIn = () => {
 
                   <div className="form-content">
                     <GeneralForm {...feedingVariable} />
-
-                    {/* <div className="alreadySignIn">
-                    <p>
-                      Do have an account ?{" "}
-                      <Link className="danger-text" to={"/registerUser"}>
-                        Sign Up
-                      </Link>
-                    </p>
-                  </div> */}
                   </div>
                 </div>
               </div>

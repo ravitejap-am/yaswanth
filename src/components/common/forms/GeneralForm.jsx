@@ -38,7 +38,6 @@ const GeneralForm = (props) => {
       wrapperCol={{ span: 20 }}
       initialValues={{ remember: true }}
       layout="horizontal"
-      
     >
       {grid ? (
         <div style={grid}>
@@ -125,7 +124,24 @@ const GeneralForm = (props) => {
               ),
               switch: <Switch />,
               date: <DatePicker />,
-              description: <TextArea rows={4} />,
+
+              description: (
+                <div>
+                <span>{item.label}</span>
+                  {" "}
+                  <TextArea
+                    rows={4}
+                    labelName={item.labelName ? item.label : null}
+                    type={item.type}
+                    placeholder={item.labelName ? null : item.label}
+                    iconClass={item.iconClass}
+                    onChange={(e) => {
+                      form.setFieldValue({ [item.name]: e.target.value });
+                    }}
+                    style={item.style}
+                  />
+                </div>
+              ),
             };
             return (
               <Form.Item
@@ -330,7 +346,7 @@ const GeneralForm = (props) => {
                           onSelect={(value) => {
                             form.setFieldsValue({ [item.name]: value });
                           }}
-                          style={{ ...item.style, marginLeft: "10px" }}
+                          style={{ ...item.style }}
                           // style={item.style}
                           placeholder={item.labelName ? null : item.label}
                         />
@@ -396,7 +412,6 @@ const GeneralForm = (props) => {
               fontSize={cancelButtonProperty.fontSize}
               // buttonHandler={cancelHandler}
               marginTop={cancelButtonProperty.marginTop}
-
             />
           )}
         </div>

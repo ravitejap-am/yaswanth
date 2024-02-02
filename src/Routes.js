@@ -34,6 +34,7 @@ import EditOrgUserSidebar from "./pages/chatmain/organizationadmin/editorguser/E
 import TermAndCondition from "./pages/Terms&Conditions/TermAndCondition.jsx";
 import AMChatMainUserSidebar from "./pages/chatmain/userChat/AMChatMainUserSidebar.jsx";
 import SearchUIAIChatSidebar from "./pages/AMChatAdmin/SearchUIAMChat.jsx/SearchUIAIChatSidebar.jsx";
+import UserProfile from "./pages/chatmain/UserProfile.jsx";
 // import TermsAndConditions from "./pages/Terms&Conditions/Terms&Conditions.jsx";
 
 const Rout = () => {

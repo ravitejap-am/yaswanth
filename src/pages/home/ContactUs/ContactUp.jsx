@@ -50,7 +50,7 @@ const ContactUp = () => {
       label: "Select Plan",
       type: "select",
       style: {
-        width: "525px",
+        width: "521px",
         height: "50px",
         borderRadius: "40px",
         border: "1px solid var(--Brand-700, #4338CA)",
@@ -58,7 +58,7 @@ const ContactUp = () => {
         // marginBottom: "13px",
         paddingLeft: "10px",
         color: "#FFF",
-        margin: "0px 0px 13px -10px",
+        margin: "0px 5px 20px 1px",
       },
       labelName: true,
       options: [
@@ -70,7 +70,7 @@ const ContactUp = () => {
     },
     {
       name: "comment",
-      label: "Comment", // <-- Add this line
+      label: "Comment",
       type: "description",
       style: {
         width: "525px",

@@ -37,7 +37,7 @@ const Footer = () => {
             </Link>{" "}
             |{" "}
             <Link
-              to="/terms-and-conditions"
+              to="/termsandconditions"
               style={{ color: "#FFF", textDecoration: "underline" }}
             >
               Terms & Conditions
