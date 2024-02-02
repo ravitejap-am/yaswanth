@@ -173,3 +173,8 @@
   font-style: normal;
   font-weight: 1.2rem;
 }
+.imageIcon{
+  height: 30px;
+  width: 87px;
+  margin-left: -8px;
+}

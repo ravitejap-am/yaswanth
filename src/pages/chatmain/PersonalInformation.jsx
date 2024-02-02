@@ -22,7 +22,7 @@ const PersonalInformation = ({ setFileSysytem, validateEmail }) => {
         { required: true, message: "Please input your First Name" },
         { type: "name", message: "Invalid First Name" },
       ],
-      style: { width: "350px", height: "30px", marginLeft: '20px' }
+      style: { width: "400px", height: "40px", marginLeft: '20px' }
     },
     {
       label: "Last Name",
@@ -32,7 +32,7 @@ const PersonalInformation = ({ setFileSysytem, validateEmail }) => {
         { required: true, message: "Please input your Last Name" },
         { type: "name", message: "Invalid Last Name" },
       ],
-      style: { width: "350px", height: "30px", marginLeft: '20px' }
+      style: { width: "400px", height: "40px", marginLeft: '20px' }
     },
     {
       label: "Email",
@@ -42,7 +42,7 @@ const PersonalInformation = ({ setFileSysytem, validateEmail }) => {
         { required: true, message: "Please enter your email" },
         { type: "email", message: "Invalid Email" },
       ],
-      style: { width: "350px", height: "30px", marginLeft: '20px', backgroundColor: "#CBD5E1" }
+      style: { width: "400px", height: "40px", marginLeft: '20px', backgroundColor: "#CBD5E1" }
     },
     {
       label: "Organization Name",
@@ -52,7 +52,7 @@ const PersonalInformation = ({ setFileSysytem, validateEmail }) => {
         { required: true, message: "Please input your Organization Name" },
         { type: "name", message: "Invalid Organization Name" },
       ],
-      style: { width: "350px", height: "30px", backgroundColor:"#CBD5E1",marginLeft: '20px' }
+      style: { width: "400px", height: "40px", backgroundColor:"#CBD5E1",marginLeft: '20px' }
     },
     {
       name: "User Status",
@@ -62,7 +62,7 @@ const PersonalInformation = ({ setFileSysytem, validateEmail }) => {
         { label: "Active", value: "Active" },
         { label: "Inactive", value: "Inactive" },
       ],
-      style: { width: "375px", height: "40px", marginLeft: '20px', borderRadius: "20px",paddingLeft:"10px",cursor:"pointer",marginTop:"8px" },
+      style: { width: "422px", height: "50px", marginLeft: '20px', borderRadius: "30px",paddingLeft:"10px",cursor:"pointer",marginTop:"8px" },
       labelName: false,
       rules: [{ required: true, message: "Please select Country" }],
     },

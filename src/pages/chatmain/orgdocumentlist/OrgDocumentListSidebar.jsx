@@ -1,5 +1,5 @@
 import React from "react";
-import Logo from "../../../asset/Vector.png";
+import Logo from "../../../asset/logo.png";
 import Styles from "./OrgDocumentListSidebar.module.css";
 import GeneralButton from "../../../components/common/buttons/GeneralButton";
 import frame from "../../../asset/Frame 1.png";
@@ -20,9 +20,9 @@ function OrgDocumentListSidebar() {
         <div className={Styles.AMChatSidebar}>
           <div className={Styles.AMChatSuperAdminSidebar}>
             <div className={Styles.appLogo}>
-              <span className={Styles.amChatTitle}>AM-Chat</span>
+              {/* <span className={Styles.amChatTitle}>AM-Chat</span> */}
               <span className={Styles.appName}>
-                <img src={Logo} alt="zzzz" />
+                <img className={Styles.logoIcon} src={Logo} alt="zzzz" />
               </span>
             </div>
           </div>
@@ -69,7 +69,7 @@ function OrgDocumentListSidebar() {
                   style={{ textDecoration: "none" }}
                 >
                 <p className={Styles.organizationTextStyle}>
-                  Document
+                  Documents
                 </p>
                 </Link>
               </span>

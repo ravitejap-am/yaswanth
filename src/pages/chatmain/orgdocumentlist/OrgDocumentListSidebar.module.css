@@ -111,6 +111,9 @@
     font-weight: 700;
     line-height: 24px;
     color: var(--White, #fff);
+    position: relative;
+    left: 2px;
+    top: 3px;
   }
   .amChatTitle {
     color: var(--White, #fff);
@@ -127,7 +130,13 @@
     stroke: #53a5df;
     margin-top: -20px !important;
   }
-  
+  .logoIcon{
+    height: 30px;
+    width: 87px;
+    margin-left: -4px;
+    margin-top: -3px;
+
+  }
   .AMChatFooterStyle {
     display: flex;
     justify-content: center;

@@ -1,14 +1,12 @@
 import React from "react";
-import Logo from "../../../../asset/Vector.png";
-// import 
-import Styles from "../../../AMChatAdmin/AMChatBackgound/AMChat.module.css";
+import Logo from "../../../../asset/logo.png";
+import Styles from "./OrgUpdateDocument.module.css";
 import GeneralButton from "../../../../components/common/buttons/GeneralButton";
 import frame from "../../../../asset/Frame 1.png";
 import organizationimage from "../../../../asset/AmChatSuperAdmin/Frame 2301.png";
 import userImage from "../../../../asset/AmChatSuperAdmin/users.png";
 import { Link } from "react-router-dom";
 import arrorLink from "../../../../asset/AmChatSuperAdmin/arrow-left.png";
-// import OrganizationAdminListSidebar from "../OrganizationAdminList/OrganizationAdminListSidebar";
 import OrgAddDocument from '../../../chatmain/orgadddocument/OrgAddDocument'
 import usersicon from '../../../../asset/users.png'
 import documenticon from '../../../../asset/document1.png'
@@ -20,16 +18,16 @@ function OrgUpdateDocumentSidebar() {
         <div className={Styles.AMChatSidebar}>
           <div className={Styles.AMChatSuperAdminSidebar}>
             <div className={Styles.appLogo}>
-              <span className={Styles.amChatTitle}>AM-Chat</span>
+              {/* <span className={Styles.amChatTitle}>AM-Chat</span> */}
               <span className={Styles.appName}>
-                <img src={Logo} alt="" />
+                <img className={Styles.icon} src={Logo} alt="" />
               </span>
             </div>
           </div>
 
           <div className={Styles.bannerBtn}>
             <div className={Styles.bannerButton}>
-              <GeneralButton
+              {/* <GeneralButton
                 name={"Start New Chat"}
                 type={"submit"}
                 color={"#f8fafc"}
@@ -38,7 +36,7 @@ function OrgUpdateDocumentSidebar() {
                 icons={frame}
                 width={"140px"}
                 height={"45px"}
-              />
+              /> */}
             </div>
           </div>
 

@@ -1,7 +1,7 @@
 import React from "react";
-import Logo from "../../../../asset/Vector.png";
+import Logo from "../../../../asset/logo.png";
 // import 
-import Styles from "../../../AMChatAdmin/AMChatBackgound/AMChat.module.css";
+import Styles from "./EditOrgUserSidebar.module.css";
 import GeneralButton from "../../../../components/common/buttons/GeneralButton";
 import frame from "../../../../asset/Frame 1.png";
 import organizationimage from "../../../../asset/AmChatSuperAdmin/Frame 2301.png";
@@ -22,16 +22,16 @@ function EditOrgUserSidebar() {
         <div className={Styles.AMChatSidebar}>
           <div className={Styles.AMChatSuperAdminSidebar}>
             <div className={Styles.appLogo}>
-              <span className={Styles.amChatTitle}>AM-Chat</span>
+              {/* <span className={Styles.amChatTitle}>AM-Chat</span> */}
               <span className={Styles.appName}>
-                <img src={Logo} alt="" />
+                <img className={Styles.logoicon} src={Logo} alt="" />
               </span>
             </div>
           </div>
 
           <div className={Styles.bannerBtn}>
             <div className={Styles.bannerButton}>
-              <GeneralButton
+              {/* <GeneralButton
                 name={"Start New Chat"}
                 type={"submit"}
                 color={"#f8fafc"}
@@ -40,7 +40,7 @@ function EditOrgUserSidebar() {
                 icons={frame}
                 width={"140px"}
                 height={"45px"}
-              />
+              /> */}
             </div>
           </div>
 

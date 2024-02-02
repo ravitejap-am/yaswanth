@@ -6,7 +6,7 @@ import GeneralButton from '../../../components/common/buttons/GeneralButton';
 import frame1 from '../../../asset/Frame 1.png'
 import threedot from '../../../asset/threedot.png'
 import base from '../../../asset/Base.png'
-import vector1 from '../../../asset/VectorAmchat(1).png'
+import vector1 from '../../../asset/logo.png'
 
 const AmchatMainUser = () => {
   const [chat, setChat] = useState('');
@@ -28,7 +28,10 @@ const AmchatMainUser = () => {
   return (
     <div className='amchat-main'>
       <div className='sidebar-amchat'>
-        <h2>AM-Chat <img className='amchat-vector-img-sidebar' src={vector1} alt="" /></h2>
+        <div className='image-container'>
+        <img className='amchat-vector-img-sidebar' src={vector1} alt="" />
+
+        </div>
         <div className='startchat-button'>
           <GeneralButton
             name="Start New Chat"
