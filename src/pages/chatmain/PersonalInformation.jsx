@@ -62,7 +62,7 @@ const PersonalInformation = ({ setFileSysytem, validateEmail }) => {
         { label: "Active", value: "Active" },
         { label: "Inactive", value: "Inactive" },
       ],
-      style: { width: "422px", height: "50px", marginLeft: '20px', borderRadius: "30px",paddingLeft:"10px",cursor:"pointer",marginTop:"8px" },
+      style: { width: "423px", height: "50px", marginLeft: '20px', borderRadius: "30px",paddingLeft:"10px",cursor:"pointer",marginTop:"8px" },
       labelName: false,
       rules: [{ required: true, message: "Please select Country" }],
     },
