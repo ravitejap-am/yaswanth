@@ -38,12 +38,17 @@ function AddOrganizationAdminSidebar() {
             <div className={Styles.SuperAdminChildContainer}>
               <span>
                 <img src={arrorLink} alt="" />
-                <Link to="/dashboardadmin/organizationlist" style={{ textDecoration: "none" }}>
-                  <p className={Styles.organizationTextStyle}>Back to Chat</p>{" "}
+                <Link
+                  to="/dashboardadmin/organizationlist"
+                  style={{ textDecoration: "none" }}
+                >
+                  <p className={Styles.organizationTextStyle}>
+                    Organization List
+                  </p>{" "}
                 </Link>
               </span>
 
-              <span>
+              {/* <span>
                 <img src={organizationimage} alt="" />
                 <Link
                   to="/dashboardadmin/organizationlist"
@@ -51,7 +56,7 @@ function AddOrganizationAdminSidebar() {
                 >
                   <p className={Styles.organizationTextStyle}>Organizations</p>
                 </Link>
-              </span>
+              </span> */}
             </div>
             <br />
 

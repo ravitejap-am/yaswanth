@@ -39,7 +39,7 @@ function OrganizationSidebar() {
                 </Link>
               </span>
 
-              <span>
+              {/* <span>
                 <img src={organizationimage} alt="" />
                 <Link
                   to="/dashboardadmin/organizationlist"
@@ -47,7 +47,7 @@ function OrganizationSidebar() {
                 >
                   <p className={Styles.organizationTextStyle}>Organizations</p>
                 </Link>
-              </span>
+              </span> */}
             </div>
             <br />
             {/* <div className={Styles.SuperAdminChildContainer}>

@@ -1,5 +1,11 @@
-import React, { useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import {
+  Routes,
+  Route,
+  useLocation,
+  useNavigationType,
+  Outlet,
+} from "react-router-dom";
 import LoginPageError from "./pages/errorHandler/LoginPageError";
 import Home from "./pages/home/Home";
 import RegisterUser from "./pages/registerUser/RegisterUser";
@@ -38,74 +44,87 @@ import EditOrgUser from "./pages/chatmain/organizationadmin/editorguser/EditOrgU
 import EditOrgUserSidebar from "./pages/chatmain/organizationadmin/editorguser/EditOrgUserSidebar.jsx";
 
 const Rout = () => {
+  const ScrollToTop = () => {
+    const location = useLocation();
+    const navigationType = useNavigationType();
+    useEffect(() => {
+      if (navigationType === "PUSH") {
+        window.scrollTo(0, 0);
+      }
+    }, [location, navigationType]);
+    return <Outlet />;
+  };
   return (
     <Routes>
-      <Route path="/" element={<Home />} errorElement={<LoginPageError />} />
-      <Route
-        path="/registerUser"
-        element={<RegisterUser />}
-        errorElement={<LoginPageError />}
-      />
-      <Route
-        path="/signin"
-        element={<SignIn />}
-        errorElement={<LoginPageError />}
-      />
-      <Route
-        path="/recoverypassword"
-        element={<RecoveryPasswor />}
-        errorElement={<LoginPageError />}
-      />
-      <Route
-        path="/pagenotfound"
-        element={<PageNotFound />}
-        errorElement={<LoginPageError />}
-      />
-      <Route
-        path="/internal500"
-        element={<Page505 />}
-        errorElement={<LoginPageError />}
-      />
-      <Route
-        path="/undermaintenence"
-        element={<MaintainencePage />}
-        errorElement={<LoginPageError />}
-      />
-      <Route path="/userchat" element={<AmchatMainUser />} />
-      <Route path="/dashboardadmin" element={<AMChatAdminHome />} />
-      <Route
-        path="/dashboardadmin/organizationlist"
-        element={<OrganizationSidebar />}
-      />
-      <Route
-        path="/dashboardadmin/organizationadminlist"
-        element={<OrganizationAdminListSidebar />}
-      />
-      <Route
-        path="/dashboardadmin/addorganizationadmin"
-        element={<AddOrganizationAdminSidebar />}
-      />
-      <Route
-        path="/EditAddOrganizationAdmin"
-        element={<EditAddOrganizationAdminSidebar />}
-      />
-      <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
-      <Route path="/chat" element={<SearchUIAIChatSidebar />} />
-      <Route path="/ResetPassword" element={<ResetPassword />} />
-      <Route path="/UserProfile" element={<UserProfile />} />
-      <Route path="/PersonalInformation" element={<PersonalInformation />} />
+      <Route element={<ScrollToTop />}>
+        <Route path="/" element={<Home />} errorElement={<LoginPageError />} />
+        <Route
+          path="/registerUser"
+          element={<RegisterUser />}
+          errorElement={<LoginPageError />}
+        />
+        <Route
+          path="/signin"
+          element={<SignIn />}
+          errorElement={<LoginPageError />}
+        />
+        <Route
+          path="/recoverypassword"
+          element={<RecoveryPasswor />}
+          errorElement={<LoginPageError />}
+        />
+        <Route
+          path="/pagenotfound"
+          element={<PageNotFound />}
+          errorElement={<LoginPageError />}
+        />
+        <Route
+          path="/internal500"
+          element={<Page505 />}
+          errorElement={<LoginPageError />}
+        />
+        <Route
+          path="/undermaintenence"
+          element={<MaintainencePage />}
+          errorElement={<LoginPageError />}
+        />
+        <Route path="/userchat" element={<AmchatMainUser />} />
+        <Route path="/dashboardadmin" element={<AMChatAdminHome />} />
+        <Route
+          path="/dashboardadmin/organizationlist"
+          element={<OrganizationSidebar />}
+        />
+        <Route
+          path="/dashboardadmin/organizationadminlist"
+          element={<OrganizationAdminListSidebar />}
+        />
+        <Route
+          path="/dashboardadmin/addorganizationadmin"
+          element={<AddOrganizationAdminSidebar />}
+        />
+        <Route
+          path="/EditAddOrganizationAdmin"
+          element={<EditAddOrganizationAdminSidebar />}
+        />
+        <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
 
-      <Route path="/adduser" element={<OrgAdminSidebar />} />
-      <Route path="/orgdocumentList" element={<OrgUserListSidebar />} />
-      <Route path="/orguserlist" element={<OrgDocumentListSidebar />} />
-      <Route path="/orgadddocument" element={<OrgAddDocumentSidebar />} />
-      <Route path="/orgadminchat" element={<OrgAdminChatSidebar />} />
-      <Route path="/enterpriseregister" element={<EnterpriseRegister />} />
-      <Route path="/error405" element={<Error405 />} />
-      <Route path="/error404" element={<Error404 />} />
-      <Route path="/updatedocument" element={<OrgUpdateDocumentSidebar />} />
-      <Route path="/editdocument" element={<OrgEditDocumentSidebar />} />
-      <Route path="/edituser" element={<EditOrgUserSidebar />} />
+        <Route path="/chat" element={<SearchUIAIChatSidebar />} />
+        <Route path="/ResetPassword" element={<ResetPassword />} />
+        <Route path="/UserProfile" element={<UserProfile />} />
+        <Route path="/PersonalInformation" element={<PersonalInformation />} />
+
+        <Route path="/adduser" element={<OrgAdminSidebar />} />
+        <Route path="/orgdocumentList" element={<OrgUserListSidebar />} />
+        <Route path="/orguserlist" element={<OrgDocumentListSidebar />} />
+        <Route path="/orgadddocument" element={<OrgAddDocumentSidebar />} />
+        <Route path="/orgadminchat" element={<OrgAdminChatSidebar />} />
+        <Route path="/enterpriseregister" element={<EnterpriseRegister />} />
+        <Route path="/error405" element={<Error405 />} />
+        <Route path="/error404" element={<Error404 />} />
+        <Route path="/updatedocument" element={<OrgUpdateDocumentSidebar />} />
+        <Route path="/editdocument" element={<OrgEditDocumentSidebar />} />
+        <Route path="/edituser" element={<EditOrgUserSidebar />} />
+      </Route>
     </Routes>
   );
 };

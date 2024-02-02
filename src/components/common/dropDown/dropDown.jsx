@@ -24,7 +24,7 @@ function Dropdown({ options, onSelect, style, placeholder }) {
   return (
     <div >
       <select
-        id="select"
+        // id="select"
         value={selectedOption ? selectedOption.value : ""}
         onChange={(e) => {
           const selectedValue = e.target.value;

@@ -6,8 +6,9 @@ import Input from "../input/Input";
 import Dropdown from ".././dropDown/dropDown";
 import { LockFilled } from "@ant-design/icons";
 import { Link } from "react-router-dom";
+import TextArea from "antd/es/input/TextArea";
 
-const { TextArea } = Input;
+// const { TextArea } = Input;
 
 const GeneralForm = (props) => {
   const {
@@ -52,7 +53,7 @@ const GeneralForm = (props) => {
                     form.setFieldValue({ [item.name]: e.target.value });
                   }}
                   style={item.style}
-                // required={item.required}
+                  // required={item.required}
                 />
               ),
               text: (
@@ -204,7 +205,7 @@ const GeneralForm = (props) => {
                     form.setFieldValue({ [item.name]: e.target.value });
                   }}
                   style={item.style}
-                // required={item.required}
+                  // required={item.required}
                 />
               ),
               text: (
@@ -275,7 +276,19 @@ const GeneralForm = (props) => {
               ),
               switch: <Switch />,
               date: <DatePicker />,
-              description: <TextArea rows={4} />,
+              description: (
+                <TextArea
+                  rows={4}
+                  labelName={item.labelName ? item.label : null}
+                  type={item.type}
+                  placeholder={item.labelName ? null : item.label}
+                  iconClass={item.iconClass}
+                  onChange={(e) => {
+                    form.setFieldValue({ [item.name]: e.target.value });
+                  }}
+                  style={item.style}
+                />
+              ),
             };
             return (
               <Form.Item
@@ -340,7 +353,7 @@ const GeneralForm = (props) => {
           })}
         </div>
       )}
-      
+
       <Form.Item noStyle wrapperCol={{ offset: 6, span: 18 }}>
         <div
           className="center"
@@ -380,7 +393,7 @@ const GeneralForm = (props) => {
               boxShadow={cancelButtonProperty.boxShadow}
               borderRadius={cancelButtonProperty.borderRadius}
               fontSize={cancelButtonProperty.fontSize}
-            // buttonHandler={cancelHandler}
+              // buttonHandler={cancelHandler}
             />
           )}
         </div>
