@@ -123,7 +123,9 @@ function OrgAddDocument() {
         </div>
 
         <div className={Styles.addOrganizationAdminSecondDiv}>
-          <Document {...documentProps} />
+          <div style={{marginLeft:"20px"}}> 
+            <Document {...documentProps} />
+            </div>
           <GeneralForm {...feedingVariable} />
           <div></div>
         </div>

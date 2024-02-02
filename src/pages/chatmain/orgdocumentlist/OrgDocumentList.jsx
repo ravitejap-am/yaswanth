@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Styles from "./OrgDocument.module.css";
 import profile from "../../../asset/AmChatSuperAdmin/profile.png";
 import GeneralButton from "../../../components/common/buttons/GeneralButton";
@@ -20,18 +20,11 @@ import deleteIcon from "../../../asset/AmChatSuperAdmin/Frame 2302.png";
 import { Link } from "react-router-dom";
 import Search from "../../../components/common/search/Search";
 import SerchImages from "../../../asset/AmChatSuperAdmin/Group2305.png";
-import Serach from '../../../components/common/search/Search'
+import { Pagination } from "antd";
+
 
 function OrgDocumentList() {
-  const searchStyles = {
-    width: "300px",
-    height: "45px",
-    borderRadius: "42px",
-    fontFamily: "Inter, sans-serif",
-    backgroundColor: "#EEF2FF",
-    display: "flex",
-    alignItems: "center",
-  };
+  const [selectedStatus, setSelectedStatus] = useState("All");
   const rows = [
     {
       id: 1,
@@ -94,9 +87,25 @@ function OrgDocumentList() {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
+  const itemRender = (_, type, originalElement) => {
+    if (type === "prev") {
+      return <a>Previous</a>;
+    }
+    if (type === "next") {
+      return <a>Next</a>;
+    }
+    return originalElement;
+  };
 
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
+
+    const handleStatusChange = (event, userId) => {
+      const updatedRows = rows.map((row) =>
+        row.id === userId ? { ...row, status: event.target.value } : row
+      );
+
+    };
 
   return (
     <div className={Styles.superAdminMainCardDivStyle}>
@@ -120,17 +129,22 @@ function OrgDocumentList() {
           <div className={Styles.OrganizationListFilterSerchBox}>
             <Search
               name={"Search name here."}
-              styles={searchStyles}
+              styles={{
+                width: "300px",
+                height: "45px",
+                borderRadius: "42px",
+                fontFamily: "Inter, sans-serif",
+                backgroundColor: "#EEF2FF",
+                display: "flex",
+                alignItems: "center",
+              }}
               searchImage={SerchImages}
               imageHeight={"46px"}
               imageMarginLeft={2}
             />
           </div>
           <div className={Styles.bannerButton}>
-            <Link
-              to="/adduser"
-              style={{ textDecoration: "none" }}
-            >
+            <Link to="/adduser" style={{ textDecoration: "none" }}>
               <GeneralButton
                 name={"Add User"}
                 type={"submit"}
@@ -241,6 +255,9 @@ function OrgDocumentList() {
                 </TableHead>
                 <TableBody>
                   {rows
+                    .filter((row) =>
+                      selectedStatus === "All" ? true : row.status === selectedStatus
+                    )
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row) => (
                       <TableRow key={row.id}>
@@ -255,14 +272,24 @@ function OrgDocumentList() {
                         <TableCell>{row.email}</TableCell>
                         <TableCell>{row.lastChat}</TableCell>
                         <TableCell>{row.totalChat}</TableCell>
-                        <TableCell>{row.status}</TableCell>
                         <TableCell>
-                          <IconButton aria-label="edit">
-                            <Link to="/edituser">
-                            <img src={editIcon} alt="Edit" />
+                          <select
+                            value={row.status}
+                            onChange={(e) => handleStatusChange(e, row.id)}
+                            style={{ width: "100px", height: "40px", textAlignLast: "center", textIndent: "0.01px",cursor:"pointer" }}
+                          >
+                            <option value="Active">Active</option>
+                            <option value="Inactive">Inactive</option>
+                          </select>
+                        </TableCell>
 
-                            </Link>
-                          </IconButton>
+
+                        <TableCell>
+                          <Link to="/edituser">
+                            <IconButton aria-label="edit">
+                              <img src={editIcon} alt="Edit" />
+                            </IconButton>
+                          </Link>
                           <IconButton aria-label="delete">
                             <img src={deleteIcon} alt="Delete" />
                           </IconButton>
@@ -277,15 +304,24 @@ function OrgDocumentList() {
                 </TableBody>
               </Table>
             </TableContainer>
-            <TablePagination
-              rowsPerPageOptions={[5, 10, 25]}
-              component="div"
-              count={rows.length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
-            />
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "flex-end",
+                alignItems: "center",
+                marginTop: "16px",
+                gap: "20px",
+              }}
+            >
+              <div>Total {rows.length} items</div>
+              <Pagination
+                total={rows.length}
+                itemRender={itemRender}
+                pageSize={rowsPerPage}
+                current={page}
+                onChange={(newPage) => setPage(newPage)}
+              />
+            </div>
           </Paper>
         </div>
       </div>

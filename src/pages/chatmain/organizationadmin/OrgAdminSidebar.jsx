@@ -1,7 +1,7 @@
 import React from "react";
-import Logo from "../../../asset/Vector.png";
+import Logo from "../../../asset/logo.png";
 // import 
-import Styles from "../../AMChatAdmin/AMChatBackgound/AMChat.module.css";
+import Styles from "./OrgAddUserSidebar.module.css";
 import GeneralButton from "../../../components/common/buttons/GeneralButton";
 import frame from "../../../asset/Frame 1.png";
 import organizationimage from "../../../asset/AmChatSuperAdmin/Frame 2301.png";
@@ -21,14 +21,14 @@ function OrgAdminSidebar() {
         <div className={Styles.AMChatSidebar}>
           <div className={Styles.AMChatSuperAdminSidebar}>
             <div className={Styles.appLogo}>
-              <span className={Styles.amChatTitle}>AM-Chat</span>
+              {/* <span className={Styles.amChatTitle}>AM-Chat</span> */}
               <span className={Styles.appName}>
-                <img src={Logo} alt="" />
+                <img className={Styles.logoicon} src={Logo} alt="" />
               </span>
             </div>
           </div>
 
-          <div className={Styles.bannerBtn}>
+          {/* <div className={Styles.bannerBtn}>
             <div className={Styles.bannerButton}>
               <GeneralButton
                 name={"Start New Chat"}
@@ -41,13 +41,13 @@ function OrgAdminSidebar() {
                 height={"45px"}
               />
             </div>
-          </div>
+          </div> */}
 
           <div className={Styles.container}>
             <div className={Styles.SuperAdminChildContainer}>
               <span>
                 <img src={arrorLink} alt="" />
-                <Link to="/dashboardadmin" style={{ textDecoration: "none" }}>
+                <Link to="/userchat" style={{ textDecoration: "none" }}>
                   <p className={Styles.organizationTextStyle}>Back to Chat</p>{" "}
                 </Link>
               </span>
@@ -55,8 +55,8 @@ function OrgAdminSidebar() {
               <span>
                 <img src={usersicon} alt="" />
                 <Link
-                  to="/dashboardadmin/organizationlist"
-                  style={{ textDecoration: "none" }}
+                  to="/orguserlist"
+                  style={{ textDecoration: "none",}}
                 >
                   <p className={Styles.organizationTextStyle}>Users</p>
                 </Link>
@@ -66,9 +66,12 @@ function OrgAdminSidebar() {
             <div className={Styles.SuperAdminChildContainer}>
               <span>
                 <img src={documenticon} alt="" />
+                <Link to="/orgdocumentlist" style={{ textDecoration: "none",}} >
+
                 <p className={Styles.organizationTextStyle}>
                   Documents
                 </p>
+                </Link>
               </span>
             </div>
           </div>

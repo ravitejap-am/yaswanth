@@ -1,7 +1,7 @@
 import React from "react";
-import Logo from "../../../asset/Vector.png";
+import Logo from "../../../asset/logo.png";
 // import 
-import Styles from "../../AMChatAdmin/AMChatBackgound/AMChat.module.css";
+import Styles from "./OrgAddDocumentSidebar.module.css";
 import GeneralButton from "../../../components/common/buttons/GeneralButton";
 import frame from "../../../asset/Frame 1.png";
 import organizationimage from "../../../asset/AmChatSuperAdmin/Frame 2301.png";
@@ -19,15 +19,15 @@ function OrgAddDocumentSidebar() {
         <div className={Styles.AMChatSidebar}>
           <div className={Styles.AMChatSuperAdminSidebar}>
             <div className={Styles.appLogo}>
-              <span className={Styles.amChatTitle}>AM-Chat</span>
+              {/* <span className={Styles.amChatTitle}>AM-Chat</span> */}
               <span className={Styles.appName}>
-                <img src={Logo} alt="" />
+                <img className={Styles.logoicon}  src={Logo} alt="" />
               </span>
             </div>
           </div>
 
           <div className={Styles.bannerBtn}>
-            <div className={Styles.bannerButton}>
+            {/* <div className={Styles.bannerButton}>
               <GeneralButton
                 name={"Start New Chat"}
                 type={"submit"}
@@ -38,7 +38,7 @@ function OrgAddDocumentSidebar() {
                 width={"140px"}
                 height={"45px"}
               />
-            </div>
+            </div> */}
           </div>
 
           <div className={Styles.container}>
@@ -53,7 +53,7 @@ function OrgAddDocumentSidebar() {
               <span>
                 <img src={usersicon} alt="" />
                 <Link
-                  to="/or"
+                  to="/orguserlist"
                   style={{ textDecoration: "none" }}
                 >
                   <p className={Styles.organizationTextStyle}>Users</p>
@@ -64,10 +64,14 @@ function OrgAddDocumentSidebar() {
             <div className={Styles.SuperAdminChildContainer}>
               <span>
                 <img src={documenticon} alt="" />
+                <Link to="/orgdocumentlist" 
+                  style={{ textDecoration: "none" }}>
                 <p className={Styles.organizationTextStyle}>
                   Documents
                 </p>
+                </Link>
               </span>
+            
             </div>
           </div>
         </div>

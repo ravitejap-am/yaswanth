@@ -23,7 +23,7 @@ import Search from "../../../components/common/search/Search";
 import SerchImages from "../../../asset/AmChatSuperAdmin/Group2305.png";
 import { Margin } from "@mui/icons-material";
 import upload from '../../../asset/uploadlatesticon.png'
-
+import { Pagination } from "antd";
 function OrgUserList() {
   const searchStyles = {
     width: "300px",
@@ -33,6 +33,15 @@ function OrgUserList() {
     backgroundColor: "#EEF2FF",
     display: "flex",
     alignItems: "center",
+  };
+  const itemRender = (_, type, originalElement) => {
+    if (type === "prev") {
+      return <a>Previous</a>;
+    }
+    if (type === "next") {
+      return <a>Next</a>;
+    }
+    return originalElement;
   };
 
   const rows = [
@@ -121,7 +130,7 @@ function OrgUserList() {
           </div>
           <div className={Styles.bannerButton}>
             <Link
-              to="/addorgdocument"
+              to="/orgadddocument"
               style={{ textDecoration: "none" }}
             >
               <GeneralButton
@@ -199,16 +208,21 @@ function OrgUserList() {
                         <TableCell>{row.version}</TableCell>
                         <TableCell>{row.status}</TableCell>
                         <TableCell>
-                          <IconButton aria-label="edit">
-                            <Link to="/editdocument">
-                            <img src={editIcon} alt="Edit" />
-                            </Link>
-                          </IconButton>
-                          <IconButton aria-label="Upload">
-                            <Link to="/updatedocument">
+                          <Link to="/editdocument">
+
+                            <IconButton aria-label="edit">
+
+                              <img src={editIcon} alt="Edit" />
+
+                            </IconButton>
+                          </Link>
+                          <Link to="/updatedocument">
+
+                            <IconButton aria-label="Upload">
                               <img className={Styles.uploadicon} src={upload} alt="Uploaddocument" />
-                            </Link>
-                          </IconButton>
+                            </IconButton>
+                          </Link>
+
                           <IconButton aria-label="delete">
                             <img src={deleteIcon} alt="Delete" />
                           </IconButton>
@@ -223,15 +237,24 @@ function OrgUserList() {
                 </TableBody>
               </Table>
             </TableContainer>
-            <TablePagination
-              rowsPerPageOptions={[5, 10, 25]}
-              component="div"
-              count={rows.length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
-            />
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "flex-end",
+                alignItems: "center",
+                marginTop: "16px",
+                gap: "20px",
+              }}
+            >
+              <div>Total {rows.length} items</div>
+              <Pagination
+                total={rows.length}
+                itemRender={itemRender}
+                pageSize={rowsPerPage}
+                current={page}
+                onChange={(newPage) => setPage(newPage)}
+              />
+            </div>
           </Paper>
         </div>
       </div>

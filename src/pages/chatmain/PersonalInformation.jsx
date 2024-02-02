@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import './UserProfile.css';
 import GeneralForm from "../../components/common/forms/GeneralForm";
 import editprofilepic from '../../asset/editprofilepic.png';
-import baseprofile from '../../asset/base64.png'
+import Dropdown from '../../components/common/forms/GeneralForm';
 
 const PersonalInformation = ({ setFileSysytem, validateEmail }) => {
-
-  const [orgName, setOrgName] = useState('')
+  const [orgName, setOrgName] = useState('');
+  const [userStatus, setUserStatus] = useState('active');
 
   const userStatusOptions = [
     { value: "active", label: "Active User" },
@@ -15,24 +15,56 @@ const PersonalInformation = ({ setFileSysytem, validateEmail }) => {
 
   const formElements = [
     {
-      label: "Full Name",
+      label: "First Name",
       type: "text",
-      name: "name",
+      name: "firstName",
       rules: [
-        { required: true, message: "Please input your Full Name" },
-        { type: "name", message: "Invalid user Name" },
+        { required: true, message: "Please input your First Name" },
+        { type: "name", message: "Invalid First Name" },
       ],
-      style: { width: "350px", height: "30px", marginLeft: '20px' }
+      style: { width: "400px", height: "40px", marginLeft: '20px' }
+    },
+    {
+      label: "Last Name",
+      type: "text",
+      name: "lastName",
+      rules: [
+        { required: true, message: "Please input your Last Name" },
+        { type: "name", message: "Invalid Last Name" },
+      ],
+      style: { width: "400px", height: "40px", marginLeft: '20px' }
     },
     {
       label: "Email",
       type: "email",
       name: "email",
       rules: [
-        { required: true, message: "Please input your Enter your email" },
-        { type: "name", message: "Invalid Email" },
+        { required: true, message: "Please enter your email" },
+        { type: "email", message: "Invalid Email" },
       ],
-      style: { width: "350px", height: "30px", marginLeft: '20px', backgroundColor: "#CBD5E1" }
+      style: { width: "400px", height: "40px", marginLeft: '20px', backgroundColor: "#CBD5E1" }
+    },
+    {
+      label: "Organization Name",
+      type: "text",
+      name: "orgName",
+      rules: [
+        { required: true, message: "Please input your Organization Name" },
+        { type: "name", message: "Invalid Organization Name" },
+      ],
+      style: { width: "400px", height: "40px", backgroundColor:"#CBD5E1",marginLeft: '20px' }
+    },
+    {
+      name: "User Status",
+      label: "Status",
+      type: "select",
+      options: [
+        { label: "Active", value: "Active" },
+        { label: "Inactive", value: "Inactive" },
+      ],
+      style: { width: "422px", height: "50px", marginLeft: '20px', borderRadius: "30px",paddingLeft:"10px",cursor:"pointer",marginTop:"8px" },
+      labelName: false,
+      rules: [{ required: true, message: "Please select Country" }],
     },
   ];
 
@@ -42,9 +74,10 @@ const PersonalInformation = ({ setFileSysytem, validateEmail }) => {
     backgroundColor: "#6366F1",
     type: "primary",
     width: "150px",
-    height: "45px",
+    height: "50px",
     borderRadius: "34px",
-    marginLeft:"19px",
+    marginLeft: "19px",
+    marginTop:"1.5rem"
   };
 
   const feedingVariable = {
@@ -61,6 +94,7 @@ const PersonalInformation = ({ setFileSysytem, validateEmail }) => {
     formType: "normal",
     validateEmail: validateEmail,
     setFileSysytem: setFileSysytem,
+    grid: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }
   };
 
   return (
@@ -73,28 +107,11 @@ const PersonalInformation = ({ setFileSysytem, validateEmail }) => {
           <h2>Clayton Santos</h2>
           <div className='personalinfo-user-Status'>
             <p>Active User</p>
+
           </div>
         </div>
       </div>
-      <div className='personalinput-allfields'>
-        <div className='prsnolinfo-fields'>
-          <GeneralForm {...feedingVariable} />
-        </div>
-        <div className='prsnolinfo-inputdields'>
-          <input type="text"
-            placeholder='Organization name'
-            value={orgName}
-            onChange={(e) => setOrgName(e.target.value)}
-          />
-          <select className='active-dropdown-input'>
-            {userStatusOptions.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
-        </div>
-      </div>
+      <GeneralForm {...feedingVariable} />
     </div>
   );
 }

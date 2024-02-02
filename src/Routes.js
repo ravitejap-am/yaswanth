@@ -42,6 +42,8 @@ import OrgUpdateDocumentSidebar from "./pages/chatmain/orgadddocument/orgUpdateD
 import OrgEditDocumentSidebar from "./pages/chatmain/orgadddocument/orgEditDocument/OrgEditDocumentSidebar.jsx";
 import EditOrgUser from "./pages/chatmain/organizationadmin/editorguser/EditOrgUser.jsx";
 import EditOrgUserSidebar from "./pages/chatmain/organizationadmin/editorguser/EditOrgUserSidebar.jsx";
+import TermAndCondition from "./pages/Terms&Conditions/TermAndCondition.jsx";
+// import TermsAndConditions from "./pages/Terms&Conditions/Terms&Conditions.jsx";
 
 const Rout = () => {
   const ScrollToTop = () => {
@@ -108,10 +110,18 @@ const Rout = () => {
         />
         <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
 
-        <Route path="/chat" element={<SearchUIAIChatSidebar />} />
-        <Route path="/ResetPassword" element={<ResetPassword />} />
-        <Route path="/UserProfile" element={<UserProfile />} />
-        <Route path="/PersonalInformation" element={<PersonalInformation />} />
+        <Route path="/adduser" element={<OrgAdminSidebar />} />
+        <Route path="/orgdocumentList" element={<OrgUserListSidebar />} />
+        <Route path="/orguserlist" element={<OrgDocumentListSidebar />} />
+        <Route path="/orgadddocument" element={<OrgAddDocumentSidebar />} />
+        <Route path="/orgadminchat" element={<OrgAdminChatSidebar />} />
+        <Route path="/enterpriseregister" element={<EnterpriseRegister />} />
+        <Route path="/error405" element={<Error405 />} />
+        <Route path="/error404" element={<Error404 />} />
+        <Route path="/updatedocument" element={<OrgUpdateDocumentSidebar />} />
+        <Route path="/editdocument" element={<OrgEditDocumentSidebar />} />
+        <Route path="/edituser" element={<EditOrgUserSidebar />} />
+        <Route path="termsandconditions" element={<TermAndCondition />} />
 
         <Route path="/adduser" element={<OrgAdminSidebar />} />
         <Route path="/orgdocumentList" element={<OrgUserListSidebar />} />

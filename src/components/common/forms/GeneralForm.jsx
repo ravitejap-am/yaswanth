@@ -25,7 +25,7 @@ const GeneralForm = (props) => {
     setFileSysytem,
     grid,
   } = props;
-
+  console.log(grid);
   const [form] = Form.useForm();
 
   return (
@@ -38,6 +38,7 @@ const GeneralForm = (props) => {
       wrapperCol={{ span: 20 }}
       initialValues={{ remember: true }}
       layout="horizontal"
+      
     >
       {grid ? (
         <div style={grid}>
@@ -394,6 +395,8 @@ const GeneralForm = (props) => {
               borderRadius={cancelButtonProperty.borderRadius}
               fontSize={cancelButtonProperty.fontSize}
               // buttonHandler={cancelHandler}
+              marginTop={cancelButtonProperty.marginTop}
+
             />
           )}
         </div>
@@ -410,7 +413,7 @@ const GeneralForm = (props) => {
           >
             <p>
               <span>{/* <LockFilled /> */}</span>
-              Forgot your password ?
+              Forgot your password?
             </p>
           </Link>
         </>

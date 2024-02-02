@@ -9,7 +9,7 @@ import TabNavigation from "./tabNaviagation";
 import frame1 from "../../asset/Frame 1.png";
 import lefticon from "../../asset/arrow-left.png";
 import base from '../../asset/Base.png'
-import vector1 from '../../asset/VectorAmchat(1).png'
+import vector1 from '../../asset/logo.png'
 
 
 const UserProfile = () => {
@@ -26,7 +26,7 @@ const UserProfile = () => {
       <div className="userprofile-main">
         <div className="userprofile-sidebar">
           <div className="sidebar-amchat">
-            <h2>AM-Chat <img className='amchat-vector-img-sidebar' src={vector1} alt="" /></h2>
+          <img className='amchat-vector-img-sidebar' src={vector1} alt="" />
             <div className='startchat-button'>
               <GeneralButton
                 name="Start Chat"

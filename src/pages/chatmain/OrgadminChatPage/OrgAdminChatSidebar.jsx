@@ -1,5 +1,5 @@
 import React from "react";
-import Logo from "../../../asset/Vector.png";
+import Logo from "../../../asset/logo.png";
 import Styles from "./OrgAdminChatPageSidebar.module.css";
 import GeneralButton from "../../../components/common/buttons/GeneralButton";
 import frame from "../../../asset/Frame 1.png";
@@ -28,9 +28,9 @@ function OrgAdminChatSidebar() {
         <div className={Styles.AMChatSidebar}>
           <div className={Styles.AMChatSuperAdminSidebar}>
             <div className={Styles.appLogo}>
-              <span className={Styles.amChatTitle}>AM-Chat</span>
+              {/* <span className={Styles.amChatTitle}>AM-Chat</span> */}
               <span className={Styles.appName}>
-                <img src={Logo} alt="" />
+                <img className={Styles.imageIcon} src={Logo} alt="" />
               </span>
             </div>
           </div>

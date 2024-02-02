@@ -85,7 +85,7 @@ const RecoveryPasswor = () => {
     },
   ];
   const submitButtonProperty = {
-    name: "Sign Up",
+    name: "Submit",
     color: "white",
     backgroundColor: "#6366F1",
     type: "primary",
