@@ -33,6 +33,12 @@
   font-size: 16px;
   line-height: 28px;
 }
+.PrivacyPolicyPageTitle {
+  color: #000;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 2rem;
+  line-height: 10px;
+}
 .privacyPolicySubHeading {
   font-size: 32px;
   line-height: 48px;

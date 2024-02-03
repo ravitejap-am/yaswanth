@@ -82,7 +82,7 @@ const ContactUp = () => {
         paddingLeft: "10px",
         color: "#FFF",
       },
-      labelName: true,
+      labelName: "Comment", // Set labelName to the desired label for the comment field
       rules: [{ required: true, message: "Please enter your comment" }],
     },
   ];
@@ -95,7 +95,7 @@ const ContactUp = () => {
     name: "Submit",
     color: "#ffffff",
     backgroundColor: "var(--Brand-500, #6366F1)",
-    width: "520px",
+    width: "525px",
     height: "50px",
     borderRadius: "28px",
     boxShadow: "none",

@@ -126,12 +126,14 @@ const GeneralForm = (props) => {
               date: <DatePicker />,
 
               description: (
-                <div>
-                <span>{item.label}</span>
-                  {" "}
+                <>
+                  {item.labelName && (
+                    <div style={{ marginBottom: "2px", color: "#fff" }}>
+                      <label>{item.label}</label>
+                    </div>
+                  )}
                   <TextArea
                     rows={4}
-                    labelName={item.labelName ? item.label : null}
                     type={item.type}
                     placeholder={item.labelName ? null : item.label}
                     iconClass={item.iconClass}
@@ -140,7 +142,7 @@ const GeneralForm = (props) => {
                     }}
                     style={item.style}
                   />
-                </div>
+                </>
               ),
             };
             return (
@@ -294,17 +296,23 @@ const GeneralForm = (props) => {
               switch: <Switch />,
               date: <DatePicker />,
               description: (
-                <TextArea
-                  rows={4}
-                  labelName={item.labelName ? item.label : null}
-                  type={item.type}
-                  placeholder={item.labelName ? null : item.label}
-                  iconClass={item.iconClass}
-                  onChange={(e) => {
-                    form.setFieldValue({ [item.name]: e.target.value });
-                  }}
-                  style={item.style}
-                />
+                <>
+                  {item.labelName && (
+                    <div style={{ marginBottom: "2px", color: "#fff" }}>
+                      <label>{item.label}</label>
+                    </div>
+                  )}
+                  <TextArea
+                    rows={4}
+                    type={item.type}
+                    placeholder={item.labelName ? null : item.label}
+                    iconClass={item.iconClass}
+                    onChange={(e) => {
+                      form.setFieldValue({ [item.name]: e.target.value });
+                    }}
+                    style={item.style}
+                  />
+                </>
               ),
             };
             return (
