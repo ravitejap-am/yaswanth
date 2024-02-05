@@ -1,15 +1,10 @@
-import "./App.css";
-import fontStyle from "./fontStyle.css";
-import "./css/style.css";
-import Rout from "././Routes";
+import './App.css';
+import fontStyle from './fontStyle.css';
+import './css/style.css';
+import Routes from '././Routes';
 
 function App() {
-  return (
-    <>
-    
-      <Rout />
-    </>
-  );
+  return <Routes />;
 }
 
 export default App;

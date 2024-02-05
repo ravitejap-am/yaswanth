@@ -1,34 +1,32 @@
-import React, { useEffect, useState } from "react";
-import { Form } from "antd"; // Add this import
-import GeneralForm from "../../components/common/forms/GeneralForm";
-import axios from "axios";
-import NotifyMessage from "../../components/common/toastMessages/NotifyMessage";
-import { toast } from "react-toastify";
-import Footer from "../../pages/home/Footer/Footer";
-import SignHeader from "../home/SignHeader/SignHeader";
-import store from "../../store/store";
-import { useSelector } from "react-redux"; // Import the useSelector hook
-import { setToken } from "../../store/actions";
+import React, { useEffect, useState } from 'react';
+import { Form } from 'antd'; // Add this import
+import GeneralForm from '../../components/common/forms/GeneralForm';
+import axios from 'axios';
+import NotifyMessage from '../../components/common/toastMessages/NotifyMessage';
+import { toast } from 'react-toastify';
+import Footer from '../../pages/home/Footer/Footer';
+import SignHeader from '../home/SignHeader/SignHeader';
+import { useSelector } from 'react-redux'; // Import the useSelector hook
 
 const ResetPassword = () => {
-  const [successMessage, setSuccessMessage] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   const [form] = Form.useForm();
 
-  const jwtToken = useSelector((state) => state.token);
+  const jwtToken = false;
 
   useEffect(() => {
-    console.log("JWT Token from Redux Store:", jwtToken);
+    console.log('JWT Token from Redux Store:', jwtToken);
     if (jwtToken) {
-      console.log("JWT token is stored in the Redux store.");
+      console.log('JWT token is stored in the Redux store.');
     } else {
-      console.log("JWT token is not stored in the Redux store.");
+      console.log('JWT token is not stored in the Redux store.');
     }
   }, [jwtToken]);
 
   const validatePassword = (_, value) => {
     if (value && value.length < 8) {
-      return Promise.reject("Password must be at least 8 characters");
+      return Promise.reject('Password must be at least 8 characters');
     } else {
       return Promise.resolve();
     }
@@ -36,7 +34,7 @@ const ResetPassword = () => {
 
   const validateConfirmPassword = (_, value, password) => {
     if (value !== password) {
-      return Promise.reject("Passwords do not match");
+      return Promise.reject('Passwords do not match');
     } else {
       return Promise.resolve();
     }
@@ -44,83 +42,83 @@ const ResetPassword = () => {
 
   const formElements = [
     {
-      label: "Password",
-      type: "password",
-      name: "password",
+      label: 'Password',
+      type: 'password',
+      name: 'password',
       rules: [
-        { required: true, message: "Please input valid password!" },
+        { required: true, message: 'Please input valid password!' },
         { validator: validatePassword },
       ],
     },
     {
-      label: "Confirm Password",
-      type: "password",
-      name: "confirmPassword",
+      label: 'Confirm Password',
+      type: 'password',
+      name: 'confirmPassword',
       rules: [
-        { required: true, message: "Please confirm your password!" },
+        { required: true, message: 'Please confirm your password!' },
         {
           validator: (_, value) =>
-            validateConfirmPassword(_, value, form.getFieldValue("password")),
+            validateConfirmPassword(_, value, form.getFieldValue('password')),
         },
       ],
     },
   ];
 
   const submitButtonProperty = {
-    name: "Submit",
-    color: "white",
-    backgroundColor: "#6366F1",
-    type: "primary",
-    width: "467px",
-    height: "50px",
-    borderRadius: "35px",
-    marginTop: ".7em",
-    fontSize: "0.9rem",
+    name: 'Submit',
+    color: 'white',
+    backgroundColor: '#6366F1',
+    type: 'primary',
+    width: '467px',
+    height: '50px',
+    borderRadius: '35px',
+    marginTop: '.7em',
+    fontSize: '0.9rem',
   };
   const buttonProps = {
-    name: "Sign Up",
-    type: "primary",
-    color: "white",
-    backgroundColor: "#6366F1",
-    width: "120px",
-    padding: "10px 16px",
-    height: "40px",
-    borderRadius: "30px",
-    icons: "",
+    name: 'Sign Up',
+    type: 'primary',
+    color: 'white',
+    backgroundColor: '#6366F1',
+    width: '120px',
+    padding: '10px 16px',
+    height: '40px',
+    borderRadius: '30px',
+    icons: '',
   };
 
   const feedingVariable = {
     isCancel: false,
     cancelHandler: () => {
-      console.log("Canceling....");
+      console.log('Canceling....');
     },
     isSubmit: true,
     submitHandler: async (values) => {
-      console.log("Resetting password....");
+      console.log('Resetting password....');
       console.log(values);
 
       try {
-        const response = await axios.post("localhost8080/reset-password", {
+        const response = await axios.post('localhost8080/reset-password', {
           email: values.email,
           password: values.password,
         });
 
         if (response.data.success) {
-          toast.success("Your password has been reset successfully.");
-          setErrorMessage("");
+          toast.success('Your password has been reset successfully.');
+          setErrorMessage('');
         } else {
-          toast.error("Password reset failed. Please try again.");
-          setSuccessMessage("");
+          toast.error('Password reset failed. Please try again.');
+          setSuccessMessage('');
         }
       } catch (error) {
-        console.error("Error resetting password:", error);
-        toast.error("An error occurred. Please try again.");
-        setSuccessMessage("");
+        console.error('Error resetting password:', error);
+        toast.error('An error occurred. Please try again.');
+        setSuccessMessage('');
       }
     },
     submitButtonProperty: submitButtonProperty,
     formElements: formElements,
-    formType: "normal",
+    formType: 'normal',
   };
 
   return (
