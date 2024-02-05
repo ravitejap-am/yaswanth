@@ -1,20 +1,25 @@
-import React, { useEffect, createRef } from "react";
+import React, { useEffect, createRef, useState } from "react";
 import img1 from "../../../asset/contact.png";
 import GeneralForm from "../../../components/common/forms/GeneralForm";
 import { Form, Input, Select } from "antd";
+import axios from "axios";
+import * as constants from "../../../constants/Constant";
 import "./ContactUp.css";
 
 const { Option } = Select;
 
 const ContactUp = () => {
+  const [form] = Form.useForm();
   const formRef = createRef();
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [filesystem, setFileSysytem] = useState([]);
 
   useEffect(() => {
-    // Scroll to the top of the form when the component mounts
     if (formRef.current) {
       formRef.current.scrollIntoView({ behavior: "auto" });
     }
   }, []);
+
   const formElements = [
     {
       name: "name",
@@ -25,6 +30,7 @@ const ContactUp = () => {
         borderRadius: "40px",
         border: "1px solid var(--Brand-700, #4338CA)",
         backgroundColor: "transparent",
+        color: "#FFF",
       },
       rules: [{ required: true, message: "Please enter your name" }],
       labelName: true,
@@ -38,6 +44,7 @@ const ContactUp = () => {
         borderRadius: "40px",
         border: "1px solid var(--Brand-700, #4338CA)",
         backgroundColor: "transparent",
+        color: "#FFF",
       },
       labelName: true,
       rules: [
@@ -55,7 +62,6 @@ const ContactUp = () => {
         borderRadius: "40px",
         border: "1px solid var(--Brand-700, #4338CA)",
         backgroundColor: "transparent",
-        // marginBottom: "13px",
         paddingLeft: "10px",
         color: "#FFF",
         margin: "0px 5px 20px 1px",
@@ -87,8 +93,45 @@ const ContactUp = () => {
     },
   ];
 
-  const submitHandler = (values) => {
-    console.log("Form values:", values);
+  const submitHandler = async (values) => {
+    console.log("Submit handler called with values:", values);
+    const url = `${constants.BASE_API_URL}${constants.CONTACT_US_ENDPOINT}`;
+    alert("submit handler is called ");
+    try {
+      const response = await axios.post(url, values, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      console.log("API Response:", response.data);
+
+      if (response.status === 200) {
+        console.log("Form submitted successfully!");
+        if (response.data.code === "CONT-CT-004") {
+          alert(response.data.message);
+        } else if (response.data.code === "CONT-CIE-001") {
+          setIsSubmitted(true);
+        } else if (response.data.code === "CONT-CISE-003") {
+          alert("Failed to save contact information");
+        }
+      }
+      console.log("value", values);
+    } catch (error) {
+      console.error("API Error:", error);
+    }
+  };
+
+  const resetForm = () => {
+    formRef.current.resetFields();
+    setIsSubmitted(false);
+  };
+  const validateEmail = (_, value) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (value && emailRegex.test(value)) {
+      return Promise.resolve();
+    }
+    return Promise.reject("Please enter a valid email address!");
   };
 
   const submitButtonProperty = {
@@ -103,16 +146,16 @@ const ContactUp = () => {
 
   const feedingVariable = {
     isCancel: false,
-    // cancelHandler: cancelHandler,
     isSubmit: true,
     submitHandler: submitHandler,
     submitButtonProperty: submitButtonProperty,
-    // cancelButtonProperty: cancelButtonProperty,
-    formElements: formElements,
     formType: "normal",
-    forgorPasswordHandler: () => {
-      console.log("forgot Password....");
-    },
+    formElements: formElements,
+    validateEmail: validateEmail,
+    setFileSysytem: setFileSysytem,
+    // forgotPasswordHandler: () => {
+    //   console.log("forgot Password....");
+    // },
   };
 
   return (
@@ -131,15 +174,24 @@ const ContactUp = () => {
         <div className="Contact-us-page-ant-form">
           <div>
             <p className="Contact-us-form-title">Contact Us</p>
-            <p className="Contact-us-form-sub-title">
-              To get in touch with AM Chat team, simply fill out the contact
-              form below
-            </p>
+            {isSubmitted ? (
+              <p className="Contact-us-form-sub-title">
+                Thank you for reaching out to us. We appreciate your time and
+                will respond to you as soon as possible.
+              </p>
+            ) : (
+              <p className="Contact-us-form-sub-title">
+                To get in touch with AM Chat team, simply fill out the contact
+                form below
+              </p>
+            )}
           </div>
 
-          <div className="Contact-Us-General-Form-Style">
-            <GeneralForm {...feedingVariable} />
-          </div>
+          {!isSubmitted && (
+            <div className="Contact-Us-General-Form-Style">
+              <GeneralForm {...feedingVariable} />
+            </div>
+          )}
         </div>
       </div>
     </div>
