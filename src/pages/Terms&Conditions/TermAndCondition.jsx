@@ -11,7 +11,7 @@ const TermAndCondition = () => {
       </div>
 
       <div className={Styles.TermAndConditionSecondDiv}>
-        <h1 className={Styles.TermAndConditionheading}>Terms & Conditions</h1>
+        {/* <h1 className={Styles.TermAndConditionheading}>Terms & Conditions</h1> */}
 
         <h2 className={Styles.TermAndConditionSubSubHeading}>Introduction</h2>
         <p className={Styles.TermAndConditionContentStyle}>

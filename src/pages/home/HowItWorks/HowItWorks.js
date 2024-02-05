@@ -25,14 +25,14 @@ function HowItWorks() {
                 </span>
                 <br />
                 <span className="how_to_works_span_text">
-                  Reach out to our sales team at sales@aritminds.com or fill up
-                  the form on our Contact Us page. <br />
+                  Reach out to our sales team at sales@areteminds.com or fill up
+                  the form given in Contact Us section below. <br />
                 </span>
                 <span className="Sub_Title_of_how_it_Works">Sign Up</span>
                 <br />
                 <span className="how_to_works_span_text">
-                  Sign up using your details, email, and set up your password.{" "}
-                  <br />
+                  Sign up using your details, email, and setting up your
+                  password. <br />
                 </span>
                 <span className="Sub_Title_of_how_it_Works">Sign In</span>
                 <br />

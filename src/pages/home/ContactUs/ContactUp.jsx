@@ -70,7 +70,7 @@ const ContactUp = () => {
     },
     {
       name: "comment",
-      label: "Comment",
+      label: "Comments",
       type: "description",
       style: {
         width: "525px",
@@ -82,7 +82,7 @@ const ContactUp = () => {
         paddingLeft: "10px",
         color: "#FFF",
       },
-      labelName: "Comment", // Set labelName to the desired label for the comment field
+      labelName: "Comments",
       rules: [{ required: true, message: "Please enter your comment" }],
     },
   ];

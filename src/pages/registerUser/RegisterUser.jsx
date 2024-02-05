@@ -17,6 +17,7 @@ const RegisterUser = () => {
   const [loader, setLoader] = useState(false);
   const [form] = Form.useForm();
   const [filesystem, setFileSysytem] = useState([]);
+  const [responseData, setResponseData] = useState([]);
 
   useEffect(() => {
     if (signupMessage) {
@@ -58,17 +59,60 @@ const RegisterUser = () => {
         },
       });
 
-      console.log("Registration successful:", response.data);
-      setSignupMessage(
-        "Congratulations!! You are successfully signed up with your organization email id."
-      );
+      if (response.data.code === "SIGNUP-S-001") {
+        // console.log(
+        //   "Email confirmation link sent successfully. Check your email."
+        // );
+        setSignupMessage(
+          "Email confirmation link sent successfully. Check your email."
+        );
+      } else {
+        switch (response.data.code) {
+          case "SIGNUP-PNM-008":
+            toast.error("Passwords do not match.");
+            break;
+          case "SIGNUP-IO-007":
+            toast.error(
+              "Your organisation isn’t tagged with our website. Please contact our sales team."
+            );
+            break;
+          case "SIGNUP-IR-006":
+            toast.error("Role not found. Please contact our support team.");
+            break;
+          case "SIGNUP-IE-005":
+            toast.error(
+              "Invalid email format. Please provide a valid email address."
+            );
+            break;
+          case "SIGNUP-ARR-004":
+            toast.error(response.data.message);
+            setSignupMessage(response.data.message);
+            break;
+          case "SIGNUP-IP-003":
+            toast.error("Invalid password format.");
+            break;
+          case "SIGNUP-NF-002":
+            toast.error(
+              "Your organisation isn’t tagged with our website. Please contact our sales team."
+            );
+            break;
+          default:
+            setSignupMessage("An error occurred. Please try again.");
+        }
+      }
     } catch (error) {
       console.error("Registration failed:", error.response?.data);
 
-      if (error.response && error.response.status === 400) {
-        setSignupMessage(
-          "Please sign up with your organization email id. If your organization is not registered with us, please reach out to sales@areteminds.com"
+      if (error.response && error.response.status === 422) {
+        toast.error(
+          "Invalid email format. Please provide a valid email address."
         );
+      } else if (
+        error.response &&
+        error.response.data.code === "SIGNUP-ARR-004"
+      ) {
+        toast.error(error.response.data.message); // Ensure this line is present
+        setSignupMessage(error.response.data.message); // Add this line
       } else {
         setSignupMessage("An error occurred. Please try again.");
       }
@@ -136,21 +180,20 @@ const RegisterUser = () => {
     height: "50px",
     borderRadius: "35px",
     marginTop: ".7em",
-    fontSize: "0.9rem"
+    fontSize: "0.9rem",
   };
 
   const buttonProps = {
-    name: 'Sign In',
-    type: 'primary',
-    color: 'white',
-    backgroundColor: '#6366F1',
-    width: '120px',
-    padding: '10px 16px',
-    height: '40px',
-    borderRadius: '30px',
-    icons: '',
+    name: "Sign In",
+    type: "primary",
+    color: "white",
+    backgroundColor: "#6366F1",
+    width: "120px",
+    padding: "10px 16px",
+    height: "40px",
+    borderRadius: "30px",
+    icons: "",
   };
-
 
   const feedingVariable = {
     isCancel: false,
@@ -172,13 +215,12 @@ const RegisterUser = () => {
       <div>
         <div className="Signup-header">
           <SignHeader
-            title='AM-Chat'
+            title="AM-Chat"
             linkText="Have an account?"
-            linkTo='/signin'
-            buttonText={buttonProps.name} 
+            linkTo="/signin"
+            buttonText={buttonProps.name}
             buttonProps={buttonProps}
           />
-
         </div>
         <div className="main">
           <div className="container">
@@ -216,7 +258,10 @@ const RegisterUser = () => {
             </div>
           </div>
           {loader ? <Spinner /> : null}
-          <NotifyMessage message={signupMessage ? signupMessage : null} errorHandle={false} />
+          <NotifyMessage
+            message={signupMessage ? signupMessage : null}
+            errorHandle={false}
+          />
         </div>
         <div className="signup-footer">
           <Footer />

@@ -1,13 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./RightPlan.css";
 import Tick1 from "../../../asset/tick.png";
 import GeneralButton from "../../../components/common/buttons/GeneralButton";
 import frame from "../../../asset/Frame 1.png";
 function RightPlan() {
+  const [scroll, setScroll] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScroll(window.scrollY > 0);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+  const scrollToElement = (elementId) => {
+    const element = document.getElementById(elementId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
   return (
     <div>
       <div className="Right_Plan_Main_Card">
-      <br /><br /><br />
+        <br />
+        <br />
+        <br />
         <div className="Right_Plan_Top_Content">
           <div>
             <p className="Right_Plan_Top_Content_Title">
@@ -25,8 +46,8 @@ function RightPlan() {
               <p className="Right_Plan_Content_Title">Freemium</p>
               <p className="Right_Plan_Content_Sub_Div">
                 {" "}
-                All the get us started will take the user to the contact us
-                page.
+                Revolutionize keywords search into your document with our free
+                plan.
               </p>
             </div>
 
@@ -36,7 +57,10 @@ function RightPlan() {
                 <span className="per-month">/Month</span>
               </p>
             </div>
-            <div className="Right_Plan_Gernal_Button">
+            <div
+              className="Right_Plan_Gernal_Button"
+              onClick={() => scrollToElement("Contact_Up")}
+            >
               <GeneralButton
                 name={"Get Started"}
                 type={"Get Started"}
@@ -91,7 +115,10 @@ function RightPlan() {
                 <span class="per-month">/Month</span>
               </p>
             </div>
-            <div className="Right_Plan_Gernal_Button">
+            <div
+              className="Right_Plan_Gernal_Button"
+              onClick={() => scrollToElement("Contact_Up")}
+            >
               <GeneralButton
                 name={"Get Started"}
                 type={"Get Started"}
@@ -136,7 +163,7 @@ function RightPlan() {
                 <p className="Right_Plan_Content_Title">Enterprise</p>
                 <p className="Right_Plan_Content_Sub_Div">
                   {" "}
-                  Horem ipsum dolor sit amet, consectetur adipiscing elit
+                  For details about this plan, please press the button below.
                 </p>
               </div>
 
@@ -147,7 +174,10 @@ function RightPlan() {
                 </p>
               </div>
 
-              <div className="Right_Plan_Gernal_Button">
+              <div
+                className="Right_Plan_Gernal_Button"
+                onClick={() => scrollToElement("Contact_Up")}
+              >
                 <GeneralButton
                   name={"Get Started"}
                   type={"Get Started"}
@@ -161,7 +191,7 @@ function RightPlan() {
               </div>
 
               <div className="Right_Plan_Below_Content">
-                <div className="Right_Plan_below_Content_Sub_Div">
+                {/* <div className="Right_Plan_below_Content_Sub_Div">
                   <img src={Tick1} alt="" />
                   <p className="Right_Plan_below_Content_P_Tag">Max 2 users</p>
                 </div>
@@ -182,7 +212,7 @@ function RightPlan() {
                   <p className="Right_Plan_below_Content_P_Tag">
                     Max 10 chats free
                   </p>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

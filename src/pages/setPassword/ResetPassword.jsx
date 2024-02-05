@@ -1,17 +1,30 @@
-import React, { useState } from 'react';
-import { Form } from 'antd';  // Add this import
+import React, { useEffect, useState } from "react";
+import { Form } from "antd"; // Add this import
 import GeneralForm from "../../components/common/forms/GeneralForm";
-import axios from 'axios';
-import NotifyMessage from '../../components/common/toastMessages/NotifyMessage';
-import { toast } from 'react-toastify';
-import Footer  from "../../pages/home/Footer/Footer";
-import SignHeader from '../home/SignHeader/SignHeader';
-
+import axios from "axios";
+import NotifyMessage from "../../components/common/toastMessages/NotifyMessage";
+import { toast } from "react-toastify";
+import Footer from "../../pages/home/Footer/Footer";
+import SignHeader from "../home/SignHeader/SignHeader";
+import store from "../../store/store";
+import { useSelector } from "react-redux"; // Import the useSelector hook
+import { setToken } from "../../store/actions";
 
 const ResetPassword = () => {
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [form] = Form.useForm();  // Import Form from Ant Design
+  const [form] = Form.useForm();
+
+  const jwtToken = useSelector((state) => state.token);
+
+  useEffect(() => {
+    console.log("JWT Token from Redux Store:", jwtToken);
+    if (jwtToken) {
+      console.log("JWT token is stored in the Redux store.");
+    } else {
+      console.log("JWT token is not stored in the Redux store.");
+    }
+  }, [jwtToken]);
 
   const validatePassword = (_, value) => {
     if (value && value.length < 8) {
@@ -45,7 +58,10 @@ const ResetPassword = () => {
       name: "confirmPassword",
       rules: [
         { required: true, message: "Please confirm your password!" },
-        { validator: (_, value) => validateConfirmPassword(_, value, form.getFieldValue('password')) },
+        {
+          validator: (_, value) =>
+            validateConfirmPassword(_, value, form.getFieldValue("password")),
+        },
       ],
     },
   ];
@@ -59,18 +75,18 @@ const ResetPassword = () => {
     height: "50px",
     borderRadius: "35px",
     marginTop: ".7em",
-    fontSize: "0.9rem"
+    fontSize: "0.9rem",
   };
   const buttonProps = {
-    name: 'Sign Up',
-    type: 'primary',
-    color: 'white',
-    backgroundColor: '#6366F1',
-    width: '120px',
-    padding: '10px 16px',
-    height: '40px',
-    borderRadius: '30px',
-    icons: '',
+    name: "Sign Up",
+    type: "primary",
+    color: "white",
+    backgroundColor: "#6366F1",
+    width: "120px",
+    padding: "10px 16px",
+    height: "40px",
+    borderRadius: "30px",
+    icons: "",
   };
 
   const feedingVariable = {
@@ -85,21 +101,21 @@ const ResetPassword = () => {
 
       try {
         const response = await axios.post("localhost8080/reset-password", {
-          email: values.email,  
+          email: values.email,
           password: values.password,
         });
 
         if (response.data.success) {
           toast.success("Your password has been reset successfully.");
-          setErrorMessage(""); 
+          setErrorMessage("");
         } else {
           toast.error("Password reset failed. Please try again.");
-          setSuccessMessage(""); 
+          setSuccessMessage("");
         }
       } catch (error) {
         console.error("Error resetting password:", error);
         toast.error("An error occurred. Please try again.");
-        setSuccessMessage(""); 
+        setSuccessMessage("");
       }
     },
     submitButtonProperty: submitButtonProperty,
@@ -109,49 +125,45 @@ const ResetPassword = () => {
 
   return (
     <>
-    <div className='resetpassword-header'>
-    <SignHeader
-            title='AM-Chat'
-            linkText="Don't have an account?"
-            linkTo='/registeruser'
-            buttonText={buttonProps.name} 
-            buttonProps={buttonProps}
-          />
-    </div>
-    <div className="main">
-      <div className="container">
-        <div className="row">
-          <div className="col">
-            <div className="row mainContent">
-              <div className="box-round">
-                <div className="text-top">
-                  <h2>Set Password</h2>
-                  <p>Please use your organization email id.</p>
-                </div>
+      <div className="resetpassword-header">
+        <SignHeader
+          title="AM-Chat"
+          linkText="Don't have an account?"
+          linkTo="/registeruser"
+          buttonText={buttonProps.name}
+          buttonProps={buttonProps}
+        />
+      </div>
+      <div className="main">
+        <div className="container">
+          <div className="row">
+            <div className="col">
+              <div className="row mainContent">
+                <div className="box-round">
+                  <div className="text-top">
+                    <h2>Set Password</h2>
+                    <p>Please use your organization email id.</p>
+                  </div>
 
-                <div className="form-content">
-                  <GeneralForm form={form} {...feedingVariable} />
-                  {successMessage && (
-                    <div className="success-message">
-                      {successMessage}
-                    </div>
-                  )}
-                  {errorMessage && (
-                    <div className="error-message">
-                      {errorMessage}
-                    </div>
-                  )}
-                  <NotifyMessage/>
+                  <div className="form-content">
+                    <GeneralForm form={form} {...feedingVariable} />
+                    {successMessage && (
+                      <div className="success-message">{successMessage}</div>
+                    )}
+                    {errorMessage && (
+                      <div className="error-message">{errorMessage}</div>
+                    )}
+                    <NotifyMessage />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+        <Footer />
       </div>
-      <Footer/>
-    </div>
     </>
   );
-}
+};
 
 export default ResetPassword;

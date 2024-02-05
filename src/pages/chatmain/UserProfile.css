@@ -1,105 +1,105 @@
 .userprofile-screen {
-    background: linear-gradient(114deg, #0F172A 51.52%, #152346 73.32%, #1A2E5E 92.75%);
-    width: 100vw;
-    height: 800px;
+  background: linear-gradient(
+    114deg,
+    #0f172a 51.52%,
+    #152346 73.32%,
+    #1a2e5e 92.75%
+  );
+  width: 100%;
+  height: 800px;
 }
 
 .userprofile-main {
-    display: flex;
+  display: flex;
 }
 
 .sidebar-amchat {
-    margin-top: 20px;
-
+  margin-top: 20px;
 }
 
 .sidebar-amchat h2 {
-    color: var(--White, #FFF);
-    font-family: Lato;
-    font-size: 25px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 43px; /* 150% */
-    margin-left: 30px;
-    margin-top: 18px;
+  color: var(--White, #fff);
+  font-family: Lato;
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 43px; /* 150% */
+  margin-left: 30px;
+  margin-top: 18px;
 }
 
-
 .back-link {
-    position: relative;
-    top: 70px;
-    color: var(--Neutral-100, #F1F5F9);
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 24px;
-    text-decoration: none;
-    color: #FFF;
-    background-color: transparent;
-    text-decoration: none;
-
-
+  position: relative;
+  top: 70px;
+  color: var(--Neutral-100, #f1f5f9);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 24px;
+  text-decoration: none;
+  color: #fff;
+  background-color: transparent;
+  text-decoration: none;
 }
 
 .backlink-text {
-    text-decoration: none;
-    color: var(--Neutral-100, #F1F5F9);
-
+  text-decoration: none;
+  color: var(--Neutral-100, #f1f5f9);
 }
 
 .left-back-icon {
-    position: relative;
-    margin-right: 10px;
-    margin-top: 10px;
-    top: 5px;
+  position: relative;
+  margin-right: 10px;
+  margin-top: 10px;
+  top: 5px;
 }
 
 .userprofile-header {
-    display: flex;
-
+  display: flex;
+  width: 96%;
+  gap: 80px;
 }
 
 .userprofile-account {
-    margin-left: 700px;
-    margin-bottom: 0px;
+  margin-left: 700px;
+  margin-bottom: 0px;
 }
 
 .userprofile-account-name {
-    margin-top: -20px;
-    display: flex;
-    margin-left: 20px;
-
+  margin-top: -20px;
+  display: flex;
+  margin-left: 20px;
 }
 
 .userprofile-pic {
-    position: relative;
-    top: 30px;
-    right: 20px;
-    height: 40px;
-    width: 40px;
+  position: relative;
+  top: 30px;
+  right: 20px;
+  height: 40px;
+  width: 40px;
 }
 
 .userprofile-account-name h2 {
-    color: var(--Brand-700, #4338CA);
+  color: var(--Brand-700, #4338ca);
 
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 28px;
-    /* 155.556% */
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 28px;
+  /* 155.556% */
 }
 
 .userprofile-profile {
-    color: var(--Brand-900, #312E81);
+  color: var(--Brand-900, #312e81);
 
-    /* text-2xl/font-semibold */
-    font-family: Montserrat;
-    font-size: 17px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 32px;
-    /* 133.333% */
-    margin-left: 20px;
+  /* text-2xl/font-semibold */
+  font-family: Montserrat;
+  font-size: 17px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 32px;
+  /* 133.333% */
+  margin-left: 20px;
 }
 
 /* .profile-account-img {
@@ -115,286 +115,276 @@
 } */
 
 .userprofile-pofilecontainer {
-    margin-left: -20px;
-    margin-top: 25px;
-    width: 79vw;
-    height: 740px;
-    border-radius: 15px;
-    background: var(--Neutral-200, #E2E8F0);
+  margin-left: -20px;
+  margin-top: 25px;
+  width: 100%;
+  height: 740px;
+  border-radius: 15px;
+  background: var(--Neutral-200, #e2e8f0);
 }
 
 .info-bar {
-    border-radius: 10.457px;
-    background: var(--White, #FFF);
-    box-shadow: 0px 2.789px 6.972px 3.486px rgba(0, 0, 0, 0.09);
-    width: 76vw;
-    height: 7vh;
-    flex-shrink: 0;
-    margin-left: 20px;
-    /* justify-content: center;
-    align-items: center; */
+  border-radius: 10.457px;
+  background: var(--White, #fff);
+  box-shadow: 0px 2.789px 6.972px 3.486px rgba(0, 0, 0, 0.09);
+  width: 96%;
+  height: 7vh;
+  flex-shrink: 0;
+  margin-left: 20px;
+  color: var(--Neutral-900, #0f172a);
+  /* font-family: Lato; */
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 24px;
 }
 
 .info-bar-main {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .info-bar {
-    color: var(--Neutral-900, #0F172A);
-    /* font-family: Lato; */
-    font-size: 1rem;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 24px;
-
 }
 
 .barinfo-personalinfo {
-    margin-left: 20px;
-    color: var(--Neutral-900, #0F172A);
-    text-align: center;
-    justify-content: center;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 24px;
-    text-decoration: none;
-
-
+  margin-left: 20px;
+  color: var(--Neutral-900, #0f172a);
+  text-align: center;
+  justify-content: center;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px;
+  text-decoration: none;
 }
 
 .barinfo-changepassword {
-    margin-left: 40px;
-    color: var(--Neutral-900, #0F172A);
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 24px;
-    text-align: center;
-    text-decoration: none;
+  margin-left: 40px;
+  color: var(--Neutral-900, #0f172a);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 24px;
+  text-align: center;
+  text-decoration: none;
 }
 
 .barinfo-plans {
-    margin-left: 40px;
-    color: var(--Neutral-900, #0F172A);
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 24px;
-    text-decoration: none;
-
+  margin-left: 40px;
+  color: var(--Neutral-900, #0f172a);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px;
+  text-decoration: none;
 }
 
 .personal-contentcard {
-    margin-top: 20px;
-    width: 76vw;
-    height: 519px;
-    flex-shrink: 0;
-    border-radius: 10.457px;
-    background: var(--White, #FFF);
-    box-shadow: 0px 2.789px 6.972px 3.486px rgba(0, 0, 0, 0.09);
-    justify-content: center;
-    align-items: center;
-    margin-left: 20px;
+  margin-top: 20px;
+  width: 96%;
+  height: 519px;
+  flex-shrink: 0;
+  border-radius: 10.457px;
+  background: var(--White, #fff);
+  box-shadow: 0px 2.789px 6.972px 3.486px rgba(0, 0, 0, 0.09);
+  justify-content: center;
+  align-items: center;
+  margin-left: 20px;
 }
 
 .user-profile-content {
-    display: flex;
+  display: flex;
 }
 
 .user-profile-img {
-    margin-top: 50px;
-    margin-left: 30px;
-    width: 80px;
-    height: 80px;
-    flex-shrink: 0;
-    border-radius: 100px;
-    background: url('../../asset/AretemindLogo.jpg'), lightgray 0px 0px / 100% 100% no-repeat;
+  margin-top: 50px;
+  margin-left: 30px;
+  width: 80px;
+  height: 80px;
+  flex-shrink: 0;
+  border-radius: 100px;
+  background: url("../../asset/AretemindLogo.jpg"),
+    lightgray 0px 0px / 100% 100% no-repeat;
 }
 
 .edit-profilepic {
-    margin-top: 54px;
-    margin-left: 60px;
-    cursor: pointer;
-    height: 20px;
-    width: 20px;
+  margin-top: 54px;
+  margin-left: 60px;
+  cursor: pointer;
+  height: 20px;
+  width: 20px;
 }
 
 .user-profle-name {
-    margin-top: 45px;
-    margin-left: 20px;
-    color: var(--Neutral-900, #0F172A);
+  margin-top: 45px;
+  margin-left: 20px;
+  color: var(--Neutral-900, #0f172a);
 
-    font-family: Montserrat;
-    font-size: 1rem;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 32px;
-    /* 133.333% */
+  font-family: Montserrat;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 32px;
+  /* 133.333% */
 }
-user-profle-name h2{
-    
+user-profle-name h2 {
 }
 
 .personalinfo-user-Status {
-    /* margin-bottom: 10px; */
-    margin-left: 10px;
-    color: var(--Neutral-700, #334155);
-    /* font-family: Lato; */
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 28px;
+  /* margin-bottom: 10px; */
+  margin-left: 10px;
+  color: var(--Neutral-700, #334155);
+  /* font-family: Lato; */
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 28px;
 }
 
 .startchat-button {
-    margin-top: 45px;
-    margin-left: 25px;
+  margin-top: 45px;
+  margin-left: 25px;
 }
 
 .personalinfo-user-Status p {
-    margin-top: -20px;
+  margin-top: -20px;
 }
 
 .personalinput-allfields {
-    display: flex;
-    margin-top: 20px;
+  display: flex;
+  margin-top: 20px;
 }
 
 .prsnolinfo-inputdields input {
-    border-radius: 30px;
-    border: 1px solid var(--Neutral-400, #94A3B8);
-    background: var(--Neutral-300, #CBD5E1);
-    width: 350px;
-    height: 40px;
-    flex-shrink: 0;
-    padding-left: 10px;
+  border-radius: 30px;
+  border: 1px solid var(--Neutral-400, #94a3b8);
+  background: var(--Neutral-300, #cbd5e1);
+  width: 350px;
+  height: 40px;
+  flex-shrink: 0;
+  padding-left: 10px;
 }
 
 .prsnolinfo-inputdields {
-    margin-left: 20px;
-    margin-top: 28px;
+  margin-left: 20px;
+  margin-top: 28px;
 }
 
 .active-dropdown-input {
-    margin-top: 26px;
-    border-radius: 30px;
-    border: 1px solid var(--Neutral-400, #94A3B8);
-    width: 362px;
-    height: 43px;
-    flex-shrink: 0;
-    padding-left: 10px;
-    cursor: pointer;
+  margin-top: 26px;
+  border-radius: 30px;
+  border: 1px solid var(--Neutral-400, #94a3b8);
+  width: 362px;
+  height: 43px;
+  flex-shrink: 0;
+  padding-left: 10px;
+  cursor: pointer;
 }
-
 
 /* ChangePassword css */
 .changepassword-main {
-    margin-top: 20px;
-    width: 76vw;
-    height: 340px;
-    flex-shrink: 0;
-    border-radius: 10.457px;
-    background: var(--White, #FFF);
-    box-shadow: 0px 2.789px 6.972px 3.486px rgba(0, 0, 0, 0.09);
-    margin-left: 20px;
-
+  margin-top: 20px;
+  width: 76vw;
+  height: 340px;
+  flex-shrink: 0;
+  border-radius: 10.457px;
+  background: var(--White, #fff);
+  box-shadow: 0px 2.789px 6.972px 3.486px rgba(0, 0, 0, 0.09);
+  margin-left: 20px;
 }
 
-.changepassword-input {}
+.changepassword-input {
+}
 
 /* plans css */
 .plans-main {
-    margin-top: 20px;
-    border-radius: 10.457px;
-    background: var(--White, #FFF);
-    box-shadow: 0px 2.789px 6.972px 3.486px rgba(0, 0, 0, 0.09);
-    width: 76vw;
-    margin-left: 20px;
+  margin-top: 20px;
+  border-radius: 10.457px;
+  background: var(--White, #fff);
+  box-shadow: 0px 2.789px 6.972px 3.486px rgba(0, 0, 0, 0.09);
+  width: 76vw;
+  margin-left: 20px;
 }
 
 .active-plan h2 {
-    color: var(--Neutral-900, #0F172A);
-    font-size: 24px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 32px;
-
+  color: var(--Neutral-900, #0f172a);
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 32px;
 }
 
 .active-plan {
-    margin-left: 25px;
-    height: 350px;
+  margin-left: 25px;
+  height: 350px;
 }
 
 .active-plan p {
-    color: var(--Neutral-700, #334155);
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 24px;
-
+  color: var(--Neutral-700, #334155);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
 }
 
 .note-p-text p {
-    color: var(--Red-rose-600, #E11D48);
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 24px;
+  color: var(--Red-rose-600, #e11d48);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
 }
 
 .right-icon {
-    margin-right: 5px;
+  margin-right: 5px;
 }
 
 .userprofile-footer {
-    color: var(--White, #FFF);
+  color: var(--White, #fff);
 
-    /* text-sm */
-    font-family: Lato;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 20px;
-    /* 142.857% */
-    text-align: center;
-    margin-left: 30px;
+  /* text-sm */
+  font-family: Lato;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  /* 142.857% */
+  text-align: center;
+  margin-left: 30px;
 }
 
 .info-bar-content {
-    display: flex;
+  display: flex;
 }
 
 .user-personal-information,
 .user-change-password,
 .user-plans {
-    margin-top: 7px;
+  margin-top: 7px;
 }
 
 .info-bar-content a {
-    margin-left: 20px;
-    color: var(--Neutral-900, #0F172A);
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 24px;
-    text-decoration: none;
-    position: relative;
-    top: 10px;
+  margin-left: 20px;
+  color: var(--Neutral-900, #0f172a);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px;
+  text-decoration: none;
+  position: relative;
+  top: 10px;
 }
 
 .info-bar-content a.active-link::after {
-    content: "";
-    display: block;
-    background: url('../../asset/Line.png') repeat-x center bottom;
-    height: 3px;
-    width: 100%;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    top: 28px
+  content: "";
+  display: block;
+  background: url("../../asset/Line.png") repeat-x center bottom;
+  height: 3px;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  top: 28px;
 }

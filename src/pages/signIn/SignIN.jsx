@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { Form } from "antd";
 import GeneralForm from "../../components/common/forms/GeneralForm";
@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 import NotifyMessage from "../../components/common/toastMessages/NotifyMessage";
 import Footer from "../../pages/home/Footer/Footer";
 import SignHeader from "../home/SignHeader/SignHeader";
-import { setToken } from "../../store/actions";
+import { setToken } from "../../store/userSlice";
 import * as constants from "../../constants/Constant";
 
 const SignIn = () => {
@@ -17,6 +17,7 @@ const SignIn = () => {
   const [form] = Form.useForm();
   const [filesystem, setFileSysytem] = useState([]);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const jwtToken = useSelector((state) => state.token);
 
   useEffect(() => {
     if (showSuccessMessage) {
@@ -53,36 +54,74 @@ const SignIn = () => {
           "Content-Type": "application/json",
         },
       });
-
-      console.log("Login successful:", response);
-      toast.success("User login successfully!!");
-
-      dispatch(setToken(response.data.data.jwtToken));
-      setShowSuccessMessage(true);
+      switch (response.data.code) {
+        case "SIGNIN-S-001":
+          // console.log("Login successful:", response);
+          // toast.success("User login successfully!!");
+          // const jwtToken = response.data.data?.jwtToken;
+          // dispatch(setToken(jwtToken));
+          console.log("JWT Token after dispatch:", jwtToken); 
+          setShowSuccessMessage(true);
+          break;
+        case "SIGNIN-IUP-002":
+          toast.error("Invalid username or password");
+          break;
+        case "SIGNIN-UNF-003":
+          toast.error(
+            "User not verified. Please complete the verification or registration process."
+          );
+          break;
+        case "SIGNIN-AL-004":
+          toast.error(
+            "Your Account is locked due to invalid attempts. Please reset your password using the Forget Password option."
+          );
+          break;
+        case "SIGNIN-IE-005":
+          toast.error(
+            "Invalid email format. Please provide a valid email address."
+          );
+          break;
+        // Add other cases as needed
+        default:
+          toast.error("An error occurred. Please try again.");
+      }
     } catch (error) {
       console.error("Login failed:", error.response);
-      if (error.response && error.response.status === 404) {
-        toast.error("Your email ID is not registered. Please Sign Up.");
-      } else if (error.response && error.response.status === 400) {
-        toast.error(
-          "User not verified. Please complete the verification or registration process."
-        );
-      } else if (error.response && error.response.status === 423) {
-        toast.error(
-          "Your Account is locked due to invalid attempts.Please reset your password Using the forgetPassword."
-        );
-      } else if (error.response && error.response.status === 403) {
-        toast.error(
-          "Your organization email domain is not registered with us. Please reach out to sales@areteminds.com"
-        );
-      } else if (error.response && error.response.status === 401) {
-        toast.error("Invalid username or password");
-      } else if (error.response && error.response.status === 403) {
-        toast.error(
-          "Looks like your account has been closed. Please check with your organizational admin."
-        );
-      } else {
-        toast.error("An error occurred. Please try again.");
+
+      switch (error.response?.status) {
+        case 404:
+          toast.error("Your email ID is not registered. Please Sign Up.");
+          break;
+        case 400:
+          toast.error(
+            "User not verified. Please complete the verification or registration process."
+          );
+          break;
+        case 422:
+          toast.error(
+            "Invalid email format. Please provide a valid email address."
+          );
+          break;
+        case 423:
+          toast.error(
+            "Your Account is locked due to invalid attempts. Please reset your password using the Forget Password option."
+          );
+          break;
+        case 403:
+          toast.error(
+            "Your organization email domain is not registered with us. Please reach out to sales@areteminds.com"
+          );
+          break;
+        case 401:
+          toast.error("Invalid username or password");
+          break;
+        case 403:
+          toast.error(
+            "Looks like your account has been closed. Please check with your organizational admin."
+          );
+          break;
+        default:
+          toast.error("An error occurred. Please try again.");
       }
     }
   };

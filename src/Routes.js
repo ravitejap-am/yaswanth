@@ -35,7 +35,9 @@ import TermAndCondition from "./pages/Terms&Conditions/TermAndCondition.jsx";
 import AMChatMainUserSidebar from "./pages/chatmain/userChat/AMChatMainUserSidebar.jsx";
 import SearchUIAIChatSidebar from "./pages/AMChatAdmin/SearchUIAMChat.jsx/SearchUIAIChatSidebar.jsx";
 import UserProfile from "./pages/chatmain/UserProfile.jsx";
+import ResetPassword from "./pages/setPassword/ResetPassword.jsx";
 // import TermsAndConditions from "./pages/Terms&Conditions/Terms&Conditions.jsx";
+import UserProfileSidebar from "./pages/chatmain/userProfileSidebar.jsx";
 
 const Rout = () => {
   const ScrollToTop = () => {
@@ -67,6 +69,7 @@ const Rout = () => {
           element={<RecoveryPasswor />}
           errorElement={<LoginPageError />}
         />
+        <Route path="/ResetPassword" element={<ResetPassword />} />
         <Route
           path="/pagenotfound"
           element={<PageNotFound />}
@@ -126,7 +129,7 @@ const Rout = () => {
         <Route path="/updatedocument" element={<OrgUpdateDocumentSidebar />} />
         <Route path="/editdocument" element={<OrgEditDocumentSidebar />} />
         <Route path="/edituser" element={<EditOrgUserSidebar />} />
-        <Route path="/UserProfile" element={<UserProfile />} />
+        <Route path="/UserProfile" element={<UserProfileSidebar />} />
       </Route>
     </Routes>
   );
