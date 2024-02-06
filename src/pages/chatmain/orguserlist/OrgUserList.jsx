@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Styles from "./OrgUserList.module.css";
 import profile from "../../../asset/AmChatSuperAdmin/profile.png";
 import GeneralButton from "../../../components/common/buttons/GeneralButton";
@@ -21,13 +21,54 @@ import { Link } from "react-router-dom";
 import styles from "../../../pages/AMChatAdmin/OrganizationList/Organization.module.css";
 import Search from "../../../components/common/search/Search";
 import SerchImages from "../../../asset/AmChatSuperAdmin/Group2305.png";
-import { Margin } from "@mui/icons-material";
-import upload from "../../../asset/uploadlatesticon.png";
 import { Pagination } from "antd";
 import { FormControl, MenuItem } from "@mui/material";
 import Select from "@mui/material/Select";
+import { setUser, selectUser } from "../../../store/authSlice";
+import { useSelector } from "react-redux";
+import upload from "../../../asset/uploadlatesticon.png";
 
 function OrgUserList() {
+  const [documents, setDocuments] = useState([]);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [order, setOrder] = useState("asc");
+  const [orderBy, setOrderBy] = useState("documentName");
+
+  const user = useSelector(selectUser);
+  const jwt = user.userToken;
+
+  console.log("====================================");
+  console.log(jwt);
+  console.log("====================================");
+  useEffect(() => {
+    const fetchDocuments = async () => {
+      try {
+        const response = await fetch(
+          `http://54.161.113.196:8080/document/?page=${page}&size=${rowsPerPage}&sortField=${orderBy}&sortDirection=${order}&name=java&isActive=1&version=&fileSize=`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${jwt}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch documents");
+        }
+
+        const data = await response.json();
+        setDocuments(data);
+      } catch (error) {
+        console.error("Error fetching documents:", error.message);
+      }
+    };
+
+    fetchDocuments();
+  }, [page, rowsPerPage, order, orderBy, jwt]);
+
   const searchStyles = {
     width: "300px",
     height: "45px",
@@ -78,11 +119,6 @@ function OrgUserList() {
       status: "Inactive",
     },
   ];
-
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [order, setOrder] = React.useState("asc");
-  const [orderBy, setOrderBy] = React.useState("documentName");
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";

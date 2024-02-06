@@ -3,7 +3,9 @@ import Styles from "./OrgAddDocumentSidebar.module.css";
 import profile from "../../../asset/AmChatSuperAdmin/profile.png";
 import GeneralForm from "../../../components/common/forms/GeneralForm";
 import Document from "../../../components/common/upload/file/Document";
+import { selectUser } from "../../../store/authSlice";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 function OrgAddDocument() {
   const [file, setFile] = useState(null);
@@ -25,6 +27,9 @@ function OrgAddDocument() {
     },
   ];
 
+  const user = useSelector(selectUser);
+  const jwt = user.userToken;
+
   const submitHandler = async (values) => {
     try {
       console.log("Submitting form with values:", values);
@@ -36,14 +41,16 @@ function OrgAddDocument() {
 
         console.log("FormData:", formData);
 
-        const token = "your_jwt_token_here"; 
-
-        const response = await axios.post("http://54.161.113.196:8080/document", formData, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'multipart/form-data',
-          },
-        });
+        const response = await axios.post(
+          "http://54.161.113.196:8080/document",
+          formData,
+          {
+            headers: {
+              Authorization: `Bearer ${jwt}`,
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
 
         console.log("API Response:", response);
 
@@ -123,9 +130,9 @@ function OrgAddDocument() {
         </div>
 
         <div className={Styles.addOrganizationAdminSecondDiv}>
-          <div style={{marginLeft:"20px"}}> 
+          <div style={{ marginLeft: "20px" }}>
             <Document {...documentProps} />
-            </div>
+          </div>
           <GeneralForm {...feedingVariable} />
           <div></div>
         </div>
