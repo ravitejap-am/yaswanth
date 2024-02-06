@@ -22,6 +22,7 @@ const SignIn = () => {
   const jwtToken = false;
 
   useEffect(() => {
+    console.log('user', user);
     if (showSuccessMessage) {
       const timer = setTimeout(() => {
         navigate('/dashboardadmin');
