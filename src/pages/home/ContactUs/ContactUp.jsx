@@ -2,6 +2,8 @@ import React, { useEffect, createRef } from "react";
 import img1 from "../../../asset/contact.png";
 import GeneralForm from "../../../components/common/forms/GeneralForm";
 import { Form, Input, Select } from "antd";
+import axios from "axios";
+import * as constants from "../../../constants/Constant";
 import "./ContactUp.css";
 
 const { Option } = Select;
@@ -15,6 +17,7 @@ const ContactUp = () => {
       formRef.current.scrollIntoView({ behavior: "auto" });
     }
   }, []);
+
   const formElements = [
     {
       name: "name",
@@ -25,6 +28,7 @@ const ContactUp = () => {
         borderRadius: "40px",
         border: "1px solid var(--Brand-700, #4338CA)",
         backgroundColor: "transparent",
+        color: "#FFF",
       },
       rules: [{ required: true, message: "Please enter your name" }],
       labelName: true,
@@ -38,6 +42,7 @@ const ContactUp = () => {
         borderRadius: "40px",
         border: "1px solid var(--Brand-700, #4338CA)",
         backgroundColor: "transparent",
+        color: "#FFF",
       },
       labelName: true,
       rules: [
@@ -55,7 +60,6 @@ const ContactUp = () => {
         borderRadius: "40px",
         border: "1px solid var(--Brand-700, #4338CA)",
         backgroundColor: "transparent",
-        // marginBottom: "13px",
         paddingLeft: "10px",
         color: "#FFF",
         margin: "0px 5px 20px 1px",
@@ -87,8 +91,29 @@ const ContactUp = () => {
     },
   ];
 
-  const submitHandler = (values) => {
-    console.log("Form values:", values);
+  const submitHandler = async (values) => {
+    try {
+      const response = await axios.post(
+        "http://54.161.113.196:8080/user/contactUs",
+        {
+          name: values.name,
+          emailId: values.email,
+          status: true,
+          plan: values.plan,
+          comments: values.comment,
+          createdBy: "admin",
+          updatedBy: "admin",
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log("API Response:", response);
+    } catch (error) {
+      console.error("API Error:", error);
+    }
   };
 
   const submitButtonProperty = {
@@ -103,11 +128,9 @@ const ContactUp = () => {
 
   const feedingVariable = {
     isCancel: false,
-    // cancelHandler: cancelHandler,
     isSubmit: true,
     submitHandler: submitHandler,
     submitButtonProperty: submitButtonProperty,
-    // cancelButtonProperty: cancelButtonProperty,
     formElements: formElements,
     formType: "normal",
     forgorPasswordHandler: () => {
