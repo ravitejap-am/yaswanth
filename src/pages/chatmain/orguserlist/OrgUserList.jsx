@@ -45,7 +45,7 @@ function OrgUserList() {
     const fetchDocuments = async () => {
       try {
         const response = await fetch(
-          `http://54.161.113.196:8080/document/?page=${page}&size=${rowsPerPage}&sortField=${orderBy}&sortDirection=${order}&name=java&isActive=1&version=&fileSize=`,
+          `http://54.161.113.196:8080/document/?page=0&size=10&sortField=uploadDate&sortDirection=desc&name=java&isActive=1&version=&fileSize=`,
           {
             method: "GET",
             headers: {

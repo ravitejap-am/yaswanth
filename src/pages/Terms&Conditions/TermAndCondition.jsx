@@ -170,9 +170,9 @@ const TermAndCondition = () => {
         </p>
         <p className={Styles.TermAndConditionContentStyle}>
           <a
-            href="www.sales@areteminds.com"
-            // rel="externalnofollow noopener"
-            // target="_blank"
+            href="mailto:sales@areteminds.com"
+            rel="external nofollow noopener"
+            target="_blank"
           >
             sales@areteminds.com
           </a>
