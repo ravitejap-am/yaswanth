@@ -19,49 +19,18 @@ const SignIn = () => {
   const [form] = Form.useForm();
   const [filesystem, setFileSysytem] = useState([]);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-  const jwtToken = user.userToken;
+  const jwtToken = false;
 
-  const decodeJWT = (token) => {
-    try {
-      const base64Url = token.split(".")[1];
-      const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
-      const jsonPayload = decodeURIComponent(
-        atob(base64)
-          .split("")
-          .map((char) => {
-            return "%" + ("00" + char.charCodeAt(0).toString(16)).slice(-2);
-          })
-          .join("")
-      );
-      return JSON.parse(jsonPayload);
-    } catch (error) {
-      console.error("Error decoding JWT:", error);
-      return null;
-    }
-  };
+  useEffect(() => {
+    console.log('user', user);
+    if (showSuccessMessage) {
+      const timer = setTimeout(() => {
+        navigate('/dashboardadmin');
+      }, 3000);
 
-  // Usage:
-  const decodedToken = decodeJWT(jwtToken);
-  if (decodedToken) {
-    const role = decodedToken.role;
-    // Redirect based on the role
-    switch (role) {
-      case "ORG_ADMIN":
-        navigate("/orgadminchat");
-        break;
-      case "USER":
-        navigate("/userchat");
-        break;
-      case "super_admin":
-        navigate("/dashboardadmin");
-        break;
-      default:
-        // Redirect to a default route if the role is not recognized
-        navigate("/default");
+      return () => clearTimeout(timer);
     }
-  } else {
-    console.error("Invalid JWT token");
-  }
+  }, [showSuccessMessage, navigate]);
 
   const validatePassword = (_, value) => {
     if (value && value.length < 8) {

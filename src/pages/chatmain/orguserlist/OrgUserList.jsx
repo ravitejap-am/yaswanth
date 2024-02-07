@@ -1,68 +1,77 @@
-import React, { useState, useEffect } from "react";
-import Styles from "./OrgUserList.module.css";
-import profile from "../../../asset/AmChatSuperAdmin/profile.png";
-import GeneralButton from "../../../components/common/buttons/GeneralButton";
-import frame from "../../../asset/AmChatSuperAdmin/plus-sm.png";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TablePagination from "@mui/material/TablePagination";
-import TableRow from "@mui/material/TableRow";
-import TableSortLabel from "@mui/material/TableSortLabel";
-import Typography from "@mui/material/Typography";
-import Paper from "@mui/material/Paper";
-import Checkbox from "@mui/material/Checkbox";
-import IconButton from "@mui/material/IconButton";
-import editIcon from "../../../asset/AmChatSuperAdmin/pencil-alt.png";
-import deleteIcon from "../../../asset/AmChatSuperAdmin/Frame 2302.png";
-import { Link } from "react-router-dom";
-import styles from "../../../pages/AMChatAdmin/OrganizationList/Organization.module.css";
-import Search from "../../../components/common/search/Search";
-import SerchImages from "../../../asset/AmChatSuperAdmin/Group2305.png";
-import { Pagination } from "antd";
-import { FormControl, MenuItem } from "@mui/material";
-import Select from "@mui/material/Select";
-import { setUser, selectUser } from "../../../store/authSlice";
-import { useSelector } from "react-redux";
-import upload from "../../../asset/uploadlatesticon.png";
+import React, { useState, useEffect } from 'react';
+import Styles from './OrgUserList.module.css';
+import profile from '../../../asset/AmChatSuperAdmin/profile.png';
+import GeneralButton from '../../../components/common/buttons/GeneralButton';
+import frame from '../../../asset/AmChatSuperAdmin/plus-sm.png';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TablePagination from '@mui/material/TablePagination';
+import TableRow from '@mui/material/TableRow';
+import TableSortLabel from '@mui/material/TableSortLabel';
+import Typography from '@mui/material/Typography';
+import Paper from '@mui/material/Paper';
+import Checkbox from '@mui/material/Checkbox';
+import IconButton from '@mui/material/IconButton';
+import editIcon from '../../../asset/AmChatSuperAdmin/pencil-alt.png';
+import deleteIcon from '../../../asset/AmChatSuperAdmin/Frame 2302.png';
+import { Link } from 'react-router-dom';
+import styles from '../../../pages/AMChatAdmin/OrganizationList/Organization.module.css';
+import Search from '../../../components/common/search/Search';
+import SerchImages from '../../../asset/AmChatSuperAdmin/Group2305.png';
+import { Pagination } from 'antd';
+import { FormControl, MenuItem } from '@mui/material';
+import Select from '@mui/material/Select';
+import { setUser, selectUser } from '../../../store/authSlice';
+import { useSelector } from 'react-redux';
+import upload from '../../../asset/uploadlatesticon.png';
+import axios from 'axios';
 
 function OrgUserList() {
   const [documents, setDocuments] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [order, setOrder] = useState("asc");
-  const [orderBy, setOrderBy] = useState("documentName");
+  const [order, setOrder] = useState('asc');
+  const [orderBy, setOrderBy] = useState('documentName');
 
   const user = useSelector(selectUser);
   const jwt = user.userToken;
 
-  console.log("====================================");
+  console.log('====================================');
   console.log(jwt);
-  console.log("====================================");
+  console.log('====================================');
   useEffect(() => {
     const fetchDocuments = async () => {
       try {
-        const response = await fetch(
-          `http://54.161.113.196:8080/document/?page=0&size=10&sortField=uploadDate&sortDirection=desc&name=java&isActive=1&version=&fileSize=`,
+        const response = await axios.get(
+          'http://54.161.113.196:8080/document/',
           {
-            method: "GET",
+            params: {
+              page: 0,
+              size: 10,
+              sortField: 'uploadDate',
+              sortDirection: 'desc',
+              name: 'java',
+              isActive: 1,
+              version: '',
+              fileSize: '',
+            },
             headers: {
               Authorization: `Bearer ${jwt}`,
-              "Content-Type": "application/json",
+              'Content-Type': 'application/json',
             },
           }
         );
 
-        if (!response.ok) {
-          throw new Error("Failed to fetch documents");
+        if (!response.data) {
+          throw new Error('Failed to fetch documents');
         }
 
-        const data = await response.json();
-        setDocuments(data);
+        setDocuments(response.data);
       } catch (error) {
-        console.error("Error fetching documents:", error.message);
+        console.error('Error fetching documents:', error.message);
       }
     };
 
@@ -70,20 +79,20 @@ function OrgUserList() {
   }, [page, rowsPerPage, order, orderBy, jwt]);
 
   const searchStyles = {
-    width: "300px",
-    height: "45px",
-    borderRadius: "42px",
-    fontFamily: "Inter, sans-serif",
-    backgroundColor: "#EEF2FF",
-    display: "flex",
-    alignItems: "center",
-    marginRight: "18px",
+    width: '300px',
+    height: '45px',
+    borderRadius: '42px',
+    fontFamily: 'Inter, sans-serif',
+    backgroundColor: '#EEF2FF',
+    display: 'flex',
+    alignItems: 'center',
+    marginRight: '18px',
   };
   const itemRender = (_, type, originalElement) => {
-    if (type === "prev") {
+    if (type === 'prev') {
       return <a>Previous</a>;
     }
-    if (type === "next") {
+    if (type === 'next') {
       return <a>Next</a>;
     }
     return originalElement;
@@ -92,37 +101,37 @@ function OrgUserList() {
   const rows = [
     {
       id: 1,
-      documentName: "Passbook",
-      size: "3 MB",
-      version: "v1.0",
-      status: "Active",
+      documentName: 'Passbook',
+      size: '3 MB',
+      version: 'v1.0',
+      status: 'Active',
     },
     {
       id: 2,
-      documentName: "Passbook",
-      size: "2.5 MB",
-      version: "v2.0",
-      status: "Inactive",
+      documentName: 'Passbook',
+      size: '2.5 MB',
+      version: 'v2.0',
+      status: 'Inactive',
     },
     {
       id: 3,
-      documentName: "Passbook",
-      size: "3 MB",
-      version: "v1.0",
-      status: "Active",
+      documentName: 'Passbook',
+      size: '3 MB',
+      version: 'v1.0',
+      status: 'Active',
     },
     {
       id: 4,
-      documentName: "Passbook",
-      size: "2.5 MB",
-      version: "v2.0",
-      status: "Inactive",
+      documentName: 'Passbook',
+      size: '2.5 MB',
+      version: 'v2.0',
+      status: 'Inactive',
     },
   ];
 
   const handleRequestSort = (event, property) => {
-    const isAsc = orderBy === property && order === "asc";
-    setOrder(isAsc ? "desc" : "asc");
+    const isAsc = orderBy === property && order === 'asc';
+    setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
   };
 
@@ -149,7 +158,7 @@ function OrgUserList() {
           </div>
           <div
             className={Styles.superAdminProfileImgNameStyle}
-            style={{ display: "flex", alignItems: "center" }}
+            style={{ display: 'flex', alignItems: 'center' }}
           >
             <img src={profile} alt="" className={Styles.AdminProfileStyle} />
             <span className={Styles.SuperAdminProfileStyle}>Lian Vendiar</span>
@@ -159,24 +168,24 @@ function OrgUserList() {
         <div className={Styles.bannerBtn}>
           <div className={Styles.OrganizationListFilterSerchBox}>
             <Search
-              name={"Search name here."}
+              name={'Search name here.'}
               styles={searchStyles}
               searchImage={SerchImages}
-              imageHeight={"46px"}
+              imageHeight={'46px'}
               imageMarginLeft={20}
             />
           </div>
           <div className={Styles.bannerButton}>
-            <Link to="/orgadddocument" style={{ textDecoration: "none" }}>
+            <Link to="/orgadddocument" style={{ textDecoration: 'none' }}>
               <GeneralButton
-                name={"Add Document"}
-                type={"submit"}
-                color={"#f8fafc"}
-                borderRadius={"30px"}
-                backgroundColor={"#6366f1"}
+                name={'Add Document'}
+                type={'submit'}
+                color={'#f8fafc'}
+                borderRadius={'30px'}
+                backgroundColor={'#6366f1'}
                 icons={frame}
-                width={"158px"}
-                height={"48px"}
+                width={'158px'}
+                height={'48px'}
               />
             </Link>
           </div>
@@ -188,24 +197,24 @@ function OrgUserList() {
               <Table
                 sx={{ minWidth: 750 }}
                 aria-labelledby="tableTitle"
-                size={"medium"}
+                size={'medium'}
                 aria-label="enhanced table"
               >
-                <TableHead style={{ borderBottom: "2px solid #0F172A" }}>
+                <TableHead style={{ borderBottom: '2px solid #0F172A' }}>
                   <TableRow>
                     <TableCell padding="checkbox">
                       <Checkbox
                         indeterminate={false}
-                        inputProps={{ "aria-label": "select all documents" }}
+                        inputProps={{ 'aria-label': 'select all documents' }}
                       />
                     </TableCell>
                     <TableCell>
                       <TableSortLabel
-                        onClick={(e) => handleRequestSort(e, "documentName")}
+                        onClick={(e) => handleRequestSort(e, 'documentName')}
                       >
                         <Typography
                           variant="body1"
-                          style={{ fontWeight: "bold" }}
+                          style={{ fontWeight: 'bold' }}
                         >
                           Document Name
                         </Typography>
@@ -214,7 +223,7 @@ function OrgUserList() {
                     <TableCell>
                       <Typography
                         variant="body1"
-                        style={{ fontWeight: "bold" }}
+                        style={{ fontWeight: 'bold' }}
                       >
                         Size
                       </Typography>
@@ -222,7 +231,7 @@ function OrgUserList() {
                     <TableCell>
                       <Typography
                         variant="body1"
-                        style={{ fontWeight: "bold" }}
+                        style={{ fontWeight: 'bold' }}
                       >
                         Version
                       </Typography>
@@ -230,7 +239,7 @@ function OrgUserList() {
                     <TableCell>
                       <Typography
                         variant="body1"
-                        style={{ fontWeight: "bold" }}
+                        style={{ fontWeight: 'bold' }}
                       >
                         Status
                       </Typography>
@@ -238,7 +247,7 @@ function OrgUserList() {
                     <TableCell>
                       <Typography
                         variant="body1"
-                        style={{ fontWeight: "bold", marginLeft: "20px" }}
+                        style={{ fontWeight: 'bold', marginLeft: '20px' }}
                       >
                         Actions
                       </Typography>
@@ -252,7 +261,7 @@ function OrgUserList() {
                       <TableRow key={row.id}>
                         <TableCell padding="checkbox">
                           <Checkbox
-                            inputProps={{ "aria-labelledby": row.documentName }}
+                            inputProps={{ 'aria-labelledby': row.documentName }}
                           />
                         </TableCell>
                         <TableCell component="th" scope="row">
@@ -261,9 +270,9 @@ function OrgUserList() {
                         <TableCell>{row.size}</TableCell>
                         <TableCell>{row.version}</TableCell>
                         <TableCell>
-                          <FormControl style={{ width: "110px" }}>
+                          <FormControl style={{ width: '110px' }}>
                             <Select
-                              style={{ border: "none", borderRadius: "none" }}
+                              style={{ border: 'none', borderRadius: 'none' }}
                               value={row.status}
                               onChange={(e) => {
                                 console.log(e.target.value);
@@ -306,11 +315,11 @@ function OrgUserList() {
             </TableContainer>
             <div
               style={{
-                display: "flex",
-                justifyContent: "flex-end",
-                alignItems: "center",
-                marginTop: "16px",
-                gap: "20px",
+                display: 'flex',
+                justifyContent: 'flex-end',
+                alignItems: 'center',
+                marginTop: '16px',
+                gap: '20px',
               }}
             >
               <div>Total {rows.length} items</div>

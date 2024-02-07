@@ -1,36 +1,36 @@
-import { Card } from "antd";
-import React from "react";
-import Styles from "./AmchatMainUser.module.css";
-import flow from "../../../asset/AmChatSuperAdmin/flow.png";
-import flowImage2 from "../../../asset/AmChatSuperAdmin/flow2.png";
-import circle1 from "../../../asset/AmChatSuperAdmin/Group23.png";
-import circle2 from "../../../asset/AmChatSuperAdmin/Group24.png";
-import profile from "../../../asset/AmChatSuperAdmin/profile.png";
-import Logo from "../../../asset/Vector.png";
-import Group2290 from "../../../asset/Group2290.png";
-import Search from "../../../components/common/search/Search";
-import { Link, useNavigate } from "react-router-dom";
+import { Card } from 'antd';
+import React from 'react';
+import Styles from './AmchatMainUser.module.css';
+import flow from '../../../asset/AmChatSuperAdmin/flow.png';
+import flowImage2 from '../../../asset/AmChatSuperAdmin/flow2.png';
+import circle1 from '../../../asset/AmChatSuperAdmin/Group23.png';
+import circle2 from '../../../asset/AmChatSuperAdmin/Group24.png';
+import profile from '../../../asset/AmChatSuperAdmin/profile.png';
+import Logo from '../../../asset/Vector.png';
+import Group2290 from '../../../asset/Group2290.png';
+import Search from '../../../components/common/search/Search';
+import { Link, useNavigate } from 'react-router-dom';
 // import flowImage from "../../../asset/AmChatSuperAdmin/Flow.svg";
 
 const AmchatMainUser = () => {
   const navigate = useNavigate();
   const contentArray = [
-    "Could you help me with the maternity policy of my organization?",
-    "Can you tell me about GDPR compliance.  Which I should follow in my organization?",
-    "Can you explain me the Pythagoras theorem based on. ",
+    'Could you help me with the maternity policy of my organization?',
+    'Can you tell me about GDPR compliance.  Which I should follow in my organization?',
+    'Can you explain me the Pythagoras theorem based on. ',
     "Can you tell me what's wrong in my lab reports?  ",
-    "Can you explain me the quantum mechanics? ",
+    'Can you explain me the quantum mechanics? ',
   ];
   const searchStyles = {
-    width: "96%",
-    height: "70px",
-    borderRadius: "35px",
-    border: "1px solid #94a3b8",
-    color: "#94a3b8",
-    paddingLeft: "30px",
+    width: '96%',
+    height: '70px',
+    borderRadius: '35px',
+    border: '1px solid #94a3b8',
+    color: '#94a3b8',
+    paddingLeft: '30px',
   };
   const handleSearchImageClick = () => {
-    navigate("/chat");
+    navigate('/chat');
   };
   return (
     <div className={Styles.superAdminMainCardDivStyle}>
@@ -42,23 +42,23 @@ const AmchatMainUser = () => {
           <div
             className={Styles.superAdminProfileImgNameStyle}
             style={{
-              display: "flex",
-              alignItems: "center",
+              display: 'flex',
+              alignItems: 'center',
             }}
           >
             <img src={profile} alt="" className={Styles.AdminProfileStyle} />
-            <span className={Styles.SuperAdminProfileStyle}>Lian Vendiar</span>
+            <span className={Styles.SuperAdminProfileStyle}>Shiva</span>
           </div>
         </div>
         <div className={Styles.superAdminMiddleChildDiv}>
           <div
             className={Styles.superAdminMiddleCardStyle}
-            style={{ backgroundColor: "#FFFFFF" }}
+            style={{ backgroundColor: '#FFFFFF' }}
           >
-            <div style={{ display: "flex" }}>
-              {" "}
+            <div style={{ display: 'flex' }}>
+              {' '}
               <div className={Styles.superAdminMiddleCardCircle1Style}>
-                {" "}
+                {' '}
                 <img src={circle1} alt="" />
               </div>
               <div className={Styles.titlePriceStyle}>
@@ -105,7 +105,7 @@ const AmchatMainUser = () => {
           <div className={Styles.AIChatInputBox}>
             <Link to="/chat">
               <Search
-                name={"Ask anything.."}
+                name={'Ask anything..'}
                 style={searchStyles}
                 searchImage={Group2290}
                 onSearchImageClick={handleSearchImageClick}
