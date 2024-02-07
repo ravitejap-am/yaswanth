@@ -70,13 +70,13 @@ function HowItWorks() {
             </div>
             <br />
             <br />
-            {/* <Steps
+            <Steps
               direction="vertical"
               size="small"
               current={4}
               items={stepperItems}
-            /> */}
-            <div className="How_it_works_container">
+            />
+            {/* <div className="How_it_works_container">
               <div className="How_it_works_imge2">
                 <span className="Sub_Title_of_how_it_Works">
                   Organization onboarding
@@ -106,7 +106,7 @@ function HowItWorks() {
                   organization and let the data talk.
                 </span>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
 
