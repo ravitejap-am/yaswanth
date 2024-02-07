@@ -33,6 +33,7 @@ const ChangePassword = ({ setFileSysytem, validateEmail }) => {
           }),
         }
       );
+      
 
       if (response.ok) {
         console.log("Password change successful");
