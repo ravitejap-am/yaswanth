@@ -1,29 +1,31 @@
-import { Button } from "antd";
+import { Button } from 'antd';
 
-const GeneralButton = ({
-  name,
-  buttonProps,
-  type,
-  color,
-  backgroundColor,
-  width,
-  height,
-  marginLeft,  // buttonHandler,
-  isCallbackData,
-  boxShadow,
-  // borderRadius,
-  borderRadius,
-  border,
-  icons,
-  marginTop,
-}) => {
-  console.log(buttonProps);
+const GeneralButton = (props) => {
+  const {
+    name,
+    buttonProps,
+    type,
+    color,
+    backgroundColor,
+    width,
+    height,
+    marginLeft, // buttonHandler,
+    isCallbackData,
+    boxShadow,
+    // borderRadius,
+    borderRadius,
+    border,
+    icons,
+    marginTop,
+  } = props;
+  console.log(props);
   return (
     <Button
       type={type}
       htmlType="submit"
       className="center"
       onClick={() => {
+        // alert('hi');
         if (!!isCallbackData) {
           // buttonHandler(isCallbackData);
         } else {
@@ -38,12 +40,12 @@ const GeneralButton = ({
         boxShadow: boxShadow,
         borderRadius: borderRadius,
         border: border,
-        marginLeft:marginLeft,
-        marginTop:marginTop
+        marginLeft: marginLeft,
+        marginTop: marginTop,
       }}
     >
       {name}
-      <img src={icons} style={{ marginLeft: "8px" }} alt="" />
+      <img src={icons} style={{ marginLeft: '8px' }} alt="" />
     </Button>
   );
 };
