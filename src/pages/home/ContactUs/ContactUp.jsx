@@ -1,18 +1,27 @@
-import React, { useEffect, createRef } from 'react';
+import React, { useEffect, createRef, useState } from 'react';
 import img1 from '../../../asset/contact.png';
 import GeneralForm from '../../../components/common/forms/GeneralForm';
 import { Form, Input, Select } from 'antd';
 import axios from 'axios';
 import * as constants from '../../../constants/Constant';
+import { useMessageState } from '../../../hooks/useapp-message';
 import './ContactUp.css';
-
+import { Link, useNavigate } from 'react-router-dom';
 const { Option } = Select;
 
 const ContactUp = () => {
   const formRef = createRef();
+  let {
+    buttonLoading,
+    setButtonLoading,
+    isReset,
+    setIsReset,
+    showNotifyMessage,
+    hideNotifyMessage,
+  } = useMessageState();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // Scroll to the top of the form when the component mounts
     if (formRef.current) {
       formRef.current.scrollIntoView({ behavior: 'auto' });
     }
@@ -72,9 +81,9 @@ const ContactUp = () => {
       },
       labelName: true,
       options: [
-        { value: 'basic', label: 'Freemium' },
-        { value: 'premium', label: 'Standard' },
-        { value: 'pro', label: 'Enterprise' },
+        { value: 'FREEMIUM', label: 'Freemium' },
+        { value: 'PREMIUM', label: 'Standard' },
+        { value: 'ENTERPRISE', label: 'Enterprise' },
       ],
       rules: [{ required: true, message: 'Please select a plan' }],
     },
@@ -96,13 +105,16 @@ const ContactUp = () => {
       // rules: [{ required: true, message: 'Please enter your comment' }],
     },
   ];
-
+  const messageHandler = () => {
+    setIsReset(false);
+    hideNotifyMessage();
+  };
   const submitHandler = async (values) => {
-    // alert('hi');
+    setButtonLoading(true);
     console.log('contact up', values);
     try {
       const response = await axios.post(
-        'http://54.161.113.196:8080/user/contactUs',
+        `${constants.BASE_API_URL}/user/contactUs`,
         {
           name: values.name,
           emailId: values.email,
@@ -118,22 +130,23 @@ const ContactUp = () => {
           },
         }
       );
-      console.log('API Response:', response);
+      setButtonLoading(false);
+      setIsReset(true);
+      showNotifyMessage('success', response?.data?.message, messageHandler);
     } catch (error) {
-      console.error('API Error:', error);
+      if (error?.response?.status == 500 || error?.response?.status == '500') {
+        navigate('/internal500');
+      }
+
+      setButtonLoading(false);
+      showNotifyMessage(
+        'error',
+        error?.response?.data?.message,
+        messageHandler
+      );
     }
   };
 
-  // const submitButtonProperty = {
-  //   name: 'Submit',
-  //   color: '#ffffff',
-  //   backgroundColor: 'var(--Brand-500, #6366F1)',
-  //   width: '525px',
-  //   height: '50px',
-  //   borderRadius: '28px',
-  //   boxShadow: 'none',
-  //   type: 'primary',
-  // };
   const submitButtonProperty = {
     name: 'Submit',
     color: 'white',
@@ -145,21 +158,6 @@ const ContactUp = () => {
     marginTop: '.6em',
   };
 
-  // const feedingVariable = {
-  //   isCancel: false,
-  //   cancelHandler: cancelHandler,
-  //   isSubmit: true,
-  //   submitHandler: submitHandler,
-  //   submitButtonProperty: submitButtonProperty,
-  //   formElements: formElements,
-  //   formType: 'normal',
-  //   forgorPasswordHandler: () => {
-  //     console.log('forgot Password....');
-  //   },
-  //   validateEmail: validateEmail,
-  //   setFileSysytem: setFileSysytem,
-
-  // };
   const feedingVariable = {
     isCancel: false,
     isSubmit: true,
@@ -199,7 +197,11 @@ const ContactUp = () => {
           </div>
 
           <div className="Contact-Us-General-Form-Style">
-            <GeneralForm {...feedingVariable} />
+            <GeneralForm
+              {...feedingVariable}
+              buttonLoading={buttonLoading}
+              isReset={isReset}
+            />
           </div>
         </div>
       </div>

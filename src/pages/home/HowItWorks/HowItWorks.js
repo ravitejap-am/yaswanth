@@ -20,6 +20,7 @@ function HowItWorks() {
         <span className="how_to_works_span_text">
           Reach out to our sales team at sales@areteminds.com or fill up the
           form given in Contact Us section below. <br />
+          <br />
         </span>
       ),
       icon: <img src={Stepper} style={{ width: '1.5em' }} />,

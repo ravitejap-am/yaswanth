@@ -15,6 +15,7 @@ const GeneralButton = (props) => {
     border,
     icons,
     marginTop,
+    buttonLoading = false,
   } = props;
 
   const handleClick = () => {

@@ -1,12 +1,12 @@
-import React from "react";
-import { Form, Checkbox, InputNumber, Switch, DatePicker, Select } from "antd";
-import Document from "../upload/file/Document";
-import Button from "../buttons/GeneralButton";
-import Input from "../input/Input";
-import Dropdown from ".././dropDown/dropDown";
-import { LockFilled } from "@ant-design/icons";
-import { Link } from "react-router-dom";
-import TextArea from "antd/es/input/TextArea";
+import React, { useEffect } from 'react';
+import { Form, Checkbox, InputNumber, Switch, DatePicker, Select } from 'antd';
+import Document from '../upload/file/Document';
+import Button from '../buttons/GeneralButton';
+import Input from '../input/Input';
+import Dropdown from '.././dropDown/dropDown';
+import { LockFilled } from '@ant-design/icons';
+import { Link } from 'react-router-dom';
+import TextArea from 'antd/es/input/TextArea';
 
 // const { TextArea } = Input;
 
@@ -24,9 +24,17 @@ const GeneralForm = (props) => {
     validateEmail,
     setFileSysytem,
     grid,
+    buttonLoading = false,
+    isReset = false,
   } = props;
   console.log(props);
   const [form] = Form.useForm();
+
+  useEffect(() => {
+    if (isReset) {
+      form.resetFields();
+    }
+  }, [isReset]);
 
   return (
     <Form
@@ -402,6 +410,7 @@ const GeneralForm = (props) => {
               boxShadow={submitButtonProperty.boxShadow}
               borderRadius={submitButtonProperty.borderRadius}
               fontSize={submitButtonProperty.fontSize}
+              buttonLoading={buttonLoading}
             />
           )}
           {isCancel && (
