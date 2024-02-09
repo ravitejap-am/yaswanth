@@ -11,12 +11,18 @@ function AISolution() {
       img: img1,
       title: "Analytics",
       subTitle: "Find about the usage of your organizational knowledge base.",
+      style: {
+        marginTop: "-7px",
+      },
     },
     {
       img: img2,
       title: "Insights",
       subTitle:
         "Learn & Explore what’s hidden knowledge in your organizational document.",
+      style: {
+        marginTop: "-10px",
+      },
     },
     {
       img: img3,
@@ -33,7 +39,9 @@ function AISolution() {
 
   return (
     <div className="AI_Solution_Main_div">
-    <br /><br /><br />
+      <br />
+      <br />
+      <br />
       <div className="AI_Solution-title_style">
         <div className="AI_Solution_title_style">
           <span>Explore a Gen AI Chatbot Solution for your Business</span>
@@ -46,7 +54,11 @@ function AISolution() {
       <div className="AI_Solution_Content_Main_Style">
         <div className="AI_Solution_Content_Style">
           {columns.map((column, index) => (
-            <div className="AI_Solution_Content_Child_div" key={index}>
+            <div
+              className="AI_Solution_Content_Child_div"
+              key={index}
+              style={column.style}
+            >
               <div className="AI_Solution_Content_Image_Style">
                 <img src={column.img} alt={`Image ${index + 1}`} />
               </div>

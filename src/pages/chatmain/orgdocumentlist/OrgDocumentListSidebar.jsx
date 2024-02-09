@@ -46,7 +46,7 @@ function OrgDocumentListSidebar() {
             <div className={Styles.SuperAdminChildContainer}>
               <span>
                 <img src={arrorLink} alt="" />
-                <Link to="/userchat" style={{ textDecoration: "none" }}>
+                <Link to="/orgadminchat" style={{ textDecoration: "none" }}>
                   <p className={Styles.organizationTextStyle}>Back to Chat</p>{" "}
                 </Link>
               </span>

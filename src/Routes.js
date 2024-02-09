@@ -69,7 +69,11 @@ const Rout = () => {
           element={<RecoveryPasswor />}
           errorElement={<LoginPageError />}
         />
-        <Route path="/ResetPassword" element={<ResetPassword />} />
+        <Route
+          path="/user/verification/reset/:id"
+          element={<ResetPassword />}
+        />
+
         <Route
           path="/pagenotfound"
           element={<PageNotFound />}

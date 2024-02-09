@@ -2,13 +2,14 @@ import { Button } from "antd";
 
 const GeneralButton = ({
   name,
+  buttonHandler,
   buttonProps,
   type,
   color,
   backgroundColor,
   width,
   height,
-  marginLeft,  // buttonHandler,
+  marginLeft, // buttonHandler,
   isCallbackData,
   boxShadow,
   // borderRadius,
@@ -25,7 +26,7 @@ const GeneralButton = ({
       className="center"
       onClick={() => {
         if (!!isCallbackData) {
-          // buttonHandler(isCallbackData);
+          buttonHandler(isCallbackData);
         } else {
           // buttonHandler();
         }
@@ -38,8 +39,8 @@ const GeneralButton = ({
         boxShadow: boxShadow,
         borderRadius: borderRadius,
         border: border,
-        marginLeft:marginLeft,
-        marginTop:marginTop
+        marginLeft: marginLeft,
+        marginTop: marginTop,
       }}
     >
       {name}
