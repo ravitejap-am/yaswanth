@@ -3,6 +3,7 @@ import Style from './pageNotFound.module.css';
 import { SearchOutlined } from '@ant-design/icons';
 import PageNotFoundImage from '../../../asset/404.jpg';
 import GeneralButton from '../../../components/common/buttons/GeneralButton';
+import { Link, useNavigate } from 'react-router-dom';
 
 const PageNotFound = () => {
   return (
@@ -20,16 +21,19 @@ const PageNotFound = () => {
         </div>
         <div>
           {/* <button>Back to dashboard</button> */}
-          <GeneralButton
-            name={'Back to dashboard'}
-            type={'submit'}
-            backgroundColor={'var(--Brand-500, #6366F1)'}
-            color={'#fff'}
-            submitHandler={() => {
-              alert('hi');
-            }}
-            isSubmit={true}
-          />
+          <Link to={'/'} style={{ textDecoration: 'none' }}>
+            <GeneralButton
+              name={'Back to dashboard'}
+              type={'submit'}
+              backgroundColor={'var(--Brand-500, #6366F1)'}
+              color={'#fff'}
+              buttonHandler={() => {
+                alert('hi');
+              }}
+              isSubmit={true}
+            />
+          </Link>
+
           {/* <form typeof="submit">
             <div>
               <input type="search" />

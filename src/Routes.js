@@ -42,7 +42,7 @@ const Rout = () => {
       <Route exact path="/recoverypassword" element={<RecoveryPasswor />} />
       <Route
         exact
-        path="/user/verification/forget/:id"
+        path="/user/verification/reset/:id"
         element={<ResetPassword />}
       />
       <Route exact path="/pagenotfound" element={<PageNotFound />} />

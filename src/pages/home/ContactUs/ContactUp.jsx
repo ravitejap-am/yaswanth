@@ -6,7 +6,7 @@ import axios from 'axios';
 import * as constants from '../../../constants/Constant';
 import { useMessageState } from '../../../hooks/useapp-message';
 import './ContactUp.css';
-
+import { Link, useNavigate } from 'react-router-dom';
 const { Option } = Select;
 
 const ContactUp = () => {
@@ -19,6 +19,7 @@ const ContactUp = () => {
     showNotifyMessage,
     hideNotifyMessage,
   } = useMessageState();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (formRef.current) {
@@ -129,14 +130,14 @@ const ContactUp = () => {
           },
         }
       );
-      console.log('API Response:', response);
       setButtonLoading(false);
       setIsReset(true);
       showNotifyMessage('success', response?.data?.message, messageHandler);
     } catch (error) {
-      console.error('API Error:', error);
-      console.log(error.response.status);
-      console.log(error.response.data.message);
+      if (error?.response?.status == 500 || error?.response?.status == '500') {
+        navigate('/internal500');
+      }
+
       setButtonLoading(false);
       showNotifyMessage(
         'error',

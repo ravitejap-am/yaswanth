@@ -8,16 +8,26 @@ import Footer from '../../pages/home/Footer/Footer';
 import SignHeader from '../home/SignHeader/SignHeader';
 import { useSelector } from 'react-redux'; // Import the useSelector hook
 import { useParams } from 'react-router-dom';
+import * as constants from '../../constants/Constant';
+import { useMessageState } from '../../hooks/useapp-message';
+import { useNavigate } from 'react-router-dom';
 
 const ResetPassword = () => {
-  const [successMessage, setSuccessMessage] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  let {
+    buttonLoading,
+    setButtonLoading,
+    isReset,
+    setIsReset,
+    showNotifyMessage,
+    hideNotifyMessage,
+  } = useMessageState();
   const [form] = Form.useForm();
+  const navigate = useNavigate();
 
   const jwtToken = false;
-  const params = useParams();
+  const { id } = useParams();
 
-  console.log(params);
+  console.log(id);
   useEffect(() => {
     console.log('JWT Token from Redux Store:', jwtToken);
     if (jwtToken) {
@@ -36,11 +46,16 @@ const ResetPassword = () => {
   };
 
   const validateConfirmPassword = (_, value, password) => {
+    console.log('passValue', value, 'confirm', password);
     if (value !== password) {
       return Promise.reject('Passwords do not match');
     } else {
       return Promise.resolve();
     }
+  };
+  const messageHandler = () => {
+    setIsReset(false);
+    hideNotifyMessage();
   };
 
   const formElements = [
@@ -59,10 +74,10 @@ const ResetPassword = () => {
       name: 'confirmPassword',
       rules: [
         { required: true, message: 'Please confirm your password!' },
-        {
-          validator: (_, value) =>
-            validateConfirmPassword(_, value, form.getFieldValue('password')),
-        },
+        // {
+        //   validator: (_, value) =>
+        //     validateConfirmPassword(_, value, form.getFieldValue('password')),
+        // },
       ],
     },
   ];
@@ -92,31 +107,43 @@ const ResetPassword = () => {
 
   const feedingVariable = {
     isCancel: false,
-    cancelHandler: () => {
-      console.log('Canceling....');
+    cancelHandler: (errorInfo) => {
+      console.log('Canceling....', errorInfo);
     },
     isSubmit: true,
     submitHandler: async (values) => {
       console.log('Resetting password....');
       console.log(values);
-
+      setButtonLoading(true);
       try {
-        const response = await axios.post('localhost8080/reset-password', {
-          email: values.email,
-          password: values.password,
-        });
-
-        if (response.data.success) {
-          toast.success('Your password has been reset successfully.');
-          setErrorMessage('');
-        } else {
-          toast.error('Password reset failed. Please try again.');
-          setSuccessMessage('');
-        }
+        const response = await axios.put(
+          `${constants.BASE_API_URL}/user/verification/forget/${id}`,
+          {
+            newPassword: values.password,
+            confirmPassword: values.confirmPassword,
+          }
+        );
+        console.log('succes', response);
+        setButtonLoading(false);
+        setIsReset(true);
+        showNotifyMessage('success', response?.data?.message, messageHandler);
+        navigate('/signin');
       } catch (error) {
         console.error('Error resetting password:', error);
-        toast.error('An error occurred. Please try again.');
-        setSuccessMessage('');
+        console.log(error);
+        if (
+          error?.response?.status == 500 ||
+          error?.response?.status == '500'
+        ) {
+          navigate('/internal500');
+        }
+
+        setButtonLoading(false);
+        showNotifyMessage(
+          'error',
+          error?.response?.data?.message,
+          messageHandler
+        );
       }
     },
     submitButtonProperty: submitButtonProperty,
@@ -147,14 +174,12 @@ const ResetPassword = () => {
                   </div>
 
                   <div className="form-content">
-                    <GeneralForm form={form} {...feedingVariable} />
-                    {successMessage && (
-                      <div className="success-message">{successMessage}</div>
-                    )}
-                    {errorMessage && (
-                      <div className="error-message">{errorMessage}</div>
-                    )}
-                    <NotifyMessage />
+                    <GeneralForm
+                      form={form}
+                      {...feedingVariable}
+                      buttonLoading={buttonLoading}
+                      isReset={isReset}
+                    />
                   </div>
                 </div>
               </div>
