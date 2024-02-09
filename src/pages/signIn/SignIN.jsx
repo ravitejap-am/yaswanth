@@ -9,7 +9,6 @@ import NotifyMessage from "../../components/common/toastMessages/NotifyMessage";
 import Footer from "../../pages/home/Footer/Footer";
 import SignHeader from "../home/SignHeader/SignHeader";
 import { setUser, selectUser } from "../../store/authSlice";
-
 import * as constants from "../../constants/Constant";
 
 const SignIn = () => {
@@ -19,18 +18,52 @@ const SignIn = () => {
   const [form] = Form.useForm();
   const [filesystem, setFileSysytem] = useState([]);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-  const jwtToken = false;
 
   useEffect(() => {
-    console.log('user', user);
-    if (showSuccessMessage) {
-      const timer = setTimeout(() => {
-        navigate('/dashboardadmin');
-      }, 3000);
-
-      return () => clearTimeout(timer);
+    if (showSuccessMessage && user?.userToken) {
+      const jwtToken = user.userToken;
+      const decodedToken = decodeJWT(jwtToken);
+      if (decodedToken) {
+        const role = decodedToken.role;
+        // Redirect based on the role
+        switch (role) {
+          case "ORG_ADMIN":
+            navigate("/orgadminchat");
+            break;
+          case "USER":
+            navigate("/userchat");
+            break;
+          case "SUPER_ADMIN":
+            navigate("/dashboardadmin");
+            break;
+          default:
+            // Redirect to a default route if the role is not recognized
+            navigate("/default");
+        }
+      } else {
+        console.error("Invalid JWT token");
+      }
     }
-  }, [showSuccessMessage, navigate]);
+  }, [showSuccessMessage, user, navigate]);
+
+  const decodeJWT = (token) => {
+    try {
+      const base64Url = token.split(".")[1];
+      const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+      const jsonPayload = decodeURIComponent(
+        atob(base64)
+          .split("")
+          .map((char) => {
+            return "%" + ("00" + char.charCodeAt(0).toString(16)).slice(-2);
+          })
+          .join("")
+      );
+      return JSON.parse(jsonPayload);
+    } catch (error) {
+      console.error("Error decoding JWT:", error);
+      return null;
+    }
+  };
 
   const validatePassword = (_, value) => {
     if (value && value.length < 8) {

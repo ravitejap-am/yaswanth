@@ -29,6 +29,26 @@ import SerchImages from "../../../asset/AmChatSuperAdmin/Group2305.png";
 import eyesolid from "../../../asset/AmChatSuperAdmin/eye-solid.svg";
 import { Pagination } from "antd";
 // import "antd/dist/antd.css";
+import Popover from "@mui/material/Popover";
+import PopupState, { bindTrigger, bindPopover } from "material-ui-popup-state";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import Divider from "@mui/material/Divider";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import AssignmentIndOutlinedIcon from "@mui/icons-material/AssignmentIndOutlined";
+import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
+
+const style = {
+  py: 0,
+  width: "100%",
+  maxWidth: 360,
+  borderRadius: 2,
+  border: "1px solid",
+  borderColor: "divider",
+  backgroundColor: "background.paper",
+};
 
 function OrganizationList() {
   const searchStyles = {
@@ -142,17 +162,71 @@ function OrganizationList() {
       <div className={Styles.superAdminMiddleParentDiv}>
         <div className={Styles.superAdminProfileCardStyle}>
           <div>
-            <p className={Styles.superAdminOrganizationListName}>
-              Organization List
-            </p>
+            <p className={Styles.superAdminProfileName}>Welcome, Lian</p>
           </div>
-          <div
-            className={Styles.superAdminProfileImgNameStyle}
-            style={{ display: "flex", alignItems: "center" }}
-          >
-            <img src={profile} alt="" className={Styles.AdminProfileStyle} />
-            <span className={Styles.SuperAdminProfileStyle}>Lian Vendiar</span>
-          </div>
+          <PopupState variant="popover" popupId="demo-popup-popover">
+            {(popupState) => (
+              <div>
+                <div
+                  className={Styles.superAdminProfileImgNameStyle}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    cursor: "pointer",
+                  }}
+                  {...bindTrigger(popupState)}
+                >
+                  <img
+                    src={profile}
+                    alt=""
+                    className={Styles.AdminProfileStyle}
+                  />
+                  <span className={Styles.SuperAdminProfileStyle}>Shiva</span>
+                </div>
+
+                <Popover
+                  {...bindPopover(popupState)}
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "center",
+                  }}
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "center",
+                  }}
+                >
+                  <List sx={style}>
+                    <ListItem>
+                      <ListItemButton>
+                        <ListItemIcon>
+                          <AssignmentIndOutlinedIcon />
+                        </ListItemIcon>
+                        <Link
+                          to="/userprofile"
+                          style={{ textDecoration: "none" }}
+                        >
+                          {" "}
+                          <ListItemText primary="View Profile" />
+                        </Link>
+                      </ListItemButton>
+                    </ListItem>
+                    <Divider component="li" />
+                    <ListItem>
+                      <ListItemButton>
+                        <ListItemIcon>
+                          <LogoutOutlinedIcon />
+                        </ListItemIcon>
+                        <Link to="/signin" style={{ textDecoration: "none" }}>
+                          {" "}
+                          <ListItemText primary="Logout" />
+                        </Link>
+                      </ListItemButton>
+                    </ListItem>
+                  </List>
+                </Popover>
+              </div>
+            )}
+          </PopupState>
         </div>
 
         <div className={Styles.bannerBtn}>

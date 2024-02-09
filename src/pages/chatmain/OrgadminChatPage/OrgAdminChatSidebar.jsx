@@ -12,16 +12,15 @@ import { Link } from "react-router-dom";
 import arrorLink from "../../../asset/arrow-left.png";
 import OrgUserList from "../../../pages/chatmain/orguserlist/OrgUserList";
 import OrgAdminChatPage from "../../chatmain/OrgadminChatPage/OrgAdminChatPage";
-import documentIcon from '../../../asset/Group 23 (1).png'
-import vectoricon from '../../../asset/vectoricon.png'
-import './OrgAdminChatPage.css'
-import base from '../../../asset/Base.png'
-import vector from '../../../asset/vectoricon.png'
-import threedot from '../../../asset/threedot.png'
-import usersicon from '../../../asset/users.png'
-import documenticon from '../../../asset/document1.png'
+import documentIcon from "../../../asset/Group 23 (1).png";
+import vectoricon from "../../../asset/vectoricon.png";
+import "./OrgAdminChatPage.css";
+import base from "../../../asset/Base.png";
+import vector from "../../../asset/vectoricon.png";
+import threedot from "../../../asset/threedot.png";
+import usersicon from "../../../asset/users.png";
+import documenticon from "../../../asset/document1.png";
 function OrgAdminChatSidebar() {
-
   return (
     <>
       <div className={Styles.AMChatMainDiv}>
@@ -50,27 +49,24 @@ function OrgAdminChatSidebar() {
             </div>
           </div>
           <div className={Styles.container}>
-            <div className={Styles.SuperAdminChildContainer}>
-              <span>
-                <img src={usersicon} alt="" />
-                <Link
-                  to="/orguserlist"
-                  style={{ textDecoration: "none" }}
-                >
-                  <p className={Styles.organizationTextStyle}>Users</p>
-                </Link>
-              </span>
-            </div>
-            <br />
+            <Link to="/orguserlist" style={{ textDecoration: "none" }}>
+              <div className={Styles.SuperAdminChildContainer}>
+                <span>
+                  <img src={usersicon} alt="" />
 
-            <div className={Styles.SuperAdminChildContainer}>
-              <span>
-                <img src={documenticon} alt="" />
-                <p className={Styles.organizationTextStyle}>
-                  Document
-                </p>
-              </span>
-            </div>
+                  <p className={Styles.organizationTextStyle}>Users</p>
+                </span>
+              </div>
+            </Link>
+
+            <Link to="/orgdocumentlist" style={{ textDecoration: "none" }}>
+              <div className={Styles.SuperAdminChildContainer}>
+                <span>
+                  <img src={documenticon} alt="" />
+                  <p className={Styles.organizationTextStyle}>Document</p>
+                </span>
+              </div>
+            </Link>
           </div>
           <div className="side-questions-main">
             <h3>Chats</h3>
@@ -81,11 +77,9 @@ function OrgAdminChatSidebar() {
               <p>What is AM-Chat?</p>
             </div>
           </div>
-
         </div>
 
         <OrgAdminChatPage />
-
       </div>
       <div className={Styles.AMChatFooterStyle}>
         <footer className="AMChat-admin-footer">

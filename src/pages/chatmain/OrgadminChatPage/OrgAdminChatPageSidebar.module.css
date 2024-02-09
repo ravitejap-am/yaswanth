@@ -54,10 +54,7 @@
   align-items: center;
 }
 .container {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  margin-top: 60px;
+  margin-top: 20px;
 }
 
 .AmChatsTwoContents {
@@ -124,7 +121,6 @@
   margin-top: -20px !important;
 }
 
-
 .footerPTagStyle {
   margin-left: 150px;
 }
@@ -139,7 +135,6 @@
 .AMchatMainDiv {
   margin-top: 30px;
 }
-
 
 .AMChatFooterStyle {
   display: flex;
@@ -173,7 +168,7 @@
   font-style: normal;
   font-weight: 1.2rem;
 }
-.imageIcon{
+.imageIcon {
   height: 30px;
   width: 87px;
   margin-left: -8px;

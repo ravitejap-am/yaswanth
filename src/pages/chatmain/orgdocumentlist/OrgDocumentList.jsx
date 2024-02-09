@@ -265,7 +265,10 @@ function OrgDocumentList() {
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row) => (
                       <TableRow key={row.id}>
-                        <TableCell padding="checkbox">
+                        <TableCell
+                          padding="checkbox"
+                          style={{ verticalAlign: "middle" }}
+                        >
                           <Checkbox
                             inputProps={{ "aria-labelledby": row.name }}
                           />
@@ -273,10 +276,19 @@ function OrgDocumentList() {
                         <TableCell component="th" scope="row">
                           {row.name}
                         </TableCell>
-                        <TableCell>{row.email}</TableCell>
-                        <TableCell>{row.lastChat}</TableCell>
-                        <TableCell>{row.totalChat}</TableCell>
-                        <TableCell>
+                        <TableCell style={{ verticalAlign: "middle" }}>
+                          {row.email}
+                          <Checkbox
+                            inputProps={{ "aria-labelledby": row.name }}
+                          />
+                        </TableCell>
+                        <TableCell style={{ verticalAlign: "middle" }}>
+                          {row.lastChat}
+                        </TableCell>
+                        <TableCell style={{ verticalAlign: "middle" }}>
+                          {row.totalChat}
+                        </TableCell>
+                        <TableCell style={{ verticalAlign: "middle" }}>
                           <FormControl style={{ width: "110px" }}>
                             <Select
                               style={{ border: "none", borderRadius: "none" }}
@@ -291,7 +303,7 @@ function OrgDocumentList() {
                           </FormControl>
                         </TableCell>
 
-                        <TableCell>
+                        <TableCell style={{ verticalAlign: "middle" }}>
                           <Link to="/edituser">
                             <IconButton aria-label="edit">
                               <img src={editIcon} alt="Edit" />

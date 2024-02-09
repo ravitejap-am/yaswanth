@@ -2,6 +2,7 @@ import React from "react";
 import GeneralForm from "../../components/common/forms/GeneralForm";
 import { useSelector } from "react-redux";
 import { setUser, selectUser } from "../../store/authSlice";
+import * as constants from "../../constants/Constant"; // Import constants
 
 const ChangePassword = ({ setFileSysytem, validateEmail }) => {
   const validatePassword = (_, value) => {
@@ -18,7 +19,7 @@ const ChangePassword = ({ setFileSysytem, validateEmail }) => {
   const handleChangePassword = async (values) => {
     try {
       const response = await fetch(
-        "http://54.161.113.196:8080/user/verification/reset",
+        `${constants.BASE_API_URL}/user/verification/reset`,
         {
           method: "POST",
           headers: {
@@ -35,9 +36,13 @@ const ChangePassword = ({ setFileSysytem, validateEmail }) => {
       );
 
       if (response.ok) {
-        console.log("Password change successful");
+        if (response.status === 200) {
+          console.log("Password change successful");
+        } else {
+          console.error("Failed to change password: No response body");
+        }
       } else {
-        console.error("Failed to change password");
+        console.error("Failed to change password: Server error");
       }
     } catch (error) {
       console.error("Error occurred while changing password", error);
@@ -79,7 +84,7 @@ const ChangePassword = ({ setFileSysytem, validateEmail }) => {
       {
         label: "New Password",
         type: "password",
-        name: "password",
+        name: "newPassword",
         rules: [
           { required: true, message: "Please input a valid password!" },
           { validator: validatePassword },
@@ -101,7 +106,7 @@ const ChangePassword = ({ setFileSysytem, validateEmail }) => {
   };
 
   return (
-    <div className="changepassword-main">
+    <div className="changepassword-main" style={{ width: "96%" }}>
       <div className="changepassword-input">
         <GeneralForm {...feedingVariable} />
       </div>

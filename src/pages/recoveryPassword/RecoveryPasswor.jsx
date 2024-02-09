@@ -55,14 +55,18 @@ const RecoveryPasswor = () => {
 
       if (response.status === 200 && response.data) {
         console.log("Verification success:", response.data.message);
+        // setMessage(response.data.message);
         toast.success(response.data.message);
       } else if (response.data.code === "FORGETPASSEMAIL-S-001") {
+        // setMessage(response.data.message);
         toast.success(
           "An email has been sent to the given email id with a reset password link."
         );
       } else if (response.data.code === "FORGETPASSEMAIL-NF-002") {
+        // setMessage(response.data.message);
         toast.error("User Not Found.");
       } else if (response.data.code === "FORGETPASSEMAIL-ER-003") {
+        // setMessage(response.data.message);
         toast.error("Email is required.");
       } else {
         console.error("Invalid verification response:", response);
@@ -72,62 +76,18 @@ const RecoveryPasswor = () => {
       console.error("Recovery error:", error);
 
       if (error.response && error.response.status === 400) {
+        setMessage(
+          "User not verified. Please complete the verification or registration process."
+        );
         toast.error(
           "User not verified. Please complete the verification or registration process."
         );
-      } else if (
-        error.response &&
-        error.response.data.code === "FORGETPASSEMAIL-S-001"
-      ) {
-        toast.success(
-          "An email has been sent to the given email id with a reset password link."
-        );
-      } else if (
-        error.response &&
-        error.response.data.code === "FORGETPASSEMAIL-NF-002"
-      ) {
-        toast.error("User Not Found.");
-      } else if (
-        error.response &&
-        error.response.data.code === "FORGETPASSEMAIL-ER-003"
-      ) {
-        toast.error("Email is required.");
       } else {
         console.error(
           "Invalid verification response:",
           error.response?.data?.message
         );
         toast.error("Email verification failed. Please try again.");
-      }
-
-      // Proceed with the password recovery logic
-      const recoveryUrl = "http://localhost:8081/users/forgetPassword";
-      try {
-        const recoveryResponse = await axios.post(recoveryUrl, data, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-
-        if (recoveryResponse.status === 200 && recoveryResponse.data) {
-          console.log(
-            "Mail sent to your email:",
-            recoveryResponse.data.message
-          );
-          toast.success(
-            "An email has been sent to the given email id with a reset password link."
-          );
-        } else {
-          console.error("Invalid recovery response:", recoveryResponse);
-          toast.error(
-            "An error occurred during password recovery. Please try again."
-          );
-        }
-      } catch (recoveryError) {
-        console.error("Recovery error:", recoveryError.response?.data?.message);
-        toast.error(
-          "An error occurred during password recovery. Please try again."
-        );
       }
     }
   };
@@ -136,9 +96,7 @@ const RecoveryPasswor = () => {
     console.log("Canceling....");
     console.log(errorInfo);
   };
-  // const validateConfirmPassword=()=>{
 
-  // }
   const formElements = [
     {
       label: "Email",
@@ -151,6 +109,7 @@ const RecoveryPasswor = () => {
       ],
     },
   ];
+
   const submitButtonProperty = {
     name: "Submit",
     color: "white",
