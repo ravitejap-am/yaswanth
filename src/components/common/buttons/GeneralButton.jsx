@@ -1,34 +1,36 @@
-import { Button } from "antd";
+import React from 'react';
+import { Button } from 'antd';
 
-const GeneralButton = ({
-  name,
-  buttonHandler,
-  buttonProps,
-  type,
-  color,
-  backgroundColor,
-  width,
-  height,
-  marginLeft, // buttonHandler,
-  isCallbackData,
-  boxShadow,
-  // borderRadius,
-  borderRadius,
-  border,
-  icons,
-  marginTop,
-}) => {
-  console.log(buttonProps);
+const GeneralButton = (props) => {
+  const {
+    name,
+    buttonHandler, // Include buttonHandler in the destructured props
+    buttonProps,
+    type,
+    color,
+    backgroundColor,
+    width,
+    height,
+    marginLeft,
+    isCallbackData,
+    boxShadow,
+    borderRadius,
+    border,
+    icons,
+    marginTop,
+  } = props;
+
   return (
     <Button
       type={type}
       htmlType="submit"
       className="center"
       onClick={() => {
-        if (!!isCallbackData) {
+        if (!!isCallbackData && buttonHandler) { // Ensure buttonHandler is defined
           buttonHandler(isCallbackData);
         } else {
-          // buttonHandler();
+          // Handle the case where buttonHandler is not defined
+          console.error('buttonHandler is not defined.');
         }
       }}
       style={{
@@ -44,7 +46,7 @@ const GeneralButton = ({
       }}
     >
       {name}
-      <img src={icons} style={{ marginLeft: "8px" }} alt="" />
+      <img src={icons} style={{ marginLeft: '8px' }} alt="" />
     </Button>
   );
 };

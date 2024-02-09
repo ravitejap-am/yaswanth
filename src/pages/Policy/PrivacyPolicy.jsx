@@ -564,15 +564,14 @@ const PrivacyPolicy = () => {
           posted on this page.
         </p>
         <h2 className={Styles.privacyPolicySubSubHeading}>Contact Us</h2>
-        <p className={Styles.TermAndConditionContentStyle}>
+        <p className={Styles.PrivacyPolicyContentStyle}>
           If you have any questions about this Privacy Policy, You can contact
-          us at our email id -
-        </p>
-        <p className={Styles.TermAndConditionContentStyle}>
+          us at{" "}
           <a
             href="mailto:sales@areteminds.com"
             rel="external nofollow noopener"
             target="_blank"
+            className={Styles.PrivacyPolicyContentStyle}
           >
             sales@areteminds.com
           </a>

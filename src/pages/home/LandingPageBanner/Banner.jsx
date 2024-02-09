@@ -5,11 +5,10 @@ import BannerImage from '../../../asset/banner-img.png';
 import BannerImage1 from '../../../asset/Group.png';
 import frame from '../../../asset/Frame 1.png';
 // import backgroundSVGHome from "../../../asset/Layer1.png";
-// import backgroundSVGHome from '../../../asset/—Pngtree—man in shirt smiles and_13146336 1.png';
+import backgroundSVGHome from '../../../asset/—Pngtree—man in shirt smiles and_13146336 1.png';
 import GeneralButton from '../../../components/common/buttons/GeneralButton';
 import { Link } from 'react-router-dom';
 import GroupImage from '../../../asset/groupImageOne.png';
-
 
 const Banner = () => {
   return (

@@ -34,7 +34,7 @@ const Header = () => {
       <div className={Styles.appLogo}>
         {/* <span className={Styles.amChatTitle}>AM-Chat</span> */}
         {/* <span className={Styles.appName}> */}
-        <img src={Logo} alt="" />
+          <img src={Logo} alt="" />
         {/* </span> */}
       </div>
       <div className={Styles.appNavigation}>
