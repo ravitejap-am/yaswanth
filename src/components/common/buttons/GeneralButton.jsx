@@ -3,7 +3,8 @@ import { Button } from "antd";
 const GeneralButton = (props) => {
   const {
     name,
-    buttonHandler,
+    buttonHandler = () => {},
+    buttonProps,
     type,
     color,
     backgroundColor,
@@ -33,6 +34,7 @@ const GeneralButton = (props) => {
       htmlType="submit"
       className="center"
       onClick={handleClick}
+      loading={buttonLoading}
       style={{
         color: color,
         backgroundColor: backgroundColor,
@@ -52,4 +54,3 @@ const GeneralButton = (props) => {
 };
 
 export default GeneralButton;
- 
