@@ -39,6 +39,7 @@ const Rout = () => {
       <Route exact path="/" element={<Home />} />
       <Route exact path="/registerUser" element={<RegisterUser />} />
       <Route exact path="/signin" element={<SignIn />} />
+      <Route exact path="/user/verify/:id" element={<SignIn />} />
       <Route exact path="/recoverypassword" element={<RecoveryPasswor />} />
       <Route
         exact
