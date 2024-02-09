@@ -72,9 +72,9 @@ const ContactUp = () => {
       },
       labelName: true,
       options: [
-        { value: 'basic', label: 'Freemium' },
-        { value: 'premium', label: 'Standard' },
-        { value: 'pro', label: 'Enterprise' },
+        { value: 'freemium', label: 'Freemium' },
+        { value: 'standard', label: 'Standard' },
+        { value: 'enterprise', label: 'Enterprise' },
       ],
       rules: [{ required: true, message: 'Please select a plan' }],
     },
@@ -102,7 +102,7 @@ const ContactUp = () => {
     console.log('contact up', values);
     try {
       const response = await axios.post(
-        'http://54.161.113.196:8080/user/contactUs',
+        `${constants.BASE_API_URL}/user/contactUs`,
         {
           name: values.name,
           emailId: values.email,
@@ -124,16 +124,6 @@ const ContactUp = () => {
     }
   };
 
-  // const submitButtonProperty = {
-  //   name: 'Submit',
-  //   color: '#ffffff',
-  //   backgroundColor: 'var(--Brand-500, #6366F1)',
-  //   width: '525px',
-  //   height: '50px',
-  //   borderRadius: '28px',
-  //   boxShadow: 'none',
-  //   type: 'primary',
-  // };
   const submitButtonProperty = {
     name: 'Submit',
     color: 'white',
@@ -145,21 +135,6 @@ const ContactUp = () => {
     marginTop: '.6em',
   };
 
-  // const feedingVariable = {
-  //   isCancel: false,
-  //   cancelHandler: cancelHandler,
-  //   isSubmit: true,
-  //   submitHandler: submitHandler,
-  //   submitButtonProperty: submitButtonProperty,
-  //   formElements: formElements,
-  //   formType: 'normal',
-  //   forgorPasswordHandler: () => {
-  //     console.log('forgot Password....');
-  //   },
-  //   validateEmail: validateEmail,
-  //   setFileSysytem: setFileSysytem,
-
-  // };
   const feedingVariable = {
     isCancel: false,
     isSubmit: true,

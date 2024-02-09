@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import Footer from '../../pages/home/Footer/Footer';
 import SignHeader from '../home/SignHeader/SignHeader';
 import { useSelector } from 'react-redux'; // Import the useSelector hook
+import { useParams } from 'react-router-dom';
 
 const ResetPassword = () => {
   const [successMessage, setSuccessMessage] = useState('');
@@ -14,7 +15,9 @@ const ResetPassword = () => {
   const [form] = Form.useForm();
 
   const jwtToken = false;
+  const params = useParams();
 
+  console.log(params);
   useEffect(() => {
     console.log('JWT Token from Redux Store:', jwtToken);
     if (jwtToken) {

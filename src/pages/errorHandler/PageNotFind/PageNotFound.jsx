@@ -1,25 +1,34 @@
-import React from "react";
-import Style from "./pageNotFound.module.css";
-import { SearchOutlined } from "@ant-design/icons";
-import PageNotFoundImage from "../../../asset/404.jpg";
-import GeneralButton from "../../../components/common/buttons/GeneralButton";
+import React from 'react';
+import Style from './pageNotFound.module.css';
+import { SearchOutlined } from '@ant-design/icons';
+import PageNotFoundImage from '../../../asset/404.jpg';
+import GeneralButton from '../../../components/common/buttons/GeneralButton';
 
 const PageNotFound = () => {
   return (
     <div className={Style.PageNotFound}>
       <div className={Style.container}>
         <div>
-          <img className={Style.image} src={PageNotFoundImage} alt="" />
+          <img
+            className={Style.image}
+            src={PageNotFoundImage}
+            alt=""
+            style={{ borderRadius: '10px' }}
+          />
           <h1>Page Not Found !</h1>
           <p>Looks like,page doesn't exist</p>
         </div>
         <div>
           {/* <button>Back to dashboard</button> */}
           <GeneralButton
-            name={"Back to dashboard"}
-            type={"submit"}
-            backgroundColor={"var(--Brand-500, #6366F1)"}
-            color={"#fff"}
+            name={'Back to dashboard'}
+            type={'submit'}
+            backgroundColor={'var(--Brand-500, #6366F1)'}
+            color={'#fff'}
+            submitHandler={() => {
+              alert('hi');
+            }}
+            isSubmit={true}
           />
           {/* <form typeof="submit">
             <div>
