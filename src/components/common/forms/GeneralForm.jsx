@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Form, Checkbox, InputNumber, Switch, DatePicker, Select } from 'antd';
 import Document from '../upload/file/Document';
 import Button from '../buttons/GeneralButton';
@@ -24,9 +24,17 @@ const GeneralForm = (props) => {
     validateEmail,
     setFileSysytem,
     grid,
+    buttonLoading = false,
+    isReset = false,
   } = props;
   console.log(props);
   const [form] = Form.useForm();
+
+  useEffect(() => {
+    if (isReset) {
+      form.resetFields();
+    }
+  }, [isReset]);
 
   return (
     <Form
@@ -402,6 +410,7 @@ const GeneralForm = (props) => {
               boxShadow={submitButtonProperty.boxShadow}
               borderRadius={submitButtonProperty.borderRadius}
               fontSize={submitButtonProperty.fontSize}
+              buttonLoading={buttonLoading}
             />
           )}
           {isCancel && (

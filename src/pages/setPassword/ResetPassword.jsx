@@ -78,7 +78,6 @@ const ResetPassword = () => {
     marginTop: '.7em',
     fontSize: '0.9rem',
   };
-
   const buttonProps = {
     name: 'Sign Up',
     type: 'primary',
@@ -93,8 +92,33 @@ const ResetPassword = () => {
 
   const feedingVariable = {
     isCancel: false,
+    cancelHandler: () => {
+      console.log('Canceling....');
+    },
     isSubmit: true,
-    submitHandler: submitHandler,
+    submitHandler: async (values) => {
+      console.log('Resetting password....');
+      console.log(values);
+
+      try {
+        const response = await axios.post('localhost8080/reset-password', {
+          email: values.email,
+          password: values.password,
+        });
+
+        if (response.data.success) {
+          toast.success('Your password has been reset successfully.');
+          setErrorMessage('');
+        } else {
+          toast.error('Password reset failed. Please try again.');
+          setSuccessMessage('');
+        }
+      } catch (error) {
+        console.error('Error resetting password:', error);
+        toast.error('An error occurred. Please try again.');
+        setSuccessMessage('');
+      }
+    },
     submitButtonProperty: submitButtonProperty,
     formElements: formElements,
     formType: 'normal',
@@ -119,6 +143,7 @@ const ResetPassword = () => {
                 <div className="box-round">
                   <div className="text-top">
                     <h2>Set Password</h2>
+                    <p>Please use your organization email id.</p>
                   </div>
 
                   <div className="form-content">
@@ -129,13 +154,13 @@ const ResetPassword = () => {
                     {errorMessage && (
                       <div className="error-message">{errorMessage}</div>
                     )}
+                    <NotifyMessage />
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <NotifyMessage message={successMessage || errorMessage} />
         <Footer />
       </div>
     </>

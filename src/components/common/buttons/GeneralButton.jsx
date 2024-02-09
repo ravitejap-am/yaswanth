@@ -4,7 +4,7 @@ import { Button } from 'antd';
 const GeneralButton = (props) => {
   const {
     name,
-    buttonHandler, // Include buttonHandler in the destructured props
+    buttonHandler = () => {}, // Include buttonHandler in the destructured props
     buttonProps,
     type,
     color,
@@ -18,6 +18,7 @@ const GeneralButton = (props) => {
     border,
     icons,
     marginTop,
+    buttonLoading = false,
   } = props;
 
   return (
@@ -26,13 +27,15 @@ const GeneralButton = (props) => {
       htmlType="submit"
       className="center"
       onClick={() => {
-        if (!!isCallbackData && buttonHandler) { // Ensure buttonHandler is defined
+        if (!!isCallbackData && buttonHandler) {
+          // Ensure buttonHandler is defined
           buttonHandler(isCallbackData);
         } else {
           // Handle the case where buttonHandler is not defined
           console.error('buttonHandler is not defined.');
         }
       }}
+      loading={buttonLoading}
       style={{
         color: color,
         backgroundColor: backgroundColor,
