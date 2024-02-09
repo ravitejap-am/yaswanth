@@ -1,12 +1,12 @@
-import React from 'react';
-import { Form, Checkbox, InputNumber, Switch, DatePicker, Select } from 'antd';
-import Document from '../upload/file/Document';
-import Button from '../buttons/GeneralButton';
-import Input from '../input/Input';
-import Dropdown from '.././dropDown/dropDown';
-import { LockFilled } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
-import TextArea from 'antd/es/input/TextArea';
+import React from "react";
+import { Form, Checkbox, InputNumber, Switch, DatePicker, Select } from "antd";
+import Document from "../upload/file/Document";
+import Button from "../buttons/GeneralButton";
+import Input from "../input/Input";
+import Dropdown from ".././dropDown/dropDown";
+import { LockFilled } from "@ant-design/icons";
+import { Link } from "react-router-dom";
+import TextArea from "antd/es/input/TextArea";
 
 // const { TextArea } = Input;
 
@@ -30,7 +30,7 @@ const GeneralForm = (props) => {
 
   return (
     <Form
-      style={{ padding: '18px' }}
+      style={{ padding: "18px" }}
       form={form}
       onFinish={submitHandler}
       onFinishFailed={cancelHandler}
@@ -128,7 +128,7 @@ const GeneralForm = (props) => {
               description: (
                 <>
                   {item.labelName && (
-                    <div style={{ marginBottom: '2px', color: '#fff' }}>
+                    <div style={{ marginBottom: "2px", color: "#fff" }}>
                       <label>{item.label}</label>
                     </div>
                   )}
@@ -155,7 +155,7 @@ const GeneralForm = (props) => {
               >
                 {elements[item.type] || (
                   <>
-                    {item.type === 'checkbox' && (
+                    {item.type === "checkbox" && (
                       <Checkbox
                         onChange={(e) => {
                           form.setFieldsValue({
@@ -164,10 +164,10 @@ const GeneralForm = (props) => {
                         }}
                       />
                     )}
-                    {item.type === 'select' && (
+                    {item.type === "select" && (
                       <div>
                         {item.labelName ? (
-                          <div style={{ marginBottom: '2px', color: '#fff' }}>
+                          <div style={{ marginBottom: "2px", color: "#fff" }}>
                             <label>{item.labelName ? item.label : null}</label>
                           </div>
                         ) : null}
@@ -192,7 +192,7 @@ const GeneralForm = (props) => {
                         />
                       </div>
                     )}
-                    {item?.type === 'file' && (
+                    {item?.type === "file" && (
                       <Document
                         setFile={setFileSysytem}
                         numberOfImage={item?.numberOfImage}
@@ -211,7 +211,7 @@ const GeneralForm = (props) => {
         </div>
       ) : (
         <div>
-          {' '}
+          {" "}
           {formElements.map((item, index) => {
             const elements = {
               email: (
@@ -298,7 +298,7 @@ const GeneralForm = (props) => {
               description: (
                 <>
                   {item.labelName && (
-                    <div style={{ marginBottom: '2px', color: '#fff' }}>
+                    <div style={{ marginBottom: "2px", color: "#fff" }}>
                       <label>{item.label}</label>
                     </div>
                   )}
@@ -325,7 +325,7 @@ const GeneralForm = (props) => {
               >
                 {elements[item.type] || (
                   <>
-                    {item.type === 'checkbox' && (
+                    {item.type === "checkbox" && (
                       <Checkbox
                         onChange={(e) => {
                           form.setFieldsValue({
@@ -334,9 +334,9 @@ const GeneralForm = (props) => {
                         }}
                       />
                     )}
-                    {item.type === 'select' && (
+                    {item.type === "select" && (
                       <div>
-                        <div style={{ marginBottom: '2px', color: '#fff' }}>
+                        <div style={{ marginBottom: "2px", color: "#fff" }}>
                           <label>{item.label}</label>
                         </div>
                         {/* <Select
@@ -360,7 +360,7 @@ const GeneralForm = (props) => {
                         />
                       </div>
                     )}
-                    {item?.type === 'file' && (
+                    {item?.type === "file" && (
                       <Document
                         setFile={setFileSysytem}
                         numberOfImage={item?.numberOfImage}
@@ -383,10 +383,10 @@ const GeneralForm = (props) => {
         <div
           className="center"
           style={{
-            gap: '2em',
-            marginTop: '1em',
-            display: 'flex',
-            justifyContent: 'flex-start',
+            gap: "2em",
+            marginTop: "1em",
+            display: "flex",
+            justifyContent: "flex-start",
           }}
         >
           {isSubmit && (
@@ -394,7 +394,7 @@ const GeneralForm = (props) => {
               backgroundColor={submitButtonProperty.backgroundColor}
               name={submitButtonProperty.name}
               color={submitButtonProperty.color}
-              buttonHandler={submitHandler}
+              buttonHandler={submitButtonProperty.submitHandler}
               marginLeft={submitButtonProperty.marginLeft}
               marginTop={submitButtonProperty.marginTop}
               width={submitButtonProperty.width}
@@ -411,27 +411,24 @@ const GeneralForm = (props) => {
               color={cancelButtonProperty.color}
               border={cancelButtonProperty.border}
               backgroundColor={cancelButtonProperty.backgroundColor}
-              // backgroundColor={cancelButtonProperty.background}
-              buttonHandler={submitHandler}
-              width={cancelButtonProperty.width}
+              buttonHandler={cancelButtonProperty.cancelHandler}
               height={cancelButtonProperty.height}
               boxShadow={cancelButtonProperty.boxShadow}
               borderRadius={cancelButtonProperty.borderRadius}
               fontSize={cancelButtonProperty.fontSize}
-              // buttonHandler={cancelHandler}
               marginTop={cancelButtonProperty.marginTop}
             />
           )}
         </div>
       </Form.Item>
-      {formType === 'signin' && (
+      {formType === "signin" && (
         <>
           <Link
-            to={'/recoverypassword'}
+            to={"/recoverypassword"}
             style={{
-              display: 'flex',
-              justifyContent: 'center',
-              color: 'Black',
+              display: "flex",
+              justifyContent: "center",
+              color: "Black",
             }}
           >
             <p>

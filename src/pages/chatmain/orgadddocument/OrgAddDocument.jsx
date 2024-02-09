@@ -10,60 +10,30 @@ import { useSelector } from "react-redux";
 function OrgAddDocument() {
   const [file, setFile] = useState(null);
 
-  const formElements = [
-    {
-      name: "Document Name",
-      label: "Document Name",
-      type: "text",
-      style: {
-        width: "405px",
-        borderRadius: "40px",
-        border: "1px solid var(--Brand-700, #4338CA)",
-        backgroundColor: "transparent",
-        marginBottom: "20px",
-      },
-      rules: [{ required: true, message: "Please enter your Document Name" }],
-      labelName: false,
-    },
-  ];
-
   const user = useSelector(selectUser);
   const jwt = user.userToken;
 
   const submitHandler = async (values) => {
     try {
-      console.log("Submitting form with values:", values);
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("name", values["Document Name"]);
 
-      if (file) {
-        const formData = new FormData();
-        formData.append("documentName", values["Document Name"]);
-        formData.append("documentFile", file);
-
-        console.log("FormData:", formData);
-
-        const response = await axios.post(
-          "http://54.161.113.196:8080/document",
-          formData,
-          {
-            headers: {
-              Authorization: `Bearer ${jwt}`,
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        );
-
-        console.log("API Response:", response);
-
-        if (response.status === 200) {
-          console.log("Document uploaded successfully!");
-        } else {
-          console.error("Failed to upload document");
+      const response = await axios.post(
+        "http://54.161.113.196:8080/document",
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${jwt}`,
+            "Content-Type": "multipart/form-data",
+          },
         }
-      } else {
-        console.error("Document File is missing");
-      }
+      );
+
+      console.log("API Response:", response.data);
     } catch (error) {
-      console.error("Error uploading document:", error);
+      console.error("Error occurred:", error);
+      // Add your error handling logic here
     }
   };
 
@@ -72,11 +42,10 @@ function OrgAddDocument() {
   };
 
   const documentProps = {
-    setFile: (fileList) => setFile(fileList[0]),
+    setFile: setFile,
     numberOfImage: 1,
-    fileType: "application/pdf",
+    fileType: "application/pdf", // Assuming PDF is the required file type
     fileSize: 10,
-    form: undefined,
     name: "Document File",
   };
 
@@ -105,7 +74,22 @@ function OrgAddDocument() {
     submitHandler: submitHandler,
     submitButtonProperty: submitButtonProperty,
     cancelButtonProperty: cancelButtonProperty,
-    formElements: formElements,
+    formElements: [
+      {
+        name: "Document Name",
+        label: "Document Name",
+        type: "text",
+        style: {
+          width: "405px",
+          borderRadius: "40px",
+          border: "1px solid var(--Brand-700, #4338CA)",
+          backgroundColor: "transparent",
+          marginBottom: "20px",
+        },
+        rules: [{ required: true, message: "Please enter your Document Name" }],
+        labelName: false,
+      },
+    ],
     formType: "normal",
     forgorPasswordHandler: () => {
       console.log("forgot Password....");

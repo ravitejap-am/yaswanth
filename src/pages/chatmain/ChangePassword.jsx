@@ -3,6 +3,7 @@ import GeneralForm from "../../components/common/forms/GeneralForm";
 import { useSelector } from "react-redux";
 import { setUser, selectUser } from "../../store/authSlice";
 import * as constants from "../../constants/Constant"; // Import constants
+import NotifyMessage from "../../components/common/toastMessages/NotifyMessage";
 
 const ChangePassword = ({ setFileSysytem, validateEmail }) => {
   const validatePassword = (_, value) => {
@@ -110,6 +111,7 @@ const ChangePassword = ({ setFileSysytem, validateEmail }) => {
       <div className="changepassword-input">
         <GeneralForm {...feedingVariable} />
       </div>
+      <NotifyMessage />
     </div>
   );
 };

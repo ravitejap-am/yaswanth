@@ -1,15 +1,10 @@
 import React, { useState } from "react";
 import "./recoverpassword.module1.css";
 import { Form } from "antd";
-import UserOutlined from "@ant-design/icons";
-import { MailOutlined } from "@ant-design/icons";
 import GeneralForm from "../../components/common/forms/GeneralForm";
 import NotifyMessage from "../../components/common/toastMessages/NotifyMessage";
 import axios from "axios";
-import { recoverPassword } from "../../config/api";
 import Footer from "../../pages/home/Footer/Footer";
-
-import GeneralButton from "../../components/common/buttons/GeneralButton";
 import { toast } from "react-toastify";
 import SignHeader from "../home/SignHeader/SignHeader";
 import * as constants from "../../constants/Constant";
@@ -178,7 +173,7 @@ const RecoveryPasswor = () => {
             </div>
           </div>
         </div>
-        {message ? <NotifyMessage message={message ? message : null} /> : null}
+        <NotifyMessage />
         <Footer />
       </div>
     </>

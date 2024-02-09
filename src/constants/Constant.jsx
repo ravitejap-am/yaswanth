@@ -6,3 +6,5 @@ export const SIGNIN_ENDPOINT = "/users/login";
 export const RECOVERY_PASSWORD_ENDPOINT = "/user/verification";
 export const CONTACT_US_ENDPOINT = "/user/contactUs"
 export const DOCUMENT_ENDPOINT = "/document";
+export const USER_LIST_ENDPOINT = "/user/userlist";
+

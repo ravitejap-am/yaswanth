@@ -1,13 +1,30 @@
-import React, { useState } from 'react';
-import { PlusOutlined } from '@ant-design/icons';
-import { Upload, Modal, message } from 'antd';
+import React, { useState } from "react";
+import { PlusOutlined } from "@ant-design/icons";
+import { Upload, Modal, message } from "antd";
 
 const Document = (props) => {
-  const { setFile, numberOfImage, fileType, fileSize, url, form, name } = props;
-  const [previewOpen, setPreviewOpen] = useState(false);
-  const [previewImage, setPreviewImage] = useState('');
-  const [previewTitle, setPreviewTitle] = useState('');
+  const { setFile, numberOfImage, fileType, fileSize, url, name } = props;
   const [fileList, setFileList] = useState([]);
+  const [previewVisible, setPreviewVisible] = useState(false);
+  const [previewImage, setPreviewImage] = useState("");
+  const [previewTitle, setPreviewTitle] = useState("");
+
+  const fileValidation = (file) => {
+    // Validate file type
+    if (fileType && file.type !== fileType) {
+      message.error(`You can only upload ${fileType} files!`);
+      return false;
+    }
+
+    // Validate file size
+    const isSizeValid = file.size / 1024 / 1024 < fileSize;
+    if (!isSizeValid) {
+      message.error(`File must be smaller than ${fileSize}MB!`);
+      return false;
+    }
+
+    return true;
+  };
 
   const getBase64 = (file) =>
     new Promise((resolve, reject) => {
@@ -16,60 +33,39 @@ const Document = (props) => {
       reader.onload = () => resolve(reader.result);
       reader.onerror = (error) => reject(error);
     });
-  const handleCancel = () => setPreviewOpen(false);
+
+  const handleChange = async ({ file, fileList: newFileList }) => {
+    if (file) {
+      const isValid = fileValidation(file);
+      if (isValid) {
+        setFileList(newFileList);
+        setFile(file.originFileObj); // Set the file object to the state
+      }
+    } else {
+      setFileList(newFileList);
+    }
+  };
+
   const handlePreview = async (file) => {
     if (!file.url && !file.preview) {
       file.preview = await getBase64(file.originFileObj);
     }
+    setPreviewVisible(true);
     setPreviewImage(file.url || file.preview);
-    setPreviewOpen(true);
     setPreviewTitle(
-      file.name || file.url.substring(file.url.lastIndexOf('/') + 1)
+      file.name || file.url.substring(file.url.lastIndexOf("/") + 1)
     );
   };
-  const fileValidation = (file) => {
-    console.log();
-    let isValidFormat = false;
-    if (fileType != undefined) {
-      isValidFormat = file.type === fileType;
-    } else {
-      isValidFormat = true;
-    }
 
-    if (!isValidFormat && fileType != undefined) {
-      message.error(`You can only upload ${fileType} file!`);
-      return;
-    }
-    const isValidSize = file.size / 1024 / 1024 < fileSize;
-    if (!isValidSize) {
-      message.error(`Image must smaller than ${fileSize}MB!`);
-      return;
-    }
-    return isValidFormat && isValidSize;
-  };
-  const handleChange = ({ file: file, fileList: newFileList }) => {
-    const isFileValid = fileValidation(file);
-    if (isFileValid) {
-      console.log(newFileList);
-      setFileList(newFileList);
-      setFile(newFileList);
-      if (form != undefined && !!name) {
-        form.setFieldsValue({ [name]: [...newFileList] });
-      }
-    }
-  };
+  const handleCancel = () => setPreviewVisible(false);
+
   const uploadButton = (
     <div>
       <PlusOutlined />
-      <div
-        style={{
-          marginTop: 8,
-        }}
-      >
-        Upload
-      </div>
+      <div style={{ marginTop: 8 }}>Upload</div>
     </div>
   );
+
   return (
     <>
       <Upload
@@ -82,18 +78,12 @@ const Document = (props) => {
         {fileList.length >= numberOfImage ? null : uploadButton}
       </Upload>
       <Modal
-        open={previewOpen}
+        visible={previewVisible}
         title={previewTitle}
         footer={null}
         onCancel={handleCancel}
       >
-        <img
-          alt="example"
-          style={{
-            width: '100%',
-          }}
-          src={previewImage}
-        />
+        <img alt="Preview" style={{ width: "100%" }} src={previewImage} />
       </Modal>
     </>
   );

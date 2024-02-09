@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Styles from "./OrgDocument.module.css";
 import profile from "../../../asset/AmChatSuperAdmin/profile.png";
 import GeneralButton from "../../../components/common/buttons/GeneralButton";
@@ -23,8 +23,22 @@ import SerchImages from "../../../asset/AmChatSuperAdmin/Group2305.png";
 import { Pagination } from "antd";
 import Select from "@mui/material/Select";
 import { FormControl, MenuItem } from "@mui/material";
+import { setUser, selectUser } from "../../../store/authSlice";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import * as constants from "../../../constants/Constant";
+import axios from "axios";
+import { toast } from "react-toastify";
+import NotifyMessage from "../../../components/common/toastMessages/NotifyMessage";
 
 function OrgDocumentList() {
+  const user = useSelector(selectUser);
+  const jwt = user.userToken;
+  console.log("====================================");
+  console.log(jwt);
+  console.log("====================================");
+  const navigate = useNavigate();
+
   const searchStyles = {
     width: "300px",
     height: "45px",
@@ -35,54 +49,83 @@ function OrgDocumentList() {
     alignItems: "center",
     marginRight: "18px",
   };
-  const [selectedStatus, setSelectedStatus] = useState("All");
-  const rows = [
-    {
-      id: 1,
-      name: "John Doe",
-      email: "john.doe@example.com",
-      lastChat: "12:00 PM",
-      totalChat: 20,
-      status: "Active",
-    },
-    {
-      id: 2,
-      name: "Jane Doe",
-      email: "jane.doe@example.com",
-      lastChat: "12:00 PM",
-      totalChat: 15,
-      status: "Inactive",
-    },
-    {
-      id: 3,
-      name: "Alice Smith",
-      email: "alice.smith@example.com",
-      lastChat: "9:00 PM",
-      totalChat: 30,
-      status: "Active",
-    },
-    {
-      id: 4,
-      name: "Bob Johnson",
-      email: "bob.johnson@example.com",
-      lastChat: "1:00 PM",
-      totalChat: 25,
-      status: "Active",
-    },
-    {
-      id: 5,
-      name: "Eve Wilson",
-      email: "eve.wilson@example.com",
-      lastChat: "10:00 AM",
-      totalChat: 10,
-      status: "Inactive",
-    },
-  ];
+  const [filters, setFilters] = useState({
+    email: "",
+    active: true,
+    name: "",
+    sortDirection: "desc",
+    sortField: "createdAt",
+    page: 0,
+    size: 5,
+  });
 
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [order, setOrder] = React.useState("asc");
-  const [orderBy, setOrderBy] = React.useState("name");
+  const [rows, setRows] = useState([]);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [order, setOrder] = useState("asc");
+  const [orderBy, setOrderBy] = useState("name");
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+    fetchUserList();
+  }, [filters]);
+
+  const fetchUserList = async () => {
+    try {
+      const response = await fetch(
+        `${constants.BASE_API_URL}${constants.USER_LIST_ENDPOINT}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${jwt}`,
+          },
+        }
+      );
+      if (!response.ok) {
+        if (response.status === 404) {
+          // navigate("/error404");
+          console.log("400 error ");
+        } else if (response.status === 405) {
+          // navigate("/error405");
+
+          console.log("response 405");
+        } else {
+          // navigate("/error");
+          console.log("response 405");
+        }
+        return;
+      }
+      const responseData = await response.json();
+      // console.log("Fetched data:", responseData);
+      const users = responseData.data.users;
+      setRows(users);
+      setLoading(false);
+    } catch (error) {
+      // console.error("Error fetching user list:", error);
+      setLoading(false);
+      navigate("/maintenance");
+    }
+  };
+
+  const handleDelete = async (userId) => {
+    try {
+      await axios.delete(`${constants.BASE_API_URL}/user/disable/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+        },
+      });
+      // Update rows state after deletion
+      setRows(rows.filter((row) => row.id !== userId));
+      // console.log("User deleted successfully")
+      toast.success("User deleted successfully");
+    } catch (error) {
+      console.error("Error deleting user:", error);
+      // Handle error
+      toast.error("Error deleting user");
+    }
+  };
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -98,6 +141,7 @@ function OrgDocumentList() {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
+
   const itemRender = (_, type, originalElement) => {
     if (type === "prev") {
       return <a>Previous</a>;
@@ -132,7 +176,6 @@ function OrgDocumentList() {
             <span className={Styles.SuperAdminProfileStyle}>Lian Vendiar</span>
           </div>
         </div>
-
         <div className={Styles.bannerBtn}>
           <div className={Styles.OrganizationListFilterSerchBox}>
             <div className={Styles.OrganizationListFilterSerchBox}>
@@ -256,69 +299,85 @@ function OrgDocumentList() {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {rows
-                    .filter((row) =>
-                      selectedStatus === "All"
-                        ? true
-                        : row.status === selectedStatus
-                    )
-                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                    .map((row) => (
-                      <TableRow key={row.id}>
-                        <TableCell
-                          padding="checkbox"
-                          style={{ verticalAlign: "middle" }}
-                        >
-                          <Checkbox
-                            inputProps={{ "aria-labelledby": row.name }}
-                          />
-                        </TableCell>
-                        <TableCell component="th" scope="row">
-                          {row.name}
-                        </TableCell>
-                        <TableCell style={{ verticalAlign: "middle" }}>
-                          {row.email}
-                          <Checkbox
-                            inputProps={{ "aria-labelledby": row.name }}
-                          />
-                        </TableCell>
-                        <TableCell style={{ verticalAlign: "middle" }}>
-                          {row.lastChat}
-                        </TableCell>
-                        <TableCell style={{ verticalAlign: "middle" }}>
-                          {row.totalChat}
-                        </TableCell>
-                        <TableCell style={{ verticalAlign: "middle" }}>
-                          <FormControl style={{ width: "110px" }}>
-                            <Select
-                              style={{ border: "none", borderRadius: "none" }}
-                              value={row.status}
-                              onChange={(e) => {
-                                console.log(e.target.value);
-                              }}
-                            >
-                              <MenuItem value="Active">Active</MenuItem>
-                              <MenuItem value="Inactive">Inactive</MenuItem>
-                            </Select>
-                          </FormControl>
-                        </TableCell>
-
-                        <TableCell style={{ verticalAlign: "middle" }}>
-                          <Link to="/edituser">
-                            <IconButton aria-label="edit">
-                              <img src={editIcon} alt="Edit" />
-                            </IconButton>
-                          </Link>
-                          <IconButton aria-label="delete">
-                            <img src={deleteIcon} alt="Delete" />
-                          </IconButton>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  {emptyRows > 0 && (
-                    <TableRow style={{ height: 53 * emptyRows }}>
-                      <TableCell colSpan={7} />
+                  {loading ? (
+                    <TableRow>
+                      <TableCell colSpan={7} align="center">
+                        Loading...
+                      </TableCell>
                     </TableRow>
+                  ) : (
+                    <>
+                      {rows.length > 0 ? (
+                        rows
+                          .slice(
+                            page * rowsPerPage,
+                            page * rowsPerPage + rowsPerPage
+                          )
+                          .map((row) => (
+                            <TableRow key={row.id}>
+                              <TableCell padding="checkbox">
+                                <Checkbox
+                                  inputProps={{
+                                    "aria-labelledby": row.firstName,
+                                  }}
+                                />
+                              </TableCell>
+                              <TableCell component="th" scope="row">
+                                {`${row.firstName} ${row.lastName}`}
+                              </TableCell>
+                              <TableCell>{row.email}</TableCell>
+                              {/* Assuming lastChat and totalChat are date/time strings */}
+                              <TableCell>{row.createdAt}</TableCell>
+                              {/* You may need to format the date string if needed */}
+                              <TableCell>{row.updatedAt}</TableCell>
+                              <TableCell>
+                                <FormControl style={{ width: "110px" }}>
+                                  <Select
+                                    style={{
+                                      border: "none",
+                                      borderRadius: "none",
+                                    }}
+                                    value={row.active ? "Active" : "Inactive"}
+                                    onChange={(e) =>
+                                      handleStatusChange(e, row.id)
+                                    }
+                                  >
+                                    <MenuItem value="Active">Active</MenuItem>
+                                    <MenuItem value="Inactive">
+                                      Inactive
+                                    </MenuItem>
+                                  </Select>
+                                </FormControl>
+                              </TableCell>
+                              <TableCell>
+                                <Link to={`/edituser/${row.id}`}>
+                                  <IconButton aria-label="edit">
+                                    <img src={editIcon} alt="Edit" />
+                                  </IconButton>
+                                </Link>
+                                <IconButton
+                                  aria-label="delete"
+                                  onClick={() => handleDelete(row.id)}
+                                >
+                                  <img src={deleteIcon} alt="Delete" />
+                                </IconButton>
+                              </TableCell>
+                            </TableRow>
+                          ))
+                      ) : (
+                        <TableRow>
+                          <TableCell colSpan={7} align="center">
+                            No data available
+                          </TableCell>
+                        </TableRow>
+                      )}
+
+                      {emptyRows > 0 && (
+                        <TableRow style={{ height: 53 * emptyRows }}>
+                          <TableCell colSpan={7} />
+                        </TableRow>
+                      )}
+                    </>
                   )}
                 </TableBody>
               </Table>
@@ -343,6 +402,7 @@ function OrgDocumentList() {
             </div>
           </Paper>
         </div>
+        <NotifyMessage messageHandler={toast.dismiss} />{" "}
       </div>
     </div>
   );
