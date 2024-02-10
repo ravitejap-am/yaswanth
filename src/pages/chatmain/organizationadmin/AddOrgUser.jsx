@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Styles from "./OrgAdminChatSidebar.module.css";
 import Tooltip from "./Tooltip";
 import profile from "../../../asset/AmChatSuperAdmin/profile.png";
@@ -10,18 +10,139 @@ import { useSelector } from "react-redux";
 import NotifyMessage from "../../../components/common/toastMessages/NotifyMessage";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { PlusOutlined } from "@ant-design/icons";
+import { Modal, Upload } from "antd";
+import * as constants from "../../../constants/Constant";
+import { useMessageState } from "../../../hooks/useapp-message";
+
+const getBase64 = (file) =>
+  new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = (error) => reject(error);
+  });
 
 function AddOrgUser() {
-  const navigate = useNavigate();
+  let {
+    buttonLoading,
+    setButtonLoading,
+    isReset,
+    setIsReset,
+    showNotifyMessage,
+    hideNotifyMessage,
+  } = useMessageState();
 
+  const navigate = useNavigate();
   const user = useSelector(selectUser);
   const jwt = user.userToken;
-  const handleProfileImageUpload = () => {
-    console.log("Upload profile image logic goes here");
+  const [previewOpen, setPreviewOpen] = useState(false);
+  const [previewImage, setPreviewImage] = useState("");
+  const [previewTitle, setPreviewTitle] = useState("");
+  const [fileList, setFileList] = useState([]);
+
+  const handleCancel = () => setPreviewOpen(false);
+
+  const handlePreview = async (file) => {
+    if (!file.url && !file.preview) {
+      // Load preview image if not already loaded
+      file.preview = await getBase64(file.originFileObj);
+    }
+    setPreviewImage(file.url || file.preview);
+    setPreviewOpen(true);
+    setPreviewTitle(
+      file.name || file.url.substring(file.url.lastIndexOf("/") + 1)
+    );
   };
 
-  const handlePhotographImageUpload = () => {
-    console.log("Upload photograph image logic goes here");
+  const handleChange = ({ fileList }) => setFileList(fileList);
+
+  const uploadButton = (
+    <button
+      style={{
+        border: 0,
+        background: "none",
+      }}
+      type="button"
+    >
+      <PlusOutlined />
+      <div
+        style={{
+          marginTop: 8,
+        }}
+      >
+        Upload
+      </div>
+    </button>
+  );
+
+  const submitHandler = async (values) => {
+    setButtonLoading(true);
+    try {
+      const formData = new FormData();
+      formData.append("image", fileList[0].originFileObj);
+
+      const responseImage = await fetch(`${constants.BASE_API_URL}/user/dp`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+        },
+        body: formData,
+      });
+
+      if (!responseImage.ok) {
+        throw new Error(`HTTP error! status: ${responseImage.status}`);
+      }
+
+      const responseData = await responseImage.json();
+      console.log("Upload response:", responseData);
+
+      const responseUser = await fetch(
+        `${constants.BASE_API_URL}/organisation/user`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${jwt}`,
+          },
+          body: JSON.stringify(values),
+        }
+      );
+
+      if (!responseUser.ok) {
+        throw new Error(`HTTP error! status: ${responseUser.status}`);
+      }
+
+      const data = await responseUser.json();
+      switch (data.code) {
+        case "SIGNUP-S-001":
+          toast.success(data.message);
+          break;
+        case "SIGNUP-ARR-004":
+          toast.warn(data.message);
+          break;
+        case "SIGNUP-IE-005":
+          toast.error(data.message);
+          break;
+        case "SIGNUP-IO-007":
+          toast.error(data.message);
+          break;
+        default:
+          toast.info("Unknown response code");
+      }
+      setButtonLoading(false);
+      setIsReset(true);
+    } catch (error) {
+      console.error("Error occurred:", error);
+      toast.error("An error occurred. Please try again later.");
+      if (error?.response?.status == 500 || error?.response?.status == "500") {
+        navigate("/internal500");
+      }
+    }
+  };
+
+  const cancelHandler = () => {
+    navigate("/orguserlist");
   };
 
   const formElements = [
@@ -68,52 +189,6 @@ function AddOrgUser() {
       labelName: false,
     },
   ];
-
-  const submitHandler = async (values) => {
-    try {
-      const response = await fetch(
-        "http://54.161.113.196:8080/organisation/user",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${jwt}`,
-          },
-          body: JSON.stringify(values),
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const data = await response.json();
-      // console.log("API Response:", data);
-      switch (data.code) {
-        case "SIGNUP-S-001":
-          toast.success(data.message);
-          break;
-        case "SIGNUP-ARR-004":
-          toast.warn(data.message);
-          break;
-        case "SIGNUP-IE-005":
-          toast.error(data.message);
-          break;
-        case "SIGNUP-IO-007":
-          toast.error(data.message);
-          break;
-        default:
-          toast.info("Unknown response code");
-      }
-    } catch (error) {
-      console.error("Error occurred:", error);
-      toast.error("An error occurred. Please try again later.");
-    }
-  };
-
-  const cancelHandler = (values) => {
-    navigate("/orguserlist");
-  };
 
   const submitButtonProperty = {
     name: "Submit",
@@ -168,18 +243,35 @@ function AddOrgUser() {
 
         <div className={Styles.addOrganizationAdminSecondDiv}>
           <div className={Styles.imageUploadSection}>
-            <Tooltip
-              text="Click here to upload image"
-              onClick={handlePhotographImageUpload}
+            <Upload
+              action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
+              listType="picture-circle"
+              fileList={fileList}
+              onPreview={handlePreview}
+              onChange={handleChange}
+            >
+              {fileList.length >= 1 ? null : uploadButton}
+            </Upload>
+            <Modal
+              open={previewOpen}
+              title={previewTitle}
+              footer={null}
+              onCancel={handleCancel}
             >
               <img
-                className={Styles.photographImage}
-                src={photograph}
-                alt="pic"
+                alt="example"
+                style={{
+                  width: "100%",
+                }}
+                src={previewImage}
               />
-            </Tooltip>
+            </Modal>
           </div>
-          <GeneralForm {...feedingVariable} />
+          <GeneralForm
+            {...feedingVariable}
+            buttonLoading={buttonLoading}
+            isReset={isReset}
+          />
         </div>
         <NotifyMessage />
       </div>

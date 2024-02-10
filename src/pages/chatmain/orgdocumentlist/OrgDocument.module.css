@@ -12,6 +12,11 @@
   width: 100%;
   height: 100%; /* Set a max-width if needed */
 }
+.emailWithCheckbox {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
 .superAdminMiddleParentDiv {
   width: 100%;
   height: 100%;

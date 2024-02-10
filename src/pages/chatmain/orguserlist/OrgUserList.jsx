@@ -31,8 +31,17 @@ import axios from "axios";
 import * as constants from "../../../constants/Constant";
 import { BASE_API_URL, DOCUMENT_ENDPOINT } from "../../../constants/Constant";
 import { Spin } from "antd";
+import { useMessageState } from "../../../hooks/useapp-message";
 
 function OrgUserList() {
+  let {
+    buttonLoading,
+    setButtonLoading,
+    isReset,
+    setIsReset,
+    showNotifyMessage,
+    hideNotifyMessage,
+  } = useMessageState();
   const [documents, setDocuments] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -89,6 +98,7 @@ function OrgUserList() {
     alignItems: "center",
     marginRight: "18px",
   };
+
   const itemRender = (_, type, originalElement) => {
     if (type === "prev") {
       return <a>Previous</a>;
@@ -112,6 +122,34 @@ function OrgUserList() {
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
+  };
+
+  const messageHandler = () => {
+    setIsReset(false);
+    hideNotifyMessage();
+  };
+
+  const handleDelete = async (documentId) => {
+    try {
+      const response = await axios.put(
+        `${BASE_API_URL}/document/${documentId}/status`,
+        { isActive: false },
+        {
+          headers: {
+            Authorization: `Bearer ${jwt}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (response.status === 200) {
+        setDocuments(documents.filter((doc) => doc.id !== documentId));
+        showNotifyMessage("success", response?.data?.message, messageHandler);
+      } else {
+        throw new Error("Failed to delete document");
+      }
+    } catch (error) {
+      console.error("Error deleting document:", error.message);
+    }
   };
 
   const emptyRows =
@@ -268,8 +306,10 @@ function OrgUserList() {
                               />
                             </IconButton>
                           </Link>
-
-                          <IconButton aria-label="delete">
+                          <IconButton
+                            aria-label="delete"
+                            onClick={() => handleDelete(row.id)}
+                          >
                             <img src={deleteIcon} alt="Delete" />
                           </IconButton>
                         </TableCell>

@@ -56,7 +56,7 @@ function OrgDocumentList() {
     sortDirection: "desc",
     sortField: "createdAt",
     page: 0,
-    size: 5,
+    size: "",
   });
 
   const [rows, setRows] = useState([]);
@@ -70,11 +70,11 @@ function OrgDocumentList() {
     setLoading(true);
     fetchUserList();
   }, [filters]);
-
   const fetchUserList = async () => {
     try {
+      const queryParams = new URLSearchParams(filters);
       const response = await fetch(
-        `${constants.BASE_API_URL}${constants.USER_LIST_ENDPOINT}`,
+        `${constants.BASE_API_URL}${constants.USER_LIST_ENDPOINT}?${queryParams}`,
         {
           method: "GET",
           headers: {
@@ -85,25 +85,19 @@ function OrgDocumentList() {
       );
       if (!response.ok) {
         if (response.status === 404) {
-          // navigate("/error404");
           console.log("400 error ");
         } else if (response.status === 405) {
-          // navigate("/error405");
-
           console.log("response 405");
         } else {
-          // navigate("/error");
           console.log("response 405");
         }
         return;
       }
       const responseData = await response.json();
-      // console.log("Fetched data:", responseData);
       const users = responseData.data.users;
       setRows(users);
       setLoading(false);
     } catch (error) {
-      // console.error("Error fetching user list:", error);
       setLoading(false);
       navigate("/maintenance");
     }
@@ -116,13 +110,10 @@ function OrgDocumentList() {
           Authorization: `Bearer ${jwt}`,
         },
       });
-      // Update rows state after deletion
       setRows(rows.filter((row) => row.id !== userId));
-      // console.log("User deleted successfully")
       toast.success("User deleted successfully");
     } catch (error) {
       console.error("Error deleting user:", error);
-      // Handle error
       toast.error("Error deleting user");
     }
   };
@@ -159,6 +150,35 @@ function OrgDocumentList() {
     const updatedRows = rows.map((row) =>
       row.id === userId ? { ...row, status: event.target.value } : row
     );
+  };
+
+  const handleCheckboxClick = async (userId, isChecked) => {
+    try {
+      let roleId = isChecked ? "19" : "17";
+      await axios.put(
+        `${constants.BASE_API_URL}/user/role`,
+        {
+          userId: userId,
+          roleId: roleId,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${jwt}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      // Update the 'active' property of the row in the local state
+      setRows(
+        rows.map((row) =>
+          row.id === userId ? { ...row, active: isChecked } : row
+        )
+      );
+      toast.success("Role updated successfully!!");
+    } catch (error) {
+      console.error("Error updating role:", error);
+      toast.error("Error updating role");
+    }
   };
 
   return (
@@ -316,19 +336,27 @@ function OrgDocumentList() {
                           .map((row) => (
                             <TableRow key={row.id}>
                               <TableCell padding="checkbox">
-                                <Checkbox
-                                  inputProps={{
-                                    "aria-labelledby": row.firstName,
-                                  }}
-                                />
+                                <Checkbox />
                               </TableCell>
                               <TableCell component="th" scope="row">
                                 {`${row.firstName} ${row.lastName}`}
                               </TableCell>
-                              <TableCell>{row.email}</TableCell>
-                              {/* Assuming lastChat and totalChat are date/time strings */}
+                              <TableCell>
+                                <div className={Styles.emailWithCheckbox}>
+                                  <span style={{ marginTop: "10px" }}>
+                                    {row.email}
+                                  </span>
+                                  <Checkbox
+                                    inputProps={{
+                                      "aria-labelledby": row.firstName,
+                                    }}
+                                    onClick={() =>
+                                      handleCheckboxClick(row.id, !row.active)
+                                    }
+                                  />
+                                </div>
+                              </TableCell>
                               <TableCell>{row.createdAt}</TableCell>
-                              {/* You may need to format the date string if needed */}
                               <TableCell>{row.updatedAt}</TableCell>
                               <TableCell>
                                 <FormControl style={{ width: "110px" }}>
@@ -350,7 +378,8 @@ function OrgDocumentList() {
                                 </FormControl>
                               </TableCell>
                               <TableCell>
-                                <Link to={`/edituser/${row.id}`}>
+                                {/* <Link to={`/edituser/${row.id}`}> */}
+                                <Link to="/edituser">
                                   <IconButton aria-label="edit">
                                     <img src={editIcon} alt="Edit" />
                                   </IconButton>
@@ -402,7 +431,7 @@ function OrgDocumentList() {
             </div>
           </Paper>
         </div>
-        <NotifyMessage messageHandler={toast.dismiss} />{" "}
+        <NotifyMessage messageHandler={toast.dismiss} />
       </div>
     </div>
   );

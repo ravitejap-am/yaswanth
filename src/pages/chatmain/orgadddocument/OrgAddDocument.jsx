@@ -2,25 +2,42 @@ import React, { useState } from "react";
 import Styles from "./OrgAddDocumentSidebar.module.css";
 import profile from "../../../asset/AmChatSuperAdmin/profile.png";
 import GeneralForm from "../../../components/common/forms/GeneralForm";
-import Document from "../../../components/common/upload/file/Document";
 import { selectUser } from "../../../store/authSlice";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import * as constants from "../../../constants/Constant";
+import { Upload, Button } from "antd";
+import { UploadOutlined } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
+import { useMessageState } from "../../../hooks/useapp-message";
 
 function OrgAddDocument() {
+  let {
+    buttonLoading,
+    setButtonLoading,
+    isReset,
+    setIsReset,
+    showNotifyMessage,
+    hideNotifyMessage,
+  } = useMessageState();
   const [file, setFile] = useState(null);
+  const navigate = useNavigate();
 
   const user = useSelector(selectUser);
   const jwt = user.userToken;
-
+  const messageHandler = () => {
+    setIsReset(false);
+    hideNotifyMessage();
+  };
   const submitHandler = async (values) => {
+    setButtonLoading(true);
     try {
       const formData = new FormData();
       formData.append("file", file);
       formData.append("name", values["Document Name"]);
 
       const response = await axios.post(
-        "http://54.161.113.196:8080/document",
+        `${constants.BASE_API_URL}/document`,
         formData,
         {
           headers: {
@@ -29,24 +46,31 @@ function OrgAddDocument() {
           },
         }
       );
-
+      setButtonLoading(false);
+      setIsReset(true);
+      showNotifyMessage("success", response?.data?.message, messageHandler);
       console.log("API Response:", response.data);
     } catch (error) {
       console.error("Error occurred:", error);
-      // Add your error handling logic here
+      if (error?.response?.status == 500 || error?.response?.status == "500") {
+        navigate("/internal500");
+      }
     }
   };
 
   const cancelHandler = (values) => {
     console.log("Form values:", values);
+    navigate("/orgdocumentlist");
   };
 
   const documentProps = {
-    setFile: setFile,
-    numberOfImage: 1,
-    fileType: "application/pdf", // Assuming PDF is the required file type
-    fileSize: 10,
-    name: "Document File",
+    name: "file",
+    fileList: file ? [file] : [],
+    beforeUpload: (file) => {
+      setFile(file);
+      return false;
+    },
+    accept: ".pdf",
   };
 
   const submitButtonProperty = {
@@ -114,10 +138,17 @@ function OrgAddDocument() {
         </div>
 
         <div className={Styles.addOrganizationAdminSecondDiv}>
-          <div style={{ marginLeft: "20px" }}>
-            <Document {...documentProps} />
+          <div className={Styles.uploadDocumentContainer}>
+            {" "}
+            <Upload {...documentProps}>
+              <Button icon={<UploadOutlined />}>Upload Document</Button>
+            </Upload>
           </div>
-          <GeneralForm {...feedingVariable} />
+          <GeneralForm
+            {...feedingVariable}
+            buttonLoading={buttonLoading}
+            isReset={isReset}
+          />
           <div></div>
         </div>
       </div>

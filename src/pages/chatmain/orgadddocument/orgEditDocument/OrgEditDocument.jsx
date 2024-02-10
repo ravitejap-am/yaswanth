@@ -4,8 +4,9 @@ import profile from "../../../../asset/AmChatSuperAdmin/profile.png";
 import GeneralForm from "../../../../components/common/forms/GeneralForm";
 import axios from "axios";
 import Document from "../../../../components/common/upload/file/Document";
-
+import { useNavigate } from "react-router-dom";
 function OrgEditDocument() {
+  const navigate = useNavigate();
   const formElements = [
     {
       name: "Document Name",
@@ -16,12 +17,16 @@ function OrgEditDocument() {
         borderRadius: "40px",
         border: "1px solid var(--Brand-700, #4338CA)",
         backgroundColor: "transparent",
-        marginBottom: "20px", 
+        marginBottom: "20px",
       },
       rules: [{ required: true, message: "Please enter your Document Name" }],
       labelName: false,
     },
   ];
+  const cancelHandler = (values) => {
+    console.log("Form values:", values);
+    navigate("/orgdocumentlist");
+  };
 
   const submitHandler = async (values) => {
     try {
@@ -30,11 +35,14 @@ function OrgEditDocument() {
       if (values.hasOwnProperty("Document File")) {
         const formData = new FormData();
         formData.append("documentName", values["Document Name"]);
-        formData.append("documentFile", values["Document File"][0]); 
+        formData.append("documentFile", values["Document File"][0]);
 
         console.log("FormData:", formData);
 
-        const response = await axios.post("http://54.161.113.196:8080/document", formData);
+        const response = await axios.post(
+          "http://54.161.113.196:8080/document",
+          formData
+        );
 
         console.log("API Response:", response);
 
@@ -50,20 +58,6 @@ function OrgEditDocument() {
       console.error("Error uploading document:", error);
     }
   };
-
-  const cancelHandler = (values) => {
-    console.log("Form values:", values);
-  };
-
-  // const documentProps = {
-  //   setFile: (fileList) => {}, 
-  //   numberOfImage: 1, 
-  //   fileType: "application/pdf", 
-  //   fileSize: 10, 
-  //   url: "http://54.161.113.196:8080/document", 
-  //   form: undefined, 
-  //   name: "Document File", 
-  // };
 
   const submitButtonProperty = {
     name: "Update",
@@ -115,10 +109,8 @@ function OrgEditDocument() {
         </div>
 
         <div className={Styles.addOrganizationAdminSecondDiv}>
-
           <GeneralForm {...feedingVariable} />
-          <div>
-          </div>
+          <div></div>
         </div>
       </div>
     </div>
