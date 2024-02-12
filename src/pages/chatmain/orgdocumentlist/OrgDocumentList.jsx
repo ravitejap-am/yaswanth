@@ -70,6 +70,7 @@ function OrgDocumentList() {
     setLoading(true);
     fetchUserList();
   }, [filters]);
+
   const fetchUserList = async () => {
     try {
       const queryParams = new URLSearchParams(filters);
@@ -101,6 +102,10 @@ function OrgDocumentList() {
       setLoading(false);
       navigate("/maintenance");
     }
+  };
+
+  const handleEdit = (userId) => {
+    navigate(`/edituser/${userId}`);
   };
 
   const handleDelete = async (userId) => {
@@ -168,13 +173,20 @@ function OrgDocumentList() {
           },
         }
       );
+
       // Update the 'active' property of the row in the local state
       setRows(
         rows.map((row) =>
           row.id === userId ? { ...row, active: isChecked } : row
         )
       );
-      toast.success("Role updated successfully!!");
+
+      // Show different messages based on the roleId
+      if (roleId === "17") {
+        toast.success("Admin role assigned successfully");
+      } else if (roleId === "19") {
+        toast.success("User role assigned successfully");
+      }
     } catch (error) {
       console.error("Error updating role:", error);
       toast.error("Error updating role");
@@ -378,12 +390,15 @@ function OrgDocumentList() {
                                 </FormControl>
                               </TableCell>
                               <TableCell>
-                                {/* <Link to={`/edituser/${row.id}`}> */}
-                                <Link to="/edituser">
-                                  <IconButton aria-label="edit">
-                                    <img src={editIcon} alt="Edit" />
-                                  </IconButton>
-                                </Link>
+                                {/* <Link > */}
+                                <IconButton
+                                  aria-label="edit"
+                                  onClick={() => handleEdit(row.id)}
+                                >
+                                  <img src={editIcon} alt="Edit" />
+                                </IconButton>
+                                {/* </Link> */}
+
                                 <IconButton
                                   aria-label="delete"
                                   onClick={() => handleDelete(row.id)}

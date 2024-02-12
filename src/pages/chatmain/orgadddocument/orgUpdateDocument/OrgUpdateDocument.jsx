@@ -1,72 +1,79 @@
-import React from "react";
+import React, { useState } from "react";
 import Styles from "./OrgUpdateDocument.module.css";
 import profile from "../../../../asset/AmChatSuperAdmin/profile.png";
 import GeneralForm from "../../../../components/common/forms/GeneralForm";
 import axios from "axios";
 import Document from "../../../../components/common/upload/file/Document";
+import { useSelector } from "react-redux";
+import * as constants from "../../../../constants/Constant";
+import { selectUser } from "../../../../store/authSlice";
+import { Upload, Button } from "antd";
+import { UploadOutlined } from "@ant-design/icons";
+import { useMessageState } from "../../../../hooks/useapp-message";
+import { useParams, useNavigate } from "react-router-dom";
 
 function OrgUpdateDocument() {
-  const formElements = [
-    // {
-    //   name: "Document Name",
-    //   label: "Current Document Name",
-    //   type: "text",
-    //   style: {
-    //     width: "405px",
-    //     borderRadius: "40px",
-    //     border: "1px solid var(--Brand-700, #4338CA)",
-    //     backgroundColor: "transparent",
-    //     marginBottom: "20px", 
-    //   },
-    //   rules: [{ required: true, message: "Please enter your Document Name" }],
-    //   labelName: false,
-    // },
-  ];
+  const { documentId } = useParams();
+  let {
+    buttonLoading,
+    setButtonLoading,
+    isReset,
+    setIsReset,
+    showNotifyMessage,
+    hideNotifyMessage,
+  } = useMessageState();
 
-  const submitHandler = async (values) => {
+  const [file, setFile] = useState(null);
+  const navigate = useNavigate();
+
+  const user = useSelector(selectUser);
+  const jwt = user.userToken;
+  const messageHandler = () => {
+    setIsReset(false);
+    hideNotifyMessage();
+  };
+
+  const submitHandler = async () => {
     try {
-      console.log("Submitting form with values:", values);
+      const formData = new FormData();
+      formData.append("file", file);
 
-      if (values.hasOwnProperty("Document File")) {
-        const formData = new FormData();
-        formData.append("documentName", values["Document Name"]);
-        formData.append("documentFile", values["Document File"][0]);
-
-        console.log("FormData:", formData);
-
-        const response = await axios.post("http://54.161.113.196:8080/document", formData);
-
-        console.log("API Response:", response);
-
-        if (response.status === 200) {
-          console.log("Document uploaded successfully!");
-        } else {
-          console.error("Failed to upload document");
+      const response = await axios.put(
+        `${constants.BASE_API_URL}/document/${documentId}`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${jwt}`,
+            "Content-Type": "multipart/form-data",
+          },
         }
-      } else {
-        console.error("Document File field is missing in form values");
-      }
+      );
+      showNotifyMessage("success", response?.data?.message, messageHandler);
+      console.log("API Response:", response.data);
     } catch (error) {
-      console.error("Error uploading document:", error);
+      console.error("Error occurred:", error);
     }
   };
 
-  const cancelHandler = (values) => {
-    console.log("Form values:", values);
+  const cancelHandler = () => {
+    navigate("/orgdocumentlist");
+    console.log(navigate("/orgdocumentlist"));
   };
 
+
+
   const documentProps = {
-    setFile: (fileList) => { },
-    numberOfImage: 1,
-    fileType: "application/pdf",
-    fileSize: 10,
-    url: "http://54.161.113.196:8080/document",
-    form: undefined,
-    name: "Document File",
+    name: "file",
+    fileList: file ? [file] : [],
+    beforeUpload: (file) => {
+      setFile(file);
+      return false;
+    },
+    accept: ".pdf",
   };
 
   const submitButtonProperty = {
-    name: "Update",
+    name: "Add",
     color: "#ffffff",
     backgroundColor: "var(--Brand-500, #6366F1)",
     width: "150px",
@@ -82,7 +89,6 @@ function OrgUpdateDocument() {
     height: "50px",
     borderRadius: "28px",
   };
-
   const feedingVariable = {
     isCancel: true,
     cancelHandler: cancelHandler,
@@ -90,7 +96,7 @@ function OrgUpdateDocument() {
     submitHandler: submitHandler,
     submitButtonProperty: submitButtonProperty,
     cancelButtonProperty: cancelButtonProperty,
-    formElements: formElements,
+    formElements: [],
     formType: "normal",
     forgorPasswordHandler: () => {
       console.log("forgot Password....");
@@ -103,7 +109,9 @@ function OrgUpdateDocument() {
       <div className={Styles.superAdminMiddleParentDiv}>
         <div className={Styles.superAdminProfileCardStyle}>
           <div>
-            <p className={Styles.superAdminProfileName}>Upload Correct Document</p>
+            <p className={Styles.superAdminProfileName}>
+              Upload Correct Document
+            </p>
           </div>
           <div
             className={Styles.superAdminProfileImgNameStyle}
@@ -115,15 +123,18 @@ function OrgUpdateDocument() {
         </div>
 
         <div className={Styles.addOrganizationAdminSecondDiv}>
-          <div style={{ marginLeft: "20px" }}>
-            <Document {...documentProps} />
-
+          <div className={Styles.uploadDocumentContainer}>
+            {" "}
+            <Upload {...documentProps}>
+              <Button icon={<UploadOutlined />}>Upload Document</Button>
+            </Upload>
           </div>
-
-
-          <GeneralForm {...feedingVariable} />
-          <div>
-          </div>
+          <GeneralForm
+            {...feedingVariable}
+            buttonLoading={buttonLoading}
+            isReset={isReset}
+          />
+          <div></div>
         </div>
       </div>
     </div>

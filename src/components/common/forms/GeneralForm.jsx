@@ -1,12 +1,12 @@
-import React, { useEffect } from 'react';
-import { Form, Checkbox, InputNumber, Switch, DatePicker, Select } from 'antd';
-import Document from '../upload/file/Document';
-import Button from '../buttons/GeneralButton';
-import Input from '../input/Input';
-import Dropdown from '.././dropDown/dropDown';
-import { LockFilled } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
-import TextArea from 'antd/es/input/TextArea';
+import React, { useEffect } from "react";
+import { Form, Checkbox, InputNumber, Switch, DatePicker, Select } from "antd";
+import Document from "../upload/file/Document";
+import Button from "../buttons/GeneralButton";
+import Input from "../input/Input";
+import Dropdown from ".././dropDown/dropDown";
+import { LockFilled } from "@ant-design/icons";
+import { Link } from "react-router-dom";
+import TextArea from "antd/es/input/TextArea";
 
 // const { TextArea } = Input;
 
@@ -36,6 +36,11 @@ const GeneralForm = (props) => {
     }
   }, [isReset]);
 
+  const initialValues = {};
+  formElements.forEach((element) => {
+    initialValues[element.name] = element.initialValue || ""; // Set initial value or empty string
+  });
+
   return (
     <Form
       style={{ padding: "18px" }}
@@ -44,7 +49,7 @@ const GeneralForm = (props) => {
       onFinishFailed={cancelHandler}
       labelCol={{ span: 10 }}
       wrapperCol={{ span: 20 }}
-      initialValues={{ remember: true }}
+      initialValues={initialValues}
       layout="horizontal"
     >
       {grid ? (
@@ -402,7 +407,7 @@ const GeneralForm = (props) => {
               backgroundColor={submitButtonProperty.backgroundColor}
               name={submitButtonProperty.name}
               color={submitButtonProperty.color}
-              buttonHandler={submitButtonProperty.submitHandler}
+              buttonHandler={submitHandler}
               marginLeft={submitButtonProperty.marginLeft}
               marginTop={submitButtonProperty.marginTop}
               width={submitButtonProperty.width}
@@ -420,7 +425,7 @@ const GeneralForm = (props) => {
               color={cancelButtonProperty.color}
               border={cancelButtonProperty.border}
               backgroundColor={cancelButtonProperty.backgroundColor}
-              buttonHandler={cancelButtonProperty.cancelHandler}
+              buttonHandler={cancelHandler}
               height={cancelButtonProperty.height}
               boxShadow={cancelButtonProperty.boxShadow}
               borderRadius={cancelButtonProperty.borderRadius}

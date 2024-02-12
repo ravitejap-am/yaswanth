@@ -44,8 +44,8 @@ const RegisterUser = () => {
   const submitHandler = async (values) => {
     const apiUrl = `${constants.BASE_API_URL}${constants.SIGNUP_ENDPOINT}`;
     const data = {
-      firstName: values.name,
-      lastName: values.name,
+      firstName: values.firstName,
+      lastName: values.lastName,
       email: values.email,
       password: values.password,
       confirmPassword: values.confirmPassword,

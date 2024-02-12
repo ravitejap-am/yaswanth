@@ -48,6 +48,7 @@ function OrgUserList() {
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("documentName");
   const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState(""); // State variable for search query
 
   const user = useSelector(selectUser);
   const jwt = user.userToken;
@@ -63,7 +64,7 @@ function OrgUserList() {
             size: 10,
             sortField: "uploadDate",
             sortDirection: "desc",
-            name: "",
+            name: searchQuery, // Include search query in request parameters
             isActive: 1,
             version: "",
             fileSize: "",
@@ -77,7 +78,6 @@ function OrgUserList() {
         if (!response.data || !response.data.data) {
           throw new Error("Failed to fetch documents");
         }
-
         setDocuments(response.data.data);
         setLoading(false);
       } catch (error) {
@@ -86,7 +86,7 @@ function OrgUserList() {
     };
 
     fetchDocuments();
-  }, [jwt]);
+  }, [jwt, searchQuery]); // Add searchQuery as a dependency
 
   const searchStyles = {
     width: "300px",
@@ -155,6 +155,11 @@ function OrgUserList() {
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, documents.length - page * rowsPerPage);
 
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+    setPage(0);
+  };
+
   return (
     <div className={Styles.superAdminMainCardDivStyle}>
       <div className={Styles.superAdminMiddleParentDiv}>
@@ -181,6 +186,7 @@ function OrgUserList() {
               searchImage={SerchImages}
               imageHeight={"46px"}
               imageMarginLeft={20}
+              onSearch={handleSearch}
             />
           </div>
           <div className={Styles.bannerButton}>
@@ -292,12 +298,12 @@ function OrgUserList() {
                           </FormControl>
                         </TableCell>
                         <TableCell>
-                          <Link to="/editdocument">
+                          <Link to={`/editdocument/${row.id}`}>
                             <IconButton aria-label="edit">
                               <img src={editIcon} alt="Edit" />
                             </IconButton>
                           </Link>
-                          <Link to="/updatedocument">
+                          <Link to={`/updatedocument/${row.id}`}>
                             <IconButton aria-label="Upload">
                               <img
                                 className={Styles.uploadicon}
@@ -306,6 +312,7 @@ function OrgUserList() {
                               />
                             </IconButton>
                           </Link>
+
                           <IconButton
                             aria-label="delete"
                             onClick={() => handleDelete(row.id)}

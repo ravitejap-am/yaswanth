@@ -87,11 +87,15 @@ const Rout = () => {
       <Route exact path="/error404" element={<Error404 />} />
       <Route
         exact
-        path="/updatedocument"
+        path="/updatedocument/:documentId"
         element={<OrgUpdateDocumentSidebar />}
       />
-      <Route exact path="/editdocument" element={<OrgEditDocumentSidebar />} />
-      <Route exact path="/edituser" element={<EditOrgUserSidebar />} />
+      <Route
+        exact
+        path="/editdocument/:documentId"
+        element={<OrgEditDocumentSidebar />}
+      />
+      <Route exact path="/edituser/:userId" element={<EditOrgUserSidebar />} />
       <Route exact path="/UserProfile" element={<UserProfileSidebar />} />
       <Route exact path="/termsandconditions" element={<TermAndCondition />} />
       {/* Fallback route for any other URL */}
