@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { Form, Checkbox, InputNumber, Switch, DatePicker, Select } from 'antd';
 import Document from '../upload/file/Document';
 import Button from '../buttons/GeneralButton';
@@ -26,15 +26,43 @@ const GeneralForm = (props) => {
     grid,
     buttonLoading = false,
     isReset = false,
+    isSuperAdmin = false,
+    orgInfo = {},
+    isActiveSave = false,
   } = props;
   console.log(props);
   const [form] = Form.useForm();
+  const [data, setData] = useState('hi');
 
   useEffect(() => {
     if (isReset) {
       form.resetFields();
     }
-  }, [isReset]);
+  }, [isReset, form]);
+
+  useEffect(() => {
+    if (isSuperAdmin) {
+      if (orgInfo.screen == 'personalinformation') {
+        console.log('formdata', orgInfo?.orgData, 'grid', grid);
+
+        form.setFieldsValue(orgInfo?.orgData?.address);
+        form.setFieldsValue({ name: orgInfo?.orgData?.name });
+      } else {
+        form.setFieldsValue(orgInfo?.orgData?.contact);
+      }
+    }
+  }, []);
+
+  const isValid = (pattern, value) => {
+    if (pattern !== null && pattern !== undefined) {
+      const patternObj = new RegExp(pattern);
+      if (patternObj.test(form.getFieldValue(value))) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  };
 
   return (
     <Form
@@ -58,10 +86,23 @@ const GeneralForm = (props) => {
                   placeholder={item.labelName ? null : item.label}
                   iconClass={item.iconClass}
                   onChange={(e) => {
+                    console.log();
                     form.setFieldValue({ [item.name]: e.target.value });
                   }}
                   style={item.style}
+                  defaultValue={item.defaultValue ? item.defaultValue : ''}
                   // required={item.required}
+                  pattern={item.pattern}
+                  onBlur={() => {
+                    if (item.pattern !== null && item.pattern !== undefined) {
+                      const pattern = new RegExp(item.pattern);
+                      if (pattern.test(form.getFieldValue(item.name))) {
+                        console.log('this is correct message');
+                      } else {
+                        console.log('it is incorrect value');
+                      }
+                    }
+                  }}
                 />
               ),
               text: (
@@ -74,6 +115,7 @@ const GeneralForm = (props) => {
                     form.setFieldValue({ [item.name]: e.target.value });
                   }}
                   style={item.style}
+                  defaultValue={item.defaultValue ? item.defaultValue : ''}
                 />
               ),
               tel: (
@@ -197,6 +239,9 @@ const GeneralForm = (props) => {
                           }}
                           style={item.style}
                           placeholder={item.labelName ? null : item.label}
+                          defaultValue={
+                            item.defaultValue ? item.defaultValue : ''
+                          }
                         />
                       </div>
                     )}
