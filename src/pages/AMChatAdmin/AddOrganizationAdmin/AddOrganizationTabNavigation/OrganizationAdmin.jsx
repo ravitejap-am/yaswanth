@@ -14,6 +14,7 @@ function OrganizationAdmin({
     {
       name: 'firstName',
       label: 'First Name',
+      pattern: /^([a-zA-Z]{3,30}\s*)+/,
       type: 'text',
       placeholder: 'Enter your first name',
       style: {
@@ -27,6 +28,7 @@ function OrganizationAdmin({
       defaultValue: orgData?.contact?.firstName,
     },
     {
+      pattern: /^([a-zA-Z]{3,30}\s*)+/,
       name: 'lastName',
       label: 'Last Name',
       type: 'text',
@@ -46,19 +48,18 @@ function OrganizationAdmin({
       label: 'Email',
       type: 'email',
       placeholder: 'Enter your email',
+ 
+      pattern: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
       style: {
         width: '445px',
         borderRadius: '40px',
         border: '1px solid var(--Brand-700, #4338CA)',
         backgroundColor: 'transparent',
       },
-      // rules: [
-      //   { required: true, message: 'Please enter your email' },
-      //   { type: 'email', message: 'Please enter a valid email address' },
-      // ],
+ 
       labelName: false,
       defaultValue: orgData?.contact?.email,
-      pattern: '^[a-z0-9]+(.[_a-z0-9]+)@[a-z0-9-]+(.[a-z0-9-]+)(.[a-z]{2,15})$',
+ 
     },
   ];
 

@@ -33,6 +33,7 @@ const GeneralForm = (props) => {
   console.log(props);
   const [form] = Form.useForm();
   const [data, setData] = useState('hi');
+  const [Errors, setErrors] = useState([]);
 
   useEffect(() => {
     if (isReset) {
@@ -53,22 +54,109 @@ const GeneralForm = (props) => {
     }
   }, []);
 
-  const isValid = (pattern, value) => {
+  const isValid = (pattern, value, name) => {
+    let result = false;
     if (pattern !== null && pattern !== undefined) {
       const patternObj = new RegExp(pattern);
-      if (patternObj.test(form.getFieldValue(value))) {
-        return true;
+      if (patternObj.test(value)) {
+        debugger
+        result = true;
       } else {
-        return false;
+        debugger
+        const newMessages = [...Errors];
+        // if(value=="" || value==null || value==undefined)
+        // {
+        //   newMessages.push({[name]:"Please enter value"})
+        // }else{
+        //   // newMessages.push({[name]:"Please enter valid input value"})
+        // }
+
+        const IsErrorAvailable = newMessages.find((ErrorName) => {
+          const keysname = Object.keys(ErrorName);
+
+          if (ErrorName && keysname && keysname[0] == name) {
+            return ErrorName
+          }
+        })
+
+        if (IsErrorAvailable) {
+          const indexError = Errors.indexOf(IsErrorAvailable);
+          Errors[indexError][name] = "Please enter valid input value"
+        } else {
+          newMessages.push({ [name]: "Please enter value" })
+        }
+        console.log("newMessages ", newMessages)
+        setErrors(newMessages)
+
+        result = false;
       }
     }
+    return result;
   };
+
+
+  const ErrorMessage = (name) => {
+
+    const namevalue = name?.name
+    const findresult = Errors?.find(Item => Item[namevalue])
+    console.log(" findresult name", findresult);
+    // console.log(" findresult ",findresult[namevalue]);
+    return (
+      <>
+        {findresult && findresult[namevalue] &&
+          <p style={{ color: 'red' }}>
+            {findresult[namevalue]}
+          </p>
+        }
+      </>
+    )
+  }
 
   return (
     <Form
       style={{ padding: '18px' }}
       form={form}
-      onFinish={submitHandler}
+      onFinish={(value) => {
+        console.log("onFinish values ", value)
+
+        setErrors([]);
+
+        const checkPatternFound = formElements.some((ItemCheck) => ItemCheck.pattern)
+        if (checkPatternFound) {
+
+          let patterncountCompleted = 0;
+
+          const AvailablePattern = formElements.filter((ItemCheck) => {
+
+            if (ItemCheck.pattern) {
+              const patternvalue = ItemCheck?.pattern ? ItemCheck?.pattern : '';
+              const valuesfield = value[ItemCheck?.name] || '';
+              const patternName = ItemCheck?.name ? ItemCheck?.name : '';
+
+              console.log("patternvalue  ", ItemCheck)
+              console.log("patternvalue  ", patternvalue)
+              console.log("valuesfield  ", valuesfield)
+              console.log("patternName  ", patternName)
+              const result = isValid(patternvalue, valuesfield, patternName);
+              if (result === true) {
+                patterncountCompleted = patterncountCompleted + 1;
+              }
+              return ItemCheck
+            }
+          })
+
+
+          if( AvailablePattern?.length===(patterncountCompleted))
+          {
+            submitHandler(value)
+          }
+          console.log("mAvailablePattern ", AvailablePattern.length);
+          console.log("patterncountCompleted ", patterncountCompleted);
+
+        } else {
+          submitHandler(value)
+        }
+      }}
       onFinishFailed={cancelHandler}
       labelCol={{ span: 10 }}
       wrapperCol={{ span: 20 }}
@@ -80,53 +168,82 @@ const GeneralForm = (props) => {
           {formElements.map((item, index) => {
             const elements = {
               email: (
-                <Input
-                  labelName={item.labelName ? item.label : null}
-                  type={item.type}
-                  placeholder={item.labelName ? null : item.label}
-                  iconClass={item.iconClass}
-                  onChange={(e) => {
-                    console.log();
-                    form.setFieldValue({ [item.name]: e.target.value });
-                  }}
-                  style={item.style}
-                  defaultValue={item.defaultValue ? item.defaultValue : ''}
-                  // required={item.required}
-                  pattern={item.pattern}
-                  onBlur={() => {
-                    if (item.pattern !== null && item.pattern !== undefined) {
-                      const pattern = new RegExp(item.pattern);
-                      if (pattern.test(form.getFieldValue(item.name))) {
-                        console.log('this is correct message');
-                      } else {
-                        console.log('it is incorrect value');
+                <div>
+                  <Input
+                    labelName={item.labelName ? item.label : null}
+                    type={item.type}
+                    placeholder={item.labelName ? null : item.label}
+                    iconClass={item.iconClass}
+                    onChange={(e) => {
+                      console.log();
+                      form.setFieldValue({ [item.name]: e.target.value });
+                    }}
+                    style={item.style}
+                    defaultValue={item.defaultValue ? item.defaultValue : ''}
+
+                    // pattern={item?.pattern ? item?.pattern : null}
+                    onBlur={() => {
+                      if (item.pattern !== null && item.pattern !== undefined) {
+                        isValid(item.pattern, form.getFieldValue(item.name), item.name);
+
                       }
-                    }
-                  }}
-                />
+                    }}
+                  />
+                  {
+
+                    <ErrorMessage name={item.name} />
+                  }
+                </div>
               ),
               text: (
-                <Input
-                  labelName={item.labelName ? item.label : null}
-                  type={item.type}
-                  placeholder={item.labelName ? null : item.label}
-                  iconClass={item.iconClass}
-                  onChange={(e) => {
-                    form.setFieldValue({ [item.name]: e.target.value });
-                  }}
-                  style={item.style}
-                  defaultValue={item.defaultValue ? item.defaultValue : ''}
-                />
+                <div>
+                  <Input
+                    onBlur={() => {
+                      if (item.pattern !== null && item.pattern !== undefined) {
+                        isValid(item.pattern, form.getFieldValue(item.name), item.name);
+
+                      }
+                    }}
+                    labelName={item.labelName ? item.label : null}
+                    type={item.type}
+                    placeholder={item.labelName ? null : item.label}
+                    iconClass={item.iconClass}
+                    onChange={(e) => {
+                      form.setFieldValue({ [item.name]: e.target.value });
+                    }}
+                    style={item.style}
+                    defaultValue={item.defaultValue ? item.defaultValue : ''}
+                  />
+                  {
+
+                    <ErrorMessage name={item.name} />
+                  }
+                </div>
               ),
               tel: (
-                <Input
-                  type={item.type}
-                  placeholder={item.label}
-                  iconClass={item.iconClass}
-                  onChange={(e) => {
-                    form.setFieldValue({ [item.name]: e.target.value });
-                  }}
-                />
+                <div>
+                  <Input
+                    onBlur={() => {
+                      if (item.pattern !== null && item.pattern !== undefined) {
+                        isValid(item.pattern, form.getFieldValue(item.name), item.name);
+
+                      }
+                    }}
+
+                    type={item.type}
+                    placeholder={item.label}
+                    iconClass={item.iconClass}
+                    onChange={(e) => {
+                      form.setFieldValue({ [item.name]: e.target.value });
+                    }}
+                  />
+
+                  {
+
+                    <ErrorMessage name={item.name} />
+                  }
+
+                </div>
               ),
               password: (
                 <Input
@@ -277,7 +394,7 @@ const GeneralForm = (props) => {
                     form.setFieldValue({ [item.name]: e.target.value });
                   }}
                   style={item.style}
-                  // required={item.required}
+                // required={item.required}
                 />
               ),
               text: (
@@ -448,6 +565,9 @@ const GeneralForm = (props) => {
               name={submitButtonProperty.name}
               color={submitButtonProperty.color}
               buttonHandler={submitHandler}
+              // buttonHandler={()=>{
+              //   // console.log(" data is here ",FormData)
+              // }}
               marginLeft={submitButtonProperty.marginLeft}
               marginTop={submitButtonProperty.marginTop}
               width={submitButtonProperty.width}

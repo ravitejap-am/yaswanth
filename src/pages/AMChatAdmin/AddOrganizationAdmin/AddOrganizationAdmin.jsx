@@ -101,8 +101,7 @@ function AddOrganizationAdmin() {
               orgData={orgData}
               setSelectedTab={setSelectedTab}
               selectedTab={selectedTab}
-              selectOrgData={selectOrgData}
-            />
+              selectOrgData={selectOrgData}  />
           )}
           {selectedTab === 'subscriptionplan' && <SubscriptionPlan />}
           {selectedTab === 'organizationdomains' && <OrganizationDomains />}
