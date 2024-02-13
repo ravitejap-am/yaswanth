@@ -34,6 +34,7 @@ function OrgUpdateDocument() {
   };
 
   const submitHandler = async () => {
+    setButtonLoading(true);
     try {
       const formData = new FormData();
       formData.append("file", file);
@@ -48,10 +49,21 @@ function OrgUpdateDocument() {
           },
         }
       );
+      setButtonLoading(false);
+      setIsReset(true);
       showNotifyMessage("success", response?.data?.message, messageHandler);
       console.log("API Response:", response.data);
     } catch (error) {
-      console.error("Error occurred:", error);
+      if (error?.response?.status == 500 || error?.response?.status == "500") {
+        navigate("/internal500");
+      }
+
+      setButtonLoading(false);
+      showNotifyMessage(
+        "error",
+        error?.response?.data?.message,
+        messageHandler
+      );
     }
   };
 
@@ -59,8 +71,6 @@ function OrgUpdateDocument() {
     navigate("/orgdocumentlist");
     console.log(navigate("/orgdocumentlist"));
   };
-
-
 
   const documentProps = {
     name: "file",

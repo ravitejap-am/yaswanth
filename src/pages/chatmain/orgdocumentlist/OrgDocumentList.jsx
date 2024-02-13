@@ -34,9 +34,6 @@ import NotifyMessage from "../../../components/common/toastMessages/NotifyMessag
 function OrgDocumentList() {
   const user = useSelector(selectUser);
   const jwt = user.userToken;
-  console.log("====================================");
-  console.log(jwt);
-  console.log("====================================");
   const navigate = useNavigate();
 
   const searchStyles = {

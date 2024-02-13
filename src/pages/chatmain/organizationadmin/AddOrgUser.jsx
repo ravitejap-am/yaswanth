@@ -76,6 +76,11 @@ function AddOrgUser() {
     </button>
   );
 
+  const messageHandler = () => {
+    setIsReset(false);
+    hideNotifyMessage();
+  };
+
   const submitHandler = async (values) => {
     setButtonLoading(true);
     try {
@@ -132,12 +137,17 @@ function AddOrgUser() {
       }
       setButtonLoading(false);
       setIsReset(true);
+      showNotifyMessage('success', data?.data?.message, messageHandler);
     } catch (error) {
-      console.error("Error occurred:", error);
-      toast.error("An error occurred. Please try again later.");
       if (error?.response?.status == 500 || error?.response?.status == "500") {
         navigate("/internal500");
       }
+      setButtonLoading(false);
+      showNotifyMessage(
+        'error',
+        error?.response?.data?.message,
+        messageHandler
+      );
     }
   };
 

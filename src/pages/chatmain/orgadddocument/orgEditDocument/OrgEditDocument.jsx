@@ -30,7 +30,6 @@ function OrgEditDocument() {
 
   useEffect(() => {
     const fetchDocumentDetails = async () => {
-      setButtonLoading(true);
       try {
         const response = await axios.get(
           `${constants.BASE_API_URL}/document/getDetails/${documentId}`,
@@ -42,7 +41,6 @@ function OrgEditDocument() {
         );
         setDocumentDetails(response.data.data);
         setLoading(false);
-        setButtonLoading(false);
         setIsReset(true);
       } catch (error) {
         console.error("Error fetching document details:", error);
@@ -56,38 +54,49 @@ function OrgEditDocument() {
     // alert("Cancelling")
     navigate("/orgdocumentlist");
   };
+  const messageHandler = () => {
+    setIsReset(false);
+    hideNotifyMessage();
+  };
 
   const submitHandler = async (values) => {
+    setButtonLoading(true);
     try {
       console.log("Submitting form with values:", values);
 
-      if (values.hasOwnProperty("Document File")) {
-        const formData = new FormData();
-        formData.append("documentName", values["Document Name"]);
-        formData.append("documentFile", values["Document File"][0]);
+      const requestData = {
+        name: values["Document Name"],
+      };
 
-        console.log("FormData:", formData);
+      console.log("Request Data:", requestData);
 
-        const response = await axios.post(
-          `${constants.BASE_API_URL}/document`,
-          formData
-        );
-
-        console.log("API Response:", response);
-
-        if (response.status === 200) {
-          console.log("Document uploaded successfully!");
-          showNotifyMessage("success", "Document uploaded successfully!");
-        } else {
-          console.error("Failed to upload document");
-          showNotifyMessage("error", "Failed to upload document");
+      const response = await axios.put(
+        `${constants.BASE_API_URL}/document/edit/${documentId}`,
+        requestData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${jwt}`,
+          },
         }
-      } else {
-        console.error("Document File field is missing in form values");
-      }
+      );
+
+      // console.log("API Response:", response);
+
+      setButtonLoading(false);
+      setIsReset(true);
+      showNotifyMessage("success", response?.data?.message, messageHandler);
     } catch (error) {
-      console.error("Error uploading document:", error);
-      showNotifyMessage("error", "Error uploading document");
+      if (error?.response?.status == 500 || error?.response?.status == "500") {
+        navigate("/internal500");
+      }
+
+      setButtonLoading(false);
+      showNotifyMessage(
+        "error",
+        error?.response?.data?.message,
+        messageHandler
+      );
     }
   };
 
@@ -119,7 +128,7 @@ function OrgEditDocument() {
     formElements: [
       {
         name: "Document Name",
-        label:  documentDetails.name,
+        label: documentDetails.name,
         type: "text",
         style: {
           width: "405px",
@@ -158,7 +167,11 @@ function OrgEditDocument() {
 
         <div className={Styles.addOrganizationAdminSecondDiv}>
           {!loading && (
-            <GeneralForm initialValues={documentDetails} {...feedingVariable} />
+            <GeneralForm
+              initialValues={documentDetails}
+              {...feedingVariable}
+              buttonLoading={buttonLoading}
+            />
           )}
           <div></div>
         </div>

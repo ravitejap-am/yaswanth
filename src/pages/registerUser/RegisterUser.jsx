@@ -9,15 +9,30 @@ import GeneralForm from "../../components/common/forms/GeneralForm";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import Footer from "../../pages/home/Footer/Footer";
-import Header from "../home/Header/Header";
 import SignHeader from "../home/SignHeader/SignHeader";
+import { setUser, selectUser } from "../../store/authSlice";
+import { useMessageState } from "../../hooks/useapp-message";
+import Header from "../home/Header/Header";
 
 const RegisterUser = () => {
+  let {
+    buttonLoading,
+    setButtonLoading,
+    isReset,
+    setIsReset,
+    showNotifyMessage,
+    hideNotifyMessage,
+  } = useMessageState();
+
+  const messageHandler = () => {
+    setIsReset(false);
+    hideNotifyMessage();
+  };
+
   const [signupMessage, setSignupMessage] = useState();
   const [loader, setLoader] = useState(false);
   const [form] = Form.useForm();
   const [filesystem, setFileSysytem] = useState([]);
-  const [responseData, setResponseData] = useState([]);
 
   useEffect(() => {
     if (signupMessage) {
@@ -40,17 +55,21 @@ const RegisterUser = () => {
     }
     return Promise.reject("Please enter a valid email address!");
   };
-
   const submitHandler = async (values) => {
+    if (!values || !values.firstName) {
+      console.error("First Name is missing in form values");
+      return;
+    }
+
+    setButtonLoading(true);
     const apiUrl = `${constants.BASE_API_URL}${constants.SIGNUP_ENDPOINT}`;
     const data = {
-      firstName: values.firstName,
-      lastName: values.lastName,
-      email: values.email,
-      password: values.password,
-      confirmPassword: values.confirmPassword,
+      firstName: values.firstName || "",
+      lastName: values.lastName || "",
+      email: values.email || "",
+      password: values.password || "",
+      confirmPassword: values.confirmPassword || "",
     };
-
     try {
       setLoader(true);
       const response = await axios.post(apiUrl, data, {
@@ -58,64 +77,20 @@ const RegisterUser = () => {
           "Content-Type": "application/json",
         },
       });
-
-      if (response.data.code === "SIGNUP-S-001") {
-        // console.log(
-        //   "Email confirmation link sent successfully. Check your email."
-        // );
-        setSignupMessage(
-          "Email confirmation link sent successfully. Check your email."
-        );
+      if (response.data.code) {
+        setButtonLoading(false);
+        setIsReset(true);
+        showNotifyMessage("success", response?.data?.message, messageHandler);
+      } else if (response.data.code === "SIGNUP-ARR-004") {
+        // User is already registered
+        setSignupMessage(response.data.message);
       } else {
-        switch (response.data.code) {
-          case "SIGNUP-PNM-008":
-            toast.error("Passwords do not match.");
-            break;
-          case "SIGNUP-IO-007":
-            toast.error(
-              "Your organisation isn’t tagged with our website. Please contact our sales team."
-            );
-            break;
-          case "SIGNUP-IR-006":
-            toast.error("Role not found. Please contact our support team.");
-            break;
-          case "SIGNUP-IE-005":
-            toast.error(
-              "Invalid email format. Please provide a valid email address."
-            );
-            break;
-          case "SIGNUP-ARR-004":
-            toast.error(response.data.message);
-            setSignupMessage(response.data.message);
-            break;
-          case "SIGNUP-IP-003":
-            toast.error("Invalid password format.");
-            break;
-          case "SIGNUP-NF-002":
-            toast.error(
-              "Your organisation isn’t tagged with our website. Please contact our sales team."
-            );
-            break;
-          default:
-            setSignupMessage("An error occurred. Please try again.");
-        }
+        setButtonLoading(false);
+        setIsReset(false);
+        hideNotifyMessage();
       }
     } catch (error) {
       console.error("Registration failed:", error.response?.data);
-
-      if (error.response && error.response.status === 422) {
-        toast.error(
-          "Invalid email format. Please provide a valid email address."
-        );
-      } else if (
-        error.response &&
-        error.response.data.code === "SIGNUP-ARR-004"
-      ) {
-        toast.error(error.response.data.message); // Ensure this line is present
-        setSignupMessage(error.response.data.message); // Add this line
-      } else {
-        setSignupMessage("An error occurred. Please try again.");
-      }
     } finally {
       setLoader(false);
     }
@@ -130,7 +105,7 @@ const RegisterUser = () => {
     {
       label: "First Name",
       type: "text",
-      name: "name",
+      name: "firstName",
       rules: [
         { required: true, message: "Please input your Full Name" },
         { type: "name", message: "Invalid user Name" },
@@ -139,7 +114,7 @@ const RegisterUser = () => {
     {
       label: "Last Name",
       type: "text",
-      name: "name",
+      name: "lastName",
       rules: [
         { required: true, message: "Please input your Full Name" },
         { type: "name", message: "Invalid user Name" },
