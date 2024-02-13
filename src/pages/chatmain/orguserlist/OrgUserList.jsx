@@ -31,14 +31,24 @@ import axios from "axios";
 import * as constants from "../../../constants/Constant";
 import { BASE_API_URL, DOCUMENT_ENDPOINT } from "../../../constants/Constant";
 import { Spin } from "antd";
+import { useMessageState } from "../../../hooks/useapp-message";
 
 function OrgUserList() {
+  let {
+    buttonLoading,
+    setButtonLoading,
+    isReset,
+    setIsReset,
+    showNotifyMessage,
+    hideNotifyMessage,
+  } = useMessageState();
   const [documents, setDocuments] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("documentName");
   const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState(""); // State variable for search query
 
   const user = useSelector(selectUser);
   const jwt = user.userToken;
@@ -54,7 +64,7 @@ function OrgUserList() {
             size: 10,
             sortField: "uploadDate",
             sortDirection: "desc",
-            name: "",
+            name: searchQuery, // Include search query in request parameters
             isActive: 1,
             version: "",
             fileSize: "",
@@ -68,7 +78,6 @@ function OrgUserList() {
         if (!response.data || !response.data.data) {
           throw new Error("Failed to fetch documents");
         }
-
         setDocuments(response.data.data);
         setLoading(false);
       } catch (error) {
@@ -77,7 +86,7 @@ function OrgUserList() {
     };
 
     fetchDocuments();
-  }, [jwt]);
+  }, [jwt, searchQuery]); // Add searchQuery as a dependency
 
   const searchStyles = {
     width: "300px",
@@ -89,6 +98,7 @@ function OrgUserList() {
     alignItems: "center",
     marginRight: "18px",
   };
+
   const itemRender = (_, type, originalElement) => {
     if (type === "prev") {
       return <a>Previous</a>;
@@ -114,8 +124,41 @@ function OrgUserList() {
     setPage(0);
   };
 
+  const messageHandler = () => {
+    setIsReset(false);
+    hideNotifyMessage();
+  };
+
+  const handleDelete = async (documentId) => {
+    try {
+      const response = await axios.put(
+        `${BASE_API_URL}/document/${documentId}/status`,
+        { isActive: false },
+        {
+          headers: {
+            Authorization: `Bearer ${jwt}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (response.status === 200) {
+        setDocuments(documents.filter((doc) => doc.id !== documentId));
+        showNotifyMessage("success", response?.data?.message, messageHandler);
+      } else {
+        throw new Error("Failed to delete document");
+      }
+    } catch (error) {
+      console.error("Error deleting document:", error.message);
+    }
+  };
+
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, documents.length - page * rowsPerPage);
+
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+    setPage(0);
+  };
 
   return (
     <div className={Styles.superAdminMainCardDivStyle}>
@@ -143,6 +186,7 @@ function OrgUserList() {
               searchImage={SerchImages}
               imageHeight={"46px"}
               imageMarginLeft={20}
+              onSearch={handleSearch}
             />
           </div>
           <div className={Styles.bannerButton}>
@@ -254,12 +298,12 @@ function OrgUserList() {
                           </FormControl>
                         </TableCell>
                         <TableCell>
-                          <Link to="/editdocument">
+                          <Link to={`/editdocument/${row.id}`}>
                             <IconButton aria-label="edit">
                               <img src={editIcon} alt="Edit" />
                             </IconButton>
                           </Link>
-                          <Link to="/updatedocument">
+                          <Link to={`/updatedocument/${row.id}`}>
                             <IconButton aria-label="Upload">
                               <img
                                 className={Styles.uploadicon}
@@ -269,7 +313,10 @@ function OrgUserList() {
                             </IconButton>
                           </Link>
 
-                          <IconButton aria-label="delete">
+                          <IconButton
+                            aria-label="delete"
+                            onClick={() => handleDelete(row.id)}
+                          >
                             <img src={deleteIcon} alt="Delete" />
                           </IconButton>
                         </TableCell>

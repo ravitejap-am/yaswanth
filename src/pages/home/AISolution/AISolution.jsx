@@ -34,6 +34,9 @@ function AISolution() {
       title: "Gen AI Chatbots",
       subTitle:
         "Use the power of generative AI to interact with your document.",
+      style: {
+        marginTop: "5px",
+      },
     },
   ];
 

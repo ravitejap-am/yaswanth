@@ -63,7 +63,10 @@ const GeneralForm = (props) => {
       }
     }
   };
-
+  const initialValues = {};
+  formElements.forEach((element) => {
+    initialValues[element.name] = element.initialValue || ''; // Set initial value or empty string
+  });
   return (
     <Form
       style={{ padding: '18px' }}
@@ -72,7 +75,7 @@ const GeneralForm = (props) => {
       onFinishFailed={cancelHandler}
       labelCol={{ span: 10 }}
       wrapperCol={{ span: 20 }}
-      initialValues={{ remember: true }}
+      initialValues={initialValues}
       layout="horizontal"
     >
       {grid ? (
@@ -465,14 +468,11 @@ const GeneralForm = (props) => {
               color={cancelButtonProperty.color}
               border={cancelButtonProperty.border}
               backgroundColor={cancelButtonProperty.backgroundColor}
-              // backgroundColor={cancelButtonProperty.background}
-              buttonHandler={submitHandler}
-              width={cancelButtonProperty.width}
+              buttonHandler={cancelHandler}
               height={cancelButtonProperty.height}
               boxShadow={cancelButtonProperty.boxShadow}
               borderRadius={cancelButtonProperty.borderRadius}
               fontSize={cancelButtonProperty.fontSize}
-              // buttonHandler={cancelHandler}
               marginTop={cancelButtonProperty.marginTop}
             />
           )}

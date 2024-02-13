@@ -1,204 +1,202 @@
 .AMChatMainDiv {
-    width: 100%;
-    height: 100%;
-    flex-shrink: 0;
-    background: linear-gradient(
-      114deg,
-      #0f172a 51.52%,
-      #152346 73.32%,
-      #1a2e5e 92.75%
-    );
-    display: flex;
-    justify-content: flex-start;
-    /* position: fixed; */
-  }
-  
-  @media(max-width:1100){
-    
-  }
-  .AMChatSidebar {
-    width: 248px;
-    height: 100%;
-    justify-content: center;
-    background: transparent;
-    padding: 20px;
-  }
-  .AmChatMainTextStyle {
-    color: var(--Neutral-100, #f1f5f9);
-    -webkit-text-stroke-width: 1;
-    -webkit-text-stroke-color: var(--Neutral-900, #0f172a);
-    font-family: Into "Lato";
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 28px;
-  }
-  .AmChatBelowTwoDiv {
-    width: 100%;
-    height: 40px;
-    flex-shrink: 0;
-    border-radius: 30px;
-    display: flex;
-    justify-content: flex-end;
-    background: var(--Neutral-800, #1e293b);
-  }
-  .AmChatChatPlaceholder {
-    color: var(--Neutral-300, #cbd5e1);
-    font-family: Into "Lato";
-    font-size: 10px;
-    font-style: normal;
-    font-weight: 300;
-    /* display: flex;
+  width: 100%;
+  min-height: 100vh;
+  flex-shrink: 0;
+  background: linear-gradient(
+    114deg,
+    #0f172a 51.52%,
+    #152346 73.32%,
+    #1a2e5e 92.75%
+  );
+  display: flex;
+  justify-content: flex-start;
+}
+
+@media (max-width: 1100) {
+}
+.AMChatSidebar {
+  width: 248px;
+  height: 100%;
+  justify-content: center;
+  background: transparent;
+  padding: 20px;
+}
+.AmChatMainTextStyle {
+  color: var(--Neutral-100, #f1f5f9);
+  -webkit-text-stroke-width: 1;
+  -webkit-text-stroke-color: var(--Neutral-900, #0f172a);
+  font-family: Into "Lato";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 28px;
+}
+.AmChatBelowTwoDiv {
+  width: 100%;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: 30px;
+  display: flex;
+  justify-content: flex-end;
+  background: var(--Neutral-800, #1e293b);
+}
+.AmChatChatPlaceholder {
+  color: var(--Neutral-300, #cbd5e1);
+  font-family: Into "Lato";
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 300;
+  /* display: flex;
     justify-content: flex-start; */
-  }
-  .AMChatSuperAdminSidebar {
-    margin-top: 45px;
-    margin-right: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .container {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    margin-top: -1px;
-  }
-  
-  .AmChatsTwoContents {
-  }
-  
-  .AmChatsTwoContents p {
-    display: flex;
-    align-items: center;
-  }
-  
-  .AmChatsTwoContents img {
-    margin-left: 8px; /* Add spacing between the text and the image if needed */
-  }
-  
-  .SuperAdminChildContainer {
-  }
-  
-  .SuperAdminChildContainer span {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    text-align: center;
-  }
-  
-  .SuperAdminChildContainer img {
-    margin-right: 8px;
-  }
-  
-  .bannerBtn {
-    margin-top: 60px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .AMChat-admin-footer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-  }
-  .appLogo {
-    color: var(--White, #fff);
-    font-family: Lato !important;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 24px;
-    color: var(--White, #fff);
-  }
-  .amChatTitle {
-    color: var(--White, #fff);
-    font-family: Into "Red Rose";
-    font-size: 25px;
-    font-style: normal;
-    font-weight: 600;
-  }
-  .appName {
-    width: 18px;
-    height: 19.571px;
-    flex-shrink: 0;
-    stroke-width: 1px;
-    stroke: #53a5df;
-    margin-top: -20px !important;
-  }
-  
-  .AMChatFooterStyle {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(
-      114deg,
-      #0f172a 51.52%,
-      #152346 73.32%,
-      #1a2e5e 92.75%
-    );
-    border-style: none;
-    margin-top: -20px;
-    color: var(--White, #fff);
-    font-family: Lato;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 20px;
-  }
-  .footerPTagStyle {
-    margin-left: 150px;
-  }
-  .organizationTextStyle {
-    color: var(--White, #fff);
-    text-align: right;
-    font-family: Into "Lato";
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 500;
-  }
-  .AMchatMainDiv {
-    margin-top: 30px;
-  }
-  .AMChatFooterStyle {
-    color: var(--White, #fff);
-    font-family: Lato;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 1.2rem;
-  }
-  
-  .AMChatFooterStyle {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(
-      114deg,
-      #0f172a 51.52%,
-      #152346 73.32%,
-      #1a2e5e 92.75%
-    );
-    border-style: none;
-    margin-top: -20px;
-  }
-  .organizationTextStyle {
-    color: var(--White, #fff);
-    text-align: right;
-    font-family: Lato;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 500;
-    margin-left: 15px;
-  }
-  .AMChatFooterStyle {
-    color: var(--White, #fff);
-    font-family: Lato;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 1.2rem;
-  }
-  .logoicon{
-    height: 30px;
-    width: 87px;
-  }
+}
+.AMChatSuperAdminSidebar {
+  margin-top: 45px;
+  margin-right: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: -1px;
+}
+
+.AmChatsTwoContents {
+}
+
+.AmChatsTwoContents p {
+  display: flex;
+  align-items: center;
+}
+
+.AmChatsTwoContents img {
+  margin-left: 8px; /* Add spacing between the text and the image if needed */
+}
+
+.SuperAdminChildContainer {
+}
+
+.SuperAdminChildContainer span {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: center;
+}
+
+.SuperAdminChildContainer img {
+  margin-right: 8px;
+}
+
+.bannerBtn {
+  margin-top: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.AMChat-admin-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.appLogo {
+  color: var(--White, #fff);
+  font-family: Lato !important;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 24px;
+  color: var(--White, #fff);
+}
+.amChatTitle {
+  color: var(--White, #fff);
+  font-family: Into "Red Rose";
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 600;
+}
+.appName {
+  width: 18px;
+  height: 19.571px;
+  flex-shrink: 0;
+  stroke-width: 1px;
+  stroke: #53a5df;
+  margin-top: -20px !important;
+}
+
+.AMChatFooterStyle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(
+    114deg,
+    #0f172a 51.52%,
+    #152346 73.32%,
+    #1a2e5e 92.75%
+  );
+  border-style: none;
+  margin-top: -20px;
+  color: var(--White, #fff);
+  font-family: Lato;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+}
+.footerPTagStyle {
+  margin-left: 150px;
+}
+.organizationTextStyle {
+  color: var(--White, #fff);
+  text-align: right;
+  font-family: Into "Lato";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+}
+.AMchatMainDiv {
+  margin-top: 30px;
+}
+.AMChatFooterStyle {
+  color: var(--White, #fff);
+  font-family: Lato;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 1.2rem;
+}
+
+.AMChatFooterStyle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(
+    114deg,
+    #0f172a 51.52%,
+    #152346 73.32%,
+    #1a2e5e 92.75%
+  );
+  border-style: none;
+  margin-top: -20px;
+}
+.organizationTextStyle {
+  color: var(--White, #fff);
+  text-align: right;
+  font-family: Lato;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  margin-left: 15px;
+}
+.AMChatFooterStyle {
+  color: var(--White, #fff);
+  font-family: Lato;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 1.2rem;
+}
+.logoicon {
+  height: 30px;
+  width: 87px;
+}

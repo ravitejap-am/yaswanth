@@ -1,20 +1,26 @@
 import React, { useState } from "react";
 import "./recoverpassword.module1.css";
 import { Form } from "antd";
-import UserOutlined from "@ant-design/icons";
-import { MailOutlined } from "@ant-design/icons";
 import GeneralForm from "../../components/common/forms/GeneralForm";
 import NotifyMessage from "../../components/common/toastMessages/NotifyMessage";
 import axios from "axios";
-import { recoverPassword } from "../../config/api";
+import * as constants from "../../constants/Constant";
+import { useMessageState } from "../../hooks/useapp-message";
 import Footer from "../../pages/home/Footer/Footer";
-
-import GeneralButton from "../../components/common/buttons/GeneralButton";
 import { toast } from "react-toastify";
 import SignHeader from "../home/SignHeader/SignHeader";
-import * as constants from "../../constants/Constant";
+import { useNavigate } from "react-router-dom";
 
 const RecoveryPasswor = () => {
+  let {
+    buttonLoading,
+    setButtonLoading,
+    isReset,
+    setIsReset,
+    showNotifyMessage,
+    hideNotifyMessage,
+  } = useMessageState();
+  const navigate = useNavigate();
   const [form] = Form.useForm();
   const [filesystem, setFileSysytem] = useState([]);
   const [message, setMessage] = useState("");
@@ -40,7 +46,17 @@ const RecoveryPasswor = () => {
     return Promise.reject("Please enter a valid email address!");
   };
 
+  const messageHandler = () => {
+    setIsReset(false);
+    hideNotifyMessage();
+  };
   const submitHandler = async (values) => {
+    // Check if values object and email property are defined
+    if (!values || !values.email) {
+      console.error("Email is missing in form values");
+      return;
+    }
+
     const url = `${constants.BASE_API_URL}${constants.RECOVERY_PASSWORD_ENDPOINT}`;
     const data = {
       email: values.email,
@@ -52,43 +68,23 @@ const RecoveryPasswor = () => {
           "Content-Type": "application/json",
         },
       });
-
-      if (response.status === 200 && response.data) {
-        console.log("Verification success:", response.data.message);
-        // setMessage(response.data.message);
-        toast.success(response.data.message);
-      } else if (response.data.code === "FORGETPASSEMAIL-S-001") {
-        // setMessage(response.data.message);
-        toast.success(
-          "An email has been sent to the given email id with a reset password link."
-        );
-      } else if (response.data.code === "FORGETPASSEMAIL-NF-002") {
-        // setMessage(response.data.message);
-        toast.error("User Not Found.");
-      } else if (response.data.code === "FORGETPASSEMAIL-ER-003") {
-        // setMessage(response.data.message);
-        toast.error("Email is required.");
-      } else {
-        console.error("Invalid verification response:", response);
-        toast.error("Email verification failed. Please try again.");
-      }
+      setButtonLoading(false);
+      setIsReset(true);
+      showNotifyMessage("success", response?.data?.message, messageHandler);
     } catch (error) {
-      console.error("Recovery error:", error);
-
-      if (error.response && error.response.status === 400) {
-        setMessage(
-          "User not verified. Please complete the verification or registration process."
-        );
-        toast.error(
-          "User not verified. Please complete the verification or registration process."
-        );
-      } else {
-        console.error(
-          "Invalid verification response:",
-          error.response?.data?.message
-        );
-        toast.error("Email verification failed. Please try again.");
+      if (
+        error?.response?.status === 500 ||
+        error?.response?.status === "500"
+      ) {
+        navigate("/internal500");
       }
+
+      setButtonLoading(false);
+      showNotifyMessage(
+        "error",
+        error?.response?.data?.message,
+        messageHandler
+      );
     }
   };
 
@@ -178,7 +174,7 @@ const RecoveryPasswor = () => {
             </div>
           </div>
         </div>
-        {message ? <NotifyMessage message={message ? message : null} /> : null}
+        <NotifyMessage />
         <Footer />
       </div>
     </>

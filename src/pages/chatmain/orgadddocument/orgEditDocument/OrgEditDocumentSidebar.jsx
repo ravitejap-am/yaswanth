@@ -1,6 +1,6 @@
 import React from "react";
 import Logo from "../../../../asset/logo.png";
-// import 
+// import
 import Styles from "./OrgEditDocument.module.css";
 import GeneralButton from "../../../../components/common/buttons/GeneralButton";
 import frame from "../../../../asset/Frame 1.png";
@@ -9,9 +9,9 @@ import userImage from "../../../../asset/AmChatSuperAdmin/users.png";
 import { Link } from "react-router-dom";
 import arrorLink from "../../../../asset/AmChatSuperAdmin/arrow-left.png";
 // import OrganizationAdminListSidebar from "../OrganizationAdminList/OrganizationAdminListSidebar";
-import OrgAddDocument from '../../../chatmain/orgadddocument/OrgAddDocument'
-import usersicon from '../../../../asset/users.png'
-import documenticon from '../../../../asset/document1.png'
+import OrgAddDocument from "../../../chatmain/orgadddocument/OrgAddDocument";
+import usersicon from "../../../../asset/users.png";
+import documenticon from "../../../../asset/document1.png";
 import OrgEditDocument from "./OrgEditDocument";
 function OrgEditDocumentSidebar() {
   return (
@@ -46,33 +46,23 @@ function OrgEditDocumentSidebar() {
             <div className={Styles.SuperAdminChildContainer}>
               <span>
                 <img src={arrorLink} alt="" />
-                <Link to="/userchat" style={{ textDecoration: "none" }}>
+                <Link to="/orgadminchat" style={{ textDecoration: "none" }}>
                   <p className={Styles.organizationTextStyle}>Back to Chat</p>{" "}
-                </Link>
-              </span>
-
-              <span>
-                <img src={usersicon} alt="" />
-                <Link
-                  to="/or"
-                  style={{ textDecoration: "none" }}
-                >
-                  <p className={Styles.organizationTextStyle}>Users</p>
                 </Link>
               </span>
             </div>
             <br />
-            <div className={Styles.SuperAdminChildContainer}>
-              <span>
-                <img src={documenticon} alt="" />
-                <p className={Styles.organizationTextStyle}>
-                  Documents
-                </p>
-              </span>
-            </div>
+            <Link to="/orgdocumentlist" style={{ textDecoration: "none" }}>
+              <div className={Styles.SuperAdminChildContainer}>
+                <span>
+                  <img src={documenticon} alt="" />
+                  <p className={Styles.organizationTextStyle}>Documents</p>
+                </span>
+              </div>
+            </Link>
           </div>
         </div>
-        <OrgEditDocument/>
+        <OrgEditDocument />
       </div>
       <div className={Styles.AMChatFooterStyle}>
         <footer className="AMChat-admin-footer">
