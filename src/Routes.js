@@ -32,6 +32,7 @@ import SearchUIAIChatSidebar from "./pages/AMChatAdmin/SearchUIAMChat.jsx/Search
 import UserProfile from "./pages/chatmain/UserProfile.jsx";
 import ResetPassword from "./pages/setPassword/ResetPassword.jsx";
 import UserProfileSidebar from "./pages/chatmain/userProfileSidebar.jsx";
+import AMChatHeader from "./pages/AMChatAdmin/AMChatHeader/AMChatHeader.jsx";
 
 const Rout = () => {
   return (
@@ -52,6 +53,7 @@ const Rout = () => {
       <Route exact path="/userchat" element={<AMChatMainUserSidebar />} />
       <Route exact path="/chat" element={<SearchUIAIChatSidebar />} />
       <Route exact path="/dashboardadmin" element={<AMChatAdminHome />} />
+      <Route exact path="/AMChatHeader" element={<AMChatHeader />} />
       <Route
         exact
         path="/dashboardadmin/organizationlist"

@@ -11,6 +11,7 @@ import NotifyMessage from "../../../../components/common/toastMessages/NotifyMes
 import { selectUser } from "../../../../store/authSlice";
 import * as constants from "../../../../constants/Constant";
 import { toast } from "react-toastify";
+import AMChatHeader from "../../../AMChatAdmin/AMChatHeader/AMChatHeader";
 
 const getBase64 = (file) =>
   new Promise((resolve, reject) => {
@@ -35,10 +36,19 @@ function EditOrgUser() {
   const user = useSelector(selectUser);
   const jwt = user.userToken;
   const [previewOpen, setPreviewOpen] = useState(false);
-  const [previewImage, setPreviewImage] = useState("");
+  const [previewImage, setPreviewImage] = useState(
+    "https://medicalpublic.s3.amazonaws.com/AMCHAT/UserDP_1707819604773.jpeg"
+  );
   const [previewTitle, setPreviewTitle] = useState("");
-  const [fileList, setFileList] = useState([]);
   const [userData, setUserData] = useState({});
+  const [fileList, setFileList] = useState([
+    {
+      uid: "-1",
+      name: "profile.png",
+      status: "done",
+      url: `${constants.BASE_API_URL}/${userData.profileImagePath}`,
+    },
+  ]);
 
   useEffect(() => {
     fetchUserData();
@@ -77,6 +87,12 @@ function EditOrgUser() {
     );
   };
 
+  // const handlePreview = (file) => {
+  //   setPreviewImage(file.url);
+  //   setPreviewOpen(true);
+  //   setPreviewTitle(file.name);
+  // };
+
   const handleChange = ({ fileList }) => setFileList(fileList);
 
   const uploadButton = (
@@ -98,7 +114,13 @@ function EditOrgUser() {
     </button>
   );
 
+  const messageHandler = () => {
+    setIsReset(false);
+    hideNotifyMessage();
+  };
+
   const submitHandler = async (values) => {
+    setButtonLoading(true);
     try {
       const response = await fetch(`${constants.BASE_API_URL}/user/${userId}`, {
         method: "PUT",
@@ -115,16 +137,20 @@ function EditOrgUser() {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const data = await response.json();
-      // Handle success response
-      console.log("Update successful:", data);
-      // Show success message
-      toast.success("User updated successfully");
-      // After successful update, you can choose to refetch user data if needed
-      // fetchUserData();
+      setButtonLoading(false);
+      setIsReset(true);
+      showNotifyMessage("success", response?.data?.message, messageHandler);
     } catch (error) {
-      console.error("Error updating user:", error);
-      // Show error message
-      toast.error("Failed to update user");
+      if (error?.response?.status == 500 || error?.response?.status == "500") {
+        navigate("/internal500");
+      }
+
+      setButtonLoading(false);
+      showNotifyMessage(
+        "error",
+        error?.response?.data?.message,
+        messageHandler
+      );
     }
   };
 
@@ -143,7 +169,7 @@ function EditOrgUser() {
         border: "1px solid var(--Brand-700, #4338CA)",
         backgroundColor: "transparent",
       },
-      // initialValue: userData.firstName || "", // Populate with user data
+      // initialValue: userData.firstName || "",
       rules: [{ required: true, message: "Please enter your name" }],
       labelName: false,
     },
@@ -157,7 +183,7 @@ function EditOrgUser() {
         border: "1px solid var(--Brand-700, #4338CA)",
         backgroundColor: "transparent",
       },
-      //initialValue: userData.lastName || "", // Populate with user data
+      //initialValue: userData.lastName || "",
       rules: [{ required: true, message: "Please enter your name" }],
       labelName: false,
     },
@@ -165,7 +191,7 @@ function EditOrgUser() {
       name: "Email",
       label: userData.email || "",
       type: "text",
-      // initialValue: userData.email || "", // Populate with user data
+      // initialValue: userData.email || "",
       rules: [
         { required: true, message: "Please input your email" },
         { type: "email", message: "Invalid email format" },
@@ -215,45 +241,29 @@ function EditOrgUser() {
     grid: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px" },
   };
 
-  const validateForm = async () => {
-    try {
-      // Validate the form here
-      // For example, you can use Ant Design Form validation methods or any other validation library
-      // Return true if the form is valid, false otherwise
-      return true;
-    } catch (error) {
-      console.error("Error validating form:", error);
-      return false;
-    }
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent default form submission behavior
-    const isValid = await validateForm();
-    if (isValid) {
-      submitHandler();
-    }
-  };
-
-  // Check if userData is loaded before rendering Upload component
-  if (Object.keys(userData).length === 0) {
-    return null; // or render a loading spinner
-  }
-
   return (
     <div className={Styles.superAdminMainCardDivStyle}>
       <div className={Styles.superAdminMiddleParentDiv}>
         <div className={Styles.superAdminProfileCardStyle}>
-          <div>
-            <p className={Styles.superAdminProfileName}>Edit User</p>
-          </div>
-          <div
-            className={Styles.superAdminProfileImgNameStyle}
-            style={{ display: "flex", alignItems: "center" }}
-          >
-            <img src={profile} alt="" className={Styles.AdminProfileStyle} />
-            <span className={Styles.SuperAdminProfileStyle}>Lian Vendiar</span>
-          </div>
+          <AMChatHeader
+            componentName="Edit User"
+            name="Rajeev"
+            profileImageSrc={profile}
+            customStyle={{
+              containerStyle: {
+                display: "flex",
+                borderRadius: "8px",
+              },
+              imageStyle: {
+                width: "50%",
+                height: "70%",
+              },
+              textStyle: {
+                color: "blue",
+                fontWeight: "bold",
+              },
+            }}
+          />
         </div>
 
         <div className={Styles.addOrganizationAdminSecondDiv}>
@@ -269,7 +279,8 @@ function EditOrgUser() {
                   uid: "-1",
                   name: "profile.png",
                   status: "done",
-                  url: `${constants.BASE_API_URL}/${userData.profileImagePath}`,
+                  // url: `${constants.BASE_API_URL}/${userData.profileImagePath}`,
+                  url: `https://medicalpublic.s3.amazonaws.com/AMCHAT/UserDP_1707819604773.jpeg`,
                 },
               ]}
             >
@@ -291,9 +302,9 @@ function EditOrgUser() {
             </Modal>
           </div>
 
-          <form onSubmit={handleSubmit}>
+          <div>
             <GeneralForm {...feedingVariable} />
-          </form>
+          </div>
         </div>
       </div>
     </div>

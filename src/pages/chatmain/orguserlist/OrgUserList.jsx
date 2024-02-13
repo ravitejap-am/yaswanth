@@ -32,6 +32,7 @@ import * as constants from "../../../constants/Constant";
 import { BASE_API_URL, DOCUMENT_ENDPOINT } from "../../../constants/Constant";
 import { Spin } from "antd";
 import { useMessageState } from "../../../hooks/useapp-message";
+import AMChatHeader from "../../AMChatAdmin/AMChatHeader/AMChatHeader";
 
 function OrgUserList() {
   let {
@@ -164,18 +165,25 @@ function OrgUserList() {
     <div className={Styles.superAdminMainCardDivStyle}>
       <div className={Styles.superAdminMiddleParentDiv}>
         <div className={Styles.superAdminProfileCardStyle}>
-          <div>
-            <p className={Styles.superAdminOrganizationListName}>
-              Document List
-            </p>
-          </div>
-          <div
-            className={Styles.superAdminProfileImgNameStyle}
-            style={{ display: "flex", alignItems: "center" }}
-          >
-            <img src={profile} alt="" className={Styles.AdminProfileStyle} />
-            <span className={Styles.SuperAdminProfileStyle}>Lian Vendiar</span>
-          </div>
+          <AMChatHeader
+            componentName="Document List"
+            name="Rajeev"
+            profileImageSrc={profile}
+            customStyle={{
+              containerStyle: {
+                display: "flex",
+                borderRadius: "8px",
+              },
+              imageStyle: {
+                width: "50%",
+                height: "70%",
+              },
+              textStyle: {
+                color: "blue",
+                fontWeight: "bold",
+              },
+            }}
+          />
         </div>
 
         <div className={Styles.bannerBtn}>

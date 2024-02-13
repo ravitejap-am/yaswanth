@@ -11,6 +11,7 @@ import { Upload, Button } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import { useMessageState } from "../../../../hooks/useapp-message";
 import { useParams, useNavigate } from "react-router-dom";
+import AMChatHeader from "../../../AMChatAdmin/AMChatHeader/AMChatHeader";
 
 function OrgUpdateDocument() {
   const { documentId } = useParams();
@@ -118,18 +119,25 @@ function OrgUpdateDocument() {
     <div className={Styles.superAdminMainCardDivStyle}>
       <div className={Styles.superAdminMiddleParentDiv}>
         <div className={Styles.superAdminProfileCardStyle}>
-          <div>
-            <p className={Styles.superAdminProfileName}>
-              Upload Correct Document
-            </p>
-          </div>
-          <div
-            className={Styles.superAdminProfileImgNameStyle}
-            style={{ display: "flex", alignItems: "center" }}
-          >
-            <img src={profile} alt="" className={Styles.AdminProfileStyle} />
-            <span className={Styles.SuperAdminProfileStyle}>Lian Vendiar</span>
-          </div>
+          <AMChatHeader
+            componentName="Upload Correct Document"
+            name="Rajeev"
+            profileImageSrc={profile}
+            customStyle={{
+              containerStyle: {
+                display: "flex",
+                borderRadius: "8px",
+              },
+              imageStyle: {
+                width: "50%",
+                height: "70%",
+              },
+              textStyle: {
+                color: "blue",
+                fontWeight: "bold",
+              },
+            }}
+          />
         </div>
 
         <div className={Styles.addOrganizationAdminSecondDiv}>

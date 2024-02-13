@@ -14,6 +14,7 @@ import { PlusOutlined } from "@ant-design/icons";
 import { Modal, Upload } from "antd";
 import * as constants from "../../../constants/Constant";
 import { useMessageState } from "../../../hooks/useapp-message";
+import AMChatHeader from "../../AMChatAdmin/AMChatHeader/AMChatHeader";
 
 const getBase64 = (file) =>
   new Promise((resolve, reject) => {
@@ -137,14 +138,14 @@ function AddOrgUser() {
       }
       setButtonLoading(false);
       setIsReset(true);
-      showNotifyMessage('success', data?.data?.message, messageHandler);
+      showNotifyMessage("success", data?.data?.message, messageHandler);
     } catch (error) {
       if (error?.response?.status == 500 || error?.response?.status == "500") {
         navigate("/internal500");
       }
       setButtonLoading(false);
       showNotifyMessage(
-        'error',
+        "error",
         error?.response?.data?.message,
         messageHandler
       );
@@ -239,16 +240,25 @@ function AddOrgUser() {
     <div className={Styles.superAdminMainCardDivStyle}>
       <div className={Styles.superAdminMiddleParentDiv}>
         <div className={Styles.superAdminProfileCardStyle}>
-          <div>
-            <p className={Styles.superAdminProfileName}>Add User</p>
-          </div>
-          <div
-            className={Styles.superAdminProfileImgNameStyle}
-            style={{ display: "flex", alignItems: "center" }}
-          >
-            <img src={profile} alt="" className={Styles.AdminProfileStyle} />
-            <span className={Styles.SuperAdminProfileStyle}>Lian Vendiar</span>
-          </div>
+          <AMChatHeader
+            componentName="Add User"
+            name="Rajeev"
+            profileImageSrc={profile}
+            customStyle={{
+              containerStyle: {
+                display: "flex",
+                borderRadius: "8px",
+              },
+              imageStyle: {
+                width: "50%",
+                height: "70%",
+              },
+              textStyle: {
+                color: "blue",
+                fontWeight: "bold",
+              },
+            }}
+          />
         </div>
 
         <div className={Styles.addOrganizationAdminSecondDiv}>

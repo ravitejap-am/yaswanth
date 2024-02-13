@@ -6,6 +6,7 @@ import base from "../../../asset/Base.png";
 import vector from "../../../asset/vectoricon.png";
 import documentIconpink from "../../../asset/Group 23.png";
 import orgvector from "../../../asset/orgVector (1).png";
+import AMChatHeader from "../../AMChatAdmin/AMChatHeader/AMChatHeader";
 // import './OrgAdminChatPageSidebar.module.css'
 
 const OrgAdminChatPage = () => {
@@ -52,18 +53,25 @@ const OrgAdminChatPage = () => {
     <div className="orgadminchat-screen">
       <div className="orgadminchat-chat-container">
         <div className="orgadminchat-chat-header">
-          <div className="orgadminchat-user-name">
-            <h2>Welcome, Jack</h2>
-          </div>
-          <div className="orgadminchat-chat-user-profile-main">
-            <div className="orgadminchat-chat-user-profile-image">
-              <img className="orgadmin-profilepic" src={base} alt="" />
-            </div>
-            <div className="orgadminchat-chat-user-profile">
-              <h3>Jack Markban</h3>
-              <p>Marvel web</p>
-            </div>
-          </div>
+          <AMChatHeader
+            componentName="Welcome Rajeev"
+            name="Rajeev"
+            profileImageSrc={base}
+            customStyle={{
+              containerStyle: {
+                display: "flex",
+                borderRadius: "8px",
+              },
+              imageStyle: {
+                width: "50%",
+                height: "70%",
+              },
+              textStyle: {
+                color: "blue",
+                fontWeight: "bold",
+              },
+            }}
+          />
         </div>
         <div className="hi-main">
           <div className="orgadminchat-chat-content-head">

@@ -30,6 +30,7 @@ import * as constants from "../../../constants/Constant";
 import axios from "axios";
 import { toast } from "react-toastify";
 import NotifyMessage from "../../../components/common/toastMessages/NotifyMessage";
+import AMChatHeader from "../../AMChatAdmin/AMChatHeader/AMChatHeader";
 
 function OrgDocumentList() {
   const user = useSelector(selectUser);
@@ -62,6 +63,21 @@ function OrgDocumentList() {
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("name");
   const [loading, setLoading] = useState(false);
+
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const filteredRows = rows.filter(
+    (row) =>
+      (row.firstName &&
+        row.firstName.toLowerCase().includes(searchQuery.toLowerCase())) ||
+      (row.lastName &&
+        row.lastName.toLowerCase().includes(searchQuery.toLowerCase())) ||
+      (row.email && row.email.toLowerCase().includes(searchQuery.toLowerCase()))
+  );
+
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
 
   useEffect(() => {
     setLoading(true);
@@ -194,16 +210,25 @@ function OrgDocumentList() {
     <div className={Styles.superAdminMainCardDivStyle}>
       <div className={Styles.superAdminMiddleParentDiv}>
         <div className={Styles.superAdminProfileCardStyle}>
-          <div>
-            <p className={Styles.superAdminOrganizationListName}>User List</p>
-          </div>
-          <div
-            className={Styles.superAdminProfileImgNameStyle}
-            style={{ display: "flex", alignItems: "center" }}
-          >
-            <img src={profile} alt="" className={Styles.AdminProfileStyle} />
-            <span className={Styles.SuperAdminProfileStyle}>Lian Vendiar</span>
-          </div>
+          <AMChatHeader
+            componentName="User List"
+            name="Rajeev"
+            profileImageSrc={profile}
+            customStyle={{
+              containerStyle: {
+                display: "flex",
+                borderRadius: "8px",
+              },
+              imageStyle: {
+                width: "50%",
+                height: "70%",
+              },
+              textStyle: {
+                color: "blue",
+                fontWeight: "bold",
+              },
+            }}
+          />
         </div>
         <div className={Styles.bannerBtn}>
           <div className={Styles.OrganizationListFilterSerchBox}>
@@ -214,6 +239,7 @@ function OrgDocumentList() {
                 searchImage={SerchImages}
                 imageHeight={"46px"}
                 imageMarginLeft={20}
+                onChange={handleSearchChange}
               />
             </div>
           </div>
@@ -336,8 +362,8 @@ function OrgDocumentList() {
                     </TableRow>
                   ) : (
                     <>
-                      {rows.length > 0 ? (
-                        rows
+                      {filteredRows.length > 0 ? (
+                        filteredRows
                           .slice(
                             page * rowsPerPage,
                             page * rowsPerPage + rowsPerPage
@@ -387,14 +413,12 @@ function OrgDocumentList() {
                                 </FormControl>
                               </TableCell>
                               <TableCell>
-                                {/* <Link > */}
                                 <IconButton
                                   aria-label="edit"
                                   onClick={() => handleEdit(row.id)}
                                 >
                                   <img src={editIcon} alt="Edit" />
                                 </IconButton>
-                                {/* </Link> */}
 
                                 <IconButton
                                   aria-label="delete"

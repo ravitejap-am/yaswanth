@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
-import './UserProfile.css';
+import React, { useState } from "react";
+import "./UserProfile.css";
 import GeneralForm from "../../components/common/forms/GeneralForm";
-import editprofilepic from '../../asset/editprofilepic.png';
-import Dropdown from '../../components/common/forms/GeneralForm';
+import editprofilepic from "../../asset/editprofilepic.png";
+// import Dropdown from "../../components/common/forms/GeneralForm";
+// import * as constants from "../../constants/Constant"; // Import constants
+// import NotifyMessage from "../../components/common/toastMessages/NotifyMessage";
+// import { useMessageState } from "../../hooks/useapp-message";
+// import { useNavigate } from "react-router-dom";
 
 const PersonalInformation = ({ setFileSysytem, validateEmail }) => {
-  const [orgName, setOrgName] = useState('');
-  const [userStatus, setUserStatus] = useState('active');
+  const [orgName, setOrgName] = useState("");
+  const [userStatus, setUserStatus] = useState("active");
 
   const userStatusOptions = [
     { value: "active", label: "Active User" },
@@ -22,7 +26,7 @@ const PersonalInformation = ({ setFileSysytem, validateEmail }) => {
         { required: true, message: "Please input your First Name" },
         { type: "name", message: "Invalid First Name" },
       ],
-      style: { width: "400px", height: "40px", marginLeft: '20px' }
+      style: { width: "400px", height: "40px", marginLeft: "20px" },
     },
     {
       label: "Last Name",
@@ -32,7 +36,7 @@ const PersonalInformation = ({ setFileSysytem, validateEmail }) => {
         { required: true, message: "Please input your Last Name" },
         { type: "name", message: "Invalid Last Name" },
       ],
-      style: { width: "400px", height: "40px", marginLeft: '20px' }
+      style: { width: "400px", height: "40px", marginLeft: "20px" },
     },
     {
       label: "Email",
@@ -42,7 +46,12 @@ const PersonalInformation = ({ setFileSysytem, validateEmail }) => {
         { required: true, message: "Please enter your email" },
         { type: "email", message: "Invalid Email" },
       ],
-      style: { width: "400px", height: "40px", marginLeft: '20px', backgroundColor: "#CBD5E1" }
+      style: {
+        width: "400px",
+        height: "40px",
+        marginLeft: "20px",
+        backgroundColor: "#CBD5E1",
+      },
     },
     {
       label: "Organization Name",
@@ -52,7 +61,12 @@ const PersonalInformation = ({ setFileSysytem, validateEmail }) => {
         { required: true, message: "Please input your Organization Name" },
         { type: "name", message: "Invalid Organization Name" },
       ],
-      style: { width: "400px", height: "40px", backgroundColor:"#CBD5E1",marginLeft: '20px' }
+      style: {
+        width: "400px",
+        height: "40px",
+        backgroundColor: "#CBD5E1",
+        marginLeft: "20px",
+      },
     },
     {
       name: "User Status",
@@ -62,7 +76,15 @@ const PersonalInformation = ({ setFileSysytem, validateEmail }) => {
         { label: "Active", value: "Active" },
         { label: "Inactive", value: "Inactive" },
       ],
-      style: { width: "423px", height: "50px", marginLeft: '20px', borderRadius: "30px",paddingLeft:"10px",cursor:"pointer",marginTop:"8px" },
+      style: {
+        width: "423px",
+        height: "50px",
+        marginLeft: "20px",
+        borderRadius: "30px",
+        paddingLeft: "10px",
+        cursor: "pointer",
+        marginTop: "8px",
+      },
       labelName: false,
       rules: [{ required: true, message: "Please select Country" }],
     },
@@ -77,7 +99,7 @@ const PersonalInformation = ({ setFileSysytem, validateEmail }) => {
     height: "50px",
     borderRadius: "34px",
     marginLeft: "19px",
-    marginTop:"1.5rem"
+    marginTop: "1.5rem",
   };
 
   const feedingVariable = {
@@ -94,26 +116,25 @@ const PersonalInformation = ({ setFileSysytem, validateEmail }) => {
     formType: "normal",
     validateEmail: validateEmail,
     setFileSysytem: setFileSysytem,
-    grid: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }
+    grid: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px" },
   };
 
   return (
-    <div className='personal-contentcard'>
-      <div className='user-profile-content'>
-        <div className='user-profile-img'>
-          <img className='edit-profilepic' src={editprofilepic} alt="" />
+    <div className="personal-contentcard">
+      <div className="user-profile-content">
+        <div className="user-profile-img">
+          <img className="edit-profilepic" src={editprofilepic} alt="" />
         </div>
-        <div className='user-profle-name'>
+        <div className="user-profle-name">
           <h2>Clayton Santos</h2>
-          <div className='personalinfo-user-Status'>
+          <div className="personalinfo-user-Status">
             <p>Active User</p>
-
           </div>
         </div>
       </div>
       <GeneralForm {...feedingVariable} />
     </div>
   );
-}
+};
 
 export default PersonalInformation;
