@@ -146,8 +146,7 @@ const GeneralForm = (props) => {
           })
 
 
-          if( AvailablePattern?.length===(patterncountCompleted))
-          {
+          if (AvailablePattern?.length === (patterncountCompleted)) {
             submitHandler(value)
           }
           console.log("mAvailablePattern ", AvailablePattern.length);
@@ -246,18 +245,37 @@ const GeneralForm = (props) => {
                 </div>
               ),
               password: (
-                <Input
-                  labelName={item.labelName ? item.label : null}
-                  type={item.type}
-                  placeholder={item.label}
-                  iconClass={item.iconClass}
-                  onChange={(e) => {
-                    form.setFieldValue({ [item.name]: e.target.value });
-                  }}
-                />
+                <div>
+                  <Input
+                    onBlur={() => {
+                      if (item.pattern !== null && item.pattern !== undefined) {
+                        isValid(item.pattern, form.getFieldValue(item.name), item.name);
+
+                      }
+                    }}
+                    labelName={item.labelName ? item.label : null}
+                    type={item.type}
+                    placeholder={item.label}
+                    iconClass={item.iconClass}
+                    onChange={(e) => {
+                      form.setFieldValue({ [item.name]: e.target.value });
+                    }}
+                  />
+                  {
+
+                    <ErrorMessage name={item.name} />
+                  }
+                </div>
               ),
               confirmPassword: (
-                <Input
+                <div>      <Input
+                  onBlur={() => {
+                    if (item.pattern !== null && item.pattern !== undefined) {
+                      isValid(item.pattern, form.getFieldValue(item.name), item.name);
+
+                    }
+                  }}
+
                   labelName={item.labelName ? item.label : null}
                   type={item.type}
                   placeholder={item.label}
@@ -267,19 +285,41 @@ const GeneralForm = (props) => {
                   }}
                   style={item.style}
                 />
+
+                  {
+
+                    <ErrorMessage name={item.name} />
+                  }
+                </div>
               ),
 
               comment: (
-                <Input
-                  labelName={item.labelName ? item.label : null}
-                  type={item.type}
-                  placeholder={item.labelName ? null : item.label}
-                  iconClass={item.iconClass}
-                  onChange={(e) => {
-                    form.setFieldValue({ [item.name]: e.target.value });
-                  }}
-                  style={item.style}
-                />
+                <div>
+
+                  <Input
+                    onBlur={() => {
+                      if (item.pattern !== null && item.pattern !== undefined) {
+                        isValid(item.pattern, form.getFieldValue(item.name), item.name);
+
+                      }
+                    }}
+
+
+                    labelName={item.labelName ? item.label : null}
+                    type={item.type}
+                    placeholder={item.labelName ? null : item.label}
+                    iconClass={item.iconClass}
+                    onChange={(e) => {
+                      form.setFieldValue({ [item.name]: e.target.value });
+                    }}
+                    style={item.style}
+                  />
+                  {
+
+                    <ErrorMessage name={item.name} />
+                  }
+
+                </div>
               ),
               number: (
                 <InputNumber
