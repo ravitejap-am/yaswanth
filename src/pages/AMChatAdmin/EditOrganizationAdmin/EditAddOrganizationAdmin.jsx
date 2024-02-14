@@ -10,6 +10,7 @@ import OrganizationAdmin from "./AddOrganizationTabNavigation/OrganizationAdmin"
 import OrganizationDomains from "./AddOrganizationTabNavigation/OrganizationDomains";
 import SubscriptionPlan from "./AddOrganizationTabNavigation/SubscriptionPlan";
 import GeneralButton from "../../../components/common/buttons/GeneralButton";
+import AMChatHeader from "../AMChatHeader/AMChatHeader";
 
 function EditAddOrganizationAdmin() {
   const navigate = useNavigate();
@@ -36,16 +37,25 @@ function EditAddOrganizationAdmin() {
     <div className={Styles.superAdminMainCardDivStyle}>
       <div className={Styles.superAdminMiddleParentDiv}>
         <div className={Styles.superAdminProfileCardStyle}>
-          <div>
-            <p className={Styles.superAdminProfileName}>Edit Organization</p>
-          </div>
-          <div
-            className={Styles.superAdminProfileImgNameStyle}
-            style={{ display: "flex", alignItems: "center" }}
-          >
-            <img src={profile} alt="" className={Styles.AdminProfileStyle} />
-            <span className={Styles.SuperAdminProfileStyle}>Lian Vendiar</span>
-          </div>
+          <AMChatHeader
+            componentName="Edit Organization"
+            name="Sanjeev"
+            profileImageSrc={profile}
+            customStyle={{
+              containerStyle: {
+                display: "flex",
+                borderRadius: "8px",
+              },
+              imageStyle: {
+                width: "50%",
+                height: "70%",
+              },
+              textStyle: {
+                color: "blue",
+                fontWeight: "bold",
+              },
+            }}
+          />
         </div>
 
         <TabNavigation

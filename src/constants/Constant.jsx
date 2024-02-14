@@ -1,5 +1,5 @@
 export const BASE_API_URL = "http://44.211.222.146:8080";
-
+export const BASE_USER_IMAGE_URL = "https://medicalpublic.s3.amazonaws.com/";
 
 export const SIGNUP_ENDPOINT = "/user/signup";
 export const SIGNIN_ENDPOINT = "/users/login";

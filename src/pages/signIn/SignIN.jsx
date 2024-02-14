@@ -34,7 +34,6 @@ const SignIn = () => {
       const decodedToken = decodeJWT(jwtToken);
       if (decodedToken) {
         const role = decodedToken.role;
-        // Redirect based on the role
         switch (role) {
           case "ORG_ADMIN":
             navigate("/orgadminchat");
@@ -46,7 +45,6 @@ const SignIn = () => {
             navigate("/dashboardadmin");
             break;
           default:
-            // Redirect to a default route if the role is not recognized
             navigate("/default");
         }
       } else {
@@ -55,7 +53,7 @@ const SignIn = () => {
     }
   }, [showSuccessMessage, user, navigate]);
 
-  // Reset showSuccessMessage when user or buttonLoading changes
+
   useEffect(() => {
     if (!buttonLoading && showSuccessMessage) {
       setShowSuccessMessage(false);
@@ -231,7 +229,7 @@ const SignIn = () => {
                 <div className="box-round">
                   <div className="text-top">
                     <h2>Sign In</h2>
-                    <p>Please sign in with your organization email id</p>
+                    <p>Please sign in with your organization email id.</p>
                   </div>
 
                   <div className="form-content">

@@ -21,6 +21,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import AssignmentIndOutlinedIcon from "@mui/icons-material/AssignmentIndOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
+import AMChatHeader from "../../AMChatAdmin/AMChatHeader/AMChatHeader";
 
 const style = {
   py: 0,
@@ -55,7 +56,27 @@ const AmchatMainUser = () => {
   return (
     <div className={Styles.superAdminMainCardDivStyle}>
       <div className={Styles.superAdminMiddleParentDiv}>
-        <div className={Styles.superAdminProfileCardStyle}>
+        <AMChatHeader
+          componentName="Welcome Shiva"
+          name="Shiva"
+          profileImageSrc={profile}
+          customStyle={{
+            containerStyle: {
+              display: "flex",
+              borderRadius: "8px",
+            },
+            imageStyle: {
+              width: "50%",
+              height: "70%",
+            },
+            textStyle: {
+              color: "blue",
+              fontWeight: "bold",
+            },
+          }}
+        />
+
+        {/* <div className={Styles.superAdminProfileCardStyle}>
           <div>
             <p className={Styles.superAdminProfileName}>Welcome, Lian</p>
           </div>
@@ -123,7 +144,7 @@ const AmchatMainUser = () => {
               </div>
             )}
           </PopupState>
-        </div>
+        </div> */}
         <div className={Styles.superAdminMiddleChildDiv}>
           <div
             className={Styles.superAdminMiddleCardStyle}

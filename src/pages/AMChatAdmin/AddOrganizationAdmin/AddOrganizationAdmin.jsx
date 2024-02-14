@@ -16,6 +16,7 @@ import { useSelector } from 'react-redux';
 import * as constants from '../../../constants/Constant';
 import { useMessageState } from '../../../hooks/useapp-message';
 import { tokenDecodeJWT } from '../../../utils/authUtils';
+import AMChatHeader from '../AMChatHeader/AMChatHeader';
 
 let feedingData = {
   name: 'skytech',
@@ -211,13 +212,25 @@ function AddOrganizationAdmin() {
               organisation?.organisationStatus == 'add' ? 'Add' : 'Edit'
             } Organization`}</p>
           </div>
-          <div
-            className={Styles.superAdminProfileImgNameStyle}
-            style={{ display: 'flex', alignItems: 'center' }}
-          >
-            <img src={profile} alt="" className={Styles.AdminProfileStyle} />
-            <span className={Styles.SuperAdminProfileStyle}>Lian Vendiar</span>
-          </div>
+          <AMChatHeader
+            componentName="Add Organization"
+            name="Sanjeev"
+            profileImageSrc={profile}
+            customStyle={{
+              containerStyle: {
+                display: 'flex',
+                borderRadius: '8px',
+              },
+              imageStyle: {
+                width: '50%',
+                height: '70%',
+              },
+              textStyle: {
+                color: 'blue',
+                fontWeight: 'bold',
+              },
+            }}
+          />
         </div>
 
         <TabNavigation

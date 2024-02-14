@@ -51,6 +51,7 @@ import {
 import { BASE_API_URL } from '../../../constants/Constant';
 import { useMessageState } from '../../../hooks/useapp-message';
 import CircularProgress from '@mui/material/CircularProgress';
+import AMChatHeader from '../AMChatHeader/AMChatHeader';
 
 const style = {
   py: 0,
