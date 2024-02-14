@@ -12,6 +12,7 @@ import { UploadOutlined } from "@ant-design/icons";
 import { useMessageState } from "../../../../hooks/useapp-message";
 import { useParams, useNavigate } from "react-router-dom";
 import AMChatHeader from "../../../AMChatAdmin/AMChatHeader/AMChatHeader";
+import OrganizationAdminHeader from "../../organizationadmin/OrganizationAdminHeader/OrganizationAdminHeader";
 
 function OrgUpdateDocument() {
   const { documentId } = useParams();
@@ -119,7 +120,7 @@ function OrgUpdateDocument() {
     <div className={Styles.superAdminMainCardDivStyle}>
       <div className={Styles.superAdminMiddleParentDiv}>
         <div className={Styles.superAdminProfileCardStyle}>
-          <AMChatHeader
+          <OrganizationAdminHeader
             componentName="Upload Correct Document"
             name="Rajeev"
             profileImageSrc={profile}

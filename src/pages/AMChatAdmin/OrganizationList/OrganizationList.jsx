@@ -45,6 +45,7 @@ import { setUser, selectUser } from "../../../store/authSlice";
 import { BASE_API_URL } from "../../../constants/Constant";
 import axios from "axios";
 import AMChatHeader from "../AMChatHeader/AMChatHeader";
+import SuperAdminHeader from "../SuperAdminHeader/SuperAdminHeader";
 
 const style = {
   py: 0,
@@ -226,7 +227,7 @@ function OrganizationList() {
     <div className={Styles.superAdminMainCardDivStyle}>
       <div className={Styles.superAdminMiddleParentDiv}>
         <div className={Styles.superAdminProfileCardStyle}>
-          <AMChatHeader
+          <SuperAdminHeader
             componentName="Organization List"
             name="Sanjeev"
             profileImageSrc={profile}

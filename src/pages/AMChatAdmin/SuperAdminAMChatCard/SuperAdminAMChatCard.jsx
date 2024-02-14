@@ -25,6 +25,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import AssignmentIndOutlinedIcon from "@mui/icons-material/AssignmentIndOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import AMChatHeader from "../AMChatHeader/AMChatHeader";
+import SuperAdminHeader from "../SuperAdminHeader/SuperAdminHeader";
 
 const style = {
   py: 0,
@@ -60,7 +61,7 @@ function SuperAdminAMChatCard() {
     <div className={Styles.superAdminMainCardDivStyle}>
       <div className={Styles.superAdminMiddleParentDiv}>
         <div className={Styles.superAdminProfileCardStyle}>
-          <AMChatHeader
+          <SuperAdminHeader
             componentName="Welcome, Sanjeev"
             name="Sanjeev"
             profileImageSrc={profile}

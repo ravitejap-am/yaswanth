@@ -15,6 +15,7 @@ import { Modal, Upload } from "antd";
 import * as constants from "../../../constants/Constant";
 import { useMessageState } from "../../../hooks/useapp-message";
 import AMChatHeader from "../../AMChatAdmin/AMChatHeader/AMChatHeader";
+import OrganizationAdminHeader from "./OrganizationAdminHeader/OrganizationAdminHeader";
 
 const getBase64 = (file) =>
   new Promise((resolve, reject) => {
@@ -240,7 +241,7 @@ function AddOrgUser() {
     <div className={Styles.superAdminMainCardDivStyle}>
       <div className={Styles.superAdminMiddleParentDiv}>
         <div className={Styles.superAdminProfileCardStyle}>
-          <AMChatHeader
+          <OrganizationAdminHeader
             componentName="Add User"
             name="Rajeev"
             profileImageSrc={profile}

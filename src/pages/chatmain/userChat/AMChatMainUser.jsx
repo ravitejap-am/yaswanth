@@ -46,7 +46,7 @@ const AmchatMainUser = () => {
     }
   };
   const decodedToken = decodeJWT(jwt);
-  const organisationId = decodedToken ? decodedToken.organisationId : null;
+  const organisationId = decodedToken ? decodedToken.userId : null;
 
   useEffect(() => {
     const fetchTotalDocuments = async () => {
@@ -64,6 +64,7 @@ const AmchatMainUser = () => {
         }
         const data = await response.json();
         setTotalDocuments(data.totalElements);
+        console.log(data, "data in AM Chat Main User");
       } catch (error) {
         console.error("Error fetching documents:", error);
       }

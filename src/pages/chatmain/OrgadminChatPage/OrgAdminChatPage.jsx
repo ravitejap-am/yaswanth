@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import * as constants from "../../../constants/Constant";
 import { selectUser } from "../../../store/authSlice";
+import OrganizationAdminHeader from "../organizationadmin/OrganizationAdminHeader/OrganizationAdminHeader";
 
 const OrgAdminChatPage = () => {
   const navigate = useNavigate();
@@ -37,7 +38,7 @@ const OrgAdminChatPage = () => {
   const decodedToken = decodeJWT(jwt);
   const organisationId = decodedToken ? decodedToken.organisationId : null;
   const [documentCount, setDocumentCount] = useState(0);
-  const [activeUsersCount, setActiveUsersCount] = useState(0); // Add state for active users count
+  const [activeUsersCount, setActiveUsersCount] = useState(0);
   const [chat, setChat] = useState("");
   const [page, setPage] = useState(0);
   useEffect(() => {
@@ -55,7 +56,7 @@ const OrgAdminChatPage = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        setDocumentCount(data.totalElements); // Accessing 'totalElements' from the API response
+        setDocumentCount(data.totalElements);
       })
       .catch((error) => console.error("Error fetching document count:", error));
   };
@@ -63,7 +64,7 @@ const OrgAdminChatPage = () => {
   const fetchUserList = async () => {
     try {
       const response = await fetch(
-        `${constants.BASE_API_URL}${constants.USER_LIST_ENDPOINT}`,
+        `${constants.BASE_API_URL}/user/userlist/?page=0&size=5&sortField=createdAt&sortDirection=desc&email=&active=true`,
         {
           method: "GET",
           headers: {
@@ -130,7 +131,7 @@ const OrgAdminChatPage = () => {
     <div className="orgadminchat-screen">
       <div className="orgadminchat-chat-container">
         <div className="orgadminchat-chat-header">
-          <AMChatHeader
+          <OrganizationAdminHeader
             componentName="Welcome Rajeev"
             name="Rajeev"
             profileImageSrc={base}

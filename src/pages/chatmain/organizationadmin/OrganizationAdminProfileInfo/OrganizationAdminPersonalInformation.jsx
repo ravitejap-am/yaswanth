@@ -1,50 +1,24 @@
-import React, { useEffect, useState } from "react";
-import "./UserProfile.css";
-import GeneralForm from "../../components/common/forms/GeneralForm";
-import editprofilepic from "../../asset/editprofilepic.png";
-import { BASE_API_URL } from "../../constants/Constant";
-import { Spin } from "antd";
-import { useMessageState } from "../../hooks/useapp-message";
-import { setUser, selectUser } from "../../store/authSlice";
-import { useSelector } from "react-redux";
-import * as constants from "../../constants/Constant";
+import React, { useState } from "react";
+import "./OrganizationAdmin.module.css";
+import GeneralForm from "../../../../components/common/forms/GeneralForm";
+import editprofilepic from "../../../../asset/editprofilepic.png";
 
-const PersonalInformation = ({ setFileSysytem, validateEmail }) => {
-  const user = useSelector(selectUser);
-  const jwt = user.userToken;
-
-  const [userData, setUserData] = useState(null);
+function OrganizationAdminPersonalInformation({
+  setFileSysytem,
+  validateEmail,
+}) {
+  const [orgName, setOrgName] = useState("");
   const [userStatus, setUserStatus] = useState("active");
 
-  useEffect(() => {
-    fetchUserProfile();
-  }, []);
-
-  const fetchUserProfile = async () => {
-    try {
-      const response = await fetch(
-        `${constants.BASE_API_URL}/user/390/getUserProfile`,
-        {
-          headers: {
-            Authorization: `Bearer ${jwt}`,
-          },
-        }
-      );
-      const userData = await response.json();
-      // Update state with fetched data
-      setUserData(userData.data.user);
-      setUserStatus(userData.data.user.active ? "active" : "inactive");
-    } catch (error) {
-      console.error("Error fetching user profile:", error);
-    }
-  };
-
+  const userStatusOptions = [
+    { value: "active", label: "Active User" },
+    { value: "inactive", label: "Inactive User" },
+  ];
   const formElements = [
     {
       label: "First Name",
       type: "text",
       name: "firstName",
-      initialValue: userData ? userData.firstName : "",
       rules: [
         { required: true, message: "Please input your First Name" },
         { type: "name", message: "Invalid First Name" },
@@ -55,7 +29,6 @@ const PersonalInformation = ({ setFileSysytem, validateEmail }) => {
       label: "Last Name",
       type: "text",
       name: "lastName",
-      initialValue: userData ? userData.lastName : "",
       rules: [
         { required: true, message: "Please input your Last Name" },
         { type: "name", message: "Invalid Last Name" },
@@ -66,7 +39,6 @@ const PersonalInformation = ({ setFileSysytem, validateEmail }) => {
       label: "Email",
       type: "email",
       name: "email",
-      initialValue: userData ? userData.email : "",
       rules: [
         { required: true, message: "Please enter your email" },
         { type: "email", message: "Invalid Email" },
@@ -82,7 +54,6 @@ const PersonalInformation = ({ setFileSysytem, validateEmail }) => {
       label: "Organization Name",
       type: "text",
       name: "orgName",
-      initialValue: userData ? userData.orgName : "",
       rules: [
         { required: true, message: "Please input your Organization Name" },
         { type: "name", message: "Invalid Organization Name" },
@@ -144,7 +115,6 @@ const PersonalInformation = ({ setFileSysytem, validateEmail }) => {
     setFileSysytem: setFileSysytem,
     grid: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px" },
   };
-
   return (
     <div className="personal-contentcard">
       <div className="user-profile-content">
@@ -152,17 +122,15 @@ const PersonalInformation = ({ setFileSysytem, validateEmail }) => {
           <img className="edit-profilepic" src={editprofilepic} alt="" />
         </div>
         <div className="user-profle-name">
-          <h2>
-            {userData ? `${userData.firstName} ${userData.lastName}` : ""}
-          </h2>
+          <h2>Clayton Santos</h2>
           <div className="personalinfo-user-Status">
-            <p>{userStatus}</p>
+            <p>Active User</p>
           </div>
         </div>
       </div>
       <GeneralForm {...feedingVariable} />
     </div>
   );
-};
+}
 
-export default PersonalInformation;
+export default OrganizationAdminPersonalInformation;

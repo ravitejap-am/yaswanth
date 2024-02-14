@@ -13,6 +13,7 @@ import * as constants from "../../../../constants/Constant";
 import { toast } from "react-toastify";
 import AMChatHeader from "../../../AMChatAdmin/AMChatHeader/AMChatHeader";
 import Avatar from "@mui/material/Avatar";
+import OrganizationAdminHeader from "../OrganizationAdminHeader/OrganizationAdminHeader";
 
 const getBase64 = (file) =>
   new Promise((resolve, reject) => {
@@ -156,62 +157,73 @@ function EditOrgUser() {
   };
 
   const submitHandler = async (values) => {
-    console.log(values.name);
-    setButtonLoading(true); // Indicate the start of an asynchronous operation
-  
+    setButtonLoading(true);
     try {
-      // Update user details
-      const updateUserResponse = await fetch(`${constants.BASE_API_URL}/user/${userId}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${jwt}`,
-        },
-        body: JSON.stringify({
-          firstName: values["firstName"],
-          lastName: values["lastName"],
-        }),
-      });
-  
+      const updateUserResponse = await fetch(
+        `${constants.BASE_API_URL}/user/${userId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${jwt}`,
+          },
+          body: JSON.stringify({
+            firstName: values["firstName"],
+            lastName: values["lastName"],
+          }),
+        }
+      );
+
       if (!updateUserResponse.ok) {
         throw new Error(`HTTP error! status: ${updateUserResponse.status}`);
       }
-  
-      // Assuming the profile image update is dependent on the user details update success
-      if (fileList.length > 0) { // Check if there is a file to upload
-        const formData = new FormData();
-        formData.append("image", fileList[0].originFileObj); // Assuming fileList is not empty
-  
-        const updateImageResponse = await fetch(`${constants.BASE_API_URL}/user/dp/${userId}`, {
-          method: "PUT",
-          headers: {
-            Authorization: `Bearer ${jwt}`,
-          },
-          body: formData,
-        });
-  
-        if (!updateImageResponse.ok) {
-          throw new Error(`HTTP error! status: ${updateImageResponse.status}`);
-        }
-      }
-  
-      // Reset and notify on success
-      setButtonLoading(false);
+
       setIsReset(true);
-      showNotifyMessage("success", "User details and profile image updated successfully", messageHandler);
-    } catch (error) {
-      console.error(error); // Log the error for debugging purposes
+      showNotifyMessage(
+        "success",
+        "User details updated successfully",
+        messageHandler
+      );
+
+      if (fileList.length > 0) {
+        const formData = new FormData();
+        formData.append("image", fileList[0].originFileObj);
+        const updateImageResponse = await fetch(
+          `${constants.BASE_API_URL}/user/dp/${userId}`,
+          {
+            method: "PUT",
+            headers: {
+              Authorization: `Bearer ${jwt}`,
+            },
+            body: formData,
+          }
+        );
+
+        // if (!updateImageResponse.ok) {
+        //   throw new Error(`HTTP error! status: ${updateImageResponse.status}`);
+        // }
+
+        setIsReset(true);
+        // showNotifyMessage(
+        //   "success",
+        //   "Profile image updated successfully",
+        //   messageHandler
+        // );
+      }
+
       setButtonLoading(false);
-      const errorMessage = error.message || "Failed to update user details and profile image";
+    } catch (error) {
+      console.error(error);
+      setButtonLoading(false);
+      const errorMessage =
+        error.message || "Failed to update user details and profile image";
       showNotifyMessage("error", errorMessage, messageHandler);
-  
-      // Navigate to error page if the error status is 500
-      if (error instanceof Error && (error.message.includes("500"))) {
+      if (error instanceof Error && error.message.includes("500")) {
         navigate("/internal500");
       }
     }
   };
-  
+
   const cancelHandler = () => {
     navigate("/orguserlist");
   };
@@ -304,7 +316,7 @@ function EditOrgUser() {
     <div className={Styles.superAdminMainCardDivStyle}>
       <div className={Styles.superAdminMiddleParentDiv}>
         <div className={Styles.superAdminProfileCardStyle}>
-          <AMChatHeader
+          <OrganizationAdminHeader
             componentName="Edit User"
             name="Rajeev"
             profileImageSrc={profile}
