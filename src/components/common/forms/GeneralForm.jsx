@@ -30,7 +30,7 @@ const GeneralForm = (props) => {
     orgInfo = {},
     isActiveSave = false,
   } = props;
-  console.log(props);
+  console.log('props', props, 'grid', grid, 'formelements', formElements);
   const [form] = Form.useForm();
   const [data, setData] = useState('hi');
 
@@ -238,6 +238,9 @@ const GeneralForm = (props) => {
                             item?.options != undefined ? item?.options : []
                           }
                           onSelect={(value) => {
+                            if (isSuperAdmin) {
+                              item?.onSelectApiCall(value);
+                            }
                             form.setFieldsValue({ [item.name]: value });
                           }}
                           style={item.style}
@@ -281,6 +284,7 @@ const GeneralForm = (props) => {
                   }}
                   style={item.style}
                   // required={item.required}
+                  defaultValue={item.defaultValue ? item.defaultValue : ''}
                 />
               ),
               text: (
@@ -293,6 +297,7 @@ const GeneralForm = (props) => {
                     form.setFieldValue({ [item.name]: e.target.value });
                   }}
                   style={item.style}
+                  defaultValue={item.defaultValue ? item.defaultValue : ''}
                 />
               ),
               tel: (
@@ -408,11 +413,17 @@ const GeneralForm = (props) => {
                             item?.options != undefined ? item?.options : []
                           }
                           onSelect={(value) => {
+                            if (isSuperAdmin) {
+                              item?.onSelectApiCall(value);
+                            }
                             form.setFieldsValue({ [item.name]: value });
                           }}
                           style={{ ...item.style }}
                           // style={item.style}
                           placeholder={item.labelName ? null : item.label}
+                          defaultValue={
+                            item.defaultValue ? item.defaultValue : ''
+                          }
                         />
                       </div>
                     )}

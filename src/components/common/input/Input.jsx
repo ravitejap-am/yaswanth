@@ -19,6 +19,7 @@ const Input = ({
     setVisible(!visible);
   };
 
+  console.log('def value', defaultValue);
   return (
     <div className={Style.groupform}>
       <div className={Style.inputgroup}>

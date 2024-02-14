@@ -6,18 +6,41 @@ import { ReactComponent as PlusSign } from '../../../../asset/AmChatSuperAdmin/p
 import { ReactComponent as DeleteIcon } from '../../../../asset/AmChatSuperAdmin/trash-solid.svg';
 import Style from './OrganizationDomain.module.css';
 
-function OrganizationDomains() {
-  const [newDomains, setNewDomains] = useState(['skil', 'arete', 'true']);
+function OrganizationDomains({
+  orgData,
+  setSelectedTab,
+  selectedTab,
+  selectOrgData,
+  organisation,
+  editOrganisation,
+}) {
+  const [newDomains, setNewDomains] = useState(
+    orgData?.metaData?.length > 0
+      ? orgData?.metaData
+      : [
+          {
+            typeDetails: '',
+            typeId: '20',
+          },
+        ]
+  );
 
   useEffect(() => {
     // Update dropdownDomains if needed
   }, [newDomains]);
 
   const handlePlusClick = () => {
-    setNewDomains((prevDomains) => [...prevDomains, '']);
+    setNewDomains((prevDomains) => [
+      ...prevDomains,
+      {
+        typeDetails: '',
+        typeId: '20',
+      },
+    ]);
   };
 
   const handleDomainChange = (index, value) => {
+    console.log('getting all domaind', index, value);
     setNewDomains((prevDomains) => {
       const updatedDomains = [...prevDomains];
       updatedDomains[index] = value;
@@ -34,16 +57,85 @@ function OrganizationDomains() {
       });
     }
   };
+  const submitHandler = (values) => {
+    console.log('Form values:', newDomains);
+    console.log(values);
 
+    let domainArray = [];
+    if (values != undefined) {
+      Object.keys(values).forEach((key) => {
+        console.log(key + ': ' + values[key]);
+        let domainObject = {
+          typeDetails: values[key],
+          typeId: '20',
+        };
+        domainArray.push(domainObject);
+      });
+      console.log(domainArray);
+      const updatedOrgData = {
+        ...orgData,
+        metaData: domainArray,
+      };
+
+      selectOrgData(updatedOrgData);
+      if (organisation?.organisationStatus == 'edit') {
+        editOrganisation();
+      }
+      setSelectedTab('subscriptionplan');
+    }
+
+    // setSelectedTab('organizationadmin');
+  };
+  const submitButtonProperty = {
+    display: 'flex',
+    width: '130px',
+    height: '50px',
+    padding: '10px 16px',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: '8px',
+    flexShrink: '0',
+    borderRadius: '30px',
+    backgroundColor: 'var(--Brand-500, #6366F1)',
+    color: '#FFFFFF',
+    fontFamily: 'Into Lato',
+    fontSize: '16px',
+    fontStyle: 'normal',
+    fontWeight: '700',
+    lineHeight: '24px',
+    name: 'Save',
+  };
+
+  const cancelButtonProperty = {
+    display: 'flex',
+    width: '130px',
+    height: '50px',
+    padding: '10px 16px',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: '8px',
+    flexShrink: '0',
+    borderRadius: '30px',
+    border: '1px solid var(--Neutral-600, #475569)',
+    color: '#334155 !important',
+    fontFamily: ' Into Lato',
+    fontSize: '16px',
+    fontStyle: 'normal',
+    fontWeight: '700',
+    lineHeight: '24px',
+    name: 'Cancel',
+  };
   const feedingVariable = {
     isCancel: false,
     cancelHandler: () => {},
-    isSubmit: false,
+    isSubmit: true,
+    submitHandler: submitHandler,
     formElements: newDomains.map((domain, index) => ({
+      defaultValue: domain.typeDetails,
       name: `domain-${index}`,
-      label: `Domain ${index + 1}`,
+      label: domain.typeDetails,
       type: 'text',
-      value: domain,
+      value: domain.typeDetails,
       onChange: (e) => handleDomainChange(index, e.target.value),
       style: {
         width: '445px',
@@ -59,12 +151,14 @@ function OrganizationDomains() {
       //     message: 'Please enter domains',
       //   },
       // ],
-      defaultValue: domain,
+
       removeButton: (
         <button onClick={() => handleRemoveDomain(index)}>Remove</button>
       ),
     })),
     formType: 'normal',
+    submitButtonProperty: submitButtonProperty,
+    cancelButtonProperty: cancelButtonProperty,
   };
 
   return (

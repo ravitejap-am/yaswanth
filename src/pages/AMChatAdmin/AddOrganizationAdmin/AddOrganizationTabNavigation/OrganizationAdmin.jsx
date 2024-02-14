@@ -6,6 +6,8 @@ function OrganizationAdmin({
   setSelectedTab,
   selectedTab,
   selectOrgData,
+  organisation,
+  editOrganisation,
 }) {
   const navigate = useNavigate();
 
@@ -65,13 +67,18 @@ function OrganizationAdmin({
   const submitHandler = (values) => {
     console.log(' submitForm values:', values);
 
-    const updatedOrgData = {
-      ...orgData,
-      contact: values,
-    };
+    if (values != undefined) {
+      const updatedOrgData = {
+        ...orgData,
+        contact: values,
+      };
 
-    selectOrgData(updatedOrgData);
-    setSelectedTab('organizationdomains');
+      selectOrgData(updatedOrgData);
+      if (organisation?.organisationStatus == 'edit') {
+        editOrganisation();
+      }
+      setSelectedTab('organizationdomains');
+    }
   };
 
   const cancelHandler = (values) => {
