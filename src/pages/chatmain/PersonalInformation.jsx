@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import "./UserProfile.css";
 import GeneralForm from "../../components/common/forms/GeneralForm";
 import editprofilepic from "../../asset/editprofilepic.png";
-import { BASE_API_URL } from "../../constants/Constant";
 import { Spin } from "antd";
 import { useMessageState } from "../../hooks/useapp-message";
 import { setUser, selectUser } from "../../store/authSlice";
@@ -12,30 +11,59 @@ import * as constants from "../../constants/Constant";
 const PersonalInformation = ({ setFileSysytem, validateEmail }) => {
   const user = useSelector(selectUser);
   const jwt = user.userToken;
+  const decodedToken = decodeJWT(jwtToken);
+  const decodeJWT = (token) => {
+    try {
+      const base64Url = token.split(".")[1];
+      const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+      const jsonPayload = decodeURIComponent(
+        atob(base64)
+          .split("")
+          .map((char) => {
+            return "%" + ("00" + char.charCodeAt(0).toString(16)).slice(-2);
+          })
+          .join("")
+      );
+      return JSON.parse(jsonPayload);
+    } catch (error) {
+      console.error("Error decoding JWT:", error);
+      return null;
+    }
+  };
+  const userId = user.userId; 
 
   const [userData, setUserData] = useState(null);
   const [userStatus, setUserStatus] = useState("active");
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetchUserProfile();
-  }, []);
+    if (userId) {
+      fetchUserProfile();
+    } else {
+      setError("User ID is missing or invalid.");
+    }
+  }, [userId]);
 
   const fetchUserProfile = async () => {
     try {
       const response = await fetch(
-        `${constants.BASE_API_URL}/user/390/getUserProfile`,
+        `${constants.BASE_API_URL}/user/${userId}/getUserProfile`, // Use userId variable here
         {
           headers: {
             Authorization: `Bearer ${jwt}`,
           },
         }
       );
+      if (!response.ok) {
+        throw new Error("Failed to fetch user profile.");
+      }
       const userData = await response.json();
       // Update state with fetched data
       setUserData(userData.data.user);
       setUserStatus(userData.data.user.active ? "active" : "inactive");
     } catch (error) {
       console.error("Error fetching user profile:", error);
+      setError("Failed to fetch user profile.");
     }
   };
 
