@@ -63,14 +63,30 @@ function OrganizationDomains({
 
     let domainArray = [];
     if (values != undefined) {
-      Object.keys(values).forEach((key) => {
-        console.log(key + ': ' + values[key]);
-        let domainObject = {
-          typeDetails: values[key],
-          typeId: '20',
-        };
-        domainArray.push(domainObject);
-      });
+      if (organisation?.organisationStatus == 'edit') {
+        Object.keys(values).forEach((key, index) => {
+          console.log(key + ': ' + values[key]);
+          let domainObject = {};
+          if (values[key] == '') {
+            domainObject = newDomains[index];
+          } else {
+            domainObject['typeDetails'] = values[key];
+            domainObject['typeId'] = '20';
+          }
+
+          domainArray.push(domainObject);
+        });
+      } else {
+        Object.keys(values).forEach((key) => {
+          console.log(key + ': ' + values[key]);
+          let domainObject = {
+            typeDetails: values[key],
+            typeId: '20',
+          };
+          domainArray.push(domainObject);
+        });
+      }
+
       console.log(domainArray);
       const updatedOrgData = {
         ...orgData,
