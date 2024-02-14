@@ -41,7 +41,7 @@ const GeneralForm = (props) => {
     initialValues[element.name] = element.initialValue || ""; // Set initial value or empty string
   });
   console.log("====================================");
-  console.log(form.name,"*");
+  console.log(form.getFieldValue.name,"*");
   console.log("====================================");
   return (
     <Form
@@ -410,7 +410,7 @@ const GeneralForm = (props) => {
               backgroundColor={submitButtonProperty.backgroundColor}
               name={submitButtonProperty.name}
               color={submitButtonProperty.color}
-              buttonHandler={submitHandler}
+              buttonHandler={()=>submitHandler(form.getFieldValue())}
               marginLeft={submitButtonProperty.marginLeft}
               marginTop={submitButtonProperty.marginTop}
               width={submitButtonProperty.width}
