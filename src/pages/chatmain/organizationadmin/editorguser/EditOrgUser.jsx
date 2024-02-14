@@ -156,67 +156,62 @@ function EditOrgUser() {
   };
 
   const submitHandler = async (values) => {
-    console.log(values, "*******");
-    // alert("submit is working as expected");
-    // debugger;
-    setButtonLoading(true);
+    console.log(values.name);
+    setButtonLoading(true); // Indicate the start of an asynchronous operation
+  
     try {
-      const updateUserResponse = await fetch(
-        `${constants.BASE_API_URL}/user/${userId}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${jwt}`,
-          },
-          body: JSON.stringify({
-            firstName: values["firstName"],
-            lastName: values["lastName"],
-          }),
-        }
-      );
+      // Update user details
+      const updateUserResponse = await fetch(`${constants.BASE_API_URL}/user/${userId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${jwt}`,
+        },
+        body: JSON.stringify({
+          firstName: values["firstName"],
+          lastName: values["lastName"],
+        }),
+      });
+  
       if (!updateUserResponse.ok) {
         throw new Error(`HTTP error! status: ${updateUserResponse.status}`);
       }
-      const formData = new FormData();
-      formData.append("image", fileList[0]?.originFileObj);
-
-      const updateImageResponse = await fetch(
-        `${constants.BASE_API_URL}/user/dp/${userId}`,
-        {
+  
+      // Assuming the profile image update is dependent on the user details update success
+      if (fileList.length > 0) { // Check if there is a file to upload
+        const formData = new FormData();
+        formData.append("image", fileList[0].originFileObj); // Assuming fileList is not empty
+  
+        const updateImageResponse = await fetch(`${constants.BASE_API_URL}/user/dp/${userId}`, {
           method: "PUT",
           headers: {
             Authorization: `Bearer ${jwt}`,
           },
           body: formData,
+        });
+  
+        if (!updateImageResponse.ok) {
+          throw new Error(`HTTP error! status: ${updateImageResponse.status}`);
         }
-      );
-
-      if (!updateImageResponse.ok) {
-        throw new Error(`HTTP error! status: ${updateImageResponse.status}`);
       }
+  
+      // Reset and notify on success
       setButtonLoading(false);
       setIsReset(true);
-      showNotifyMessage(
-        "success",
-        "User details and profile image updated successfully",
-        messageHandler
-      );
+      showNotifyMessage("success", "User details and profile image updated successfully", messageHandler);
     } catch (error) {
-      if (error?.response?.status == 500 || error?.response?.status == "500") {
+      console.error(error); // Log the error for debugging purposes
+      setButtonLoading(false);
+      const errorMessage = error.message || "Failed to update user details and profile image";
+      showNotifyMessage("error", errorMessage, messageHandler);
+  
+      // Navigate to error page if the error status is 500
+      if (error instanceof Error && (error.message.includes("500"))) {
         navigate("/internal500");
       }
-
-      setButtonLoading(false);
-      showNotifyMessage(
-        "error",
-        error?.response?.data?.message ||
-          "Failed to update user details and profile image",
-        messageHandler
-      );
     }
   };
-
+  
   const cancelHandler = () => {
     navigate("/orguserlist");
   };
