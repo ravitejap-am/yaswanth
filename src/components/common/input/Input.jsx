@@ -10,6 +10,7 @@ const Input = ({
   required,
   style,
   labelName,
+  defaultValue
 }) => {
   const [visible, setVisible] = useState(false);
   const handleOnClick = () => {
@@ -41,6 +42,7 @@ const Input = ({
             onChange={onChange}
             required={required}
             style={style}
+            defaultValue={defaultValue}
           />
         </div>
         <br />

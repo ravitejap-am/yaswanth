@@ -40,7 +40,9 @@ const GeneralForm = (props) => {
   formElements.forEach((element) => {
     initialValues[element.name] = element.initialValue || ""; // Set initial value or empty string
   });
-
+  console.log("====================================");
+  console.log(form.name,"*");
+  console.log("====================================");
   return (
     <Form
       style={{ padding: "18px" }}
@@ -79,6 +81,7 @@ const GeneralForm = (props) => {
                     form.setFieldValue({ [item.name]: e.target.value });
                   }}
                   style={item.style}
+                  defaultValue={item?.initialValue ? item?.initialValue : null}
                 />
               ),
               tel: (

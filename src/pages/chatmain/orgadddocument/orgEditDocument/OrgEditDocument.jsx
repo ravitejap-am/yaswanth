@@ -129,7 +129,7 @@ function OrgEditDocument() {
     formElements: [
       {
         name: "Document Name",
-        label: documentDetails.name,
+        label: "Document Name",
         type: "text",
         style: {
           width: "405px",
@@ -140,7 +140,7 @@ function OrgEditDocument() {
         },
         rules: [{ required: true, message: "Please enter your Document Name" }],
         labelName: false,
-        // initialValue: documentDetails.name,
+        initialValue: documentDetails.name,
       },
     ],
     formType: "normal",

@@ -20,7 +20,6 @@ import deleteIcon from "../../../asset/AmChatSuperAdmin/Frame 2302.png";
 import { Link } from "react-router-dom";
 import Search from "../../../components/common/search/Search";
 import SerchImages from "../../../asset/AmChatSuperAdmin/Group2305.png";
-import { Pagination } from "antd";
 import Select from "@mui/material/Select";
 import { FormControl, MenuItem } from "@mui/material";
 import { setUser, selectUser } from "../../../store/authSlice";
@@ -31,6 +30,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import NotifyMessage from "../../../components/common/toastMessages/NotifyMessage";
 import AMChatHeader from "../../AMChatAdmin/AMChatHeader/AMChatHeader";
+import Pagination from "@mui/material/Pagination"; // Import MUI Pagination
 
 function OrgDocumentList() {
   const user = useSelector(selectUser);
@@ -47,6 +47,7 @@ function OrgDocumentList() {
     alignItems: "center",
     marginRight: "18px",
   };
+
   const [filters, setFilters] = useState({
     email: "",
     active: true,
@@ -458,11 +459,10 @@ function OrgDocumentList() {
             >
               <div>Total {rows.length} items</div>
               <Pagination
-                total={rows.length}
-                itemRender={itemRender}
-                pageSize={rowsPerPage}
-                current={page}
-                onChange={(newPage) => setPage(newPage)}
+                count={Math.ceil(rows.length / rowsPerPage)} 
+                page={page + 1} 
+                onChange={(event, value) => setPage(value - 1)} 
+                shape="rounded"
               />
             </div>
           </Paper>

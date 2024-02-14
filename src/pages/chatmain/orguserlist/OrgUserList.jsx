@@ -8,7 +8,6 @@ import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
-import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import TableSortLabel from "@mui/material/TableSortLabel";
 import Typography from "@mui/material/Typography";
@@ -21,7 +20,6 @@ import { Link } from "react-router-dom";
 import styles from "../../../pages/AMChatAdmin/OrganizationList/Organization.module.css";
 import Search from "../../../components/common/search/Search";
 import SerchImages from "../../../asset/AmChatSuperAdmin/Group2305.png";
-import { Pagination } from "antd";
 import { FormControl, MenuItem } from "@mui/material";
 import Select from "@mui/material/Select";
 import { setUser, selectUser } from "../../../store/authSlice";
@@ -33,6 +31,7 @@ import { BASE_API_URL, DOCUMENT_ENDPOINT } from "../../../constants/Constant";
 import { Spin } from "antd";
 import { useMessageState } from "../../../hooks/useapp-message";
 import AMChatHeader from "../../AMChatAdmin/AMChatHeader/AMChatHeader";
+import Pagination from "@mui/material/Pagination";
 
 function OrgUserList() {
   let {
@@ -43,16 +42,28 @@ function OrgUserList() {
     showNotifyMessage,
     hideNotifyMessage,
   } = useMessageState();
+
   const [documents, setDocuments] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("documentName");
   const [loading, setLoading] = useState(true);
-  const [searchQuery, setSearchQuery] = useState(""); // State variable for search query
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredDocuments, setFilteredDocuments] = useState([]);
 
   const user = useSelector(selectUser);
   const jwt = user.userToken;
+
+  const filterDocuments = () => {
+    return documents.filter((doc) =>
+      doc.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  };
+
+  useEffect(() => {
+    setFilteredDocuments(filterDocuments());
+  }, [searchQuery, documents]);
 
   useEffect(() => {
     const fetchDocuments = async () => {
@@ -65,7 +76,7 @@ function OrgUserList() {
             size: 10,
             sortField: "uploadDate",
             sortDirection: "desc",
-            name: searchQuery, // Include search query in request parameters
+            name: searchQuery,
             isActive: 1,
             version: "",
             fileSize: "",
@@ -98,16 +109,6 @@ function OrgUserList() {
     display: "flex",
     alignItems: "center",
     marginRight: "18px",
-  };
-
-  const itemRender = (_, type, originalElement) => {
-    if (type === "prev") {
-      return <a>Previous</a>;
-    }
-    if (type === "next") {
-      return <a>Next</a>;
-    }
-    return originalElement;
   };
 
   const handleRequestSort = (event, property) => {
@@ -277,7 +278,7 @@ function OrgUserList() {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {documents
+                  {filteredDocuments
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row) => (
                       <TableRow key={row.id}>
@@ -347,13 +348,13 @@ function OrgUserList() {
                 gap: "20px",
               }}
             >
-              <div>Total {documents.length} items</div>
+              <div>Total {filteredDocuments.length} items</div>
               <Pagination
-                total={documents.length}
-                itemRender={itemRender}
-                pageSize={rowsPerPage}
-                current={page}
-                onChange={(newPage) => setPage(newPage)}
+                count={Math.ceil(filteredDocuments.length / rowsPerPage)}
+                page={page + 1}
+                onChange={(event, value) => setPage(value - 1)}
+                variant="outlined"
+                shape="rounded"
               />
             </div>
           </Paper>
