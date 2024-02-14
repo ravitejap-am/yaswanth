@@ -16,14 +16,34 @@ const OrgAdminChatPage = () => {
   const navigate = useNavigate();
   const user = useSelector(selectUser);
   const jwt = user.userToken;
-  const decodedToken = jwt;
-  const organisationId = decodedToken ? decodedToken.organisationId : null; // Get organisationId from decoded token
+  const decodeJWT = (token) => {
+    try {
+      const base64Url = token.split(".")[1];
+      const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+      const jsonPayload = decodeURIComponent(
+        atob(base64)
+          .split("")
+          .map((char) => {
+            return "%" + ("00" + char.charCodeAt(0).toString(16)).slice(-2);
+          })
+          .join("")
+      );
+      return JSON.parse(jsonPayload);
+    } catch (error) {
+      console.error("Error decoding JWT:", error);
+      return null;
+    }
+  };
+  const decodedToken = decodeJWT(jwt);
+  const organisationId = decodedToken ? decodedToken.organisationId : null;
   const [documentCount, setDocumentCount] = useState(0);
+  const [activeUsersCount, setActiveUsersCount] = useState(0); // Add state for active users count
   const [chat, setChat] = useState("");
-
+  const [page, setPage] = useState(0);
   useEffect(() => {
     if (organisationId) {
       fetchDocumentCount();
+      fetchUserList();
     }
   }, [organisationId]);
 
@@ -35,12 +55,38 @@ const OrgAdminChatPage = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        setDocumentCount(data.total);
-        console.log("====================================");
-        console.log(data, "org doc data ");
-        console.log("====================================");
+        setDocumentCount(data.totalElements); // Accessing 'totalElements' from the API response
       })
       .catch((error) => console.error("Error fetching document count:", error));
+  };
+
+  const fetchUserList = async () => {
+    try {
+      const response = await fetch(
+        `${constants.BASE_API_URL}${constants.USER_LIST_ENDPOINT}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${jwt}`,
+          },
+        }
+      );
+      if (!response.ok) {
+        if (response.status === 404) {
+          console.log("400 error ");
+        } else if (response.status === 405) {
+          console.log("response 405");
+        } else {
+          console.log("response 405");
+        }
+        return;
+      }
+      const responseData = await response.json();
+      setActiveUsersCount(responseData.totalCount); // Set active users count from the API response
+    } catch (error) {
+      navigate("/maintenance");
+    }
   };
 
   const users = [
@@ -224,7 +270,10 @@ const OrgAdminChatPage = () => {
                       alt="Document"
                     />
                     <h2>Active Users</h2>
-                    <h1 className="activeusers-value">500</h1>
+                    <h1 className="activeusers-value">
+                      {activeUsersCount}
+                    </h1>{" "}
+                    {/* Display active users count */}
                   </div>
                   <div className="vector-card-image">
                     <img

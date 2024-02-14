@@ -1,27 +1,16 @@
+import React, { useEffect, useState } from "react";
 import { Card } from "antd";
-import React from "react";
 import Styles from "./AmchatMainUser.module.css";
-import flow from "../../../asset/AmChatSuperAdmin/flow.png";
-import flowImage2 from "../../../asset/AmChatSuperAdmin/flow2.png";
 import circle1 from "../../../asset/AmChatSuperAdmin/Group23.png";
-import circle2 from "../../../asset/AmChatSuperAdmin/Group24.png";
 import profile from "../../../asset/AmChatSuperAdmin/profile.png";
 import Logo from "../../../asset/Vector.png";
 import Group2290 from "../../../asset/Group2290.png";
 import Search from "../../../components/common/search/Search";
 import { Link, useNavigate } from "react-router-dom";
-// import flowImage from "../../../asset/AmChatSuperAdmin/Flow.svg";
-import Popover from "@mui/material/Popover";
-import PopupState, { bindTrigger, bindPopover } from "material-ui-popup-state";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
-import Divider from "@mui/material/Divider";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import AssignmentIndOutlinedIcon from "@mui/icons-material/AssignmentIndOutlined";
-import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import AMChatHeader from "../../AMChatAdmin/AMChatHeader/AMChatHeader";
+import * as constants from "../../../constants/Constant";
+import { useSelector } from "react-redux";
+import { setUser, selectUser } from "../../../store/authSlice";
 
 const style = {
   py: 0,
@@ -35,13 +24,64 @@ const style = {
 
 const AmchatMainUser = () => {
   const navigate = useNavigate();
+  const [totalDocuments, setTotalDocuments] = useState(0);
+  const user = useSelector(selectUser);
+  const jwt = user.userToken;
+  const decodeJWT = (token) => {
+    try {
+      const base64Url = token.split(".")[1];
+      const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+      const jsonPayload = decodeURIComponent(
+        atob(base64)
+          .split("")
+          .map((char) => {
+            return "%" + ("00" + char.charCodeAt(0).toString(16)).slice(-2);
+          })
+          .join("")
+      );
+      return JSON.parse(jsonPayload);
+    } catch (error) {
+      console.error("Error decoding JWT:", error);
+      return null;
+    }
+  };
+  const decodedToken = decodeJWT(jwt);
+  const organisationId = decodedToken ? decodedToken.organisationId : null;
+
+  useEffect(() => {
+    const fetchTotalDocuments = async () => {
+      try {
+        const response = await fetch(
+          `${constants.BASE_API_URL}/document/getAllDocs/${organisationId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${jwt}`,
+            },
+          }
+        );
+        if (!response.ok) {
+          throw new Error("Failed to fetch documents");
+        }
+        const data = await response.json();
+        setTotalDocuments(data.totalElements);
+      } catch (error) {
+        console.error("Error fetching documents:", error);
+      }
+    };
+
+    if (organisationId) {
+      fetchTotalDocuments();
+    }
+  }, [organisationId, jwt]);
+
   const contentArray = [
     "Could you help me with the maternity policy of my organization?",
     "Can you tell me about GDPR compliance.  Which I should follow in my organization?",
-    "Can you explain me the Pythagoras theorem based on. ",
-    "Can you tell me what's wrong in my lab reports?  ",
-    "Can you explain me the quantum mechanics? ",
+    "Can you explain me the Pythagoras theorem based on. ",
+    "Can you tell me what's wrong in my lab reports? ",
+    "Can you explain me the quantum mechanics? ",
   ];
+
   const searchStyles = {
     width: "96%",
     height: "70px",
@@ -50,9 +90,11 @@ const AmchatMainUser = () => {
     color: "#94a3b8",
     paddingLeft: "30px",
   };
+
   const handleSearchImageClick = () => {
     navigate("/chat");
   };
+
   return (
     <div className={Styles.superAdminMainCardDivStyle}>
       <div className={Styles.superAdminMiddleParentDiv}>
@@ -76,95 +118,23 @@ const AmchatMainUser = () => {
           }}
         />
 
-        {/* <div className={Styles.superAdminProfileCardStyle}>
-          <div>
-            <p className={Styles.superAdminProfileName}>Welcome, Lian</p>
-          </div>
-          <PopupState variant="popover" popupId="demo-popup-popover">
-            {(popupState) => (
-              <div>
-                <div
-                  className={Styles.superAdminProfileImgNameStyle}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    cursor: "pointer",
-                    marginTop: "26px",
-                  }}
-                  {...bindTrigger(popupState)}
-                >
-                  <img
-                    src={profile}
-                    alt=""
-                    className={Styles.AdminProfileStyle}
-                  />
-                  <span className={Styles.SuperAdminProfileStyle}>Shiva</span>
-                </div>
-
-                <Popover
-                  {...bindPopover(popupState)}
-                  anchorOrigin={{
-                    vertical: "bottom",
-                    horizontal: "center",
-                  }}
-                  transformOrigin={{
-                    vertical: "top",
-                    horizontal: "center",
-                  }}
-                >
-                  <List sx={style}>
-                    <ListItem>
-                      <ListItemButton>
-                        <ListItemIcon>
-                          <AssignmentIndOutlinedIcon />
-                        </ListItemIcon>
-                        <Link
-                          to="/userprofile"
-                          style={{ textDecoration: "none" }}
-                        >
-                          {" "}
-                          <ListItemText primary="View Profile" />
-                        </Link>
-                      </ListItemButton>
-                    </ListItem>
-                    <Divider component="li" />
-                    <ListItem>
-                      <ListItemButton>
-                        <ListItemIcon>
-                          <LogoutOutlinedIcon />
-                        </ListItemIcon>
-                        <Link to="/signin" style={{ textDecoration: "none" }}>
-                          {" "}
-                          <ListItemText primary="Logout" />
-                        </Link>
-                      </ListItemButton>
-                    </ListItem>
-                  </List>
-                </Popover>
-              </div>
-            )}
-          </PopupState>
-        </div> */}
         <div className={Styles.superAdminMiddleChildDiv}>
           <div
             className={Styles.superAdminMiddleCardStyle}
             style={{ backgroundColor: "#FFFFFF" }}
           >
             <div style={{ display: "flex" }}>
-              {" "}
               <div className={Styles.superAdminMiddleCardCircle1Style}>
-                {" "}
                 <img src={circle1} alt="" />
               </div>
               <div className={Styles.titlePriceStyle}>
                 <p className={Styles.titleStyle}>Documents Uploaded</p>
-                <p className={Styles.priceStyle}>500</p>
+                <p className={Styles.priceStyle}>{totalDocuments}</p>
               </div>
             </div>
           </div>
         </div>
 
-        {/* <div> */}
         <Card className={Styles.superAdminCardStyles}>
           <div className={Styles.AMChatMainCardTitleDiv}>
             <div className={Styles.SuperAdminAmChatStyle}>
@@ -209,7 +179,6 @@ const AmchatMainUser = () => {
             </Link>
           </div>
         </Card>
-        {/* </div> */}
       </div>
     </div>
   );

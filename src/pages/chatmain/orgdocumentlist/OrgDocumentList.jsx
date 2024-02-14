@@ -420,7 +420,6 @@ function OrgDocumentList() {
                                 >
                                   <img src={editIcon} alt="Edit" />
                                 </IconButton>
-
                                 <IconButton
                                   aria-label="delete"
                                   onClick={() => handleDelete(row.id)}
