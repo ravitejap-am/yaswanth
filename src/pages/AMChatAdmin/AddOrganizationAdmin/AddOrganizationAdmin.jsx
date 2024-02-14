@@ -212,25 +212,13 @@ function AddOrganizationAdmin() {
               organisation?.organisationStatus == 'add' ? 'Add' : 'Edit'
             } Organization`}</p>
           </div>
-          <AMChatHeader
-            componentName="Add Organization"
-            name="Sanjeev"
-            profileImageSrc={profile}
-            customStyle={{
-              containerStyle: {
-                display: 'flex',
-                borderRadius: '8px',
-              },
-              imageStyle: {
-                width: '50%',
-                height: '70%',
-              },
-              textStyle: {
-                color: 'blue',
-                fontWeight: 'bold',
-              },
-            }}
-          />
+          <div
+            className={Styles.superAdminProfileImgNameStyle}
+            style={{ display: 'flex', alignItems: 'center' }}
+          >
+            <img src={profile} alt="" className={Styles.AdminProfileStyle} />
+            <span className={Styles.SuperAdminProfileStyle}>Lian Vendiar</span>
+          </div>
         </div>
 
         <TabNavigation
