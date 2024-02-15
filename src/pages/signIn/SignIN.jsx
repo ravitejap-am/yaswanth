@@ -112,7 +112,6 @@ const SignIn = () => {
         const fetchedUserData = { userToken: jwtToken };
         dispatch(setUser(fetchedUserData));
         console.log("JWT Token after dispatch:", jwtToken);
-
         setShowSuccessMessage(true);
         setButtonLoading(false);
         setIsReset(true);
