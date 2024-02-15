@@ -73,6 +73,7 @@ function OrganizationList() {
     showNotifyMessage,
     hideNotifyMessage,
   } = useMessageState();
+
   const user = useSelector(selectUser);
   const navigate = useNavigate();
   const jwt = user.userToken;
@@ -80,6 +81,12 @@ function OrganizationList() {
   const [responseData, setResponseData] = useState([]);
   const dispatch = useDispatch();
   const [loadingId, setLoadingId] = useState(null);
+  const [firstName, setFirstName] = useState('');
+  useEffect(() => {
+    // Retrieve firstName from localStorage
+    const storedFirstName = localStorage.getItem('firstName');
+    setFirstName(storedFirstName);
+  }, []);
   const fetchlist = async () => {
     // setLoading(true);
     try {
@@ -277,7 +284,7 @@ function OrganizationList() {
         <div className={Styles.superAdminProfileCardStyle}>
           <SuperAdminHeader
             componentName="Organization List"
-            name="Sanjeev"
+            name={firstName || ''}
             profileImageSrc={profile}
             customStyle={{
               containerStyle: {

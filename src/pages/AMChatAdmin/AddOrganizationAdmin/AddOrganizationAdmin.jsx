@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Tabs, Button } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import Styles from './AddOrganizationAdmin.module.css';
@@ -108,6 +108,12 @@ function AddOrganizationAdmin() {
         }
   );
   const [cities, setCities] = useState([]);
+  const [firstNamelocal, setFirstName] = useState('');
+  useEffect(() => {
+    // Retrieve firstName from localStorage
+    const storedFirstName = localStorage.getItem('firstName');
+    setFirstName(storedFirstName);
+  }, []);
 
   const messageHandler = () => {
     hideNotifyMessage();
@@ -212,7 +218,7 @@ function AddOrganizationAdmin() {
             componentName={`${
               organisation?.organisationStatus == 'add' ? 'Add' : 'Edit'
             } Organization`}
-            name="Sanjeev"
+            name={firstNamelocal || ''}
             profileImageSrc={profile}
             customStyle={{
               containerStyle: {

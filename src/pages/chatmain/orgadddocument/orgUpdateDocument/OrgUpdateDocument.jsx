@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Styles from "./OrgUpdateDocument.module.css";
 import profile from "../../../../asset/AmChatSuperAdmin/profile.png";
 import GeneralForm from "../../../../components/common/forms/GeneralForm";
@@ -27,6 +27,12 @@ function OrgUpdateDocument() {
 
   const [file, setFile] = useState(null);
   const navigate = useNavigate();
+  const [firstName, setFirstName] = useState("");
+  useEffect(() => {
+    // Retrieve firstName from localStorage
+    const storedFirstName = localStorage.getItem("firstNameOrganisation");
+    setFirstName(storedFirstName);
+  }, []);
 
   const user = useSelector(selectUser);
   const jwt = user.userToken;
@@ -122,7 +128,7 @@ function OrgUpdateDocument() {
         <div className={Styles.superAdminProfileCardStyle}>
           <OrganizationAdminHeader
             componentName="Upload Correct Document"
-            name="Rajeev"
+            name={firstName || ""}
             profileImageSrc={profile}
             customStyle={{
               containerStyle: {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./UserProfile.css";
 import Plans from "./Plans";
 import PersonalInformation from "./PersonalInformation";
@@ -9,6 +9,13 @@ import AMChatHeader from "../AMChatAdmin/AMChatHeader/AMChatHeader";
 
 const UserProfile = () => {
   const [selectedTab, setSelectedTab] = useState("personalinformation");
+  const [firstName, setFirstName] = useState("");
+
+  useEffect(() => {
+    // Retrieve firstName from localStorage
+    const storedFirstName = localStorage.getItem("UserSectionfirstName");
+    setFirstName(storedFirstName);
+  }, []);
 
   const handleTabChange = (tab) => {
     if (tab !== selectedTab) {
@@ -21,9 +28,10 @@ const UserProfile = () => {
       <div className="userprofile-main">
         <div className="userprofile-pofilecontainer">
           <div className="userprofile-header">
+            {/* Display firstName in the Welcome message */}
             <AMChatHeader
-              componentName="Welcome Shiva"
-              name="Shiva"
+              componentName={`Welcome ${firstName || ""}`}
+              name={firstName || ""}
               profileImageSrc={base}
               customStyle={{
                 containerStyle: {

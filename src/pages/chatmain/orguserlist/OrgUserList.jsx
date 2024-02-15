@@ -55,11 +55,36 @@ function OrgUserList() {
 
   const user = useSelector(selectUser);
   const jwt = user.userToken;
+  const [firstName, setFirstName] = useState("");
+  useEffect(() => {
+    // Retrieve firstName from localStorage
+    const storedFirstName = localStorage.getItem("firstNameOrganisation");
+    setFirstName(storedFirstName);
+  }, []);
 
   const filterDocuments = () => {
     return documents.filter((doc) =>
       doc.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
+  };
+
+  const decodeJWT = (token) => {
+    try {
+      const base64Url = token.split(".")[1];
+      const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+      const jsonPayload = decodeURIComponent(
+        atob(base64)
+          .split("")
+          .map((char) => {
+            return "%" + ("00" + char.charCodeAt(0).toString(16)).slice(-2);
+          })
+          .join("")
+      );
+      return JSON.parse(jsonPayload);
+    } catch (error) {
+      console.error("Error decoding JWT:", error);
+      return null;
+    }
   };
 
   useEffect(() => {
@@ -70,21 +95,21 @@ function OrgUserList() {
     const fetchDocuments = async () => {
       setLoading(true);
       try {
-        const documentUrl = `${BASE_API_URL}${DOCUMENT_ENDPOINT}`;
+        const organizationId = decodeJWT(jwt).organisationId;
+        const documentUrl = `${BASE_API_URL}/document/getAllByOrg/${organizationId}`;
         const response = await axios.get(documentUrl, {
           params: {
             page: 0,
             size: 10,
             sortField: "uploadDate",
             sortDirection: "desc",
-            name: searchQuery,
+            name: "",
             isActive: 1,
-            version: "",
+            version: 1,
             fileSize: "",
           },
           headers: {
             Authorization: `Bearer ${jwt}`,
-            "Content-Type": "application/json",
           },
         });
 
@@ -99,7 +124,7 @@ function OrgUserList() {
     };
 
     fetchDocuments();
-  }, [jwt, searchQuery]); // Add searchQuery as a dependency
+  }, [jwt, searchQuery]); 
 
   const searchStyles = {
     width: "300px",
@@ -168,8 +193,8 @@ function OrgUserList() {
       <div className={Styles.superAdminMiddleParentDiv}>
         <div className={Styles.superAdminProfileCardStyle}>
           <OrganizationAdminHeader
-            componentName="Document List"
-            name="Rajeev"
+            componentName={`Welcome ${firstName || ""}`}
+            name={firstName || ""}
             profileImageSrc={profile}
             customStyle={{
               containerStyle: {

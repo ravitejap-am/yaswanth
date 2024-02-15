@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./OrganizationAdmin.css";
 import OrganizationAdminPersonalInformation from "./OrganizationAdminPersonalInformation";
 import OrganizationAdminChangePassword from "./OrganizationAdminChangePassword";
@@ -8,6 +8,12 @@ import base from "../../../../asset/Base.png";
 import TabNavigation from "../../tabNaviagation";
 
 function OrganizationAdminProfileInfo() {
+  const [firstName, setFirstName] = useState("");
+  useEffect(() => {
+    // Retrieve firstName from localStorage
+    const storedFirstName = localStorage.getItem("firstNameOrganisation");
+    setFirstName(storedFirstName);
+  }, []);
   const [selectedTab, setSelectedTab] = useState("personalinformation");
 
   const handleTabChange = (tab) => {
@@ -22,8 +28,8 @@ function OrganizationAdminProfileInfo() {
         <div className="userprofile-pofilecontainer">
           <div className="userprofile-header">
             <AMChatHeader
-              componentName="Welcome Rajeev"
-              name="Rajeev"
+              componentName={`Welcome ${firstName || ""}`}
+              name={firstName || ""}
               profileImageSrc={base}
               customStyle={{
                 containerStyle: {
