@@ -1,22 +1,83 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./SuperAdminPersonalInfo.css";
 // import GeneralForm from "../../../../components/common/forms/GeneralForm";
 import editprofilepic from "../../../asset/editprofilepic.png";
 import GeneralForm from "../../../components/common/forms/GeneralForm";
+import { Spin } from "antd";
+import { useMessageState } from "../../../hooks/useapp-message";
+import { setUser, selectUser } from "../../../store/authSlice";
+import { useSelector } from "react-redux";
+import * as constants from "../../../constants/Constant";
 
 function SuperAdminPersonalInfo({ setFileSysytem, validateEmail }) {
-  const [orgName, setOrgName] = useState("");
-  const [userStatus, setUserStatus] = useState("active");
+  const user = useSelector(selectUser);
+  const jwt = user.userToken;
 
-  const userStatusOptions = [
-    { value: "active", label: "Active User" },
-    { value: "inactive", label: "Inactive User" },
-  ];
+  const decodeJWT = (token) => {
+    try {
+      const base64Url = token.split(".")[1];
+      const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+      const jsonPayload = decodeURIComponent(
+        atob(base64)
+          .split("")
+          .map((char) => {
+            return "%" + ("00" + char.charCodeAt(0).toString(16)).slice(-2);
+          })
+          .join("")
+      );
+      return JSON.parse(jsonPayload);
+    } catch (error) {
+      console.error("Error decoding JWT:", error);
+      return null;
+    }
+  };
+
+  const decodedToken = decodeJWT(jwt);
+  const userId = decodedToken ? decodedToken.userId : null;
+
+  const [userData, setUserData] = useState(null);
+  const [userStatus, setUserStatus] = useState("active");
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    if (userId) {
+      fetchUserProfile();
+    } else {
+      setError("User ID is missing or invalid.");
+    }
+  }, [userId]);
+
+  const fetchUserProfile = async () => {
+    try {
+      const response = await fetch(
+        `${constants.BASE_API_URL}/user/${userId}/getUserProfile`,
+        {
+          headers: {
+            Authorization: `Bearer ${jwt}`,
+          },
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Failed to fetch user profile.");
+      }
+      const userData = await response.json();
+      setUserData(userData.data.user);
+      setUserStatus(userData.data.user.active ? "active" : "inactive");
+    } catch (error) {
+      console.error("Error fetching user profile:", error);
+      setError("Failed to fetch user profile.");
+    }
+  };
+
+  const orgName =
+    userData && userData.organisation ? userData.organisation.name : "";
+
   const formElements = [
     {
       label: "First Name",
       type: "text",
       name: "firstName",
+      initialValue: userData ? userData.firstName : "",
       rules: [
         { required: true, message: "Please input your First Name" },
         { type: "name", message: "Invalid First Name" },
@@ -27,6 +88,7 @@ function SuperAdminPersonalInfo({ setFileSysytem, validateEmail }) {
       label: "Last Name",
       type: "text",
       name: "lastName",
+      initialValue: userData ? userData.lastName : "",
       rules: [
         { required: true, message: "Please input your Last Name" },
         { type: "name", message: "Invalid Last Name" },
@@ -37,6 +99,7 @@ function SuperAdminPersonalInfo({ setFileSysytem, validateEmail }) {
       label: "Email",
       type: "email",
       name: "email",
+      initialValue: userData ? userData.email : "",
       rules: [
         { required: true, message: "Please enter your email" },
         { type: "email", message: "Invalid Email" },
@@ -52,6 +115,7 @@ function SuperAdminPersonalInfo({ setFileSysytem, validateEmail }) {
       label: "Organization Name",
       type: "text",
       name: "orgName",
+      initialValue: orgName,
       rules: [
         { required: true, message: "Please input your Organization Name" },
         { type: "name", message: "Invalid Organization Name" },
@@ -71,6 +135,7 @@ function SuperAdminPersonalInfo({ setFileSysytem, validateEmail }) {
         { label: "Active", value: "Active" },
         { label: "Inactive", value: "Inactive" },
       ],
+      initialValue: userStatus,
       style: {
         width: "423px",
         height: "50px",

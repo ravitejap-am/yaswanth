@@ -1,55 +1,56 @@
-import React, { useState } from 'react';
-import { Tabs, Button } from 'antd';
-import { Link, useNavigate } from 'react-router-dom';
-import Styles from './AddOrganizationAdmin.module.css';
-import profile from '../../../asset/AmChatSuperAdmin/profile.png';
-import GeneralForm from '../../../components/common/forms/GeneralForm';
-import OrganizationInfo from './AddOrganizationTabNavigation/OrganizationInfo';
-import TabNavigation from './AddOrganizationTabNavigation/MainTabNavigationAddOrg';
-import OrganizationAdmin from './AddOrganizationTabNavigation/OrganizationAdmin';
-import OrganizationDomains from './AddOrganizationTabNavigation/OrganizationDomains';
-import SubscriptionPlan from './AddOrganizationTabNavigation/SubscriptionPlan';
-import GeneralButton from '../../../components/common/buttons/GeneralButton';
+import React, { useState } from "react";
+import { Tabs, Button } from "antd";
+import { Link, useNavigate } from "react-router-dom";
+import Styles from "./AddOrganizationAdmin.module.css";
+import profile from "../../../asset/AmChatSuperAdmin/profile.png";
+import GeneralForm from "../../../components/common/forms/GeneralForm";
+import OrganizationInfo from "./AddOrganizationTabNavigation/OrganizationInfo";
+import TabNavigation from "./AddOrganizationTabNavigation/MainTabNavigationAddOrg";
+import OrganizationAdmin from "./AddOrganizationTabNavigation/OrganizationAdmin";
+import OrganizationDomains from "./AddOrganizationTabNavigation/OrganizationDomains";
+import SubscriptionPlan from "./AddOrganizationTabNavigation/SubscriptionPlan";
+import GeneralButton from "../../../components/common/buttons/GeneralButton";
+import SuperAdminHeader from "../SuperAdminHeader/SuperAdminHeader";
 
 let feedingData = {
-  name: 'skytech',
+  name: "skytech",
 
   address: {
-    address1: 'Dhanbad',
-    address2: 'dhanbad',
-    landmark: 'xyz',
-    state: 'Jharkhand',
-    country: 'country1',
-    postCode: '123456',
+    address1: "Dhanbad",
+    address2: "dhanbad",
+    landmark: "xyz",
+    state: "Jharkhand",
+    country: "country1",
+    postCode: "123456",
   },
   metaData: [
     {
-      typeDetails: 'sky.com',
-      type: '20',
+      typeDetails: "sky.com",
+      type: "20",
     },
     {
-      typeDetails: 'skytech.com',
-      type: '20',
+      typeDetails: "skytech.com",
+      type: "20",
     },
   ],
   contact: {
-    firstName: 'sushil',
-    lastName: 'kumar',
-    email: 'sushil.kumar@skytech.com',
+    firstName: "sushil",
+    lastName: "kumar",
+    email: "sushil.kumar@skytech.com",
   },
   plan: {
-    id: '',
+    id: "",
   },
 };
 
 function AddOrganizationAdmin() {
   const navigate = useNavigate();
-  const [selectedTab, setSelectedTab] = useState('personalinformation');
+  const [selectedTab, setSelectedTab] = useState("personalinformation");
   const [orgData, selectOrgData] = useState(feedingData);
   const [isEdit, setIsEdit] = useState(false);
 
   const handleTabChange = (tab) => {
-    console.log('form change');
+    console.log("form change");
     const normalizedTab = tab.toLowerCase(); // Normalize to lowercase
     if (normalizedTab !== selectedTab) {
       setSelectedTab(normalizedTab);
@@ -58,28 +59,37 @@ function AddOrganizationAdmin() {
 
   const handleSubmit = () => {
     // Add logic for handling form submission
-    console.log('Submitting form');
+    console.log("Submitting form");
   };
 
   const handleCancel = () => {
     // Add logic for handling form cancellation
-    console.log('Cancelling form');
+    console.log("Cancelling form");
   };
 
   return (
     <div className={Styles.superAdminMainCardDivStyle}>
       <div className={Styles.superAdminMiddleParentDiv}>
         <div className={Styles.superAdminProfileCardStyle}>
-          <div>
-            <p className={Styles.superAdminProfileName}>Add Organization</p>
-          </div>
-          <div
-            className={Styles.superAdminProfileImgNameStyle}
-            style={{ display: 'flex', alignItems: 'center' }}
-          >
-            <img src={profile} alt="" className={Styles.AdminProfileStyle} />
-            <span className={Styles.SuperAdminProfileStyle}>Lian Vendiar</span>
-          </div>
+          <SuperAdminHeader
+            componentName="Add Organization"
+            name="Sanjeev"
+            profileImageSrc={profile}
+            customStyle={{
+              containerStyle: {
+                display: "flex",
+                borderRadius: "8px",
+              },
+              imageStyle: {
+                width: "50%",
+                height: "70%",
+              },
+              textStyle: {
+                color: "blue",
+                fontWeight: "bold",
+              },
+            }}
+          />
         </div>
 
         <TabNavigation
@@ -88,7 +98,7 @@ function AddOrganizationAdmin() {
         />
         <br />
         <div className={Styles.superAdminTabChildCardStyle}>
-          {selectedTab === 'personalinformation' && (
+          {selectedTab === "personalinformation" && (
             <OrganizationInfo
               orgData={orgData}
               setSelectedTab={setSelectedTab}
@@ -96,15 +106,16 @@ function AddOrganizationAdmin() {
               selectOrgData={selectOrgData}
             />
           )}
-          {selectedTab === 'organizationadmin' && (
+          {selectedTab === "organizationadmin" && (
             <OrganizationAdmin
               orgData={orgData}
               setSelectedTab={setSelectedTab}
               selectedTab={selectedTab}
-              selectOrgData={selectOrgData}  />
+              selectOrgData={selectOrgData}
+            />
           )}
-          {selectedTab === 'subscriptionplan' && <SubscriptionPlan />}
-          {selectedTab === 'organizationdomains' && <OrganizationDomains />}
+          {selectedTab === "subscriptionplan" && <SubscriptionPlan />}
+          {selectedTab === "organizationdomains" && <OrganizationDomains />}
         </div>
         <div className={Styles.generalButtonStyle}>
           <div>
@@ -127,7 +138,7 @@ function AddOrganizationAdmin() {
           </div>
           <Link
             to="/dashboardadmin/organizationlist"
-            style={{ textDecoration: 'none' }}
+            style={{ textDecoration: "none" }}
           >
             <div>
               <GeneralButton

@@ -49,7 +49,7 @@ const PersonalInformation = ({ setFileSysytem, validateEmail }) => {
   const fetchUserProfile = async () => {
     try {
       const response = await fetch(
-        `${constants.BASE_API_URL}/user/${userId}/getUserProfile`, // Use userId variable here
+        `${constants.BASE_API_URL}/user/${userId}/getUserProfile`,
         {
           headers: {
             Authorization: `Bearer ${jwt}`,
@@ -59,8 +59,8 @@ const PersonalInformation = ({ setFileSysytem, validateEmail }) => {
       if (!response.ok) {
         throw new Error("Failed to fetch user profile.");
       }
+      
       const userData = await response.json();
-      // Update state with fetched data
       setUserData(userData.data.user);
       setUserStatus(userData.data.user.active ? "active" : "inactive");
     } catch (error) {
@@ -69,7 +69,6 @@ const PersonalInformation = ({ setFileSysytem, validateEmail }) => {
     }
   };
 
-  // Check if userData is defined before accessing its properties
   const orgName =
     userData && userData.organisation ? userData.organisation.name : "";
 
@@ -136,7 +135,7 @@ const PersonalInformation = ({ setFileSysytem, validateEmail }) => {
         { label: "Active", value: "Active" },
         { label: "Inactive", value: "Inactive" },
       ],
-      initialValue: userStatus, // Assuming userStatus holds the initial value
+      initialValue: userStatus,
       style: {
         width: "423px",
         height: "50px",

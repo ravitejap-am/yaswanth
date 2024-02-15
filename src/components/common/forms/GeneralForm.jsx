@@ -38,7 +38,7 @@ const GeneralForm = (props) => {
 
   const initialValues = {};
   formElements.forEach((element) => {
-    initialValues[element.name] = element.initialValue || ""; // Set initial value or empty string
+    initialValues[element.name] = element.initialValue || "";
   });
   console.log("====================================");
   console.log(form.getFieldValue.name,"*");
