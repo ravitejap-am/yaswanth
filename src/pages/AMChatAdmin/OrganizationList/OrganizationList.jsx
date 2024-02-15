@@ -58,6 +58,12 @@ const style = {
 };
 
 function OrganizationList() {
+  const [firstName, setFirstName] = useState("");
+  useEffect(() => {
+    // Retrieve firstName from localStorage
+    const storedFirstName = localStorage.getItem("firstName");
+    setFirstName(storedFirstName);
+  }, []);
   const user = useSelector(selectUser);
   const jwt = user.userToken;
   const [rows, setRows] = useState([]);
@@ -229,7 +235,7 @@ function OrganizationList() {
         <div className={Styles.superAdminProfileCardStyle}>
           <SuperAdminHeader
             componentName="Organization List"
-            name="Sanjeev"
+            name={firstName || ""}
             profileImageSrc={profile}
             customStyle={{
               containerStyle: {

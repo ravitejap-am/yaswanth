@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Tabs, Button } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import Styles from "./AddOrganizationAdmin.module.css";
@@ -45,6 +45,12 @@ let feedingData = {
 
 function AddOrganizationAdmin() {
   const navigate = useNavigate();
+  const [firstName, setFirstName] = useState("");
+  useEffect(() => {
+    // Retrieve firstName from localStorage
+    const storedFirstName = localStorage.getItem("firstName");
+    setFirstName(storedFirstName);
+  }, []);
   const [selectedTab, setSelectedTab] = useState("personalinformation");
   const [orgData, selectOrgData] = useState(feedingData);
   const [isEdit, setIsEdit] = useState(false);
@@ -73,7 +79,7 @@ function AddOrganizationAdmin() {
         <div className={Styles.superAdminProfileCardStyle}>
           <SuperAdminHeader
             componentName="Add Organization"
-            name="Sanjeev"
+            name={firstName || ""}
             profileImageSrc={profile}
             customStyle={{
               containerStyle: {

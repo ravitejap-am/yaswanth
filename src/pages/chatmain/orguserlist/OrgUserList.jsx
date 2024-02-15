@@ -55,6 +55,12 @@ function OrgUserList() {
 
   const user = useSelector(selectUser);
   const jwt = user.userToken;
+  const [firstName, setFirstName] = useState("");
+  useEffect(() => {
+    // Retrieve firstName from localStorage
+    const storedFirstName = localStorage.getItem("firstName");
+    setFirstName(storedFirstName);
+  }, []);
 
   const filterDocuments = () => {
     return documents.filter((doc) =>
@@ -168,8 +174,8 @@ function OrgUserList() {
       <div className={Styles.superAdminMiddleParentDiv}>
         <div className={Styles.superAdminProfileCardStyle}>
           <OrganizationAdminHeader
-            componentName="Document List"
-            name="Rajeev"
+            componentName={`Welcome ${firstName || ""}`}
+            name={firstName || ""}
             profileImageSrc={profile}
             customStyle={{
               containerStyle: {

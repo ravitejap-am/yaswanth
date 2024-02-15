@@ -7,6 +7,7 @@ import { useMessageState } from "../../../../hooks/useapp-message";
 import { setUser, selectUser } from "../../../../store/authSlice";
 import { useSelector } from "react-redux";
 import * as constants from "../../../../constants/Constant";
+
 function OrganizationAdminPersonalInformation({
   setFileSysytem,
   validateEmail,
@@ -39,6 +40,8 @@ function OrganizationAdminPersonalInformation({
   const [userData, setUserData] = useState(null);
   const [userStatus, setUserStatus] = useState("active");
   const [error, setError] = useState(null);
+  const [organisationName, setOrganisationName] = useState("");
+  const [amChatUserStatus, setamChatUserStatus] = useState("");
 
   useEffect(() => {
     if (userId) {
@@ -61,23 +64,35 @@ function OrganizationAdminPersonalInformation({
       if (!response.ok) {
         throw new Error("Failed to fetch user profile.");
       }
+
       const userData = await response.json();
-      setUserData(userData.data.user);
-      setUserStatus(userData.data.user.active ? "active" : "inactive");
+
+      // Save firstName and lastName to localStorage
+      localStorage.setItem(
+        "firstNameOrganisation",
+        userData?.data?.user?.firstName
+      );
+      localStorage.setItem(
+        "lastNameOrganisation",
+        userData?.data?.user?.lastName
+      );
+
+      setUserData(userData?.data?.user);
+      setOrganisationName(userData?.data?.organisation?.name);
+      setamChatUserStatus(userData?.data?.user.active);
+      setUserStatus(userData.data.user.active ? "Active" : "Inactive");
     } catch (error) {
       console.error("Error fetching user profile:", error);
       setError("Failed to fetch user profile.");
     }
   };
 
-  const orgName =
-    userData && userData.organisation ? userData.organisation.name : "";
-
   const formElements = [
     {
       label: "First Name",
       type: "text",
       name: "firstName",
+      pattern: /^([a-zA-Z]{3,30}\s*)+/,
       initialValue: userData ? userData.firstName : "",
       rules: [
         { required: true, message: "Please input your First Name" },
@@ -89,6 +104,7 @@ function OrganizationAdminPersonalInformation({
       label: "Last Name",
       type: "text",
       name: "lastName",
+      pattern: /^([a-zA-Z]{3,30}\s*)+/,
       initialValue: userData ? userData.lastName : "",
       rules: [
         { required: true, message: "Please input your Last Name" },
@@ -100,6 +116,7 @@ function OrganizationAdminPersonalInformation({
       label: "Email",
       type: "email",
       name: "email",
+      pattern: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
       initialValue: userData ? userData.email : "",
       rules: [
         { required: true, message: "Please enter your email" },
@@ -116,7 +133,7 @@ function OrganizationAdminPersonalInformation({
       label: "Organization Name",
       type: "text",
       name: "orgName",
-      initialValue: orgName,
+      initialValue: organisationName,
       rules: [
         { required: true, message: "Please input your Organization Name" },
         { type: "name", message: "Invalid Organization Name" },
@@ -129,25 +146,19 @@ function OrganizationAdminPersonalInformation({
       },
     },
     {
-      name: "User Status",
       label: "Status",
-      type: "select",
-      options: [
-        { label: "Active", value: "Active" },
-        { label: "Inactive", value: "Inactive" },
+      type: "text",
+      name: "status",
+      initialValue: amChatUserStatus,
+      rules: [
+        { required: true, message: "Please input your Organization Name" },
+        { type: "name", message: "Invalid Organization Name" },
       ],
-      initialValue: userStatus,
       style: {
-        width: "423px",
-        height: "50px",
+        width: "400px",
+        height: "40px",
         marginLeft: "20px",
-        borderRadius: "30px",
-        paddingLeft: "10px",
-        cursor: "pointer",
-        marginTop: "8px",
       },
-      labelName: false,
-      rules: [{ required: true, message: "Please select Country" }],
     },
   ];
 
@@ -179,6 +190,7 @@ function OrganizationAdminPersonalInformation({
     setFileSysytem: setFileSysytem,
     grid: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px" },
   };
+
   return (
     <div className="personal-contentcard">
       <div className="user-profile-content">
@@ -186,7 +198,9 @@ function OrganizationAdminPersonalInformation({
           <img className="edit-profilepic" src={editprofilepic} alt="" />
         </div>
         <div className="user-profle-name">
-          <h2>Clayton Santos</h2>
+          <h2>
+            {userData?.firstName} {userData?.lastName}
+          </h2>
           <div className="personalinfo-user-Status">
             <p>Active User</p>
           </div>

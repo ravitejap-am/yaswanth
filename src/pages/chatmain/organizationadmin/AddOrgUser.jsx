@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Styles from "./OrgAdminChatSidebar.module.css";
 import Tooltip from "./Tooltip";
 import profile from "../../../asset/AmChatSuperAdmin/profile.png";
@@ -42,6 +42,12 @@ function AddOrgUser() {
   const [previewImage, setPreviewImage] = useState("");
   const [previewTitle, setPreviewTitle] = useState("");
   const [fileList, setFileList] = useState([]);
+  const [firstName, setFirstName] = useState("");
+  useEffect(() => {
+    // Retrieve firstName from localStorage
+    const storedFirstName = localStorage.getItem("firstName");
+    setFirstName(storedFirstName);
+  }, []);
 
   const handleCancel = () => setPreviewOpen(false);
 
@@ -243,7 +249,7 @@ function AddOrgUser() {
         <div className={Styles.superAdminProfileCardStyle}>
           <OrganizationAdminHeader
             componentName="Add User"
-            name="Rajeev"
+            name={firstName || ""}
             profileImageSrc={profile}
             customStyle={{
               containerStyle: {

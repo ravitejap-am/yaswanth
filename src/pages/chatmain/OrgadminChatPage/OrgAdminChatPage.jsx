@@ -41,6 +41,13 @@ const OrgAdminChatPage = () => {
   const [activeUsersCount, setActiveUsersCount] = useState(0);
   const [chat, setChat] = useState("");
   const [page, setPage] = useState(0);
+  const [firstName, setFirstName] = useState("");
+  useEffect(() => {
+    // Retrieve firstName from localStorage
+    const storedFirstName = localStorage.getItem("firstName");
+    setFirstName(storedFirstName);
+  }, []);
+
   useEffect(() => {
     if (organisationId) {
       fetchDocumentCount();
@@ -132,8 +139,8 @@ const OrgAdminChatPage = () => {
       <div className="orgadminchat-chat-container">
         <div className="orgadminchat-chat-header">
           <OrganizationAdminHeader
-            componentName="Welcome Rajeev"
-            name="Rajeev"
+            componentName={`Welcome ${firstName || ""}`}
+            name={firstName || ""}
             profileImageSrc={base}
             customStyle={{
               containerStyle: {

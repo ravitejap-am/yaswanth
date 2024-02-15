@@ -41,7 +41,7 @@ const GeneralForm = (props) => {
     initialValues[element.name] = element.initialValue || "";
   });
   console.log("====================================");
-  console.log(form.getFieldValue.name,"*");
+  console.log(form.getFieldValue.name, "*");
   console.log("====================================");
   return (
     <Form
@@ -69,6 +69,7 @@ const GeneralForm = (props) => {
                   }}
                   style={item.style}
                   // required={item.required}
+                  defaultValue={item?.initialValue ? item?.initialValue : null}
                 />
               ),
               text: (
@@ -373,6 +374,9 @@ const GeneralForm = (props) => {
                           style={{ ...item.style }}
                           // style={item.style}
                           placeholder={item.labelName ? null : item.label}
+                          defaultValue={
+                            item?.initialValue ? item?.initialValue : null
+                          }
                         />
                       </div>
                     )}
@@ -410,7 +414,7 @@ const GeneralForm = (props) => {
               backgroundColor={submitButtonProperty.backgroundColor}
               name={submitButtonProperty.name}
               color={submitButtonProperty.color}
-              buttonHandler={()=>submitHandler(form.getFieldValue())}
+              buttonHandler={() => submitHandler(form.getFieldValue())}
               marginLeft={submitButtonProperty.marginLeft}
               marginTop={submitButtonProperty.marginTop}
               width={submitButtonProperty.width}

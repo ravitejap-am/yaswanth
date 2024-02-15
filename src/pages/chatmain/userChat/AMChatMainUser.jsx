@@ -25,6 +25,7 @@ const style = {
 const AmchatMainUser = () => {
   const navigate = useNavigate();
   const [totalDocuments, setTotalDocuments] = useState(0);
+  const [firstName, setFirstName] = useState("");
   const user = useSelector(selectUser);
   const jwt = user.userToken;
   const decodeJWT = (token) => {
@@ -48,6 +49,11 @@ const AmchatMainUser = () => {
   const decodedToken = decodeJWT(jwt);
   const organisationId = decodedToken ? decodedToken.userId : null;
 
+  useEffect(() => {
+    // Retrieve firstName from localStorage
+    const storedFirstName = localStorage.getItem("firstName");
+    setFirstName(storedFirstName);
+  }, []);
   useEffect(() => {
     const fetchTotalDocuments = async () => {
       try {
@@ -100,8 +106,8 @@ const AmchatMainUser = () => {
     <div className={Styles.superAdminMainCardDivStyle}>
       <div className={Styles.superAdminMiddleParentDiv}>
         <AMChatHeader
-          componentName="Welcome Shiva"
-          name="Shiva"
+          componentName={`Welcome ${firstName || ""}`}
+          name={firstName || ""}
           profileImageSrc={profile}
           customStyle={{
             containerStyle: {
