@@ -1,6 +1,6 @@
 import React from "react";
 import Logo from "../../../../asset/logo.png";
-// import 
+// import
 import Styles from "./EditOrgUserSidebar.module.css";
 import GeneralButton from "../../../../components/common/buttons/GeneralButton";
 import frame from "../../../../asset/Frame 1.png";
@@ -11,8 +11,8 @@ import arrorLink from "../../../../asset/AmChatSuperAdmin/arrow-left.png";
 // import OrganizationAdminListSidebar from "../OrganizationAdminList/OrganizationAdminListSidebar";
 // import AddOrganizationAdmin from "./AddOrgUser";
 // import AddOrgUser from "./AddOrgUser";
-import usersicon from '../../../../asset/users.png'
-import documenticon from '../../../../asset/document1.png'
+import usersicon from "../../../../asset/users.png";
+import documenticon from "../../../../asset/document1.png";
 import EditOrgUser from "./EditOrgUser";
 
 function EditOrgUserSidebar() {
@@ -48,17 +48,14 @@ function EditOrgUserSidebar() {
             <div className={Styles.SuperAdminChildContainer}>
               <span>
                 <img src={arrorLink} alt="" />
-                <Link to="/userchat" style={{ textDecoration: "none" }}>
+                <Link to="/orguserlist" style={{ textDecoration: "none" }}>
                   <p className={Styles.organizationTextStyle}>Back to Chat</p>{" "}
                 </Link>
               </span>
 
               <span>
                 <img src={usersicon} alt="" />
-                <Link
-                  to="/orguserlist"
-                  style={{ textDecoration: "none" }}
-                >
+                <Link to="/orguserlist" style={{ textDecoration: "none" }}>
                   <p className={Styles.organizationTextStyle}>Users</p>
                 </Link>
               </span>
@@ -66,17 +63,15 @@ function EditOrgUserSidebar() {
             <br />
             <div className={Styles.SuperAdminChildContainer}>
               <span>
-                <img src={documenticon} alt=""  />
+                <img src={documenticon} alt="" />
                 <Link to="/orgdocumentlist" style={{ textDecoration: "none" }}>
-                <p className={Styles.organizationTextStyle}>
-                  Documents
-                </p>
+                  <p className={Styles.organizationTextStyle}>Documents</p>
                 </Link>
               </span>
             </div>
           </div>
         </div>
-        <EditOrgUser/>
+        <EditOrgUser />
       </div>
       <div className={Styles.AMChatFooterStyle}>
         <footer className="AMChat-admin-footer">

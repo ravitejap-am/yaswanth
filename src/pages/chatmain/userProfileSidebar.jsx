@@ -3,15 +3,10 @@ import Logo from "../../asset/images/logo.png";
 import Styles from "../AMChatAdmin/AMChatBackgound/AMChat.module.css";
 import GeneralButton from "../../components/common/buttons/GeneralButton";
 import frame from "../../asset/Frame 1.png";
-import organizationimage from "../../asset/AmChatSuperAdmin/Frame 2301.png";
-import userImage from "../../asset/AmChatSuperAdmin/users.png";
 import arrorLink from "../../asset/AmChatSuperAdmin/arrow-left.png";
-import circle from "../../asset/AmChatSuperAdmin/Ellipse 6.png";
 // import SuperAdminAMChatCard from "../SuperAdminAMChatCard/SuperAdminAMChatCard";
 // import OrganizationList from "../OrganizationList/OrganizationList";
-import GroupCircleDot from "../../asset/AmChatSuperAdmin/Group2306.png";
 import { Link } from "react-router-dom";
-import AMChat from "../AMChatAdmin/AMChatBackgound/AMChat";
 import UserProfile from "./UserProfile";
 
 function userProfileSidebar() {

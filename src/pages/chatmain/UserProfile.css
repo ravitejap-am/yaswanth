@@ -55,9 +55,8 @@
 }
 
 .userprofile-header {
-  display: flex;
-  width: 96%;
-  gap: 80px;
+  width: 98%;
+  padding: 7px;
 }
 
 .userprofile-account {

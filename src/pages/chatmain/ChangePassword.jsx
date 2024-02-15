@@ -3,8 +3,25 @@ import GeneralForm from "../../components/common/forms/GeneralForm";
 import { useSelector } from "react-redux";
 import { setUser, selectUser } from "../../store/authSlice";
 import * as constants from "../../constants/Constant"; // Import constants
+import NotifyMessage from "../../components/common/toastMessages/NotifyMessage";
+import { useMessageState } from "../../hooks/useapp-message";
+import { useNavigate } from "react-router-dom";
 
 const ChangePassword = ({ setFileSysytem, validateEmail }) => {
+  const navigate = useNavigate();
+  let {
+    buttonLoading,
+    setButtonLoading,
+    isReset,
+    setIsReset,
+    showNotifyMessage,
+    hideNotifyMessage,
+  } = useMessageState();
+
+  const messageHandler = () => {
+    setIsReset(false);
+    hideNotifyMessage();
+  };
   const validatePassword = (_, value) => {
     if (value && value.length < 8) {
       return Promise.reject("Password must be at least 8 characters");
@@ -17,6 +34,7 @@ const ChangePassword = ({ setFileSysytem, validateEmail }) => {
   const jwt = user.userToken;
 
   const handleChangePassword = async (values) => {
+    setButtonLoading(true);
     try {
       const response = await fetch(
         `${constants.BASE_API_URL}/user/verification/reset`,
@@ -34,18 +52,31 @@ const ChangePassword = ({ setFileSysytem, validateEmail }) => {
           }),
         }
       );
-
+      console.log(response, "$$$33333334444556789");
       if (response.ok) {
         if (response.status === 200) {
-          console.log("Password change successful");
-        } else {
-          console.error("Failed to change password: No response body");
+          setButtonLoading(false);
+          setIsReset(true);
+          showNotifyMessage(
+            "success",
+            "Password Changed Successfully",
+            messageHandler
+          );
         }
       } else {
-        console.error("Failed to change password: Server error");
+        showNotifyMessage("error", "Failed to change password", messageHandler);
       }
     } catch (error) {
-      console.error("Error occurred while changing password", error);
+      if (error?.response?.status == 500 || error?.response?.status == "500") {
+        navigate("/internal500");
+      }
+
+      setButtonLoading(false);
+      showNotifyMessage(
+        "error",
+        error?.response?.data?.message,
+        messageHandler
+      );
     }
   };
 
@@ -110,6 +141,7 @@ const ChangePassword = ({ setFileSysytem, validateEmail }) => {
       <div className="changepassword-input">
         <GeneralForm {...feedingVariable} />
       </div>
+      <NotifyMessage />
     </div>
   );
 };

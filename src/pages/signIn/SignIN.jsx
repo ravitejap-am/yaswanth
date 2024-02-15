@@ -10,8 +10,17 @@ import Footer from "../../pages/home/Footer/Footer";
 import SignHeader from "../home/SignHeader/SignHeader";
 import { setUser, selectUser } from "../../store/authSlice";
 import * as constants from "../../constants/Constant";
+import { useMessageState } from "../../hooks/useapp-message";
 
 const SignIn = () => {
+  let {
+    buttonLoading,
+    setButtonLoading,
+    isReset,
+    setIsReset,
+    showNotifyMessage,
+    hideNotifyMessage,
+  } = useMessageState();
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
   const navigate = useNavigate();
@@ -25,7 +34,6 @@ const SignIn = () => {
       const decodedToken = decodeJWT(jwtToken);
       if (decodedToken) {
         const role = decodedToken.role;
-        // Redirect based on the role
         switch (role) {
           case "ORG_ADMIN":
             navigate("/orgadminchat");
@@ -37,7 +45,6 @@ const SignIn = () => {
             navigate("/dashboardadmin");
             break;
           default:
-            // Redirect to a default route if the role is not recognized
             navigate("/default");
         }
       } else {
@@ -45,6 +52,12 @@ const SignIn = () => {
       }
     }
   }, [showSuccessMessage, user, navigate]);
+
+  useEffect(() => {
+    if (!buttonLoading && showSuccessMessage) {
+      setShowSuccessMessage(false);
+    }
+  }, [buttonLoading, showSuccessMessage]);
 
   const decodeJWT = (token) => {
     try {
@@ -64,6 +77,10 @@ const SignIn = () => {
       return null;
     }
   };
+  const messageHandler = () => {
+    setIsReset(false);
+    hideNotifyMessage();
+  };
 
   const validatePassword = (_, value) => {
     if (value && value.length < 8) {
@@ -82,84 +99,42 @@ const SignIn = () => {
   };
 
   const submitHandler = async (values) => {
+    setButtonLoading(true);
     const url = `${constants.BASE_API_URL}${constants.SIGNIN_ENDPOINT}`;
-
     try {
       const response = await axios.post(url, values, {
         headers: {
           "Content-Type": "application/json",
         },
       });
-      switch (response.data.code) {
-        case "SIGNIN-S-001":
-          // console.log("Login successful:", response);
-          toast.success("User login successfully!!");
-          const jwtToken = response.data.data?.jwtToken;
-          const fetchedUserData = { userToken: jwtToken };
-          dispatch(setUser(fetchedUserData));
-          console.log("JWT Token after dispatch:", jwtToken);
-          setShowSuccessMessage(true);
-          break;
-        case "SIGNIN-IUP-002":
-          toast.error("Invalid username or password");
-          break;
-        case "SIGNIN-UNF-003":
-          toast.error(
-            "User not verified. Please complete the verification or registration process."
-          );
-          break;
-        case "SIGNIN-AL-004":
-          toast.error(
-            "Your Account is locked due to invalid attempts. Please reset your password using the Forget Password option."
-          );
-          break;
-        case "SIGNIN-IE-005":
-          toast.error(
-            "Invalid email format. Please provide a valid email address."
-          );
-          break;
-        // Add other cases as needed
-        default:
-          toast.error("An error occurred. Please try again.");
+      if (response.data.code) {
+        const jwtToken = response.data.data?.jwtToken;
+        const fetchedUserData = { userToken: jwtToken };
+        dispatch(setUser(fetchedUserData));
+        console.log("JWT Token after dispatch:", jwtToken);
+
+        setShowSuccessMessage(true);
+        setButtonLoading(false);
+        setIsReset(true);
+        showNotifyMessage("success", response?.data?.message, messageHandler);
+      } else {
+        toast.error(
+          response.data.message || "An error occurred. Please try again."
+        );
+        setButtonLoading(false);
+        setIsReset(false);
+        hideNotifyMessage();
       }
     } catch (error) {
       console.error("Login failed:", error.response);
 
-      switch (error.response?.status) {
-        case 404:
-          toast.error("Your email ID is not registered. Please Sign Up.");
-          break;
-        case 400:
-          toast.error(
-            "User not verified. Please complete the verification or registration process."
-          );
-          break;
-        case 422:
-          toast.error(
-            "Invalid email format. Please provide a valid email address."
-          );
-          break;
-        case 423:
-          toast.error(
-            "Your Account is locked due to invalid attempts. Please reset your password using the Forget Password option."
-          );
-          break;
-        case 403:
-          toast.error(
-            "Your organization email domain is not registered with us. Please reach out to sales@areteminds.com"
-          );
-          break;
-        case 401:
-          toast.error("Invalid username or password");
-          break;
-        case 403:
-          toast.error(
-            "Looks like your account has been closed. Please check with your organizational admin."
-          );
-          break;
-        default:
-          toast.error("An error occurred. Please try again.");
-      }
+      setButtonLoading(false);
+      setIsReset(true);
+      showNotifyMessage(
+        "error",
+        error?.response?.data?.message,
+        messageHandler
+      );
     }
   };
 
@@ -248,7 +223,7 @@ const SignIn = () => {
                 <div className="box-round">
                   <div className="text-top">
                     <h2>Sign In</h2>
-                    <p>Please sign in with your organization email id</p>
+                    <p>Please sign in with your organization email id.</p>
                   </div>
 
                   <div className="form-content">

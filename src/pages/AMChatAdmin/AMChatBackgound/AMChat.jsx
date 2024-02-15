@@ -4,10 +4,7 @@ import Styles from "./AMChat.module.css";
 import GeneralButton from "../../../components/common/buttons/GeneralButton";
 import frame from "../../../asset/Frame 1.png";
 import organizationimage from "../../../asset/AmChatSuperAdmin/Frame 2301.png";
-import userImage from "../../../asset/AmChatSuperAdmin/users.png";
-import circle from "../../../asset/AmChatSuperAdmin/Ellipse 6.png";
 import SuperAdminAMChatCard from "../SuperAdminAMChatCard/SuperAdminAMChatCard";
-import OrganizationList from "../OrganizationList/OrganizationList";
 import GroupCircleDot from "../../../asset/AmChatSuperAdmin/Group2306.png";
 import { Link } from "react-router-dom";
 

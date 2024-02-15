@@ -2,82 +2,77 @@ import React, { useState } from "react";
 import Styles from "./OrgAddDocumentSidebar.module.css";
 import profile from "../../../asset/AmChatSuperAdmin/profile.png";
 import GeneralForm from "../../../components/common/forms/GeneralForm";
-import Document from "../../../components/common/upload/file/Document";
 import { selectUser } from "../../../store/authSlice";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import * as constants from "../../../constants/Constant";
+import { Upload, Button } from "antd";
+import { UploadOutlined } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
+import { useMessageState } from "../../../hooks/useapp-message";
+import AMChatHeader from "../../AMChatAdmin/AMChatHeader/AMChatHeader";
+import OrganizationAdminHeader from "../organizationadmin/OrganizationAdminHeader/OrganizationAdminHeader";
 
 function OrgAddDocument() {
+  let {
+    buttonLoading,
+    setButtonLoading,
+    isReset,
+    setIsReset,
+    showNotifyMessage,
+    hideNotifyMessage,
+  } = useMessageState();
   const [file, setFile] = useState(null);
-
-  const formElements = [
-    {
-      name: "Document Name",
-      label: "Document Name",
-      type: "text",
-      style: {
-        width: "405px",
-        borderRadius: "40px",
-        border: "1px solid var(--Brand-700, #4338CA)",
-        backgroundColor: "transparent",
-        marginBottom: "20px",
-      },
-      rules: [{ required: true, message: "Please enter your Document Name" }],
-      labelName: false,
-    },
-  ];
+  const navigate = useNavigate();
 
   const user = useSelector(selectUser);
   const jwt = user.userToken;
-
+  const messageHandler = () => {
+    setIsReset(false);
+    hideNotifyMessage();
+  };
   const submitHandler = async (values) => {
+    setButtonLoading(true);
     try {
-      console.log("Submitting form with values:", values);
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("name", values["Document Name"]);
 
-      if (file) {
-        const formData = new FormData();
-        formData.append("documentName", values["Document Name"]);
-        formData.append("documentFile", file);
-
-        console.log("FormData:", formData);
-
-        const response = await axios.post(
-          "http://54.161.113.196:8080/document",
-          formData,
-          {
-            headers: {
-              Authorization: `Bearer ${jwt}`,
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        );
-
-        console.log("API Response:", response);
-
-        if (response.status === 200) {
-          console.log("Document uploaded successfully!");
-        } else {
-          console.error("Failed to upload document");
+      const response = await axios.post(
+        `${constants.BASE_API_URL}/document`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${jwt}`,
+            "Content-Type": "multipart/form-data",
+          },
         }
-      } else {
-        console.error("Document File is missing");
-      }
+      );
+      setButtonLoading(false);
+      setIsReset(true);
+      showNotifyMessage("success", response?.data?.message, messageHandler);
+      console.log("API Response:", response.data);
     } catch (error) {
-      console.error("Error uploading document:", error);
+      console.error("Error occurred:", error);
+      if (error?.response?.status == 500 || error?.response?.status == "500") {
+        navigate("/internal500");
+      }
     }
   };
 
   const cancelHandler = (values) => {
     console.log("Form values:", values);
+    navigate("/orgdocumentlist");
   };
 
   const documentProps = {
-    setFile: (fileList) => setFile(fileList[0]),
-    numberOfImage: 1,
-    fileType: "application/pdf",
-    fileSize: 10,
-    form: undefined,
-    name: "Document File",
+    name: "file",
+    fileList: file ? [file] : [],
+    beforeUpload: (file) => {
+      setFile(file);
+      return false;
+    },
+    accept: ".pdf",
   };
 
   const submitButtonProperty = {
@@ -105,7 +100,22 @@ function OrgAddDocument() {
     submitHandler: submitHandler,
     submitButtonProperty: submitButtonProperty,
     cancelButtonProperty: cancelButtonProperty,
-    formElements: formElements,
+    formElements: [
+      {
+        name: "Document Name",
+        label: "Document Name",
+        type: "text",
+        style: {
+          width: "405px",
+          borderRadius: "40px",
+          border: "1px solid var(--Brand-700, #4338CA)",
+          backgroundColor: "transparent",
+          marginBottom: "20px",
+        },
+        rules: [{ required: true, message: "Please enter your Document Name" }],
+        labelName: false,
+      },
+    ],
     formType: "normal",
     forgorPasswordHandler: () => {
       console.log("forgot Password....");
@@ -117,23 +127,39 @@ function OrgAddDocument() {
     <div className={Styles.superAdminMainCardDivStyle}>
       <div className={Styles.superAdminMiddleParentDiv}>
         <div className={Styles.superAdminProfileCardStyle}>
-          <div>
-            <p className={Styles.superAdminProfileName}>Add Document</p>
-          </div>
-          <div
-            className={Styles.superAdminProfileImgNameStyle}
-            style={{ display: "flex", alignItems: "center" }}
-          >
-            <img src={profile} alt="" className={Styles.AdminProfileStyle} />
-            <span className={Styles.SuperAdminProfileStyle}>Lian Vendiar</span>
-          </div>
+          <OrganizationAdminHeader
+            componentName="Add Document"
+            name="Rajeev"
+            profileImageSrc={profile}
+            customStyle={{
+              containerStyle: {
+                display: "flex",
+                borderRadius: "8px",
+              },
+              imageStyle: {
+                width: "50%",
+                height: "70%",
+              },
+              textStyle: {
+                color: "blue",
+                fontWeight: "bold",
+              },
+            }}
+          />
         </div>
 
         <div className={Styles.addOrganizationAdminSecondDiv}>
-          <div style={{ marginLeft: "20px" }}>
-            <Document {...documentProps} />
+          <div className={Styles.uploadDocumentContainer}>
+            {" "}
+            <Upload {...documentProps}>
+              <Button icon={<UploadOutlined />}>Upload Document</Button>
+            </Upload>
           </div>
-          <GeneralForm {...feedingVariable} />
+          <GeneralForm
+            {...feedingVariable}
+            buttonLoading={buttonLoading}
+            isReset={isReset}
+          />
           <div></div>
         </div>
       </div>

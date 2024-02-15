@@ -61,8 +61,8 @@ const Footer = () => {
       <div className={Style.footerFIrstCOntent}>
         <p className="footer_p_tag" style={{ color: "#FFF", fontSize: "14px" }}>
           {" "}
-          <img src={img4} alt="" /> 4th Cross, Ramanjaneya Layout
-          <p style={{ marginLeft: "28px" }}>Marathahalli, Bangalore India</p>
+          <img src={img4} alt="" /> 4th Cross, Ramanjaneya Layout,
+          <p style={{ marginLeft: "28px" }}>Marathahalli, Bangalore, India.</p>
         </p>
         <p className="footer_p_tag" style={{ color: "#FFF", fontSize: "14px" }}>
           <img src={img5} alt="" />

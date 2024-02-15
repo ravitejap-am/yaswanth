@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./OrgAdminChatPage.css";
 import arrow from "../../../asset/inputarrow.png";
 import documentIcon from "../../../asset/Group 23 (1).png";
@@ -6,9 +6,90 @@ import base from "../../../asset/Base.png";
 import vector from "../../../asset/vectoricon.png";
 import documentIconpink from "../../../asset/Group 23.png";
 import orgvector from "../../../asset/orgVector (1).png";
-// import './OrgAdminChatPageSidebar.module.css'
+import AMChatHeader from "../../AMChatAdmin/AMChatHeader/AMChatHeader";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import * as constants from "../../../constants/Constant";
+import { selectUser } from "../../../store/authSlice";
+import OrganizationAdminHeader from "../organizationadmin/OrganizationAdminHeader/OrganizationAdminHeader";
 
 const OrgAdminChatPage = () => {
+  const navigate = useNavigate();
+  const user = useSelector(selectUser);
+  const jwt = user.userToken;
+  const decodeJWT = (token) => {
+    try {
+      const base64Url = token.split(".")[1];
+      const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+      const jsonPayload = decodeURIComponent(
+        atob(base64)
+          .split("")
+          .map((char) => {
+            return "%" + ("00" + char.charCodeAt(0).toString(16)).slice(-2);
+          })
+          .join("")
+      );
+      return JSON.parse(jsonPayload);
+    } catch (error) {
+      console.error("Error decoding JWT:", error);
+      return null;
+    }
+  };
+  const decodedToken = decodeJWT(jwt);
+  const organisationId = decodedToken ? decodedToken.organisationId : null;
+  const [documentCount, setDocumentCount] = useState(0);
+  const [activeUsersCount, setActiveUsersCount] = useState(0);
+  const [chat, setChat] = useState("");
+  const [page, setPage] = useState(0);
+  useEffect(() => {
+    if (organisationId) {
+      fetchDocumentCount();
+      fetchUserList();
+    }
+  }, [organisationId]);
+
+  const fetchDocumentCount = () => {
+    fetch(`${constants.BASE_API_URL}/document/${organisationId}`, {
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setDocumentCount(data.totalElements);
+      })
+      .catch((error) => console.error("Error fetching document count:", error));
+  };
+
+  const fetchUserList = async () => {
+    try {
+      const response = await fetch(
+        `${constants.BASE_API_URL}/user/userlist/?page=0&size=5&sortField=createdAt&sortDirection=desc&email=&active=true`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${jwt}`,
+          },
+        }
+      );
+      if (!response.ok) {
+        if (response.status === 404) {
+          console.log("400 error ");
+        } else if (response.status === 405) {
+          console.log("response 405");
+        } else {
+          console.log("response 405");
+        }
+        return;
+      }
+      const responseData = await response.json();
+      setActiveUsersCount(responseData.totalCount); // Set active users count from the API response
+    } catch (error) {
+      navigate("/maintenance");
+    }
+  };
+
   const users = [
     {
       profile_img: { base },
@@ -32,8 +113,6 @@ const OrgAdminChatPage = () => {
     },
   ];
 
-  const [chat, setChat] = useState("");
-
   const handleStartChat = () => {
     console.log("start chatButton clicked");
   };
@@ -52,18 +131,25 @@ const OrgAdminChatPage = () => {
     <div className="orgadminchat-screen">
       <div className="orgadminchat-chat-container">
         <div className="orgadminchat-chat-header">
-          <div className="orgadminchat-user-name">
-            <h2>Welcome, Jack</h2>
-          </div>
-          <div className="orgadminchat-chat-user-profile-main">
-            <div className="orgadminchat-chat-user-profile-image">
-              <img className="orgadmin-profilepic" src={base} alt="" />
-            </div>
-            <div className="orgadminchat-chat-user-profile">
-              <h3>Jack Markban</h3>
-              <p>Marvel web</p>
-            </div>
-          </div>
+          <OrganizationAdminHeader
+            componentName="Welcome Rajeev"
+            name="Rajeev"
+            profileImageSrc={base}
+            customStyle={{
+              containerStyle: {
+                display: "flex",
+                borderRadius: "8px",
+              },
+              imageStyle: {
+                width: "50%",
+                height: "70%",
+              },
+              textStyle: {
+                color: "blue",
+                fontWeight: "bold",
+              },
+            }}
+          />
         </div>
         <div className="hi-main">
           <div className="orgadminchat-chat-content-head">
@@ -166,7 +252,7 @@ const OrgAdminChatPage = () => {
                         alt="Document"
                       />
                       <h2>Documents</h2>
-                      <h1 className="document-value">500</h1>
+                      <h1 className="document-value">{documentCount}</h1>
                     </div>
                     <div className="vector-card-image">
                       <img
@@ -185,7 +271,10 @@ const OrgAdminChatPage = () => {
                       alt="Document"
                     />
                     <h2>Active Users</h2>
-                    <h1 className="activeusers-value">500</h1>
+                    <h1 className="activeusers-value">
+                      {activeUsersCount}
+                    </h1>{" "}
+                    {/* Display active users count */}
                   </div>
                   <div className="vector-card-image">
                     <img
@@ -217,16 +306,3 @@ const OrgAdminChatPage = () => {
 };
 
 export default OrgAdminChatPage;
-
-{
-  /* <div className='orgadminchat-orgadmin-cards'>
-<div className='orgadminchat-orgadmindoc-card'>
-    <div className='orgadminchat-orgadmindocument-card'>
-        <img className='orgadminchat-document-icon' src={documentIcon} alt="Document" />
-        <h2>Documents</h2>
-    </div>
-</div>
-<div className='orgadminchat-orgadmin-activeuser-card'>
-</div>
-</div> */
-}

@@ -10,9 +10,9 @@ import userImage from "../../../asset/AmChatSuperAdmin/users.png";
 // import OrganizationList from "../OrganizationList/OrganizationList";
 import { Link } from "react-router-dom";
 import arrorLink from "../../../asset/arrow-left.png";
-import OrgDocumentList from '../../../pages/chatmain/orgdocumentlist/OrgDocumentList'
-import usersicon from '../../../asset/users.png'
-import documenticon from '../../../asset/document1.png'
+import OrgDocumentList from "../../../pages/chatmain/orgdocumentlist/OrgDocumentList";
+import usersicon from "../../../asset/users.png";
+import documenticon from "../../../asset/document1.png";
 function OrgDocumentListSidebar() {
   return (
     <>
@@ -65,18 +65,16 @@ function OrgDocumentListSidebar() {
             <div className={Styles.SuperAdminChildContainer}>
               <span>
                 <img src={documenticon} alt="" />
-                <Link to="/orgdocumentlist"
-                  style={{ textDecoration: "none" }}
-                >
-                <p className={Styles.organizationTextStyle}>
-                  Documents
-                </p>
+                <Link to="/orgdocumentlist" style={{ textDecoration: "none" }}>
+                  <p className={Styles.organizationTextStyle}>Documents</p>
                 </Link>
               </span>
             </div>
           </div>
         </div>
-        <OrgDocumentList/>
+        <OrgDocumentList />
+        <br />
+        <br />
       </div>
       <div className={Styles.AMChatFooterStyle}>
         <footer className="AMChat-admin-footer">
