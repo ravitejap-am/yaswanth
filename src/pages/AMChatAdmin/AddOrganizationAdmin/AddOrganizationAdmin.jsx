@@ -209,7 +209,9 @@ function AddOrganizationAdmin() {
       <div className={Styles.superAdminMiddleParentDiv}>
         <div className={Styles.superAdminProfileCardStyle}>
           <SuperAdminHeader
-            componentName="Add Organization"
+            componentName={`${
+              organisation?.organisationStatus == 'add' ? 'Add' : 'Edit'
+            } Organization`}
             name="Sanjeev"
             profileImageSrc={profile}
             customStyle={{

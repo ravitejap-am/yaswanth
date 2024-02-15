@@ -242,6 +242,9 @@ const GeneralForm = (props) => {
                           }}
                           style={item.style}
                           placeholder={item.labelName ? null : item.label}
+                          defaultValue={
+                            item.defaultValue ? item.defaultValue : ''
+                          }
                         />
                       </div>
                     )}
@@ -455,7 +458,7 @@ const GeneralForm = (props) => {
               backgroundColor={submitButtonProperty.backgroundColor}
               name={submitButtonProperty.name}
               color={submitButtonProperty.color}
-              buttonHandler={() => submitHandler(form.getFieldValue())}
+              buttonHandler={submitHandler}
               marginLeft={submitButtonProperty.marginLeft}
               marginTop={submitButtonProperty.marginTop}
               width={submitButtonProperty.width}

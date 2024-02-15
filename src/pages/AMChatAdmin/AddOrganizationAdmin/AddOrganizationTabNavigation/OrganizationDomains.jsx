@@ -27,6 +27,7 @@ function OrganizationDomains({
 
   useEffect(() => {
     // Update dropdownDomains if needed
+    console.log('orgData domains', orgData);
   }, [newDomains]);
 
   const handlePlusClick = () => {
@@ -87,12 +88,12 @@ function OrganizationDomains({
         });
       }
 
-      console.log(domainArray);
+      console.log('domainaarray', domainArray);
       const updatedOrgData = {
         ...orgData,
         metaData: domainArray,
       };
-
+      console.log('updateorgdata', updatedOrgData);
       selectOrgData(updatedOrgData);
       if (organisation?.organisationStatus == 'edit') {
         editOrganisation();

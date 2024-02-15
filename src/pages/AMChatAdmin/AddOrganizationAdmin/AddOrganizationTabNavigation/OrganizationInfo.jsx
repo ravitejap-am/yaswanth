@@ -20,6 +20,7 @@ function OrganizationInfo({
   editOrganisation,
 }) {
   useEffect(() => {
+    console.log('orgData', orgData);
     const fetchCountries = async () => {
       setButtonLoading(true);
       try {
