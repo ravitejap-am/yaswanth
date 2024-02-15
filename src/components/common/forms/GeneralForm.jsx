@@ -26,6 +26,8 @@ const GeneralForm = (props) => {
     grid,
     buttonLoading = false,
     isReset = false,
+    isSuperAdmin = false,
+    orgInfo = {},
   } = props;
   console.log('props', props, 'grid', grid, 'formelements', formElements);
   const [form] = Form.useForm();
@@ -38,7 +40,7 @@ const GeneralForm = (props) => {
 
   useEffect(() => {
     if (isSuperAdmin) {
-      if (orgInfo.screen == 'personalinformation') {
+      if (orgInfo?.screen == 'personalinformation') {
         console.log('formdata', orgInfo?.orgData, 'grid', grid);
 
         form.setFieldsValue(orgInfo?.orgData?.address);

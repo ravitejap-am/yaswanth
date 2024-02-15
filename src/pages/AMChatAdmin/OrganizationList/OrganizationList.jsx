@@ -52,8 +52,6 @@ import { BASE_API_URL } from '../../../constants/Constant';
 import { useMessageState } from '../../../hooks/useapp-message';
 import CircularProgress from '@mui/material/CircularProgress';
 import AMChatHeader from '../AMChatHeader/AMChatHeader';
-import axios from 'axios';
-import AMChatHeader from '../AMChatHeader/AMChatHeader';
 import SuperAdminHeader from '../SuperAdminHeader/SuperAdminHeader';
 
 const style = {
