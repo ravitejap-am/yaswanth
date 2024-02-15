@@ -31,6 +31,7 @@ import { toast } from "react-toastify";
 import NotifyMessage from "../../../components/common/toastMessages/NotifyMessage";
 import AMChatHeader from "../../AMChatAdmin/AMChatHeader/AMChatHeader";
 import Pagination from "@mui/material/Pagination"; // Import MUI Pagination
+import OrganizationAdminHeader from "../organizationadmin/OrganizationAdminHeader/OrganizationAdminHeader";
 
 function OrgDocumentList() {
   const user = useSelector(selectUser);
@@ -211,7 +212,7 @@ function OrgDocumentList() {
     <div className={Styles.superAdminMainCardDivStyle}>
       <div className={Styles.superAdminMiddleParentDiv}>
         <div className={Styles.superAdminProfileCardStyle}>
-          <AMChatHeader
+          <OrganizationAdminHeader
             componentName="User List"
             name="Rajeev"
             profileImageSrc={profile}
@@ -420,7 +421,6 @@ function OrgDocumentList() {
                                 >
                                   <img src={editIcon} alt="Edit" />
                                 </IconButton>
-
                                 <IconButton
                                   aria-label="delete"
                                   onClick={() => handleDelete(row.id)}
@@ -459,9 +459,9 @@ function OrgDocumentList() {
             >
               <div>Total {rows.length} items</div>
               <Pagination
-                count={Math.ceil(rows.length / rowsPerPage)} 
-                page={page + 1} 
-                onChange={(event, value) => setPage(value - 1)} 
+                count={Math.ceil(rows.length / rowsPerPage)}
+                page={page + 1}
+                onChange={(event, value) => setPage(value - 1)}
                 shape="rounded"
               />
             </div>

@@ -1,10 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function OrganizationAdminProfielTabNavigation({
-  selectedTab,
-  handleTabChange,
-}) {
+function SuperAdminProfileTabNavigation({ selectedTab, handleTabChange }) {
   return (
     <div className="info-bar">
       <div className="info-bar-content">
@@ -13,7 +10,7 @@ function OrganizationAdminProfielTabNavigation({
           className={`barinfo-personalinfo ${
             selectedTab === "personalinformation" ? "active-link" : ""
           }`}
-          onClick={() => handleTabChange("OrganizationAdminProfileInfo")}
+          onClick={() => handleTabChange("SuperAdminPersonalInfo")}
         >
           Personal Info
         </Link>
@@ -22,7 +19,9 @@ function OrganizationAdminProfielTabNavigation({
           className={`barinfo-changepassword ${
             selectedTab === "changepassword" ? "active-link" : ""
           }`}
-          onClick={() => handleTabChange("OrganizationAdminChangePassword")}
+          onClick={() =>
+            handleTabChange("SuperAdminPersonalInfoChangePassword")
+          }
         >
           Change Password
         </Link>
@@ -31,7 +30,7 @@ function OrganizationAdminProfielTabNavigation({
           className={`barinfo-plans ${
             selectedTab === "plans" ? "active-link" : ""
           }`}
-          onClick={() => handleTabChange("OrganizationAdminPlans")}
+          onClick={() => handleTabChange("SuperAdminPersonalPlan")}
         >
           Plans
         </Link>
@@ -40,4 +39,4 @@ function OrganizationAdminProfielTabNavigation({
   );
 }
 
-export default OrganizationAdminProfielTabNavigation;
+export default SuperAdminProfileTabNavigation;

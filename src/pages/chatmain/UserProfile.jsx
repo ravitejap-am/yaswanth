@@ -1,15 +1,10 @@
 import React, { useState } from "react";
 import "./UserProfile.css";
-import { Link } from "react-router-dom";
 import Plans from "./Plans";
 import PersonalInformation from "./PersonalInformation";
 import ChangePassword from "./ChangePassword";
-import GeneralButton from "../../components/common/buttons/GeneralButton";
 import TabNavigation from "./tabNaviagation";
-import frame1 from "../../asset/Frame 1.png";
-import lefticon from "../../asset/arrow-left.png";
 import base from "../../asset/Base.png";
-import vector1 from "../../asset/logo.png";
 import AMChatHeader from "../AMChatAdmin/AMChatHeader/AMChatHeader";
 
 const UserProfile = () => {

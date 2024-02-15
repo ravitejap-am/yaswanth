@@ -32,6 +32,7 @@ import { Spin } from "antd";
 import { useMessageState } from "../../../hooks/useapp-message";
 import AMChatHeader from "../../AMChatAdmin/AMChatHeader/AMChatHeader";
 import Pagination from "@mui/material/Pagination";
+import OrganizationAdminHeader from "../organizationadmin/OrganizationAdminHeader/OrganizationAdminHeader";
 
 function OrgUserList() {
   let {
@@ -166,7 +167,7 @@ function OrgUserList() {
     <div className={Styles.superAdminMainCardDivStyle}>
       <div className={Styles.superAdminMiddleParentDiv}>
         <div className={Styles.superAdminProfileCardStyle}>
-          <AMChatHeader
+          <OrganizationAdminHeader
             componentName="Document List"
             name="Rajeev"
             profileImageSrc={profile}

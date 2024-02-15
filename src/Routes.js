@@ -33,6 +33,10 @@ import UserProfile from "./pages/chatmain/UserProfile.jsx";
 import ResetPassword from "./pages/setPassword/ResetPassword.jsx";
 import UserProfileSidebar from "./pages/chatmain/userProfileSidebar.jsx";
 import AMChatHeader from "./pages/AMChatAdmin/AMChatHeader/AMChatHeader.jsx";
+import OrganizationAdminProfileInfoSidebar from "./pages/chatmain/organizationadmin/OrganizationAdminProfileInfo/OrganizationAdminProfileInfoSidebar.jsx";
+import OrganizationAdminHeader from "./pages/chatmain/organizationadmin/OrganizationAdminHeader/OrganizationAdminHeader.jsx";
+import SuperAdminPersonalInfoSideBar from "./pages/AMChatAdmin/SuperAdminPersonalInfo/SuperAdminPersonalInfoSideBar.jsx";
+import SuperAdminHeader from "./pages/AMChatAdmin/SuperAdminHeader/SuperAdminHeader.jsx";
 
 const Rout = () => {
   return (
@@ -102,6 +106,21 @@ const Rout = () => {
       <Route exact path="/termsandconditions" element={<TermAndCondition />} />
       {/* Fallback route for any other URL */}
       <Route path="*" element={<PageNotFound />} />
+      <Route
+        exact
+        path="/organizationPersonalInfo"
+        element={<OrganizationAdminProfileInfoSidebar />}
+      />
+      <Route
+        exact
+        path="/OrganizationAdminHeader"
+        element={<OrganizationAdminHeader />}
+      />
+      <Route path="/SuperAdminHeader" element={<SuperAdminHeader />} />
+      <Route
+        path="/SuperAdminPersonalInfo"
+        element={<SuperAdminPersonalInfoSideBar />}
+      />
     </Routes>
   );
 };

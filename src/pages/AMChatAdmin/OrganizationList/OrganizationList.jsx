@@ -52,6 +52,9 @@ import { BASE_API_URL } from '../../../constants/Constant';
 import { useMessageState } from '../../../hooks/useapp-message';
 import CircularProgress from '@mui/material/CircularProgress';
 import AMChatHeader from '../AMChatHeader/AMChatHeader';
+import axios from 'axios';
+import AMChatHeader from '../AMChatHeader/AMChatHeader';
+import SuperAdminHeader from '../SuperAdminHeader/SuperAdminHeader';
 
 const style = {
   py: 0,
@@ -274,72 +277,25 @@ function OrganizationList() {
     <div className={Styles.superAdminMainCardDivStyle}>
       <div className={Styles.superAdminMiddleParentDiv}>
         <div className={Styles.superAdminProfileCardStyle}>
-          <div>
-            <p className={Styles.superAdminProfileName}>Welcome, Lian</p>
-          </div>
-          <PopupState variant="popover" popupId="demo-popup-popover">
-            {(popupState) => (
-              <div>
-                <div
-                  className={Styles.superAdminProfileImgNameStyle}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    cursor: 'pointer',
-                  }}
-                  {...bindTrigger(popupState)}
-                >
-                  <img
-                    src={profile}
-                    alt=""
-                    className={Styles.AdminProfileStyle}
-                  />
-                  <span className={Styles.SuperAdminProfileStyle}>Shiva</span>
-                </div>
-
-                <Popover
-                  {...bindPopover(popupState)}
-                  anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'center',
-                  }}
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'center',
-                  }}
-                >
-                  <List sx={style}>
-                    <ListItem>
-                      <ListItemButton>
-                        <ListItemIcon>
-                          <AssignmentIndOutlinedIcon />
-                        </ListItemIcon>
-                        <Link
-                          to="/userprofile"
-                          style={{ textDecoration: 'none' }}
-                        >
-                          {' '}
-                          <ListItemText primary="View Profile" />
-                        </Link>
-                      </ListItemButton>
-                    </ListItem>
-                    <Divider component="li" />
-                    <ListItem>
-                      <ListItemButton>
-                        <ListItemIcon>
-                          <LogoutOutlinedIcon />
-                        </ListItemIcon>
-                        <Link to="/signin" style={{ textDecoration: 'none' }}>
-                          {' '}
-                          <ListItemText primary="Logout" />
-                        </Link>
-                      </ListItemButton>
-                    </ListItem>
-                  </List>
-                </Popover>
-              </div>
-            )}
-          </PopupState>
+          <SuperAdminHeader
+            componentName="Organization List"
+            name="Sanjeev"
+            profileImageSrc={profile}
+            customStyle={{
+              containerStyle: {
+                display: 'flex',
+                borderRadius: '8px',
+              },
+              imageStyle: {
+                width: '50%',
+                height: '70%',
+              },
+              textStyle: {
+                color: 'blue',
+                fontWeight: 'bold',
+              },
+            }}
+          />
         </div>
 
         <div className={Styles.bannerBtn}>

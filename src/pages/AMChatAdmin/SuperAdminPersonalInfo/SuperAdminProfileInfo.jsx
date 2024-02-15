@@ -1,13 +1,19 @@
 import React, { useState } from "react";
-import "./OrganizationAdmin.css";
-import OrganizationAdminPersonalInformation from "./OrganizationAdminPersonalInformation";
-import OrganizationAdminChangePassword from "./OrganizationAdminChangePassword";
-import OrganizationAdminPlans from "./OrganizationAdminPlans";
-import AMChatHeader from "../../../AMChatAdmin/AMChatHeader/AMChatHeader";
-import base from "../../../../asset/Base.png";
-import TabNavigation from "../../tabNaviagation";
+import "./SuperAdminPersonalInfo.css";
 
-function OrganizationAdminProfileInfo() {
+import base from "../../../asset/Base.png";
+// import TabNavigation from "../../tabNaviagation";
+import SuperAdminPersonalInfo from "./SuperAdminPersonalInfo";
+import SuperAdminPersonalInfoChangePassword from "./SuperAdminPersonalInfoChangePassword";
+import SuperAdminPersonalPlan from "./SuperAdminPersonalPlan";
+import AMChatHeader from "../AMChatHeader/AMChatHeader";
+import TabNavigation from "../../chatmain/tabNaviagation";
+import PersonalInformation from "../../chatmain/PersonalInformation";
+import ChangePassword from "../../chatmain/ChangePassword";
+import Plans from "../../chatmain/Plans";
+import SuperAdminHeader from "../SuperAdminHeader/SuperAdminHeader";
+
+function SuperAdminProfileInfo() {
   const [selectedTab, setSelectedTab] = useState("personalinformation");
 
   const handleTabChange = (tab) => {
@@ -21,9 +27,9 @@ function OrganizationAdminProfileInfo() {
       <div className="userprofile-main">
         <div className="userprofile-pofilecontainer">
           <div className="userprofile-header">
-            <AMChatHeader
-              componentName="Welcome Rajeev"
-              name="Rajeev"
+            <SuperAdminHeader
+              componentName="Welcome Sanjeev"
+              name="Sanjeev"
               profileImageSrc={base}
               customStyle={{
                 containerStyle: {
@@ -46,13 +52,9 @@ function OrganizationAdminProfileInfo() {
             handleTabChange={handleTabChange}
           />
           <div>
-            {selectedTab === "personalinformation" && (
-              <OrganizationAdminPersonalInformation />
-            )}
-            {selectedTab === "changepassword" && (
-              <OrganizationAdminChangePassword />
-            )}
-            {selectedTab === "plans" && <OrganizationAdminPlans />}
+            {selectedTab === "personalinformation" && <PersonalInformation />}
+            {selectedTab === "changepassword" && <ChangePassword />}
+            {selectedTab === "plans" && <Plans />}
           </div>
         </div>
       </div>
@@ -60,4 +62,4 @@ function OrganizationAdminProfileInfo() {
   );
 }
 
-export default OrganizationAdminProfileInfo;
+export default SuperAdminProfileInfo;

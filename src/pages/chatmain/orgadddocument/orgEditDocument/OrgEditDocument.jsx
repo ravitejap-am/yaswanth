@@ -11,6 +11,7 @@ import { setUser, selectUser } from "../../../../store/authSlice";
 import { useSelector } from "react-redux";
 import * as constants from "../../../../constants/Constant";
 import AMChatHeader from "../../../AMChatAdmin/AMChatHeader/AMChatHeader";
+import OrganizationAdminHeader from "../../organizationadmin/OrganizationAdminHeader/OrganizationAdminHeader";
 
 function OrgEditDocument() {
   let {
@@ -154,7 +155,7 @@ function OrgEditDocument() {
     <div className={Styles.superAdminMainCardDivStyle}>
       <div className={Styles.superAdminMiddleParentDiv}>
         <div className={Styles.superAdminProfileCardStyle}>
-          <AMChatHeader
+          <OrganizationAdminHeader
             componentName="Edit Document Name"
             name="Rajeev"
             profileImageSrc={profile}

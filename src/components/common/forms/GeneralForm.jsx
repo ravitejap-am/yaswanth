@@ -26,13 +26,9 @@ const GeneralForm = (props) => {
     grid,
     buttonLoading = false,
     isReset = false,
-    isSuperAdmin = false,
-    orgInfo = {},
-    isActiveSave = false,
   } = props;
   console.log('props', props, 'grid', grid, 'formelements', formElements);
   const [form] = Form.useForm();
-  const [data, setData] = useState('hi');
 
   useEffect(() => {
     if (isReset) {
@@ -89,12 +85,8 @@ const GeneralForm = (props) => {
                   placeholder={item.labelName ? null : item.label}
                   iconClass={item.iconClass}
                   onChange={(e) => {
-                    console.log();
                     form.setFieldValue({ [item.name]: e.target.value });
                   }}
-                  style={item.style}
-                  defaultValue={item.defaultValue ? item.defaultValue : ''}
-                  // required={item.required}
                   pattern={item.pattern}
                   onBlur={() => {
                     if (item.pattern !== null && item.pattern !== undefined) {
@@ -106,6 +98,9 @@ const GeneralForm = (props) => {
                       }
                     }
                   }}
+                  style={item.style}
+                  defaultValue={item.defaultValue ? item.defaultValue : ''}
+                  // required={item.required}
                 />
               ),
               text: (
@@ -245,9 +240,6 @@ const GeneralForm = (props) => {
                           }}
                           style={item.style}
                           placeholder={item.labelName ? null : item.label}
-                          defaultValue={
-                            item.defaultValue ? item.defaultValue : ''
-                          }
                         />
                       </div>
                     )}
@@ -461,7 +453,7 @@ const GeneralForm = (props) => {
               backgroundColor={submitButtonProperty.backgroundColor}
               name={submitButtonProperty.name}
               color={submitButtonProperty.color}
-              buttonHandler={submitHandler}
+              buttonHandler={() => submitHandler(form.getFieldValue())}
               marginLeft={submitButtonProperty.marginLeft}
               marginTop={submitButtonProperty.marginTop}
               width={submitButtonProperty.width}

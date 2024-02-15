@@ -53,7 +53,6 @@ const SignIn = () => {
     }
   }, [showSuccessMessage, user, navigate]);
 
-
   useEffect(() => {
     if (!buttonLoading && showSuccessMessage) {
       setShowSuccessMessage(false);
@@ -102,7 +101,6 @@ const SignIn = () => {
   const submitHandler = async (values) => {
     setButtonLoading(true);
     const url = `${constants.BASE_API_URL}${constants.SIGNIN_ENDPOINT}`;
-
     try {
       const response = await axios.post(url, values, {
         headers: {
@@ -114,15 +112,10 @@ const SignIn = () => {
         const fetchedUserData = { userToken: jwtToken };
         dispatch(setUser(fetchedUserData));
         console.log("JWT Token after dispatch:", jwtToken);
-
-        if (!showSuccessMessage) {
-          setShowSuccessMessage(true);
-          setButtonLoading(false);
-          setIsReset(true);
-          showNotifyMessage("success", response?.data?.message, messageHandler);
-        } else {
-          hideNotifyMessage();
-        }
+        setShowSuccessMessage(true);
+        setButtonLoading(false);
+        setIsReset(true);
+        showNotifyMessage("success", response?.data?.message, messageHandler);
       } else {
         toast.error(
           response.data.message || "An error occurred. Please try again."

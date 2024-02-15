@@ -1,15 +1,16 @@
 import React from "react";
-import Logo from "../../asset/images/logo.png";
-import Styles from "../AMChatAdmin/AMChatBackgound/AMChat.module.css";
-import GeneralButton from "../../components/common/buttons/GeneralButton";
-import frame from "../../asset/Frame 1.png";
-import arrorLink from "../../asset/AmChatSuperAdmin/arrow-left.png";
+import Logo from "../../../asset/images/logo.png";
+import Styles from "../../AMChatAdmin/AMChatBackgound/AMChat.module.css";
+import GeneralButton from "../../../components/common/buttons/GeneralButton";
+import frame from "../../../asset/Frame 1.png";
+import arrorLink from "../../../asset/AmChatSuperAdmin/arrow-left.png";
 // import SuperAdminAMChatCard from "../SuperAdminAMChatCard/SuperAdminAMChatCard";
 // import OrganizationList from "../OrganizationList/OrganizationList";
 import { Link } from "react-router-dom";
-import UserProfile from "./UserProfile";
+import SuperAdminProfileTabNavigation from "./SuperAdminProfileTabNavigation";
+import SuperAdminProfileInfo from "./SuperAdminProfileInfo";
 
-function userProfileSidebar() {
+function SuperAdminPersonalInfoSideBar() {
   return (
     <>
       <div className={Styles.AMChatMainDiv}>
@@ -37,30 +38,30 @@ function userProfileSidebar() {
             <div className={Styles.SuperAdminChildContainer}>
               <span>
                 <img src={arrorLink} alt="" />
-                <Link to="/userchat" style={{ textDecoration: "none" }}>
+                <Link to="/dashboardadmin" style={{ textDecoration: "none" }}>
                   <p className={Styles.organizationTextStyle}>Back to Chat</p>{" "}
                 </Link>
               </span>
             </div>
             <br />
             {/* <div className={Styles.SuperAdminChildContainer}>
-            <Link
-              to="/dashboardadmin/organizationadminlist"
-              style={{ textDecoration: "none" }}
-            >
-              <span>
-                <img src={userImage} alt="" />
+          <Link
+            to="/dashboardadmin/organizationadminlist"
+            style={{ textDecoration: "none" }}
+          >
+            <span>
+              <img src={userImage} alt="" />
 
-                <p className={Styles.organizationTextStyle}>
-                  Organization Admin
-                </p>
-              </span>
-            </Link>
-          </div> */}
+              <p className={Styles.organizationTextStyle}>
+                Organization Admin
+              </p>
+            </span>
+          </Link>
+        </div> */}
           </div>
         </div>
 
-        <UserProfile />
+        <SuperAdminProfileInfo />
       </div>
       <div className={Styles.AMChatFooterStyle}>
         <footer className="AMChat-admin-footer">
@@ -73,4 +74,4 @@ function userProfileSidebar() {
   );
 }
 
-export default userProfileSidebar;
+export default SuperAdminPersonalInfoSideBar;

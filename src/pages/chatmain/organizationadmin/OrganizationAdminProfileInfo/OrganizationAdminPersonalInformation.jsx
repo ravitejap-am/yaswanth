@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
-import "./UserProfile.css";
-import GeneralForm from "../../components/common/forms/GeneralForm";
-import editprofilepic from "../../asset/editprofilepic.png";
+import "./OrganizationAdmin.css";
+import GeneralForm from "../../../../components/common/forms/GeneralForm";
+import editprofilepic from "../../../../asset/editprofilepic.png";
 import { Spin } from "antd";
-import { useMessageState } from "../../hooks/useapp-message";
-import { setUser, selectUser } from "../../store/authSlice";
+import { useMessageState } from "../../../../hooks/useapp-message";
+import { setUser, selectUser } from "../../../../store/authSlice";
 import { useSelector } from "react-redux";
-import * as constants from "../../constants/Constant";
-
-const PersonalInformation = ({ setFileSysytem, validateEmail }) => {
+import * as constants from "../../../../constants/Constant";
+function OrganizationAdminPersonalInformation({
+  setFileSysytem,
+  validateEmail,
+}) {
   const user = useSelector(selectUser);
   const jwt = user.userToken;
 
@@ -59,7 +61,6 @@ const PersonalInformation = ({ setFileSysytem, validateEmail }) => {
       if (!response.ok) {
         throw new Error("Failed to fetch user profile.");
       }
-      
       const userData = await response.json();
       setUserData(userData.data.user);
       setUserStatus(userData.data.user.active ? "active" : "inactive");
@@ -178,7 +179,6 @@ const PersonalInformation = ({ setFileSysytem, validateEmail }) => {
     setFileSysytem: setFileSysytem,
     grid: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px" },
   };
-
   return (
     <div className="personal-contentcard">
       <div className="user-profile-content">
@@ -186,17 +186,15 @@ const PersonalInformation = ({ setFileSysytem, validateEmail }) => {
           <img className="edit-profilepic" src={editprofilepic} alt="" />
         </div>
         <div className="user-profle-name">
-          <h2>
-            {userData ? `${userData.firstName} ${userData.lastName}` : ""}
-          </h2>
+          <h2>Clayton Santos</h2>
           <div className="personalinfo-user-Status">
-            <p>{userStatus}</p>
+            <p>Active User</p>
           </div>
         </div>
       </div>
       <GeneralForm {...feedingVariable} />
     </div>
   );
-};
+}
 
-export default PersonalInformation;
+export default OrganizationAdminPersonalInformation;
