@@ -1,123 +1,151 @@
-import React from "react";
-import GeneralForm from "../../../../components/common/forms/GeneralForm";
-import { useNavigate } from "react-router-dom";
-function OrganizationAdmin() {
+import React from 'react';
+import GeneralForm from '../../../../components/common/forms/GeneralForm';
+import { useNavigate } from 'react-router-dom';
+function OrganizationAdmin({
+  orgData,
+  setSelectedTab,
+  selectedTab,
+  selectOrgData,
+}) {
   const navigate = useNavigate();
 
   // Define form elements for first name, last name, and email
   const formElements = [
     {
-      name: "firstName",
-      label: "First Name",
-      type: "text",
-      placeholder: "Enter your first name",
+      name: 'firstName',
+      label: 'First Name',
+      pattern: /^([a-zA-Z]{3,30}\s*)+/,
+      type: 'text',
+      placeholder: 'Enter your first name',
       style: {
-        width: "445px",
-        borderRadius: "40px",
-        border: "1px solid var(--Brand-700, #4338CA)",
-        backgroundColor: "transparent",
+        width: '445px',
+        borderRadius: '40px',
+        border: '1px solid var(--Brand-700, #4338CA)',
+        backgroundColor: 'transparent',
       },
-      rules: [{ required: true, message: "Please enter your first name" }],
+      // rules: [{ required: true, message: 'Please enter your first name' }],
       labelName: false,
+      defaultValue: orgData?.contact?.firstName,
     },
     {
-      name: "lastName",
-      label: "Last Name",
-      type: "text",
-      placeholder: "Enter your last name",
+      pattern: /^([a-zA-Z]{3,30}\s*)+/,
+      name: 'lastName',
+      label: 'Last Name',
+      type: 'text',
+      placeholder: 'Enter your last name',
       style: {
-        width: "445px",
-        borderRadius: "40px",
-        border: "1px solid var(--Brand-700, #4338CA)",
-        backgroundColor: "transparent",
+        width: '445px',
+        borderRadius: '40px',
+        border: '1px solid var(--Brand-700, #4338CA)',
+        backgroundColor: 'transparent',
       },
-      rules: [{ required: true, message: "Please enter your last name" }],
+      // rules: [{ required: true, message: 'Please enter your last name' }],
       labelName: false,
+      defaultValue: orgData?.contact?.lastName,
     },
     {
-      name: "email",
-      label: "Email",
-      type: "email",
-      placeholder: "Enter your email",
+      name: 'email',
+      label: 'Email',
+      type: 'email',
+      placeholder: 'Enter your email',
+ 
+      pattern: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
       style: {
-        width: "445px",
-        borderRadius: "40px",
-        border: "1px solid var(--Brand-700, #4338CA)",
-        backgroundColor: "transparent",
+        width: '445px',
+        borderRadius: '40px',
+        border: '1px solid var(--Brand-700, #4338CA)',
+        backgroundColor: 'transparent',
       },
-      rules: [
-        { required: true, message: "Please enter your email" },
-        { type: "email", message: "Please enter a valid email address" },
-      ],
+ 
       labelName: false,
+      defaultValue: orgData?.contact?.email,
+ 
     },
   ];
 
   const submitHandler = (values) => {
-    console.log("Form values:", values);
-    // Add your logic to handle form submission
+    console.log(' submitForm values:', values);
+
+    const updatedOrgData = {
+      ...orgData,
+      contact: values,
+    };
+
+    selectOrgData(updatedOrgData);
+    setSelectedTab('organizationdomains');
   };
 
   const cancelHandler = (values) => {
-    console.log("Form values:", values);
-    // Add your logic to handle form cancellation
+    console.log('Form values:', values);
+    console.log('Form values:', values);
+
+    const updatedOrgData = {
+      ...orgData,
+      contact: values,
+    };
+
+    selectOrgData(updatedOrgData);
+    setSelectedTab('organizationdomains');
   };
 
   const submitButtonProperty = {
-    display: "flex",
-    width: "130px",
-    height: "50px",
-    padding: "10px 16px",
-    justifyContent: "center",
-    alignItems: "center",
-    gap: "8px",
-    flexShrink: "0",
-    borderRadius: "30px",
-    backgroundColor: "var(--Brand-500, #6366F1)",
-    color: "#FFFFFF",
-    fontFamily: "Into Lato",
-    fontSize: "16px",
-    fontStyle: "normal",
-    fontWeight: "700",
-    lineHeight: "24px",
-    name: "Submit",
+    display: 'flex',
+    width: '130px',
+    height: '50px',
+    padding: '10px 16px',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: '8px',
+    flexShrink: '0',
+    borderRadius: '30px',
+    backgroundColor: 'var(--Brand-500, #6366F1)',
+    color: '#FFFFFF',
+    fontFamily: 'Into Lato',
+    fontSize: '16px',
+    fontStyle: 'normal',
+    fontWeight: '700',
+    lineHeight: '24px',
+    name: 'Save',
   };
 
   const cancelButtonProperty = {
-    display: "flex",
-    width: "130px",
-    height: "50px",
-    padding: "10px 16px",
-    justifyContent: "center",
-    alignItems: "center",
-    gap: "8px",
-    flexShrink: "0",
-    borderRadius: "30px",
-    border: "1px solid var(--Neutral-600, #475569)",
-    color: "#334155 !important",
-    fontFamily: " Into Lato",
-    fontSize: "16px",
-    fontStyle: "normal",
-    fontWeight: "700",
-    lineHeight: "24px",
-    name: "Cancel",
+    display: 'flex',
+    width: '130px',
+    height: '50px',
+    padding: '10px 16px',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: '8px',
+    flexShrink: '0',
+    borderRadius: '30px',
+    border: '1px solid var(--Neutral-600, #475569)',
+    color: '#334155 !important',
+    fontFamily: ' Into Lato',
+    fontSize: '16px',
+    fontStyle: 'normal',
+    fontWeight: '700',
+    lineHeight: '24px',
+    name: 'Cancel',
   };
 
   const feedingVariable = {
-    isSubmit: false,
+    isSubmit: true,
     isCancel: false,
     submitHandler: submitHandler,
     cancelHandler: cancelHandler,
     submitButtonProperty: submitButtonProperty,
     cancelButtonProperty: cancelButtonProperty,
     formElements: formElements,
-    formType: "normal",
-    grid: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px" },
+    formType: 'normal',
+    grid: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' },
   };
-
+  let orgInfo = {
+    orgData: orgData,
+    screen: selectedTab,
+  };
   return (
     <div>
-      <GeneralForm {...feedingVariable} />
+      <GeneralForm {...feedingVariable} isSuperAdmin={true} orgInfo={orgInfo} />
     </div>
   );
 }

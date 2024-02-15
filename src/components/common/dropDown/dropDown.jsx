@@ -1,7 +1,13 @@
-import React, { useState } from "react";
-import Style from "./dropDown.madule.css";
+import React, { useState } from 'react';
+import Style from './dropDown.madule.css';
 
-function Dropdown({ options, onSelect, style, placeholder }) {
+function Dropdown({
+  options,
+  onSelect,
+  style,
+  placeholder,
+  defaultValue = '',
+}) {
   const [selectedOption, setSelectedOption] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -19,13 +25,21 @@ function Dropdown({ options, onSelect, style, placeholder }) {
   };
 
   console.log('====================================');
-  console.log(style );
+  console.log(style);
+  console.log(defaultValue);
   console.log('====================================');
   return (
-    <div >
+    <div>
       <select
         // id="select"
-        value={selectedOption ? selectedOption.value : ""}
+        defaultValue="country1"
+        value={
+          selectedOption
+            ? selectedOption.value
+            : defaultValue != ''
+            ? defaultValue
+            : ''
+        }
         onChange={(e) => {
           const selectedValue = e.target.value;
           const selectedOption = options.find(
@@ -35,20 +49,21 @@ function Dropdown({ options, onSelect, style, placeholder }) {
         }}
         style={style}
       >
-        <option value="" labelColor="black" disabled >
-          <div style={{ paddingLeft: "10px", color: "black" }}>
-            {" "}
-            {placeholder || "Select an option"}
+        <option value="" labelColor="black" disabled>
+          <div style={{ paddingLeft: '10px', color: 'black' }}>
+            {' '}
+            {placeholder || 'Select an option'}
           </div>
         </option>
-          {options.map((option) => (
-            <option style={{color:"black"}} key={option.value} value={option.value}>
-          
+        {options.map((option) => (
+          <option
+            style={{ color: 'black' }}
+            key={option.value}
+            value={option.value}
+          >
             {option.label}
-            
-              
-            </option>
-          ))}
+          </option>
+        ))}
       </select>
 
       {isOpen && (
@@ -56,7 +71,7 @@ function Dropdown({ options, onSelect, style, placeholder }) {
           {options.map((option) => (
             <div
               key={option.value}
-              style={{ color: "black" }}
+              style={{ color: 'black' }}
               onClick={() => handleSelect(option)}
             >
               <div>{option.label}</div>

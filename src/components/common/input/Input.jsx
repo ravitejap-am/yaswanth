@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import Style from "./input.module.css";
+import React, { useState } from 'react';
+import Style from './input.module.css';
 // import { EyeOutlined, EyeInvisibleOutlined } from "@ant-design/icons";
 
 const Input = ({
@@ -10,7 +10,9 @@ const Input = ({
   required,
   style,
   labelName,
-  defaultValue
+  defaultValue = '',
+  pattern = null,
+  onBlur = null,
 }) => {
   const [visible, setVisible] = useState(false);
   const handleOnClick = () => {
@@ -35,7 +37,7 @@ const Input = ({
         <div className={Style.labelStyle}>
           <label>{labelName ? labelName : null}</label>
           <input
-            type={visible ? "text" : type}
+            type={visible ? 'text' : type}
             className={Style.formStyle}
             placeholder={placeholder}
             // value
@@ -43,10 +45,11 @@ const Input = ({
             required={required}
             style={style}
             defaultValue={defaultValue}
+            pattern={pattern}
+            onBlur={onBlur}
           />
         </div>
         <br />
-
       </div>
     </div>
   );
