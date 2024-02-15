@@ -45,7 +45,7 @@ function AddOrgUser() {
   const [firstName, setFirstName] = useState("");
   useEffect(() => {
     // Retrieve firstName from localStorage
-    const storedFirstName = localStorage.getItem("firstName");
+    const storedFirstName = localStorage.getItem("firstNameOrganisation");
     setFirstName(storedFirstName);
   }, []);
 

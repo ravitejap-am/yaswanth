@@ -13,7 +13,7 @@ const UserProfile = () => {
 
   useEffect(() => {
     // Retrieve firstName from localStorage
-    const storedFirstName = localStorage.getItem("firstName");
+    const storedFirstName = localStorage.getItem("UserSectionfirstName");
     setFirstName(storedFirstName);
   }, []);
 

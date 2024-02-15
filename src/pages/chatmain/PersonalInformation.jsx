@@ -67,8 +67,8 @@ const PersonalInformation = ({ setFileSysytem, validateEmail }) => {
       const { firstName, lastName } = userData.data.user;
 
       // Store firstName and lastName in localStorage
-      localStorage.setItem("firstName", firstName);
-      localStorage.setItem("lastName", lastName);
+      localStorage.setItem("UserSectionfirstName", firstName);
+      localStorage.setItem("UserSectionlastName", lastName);
 
       setUserData(userData?.data?.user);
       setOrganisationName(userData?.data?.organisation?.name);

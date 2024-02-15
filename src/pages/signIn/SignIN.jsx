@@ -27,6 +27,7 @@ const SignIn = () => {
   const [form] = Form.useForm();
   const [filesystem, setFileSysytem] = useState([]);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [isSigningIn, setIsSigningIn] = useState(false);
 
   useEffect(() => {
     if (showSuccessMessage && user?.userToken) {
@@ -99,6 +100,8 @@ const SignIn = () => {
   };
 
   const submitHandler = async (values) => {
+    if (isSigningIn) return;
+    setIsSigningIn(true);
     setButtonLoading(true);
     const url = `${constants.BASE_API_URL}${constants.SIGNIN_ENDPOINT}`;
     try {
@@ -126,7 +129,7 @@ const SignIn = () => {
       }
     } catch (error) {
       console.error("Login failed:", error.response);
-
+      setIsSigningIn(false);
       setButtonLoading(false);
       setIsReset(true);
       showNotifyMessage(
