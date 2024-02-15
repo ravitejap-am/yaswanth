@@ -38,7 +38,7 @@ function SuperAdminPersonalInfoSideBar() {
             <div className={Styles.SuperAdminChildContainer}>
               <span>
                 <img src={arrorLink} alt="" />
-                <Link to="/userchat" style={{ textDecoration: "none" }}>
+                <Link to="/dashboardadmin" style={{ textDecoration: "none" }}>
                   <p className={Styles.organizationTextStyle}>Back to Chat</p>{" "}
                 </Link>
               </span>

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import "./OrganizationAdmin.css";
-import PersonalInformation from "../../PersonalInformation";
-import ChangePassword from "../../ChangePassword";
-import Plans from "../../Plans";
+import OrganizationAdminPersonalInformation from "./OrganizationAdminPersonalInformation";
+import OrganizationAdminChangePassword from "./OrganizationAdminChangePassword";
+import OrganizationAdminPlans from "./OrganizationAdminPlans";
 import AMChatHeader from "../../../AMChatAdmin/AMChatHeader/AMChatHeader";
 import base from "../../../../asset/Base.png";
 import TabNavigation from "../../tabNaviagation";
@@ -22,8 +22,8 @@ function OrganizationAdminProfileInfo() {
         <div className="userprofile-pofilecontainer">
           <div className="userprofile-header">
             <AMChatHeader
-              componentName="Welcome Shiva"
-              name="Shiva"
+              componentName="Welcome Rajeev"
+              name="Rajeev"
               profileImageSrc={base}
               customStyle={{
                 containerStyle: {
@@ -46,9 +46,13 @@ function OrganizationAdminProfileInfo() {
             handleTabChange={handleTabChange}
           />
           <div>
-            {selectedTab === "personalinformation" && <PersonalInformation />}
-            {selectedTab === "changepassword" && <ChangePassword />}
-            {selectedTab === "plans" && <Plans />}
+            {selectedTab === "personalinformation" && (
+              <OrganizationAdminPersonalInformation />
+            )}
+            {selectedTab === "changepassword" && (
+              <OrganizationAdminChangePassword />
+            )}
+            {selectedTab === "plans" && <OrganizationAdminPlans />}
           </div>
         </div>
       </div>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./OrganizationAdmin.module.css";
+import "./OrganizationAdmin.css";
 import GeneralForm from "../../../../components/common/forms/GeneralForm";
 import editprofilepic from "../../../../asset/editprofilepic.png";
 

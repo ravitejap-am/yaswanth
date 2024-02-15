@@ -11,6 +11,7 @@ import TabNavigation from "../../chatmain/tabNaviagation";
 import PersonalInformation from "../../chatmain/PersonalInformation";
 import ChangePassword from "../../chatmain/ChangePassword";
 import Plans from "../../chatmain/Plans";
+import SuperAdminHeader from "../SuperAdminHeader/SuperAdminHeader";
 
 function SuperAdminProfileInfo() {
   const [selectedTab, setSelectedTab] = useState("personalinformation");
@@ -20,14 +21,15 @@ function SuperAdminProfileInfo() {
       setSelectedTab(tab);
     }
   };
+
   return (
     <div className="userprofile-screen">
       <div className="userprofile-main">
         <div className="userprofile-pofilecontainer">
           <div className="userprofile-header">
-            <AMChatHeader
+            <SuperAdminHeader
               componentName="Welcome Sanjeev"
-              name="Shiva"
+              name="Sanjeev"
               profileImageSrc={base}
               customStyle={{
                 containerStyle: {

@@ -11,7 +11,7 @@ import * as constants from "../../constants/Constant";
 const PersonalInformation = ({ setFileSysytem, validateEmail }) => {
   const user = useSelector(selectUser);
   const jwt = user.userToken;
-  const decodedToken = decodeJWT(jwtToken);
+
   const decodeJWT = (token) => {
     try {
       const base64Url = token.split(".")[1];
@@ -30,7 +30,9 @@ const PersonalInformation = ({ setFileSysytem, validateEmail }) => {
       return null;
     }
   };
-  const userId = user.userId; 
+
+  const decodedToken = decodeJWT(jwt);
+  const userId = decodedToken ? decodedToken.userId : null;
 
   const [userData, setUserData] = useState(null);
   const [userStatus, setUserStatus] = useState("active");
@@ -66,6 +68,10 @@ const PersonalInformation = ({ setFileSysytem, validateEmail }) => {
       setError("Failed to fetch user profile.");
     }
   };
+
+  // Check if userData is defined before accessing its properties
+  const orgName =
+    userData && userData.organisation ? userData.organisation.name : "";
 
   const formElements = [
     {
@@ -110,7 +116,7 @@ const PersonalInformation = ({ setFileSysytem, validateEmail }) => {
       label: "Organization Name",
       type: "text",
       name: "orgName",
-      initialValue: userData ? userData.orgName : "",
+      initialValue: orgName,
       rules: [
         { required: true, message: "Please input your Organization Name" },
         { type: "name", message: "Invalid Organization Name" },
@@ -130,6 +136,7 @@ const PersonalInformation = ({ setFileSysytem, validateEmail }) => {
         { label: "Active", value: "Active" },
         { label: "Inactive", value: "Inactive" },
       ],
+      initialValue: userStatus, // Assuming userStatus holds the initial value
       style: {
         width: "423px",
         height: "50px",
