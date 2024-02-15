@@ -1,0 +1,18 @@
+.mainLayout{
+  background-color: #87cefa;
+  width: 100vw;
+  height: 100vh;
+}
+.loginContainer{
+  background-color: white;
+  min-width: 30rem;
+  min-height: 25rem;
+  max-width: 50rem;
+  max-width: 40rem;
+  flex: none;
+  border-radius: 10px;
+  margin: 2em;
+}
+.headerContent{
+  background-color: #35286a;
+}

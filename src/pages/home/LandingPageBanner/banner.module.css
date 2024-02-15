@@ -1,0 +1,98 @@
+.banner {
+  background: linear-gradient(
+    114deg,
+    #0f172a 51.52%,
+    #152346 73.32%,
+    #1a2e5e 92.75%
+  );
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 720px;
+}
+.main_side_image_div {
+  width: 50%;
+  height: 50%;
+  /* gap: 10px; */
+}
+.bannerImage {
+  width: 70%;
+  height: 75%;
+}
+.bannerHeading {
+  color: #ffffff;
+  text-align: left;
+  font-family: "Montserrat-SemiBold", sans-serif;
+  font-size: 3rem;
+  line-height: 68px;
+  font-weight: 600;
+  width: 494px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.bannerPara {
+  margin-top: -40px;
+  color: var(--neutral-200, #e2e8f0);
+  /* text-align: left; */
+  font-family: var(--text-base-font-family, "Lato-SemiBold", sans-serif);
+  font-size: var(--text-base-font-size, 16px);
+  line-height: var(--text-base-line-height, 24px);
+  font-weight: var(--text-base-font-weight, 500);
+  /* position: relative; */
+  width: 466px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.bannerParaUnorderList {
+  line-height: normal;
+  font-size: 20px;
+  list-style: none;
+}
+.bannerBtn {
+  display: flex;
+}
+.bannerButton {
+  display: flex;
+  width: 110px;
+  height: 36px;
+  padding: 10px 16px;
+  justify-content: center;
+  margin-top: 10px;
+}
+.home-banner-frame-icon {
+  width: 20%;
+  height: 10px;
+  transform: rotate(28.544deg);
+  flex-shrink: 10;
+  margin: -15px;
+}
+.list {
+  list-style: none;
+  padding: 0%;
+}
+.checklogo {
+  width: 20px;
+  height: 20px;
+}
+.bannerBtn1 {
+  border-radius: 50px;
+  background-color: #7529b2;
+  border: none;
+  box-shadow: var(--shd, 0 1px 4px rgba(0, 0, 0, 0.6));
+}
+/* YourStyles.css or your preferred stylesheet file */
+
+.background_image {
+  width: 100%;
+  height: 300px; /* Set the desired height */
+  background-image: url("../../../asset/Group.png"); /* Path to your image */
+  background-size: cover;
+  background-position: center;
+  /* Add other styles as needed */
+}

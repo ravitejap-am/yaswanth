@@ -1,0 +1,104 @@
+.superAdminMainCardDivStyle {
+  width: 100%;
+  height: 90vh !important;
+  min-height: 752px !important;
+  border-radius: 15px;
+  padding: 15px 10px 0 0;
+}
+.superAdminSecondMainDiv {
+  width: 100% !important;
+  height: 100%;
+  border-radius: 15px;
+  background: var(--Neutral-200, #e2e8f0);
+}
+.appLogo {
+  /* width: 120px !important;
+  height: 20px; */
+}
+.SuperAdminChildContainer {
+  margin-top: 20px !important;
+}
+.AMChatSuperAdminSidebar {
+  stroke: #53a5df;
+  margin-top: -20px !important;
+  margin-left: 10px;
+  display: flex;
+  width: 120px;
+  height: 125px;
+  justify-content: center;
+  align-items: center;
+}
+
+.addOrganizationAdminSecondDiv {
+  width: 98%;
+  height: 100%;
+  flex-shrink: 0;
+  border-radius: 10.457px;
+  background: var(--White, #fff);
+  box-shadow: 0px 2.789px 6.972px 3.486px rgba(0, 0, 0, 0.09);
+  padding: 12px;
+}
+.superAdminCardStyle {
+  width: 100%;
+  height: 100% !important;
+}
+.superAdminMiddleParentDiv {
+  width: 96%;
+  height: 97%;
+  border-radius: 15px;
+  background: var(--Neutral-50, #f8fafc);
+  padding: 20px;
+}
+
+.superAdminProfileName {
+  color: var(--Brand-900, #312e81);
+  font-family: Into, Montserrat;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 32px;
+}
+.AdminProfileStyle {
+  width: 25%;
+  height: 50%;
+}
+.SuperAdminProfileStyle {
+  color: var(--Neutral-900, #0f172a);
+  margin-left: 10px;
+  font-family: Into "Lato";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 28px;
+}
+.superAdminProfileCardStyle {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+.bannerBtn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.OrganizationListTable {
+  padding-top: 25px;
+}
+.tableHeadLabelStyle {
+  font-weight: 1.2rem;
+}
+.superAdminTabChildCardStyle {
+  width: 97%;
+  height: 60vh;
+  border-radius: 10.457px;
+  background: var(--White, #fff);
+  box-shadow: 0px 2.789px 6.972px 3.486px rgba(0, 0, 0, 0.09);
+  padding: 20px;
+}
+.generalButtonStyle {
+  justify-content: center;
+  display: flex;
+  gap: 30px;
+  margin-top: 20px;
+}

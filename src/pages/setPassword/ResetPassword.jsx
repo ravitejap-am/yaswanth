@@ -1,0 +1,195 @@
+import React, { useEffect, useState } from 'react';
+import { Form } from 'antd'; // Add this import
+import GeneralForm from '../../components/common/forms/GeneralForm';
+import axios from 'axios';
+import NotifyMessage from '../../components/common/toastMessages/NotifyMessage';
+import { toast } from 'react-toastify';
+import Footer from '../../pages/home/Footer/Footer';
+import SignHeader from '../home/SignHeader/SignHeader';
+import { useSelector } from 'react-redux'; // Import the useSelector hook
+import { useParams } from 'react-router-dom';
+import * as constants from '../../constants/Constant';
+import { useMessageState } from '../../hooks/useapp-message';
+import { useNavigate } from 'react-router-dom';
+
+const ResetPassword = () => {
+  let {
+    buttonLoading,
+    setButtonLoading,
+    isReset,
+    setIsReset,
+    showNotifyMessage,
+    hideNotifyMessage,
+  } = useMessageState();
+  const [form] = Form.useForm();
+  const navigate = useNavigate();
+
+  const jwtToken = false;
+  const { id } = useParams();
+
+  console.log(id);
+  useEffect(() => {
+    console.log('JWT Token from Redux Store:', jwtToken);
+    if (jwtToken) {
+      console.log('JWT token is stored in the Redux store.');
+    } else {
+      console.log('JWT token is not stored in the Redux store.');
+    }
+  }, [jwtToken]);
+
+  const validatePassword = (_, value) => {
+    if (value && value.length < 8) {
+      return Promise.reject('Password must be at least 8 characters');
+    } else {
+      return Promise.resolve();
+    }
+  };
+
+  const validateConfirmPassword = (_, value, password) => {
+    console.log('passValue', value, 'confirm', password);
+    if (value !== password) {
+      return Promise.reject('Passwords do not match');
+    } else {
+      return Promise.resolve();
+    }
+  };
+  const messageHandler = () => {
+    setIsReset(false);
+    hideNotifyMessage();
+  };
+
+  const formElements = [
+    {
+      label: 'Password',
+      type: 'password',
+      name: 'password',
+      rules: [
+        { required: true, message: 'Please input valid password!' },
+        { validator: validatePassword },
+      ],
+    },
+    {
+      label: 'Confirm Password',
+      type: 'password',
+      name: 'confirmPassword',
+      rules: [
+        { required: true, message: 'Please confirm your password!' },
+        // {
+        //   validator: (_, value) =>
+        //     validateConfirmPassword(_, value, form.getFieldValue('password')),
+        // },
+      ],
+    },
+  ];
+
+  const submitButtonProperty = {
+    name: 'Submit',
+    color: 'white',
+    backgroundColor: '#6366F1',
+    type: 'primary',
+    width: '467px',
+    height: '50px',
+    borderRadius: '35px',
+    marginTop: '.7em',
+    fontSize: '0.9rem',
+  };
+  const buttonProps = {
+    name: 'Sign Up',
+    type: 'primary',
+    color: 'white',
+    backgroundColor: '#6366F1',
+    width: '120px',
+    padding: '10px 16px',
+    height: '40px',
+    borderRadius: '30px',
+    icons: '',
+  };
+
+  const feedingVariable = {
+    isCancel: false,
+    cancelHandler: (errorInfo) => {
+      console.log('Canceling....', errorInfo);
+    },
+    isSubmit: true,
+    submitHandler: async (values) => {
+      console.log('Resetting password....');
+      console.log(values);
+      setButtonLoading(true);
+      try {
+        const response = await axios.put(
+          `${constants.BASE_API_URL}/user/verification/forget/${id}`,
+          {
+            newPassword: values.password,
+            confirmPassword: values.confirmPassword,
+          }
+        );
+        console.log('succes', response);
+        setButtonLoading(false);
+        setIsReset(true);
+        showNotifyMessage('success', response?.data?.message, messageHandler);
+        navigate('/signin');
+      } catch (error) {
+        console.error('Error resetting password:', error);
+        console.log(error);
+        if (
+          error?.response?.status == 500 ||
+          error?.response?.status == '500'
+        ) {
+          navigate('/internal500');
+        }
+
+        setButtonLoading(false);
+        showNotifyMessage(
+          'error',
+          error?.response?.data?.message,
+          messageHandler
+        );
+      }
+    },
+    submitButtonProperty: submitButtonProperty,
+    formElements: formElements,
+    formType: 'normal',
+  };
+
+  return (
+    <>
+      <div className="resetpassword-header">
+        <SignHeader
+          title="AM-Chat"
+          linkText="Don't have an account?"
+          linkTo="/registeruser"
+          buttonText={buttonProps.name}
+          buttonProps={buttonProps}
+        />
+      </div>
+      <div className="main">
+        <div className="container">
+          <div className="row">
+            <div className="col">
+              <div className="row mainContent">
+                <div className="box-round">
+                  <div className="text-top">
+                    <h2>Set Password</h2>
+                    <p>Please use your organization email id.</p>
+                  </div>
+
+                  <div className="form-content">
+                    <GeneralForm
+                      form={form}
+                      {...feedingVariable}
+                      buttonLoading={buttonLoading}
+                      isReset={isReset}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    </>
+  );
+};
+
+export default ResetPassword;

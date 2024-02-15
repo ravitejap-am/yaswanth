@@ -1,0 +1,235 @@
+.superAdminMainCardDivStyle {
+  width: 100% !important;
+  height: 100%;
+  margin: 1%;
+  border-radius: 15px;
+  background: var(--Neutral-200, #e2e8f0);
+}
+.superAdminCardStyle {
+  width: 100%;
+  height: 800px !important;
+}
+.superAdminMiddleParentDiv {
+  width: 96%;
+  height: 100%;
+  border-radius: 15px;
+  background: var(--Neutral-200, #e2e8f0);
+  padding: 20px;
+}
+.superAdminProfileName {
+  color: var(--Brand-900, #312e81);
+
+  /* text-3xl/font-semibold */
+  font-family: Into, "sans-serif";
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 32px; /* 120% */
+}
+.AdminProfileStyle {
+  width: 25%;
+  height: 50%;
+}
+.SuperAdminProfileStyle {
+  color: var(--Neutral-900, #0f172a);
+  margin-left: 10px;
+  font-family: Into, "sans-serif";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+}
+.superAdminProfileCardStyle {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+.superAdminProfileImgNameStyle {
+  /* display: flex; */
+}
+.superAdminMiddleCardCircle1Style {
+  margin-top: 20px;
+  margin-right: 29px;
+  margin-left: 23px;
+}
+.superAdminMiddleChildDiv {
+  display: flex;
+  justify-content: space-between;
+  height: 100px;
+}
+@media (max-width: 1100px) {
+  .superAdminMiddleChildDiv {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+}
+.superAdminMiddleCardStyle {
+  width: 490px;
+  border-radius: 15px;
+  background: var(--Neutral-200, #e2e8f0);
+  justify-content: center;
+  align-items: center;
+}
+.flowImageParentDiv {
+  margin-top: -6px;
+  height: 100%;
+  width: 100%;
+}
+.flowImageStyle {
+  width: 100%;
+  position: relative;
+  top: -35px;
+  border-radius: 20px;
+}
+.flowBelowImageStyle {
+  width: 100%;
+  position: relative;
+  bottom: 50px;
+  border-radius: 20px;
+}
+.row {
+  display: flex;
+  align-items: center;
+}
+.textContainer {
+  margin-left: 10px;
+}
+.priceStyle {
+  color: var(--Neutral-900, #0f172a);
+  font-family: Into, "sans-serif";
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 600;
+  margin-top: -20px;
+}
+.titleStyle {
+  color: var(--Neutral-900, #0f172a);
+  font-family: Into, "sans-serif";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 20px;
+}
+.titlePriceStyle {
+  /* height: 20px !important; */
+}
+.superAdminCardStyles {
+  width: 100%;
+  height: 720px;
+  margin-top: 20px;
+  border: none !important;
+  border-radius: none;
+}
+.appLogo {
+  font-family: Lato !important;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 24px;
+  /* margin-left: 50px; */
+}
+.am-chat-title {
+  color: var(--Neutral-900, #0f172a);
+  font-family: Into "Lato";
+  font-size: 43.333px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 65px; /* 150% */
+}
+.appName {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  stroke-width: 1px;
+  stroke: #53a5df;
+  position: relative;
+  top: -20px;
+  left: -3px;
+}
+.AI_chat_Parent_Card {
+  display: flex;
+  justify-content: center;
+  padding-top: 50px;
+}
+.AM_Chat_Main_Card {
+  max-width: 758px;
+  width: 100%;
+  height: 410px;
+  border-radius: 10.457px;
+  background: var(--White, #fff);
+  box-shadow: 0px 2.789px 6.972px 3.486px rgba(0, 0, 0, 0.09);
+}
+.superAdminAMChatMiddleDiv {
+  margin-top: 80px;
+}
+.AMChatFirstTitle {
+  color: var(--Brand-900, #312e81);
+  font-family: Into, "sans-serif";
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 32px;
+  justify-content: center;
+  align-items: center;
+}
+.AMChatSecondTitle {
+  color: var(--Black, #000);
+  font-family: Inter, sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  /* line-height: 24px; */
+  display: flex;
+  justify-content: center;
+  padding-top: 10px;
+}
+.AMChatMainCardTitleDiv {
+  display: block;
+  justify-content: center;
+  width: 100%;
+  text-align: center;
+  padding-top: 60px;
+}
+.amChatTitle {
+  color: var(--Neutral-900, #0f172a);
+  font-family: Into "Red Rose";
+  font-size: 43.333px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 65px;
+}
+.SuperAdminAmChatStyle {
+  display: contents;
+  justify-content: center;
+  align-items: center;
+}
+
+.Example_main_div {
+  padding-top: 10px;
+}
+.AIChatInputBox {
+  padding-top: 20px;
+  width: 100%;
+  height: 70px;
+}
+.Card_message_example {
+  display: inline-flex;
+  height: 15px;
+  padding: 10px 16px;
+  margin-right: 7px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  border-radius: 30px;
+  border: 1px solid var(--Neutral-300, #cbd5e1);
+  color: #475569;
+  color: var(--Neutral-600, #475569);
+
+  font-family: Into, "Lato";
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 16px; /* 133.333% */
+}

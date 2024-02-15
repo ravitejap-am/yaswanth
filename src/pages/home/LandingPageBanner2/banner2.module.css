@@ -1,0 +1,21 @@
+.banner2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  background-color: #32016f;
+  height: 463px;
+  /* margin-bottom: 100px; */
+}
+.box1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 734px;
+}
+.box2 {
+  width: 1101px;
+  /* display: flex; */
+  justify-content: center;
+  align-items: center;
+}

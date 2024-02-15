@@ -1,0 +1,30 @@
+.sso{
+  width: 20em;
+  height: 4em;
+  background-color: rgb(232, 232, 227);
+  border-color: rgb(229, 231, 235);
+  border-radius: 15px;
+  cursor: pointer;
+}
+.buttonColor{
+  color: rgb(19, 52, 59);
+}
+.submitButton{
+  outline: none;
+    display: inline-block;
+    font-weight: bold;
+    white-space: nowrap;
+    text-align: center;
+    background-image: none;
+    background: rgb(32, 128, 141);
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+    user-select: none;
+    touch-action: manipulation;
+    line-height: 1.5714285714285714;
+    color: white;
+    width: 6em;
+    height: 3em;
+    border-radius: 8px;
+}
