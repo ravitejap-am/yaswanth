@@ -28,6 +28,8 @@ function OrganizationAdmin({
       // rules: [{ required: true, message: 'Please enter your first name' }],
       labelName: false,
       defaultValue: orgData?.contact?.firstName,
+      emptyErrorMessage: 'Please Enter the First Name',
+      invalidErrorMessage: 'Please Enter the  First Name',
     },
     {
       pattern: /^([a-zA-Z]{3,30}\s*)+/,
@@ -44,13 +46,15 @@ function OrganizationAdmin({
       // rules: [{ required: true, message: 'Please enter your last name' }],
       labelName: false,
       defaultValue: orgData?.contact?.lastName,
+      emptyErrorMessage: 'Please Enter the Last Name',
+      invalidErrorMessage: 'Please Enter the  Last Name',
     },
     {
       name: 'email',
       label: 'Email',
       type: 'email',
       placeholder: 'Enter your email',
- 
+
       pattern: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
       style: {
         width: '445px',
@@ -58,10 +62,11 @@ function OrganizationAdmin({
         border: '1px solid var(--Brand-700, #4338CA)',
         backgroundColor: 'transparent',
       },
- 
+
       labelName: false,
       defaultValue: orgData?.contact?.email,
- 
+      emptyErrorMessage: 'Please Enter the Email',
+      invalidErrorMessage: 'Please Enter the Valid Email',
     },
   ];
 
