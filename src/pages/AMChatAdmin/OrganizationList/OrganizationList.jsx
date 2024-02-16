@@ -1,137 +1,186 @@
-import React, { useEffect, useState } from "react";
-import Styles from "./Organization.module.css";
-import profile from "../../../asset/AmChatSuperAdmin/profile.png";
-import GeneralButton from "../../../components/common/buttons/GeneralButton";
-import frame from "../../../asset/AmChatSuperAdmin/plus-sm.png";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TablePagination from "@mui/material/TablePagination";
-import TableRow from "@mui/material/TableRow";
-import TableSortLabel from "@mui/material/TableSortLabel";
-import Typography from "@mui/material/Typography";
-import Paper from "@mui/material/Paper";
-import Checkbox from "@mui/material/Checkbox";
-import editIcon from "../../../asset/AmChatSuperAdmin/pencil-alt.png";
-import deleteIcon from "../../../asset/AmChatSuperAdmin/Frame 2302.png";
-import dropdownIcon from "../../../asset/AmChatSuperAdmin/dropDownIcon.png";
-import Select from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import { Link } from "react-router-dom";
-import Search from "../../../components/common/search/Search";
-import IconButton from "@mui/material/IconButton";
-import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
-import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-import SerchImages from "../../../asset/AmChatSuperAdmin/Group2305.png";
-import eyesolid from "../../../asset/AmChatSuperAdmin/eye-solid.svg";
-import { Pagination } from "antd";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import Styles from './Organization.module.css';
+import profile from '../../../asset/AmChatSuperAdmin/profile.png';
+import GeneralButton from '../../../components/common/buttons/GeneralButton';
+import frame from '../../../asset/AmChatSuperAdmin/plus-sm.png';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TablePagination from '@mui/material/TablePagination';
+import TableRow from '@mui/material/TableRow';
+import TableSortLabel from '@mui/material/TableSortLabel';
+import Typography from '@mui/material/Typography';
+import Paper from '@mui/material/Paper';
+import Checkbox from '@mui/material/Checkbox';
+import editIcon from '../../../asset/AmChatSuperAdmin/pencil-alt.png';
+import deleteIcon from '../../../asset/AmChatSuperAdmin/Frame 2302.png';
+import dropdownIcon from '../../../asset/AmChatSuperAdmin/dropDownIcon.png';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import { Link, useNavigate } from 'react-router-dom';
+import Search from '../../../components/common/search/Search';
+import IconButton from '@mui/material/IconButton';
+import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import SerchImages from '../../../asset/AmChatSuperAdmin/Group2305.png';
+import eyesolid from '../../../asset/AmChatSuperAdmin/eye-solid.svg';
+import { Pagination } from 'antd';
 // import "antd/dist/antd.css";
-import Popover from "@mui/material/Popover";
-import PopupState, { bindTrigger, bindPopover } from "material-ui-popup-state";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
-import Divider from "@mui/material/Divider";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import AssignmentIndOutlinedIcon from "@mui/icons-material/AssignmentIndOutlined";
-import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
+import Popover from '@mui/material/Popover';
+import PopupState, { bindTrigger, bindPopover } from 'material-ui-popup-state';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import Divider from '@mui/material/Divider';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import AssignmentIndOutlinedIcon from '@mui/icons-material/AssignmentIndOutlined';
+import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 
-import { useSelector } from "react-redux";
-import { setUser, selectUser } from "../../../store/authSlice";
-import { BASE_API_URL } from "../../../constants/Constant";
-import axios from "axios";
-import AMChatHeader from "../AMChatHeader/AMChatHeader";
-import SuperAdminHeader from "../SuperAdminHeader/SuperAdminHeader";
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  setUser,
+  selectUser,
+  setOrganisationStatus,
+  setOrganisationData,
+} from '../../../store/authSlice';
+import { BASE_API_URL } from '../../../constants/Constant';
+import { useMessageState } from '../../../hooks/useapp-message';
+import CircularProgress from '@mui/material/CircularProgress';
+import AMChatHeader from '../AMChatHeader/AMChatHeader';
+import SuperAdminHeader from '../SuperAdminHeader/SuperAdminHeader';
 
 const style = {
   py: 0,
-  width: "100%",
+  width: '100%',
   maxWidth: 360,
   borderRadius: 2,
-  border: "1px solid",
-  borderColor: "divider",
-  backgroundColor: "background.paper",
+  border: '1px solid',
+  borderColor: 'divider',
+  backgroundColor: 'background.paper',
 };
 
 function OrganizationList() {
-  const [firstName, setFirstName] = useState("");
-  useEffect(() => {
-    // Retrieve firstName from localStorage
-    const storedFirstName = localStorage.getItem("firstName");
-    setFirstName(storedFirstName);
-  }, []);
+  let {
+    buttonLoading,
+    setButtonLoading,
+    isReset,
+    setIsReset,
+    showNotifyMessage,
+    hideNotifyMessage,
+  } = useMessageState();
+
   const user = useSelector(selectUser);
+  const navigate = useNavigate();
   const jwt = user.userToken;
   const [rows, setRows] = useState([]);
-
+  const [responseData, setResponseData] = useState([]);
+  const dispatch = useDispatch();
+  const [loadingId, setLoadingId] = useState(null);
+  const [firstName, setFirstName] = useState('');
   useEffect(() => {
-    const fetchlist = async () => {
-      // setLoading(true);
-      try {
-        const documentUrl = `${BASE_API_URL}/organisation`;
-        const response = await axios.get(documentUrl, {
-          params: {
-            page: 0,
-            size: 10,
-            sortField: "createdAt",
-            sortDirection: "desc",
-            organisationName: "",
-            isActive: 1,
-            version: "",
-            // fileSize: "",
-          },
-          headers: {
-            Authorization: `Bearer ${jwt}`,
-            "Content-Type": "application/json",
-          },
-        });
+    // Retrieve firstName from localStorage
+    const storedFirstName = localStorage.getItem('firstName');
+    setFirstName(storedFirstName);
+  }, []);
+  const fetchlist = async () => {
+    // setLoading(true);
+    try {
+      const documentUrl = `${BASE_API_URL}/organisation`;
+      const response = await axios.get(documentUrl, {
+        params: {
+          page: 0,
+          size: 10,
+          sortField: 'createdAt',
+          sortDirection: 'desc',
+          organisationName: '',
+          isActive: 1,
+          version: '',
+          // fileSize: "",
+        },
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+          'Content-Type': 'application/json',
+        },
+      });
 
-        if (!response.data || !response.data.data) {
-          throw new Error("Failed to fetch documents");
-        }
-
-        console.log(response?.data?.data);
-        let organisationData = response?.data?.data;
-        let allOrgansisation = [];
-        organisationData?.map((org) => {
-          let individuvalOrg = {
-            id: org.id,
-            name: org.name,
-            address: org.address?.address1,
-            contactPerson:
-              org?.contact?.firstName != undefined
-                ? org?.contact?.firstName
-                : "" + "" + org?.contact?.lastName != undefined
-                ? org?.contact?.lastName
-                : "",
-            plans: "Basic",
-            status: org?.active,
-          };
-          allOrgansisation.push(individuvalOrg);
-        });
-        // setLoading(false);
-        setRows(allOrgansisation);
-      } catch (error) {
-        console.error("Error fetching documents:", error.message);
+      if (!response.data || !response.data.data) {
+        throw new Error('Failed to fetch documents');
       }
-    };
 
+      console.log(response?.data?.data);
+      let organisationData = response?.data?.data;
+      setResponseData(organisationData);
+      let allOrgansisation = [];
+      organisationData?.map((org) => {
+        let individuvalOrg = {
+          id: org.id,
+          name: org.name,
+          address: org.address?.address1,
+          contactPerson:
+            org?.contact?.firstName != undefined
+              ? org?.contact?.firstName
+              : '' + '' + org?.contact?.lastName != undefined
+              ? org?.contact?.lastName
+              : '',
+          plans: 'Basic',
+          status: org?.active,
+        };
+        allOrgansisation.push(individuvalOrg);
+      });
+      // setLoading(false);
+      setRows(allOrgansisation);
+    } catch (error) {
+      console.error('Error fetching documents:', error.message);
+    }
+  };
+  useEffect(() => {
     fetchlist();
   }, [jwt]);
+  const messageHandler = () => {
+    hideNotifyMessage();
+  };
+  const deleteOrganisation = async (id) => {
+    console.log(jwt);
+    let body = { orgId: id };
+
+    try {
+      const response = await axios.delete(`${BASE_API_URL}/organisation`, {
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+          'Content-Type': 'application/json',
+        },
+        data: JSON.stringify(body),
+      });
+      setLoadingId(null);
+      fetchlist();
+      showNotifyMessage('success', response?.data?.message, messageHandler);
+      console.log('API Response:', response.data);
+      // navigate('/dashboardadmin/organizationlist');
+    } catch (error) {
+      console.error('Error occurred:', error);
+      if (error?.response?.status == 500 || error?.response?.status == '500') {
+        navigate('/internal500');
+      }
+      setLoadingId(null);
+      console.log(error);
+      showNotifyMessage('error', error?.message, messageHandler);
+    }
+  };
 
   const searchStyles = {
-    width: "300px",
-    height: "45px",
-    borderRadius: "42px",
-    fontFamily: "Inter, sans-serif",
-    backgroundColor: "#EEF2FF",
-    display: "flex",
-    alignItems: "center",
-    marginRight: "18px",
+    width: '300px',
+    height: '45px',
+    borderRadius: '42px',
+    fontFamily: 'Inter, sans-serif',
+    backgroundColor: '#EEF2FF',
+    display: 'flex',
+    alignItems: 'center',
+    marginRight: '18px',
   };
 
   // const rows = [
@@ -188,12 +237,12 @@ function OrganizationList() {
 
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [order, setOrder] = React.useState("asc");
-  const [orderBy, setOrderBy] = React.useState("name");
+  const [order, setOrder] = React.useState('asc');
+  const [orderBy, setOrderBy] = React.useState('name');
 
   const handleRequestSort = (event, property) => {
-    const isAsc = orderBy === property && order === "asc";
-    setOrder(isAsc ? "desc" : "asc");
+    const isAsc = orderBy === property && order === 'asc';
+    setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
   };
 
@@ -220,10 +269,10 @@ function OrganizationList() {
   };
 
   const itemRender = (_, type, originalElement) => {
-    if (type === "prev") {
+    if (type === 'prev') {
       return <a>Previous</a>;
     }
-    if (type === "next") {
+    if (type === 'next') {
       return <a>Next</a>;
     }
     return originalElement;
@@ -235,20 +284,20 @@ function OrganizationList() {
         <div className={Styles.superAdminProfileCardStyle}>
           <SuperAdminHeader
             componentName="Organization List"
-            name={firstName || ""}
+            name={firstName || ''}
             profileImageSrc={profile}
             customStyle={{
               containerStyle: {
-                display: "flex",
-                borderRadius: "8px",
+                display: 'flex',
+                borderRadius: '8px',
               },
               imageStyle: {
-                width: "50%",
-                height: "70%",
+                width: '50%',
+                height: '70%',
               },
               textStyle: {
-                color: "blue",
-                fontWeight: "bold",
+                color: 'blue',
+                fontWeight: 'bold',
               },
             }}
           />
@@ -257,27 +306,31 @@ function OrganizationList() {
         <div className={Styles.bannerBtn}>
           <div className={Styles.OrganizationListFilterSerchBox}>
             <Search
-              name={"Search name here."}
+              name={'Search name here.'}
               styles={searchStyles}
               searchImage={SerchImages}
-              imageHeight={"47px"}
+              imageHeight={'47px'}
               imageMarginLeft={20}
             />
           </div>
           <div className={Styles.bannerButton}>
             <Link
               to="/dashboardadmin/addorganizationadmin"
-              style={{ textDecoration: "none" }}
+              style={{ textDecoration: 'none' }}
             >
               <GeneralButton
-                name={"Add Organization"}
-                type={"submit"}
-                color={"#f8fafc"}
-                borderRadius={"30px"}
-                backgroundColor={"#6366f1"}
+                name={'Add Organization'}
+                type={'submit'}
+                color={'#f8fafc'}
+                borderRadius={'30px'}
+                backgroundColor={'#6366f1'}
                 icons={frame}
-                width={"158px"}
-                height={"45px"}
+                width={'158px'}
+                height={'45px'}
+                buttonHandler={() => {
+                  console.log('getting');
+                  dispatch(setOrganisationStatus('add'));
+                }}
               />
             </Link>
           </div>
@@ -287,26 +340,26 @@ function OrganizationList() {
           <Paper>
             <TableContainer>
               <Table
-                sx={{ width: "100%" }}
+                sx={{ width: '100%' }}
                 aria-labelledby="tableTitle"
-                size={"medium"}
+                size={'medium'}
                 aria-label="enhanced table"
               >
-                <TableHead style={{ borderBottom: "2px solid #0F172A" }}>
+                <TableHead style={{ borderBottom: '2px solid #0F172A' }}>
                   <TableRow>
                     <TableCell padding="checkbox">
                       <Checkbox
                         indeterminate={false}
-                        inputProps={{ "aria-label": "select all desserts" }}
+                        inputProps={{ 'aria-label': 'select all desserts' }}
                       />
                     </TableCell>
                     <TableCell>
                       <TableSortLabel
-                        onClick={(e) => handleRequestSort(e, "name")}
+                        onClick={(e) => handleRequestSort(e, 'name')}
                       >
                         <Typography
                           variant="body1"
-                          style={{ fontWeight: "bold" }}
+                          style={{ fontWeight: 'bold' }}
                         >
                           Organization Name
                         </Typography>
@@ -314,13 +367,13 @@ function OrganizationList() {
                     </TableCell>
                     <TableCell>
                       <TableSortLabel
-                        active={orderBy === "address"}
-                        direction={orderBy === "address" ? order : "asc"}
-                        onClick={(e) => handleRequestSort(e, "address")}
+                        active={orderBy === 'address'}
+                        direction={orderBy === 'address' ? order : 'asc'}
+                        onClick={(e) => handleRequestSort(e, 'address')}
                       >
                         <Typography
                           variant="body1"
-                          style={{ fontWeight: "bold" }}
+                          style={{ fontWeight: 'bold' }}
                         >
                           Address
                         </Typography>
@@ -328,13 +381,13 @@ function OrganizationList() {
                     </TableCell>
                     <TableCell>
                       <TableSortLabel
-                        active={orderBy === "contactPerson"}
-                        direction={orderBy === "contactPerson" ? order : "asc"}
-                        onClick={(e) => handleRequestSort(e, "contactPerson")}
+                        active={orderBy === 'contactPerson'}
+                        direction={orderBy === 'contactPerson' ? order : 'asc'}
+                        onClick={(e) => handleRequestSort(e, 'contactPerson')}
                       >
                         <Typography
                           variant="body1"
-                          style={{ fontWeight: "bold" }}
+                          style={{ fontWeight: 'bold' }}
                         >
                           Contact Person
                         </Typography>
@@ -342,13 +395,13 @@ function OrganizationList() {
                     </TableCell>
                     <TableCell>
                       <TableSortLabel
-                        active={orderBy === "plans"}
-                        direction={orderBy === "plans" ? order : "asc"}
-                        onClick={(e) => handleRequestSort(e, "plans")}
+                        active={orderBy === 'plans'}
+                        direction={orderBy === 'plans' ? order : 'asc'}
+                        onClick={(e) => handleRequestSort(e, 'plans')}
                       >
                         <Typography
                           variant="body1"
-                          style={{ fontWeight: "bold" }}
+                          style={{ fontWeight: 'bold' }}
                         >
                           Plans
                         </Typography>
@@ -356,13 +409,13 @@ function OrganizationList() {
                     </TableCell>
                     <TableCell>
                       <TableSortLabel
-                        active={orderBy === "status"}
-                        direction={orderBy === "status" ? order : "asc"}
-                        onClick={(e) => handleRequestSort(e, "status")}
+                        active={orderBy === 'status'}
+                        direction={orderBy === 'status' ? order : 'asc'}
+                        onClick={(e) => handleRequestSort(e, 'status')}
                       >
                         <Typography
                           variant="body1"
-                          style={{ fontWeight: "bold" }}
+                          style={{ fontWeight: 'bold' }}
                         >
                           Status
                         </Typography>
@@ -371,7 +424,7 @@ function OrganizationList() {
                     <TableCell>
                       <Typography
                         variant="body1"
-                        style={{ fontWeight: "bold" }}
+                        style={{ fontWeight: 'bold' }}
                       >
                         Actions
                       </Typography>
@@ -386,7 +439,7 @@ function OrganizationList() {
                       <TableRow key={row.id}>
                         <TableCell padding="checkbox">
                           <Checkbox
-                            inputProps={{ "aria-labelledby": row.name }}
+                            inputProps={{ 'aria-labelledby': row.name }}
                           />
                         </TableCell>
                         <TableCell component="th" scope="row">
@@ -396,9 +449,9 @@ function OrganizationList() {
                         <TableCell>{row.contactPerson}</TableCell>
                         <TableCell>{row.plans}</TableCell>
                         <TableCell>
-                          <FormControl style={{ width: "110px" }}>
+                          <FormControl style={{ width: '110px' }}>
                             <Select
-                              style={{ border: "none", borderRadius: "none" }}
+                              style={{ border: 'none', borderRadius: 'none' }}
                               value={row.status}
                               onChange={(e) => {
                                 console.log(e.target.value);
@@ -410,21 +463,42 @@ function OrganizationList() {
                           </FormControl>
                         </TableCell>
                         <TableCell>
-                          <IconButton aria-label="view">
+                          {/* <IconButton aria-label="view">
                             <img
                               src={eyesolid}
                               alt="View"
                               style={{ width: 24, height: 24 }}
                             />
-                          </IconButton>
-                          <Link to="/EditAddOrganizationAdmin">
-                            <IconButton aria-label="edit">
+                          </IconButton> */}
+                          <Link to="/dashboardadmin/addorganizationadmin">
+                            <IconButton
+                              aria-label="edit"
+                              onClick={() => {
+                                console.log('editing');
+                                console.log(row);
+                                const orgObject = responseData.find(
+                                  (obj) => obj.id === row.id
+                                );
+                                dispatch(setOrganisationStatus('edit'));
+                                dispatch(setOrganisationData(orgObject));
+                              }}
+                            >
                               <img src={editIcon} alt="Edit" />
                             </IconButton>
                           </Link>
 
-                          <IconButton aria-label="delete">
-                            <img src={deleteIcon} alt="Delete" />
+                          <IconButton
+                            aria-label="delete"
+                            onClick={() => {
+                              deleteOrganisation(row.id);
+                              setLoadingId(row.id);
+                            }}
+                          >
+                            {loadingId == rows.id && loadingId != null ? (
+                              <CircularProgress />
+                            ) : (
+                              <img src={deleteIcon} alt="Delete" />
+                            )}
                           </IconButton>
                         </TableCell>
                       </TableRow>
@@ -439,11 +513,11 @@ function OrganizationList() {
             </TableContainer>
             <div
               style={{
-                display: "flex",
-                justifyContent: "flex-end",
-                alignItems: "center",
-                marginTop: "16px",
-                gap: "20px",
+                display: 'flex',
+                justifyContent: 'flex-end',
+                alignItems: 'center',
+                marginTop: '16px',
+                gap: '20px',
               }}
             >
               <div>Total {rows.length} items</div>
