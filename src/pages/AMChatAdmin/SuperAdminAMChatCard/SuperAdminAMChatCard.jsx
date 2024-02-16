@@ -1,5 +1,5 @@
 import { Card } from "antd";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Styles from "./SuperAdminAMChatCard.module.css";
 import flow from "../../../asset/AmChatSuperAdmin/flow.png";
 import flowImage2 from "../../../asset/AmChatSuperAdmin/flow2.png";
@@ -39,6 +39,12 @@ const style = {
 
 function SuperAdminAMChatCard() {
   const navigate = useNavigate();
+  const [firstName, setFirstName] = useState("");
+  useEffect(() => {
+    // Retrieve firstName from localStorage
+    const storedFirstName = localStorage.getItem("firstName");
+    setFirstName(storedFirstName);
+  }, []);
   const contentArray = [
     "Could you help me with the maternity policy of my organization?",
     "Can you tell me about GDPR compliance.  Which I should follow in my organization?",
@@ -62,8 +68,8 @@ function SuperAdminAMChatCard() {
       <div className={Styles.superAdminMiddleParentDiv}>
         <div className={Styles.superAdminProfileCardStyle}>
           <SuperAdminHeader
-            componentName="Welcome, Sanjeev"
-            name="Sanjeev"
+            componentName={`Welcome ${firstName || ""}`}
+            name={firstName || ""}
             profileImageSrc={profile}
             customStyle={{
               containerStyle: {

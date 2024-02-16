@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import GeneralForm from '../../../../components/common/forms/GeneralForm';
 import { useNavigate } from 'react-router-dom';
 function OrganizationInfo({
@@ -6,21 +6,169 @@ function OrganizationInfo({
   setSelectedTab,
   selectedTab,
   selectOrgData,
+  buttonLoading,
+  setButtonLoading,
+  countries,
+  setCountries,
+  states,
+  setStates,
+  localState,
+  setLocalState,
+  cities,
+  setCities,
+  organisation,
+  editOrganisation,
 }) {
+  useEffect(() => {
+    console.log('orgData', orgData);
+    const fetchCountries = async () => {
+      setButtonLoading(true);
+      try {
+        const response = await fetch(
+          'https://countriesnow.space/api/v0.1/countries',
+          {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
+        );
+        const data = await response.json();
+
+        let countries = data.data;
+        let countryArray = [];
+        countries?.map((country) => {
+          let countryObject = {
+            label: country?.country,
+            value: country?.country,
+          };
+          countryArray.push(countryObject);
+        });
+        setButtonLoading(false);
+        setCountries(countryArray);
+      } catch (error) {
+        console.error('Error fetching countries:', error);
+        setButtonLoading(false);
+      }
+    };
+
+    fetchCountries();
+    if (organisation.organisationStatus == 'edit') {
+      let countryValue = {
+        label: orgData?.address?.country,
+        value: orgData?.address?.country,
+      };
+      handleCountryChange(countryValue);
+      let stateValue = {
+        label: orgData?.address?.state,
+        value: orgData?.address?.state,
+      };
+      handleStateChange(stateValue);
+    }
+  }, []);
+
   const navigate = useNavigate();
   const submitHandler = (values) => {
     console.log('Form values:', values);
     console.log(values);
-    // setSelectedTab('organizationadmin');
-    const updatedOrgData = {
-      ...orgData,
-      address: values,
-      name: values.name,
-    };
+    if (values != undefined) {
+      if (organisation?.organisationStatus == 'edit') {
+        values.landmark = '';
+      }
+      const updatedOrgData = {
+        ...orgData,
+        address: values,
+        name: values.name,
+      };
+      selectOrgData(updatedOrgData);
+      if (organisation?.organisationStatus == 'edit') {
+        editOrganisation();
+      }
 
-    selectOrgData(updatedOrgData);
-    setSelectedTab('organizationadmin');
+      setSelectedTab('organizationadmin');
+    }
+    // setSelectedTab('organizationadmin');
+
+    // setSelectedTab('organizationadmin');
   };
+
+  const handleCountryChange = async (value) => {
+    console.log(value);
+    setButtonLoading(true);
+    setLocalState({ ...localState, country: value.label });
+    let payload = { country: value.label };
+    try {
+      const response = await fetch(
+        `https://countriesnow.space/api/v0.1/countries/states`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            // Authorization: token,
+          },
+          body: JSON.stringify(payload),
+        }
+      );
+      const data = await response.json();
+      console.log(JSON.stringify(data.data));
+      let states = data?.data?.states;
+      let stateArray = [];
+      states.map((state, index) => {
+        let stateObject = {
+          label: state.name,
+          value: state.name,
+        };
+        stateArray.push(stateObject);
+      });
+      setStates(stateArray);
+
+      setButtonLoading(false);
+    } catch (error) {
+      console.error('Error fetching testimonials:', error);
+      setButtonLoading(false);
+    }
+  };
+
+  const handleStateChange = async (value) => {
+    console.log(localState);
+    setLocalState({ ...localState, state: value.label });
+    setButtonLoading(true);
+    try {
+      const response = await fetch(
+        `https://countriesnow.space/api/v0.1/countries/state/cities`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            // Authorization: token,
+          },
+          body: JSON.stringify({
+            country: localState.country,
+            state: value.label,
+          }),
+        }
+      );
+      const data = await response.json();
+      console.log(JSON.stringify(data.data));
+      let cities = data?.data;
+      let citiyArray = [];
+      cities?.map((city, index) => {
+        let cityObject = {
+          label: city,
+          value: city,
+        };
+        citiyArray.push(cityObject);
+      });
+      // setComments(data.data);
+      // setCities(data.data);
+      setCities(citiyArray);
+      setButtonLoading(false);
+    } catch (error) {
+      console.error('Error fetching testimonials:', error);
+      setButtonLoading(false);
+    }
+  };
+
   const formElements = [
     {
       name: 'name',
@@ -67,10 +215,7 @@ function OrganizationInfo({
       name: 'country',
       label: 'Country',
       type: 'select',
-      options: [
-        { label: 'Country 1', value: 'country1' },
-        { label: 'Country 2', value: 'country2' },
-      ],
+      options: countries,
       style: {
         width: '469px',
         height: '50px',
@@ -87,15 +232,13 @@ function OrganizationInfo({
       labelName: false,
       // rules: [{ required: true, message: 'Please select Country' }],
       defaultValue: orgData?.address?.country,
+      onSelectApiCall: handleCountryChange,
     },
     {
       name: 'state',
       label: 'State',
       type: 'select',
-      options: [
-        { label: 'State 1', value: 'state1' },
-        { label: 'State 2', value: 'state2' },
-      ],
+      options: states,
       style: {
         width: '469px',
         height: '50px',
@@ -111,16 +254,13 @@ function OrganizationInfo({
       labelName: false,
       // rules: [{ required: true, message: 'Please select State' }],
       defaultValue: orgData?.address?.state,
+      onSelectApiCall: handleStateChange,
     },
     {
       name: 'city',
       label: 'City',
       type: 'select',
-      options: [
-        { label: 'Select a City', value: '' },
-        { label: 'City 1', value: 'city1' },
-        { label: 'City 2', value: 'city2' },
-      ],
+      options: cities,
       style: {
         width: '469px',
         height: '50px',
@@ -136,6 +276,9 @@ function OrganizationInfo({
       labelName: false,
       // rules: [{ required: true, message: 'Please select City' }],
       defaultValue: orgData?.address?.city,
+      onSelectApiCall: () => {
+        console.log('handle city change');
+      },
     },
     {
       name: 'postCode',
@@ -240,6 +383,7 @@ function OrganizationInfo({
         isSuperAdmin={true}
         orgInfo={orgInfo}
         isActiveSave={true}
+        buttonLoading={buttonLoading}
       />
     </div>
   );

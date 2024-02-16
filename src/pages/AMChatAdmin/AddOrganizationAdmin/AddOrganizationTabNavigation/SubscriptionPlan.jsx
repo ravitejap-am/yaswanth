@@ -1,10 +1,27 @@
-import React, { useState } from "react";
-import SubscriptionPlanStyle from "./SubscriptionPlan.module.css";
+import React, { useState } from 'react';
+import SubscriptionPlanStyle from './SubscriptionPlan.module.css';
+import { Button } from 'antd';
 
-function SubscriptionPlan() {
+function SubscriptionPlan({
+  orgData,
+  setSelectedTab,
+  selectedTab,
+  selectOrgData,
+  addOrganisation,
+  buttonLoading,
+  organisation,
+  editOrganisation,
+}) {
   const [selectedPlan, setSelectedPlan] = useState(null);
 
   const handlePlanSelection = (plan) => {
+    // const updatedOrgData = {
+    //   ...orgData,
+    //   plan: plan,
+    // };
+
+    // selectOrgData(updatedOrgData);
+    // setSelectedTab('subscriptionplan');
     setSelectedPlan(plan);
   };
 
@@ -18,8 +35,8 @@ function SubscriptionPlan() {
               type="radio"
               name="subscriptionPlan"
               value="freemium"
-              checked={selectedPlan === "freemium"}
-              onChange={() => handlePlanSelection("freemium")}
+              checked={selectedPlan === 'freemium'}
+              onChange={() => handlePlanSelection('freemium')}
             />
             Freemium
           </label>
@@ -31,13 +48,44 @@ function SubscriptionPlan() {
               type="radio"
               name="subscriptionPlan"
               value="standard"
-              checked={selectedPlan === "standard"}
-              onChange={() => handlePlanSelection("standard")}
+              checked={selectedPlan === 'standard'}
+              onChange={() => handlePlanSelection('standard')}
             />
             Standard
           </label>
         </div>
       </label>
+      <Button
+        style={{
+          display: 'flex',
+          width: '130px',
+          height: '50px',
+          padding: '10px 16px',
+          justifyContent: 'center',
+          alignItems: 'center',
+          gap: '8px',
+          flexShrink: '0',
+          borderRadius: '30px',
+          backgroundColor: 'var(--Brand-500, #6366F1)',
+          color: '#FFFFFF',
+          fontFamily: 'Into Lato',
+          fontSize: '16px',
+          fontStyle: 'normal',
+          fontWeight: '700',
+          lineHeight: '24px',
+        }}
+        onClick={() => {
+          console.log(orgData);
+          if (organisation?.organisationStatus == 'edit') {
+            editOrganisation();
+          } else {
+            addOrganisation();
+          }
+        }}
+        loading={buttonLoading}
+      >
+        {organisation?.organisationStatus == 'edit' ? 'Save' : 'Submit'}
+      </Button>
     </div>
   );
 }
