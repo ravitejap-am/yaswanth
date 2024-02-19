@@ -197,6 +197,8 @@ function EditOrgUser() {
         messageHandler
       );
 
+      const updateUserData = await updateUserResponse.json();
+
       if (fileList.length > 0) {
         const formData = new FormData();
         formData.append("image", fileList[0].originFileObj);
@@ -210,21 +212,26 @@ function EditOrgUser() {
             body: formData,
           }
         );
+
+        if (!updateImageResponse.ok) {
+          throw new Error(`HTTP error! status: ${updateImageResponse.status}`);
+        }
       }
+
       setButtonLoading(false);
       setIsReset(true);
-      showNotifyMessage("success", response?.data?.message, messageHandler);
+      showNotifyMessage("success", updateUserData?.message, messageHandler);
     } catch (error) {
       if (error?.response?.status == 500 || error?.response?.status == "500") {
         navigate("/internal500");
       }
 
       setButtonLoading(false);
-      showNotifyMessage(
-        "error",
-        error?.response?.data?.message,
-        messageHandler
-      );
+      // showNotifyMessage(
+      //   "error",
+      //   error?.response?.data?.message || "An error occurred",
+      //   messageHandler
+      // );
     } finally {
       setIsSubmitting(false);
     }

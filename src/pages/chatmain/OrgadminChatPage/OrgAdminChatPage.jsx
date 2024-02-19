@@ -56,7 +56,7 @@ const OrgAdminChatPage = () => {
   }, [organisationId]);
 
   const fetchDocumentCount = () => {
-    fetch(`${constants.BASE_API_URL}/document/${organisationId}`, {
+    fetch(`${constants.BASE_DOC_API_URL}/${organisationId}`, {
       headers: {
         Authorization: `Bearer ${jwt}`,
       },

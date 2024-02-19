@@ -590,7 +590,7 @@ const GeneralForm = (props) => {
               backgroundColor={submitButtonProperty.backgroundColor}
               name={submitButtonProperty.name}
               color={submitButtonProperty.color}
-              buttonHandler={() => submitHandler(form.getFieldValue())}
+              buttonHandler={submitHandler}
               marginLeft={submitButtonProperty.marginLeft}
               marginTop={submitButtonProperty.marginTop}
               width={submitButtonProperty.width}
