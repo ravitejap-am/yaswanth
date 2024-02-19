@@ -1,0 +1,14 @@
+.maintainencePage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: var(--Neutral-200, #e2e8f0);
+}
+.image {
+  width: 200px;
+  height: 200px;
+}
+.imageAndLoder{
+  display: flex;
+}

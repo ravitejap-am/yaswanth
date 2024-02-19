@@ -1,12 +1,30 @@
 .App {
   text-align: center;
 }
-
+/* p {
+  font-family: system-ui;
+} */
 .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
+.butooneffect:active {
+  /* background-color: transparent; */
+  /* box-shadow: 0 5px #666; */
+  transform: translateY(4px);
+}
+.coloumCenter {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -35,4 +53,84 @@
   to {
     transform: rotate(360deg);
   }
+}
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  color: #475f7b;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  font-family: "IBM Plex Sans", sans-serif;
+  line-height: 1.5;
+  height: 100vh;
+}
+.main {
+  height: 100vh;
+  /* background: rgb(181, 100, 229); */
+  /* background: linear-gradient(
+    190deg,
+    rgba(181, 100, 229, 1) 20%,
+
+    rgba(0, 234, 243, 1) 60%,
+
+    rgba(105, 238, 245, 1) 100%
+  ); */
+  background-color: #e2e8f0;
+
+  background-repeat: no-repeat;
+}
+
+.btn-color {
+  display: flex;
+  width: 80px;
+  height: 30px;
+  padding: 10px 16px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  border-radius: 30px;
+  background: var(--Brand-500, #6366f1);
+}
+
+.btn-color-signup {
+  display: flex;
+  width: 80px;
+  height: 30px;
+  padding: 10px 16px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  margin-left: 20px;
+  border-radius: 30px;
+  background: var(--Brand-500, #6366f1);
+}
+
+.container {
+  height: 100% !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  width: 100%;
+  padding-right: var(--bs-gutter-x, 0.75rem);
+  padding-left: var(--bs-gutter-x, 0.75rem);
+  margin-right: auto;
+  margin-left: auto;
+}
+@font-face {
+  font-family: "Montserrat300";
+  src: local("Montserrat300"),
+    url("../src/asset/fonts/Montserrat-300.ttf") format("ttf"),
+    url("../src/asset/fonts/Montserrat-300.ttf") format("ttf");
+}
+@font-face {
+  font-family: "Montserrat600";
+  src: local("Montserrat600"),
+    url("../src/asset/fonts/Montserrat-300.ttf") format("ttf"),
+    url("../src/asset/fonts/Montserrat-300.ttf") format("ttf");
 }

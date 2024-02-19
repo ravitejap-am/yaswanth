@@ -1,0 +1,15 @@
+label {
+  display: block;
+  font-size: 1rem !important;
+  margin-bottom: 10px;
+}
+
+input[type="radio"] {
+  margin-right: 5px;
+}
+
+/* Optional: Add styles for selected plan */
+label input[type="radio"]:checked {
+  font-weight: bold;
+  color: #007bff; /* Change the color as needed */
+}

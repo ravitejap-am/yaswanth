@@ -1,0 +1,88 @@
+import React from "react";
+import Styles from "./AMChat.module.css";
+import { Link } from "react-router-dom";
+import Popover from "@mui/material/Popover";
+import PopupState, { bindTrigger, bindPopover } from "material-ui-popup-state";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import Divider from "@mui/material/Divider";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import AssignmentIndOutlinedIcon from "@mui/icons-material/AssignmentIndOutlined";
+import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
+
+function AMChatHeader({ componentName, name, profileImageSrc, customStyle }) {
+  const style = {
+    width: 200,
+    ...customStyle,
+  };
+
+  return (
+    <PopupState variant="popover" popupId="profile-popup-popover">
+      {(popupState) => (
+        <div className={Styles.bannerBtn}>
+          <div className={Styles.superAdminOrganizationListName}>
+            {componentName}
+          </div>
+
+          <div
+            className={Styles.superAdminProfileImgNameStyle}
+            onClick={popupState.open}
+          >
+            <img
+              src={profileImageSrc}
+              alt=""
+              className={Styles.AdminProfileStyle}
+              style={customStyle.imageStyle}
+            />
+            <span
+              className={Styles.SuperAdminProfileStyle}
+              style={customStyle.textStyle}
+            >
+              {name}
+            </span>
+          </div>
+
+          <Popover
+            {...bindPopover(popupState)}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "center",
+            }}
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "center",
+            }}
+          >
+            <List sx={style}>
+              <ListItem>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <AssignmentIndOutlinedIcon />
+                  </ListItemIcon>
+                  <Link to="/userprofile" style={{ textDecoration: "none" }}>
+                    <ListItemText primary="View Profile" />
+                  </Link>
+                </ListItemButton>
+              </ListItem>
+              <Divider component="li" />
+              <ListItem>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <LogoutOutlinedIcon />
+                  </ListItemIcon>
+                  <Link to="/signin" style={{ textDecoration: "none" }}>
+                    <ListItemText primary="Logout" />
+                  </Link>
+                </ListItemButton>
+              </ListItem>
+            </List>
+          </Popover>
+        </div>
+      )}
+    </PopupState>
+  );
+}
+
+export default AMChatHeader;

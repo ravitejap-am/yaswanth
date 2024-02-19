@@ -1,0 +1,91 @@
+.idea_page_main {
+  background: linear-gradient(
+    114deg,
+    #0f172a 51.52%,
+    #152346 73.32%,
+    #1a2e5e 92.75%
+  );
+  width: 100%;
+  height: 650px;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.idea_chid_div {
+  display: flex;
+  align-items: center;
+  /* gap: 50px; */
+  padding: 20px;
+  width: 70%;
+  margin-left: -150px;
+}
+
+.bannerBtn1 {
+  border-radius: 50px;
+  background-color: #7529b2;
+  border: none;
+  box-shadow: var(--shd, 0 1px 4px rgba(0, 0, 0, 0.6));
+  margin-top: 20px;
+}
+
+.bannerButton {
+  display: flex;
+  width: 110px;
+  height: 36px;
+  margin-left: 10px;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: 30px;
+  background: var(--Brand-500, #dbdbe2);
+  color: #f8fafc;
+}
+
+.bannerHeading {
+  width: 70%;
+  width: 70%;
+  color: var(--White, #fff);
+  font-family: Montserrat;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 40px;
+}
+
+.bannerPara {
+  width: 100%;
+  color: var(--Neutral-200, #e2e8f0);
+  margin-top: 10px;
+  font-family: "Lato", sans-serif; /* Ensure fallback to sans-serif */
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+}
+
+.bannerParaUnorderList {
+  color: var(--Neutral-200, #e2e8f0);
+  margin-top: 10px;
+  font-family: "Lato", sans-serif; /* Ensure fallback to sans-serif */
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+}
+.bannerPareInnerTextStyle {
+  padding-left: 10px;
+}
+
+.bannerPareInnerTextStyle {
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+}
+
+.bannerImage3 {
+  width: 245px;
+  height: 94px;
+  flex-shrink: 0;
+}
+
+/* Remove the commented-out style */
