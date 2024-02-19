@@ -37,6 +37,8 @@ import OrganizationAdminProfileInfoSidebar from "./pages/chatmain/organizationad
 import OrganizationAdminHeader from "./pages/chatmain/organizationadmin/OrganizationAdminHeader/OrganizationAdminHeader.jsx";
 import SuperAdminPersonalInfoSideBar from "./pages/AMChatAdmin/SuperAdminPersonalInfo/SuperAdminPersonalInfoSideBar.jsx";
 import SuperAdminHeader from "./pages/AMChatAdmin/SuperAdminHeader/SuperAdminHeader.jsx";
+import OrganizationAdminSearchUIAIChat from "./pages/chatmain/organizationadmin/OrganizationAdminSearchUIAIChat.jsx";
+import OrganizationAdminSidebarSearchUIAIChat from "./pages/chatmain/organizationadmin/OrganizationAdminSidebarSearchUIAIChat.jsx";
 
 const Rout = () => {
   return (
@@ -56,6 +58,11 @@ const Rout = () => {
       <Route exact path="/undermaintenence" element={<MaintainencePage />} />
       <Route exact path="/userchat" element={<AMChatMainUserSidebar />} />
       <Route exact path="/chat" element={<SearchUIAIChatSidebar />} />
+      <Route
+        exact
+        path="/chatOrgAdmin"
+        element={<OrganizationAdminSidebarSearchUIAIChat />}
+      />
       <Route exact path="/dashboardadmin" element={<AMChatAdminHome />} />
       <Route exact path="/AMChatHeader" element={<AMChatHeader />} />
       <Route

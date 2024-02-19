@@ -7,8 +7,12 @@ import organizationimage from "../../../asset/AmChatSuperAdmin/Frame 2301.png";
 import SuperAdminAMChatCard from "../SuperAdminAMChatCard/SuperAdminAMChatCard";
 import GroupCircleDot from "../../../asset/AmChatSuperAdmin/Group2306.png";
 import { Link } from "react-router-dom";
+import { setUser, selectUser } from "../../../store/authSlice";
+import { useSelector } from "react-redux";
+import * as constants from "../../../constants/Constant";
 
 function AMChat({ renderComponent }) {
+ 
   return (
     <>
       <div className={Styles.AMChatMainDiv}>

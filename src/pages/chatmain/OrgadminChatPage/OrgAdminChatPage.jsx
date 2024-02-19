@@ -37,10 +37,17 @@ const OrgAdminChatPage = () => {
   };
   const decodedToken = decodeJWT(jwt);
   const organisationId = decodedToken ? decodedToken.organisationId : null;
+  const userId = decodedToken ? decodedToken.userId : null;
+
   const [documentCount, setDocumentCount] = useState(0);
   const [activeUsersCount, setActiveUsersCount] = useState(0);
   const [chat, setChat] = useState("");
   const [page, setPage] = useState(0);
+  const [userData, setUserData] = useState(null);
+  const [userStatus, setUserStatus] = useState("active");
+  const [error, setError] = useState(null);
+  const [organisationName, setOrganisationName] = useState("");
+  const [amChatUserStatus, setamChatUserStatus] = useState("");
   const [firstName, setFirstName] = useState("");
   useEffect(() => {
     // Retrieve firstName from localStorage
@@ -52,6 +59,7 @@ const OrgAdminChatPage = () => {
     if (organisationId) {
       fetchDocumentCount();
       fetchUserList();
+      fetchUserProfile();
     }
   }, [organisationId]);
 
@@ -97,6 +105,40 @@ const OrgAdminChatPage = () => {
     }
   };
 
+  const fetchUserProfile = async () => {
+    try {
+      const response = await fetch(
+        `${constants.BASE_API_URL}/user/${userId}/getUserProfile`,
+        {
+          headers: {
+            Authorization: `Bearer ${jwt}`,
+          },
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Failed to fetch user profile.");
+      }
+
+      const userData = await response.json();
+      localStorage.setItem(
+        "firstNameOrganisation",
+        userData?.data?.user?.firstName
+      );
+      localStorage.setItem(
+        "lastNameOrganisation",
+        userData?.data?.user?.lastName
+      );
+
+      setUserData(userData?.data?.user);
+      setOrganisationName(userData?.data?.organisation?.name);
+      setamChatUserStatus(userData?.data?.user.active);
+
+      setUserStatus(userData.data.user.active ? "Active" : "Inactive");
+    } catch (error) {
+      console.error("Error fetching user profile:", error);
+      setError("Failed to fetch user profile.");
+    }
+  };
   const users = [
     {
       profile_img: { base },
@@ -131,7 +173,7 @@ const OrgAdminChatPage = () => {
 
   const arrowButton = () => {
     console.log("arrowButton clicked");
-    console.log(chat);
+    navigate("/chatOrgAdmin");
   };
 
   return (
