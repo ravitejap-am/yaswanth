@@ -523,7 +523,6 @@ function OrganizationList() {
                 itemRender={itemRender}
                 current={pageInfo?.page + 1}
                 onChange={(newPage) => {
-                  alert('hi', newPage);
                   console.log(newPage);
                   setPage(newPage);
                 }}
