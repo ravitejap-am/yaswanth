@@ -29,10 +29,10 @@ function OrganizationAdmin({
       labelName: false,
       defaultValue: orgData?.contact?.firstName,
       emptyErrorMessage: 'Please Enter the First Name',
-      invalidErrorMessage: 'Please Enter the  First Name',
+      invalidErrorMessage: 'Please Enter the Valid First Name',
     },
     {
-      pattern: /^([a-zA-Z]{3,30}\s*)+/,
+      pattern: /^([a-zA-Z]{2,30}\s*)+/,
       name: 'lastName',
       label: 'Last Name',
       type: 'text',
@@ -47,7 +47,7 @@ function OrganizationAdmin({
       labelName: false,
       defaultValue: orgData?.contact?.lastName,
       emptyErrorMessage: 'Please Enter the Last Name',
-      invalidErrorMessage: 'Please Enter the  Last Name',
+      invalidErrorMessage: 'Please Enter the Valid Last Name',
     },
     {
       name: 'email',
