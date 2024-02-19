@@ -193,7 +193,7 @@ function AddOrganizationAdmin() {
 
   const handleTabChange = (tab) => {
     console.log("form change");
-    const normalizedTab = tab.toLowerCase(); // Normalize to lowercase
+    const normalizedTab = tab.toLowerCase(); 
     if (normalizedTab !== selectedTab) {
       setSelectedTab(normalizedTab);
     }
