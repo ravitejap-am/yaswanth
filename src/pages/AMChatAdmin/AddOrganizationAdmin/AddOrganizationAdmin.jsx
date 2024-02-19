@@ -1,52 +1,23 @@
-import React, { useState, useEffect } from "react";
-import { Tabs, Button } from "antd";
-import { Link, useNavigate } from "react-router-dom";
-import Styles from "./AddOrganizationAdmin.module.css";
-import profile from "../../../asset/AmChatSuperAdmin/profile.png";
-import GeneralForm from "../../../components/common/forms/GeneralForm";
-import OrganizationInfo from "./AddOrganizationTabNavigation/OrganizationInfo";
-import TabNavigation from "./AddOrganizationTabNavigation/MainTabNavigationAddOrg";
-import OrganizationAdmin from "./AddOrganizationTabNavigation/OrganizationAdmin";
-import OrganizationDomains from "./AddOrganizationTabNavigation/OrganizationDomains";
-import SubscriptionPlan from "./AddOrganizationTabNavigation/SubscriptionPlan";
-import GeneralButton from "../../../components/common/buttons/GeneralButton";
-import axios from "axios";
-import { selectUser, selectOrganisation } from "../../../store/authSlice";
-import { useSelector } from "react-redux";
-import * as constants from "../../../constants/Constant";
-import { useMessageState } from "../../../hooks/useapp-message";
-import { tokenDecodeJWT } from "../../../utils/authUtils";
-import AMChatHeader from "../AMChatHeader/AMChatHeader";
-import SuperAdminHeader from "../SuperAdminHeader/SuperAdminHeader";
-
-let feedingData = {
-  name: "skytech",
-
-  address: {
-    address1: "Dhanbad",
-    address2: "dhanbad",
-    landmark: "xyz",
-    state: "Jharkhand",
-    country: "country1",
-    postCode: "123456",
-  },
-  metaData: [
-    {
-      typeDetails: "sky.com",
-      type: "20",
-    },
-    {
-      typeDetails: "skytech.com",
-      type: "20",
-    },
-  ],
-  contact: {
-    firstName: "sushil",
-    lastName: "kumar",
-    email: "sushil.kumar@skytech.com",
-  },
-  plan: "standard",
-};
+import React, { useState, useEffect } from 'react';
+import { Tabs, Button } from 'antd';
+import { Link, useNavigate } from 'react-router-dom';
+import Styles from './AddOrganizationAdmin.module.css';
+import profile from '../../../asset/AmChatSuperAdmin/profile.png';
+import GeneralForm from '../../../components/common/forms/GeneralForm';
+import OrganizationInfo from './AddOrganizationTabNavigation/OrganizationInfo';
+import TabNavigation from './AddOrganizationTabNavigation/MainTabNavigationAddOrg';
+import OrganizationAdmin from './AddOrganizationTabNavigation/OrganizationAdmin';
+import OrganizationDomains from './AddOrganizationTabNavigation/OrganizationDomains';
+import SubscriptionPlan from './AddOrganizationTabNavigation/SubscriptionPlan';
+import GeneralButton from '../../../components/common/buttons/GeneralButton';
+import axios from 'axios';
+import { selectUser, selectOrganisation } from '../../../store/authSlice';
+import { useSelector } from 'react-redux';
+import * as constants from '../../../constants/Constant';
+import { useMessageState } from '../../../hooks/useapp-message';
+import { tokenDecodeJWT } from '../../../utils/authUtils';
+import AMChatHeader from '../AMChatHeader/AMChatHeader';
+import SuperAdminHeader from '../SuperAdminHeader/SuperAdminHeader';
 
 function AddOrganizationAdmin() {
   let {
@@ -59,14 +30,14 @@ function AddOrganizationAdmin() {
   } = useMessageState();
   const user = useSelector(selectUser);
   const organisation = useSelector(selectOrganisation);
-  console.log("organisation", organisation);
+  console.log('organisation', organisation);
   const jwt = user.userToken;
   const navigate = useNavigate();
   const decodedToken = tokenDecodeJWT(jwt);
-  console.log("decoded token", decodedToken);
-  const [selectedTab, setSelectedTab] = useState("personalinformation");
+  console.log('decoded token', decodedToken);
+  const [selectedTab, setSelectedTab] = useState('personalinformation');
   const [orgData, selectOrgData] = useState(
-    organisation?.organisationStatus == "edit"
+    organisation?.organisationStatus == 'edit'
       ? {
           orgId: organisation?.organisationData?.id,
           address: {
@@ -78,7 +49,7 @@ function AddOrganizationAdmin() {
             state: organisation?.organisationData?.address?.state?.stateName,
             city: organisation?.organisationData?.address?.city,
             postCode: organisation?.organisationData?.address?.postCode,
-            landmark: "",
+            landmark: '',
           },
           name: organisation?.organisationData?.name,
           contact: {
@@ -88,13 +59,13 @@ function AddOrganizationAdmin() {
           },
           metaData: organisation?.organisationData?.metadata,
         }
-      : ""
+      : ''
   );
   const [isEdit, setIsEdit] = useState(false);
   const [countries, setCountries] = useState([]);
   const [states, setStates] = useState([]);
   const [localState, setLocalState] = useState(
-    organisation?.organisationStatus == "edit"
+    organisation?.organisationStatus == 'edit'
       ? {
           country:
             organisation?.organisationData?.address?.country?.countryName,
@@ -102,15 +73,15 @@ function AddOrganizationAdmin() {
           city: organisation?.organisationData?.address?.city,
         }
       : {
-          country: "",
-          state: "",
-          city: "",
+          country: '',
+          state: '',
+          city: '',
         }
   );
   const [cities, setCities] = useState([]);
-  const [firstNamelocal, setFirstName] = useState("");
+  const [firstNamelocal, setFirstName] = useState('');
   useEffect(() => {
-    const storedFirstName = localStorage.getItem("firstName");
+    const storedFirstName = localStorage.getItem('firstName');
     setFirstName(storedFirstName);
   }, []);
 
@@ -120,35 +91,35 @@ function AddOrganizationAdmin() {
 
   const addOrganisation = async () => {
     let body = orgData;
-    if (body.hasOwnProperty("plan")) {
-      delete body["plan"];
+    if (body.hasOwnProperty('plan')) {
+      delete body['plan'];
     }
     setButtonLoading(true);
     try {
       const response = await axios.post(
-        `${constants.BASE_ORG_API_URL}/organisation`,
+        `${constants.BASE_ORG_API_URL}`,
         JSON.stringify(body),
         {
           headers: {
             Authorization: `Bearer ${jwt}`,
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
         }
       );
       setButtonLoading(false);
       // setIsReset(true);
-      showNotifyMessage("success", response?.data?.message, messageHandler);
-      console.log("API Response:", response.data);
-      navigate("/dashboardadmin/organizationlist");
+      showNotifyMessage('success', response?.data?.message, messageHandler);
+      console.log('API Response:', response.data);
+      navigate('/dashboardadmin/organizationlist');
     } catch (error) {
-      console.error("Error occurred:", error);
-      if (error?.response?.status == 500 || error?.response?.status == "500") {
-        navigate("/internal500");
+      console.error('Error occurred:', error);
+      if (error?.response?.status == 500 || error?.response?.status == '500') {
+        navigate('/internal500');
       }
       setButtonLoading(false);
       console.log(error);
       showNotifyMessage(
-        "error",
+        'error',
         error?.response?.data?.message,
         messageHandler
       );
@@ -156,35 +127,35 @@ function AddOrganizationAdmin() {
   };
   const editOrganisation = async () => {
     let body = orgData;
-    if (body.hasOwnProperty("plan")) {
-      delete body["plan"];
+    if (body.hasOwnProperty('plan')) {
+      delete body['plan'];
     }
     setButtonLoading(true);
     try {
       const response = await axios.put(
-        `${constants.BASE_ORG_API_URL}/organisation`,
+        `${constants.BASE_ORG_API_URL}`,
         JSON.stringify(body),
         {
           headers: {
             Authorization: `Bearer ${jwt}`,
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
         }
       );
       setButtonLoading(false);
       // setIsReset(true);
-      showNotifyMessage("success", response?.data?.message, messageHandler);
-      console.log("API Response:", response.data);
+      showNotifyMessage('success', response?.data?.message, messageHandler);
+      console.log('API Response:', response.data);
       // navigate('/dashboardadmin/organizationlist');
     } catch (error) {
-      console.error("Error occurred:", error);
-      if (error?.response?.status == 500 || error?.response?.status == "500") {
-        navigate("/internal500");
+      console.error('Error occurred:', error);
+      if (error?.response?.status == 500 || error?.response?.status == '500') {
+        navigate('/internal500');
       }
       setButtonLoading(false);
       console.log(error);
       showNotifyMessage(
-        "error",
+        'error',
         error?.response?.data?.message,
         messageHandler
       );
@@ -192,7 +163,7 @@ function AddOrganizationAdmin() {
   };
 
   const handleTabChange = (tab) => {
-    console.log("form change");
+    console.log('form change');
     const normalizedTab = tab.toLowerCase(); // Normalize to lowercase
     if (normalizedTab !== selectedTab) {
       setSelectedTab(normalizedTab);
@@ -201,12 +172,12 @@ function AddOrganizationAdmin() {
 
   const handleSubmit = () => {
     // Add logic for handling form submission
-    console.log("Submitting form");
+    console.log('Submitting form');
   };
 
   const handleCancel = () => {
     // Add logic for handling form cancellation
-    console.log("Cancelling form");
+    console.log('Cancelling form');
   };
 
   return (
@@ -215,22 +186,22 @@ function AddOrganizationAdmin() {
         <div className={Styles.superAdminProfileCardStyle}>
           <SuperAdminHeader
             componentName={`${
-              organisation?.organisationStatus == "add" ? "Add" : "Edit"
+              organisation?.organisationStatus == 'add' ? 'Add' : 'Edit'
             } Organization`}
-            name={firstNamelocal || ""}
+            name={firstNamelocal || ''}
             profileImageSrc={profile}
             customStyle={{
               containerStyle: {
-                display: "flex",
-                borderRadius: "8px",
+                display: 'flex',
+                borderRadius: '8px',
               },
               imageStyle: {
-                width: "50%",
-                height: "70%",
+                width: '50%',
+                height: '70%',
               },
               textStyle: {
-                color: "blue",
-                fontWeight: "bold",
+                color: 'blue',
+                fontWeight: 'bold',
               },
             }}
           />
@@ -242,7 +213,7 @@ function AddOrganizationAdmin() {
         />
         <br />
         <div className={Styles.superAdminTabChildCardStyle}>
-          {selectedTab === "personalinformation" && (
+          {selectedTab === 'personalinformation' && (
             <OrganizationInfo
               orgData={orgData}
               setSelectedTab={setSelectedTab}
@@ -262,7 +233,7 @@ function AddOrganizationAdmin() {
               editOrganisation={editOrganisation}
             />
           )}
-          {selectedTab === "organizationadmin" && (
+          {selectedTab === 'organizationadmin' && (
             <OrganizationAdmin
               orgData={orgData}
               setSelectedTab={setSelectedTab}
@@ -272,7 +243,7 @@ function AddOrganizationAdmin() {
               editOrganisation={editOrganisation}
             />
           )}
-          {selectedTab === "subscriptionplan" && (
+          {selectedTab === 'subscriptionplan' && (
             <SubscriptionPlan
               orgData={orgData}
               setSelectedTab={setSelectedTab}
@@ -284,7 +255,7 @@ function AddOrganizationAdmin() {
               editOrganisation={editOrganisation}
             />
           )}
-          {selectedTab === "organizationdomains" && (
+          {selectedTab === 'organizationdomains' && (
             <OrganizationDomains
               orgData={orgData}
               setSelectedTab={setSelectedTab}
