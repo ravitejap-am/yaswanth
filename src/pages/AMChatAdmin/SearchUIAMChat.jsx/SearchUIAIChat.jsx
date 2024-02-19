@@ -8,10 +8,12 @@ import AMChatHeader from "../AMChatHeader/AMChatHeader";
 
 function SearchUIAIChat({ responseData }) {
   const [firstName, setFirstName] = useState("");
+
   useEffect(() => {
     const storedFirstName = localStorage.getItem("UserSectionfirstName");
     setFirstName(storedFirstName || "");
   }, []);
+
   const searchStyles = {
     width: "96%",
     height: "70px",
