@@ -1,10 +1,10 @@
-import React from "react";
-import Logo from "../../../asset/images/logo.png";
-import Styles from "../AMChatBackgound/AMChat.module.css";
-import organizationimage from "../../../asset/AmChatSuperAdmin/Frame 2301.png";
-import OrganizationList from "../OrganizationList/OrganizationList";
-import { Link } from "react-router-dom";
-import arrorLink from "../../../asset/AmChatSuperAdmin/arrow-left.png";
+import React from 'react';
+import Logo from '../../../asset/images/logo.png';
+import Styles from '../AMChatBackgound/AMChat.module.css';
+import organizationimage from '../../../asset/AmChatSuperAdmin/Frame 2301.png';
+import OrganizationList from '../OrganizationList/OrganizationList';
+import { Link } from 'react-router-dom';
+import arrorLink from '../../../asset/AmChatSuperAdmin/arrow-left.png';
 
 function OrganizationSidebar() {
   return (
@@ -32,12 +32,14 @@ function OrganizationSidebar() {
 
           <div className={Styles.container}>
             <div className={Styles.SuperAdminChildContainer}>
-              <span>
-                <img src={arrorLink} alt="" />
-                <Link to="/dashboardadmin" style={{ textDecoration: "none" }}>
-                  <p className={Styles.organizationTextStyle}>Back to Chat</p>{" "}
-                </Link>
-              </span>
+              <Link to="/dashboardadmin" style={{ textDecoration: 'none' }}>
+                <span>
+                  <img src={arrorLink} alt="" />
+                  <p className={Styles.organizationTextStyle}>
+                    Back to Chat
+                  </p>{' '}
+                </span>
+              </Link>
 
               {/* <span>
                 <img src={organizationimage} alt="" />

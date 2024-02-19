@@ -121,7 +121,7 @@ const AmchatMainUser = () => {
     } else {
       try {
         const response = await fetch(
-          "https://amchatdev.areteminds.com/api/v1/iam/users/chat/dummy",
+          `${constants.BASE_API_URL}/user/chat/dummy`,
           {
             method: "GET",
             headers: {
