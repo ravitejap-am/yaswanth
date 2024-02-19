@@ -65,6 +65,12 @@ function OrganizationList() {
   const dispatch = useDispatch();
   const [loadingId, setLoadingId] = useState(null);
   const [firstName, setFirstName] = useState('');
+  const [pageInfo, setPageInfo] = useState({
+    pageSize: null,
+    page: 0,
+    totalCount: null,
+    totalPages: null,
+  });
   useEffect(() => {
     const storedFirstName = localStorage.getItem('firstName');
     setFirstName(storedFirstName);
@@ -96,7 +102,15 @@ function OrganizationList() {
 
       console.log(response?.data?.data);
       let organisationData = response?.data?.data;
+      let responseData = response?.data;
       setResponseData(organisationData);
+      setPageInfo({
+        ...pageInfo,
+        pageSize: responseData?.pageSize,
+        page: responseData?.page,
+        totalCount: responseData?.totalCount,
+        totalPages: responseData?.totalPages,
+      });
       let allOrgansisation = [];
       organisationData?.map((org) => {
         let individuvalOrg = {
@@ -218,7 +232,7 @@ function OrganizationList() {
   // ];
 
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('name');
 
@@ -485,11 +499,11 @@ function OrganizationList() {
                         </TableCell>
                       </TableRow>
                     ))}
-                  {emptyRows > 0 && (
+                  {/* {emptyRows > 0 && (
                     <TableRow style={{ height: 53 * emptyRows }}>
                       <TableCell colSpan={7} />
                     </TableRow>
-                  )}
+                  )} */}
                 </TableBody>
               </Table>
             </TableContainer>
@@ -504,12 +518,24 @@ function OrganizationList() {
             >
               <div>Total {rows.length} items</div>
               <Pagination
+                defaultCurrent={1}
+                total={pageInfo?.totalPages * 10}
+                itemRender={itemRender}
+                current={pageInfo?.page + 1}
+                onChange={(newPage) => {
+                  alert('hi', newPage);
+                  console.log(newPage);
+                  setPage(newPage);
+                }}
+              />
+
+              {/* <Pagination
                 total={rows.length}
                 itemRender={itemRender}
                 pageSize={rowsPerPage}
                 current={page}
                 onChange={(newPage) => setPage(newPage)}
-              />
+              /> */}
             </div>
           </Paper>
         </div>
