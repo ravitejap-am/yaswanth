@@ -33,6 +33,8 @@ function OrgEditDocument() {
   const [documentDetails, setDocumentDetails] = useState({});
   const [loading, setLoading] = useState(true);
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const user = useSelector(selectUser);
   const jwt = user.userToken;
 
@@ -40,7 +42,7 @@ function OrgEditDocument() {
     const fetchDocumentDetails = async () => {
       try {
         const response = await axios.get(
-          `${constants.BASE_API_URL}/document/getDetails/${documentId}`,
+          `${constants.BASE_DOC_API_URL}/getDetails/${documentId}`,
           {
             headers: {
               Authorization: `Bearer ${jwt}`,
@@ -68,6 +70,10 @@ function OrgEditDocument() {
   };
 
   const submitHandler = async (values) => {
+    if (isSubmitting) {
+      return;
+    }
+    setIsSubmitting(true);
     setButtonLoading(true);
     try {
       console.log("Submitting form with values:", values);
@@ -79,7 +85,7 @@ function OrgEditDocument() {
       console.log("Request Data:", requestData);
 
       const response = await axios.put(
-        `${constants.BASE_API_URL}/document/edit/${documentId}`,
+        `${constants.BASE_DOC_API_URL}/edit/${documentId}`,
         requestData,
         {
           headers: {
@@ -88,8 +94,6 @@ function OrgEditDocument() {
           },
         }
       );
-
-      // console.log("API Response:", response);
 
       setButtonLoading(false);
       setIsReset(true);
@@ -105,6 +109,8 @@ function OrgEditDocument() {
         error?.response?.data?.message,
         messageHandler
       );
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -147,7 +153,7 @@ function OrgEditDocument() {
         },
         rules: [{ required: true, message: "Please enter your Document Name" }],
         labelName: false,
-        initialValue: documentDetails.name,
+        defaultValue: documentDetails.name,
       },
     ],
     formType: "normal",

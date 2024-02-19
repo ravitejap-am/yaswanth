@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Styles from "./SearchUIAIChat.module.css";
 import { Card } from "antd";
-// import Styles from "./SuperAdminAMChatCard.module.css";
 import profile from "../../../asset/AmChatSuperAdmin/profile.png";
 import Group2290 from "../../../asset/Group2290.png";
 import Search from "../../../components/common/search/Search";
-// import { Link, useNavigate } from "react-router-dom";
+import AMChatHeader from "../AMChatHeader/AMChatHeader";
 
-function SearchUIAIChat() {
-  //   const navigate = useNavigate();
+function SearchUIAIChat({ responseData }) {
+  const [firstName, setFirstName] = useState("");
+  useEffect(() => {
+    const storedFirstName = localStorage.getItem("UserSectionfirstName");
+    setFirstName(storedFirstName || "");
+  }, []);
   const searchStyles = {
     width: "96%",
     height: "70px",
@@ -17,27 +20,29 @@ function SearchUIAIChat() {
     color: "#94a3b8",
     paddingLeft: "30px",
   };
-  //   const handleSearchImageClick = () => {
-  //     navigate("/chat");
-  //   };
+
   return (
     <div className={Styles.superAdminMainCardDivStyle}>
       <div className={Styles.superAdminMiddleParentDiv}>
-        <div className={Styles.superAdminProfileCardStyle}>
-          <div>
-            <p className={Styles.superAdminProfileName}>Welcome, Lian</p>
-          </div>
-          <div
-            className={Styles.superAdminProfileImgNameStyle}
-            style={{
+        <AMChatHeader
+          componentName={`Welcome ${firstName || ""}`}
+          name={firstName || ""}
+          profileImageSrc={profile}
+          customStyle={{
+            containerStyle: {
               display: "flex",
-              alignItems: "center",
-            }}
-          >
-            <img src={profile} alt="" className={Styles.AdminProfileStyle} />
-            <span className={Styles.SuperAdminProfileStyle}>Lian Vendiar</span>
-          </div>
-        </div>
+              borderRadius: "8px",
+            },
+            imageStyle: {
+              width: "50%",
+              height: "70%",
+            },
+            textStyle: {
+              color: "blue",
+              fontWeight: "bold",
+            },
+          }}
+        />
 
         <Card className={Styles.superAdminCardStyles}>
           <div className={Styles.AIChatInputBox}>
@@ -45,8 +50,8 @@ function SearchUIAIChat() {
               name={"Ask anything.."}
               style={searchStyles}
               searchImage={Group2290}
-              //   onSearchImageClick={handleSearchImageClick}
             />
+            <p>{responseData}</p>
           </div>
         </Card>
       </div>

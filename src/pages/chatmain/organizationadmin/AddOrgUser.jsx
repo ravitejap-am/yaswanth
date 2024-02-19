@@ -41,6 +41,7 @@ function AddOrgUser() {
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
   const [previewTitle, setPreviewTitle] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [fileList, setFileList] = useState([]);
   const [firstName, setFirstName] = useState("");
   useEffect(() => {
@@ -90,6 +91,10 @@ function AddOrgUser() {
   };
 
   const submitHandler = async (values) => {
+    if (isSubmitting) {
+      return;
+    }
+    setIsSubmitting(true);
     setButtonLoading(true);
     try {
       const formData = new FormData();
@@ -110,42 +115,23 @@ function AddOrgUser() {
       const responseData = await responseImage.json();
       console.log("Upload response:", responseData);
 
-      const responseUser = await fetch(
-        `${constants.BASE_API_URL}/organisation/user`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${jwt}`,
-          },
-          body: JSON.stringify(values),
-        }
-      );
+      const responseUser = await fetch(`${constants.BASE_ORG_API_URL}/user`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${jwt}`,
+        },
+        body: JSON.stringify(values),
+      });
 
       if (!responseUser.ok) {
         throw new Error(`HTTP error! status: ${responseUser.status}`);
       }
 
       const data = await responseUser.json();
-      switch (data.code) {
-        case "SIGNUP-S-001":
-          toast.success(data.message);
-          break;
-        case "SIGNUP-ARR-004":
-          toast.warn(data.message);
-          break;
-        case "SIGNUP-IE-005":
-          toast.error(data.message);
-          break;
-        case "SIGNUP-IO-007":
-          toast.error(data.message);
-          break;
-        default:
-          toast.info("Unknown response code");
-      }
       setButtonLoading(false);
       setIsReset(true);
-      showNotifyMessage("success", data?.data?.message, messageHandler);
+      showNotifyMessage("success", data.message, messageHandler); // Update this line
     } catch (error) {
       if (error?.response?.status == 500 || error?.response?.status == "500") {
         navigate("/internal500");
@@ -153,9 +139,11 @@ function AddOrgUser() {
       setButtonLoading(false);
       showNotifyMessage(
         "error",
-        error?.response?.data?.message,
+        error?.response?.data?.message || "An error occurred", // Display a generic error message
         messageHandler
       );
+    } finally {
+      setIsSubmitting(false);
     }
   };
 

@@ -45,20 +45,6 @@ function AMChat({ renderComponent }) {
               </span>
             </div>
             <br />
-            {/* <div className={Styles.SuperAdminChildContainer}>
-              <Link
-                to="/dashboardadmin/organizationadminlist"
-                style={{ textDecoration: "none" }}
-              >
-                <span>
-                  <img src={userImage} alt="" />
-
-                  <p className={Styles.organizationTextStyle}>
-                    Organization Admin
-                  </p>
-                </span>
-              </Link>
-            </div> */}
           </div>
 
           <div className={Styles.AMchatMainDiv}>

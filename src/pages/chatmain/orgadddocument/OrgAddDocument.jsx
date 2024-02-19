@@ -26,13 +26,13 @@ function OrgAddDocument() {
   const navigate = useNavigate();
   const [firstName, setFirstName] = useState("");
   useEffect(() => {
-    // Retrieve firstName from localStorage
     const storedFirstName = localStorage.getItem("firstNameOrganisation");
     setFirstName(storedFirstName);
   }, []);
 
   const user = useSelector(selectUser);
   const jwt = user.userToken;
+
   const messageHandler = () => {
     setIsReset(false);
     hideNotifyMessage();
@@ -45,7 +45,7 @@ function OrgAddDocument() {
       formData.append("name", values["Document Name"]);
 
       const response = await axios.post(
-        `${constants.BASE_API_URL}/document`,
+        `${constants.BASE_DOC_API_URL}`,
         formData,
         {
           headers: {
@@ -63,6 +63,12 @@ function OrgAddDocument() {
       if (error?.response?.status == 500 || error?.response?.status == "500") {
         navigate("/internal500");
       }
+      setButtonLoading(false);
+      showNotifyMessage(
+        "error",
+        error?.response?.data?.message,
+        messageHandler
+      );
     }
   };
 

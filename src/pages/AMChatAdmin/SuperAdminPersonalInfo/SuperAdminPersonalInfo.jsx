@@ -9,7 +9,7 @@ import { setUser, selectUser } from "../../../store/authSlice";
 import { useSelector } from "react-redux";
 import * as constants from "../../../constants/Constant";
 
-function SuperAdminPersonalInfo({ setFileSysytem, validateEmail }) {
+function SuperAdminPersonalInfoTab({ setFileSysytem, validateEmail }) {
   const user = useSelector(selectUser);
   const jwt = user.userToken;
 
@@ -87,7 +87,7 @@ function SuperAdminPersonalInfo({ setFileSysytem, validateEmail }) {
       type: "text",
       name: "firstName",
       pattern: /^([a-zA-Z]{3,30}\s*)+/,
-      initialValue: userData ? userData.firstName : "",
+      defaultValue: userData ? userData.firstName : "",
       rules: [
         { required: true, message: "Please input your First Name" },
         { type: "name", message: "Invalid First Name" },
@@ -99,7 +99,7 @@ function SuperAdminPersonalInfo({ setFileSysytem, validateEmail }) {
       type: "text",
       name: "lastName",
       pattern: /^([a-zA-Z]{3,30}\s*)+/,
-      initialValue: userData ? userData.lastName : "",
+      defaultValue: userData ? userData.lastName : "",
       rules: [
         { required: true, message: "Please input your Last Name" },
         { type: "name", message: "Invalid Last Name" },
@@ -111,7 +111,7 @@ function SuperAdminPersonalInfo({ setFileSysytem, validateEmail }) {
       type: "email",
       name: "email",
       pattern: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-      initialValue: userData ? userData.email : "",
+      defaultValue: userData ? userData.email : "",
       rules: [
         { required: true, message: "Please enter your email" },
         { type: "email", message: "Invalid Email" },
@@ -127,7 +127,7 @@ function SuperAdminPersonalInfo({ setFileSysytem, validateEmail }) {
       label: "Organization Name",
       type: "text",
       name: "orgName",
-      initialValue: organisationName,
+      defaultValue: organisationName,
       rules: [
         { required: true, message: "Please input your Organization Name" },
         { type: "name", message: "Invalid Organization Name" },
@@ -143,7 +143,7 @@ function SuperAdminPersonalInfo({ setFileSysytem, validateEmail }) {
       label: "Status",
       type: "text",
       name: "status",
-      initialValue: amChatUserStatus,
+      defaultValue: amChatUserStatus,
       rules: [
         { required: true, message: "Please input your Organization Name" },
         { type: "name", message: "Invalid Organization Name" },
@@ -193,7 +193,7 @@ function SuperAdminPersonalInfo({ setFileSysytem, validateEmail }) {
         </div>
         <div className="user-profle-name">
           <h2>
-            {userData.firstName} {userData.lastName}
+            {userData?.firstName} {userData?.lastName}
           </h2>
           <div className="personalinfo-user-Status">
             <p>Active User</p>
@@ -205,4 +205,4 @@ function SuperAdminPersonalInfo({ setFileSysytem, validateEmail }) {
   );
 }
 
-export default SuperAdminPersonalInfo;
+export default SuperAdminPersonalInfoTab;

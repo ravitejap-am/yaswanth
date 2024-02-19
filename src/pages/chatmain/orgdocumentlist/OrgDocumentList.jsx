@@ -69,7 +69,6 @@ function OrgDocumentList() {
   const [searchQuery, setSearchQuery] = useState("");
   const [firstName, setFirstName] = useState("");
   useEffect(() => {
-    // Retrieve firstName from localStorage
     const storedFirstName = localStorage.getItem("firstNameOrganisation");
     setFirstName(storedFirstName);
   }, []);

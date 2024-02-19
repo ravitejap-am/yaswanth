@@ -12,6 +12,7 @@ import PersonalInformation from "../../chatmain/PersonalInformation";
 import ChangePassword from "../../chatmain/ChangePassword";
 import Plans from "../../chatmain/Plans";
 import SuperAdminHeader from "../SuperAdminHeader/SuperAdminHeader";
+import SuperAdminPersonalInfoTab from "./SuperAdminPersonalInfo";
 
 function SuperAdminProfileInfo() {
   const [selectedTab, setSelectedTab] = useState("personalinformation");
@@ -52,9 +53,13 @@ function SuperAdminProfileInfo() {
             handleTabChange={handleTabChange}
           />
           <div>
-            {selectedTab === "personalinformation" && <PersonalInformation />}
-            {selectedTab === "changepassword" && <ChangePassword />}
-            {selectedTab === "plans" && <Plans />}
+            {selectedTab === "personalinformation" && (
+              <SuperAdminPersonalInfoTab />
+            )}
+            {selectedTab === "changepassword" && (
+              <SuperAdminPersonalInfoChangePassword />
+            )}
+            {selectedTab === "plans" && <SuperAdminPersonalPlan />}
           </div>
         </div>
       </div>

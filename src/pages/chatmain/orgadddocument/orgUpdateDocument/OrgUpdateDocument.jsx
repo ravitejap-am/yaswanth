@@ -28,6 +28,7 @@ function OrgUpdateDocument() {
   const [file, setFile] = useState(null);
   const navigate = useNavigate();
   const [firstName, setFirstName] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   useEffect(() => {
     // Retrieve firstName from localStorage
     const storedFirstName = localStorage.getItem("firstNameOrganisation");
@@ -42,13 +43,17 @@ function OrgUpdateDocument() {
   };
 
   const submitHandler = async () => {
+    if (isSubmitting) {
+      return;
+    }
+    setIsSubmitting(true);
     setButtonLoading(true);
     try {
       const formData = new FormData();
       formData.append("file", file);
 
       const response = await axios.put(
-        `${constants.BASE_API_URL}/document/${documentId}`,
+        `${constants.BASE_DOC_API_URL}/${documentId}`,
         formData,
         {
           headers: {
@@ -72,6 +77,8 @@ function OrgUpdateDocument() {
         error?.response?.data?.message,
         messageHandler
       );
+    } finally {
+      setIsSubmitting(false);
     }
   };
 

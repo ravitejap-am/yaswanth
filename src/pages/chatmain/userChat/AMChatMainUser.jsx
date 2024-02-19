@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { createRef, useEffect, useState } from "react";
 import { Card } from "antd";
 import Styles from "./AmchatMainUser.module.css";
 import circle1 from "../../../asset/AmChatSuperAdmin/Group23.png";
@@ -8,9 +8,12 @@ import Group2290 from "../../../asset/Group2290.png";
 import Search from "../../../components/common/search/Search";
 import { Link, useNavigate } from "react-router-dom";
 import AMChatHeader from "../../AMChatAdmin/AMChatHeader/AMChatHeader";
+import { useMessageState } from "../../../hooks/useapp-message";
 import * as constants from "../../../constants/Constant";
 import { useSelector } from "react-redux";
 import { setUser, selectUser } from "../../../store/authSlice";
+import NotifyMessage from "../../../components/common/toastMessages/NotifyMessage";
+import SearchUIAIChat from "../../AMChatAdmin/SearchUIAMChat.jsx/SearchUIAIChat";
 
 const style = {
   py: 0,
@@ -23,9 +26,22 @@ const style = {
 };
 
 const AmchatMainUser = () => {
+  const formRef = createRef();
+  let {
+    buttonLoading,
+    setButtonLoading,
+    isReset,
+    setIsReset,
+    showNotifyMessage,
+    hideNotifyMessage,
+  } = useMessageState();
   const navigate = useNavigate();
   const [totalDocuments, setTotalDocuments] = useState(0);
   const [firstName, setFirstName] = useState("");
+  useEffect(() => {
+    const storedFirstName = localStorage.getItem("UserSectionfirstName");
+    setFirstName(storedFirstName || "");
+  }, []);
   const user = useSelector(selectUser);
   const jwt = user.userToken;
   const decodeJWT = (token) => {
@@ -50,15 +66,10 @@ const AmchatMainUser = () => {
   const organisationId = decodedToken ? decodedToken.userId : null;
 
   useEffect(() => {
-    // Retrieve firstName from localStorage
-    const storedFirstName = localStorage.getItem("UserSectionfirstName");
-    setFirstName(storedFirstName);
-  }, []);
-  useEffect(() => {
     const fetchTotalDocuments = async () => {
       try {
         const response = await fetch(
-          `${constants.BASE_API_URL}/document/getAllDocs/${organisationId}`,
+          `${constants.BASE_DOC_API_URL}/getAllDocs/${organisationId}`,
           {
             headers: {
               Authorization: `Bearer ${jwt}`,
@@ -100,6 +111,33 @@ const AmchatMainUser = () => {
 
   const handleSearchImageClick = () => {
     navigate("/chat");
+  };
+
+  const handleSearch = async () => {
+    if (totalDocuments === 0) {
+      showNotifyMessage(
+        "No documents uploaded by org admin. Please reach out to them."
+      );
+    } else {
+      try {
+        const response = await fetch(
+          "https://amchatdev.areteminds.com/api/v1/iam/users/chat/dummy",
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${jwt}`,
+            },
+          }
+        );
+        if (!response.ok) {
+          throw new Error("Failed to fetch data");
+        }
+        const responseData = await response.json();
+        console.log(responseData.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
   };
 
   return (
@@ -175,16 +213,18 @@ const AmchatMainUser = () => {
           </div>
 
           <div className={Styles.AIChatInputBox}>
-            <Link to="/chat">
+            <div onClick={handleSearch}>
               <Search
                 name={"Ask anything.."}
                 style={searchStyles}
                 searchImage={Group2290}
                 onSearchImageClick={handleSearchImageClick}
-                readOnly={false}
+                readOnly={totalDocuments === 0}
               />
-            </Link>
+            </div>
+            <NotifyMessage />
           </div>
+          {/* <SearchUIAIChat /> */}
         </Card>
       </div>
     </div>

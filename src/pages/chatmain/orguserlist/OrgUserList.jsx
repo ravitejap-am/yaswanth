@@ -96,7 +96,7 @@ function OrgUserList() {
       setLoading(true);
       try {
         const organizationId = decodeJWT(jwt).organisationId;
-        const documentUrl = `${BASE_API_URL}/document/getAllByOrg/${organizationId}`;
+        const documentUrl = `${constants.BASE_DOC_API_URL}/getAllByOrg/${organizationId}`;
         const response = await axios.get(documentUrl, {
           params: {
             page: 0,
@@ -124,7 +124,7 @@ function OrgUserList() {
     };
 
     fetchDocuments();
-  }, [jwt, searchQuery]); 
+  }, [jwt, searchQuery]);
 
   const searchStyles = {
     width: "300px",

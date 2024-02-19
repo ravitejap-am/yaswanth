@@ -43,6 +43,7 @@ function EditOrgUser() {
   );
   const [previewTitle, setPreviewTitle] = useState("");
   const [userData, setUserData] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [fileList, setFileList] = useState([
     // {
     //   uid: "-1",
@@ -165,6 +166,10 @@ function EditOrgUser() {
 
   const submitHandler = async (values) => {
     setButtonLoading(true);
+    if (isSubmitting) {
+      return;
+    }
+    setIsSubmitting(true);
     try {
       const updateUserResponse = await fetch(
         `${constants.BASE_API_URL}/user/${userId}`,
@@ -205,29 +210,23 @@ function EditOrgUser() {
             body: formData,
           }
         );
-
-        // if (!updateImageResponse.ok) {
-        //   throw new Error(`HTTP error! status: ${updateImageResponse.status}`);
-        // }
-
-        setIsReset(true);
-        // showNotifyMessage(
-        //   "success",
-        //   "Profile image updated successfully",
-        //   messageHandler
-        // );
       }
-
       setButtonLoading(false);
+      setIsReset(true);
+      showNotifyMessage("success", response?.data?.message, messageHandler);
     } catch (error) {
-      console.error(error);
-      setButtonLoading(false);
-      const errorMessage =
-        error.message || "Failed to update user details and profile image";
-      showNotifyMessage("error", errorMessage, messageHandler);
-      if (error instanceof Error && error.message.includes("500")) {
+      if (error?.response?.status == 500 || error?.response?.status == "500") {
         navigate("/internal500");
       }
+
+      setButtonLoading(false);
+      showNotifyMessage(
+        "error",
+        error?.response?.data?.message,
+        messageHandler
+      );
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -246,7 +245,7 @@ function EditOrgUser() {
         border: "1px solid var(--Brand-700, #4338CA)",
         backgroundColor: "transparent",
       },
-      initialValue: userData?.firstName ? userData?.firstName : "",
+      defaultValue: userData?.firstName ? userData?.firstName : "",
       rules: [{ required: true, message: "Please enter your name" }],
       labelName: false,
     },
@@ -260,7 +259,7 @@ function EditOrgUser() {
         border: "1px solid var(--Brand-700, #4338CA)",
         backgroundColor: "transparent",
       },
-      initialValue: userData.lastName || "",
+      defaultValue: userData.lastName || "",
       rules: [{ required: true, message: "Please enter your name" }],
       labelName: false,
     },
@@ -268,7 +267,7 @@ function EditOrgUser() {
       name: "Email",
       label: "Email",
       type: "text",
-      initialValue: userData.email || "",
+      defaultValue: userData.email || "",
       rules: [
         { required: true, message: "Please input your email" },
         { type: "email", message: "Invalid email format" },
@@ -352,15 +351,6 @@ function EditOrgUser() {
               fileList={fileList}
               onPreview={handlePreview}
               onChange={handleChange}
-              // defaultFileList={[
-              //   {
-              //     uid: "-1",
-              //     name: "profile.png",
-              //     status: "done",
-              // url: `${constants.BASE_API_URL}/${userData.profileImagePath}`,
-              //     url: `https://medicalpublic.s3.amazonaws.com/AMCHAT/UserDP_1707819604773.jpeg`,
-              //   },
-              // ]}
             >
               {fileList.length >= 1 ? null : uploadButton}
             </Upload>

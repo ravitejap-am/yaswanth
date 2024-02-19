@@ -93,7 +93,7 @@ function OrganizationAdminPersonalInformation({
       type: "text",
       name: "firstName",
       pattern: /^([a-zA-Z]{3,30}\s*)+/,
-      initialValue: userData ? userData.firstName : "",
+      defaultValue: userData ? userData.firstName : "",
       rules: [
         { required: true, message: "Please input your First Name" },
         { type: "name", message: "Invalid First Name" },
@@ -105,7 +105,7 @@ function OrganizationAdminPersonalInformation({
       type: "text",
       name: "lastName",
       pattern: /^([a-zA-Z]{3,30}\s*)+/,
-      initialValue: userData ? userData.lastName : "",
+      defaultValue: userData ? userData.lastName : "",
       rules: [
         { required: true, message: "Please input your Last Name" },
         { type: "name", message: "Invalid Last Name" },
@@ -117,7 +117,7 @@ function OrganizationAdminPersonalInformation({
       type: "email",
       name: "email",
       pattern: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-      initialValue: userData ? userData.email : "",
+      defaultValue: userData ? userData.email : "",
       rules: [
         { required: true, message: "Please enter your email" },
         { type: "email", message: "Invalid Email" },
@@ -133,7 +133,7 @@ function OrganizationAdminPersonalInformation({
       label: "Organization Name",
       type: "text",
       name: "orgName",
-      initialValue: organisationName,
+      defaultValue: organisationName,
       rules: [
         { required: true, message: "Please input your Organization Name" },
         { type: "name", message: "Invalid Organization Name" },
@@ -149,7 +149,7 @@ function OrganizationAdminPersonalInformation({
       label: "Status",
       type: "text",
       name: "status",
-      initialValue: amChatUserStatus,
+      defaultValue: amChatUserStatus,
       rules: [
         { required: true, message: "Please input your Organization Name" },
         { type: "name", message: "Invalid Organization Name" },
