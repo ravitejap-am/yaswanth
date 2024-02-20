@@ -168,7 +168,9 @@ function OrganizationDomains({
       //     message: 'Please enter domains',
       //   },
       // ],
-
+      pattern: /^([a-zA-Z]{3,30}\s*)+/,
+      emptyErrorMessage: 'Pleas add the domain',
+      invalidErrorMessage: 'Pleas add the valid domain',
       removeButton: (
         <button onClick={() => handleRemoveDomain(index)}>Remove</button>
       ),
