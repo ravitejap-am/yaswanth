@@ -183,6 +183,9 @@ function OrganizationInfo({
       // rules: [{ required: true, message: 'Please enter your name' }],
       labelName: false,
       defaultValue: orgData?.name,
+      pattern: /^([a-zA-Z]{3,30}\s*)+/,
+      emptyErrorMessage: 'Please Enter the Organisation Name',
+      invalidErrorMessage: 'Please Enter the Valid Organisation Name',
     },
     {
       name: 'address1',
@@ -197,6 +200,9 @@ function OrganizationInfo({
       labelName: false,
       // rules: [{ required: true, message: 'Please enter Street 1' }],
       defaultValue: orgData?.address?.address1,
+      pattern: /^([a-zA-Z]{3,30}\s*)+/,
+      emptyErrorMessage: 'Please Enter the First Address',
+      invalidErrorMessage: 'Please Enter the Valid Address',
     },
     {
       name: 'address2',
@@ -210,6 +216,9 @@ function OrganizationInfo({
       },
       labelName: false,
       defaultValue: orgData?.address?.address2,
+      pattern: /^([a-zA-Z]{3,30}\s*)+/,
+      emptyErrorMessage: 'Please Enter the Second Address',
+      invalidErrorMessage: 'Please Enter the Valid Address',
     },
     {
       name: 'country',
@@ -233,6 +242,9 @@ function OrganizationInfo({
       // rules: [{ required: true, message: 'Please select Country' }],
       defaultValue: orgData?.address?.country,
       onSelectApiCall: handleCountryChange,
+      pattern: /^([a-zA-Z]{3,30}\s*)+/,
+      emptyErrorMessage: 'Pleas Select the Country',
+      invalidErrorMessage: 'Pleas Select the Valid Country',
     },
     {
       name: 'state',
@@ -255,6 +267,9 @@ function OrganizationInfo({
       // rules: [{ required: true, message: 'Please select State' }],
       defaultValue: orgData?.address?.state,
       onSelectApiCall: handleStateChange,
+      pattern: /^([a-zA-Z]{3,30}\s*)+/,
+      emptyErrorMessage: 'Pleas Select the State',
+      invalidErrorMessage: 'Pleas Select the Valid State',
     },
     {
       name: 'city',
@@ -279,6 +294,9 @@ function OrganizationInfo({
       onSelectApiCall: () => {
         console.log('handle city change');
       },
+      pattern: /^([a-zA-Z]{3,30}\s*)+/,
+      emptyErrorMessage: 'Pleas Select the City',
+      invalidErrorMessage: 'Pleas Select the Valid City',
     },
     {
       name: 'postCode',

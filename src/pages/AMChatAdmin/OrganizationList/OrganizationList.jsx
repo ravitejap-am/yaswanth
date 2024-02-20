@@ -36,6 +36,7 @@ import { BASE_API_URL, BASE_ORG_API_URL } from '../../../constants/Constant';
 import { useMessageState } from '../../../hooks/useapp-message';
 import CircularProgress from '@mui/material/CircularProgress';
 import SuperAdminHeader from '../SuperAdminHeader/SuperAdminHeader';
+import Skeleton from '@mui/material/Skeleton';
 
 const style = {
   py: 0,
@@ -71,21 +72,34 @@ function OrganizationList() {
     totalCount: null,
     totalPages: null,
   });
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [order, setOrder] = React.useState('asc');
+  const [orderBy, setOrderBy] = React.useState('name');
+  const [tableloading, setTableLoading] = useState(false);
+  const [searchValue, setSearchValue] = useState('');
+
   useEffect(() => {
     const storedFirstName = localStorage.getItem('firstName');
     setFirstName(storedFirstName);
   }, []);
+
+  useEffect(() => {
+    fetchlist();
+  }, [jwt, order, searchValue]);
+
   const fetchlist = async (page = 0) => {
     // setLoading(true);
+    setTableLoading(true);
     try {
       const documentUrl = `${BASE_ORG_API_URL}`;
       const response = await axios.get(documentUrl, {
         params: {
           page: page,
           size: pageInfo?.pageSize,
-          sortField: 'createdAt',
-          sortDirection: 'desc',
-          organisationName: '',
+          sortField: orderBy,
+          sortDirection: order,
+          organisationName: searchValue,
           isActive: 1,
           version: '',
           // fileSize: "",
@@ -117,33 +131,31 @@ function OrganizationList() {
           id: org.id,
           name: org.name,
           address: org.address?.address1,
-          contactPerson:
-            org?.contact?.firstName != undefined
-              ? org?.contact?.firstName
-              : '' + '' + org?.contact?.lastName != undefined
-              ? org?.contact?.lastName
-              : '',
+          contactPerson: `${
+            org?.contact?.firstName ? org?.contact?.firstName : ''
+          }  ${org?.contact?.lastName ? org?.contact?.lastName : ''}`,
+
           plans: 'Basic',
-          status: org?.active,
+          status: org?.active ? 'Active' : 'Inactive',
         };
         allOrgansisation.push(individuvalOrg);
       });
       // setLoading(false);
       setRows(allOrgansisation);
+      setTableLoading(false);
     } catch (error) {
       console.error('Error fetching documents:', error.message);
+      setTableLoading(false);
     }
   };
 
-  useEffect(() => {
-    fetchlist();
-  }, [jwt]);
   const messageHandler = () => {
     hideNotifyMessage();
   };
   const deleteOrganisation = async (id) => {
     console.log(jwt);
     let body = { orgId: id };
+    setTableLoading(true);
 
     try {
       const response = await axios.delete(`${BASE_ORG_API_URL}`, {
@@ -154,10 +166,12 @@ function OrganizationList() {
         data: JSON.stringify(body),
       });
       setLoadingId(null);
+
       fetchlist();
       showNotifyMessage('success', response?.data?.message, messageHandler);
       console.log('API Response:', response.data);
       // navigate('/dashboardadmin/organizationlist');
+      setTableLoading(false);
     } catch (error) {
       console.error('Error occurred:', error);
       if (error?.response?.status == 500 || error?.response?.status == '500') {
@@ -165,6 +179,7 @@ function OrganizationList() {
       }
       setLoadingId(null);
       console.log(error);
+      setTableLoading(false);
       showNotifyMessage('error', error?.message, messageHandler);
     }
   };
@@ -179,11 +194,6 @@ function OrganizationList() {
     alignItems: 'center',
     marginRight: '18px',
   };
-
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const [order, setOrder] = React.useState('asc');
-  const [orderBy, setOrderBy] = React.useState('name');
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -223,6 +233,10 @@ function OrganizationList() {
     return originalElement;
   };
 
+  const handleChangeSearch = (e) => {
+    setSearchValue(e.target.value);
+  };
+
   return (
     <div className={Styles.superAdminMainCardDivStyle}>
       <div className={Styles.superAdminMiddleParentDiv}>
@@ -256,6 +270,8 @@ function OrganizationList() {
               searchImage={SerchImages}
               imageHeight={'47px'}
               imageMarginLeft={20}
+              searchValue={searchValue}
+              handleChangeSearch={handleChangeSearch}
             />
           </div>
           <div className={Styles.bannerButton}>
@@ -311,7 +327,13 @@ function OrganizationList() {
                       </TableSortLabel>
                     </TableCell>
                     <TableCell>
-                      <TableSortLabel
+                      <Typography
+                        variant="body1"
+                        style={{ fontWeight: 'bold' }}
+                      >
+                        Address
+                      </Typography>
+                      {/* <TableSortLabel
                         active={orderBy === 'address'}
                         direction={orderBy === 'address' ? order : 'asc'}
                         onClick={(e) => handleRequestSort(e, 'address')}
@@ -322,10 +344,16 @@ function OrganizationList() {
                         >
                           Address
                         </Typography>
-                      </TableSortLabel>
+                      </TableSortLabel> */}
                     </TableCell>
                     <TableCell>
-                      <TableSortLabel
+                      <Typography
+                        variant="body1"
+                        style={{ fontWeight: 'bold' }}
+                      >
+                        Contact Person
+                      </Typography>
+                      {/* <TableSortLabel
                         active={orderBy === 'contactPerson'}
                         direction={orderBy === 'contactPerson' ? order : 'asc'}
                         onClick={(e) => handleRequestSort(e, 'contactPerson')}
@@ -336,10 +364,16 @@ function OrganizationList() {
                         >
                           Contact Person
                         </Typography>
-                      </TableSortLabel>
+                      </TableSortLabel> */}
                     </TableCell>
                     <TableCell>
-                      <TableSortLabel
+                      <Typography
+                        variant="body1"
+                        style={{ fontWeight: 'bold' }}
+                      >
+                        Plans
+                      </Typography>
+                      {/* <TableSortLabel
                         active={orderBy === 'plans'}
                         direction={orderBy === 'plans' ? order : 'asc'}
                         onClick={(e) => handleRequestSort(e, 'plans')}
@@ -350,10 +384,16 @@ function OrganizationList() {
                         >
                           Plans
                         </Typography>
-                      </TableSortLabel>
+                      </TableSortLabel> */}
                     </TableCell>
                     <TableCell>
-                      <TableSortLabel
+                      <Typography
+                        variant="body1"
+                        style={{ fontWeight: 'bold' }}
+                      >
+                        Status
+                      </Typography>
+                      {/* <TableSortLabel
                         active={orderBy === 'status'}
                         direction={orderBy === 'status' ? order : 'asc'}
                         onClick={(e) => handleRequestSort(e, 'status')}
@@ -364,7 +404,7 @@ function OrganizationList() {
                         >
                           Status
                         </Typography>
-                      </TableSortLabel>
+                      </TableSortLabel> */}
                     </TableCell>
                     <TableCell>
                       <Typography
@@ -378,22 +418,37 @@ function OrganizationList() {
                 </TableHead>
                 <TableBody>
                   {/* Map through the data and create rows */}
-                  {rows
-                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                    .map((row) => (
-                      <TableRow key={row.id}>
-                        <TableCell padding="checkbox">
-                          <Checkbox
-                            inputProps={{ 'aria-labelledby': row.name }}
-                          />
-                        </TableCell>
-                        <TableCell component="th" scope="row">
-                          {row.name}
-                        </TableCell>
-                        <TableCell>{row.address}</TableCell>
-                        <TableCell>{row.contactPerson}</TableCell>
-                        <TableCell>{row.plans}</TableCell>
-                        <TableCell>
+                  {tableloading ? (
+                    <TableRow>
+                      <TableCell colSpan={7} align="center">
+                        {/* <Skeleton variant="rectangular" width="100%">
+                          <div style={{ paddingTop: '20%' }} />
+                        </Skeleton> */}
+                        <CircularProgress />
+                      </TableCell>
+                    </TableRow>
+                  ) : (
+                    <>
+                      {rows
+                        .slice(
+                          page * rowsPerPage,
+                          page * rowsPerPage + rowsPerPage
+                        )
+                        .map((row) => (
+                          <TableRow key={row.id}>
+                            <TableCell padding="checkbox">
+                              <Checkbox
+                                inputProps={{ 'aria-labelledby': row.name }}
+                              />
+                            </TableCell>
+                            <TableCell component="th" scope="row">
+                              {row.name}
+                            </TableCell>
+                            <TableCell>{row.address}</TableCell>
+                            <TableCell>{row.contactPerson}</TableCell>
+                            <TableCell>{row.plans}</TableCell>
+                            <TableCell>{row.status}</TableCell>
+                            {/* <TableCell>
                           <FormControl style={{ width: '110px' }}>
                             <Select
                               style={{ border: 'none', borderRadius: 'none' }}
@@ -406,48 +461,51 @@ function OrganizationList() {
                               <MenuItem value="Inactive">Inactive</MenuItem>
                             </Select>
                           </FormControl>
-                        </TableCell>
-                        <TableCell>
-                          {/* <IconButton aria-label="view">
+                        </TableCell> */}
+                            <TableCell>
+                              {/* <IconButton aria-label="view">
                             <img
                               src={eyesolid}
                               alt="View"
                               style={{ width: 24, height: 24 }}
                             />
                           </IconButton> */}
-                          <Link to="/dashboardadmin/addorganizationadmin">
-                            <IconButton
-                              aria-label="edit"
-                              onClick={() => {
-                                console.log('editing');
-                                console.log(row);
-                                const orgObject = responseData.find(
-                                  (obj) => obj.id === row.id
-                                );
-                                dispatch(setOrganisationStatus('edit'));
-                                dispatch(setOrganisationData(orgObject));
-                              }}
-                            >
-                              <img src={editIcon} alt="Edit" />
-                            </IconButton>
-                          </Link>
+                              <Link to="/dashboardadmin/addorganizationadmin">
+                                <IconButton
+                                  aria-label="edit"
+                                  onClick={() => {
+                                    console.log('editing');
+                                    console.log(row);
+                                    const orgObject = responseData.find(
+                                      (obj) => obj.id === row.id
+                                    );
+                                    dispatch(setOrganisationStatus('edit'));
+                                    dispatch(setOrganisationData(orgObject));
+                                  }}
+                                >
+                                  <img src={editIcon} alt="Edit" />
+                                </IconButton>
+                              </Link>
 
-                          <IconButton
-                            aria-label="delete"
-                            onClick={() => {
-                              deleteOrganisation(row.id);
-                              setLoadingId(row.id);
-                            }}
-                          >
-                            {loadingId == rows.id && loadingId != null ? (
-                              <CircularProgress />
-                            ) : (
-                              <img src={deleteIcon} alt="Delete" />
-                            )}
-                          </IconButton>
-                        </TableCell>
-                      </TableRow>
-                    ))}
+                              <IconButton
+                                aria-label="delete"
+                                onClick={() => {
+                                  deleteOrganisation(row.id);
+                                  setLoadingId(row.id);
+                                }}
+                              >
+                                {loadingId == rows.id && loadingId != null ? (
+                                  <CircularProgress />
+                                ) : (
+                                  <img src={deleteIcon} alt="Delete" />
+                                )}
+                              </IconButton>
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                    </>
+                  )}
+
                   {/* {emptyRows > 0 && (
                     <TableRow style={{ height: 53 * emptyRows }}>
                       <TableCell colSpan={7} />
