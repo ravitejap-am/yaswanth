@@ -66,7 +66,7 @@ function OrganizationList() {
   const [loadingId, setLoadingId] = useState(null);
   const [firstName, setFirstName] = useState('');
   const [pageInfo, setPageInfo] = useState({
-    pageSize: null,
+    pageSize: 5,
     page: 0,
     totalCount: null,
     totalPages: null,
@@ -75,14 +75,14 @@ function OrganizationList() {
     const storedFirstName = localStorage.getItem('firstName');
     setFirstName(storedFirstName);
   }, []);
-  const fetchlist = async () => {
+  const fetchlist = async (page = 0) => {
     // setLoading(true);
     try {
       const documentUrl = `${BASE_ORG_API_URL}`;
       const response = await axios.get(documentUrl, {
         params: {
-          page: 0,
-          size: 10,
+          page: page,
+          size: pageInfo?.pageSize,
           sortField: 'createdAt',
           sortDirection: 'desc',
           organisationName: '',
@@ -134,6 +134,7 @@ function OrganizationList() {
       console.error('Error fetching documents:', error.message);
     }
   };
+
   useEffect(() => {
     fetchlist();
   }, [jwt]);
@@ -178,58 +179,6 @@ function OrganizationList() {
     alignItems: 'center',
     marginRight: '18px',
   };
-
-  // const rows = [
-  //   {
-  //     id: 1,
-  //     name: 'Org 1',
-  //     address: 'Address 1',
-  //     contactPerson: 'John Doe',
-  //     plans: 'Basic',
-  //     status: 'Active',
-  //   },
-  //   {
-  //     id: 2,
-  //     name: 'Org 2',
-  //     address: 'Address 2',
-  //     contactPerson: 'Jane Doe',
-  //     plans: 'Premium',
-  //     status: 'Inactive',
-  //   },
-  //   {
-  //     id: 3,
-  //     name: 'Org 2',
-  //     address: 'Address 2',
-  //     contactPerson: 'Jane Doe',
-  //     plans: 'Premium',
-  //     status: 'Inactive',
-  //   },
-  //   {
-  //     id: 4,
-  //     name: 'Org 2',
-  //     address: 'Address 2',
-  //     contactPerson: 'Jane Doe',
-  //     plans: 'Premium',
-  //     status: 'Inactive',
-  //   },
-  //   {
-  //     id: 5,
-  //     name: 'Org 2',
-  //     address: 'Address 2',
-  //     contactPerson: 'Jane Doe',
-  //     plans: 'Premium',
-  //     status: 'Inactive',
-  //   },
-  //   {
-  //     id: 6,
-  //     name: 'Org 2',
-  //     address: 'Address 2',
-  //     contactPerson: 'Jane Doe',
-  //     plans: 'Premium',
-  //     status: 'Inactive',
-  //   },
-  //   // Add 8 more entries with similar structure
-  // ];
 
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -514,17 +463,18 @@ function OrganizationList() {
                 alignItems: 'center',
                 marginTop: '16px',
                 gap: '20px',
+                padding: '15px',
               }}
             >
-              <div>Total {rows.length} items</div>
+              <div>Total {pageInfo?.totalCount} items</div>
               <Pagination
                 defaultCurrent={1}
                 total={pageInfo?.totalPages * 10}
                 itemRender={itemRender}
                 current={pageInfo?.page + 1}
                 onChange={(newPage) => {
-                  console.log(newPage);
-                  setPage(newPage);
+                  setPageInfo({ ...pageInfo, page: newPage - 1 });
+                  fetchlist(newPage - 1);
                 }}
               />
 
