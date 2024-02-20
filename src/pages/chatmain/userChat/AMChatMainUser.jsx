@@ -13,17 +13,6 @@ import * as constants from "../../../constants/Constant";
 import { useSelector } from "react-redux";
 import { setUser, selectUser } from "../../../store/authSlice";
 import NotifyMessage from "../../../components/common/toastMessages/NotifyMessage";
-import SearchUIAIChat from "../../AMChatAdmin/SearchUIAMChat.jsx/SearchUIAIChat";
-
-const style = {
-  py: 0,
-  width: "100%",
-  maxWidth: 360,
-  borderRadius: 2,
-  border: "1px solid",
-  borderColor: "divider",
-  backgroundColor: "background.paper",
-};
 
 const AmchatMainUser = () => {
   const formRef = createRef();
@@ -38,10 +27,9 @@ const AmchatMainUser = () => {
   const navigate = useNavigate();
   const [totalDocuments, setTotalDocuments] = useState(0);
   const [firstName, setFirstName] = useState("");
-  useEffect(() => {
-    const storedFirstName = localStorage.getItem("UserSectionfirstName");
-    setFirstName(storedFirstName || "");
-  }, []);
+  const [responseData, setResponseData] = useState("");
+  const [searchInput, setSearchInput] = useState(""); // State to hold search input value
+
   const user = useSelector(selectUser);
   const jwt = user.userToken;
   const decodeJWT = (token) => {
@@ -62,10 +50,18 @@ const AmchatMainUser = () => {
       return null;
     }
   };
+
   const decodedToken = decodeJWT(jwt);
   const organisationId = decodedToken ? decodedToken.userId : null;
+  const userId = decodedToken ? decodedToken.userId : null;
 
+  const [userData, setUserData] = useState(null);
+  const [userStatus, setUserStatus] = useState("active");
+  const [error, setError] = useState(null);
+  const [organisationName, setOrganisationName] = useState("");
+  const [amChatUserStatus, setamChatUserStatus] = useState("");
   useEffect(() => {
+    fetchUserProfile();
     const fetchTotalDocuments = async () => {
       try {
         const response = await fetch(
@@ -92,6 +88,37 @@ const AmchatMainUser = () => {
     }
   }, [organisationId, jwt]);
 
+  const fetchUserProfile = async () => {
+    try {
+      const response = await fetch(
+        `${constants.BASE_API_URL}/user/${userId}/getUserProfile`,
+        {
+          headers: {
+            Authorization: `Bearer ${jwt}`,
+          },
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Failed to fetch user profile.");
+      }
+
+      const userData = await response.json();
+      const { firstName, lastName } = userData.data.user;
+      setFirstName(firstName);
+      localStorage.setItem("UserSectionfirstName", firstName);
+      localStorage.setItem("UserSectionlastName", lastName);
+
+      setUserData(userData?.data?.user);
+      setOrganisationName(userData?.data?.organisation?.name);
+      setamChatUserStatus(userData?.data?.user.active);
+
+      setUserStatus(userData.data.user.active ? "Active" : "Inactive");
+    } catch (error) {
+      console.error("Error fetching user profile:", error);
+      setError("Failed to fetch user profile.");
+    }
+  };
+
   const contentArray = [
     "Could you help me with the maternity policy of my organization?",
     "Can you tell me about GDPR compliance.  Which I should follow in my organization?",
@@ -110,7 +137,11 @@ const AmchatMainUser = () => {
   };
 
   const handleSearchImageClick = () => {
-    navigate("/chat");
+    if (totalDocuments !== 0 && responseData) {
+      navigate("/chat");
+    } else {
+      showNotifyMessage("Please enter something in the search box first.");
+    }
   };
 
   const handleSearch = async () => {
@@ -121,7 +152,7 @@ const AmchatMainUser = () => {
     } else {
       try {
         const response = await fetch(
-          "https://amchatdev.areteminds.com/api/v1/iam/users/chat/dummy",
+          `${constants.BASE_API_URL}${constants.DUMMY_CHAT_ENDPOINT}`,
           {
             method: "GET",
             headers: {
@@ -133,11 +164,18 @@ const AmchatMainUser = () => {
           throw new Error("Failed to fetch data");
         }
         const responseData = await response.json();
+        setResponseData(responseData.data);
         console.log(responseData.data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     }
+  };
+
+  // Function to set search input with clicked content
+  const handleContentClick = (content) => {
+    setSearchInput(content); // Set search input value to the selected content
+    handleSearch(); // Trigger search functionality
   };
 
   return (
@@ -205,7 +243,11 @@ const AmchatMainUser = () => {
           <div className="Example_main_div">
             <div className="Card_message_example_main">
               {contentArray.map((content, index) => (
-                <p key={index} className="Card_message_example">
+                <p
+                  key={index}
+                  className="Card_message_example"
+                  onClick={() => handleContentClick(content)} // Handle content click
+                >
                   {content}
                 </p>
               ))}
@@ -220,6 +262,8 @@ const AmchatMainUser = () => {
                 searchImage={Group2290}
                 onSearchImageClick={handleSearchImageClick}
                 readOnly={totalDocuments === 0}
+                value={searchInput} // Bind value to search input
+                onChange={(e) => setSearchInput(e.target.value)} // Handle input change
               />
             </div>
             <NotifyMessage />
