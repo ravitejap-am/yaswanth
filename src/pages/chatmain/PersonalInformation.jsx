@@ -64,9 +64,7 @@ const PersonalInformation = ({ setFileSysytem, validateEmail }) => {
       }
 
       const userData = await response.json();
-      const { firstName, lastName } = userData.data.user;
-      localStorage.setItem("UserSectionfirstName", firstName);
-      localStorage.setItem("UserSectionlastName", lastName);
+   
 
       setUserData(userData?.data?.user);
       setOrganisationName(userData?.data?.organisation?.name);
@@ -171,7 +169,7 @@ const PersonalInformation = ({ setFileSysytem, validateEmail }) => {
     cancelHandler: () => {
       console.log("Canceling....");
     },
-    isSubmit: true,
+    isSubmit: false,
     submitHandler: () => {
       console.log("Submitting PersonalInformation form....");
     },
