@@ -67,16 +67,6 @@ function OrganizationAdminPersonalInformation({
 
       const userData = await response.json();
 
-      // Save firstName and lastName to localStorage
-      localStorage.setItem(
-        "firstNameOrganisation",
-        userData?.data?.user?.firstName
-      );
-      localStorage.setItem(
-        "lastNameOrganisation",
-        userData?.data?.user?.lastName
-      );
-
       setUserData(userData?.data?.user);
       setOrganisationName(userData?.data?.organisation?.name);
       setamChatUserStatus(userData?.data?.user.active);
@@ -179,7 +169,7 @@ function OrganizationAdminPersonalInformation({
     cancelHandler: () => {
       console.log("Canceling....");
     },
-    isSubmit: true,
+    isSubmit: false,
     submitHandler: () => {
       console.log("Submitting PersonalInformation form....");
     },

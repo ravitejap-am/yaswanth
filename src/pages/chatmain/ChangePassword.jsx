@@ -37,7 +37,7 @@ const ChangePassword = ({ setFileSysytem, validateEmail }) => {
     setButtonLoading(true);
     try {
       const response = await fetch(
-        `${constants.BASE_API_URL}/user/verification/reset`,
+        `${constants.BASE_API_URL}${constants.RECOVERY_PASSWORD_ENDPOINT}`,
         {
           method: "POST",
           headers: {
@@ -45,38 +45,34 @@ const ChangePassword = ({ setFileSysytem, validateEmail }) => {
             Authorization: `Bearer ${jwt}`,
           },
           body: JSON.stringify({
-            userId: "",
+            userId: "292",
             oldPassword: values.password,
             newPassword: values.newPassword,
             confirmPassword: values.confirmPassword,
           }),
         }
       );
-      console.log(response, "$$$33333334444556789");
       if (response.ok) {
-        if (response.status === 200) {
-          setButtonLoading(false);
-          setIsReset(true);
-          showNotifyMessage(
-            "success",
-            "Password Changed Successfully",
-            messageHandler
-          );
-        }
+        setButtonLoading(false);
+        setIsReset(true);
+        showNotifyMessage(
+          "success",
+          "Password Changed Successfully",
+          messageHandler
+        );
       } else {
         showNotifyMessage("error", "Failed to change password", messageHandler);
       }
     } catch (error) {
-      if (error?.response?.status == 500 || error?.response?.status == "500") {
+      if (error.response && error.response.status === 500) {
         navigate("/internal500");
       }
-
       setButtonLoading(false);
-      showNotifyMessage(
-        "error",
-        error?.response?.data?.message,
-        messageHandler
-      );
+      // showNotifyMessage(
+      //   "error",
+      //   error.response ? error.response.data.message : "An error occurred",
+      //   messageHandler
+      // );
     }
   };
 
