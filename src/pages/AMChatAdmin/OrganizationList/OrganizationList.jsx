@@ -77,6 +77,7 @@ function OrganizationList() {
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('name');
   const [tableloading, setTableLoading] = useState(false);
+  const [searchValue, setSearchValue] = useState('');
 
   useEffect(() => {
     const storedFirstName = localStorage.getItem('firstName');
@@ -85,7 +86,7 @@ function OrganizationList() {
 
   useEffect(() => {
     fetchlist();
-  }, [jwt, order]);
+  }, [jwt, order, searchValue]);
 
   const fetchlist = async (page = 0) => {
     // setLoading(true);
@@ -98,7 +99,7 @@ function OrganizationList() {
           size: pageInfo?.pageSize,
           sortField: orderBy,
           sortDirection: order,
-          organisationName: '',
+          organisationName: searchValue,
           isActive: 1,
           version: '',
           // fileSize: "",
@@ -232,6 +233,10 @@ function OrganizationList() {
     return originalElement;
   };
 
+  const handleChangeSearch = (e) => {
+    setSearchValue(e.target.value);
+  };
+
   return (
     <div className={Styles.superAdminMainCardDivStyle}>
       <div className={Styles.superAdminMiddleParentDiv}>
@@ -265,6 +270,8 @@ function OrganizationList() {
               searchImage={SerchImages}
               imageHeight={'47px'}
               imageMarginLeft={20}
+              searchValue={searchValue}
+              handleChangeSearch={handleChangeSearch}
             />
           </div>
           <div className={Styles.bannerButton}>
