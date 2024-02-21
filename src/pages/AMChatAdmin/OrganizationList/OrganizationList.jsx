@@ -308,12 +308,12 @@ function OrganizationList() {
               >
                 <TableHead style={{ borderBottom: '2px solid #0F172A' }}>
                   <TableRow>
-                    <TableCell padding="checkbox">
+                    {/* <TableCell padding="checkbox">
                       <Checkbox
                         indeterminate={false}
                         inputProps={{ 'aria-label': 'select all desserts' }}
                       />
-                    </TableCell>
+                    </TableCell> */}
                     <TableCell>
                       <TableSortLabel
                         onClick={(e) => handleRequestSort(e, 'name')}
@@ -421,10 +421,10 @@ function OrganizationList() {
                   {tableloading ? (
                     <TableRow>
                       <TableCell colSpan={7} align="center">
-                        {/* <Skeleton variant="rectangular" width="100%">
-                          <div style={{ paddingTop: '20%' }} />
-                        </Skeleton> */}
-                        <CircularProgress />
+                        <Skeleton variant="rectangular" width="100%">
+                          <div style={{ paddingTop: '21%' }} />
+                        </Skeleton>
+                        {/* <CircularProgress /> */}
                       </TableCell>
                     </TableRow>
                   ) : (
@@ -436,11 +436,11 @@ function OrganizationList() {
                         )
                         .map((row) => (
                           <TableRow key={row.id}>
-                            <TableCell padding="checkbox">
+                            {/* <TableCell padding="checkbox">
                               <Checkbox
                                 inputProps={{ 'aria-labelledby': row.name }}
                               />
-                            </TableCell>
+                            </TableCell> */}
                             <TableCell component="th" scope="row">
                               {row.name}
                             </TableCell>

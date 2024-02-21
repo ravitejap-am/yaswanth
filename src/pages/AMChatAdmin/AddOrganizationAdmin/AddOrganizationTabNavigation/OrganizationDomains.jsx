@@ -5,6 +5,7 @@ import GeneralForm from '../../../../components/common/forms/GeneralForm';
 import { ReactComponent as PlusSign } from '../../../../asset/AmChatSuperAdmin/plus-solid.svg';
 import { ReactComponent as DeleteIcon } from '../../../../asset/AmChatSuperAdmin/trash-solid.svg';
 import Style from './OrganizationDomain.module.css';
+import { extractDomain } from '../../../../utils/generalUtils';
 
 function OrganizationDomains({
   orgData,
@@ -13,6 +14,9 @@ function OrganizationDomains({
   selectOrgData,
   organisation,
   editOrganisation,
+  buttonLoading,
+  showNotifyMessage,
+  messageHandler,
 }) {
   const [newDomains, setNewDomains] = useState(
     orgData?.metaData?.length > 0
@@ -56,6 +60,13 @@ function OrganizationDomains({
         updatedDomains.splice(index, 1);
         return updatedDomains;
       });
+    } else {
+      showNotifyMessage(
+        'warn',
+        'A minimum of one domain name is required',
+        messageHandler
+      );
+      console.log('comming to delete');
     }
   };
   const submitHandler = (values) => {
@@ -96,7 +107,8 @@ function OrganizationDomains({
       console.log('updateorgdata', updatedOrgData);
       selectOrgData(updatedOrgData);
       if (organisation?.organisationStatus == 'edit') {
-        editOrganisation();
+        editOrganisation(updatedOrgData);
+        return;
       }
       setSelectedTab('subscriptionplan');
     }
@@ -168,9 +180,9 @@ function OrganizationDomains({
       //     message: 'Please enter domains',
       //   },
       // ],
-      pattern: /^([a-zA-Z]{3,30}\s*)+/,
-      emptyErrorMessage: 'Pleas add the domain',
-      invalidErrorMessage: 'Pleas add the valid domain',
+      // pattern: /^([a-zA-Z]{3,30}\s*)+/,
+      // emptyErrorMessage: 'Pleas add the domain',
+      // invalidErrorMessage: 'Pleas add the valid domain',
       removeButton: (
         <button onClick={() => handleRemoveDomain(index)}>Remove</button>
       ),
@@ -183,7 +195,11 @@ function OrganizationDomains({
   return (
     <div>
       <div className={Style.container}>
-        <GeneralForm className={Style.generalForm} {...feedingVariable} />
+        <GeneralForm
+          className={Style.generalForm}
+          {...feedingVariable}
+          buttonLoading={buttonLoading}
+        />
         <div className={Style.iconsContainer}>
           <PlusSign className={Style.plusSign} onClick={handlePlusClick} />
           <DeleteIcon
