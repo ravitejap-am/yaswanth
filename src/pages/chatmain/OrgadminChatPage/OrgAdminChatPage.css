@@ -7,12 +7,14 @@
   border-radius: 15px;
   background: var(--Neutral-200, #e2e8f0);
   width: 80vw;
-  height: 97%;
+  height: 95%;
   margin-top: 20px;
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
   position: relative;
   margin-left: 15px;
   right: 10px;
+  padding: 20px;
+  padding-bottom: 0px;
 }
 
 .orgadminchat-document-card {
@@ -51,7 +53,7 @@
   border-radius: 15px;
   background: var(--Neutral-200, #e2e8f0);
   width: 90%;
-  height: 95vh;
+  height: 92vh;
   justify-content: center;
   text-align: center;
   border-radius: 10.457px;
@@ -448,3 +450,75 @@
   margin-left: -8px;
   margin-bottom: 10px;
 }
+
+.example_main_div {
+margin-top: 100px;
+display: flex;
+flex-wrap: wrap;
+justify-content: flex-start;
+align-self: center;
+margin-left: 15px;
+}
+
+.card_message_example {
+  display: inline-flex;
+  height: 15px;
+  padding: 10px 16px;
+  margin-right: 7px;
+  flex-direction: row;
+  /* justify-content: flex-end; */
+  align-items: flex-end;
+  gap: 8px;
+  flex-shrink: 0;
+  border-radius: 30px;
+  border: 1px solid var(--Neutral-300, #cbd5e1);
+  color: #475569;
+  color: var(--Neutral-600, #475569);
+
+  font-family: Into, "Lato";
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 16px; /* 133.333% */
+  /* background-color: red; */
+}
+
+.AIChatInputBox {
+  padding-top: 20px;
+  width: 98%;
+  /* min-height: 70px; */
+  margin: 12px;
+}
+
+
+.searchStyles {
+  width: 72%;
+  /* height: 70px; */
+  border-radius: 35px;
+  border: '1px solid #94a3b8';
+  color: #94a3b8;
+  /* padding: auto; */
+  /* padding-left: 30px; */
+  font-size: 32px;
+  flex-grow: 1;
+  overflow-y: hidden;
+  height: 70px;
+  padding-top: 30px;
+  /* min-height: 140px; */
+  /* max-height: 'auto'; */
+  background-color: rosybrown;
+};
+
+.orgadminchat_chat_ui_card {
+   background-color: #312e81;
+}
+
+
+.footer {
+  position: absolute;
+  bottom: 20px;
+  width: 78%;
+  /* height: auto;  */
+}
+
+

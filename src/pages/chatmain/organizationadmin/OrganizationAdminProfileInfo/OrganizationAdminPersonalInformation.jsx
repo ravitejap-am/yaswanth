@@ -169,7 +169,7 @@ function OrganizationAdminPersonalInformation({
     cancelHandler: () => {
       console.log("Canceling....");
     },
-    isSubmit: false,
+    isSubmit: true,
     submitHandler: () => {
       console.log("Submitting PersonalInformation form....");
     },

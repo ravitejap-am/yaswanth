@@ -26,6 +26,10 @@ import AssignmentIndOutlinedIcon from '@mui/icons-material/AssignmentIndOutlined
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import AMChatHeader from '../AMChatHeader/AMChatHeader';
 import SuperAdminHeader from '../SuperAdminHeader/SuperAdminHeader';
+import { getUserProfileDetails } from '../../../apiCalls/ApiCalls';
+import { useSelector } from "react-redux";
+import { selectUser } from "../../../store/authSlice";
+import { tokenDecodeJWT } from '../../../utils/authUtils';
 
 const style = {
   py: 0,
@@ -40,11 +44,19 @@ const style = {
 function SuperAdminAMChatCard() {
   const navigate = useNavigate();
   const [firstName, setFirstName] = useState('');
+  const user = useSelector(selectUser);
+  const jwt = user.userToken;
+  const decodedToken = tokenDecodeJWT(jwt);
+  // const organisationId = decodedToken ? decodedToken.organisationId : null;
+  const userId = decodedToken ? decodedToken.userId : null;
+
   useEffect(() => {
     // Retrieve firstName from localStorage
-    const storedFirstName = localStorage.getItem('firstName');
-    console.log('localName', storedFirstName);
-    setFirstName(storedFirstName);
+    // const storedFirstName = localStorage.getItem('firstName');
+    // console.log('localName', storedFirstName);
+    // setFirstName(storedFirstName);
+
+    getUserDetails()
   }, []);
   const contentArray = [
     'Could you help me with the maternity policy of my organization?',
@@ -64,6 +76,26 @@ function SuperAdminAMChatCard() {
   const handleSearchImageClick = () => {
     // navigate("/chat");
   };
+
+  const getUserDetails = async () => {
+    try{
+      const headers = { Authorization: `Bearer ${jwt}`, 'Content-Type': 'application/json' };
+      const response = await getUserProfileDetails(userId, headers);
+      console.log("user details---->", response);
+      if(response.status === 200 && response.data.data && response?.data?.data?.user?.firstName){
+        // setFirstName(response.data.data.firstName)
+        console.log("firstName", response?.data?.data?.user?.firstName);
+        setFirstName(response?.data?.data?.user?.firstName || '')
+        localStorage.setItem('firstName', response?.data?.data?.user?.firstName);
+      }
+    }catch(error){
+      console.log("Error in getting user details", error);
+      throw new Error("Failed to fetch user profile-2")
+    }
+
+  }
+
+  console.log("firstName", firstName);
   return (
     <div className={Styles.superAdminMainCardDivStyle}>
       <div className={Styles.superAdminMiddleParentDiv}>
@@ -82,8 +114,9 @@ function SuperAdminAMChatCard() {
                 height: '70%',
               },
               textStyle: {
-                color: 'blue',
-                fontWeight: 'bold',
+                color: 'black',
+                fontWeight: '500',
+                fontSize: '24px',
               },
             }}
           />
