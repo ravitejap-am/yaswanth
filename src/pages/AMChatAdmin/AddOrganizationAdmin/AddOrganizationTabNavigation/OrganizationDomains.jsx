@@ -65,46 +65,54 @@ function OrganizationDomains({
     console.log(jwt);
 
     if (newDomains.length > 1) {
-      try {
-        setButtonLoading(true);
-        let body = {
-          id: newDomains[index].id,
-          typeDetails: newDomains[index].typeDetails,
-          status: 'ACTIVE',
-        };
-        const response = await axios.put(
-          `${BASE_ORG_API_URL}/delete_domain`,
-          JSON.stringify(body),
-          {
-            headers: {
-              Authorization: `Bearer ${jwt}`,
-              'Content-Type': 'application/json',
-            },
+      if (organisation?.organisationStatus == 'edit') {
+        try {
+          setButtonLoading(true);
+          let body = {
+            id: newDomains[index].id,
+            typeDetails: newDomains[index].typeDetails,
+            status: 'ACTIVE',
+          };
+          const response = await axios.put(
+            `${BASE_ORG_API_URL}/delete_domain`,
+            JSON.stringify(body),
+            {
+              headers: {
+                Authorization: `Bearer ${jwt}`,
+                'Content-Type': 'application/json',
+              },
+            }
+          );
+          setButtonLoading(false);
+          setNewDomains((prevDomains) => {
+            const updatedDomains = [...prevDomains];
+            updatedDomains.splice(index, 1);
+            return updatedDomains;
+          });
+          showNotifyMessage('success', response?.data?.message, messageHandler);
+          console.log('API Response:', response.data);
+        } catch (error) {
+          console.error('Error occurred:', error);
+          if (
+            error?.response?.status == 500 ||
+            error?.response?.status == '500'
+          ) {
+            navigate('/internal500');
           }
-        );
-        setButtonLoading(false);
+          setButtonLoading(false);
+          console.log(error);
+          showNotifyMessage(
+            'error',
+            error?.response?.data?.message,
+            messageHandler
+          );
+        }
+      } else {
         setNewDomains((prevDomains) => {
           const updatedDomains = [...prevDomains];
           updatedDomains.splice(index, 1);
           return updatedDomains;
         });
-        showNotifyMessage('success', response?.data?.message, messageHandler);
-        console.log('API Response:', response.data);
-      } catch (error) {
-        console.error('Error occurred:', error);
-        if (
-          error?.response?.status == 500 ||
-          error?.response?.status == '500'
-        ) {
-          navigate('/internal500');
-        }
-        setButtonLoading(false);
-        console.log(error);
-        showNotifyMessage(
-          'error',
-          error?.response?.data?.message,
-          messageHandler
-        );
       }
     } else {
       showNotifyMessage(
