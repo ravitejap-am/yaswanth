@@ -7,6 +7,8 @@ import { ReactComponent as DeleteIcon } from '../../../../asset/AmChatSuperAdmin
 import Style from './OrganizationDomain.module.css';
 import { extractDomain } from '../../../../utils/generalUtils';
 
+let domainNameRegex = /^[a-zA-Z0-9-]+\.com$/;
+
 function OrganizationDomains({
   orgData,
   setSelectedTab,
@@ -69,48 +71,80 @@ function OrganizationDomains({
       console.log('comming to delete');
     }
   };
+
+  const domainNameValidation = (domainArray) => {
+    if (orgData?.contact?.email.length > 0) {
+      let isDomainValid = domainArray.find(
+        (obj) => obj['typeDetails'] == extractDomain(orgData?.contact?.email)
+      );
+      console.log('isDomainValid', !!isDomainValid);
+      return !!isDomainValid;
+    }
+  };
+
+  const domainFormatValidation = (domainArray) => {
+    console.log(domainArray);
+    let isValidDomainName = true;
+    domainArray.forEach((obj) => {
+      console.log('regex response', domainNameRegex);
+      if (domainNameRegex.test(obj.typeDetails)) {
+        console.log(obj.typeDetails + 'Valid domain name');
+      } else {
+        console.log(obj.typeDetails + 'Invalid domain name');
+        isValidDomainName = false;
+        showNotifyMessage(
+          'error',
+          `${obj.typeDetails} is not in domain name format.`,
+          messageHandler
+        );
+      }
+    });
+    return isValidDomainName;
+  };
+
   const submitHandler = (values) => {
     console.log('Form values:', newDomains);
     console.log(values);
 
     let domainArray = [];
     if (values != undefined) {
-      if (organisation?.organisationStatus == 'edit') {
-        Object.keys(values).forEach((key, index) => {
-          console.log(key + ': ' + values[key]);
-          let domainObject = {};
-          if (values[key] == '') {
-            domainObject = newDomains[index];
-          } else {
-            domainObject['typeDetails'] = values[key];
-            domainObject['typeId'] = '20';
-          }
+      Object.keys(values).forEach((key, index) => {
+        console.log(key + ': ' + values[key]);
+        let domainObject = {};
+        if (values[key] == '') {
+          domainObject = newDomains[index];
+        } else {
+          domainObject['typeDetails'] = values[key];
+          domainObject['typeId'] = '20';
+        }
 
-          domainArray.push(domainObject);
-        });
-      } else {
-        Object.keys(values).forEach((key) => {
-          console.log(key + ': ' + values[key]);
-          let domainObject = {
-            typeDetails: values[key],
-            typeId: '20',
-          };
-          domainArray.push(domainObject);
-        });
-      }
+        domainArray.push(domainObject);
+      });
 
       console.log('domainaarray', domainArray);
-      const updatedOrgData = {
-        ...orgData,
-        metaData: domainArray,
-      };
-      console.log('updateorgdata', updatedOrgData);
-      selectOrgData(updatedOrgData);
-      if (organisation?.organisationStatus == 'edit') {
-        editOrganisation(updatedOrgData);
-        return;
+
+      if (domainFormatValidation(domainArray)) {
+        if (domainNameValidation(domainArray)) {
+          const updatedOrgData = {
+            ...orgData,
+            metaData: domainArray,
+          };
+          console.log('updateorgdata', updatedOrgData);
+          selectOrgData(updatedOrgData);
+          if (organisation?.organisationStatus == 'edit') {
+            editOrganisation(updatedOrgData);
+            return;
+          }
+          setSelectedTab('subscriptionplan');
+        } else {
+          showNotifyMessage(
+            'warn',
+            'At least one domain name should match the organisation domain',
+            messageHandler
+          );
+          return;
+        }
       }
-      setSelectedTab('subscriptionplan');
     }
 
     // setSelectedTab('organizationadmin');
