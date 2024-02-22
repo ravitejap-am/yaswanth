@@ -94,7 +94,9 @@ function OrganizationDomains({
         isValidDomainName = false;
         showNotifyMessage(
           'error',
-          `${obj.typeDetails} is not in domain name format.`,
+          !!obj.typeDetails
+            ? `${obj.typeDetails} is not in domain name format.`
+            : 'Empty domain name not accepted',
           messageHandler
         );
       }
