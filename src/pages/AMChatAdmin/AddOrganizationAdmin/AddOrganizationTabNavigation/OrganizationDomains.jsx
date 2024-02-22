@@ -6,6 +6,9 @@ import { ReactComponent as PlusSign } from '../../../../asset/AmChatSuperAdmin/p
 import { ReactComponent as DeleteIcon } from '../../../../asset/AmChatSuperAdmin/trash-solid.svg';
 import Style from './OrganizationDomain.module.css';
 import { extractDomain } from '../../../../utils/generalUtils';
+import axios from 'axios';
+import { BASE_API_URL, BASE_ORG_API_URL } from '../../../../constants/Constant';
+import { useNavigate } from 'react-router-dom';
 
 let domainNameRegex = /^[a-zA-Z0-9-]+\.com$/;
 
@@ -19,10 +22,13 @@ function OrganizationDomains({
   buttonLoading,
   showNotifyMessage,
   messageHandler,
+  jwt = '',
+  setButtonLoading,
 }) {
+  const navigate = useNavigate();
   const [newDomains, setNewDomains] = useState(
     orgData?.metaData?.length > 0
-      ? orgData?.metaData
+      ? orgData?.metaData.filter((obj) => obj['status'] !== 'INACTIVE')
       : [
           {
             typeDetails: '',
@@ -55,13 +61,51 @@ function OrganizationDomains({
     });
   };
 
-  const handleRemoveDomain = (index) => {
+  const handleRemoveDomain = async (index) => {
+    console.log(jwt);
+
     if (newDomains.length > 1) {
-      setNewDomains((prevDomains) => {
-        const updatedDomains = [...prevDomains];
-        updatedDomains.splice(index, 1);
-        return updatedDomains;
-      });
+      try {
+        setButtonLoading(true);
+        let body = {
+          id: newDomains[index].id,
+          typeDetails: newDomains[index].typeDetails,
+          status: 'ACTIVE',
+        };
+        const response = await axios.put(
+          `${BASE_ORG_API_URL}/delete_domain`,
+          JSON.stringify(body),
+          {
+            headers: {
+              Authorization: `Bearer ${jwt}`,
+              'Content-Type': 'application/json',
+            },
+          }
+        );
+        setButtonLoading(false);
+        setNewDomains((prevDomains) => {
+          const updatedDomains = [...prevDomains];
+          updatedDomains.splice(index, 1);
+          return updatedDomains;
+        });
+        showNotifyMessage('success', response?.data?.message, messageHandler);
+        console.log('API Response:', response.data);
+      } catch (error) {
+        console.error('Error occurred:', error);
+        if (
+          error?.response?.status == 500 ||
+          error?.response?.status == '500'
+        ) {
+          navigate('/internal500');
+        }
+        setButtonLoading(false);
+        console.log(error);
+        showNotifyMessage(
+          'error',
+          error?.response?.data?.message,
+          messageHandler
+        );
+      }
     } else {
       showNotifyMessage(
         'warn',

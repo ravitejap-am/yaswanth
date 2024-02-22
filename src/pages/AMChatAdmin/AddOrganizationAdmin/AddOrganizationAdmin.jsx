@@ -217,7 +217,10 @@ function AddOrganizationAdmin() {
             handleTabChange={handleTabChange}
           />
           <br />
-          <div className={Styles.superAdminTabChildCardStyle}>
+          <div
+            className={Styles.superAdminTabChildCardStyle}
+            style={{ height: '74%' }}
+          >
             {selectedTab === 'personalinformation' && (
               <OrganizationInfo
                 orgData={orgData}
@@ -250,6 +253,7 @@ function AddOrganizationAdmin() {
                 buttonLoading={buttonLoading}
                 showNotifyMessage={showNotifyMessage}
                 messageHandler={messageHandler}
+                jwt={jwt}
               />
             )}
             {selectedTab === 'subscriptionplan' && (
@@ -275,6 +279,8 @@ function AddOrganizationAdmin() {
                 buttonLoading={buttonLoading}
                 showNotifyMessage={showNotifyMessage}
                 messageHandler={messageHandler}
+                jwt={jwt}
+                setButtonLoading={setButtonLoading}
               />
             )}
           </div>
