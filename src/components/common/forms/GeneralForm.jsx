@@ -361,23 +361,40 @@ const GeneralForm = (props) => {
                       options={item?.options != undefined ? item?.options : []}
                       style={item.style}
                     /> */}
-                        <Dropdown
-                          labelName={item.labelName ? item.label : null}
-                          options={
-                            item?.options != undefined ? item?.options : []
-                          }
-                          onSelect={(value) => {
-                            if (isSuperAdmin) {
-                              item?.onSelectApiCall(value);
+                        <div>
+                          <Dropdown
+                            labelName={item.labelName ? item.label : null}
+                            options={
+                              item?.options != undefined ? item?.options : []
                             }
-                            form.setFieldsValue({ [item.name]: value });
-                          }}
-                          style={item.style}
-                          placeholder={item.labelName ? null : item.label}
-                          defaultValue={
-                            item.defaultValue ? item.defaultValue : ''
-                          }
-                        />
+                            onSelect={(value) => {
+                              if (isSuperAdmin) {
+                                item?.onSelectApiCall(value);
+                              }
+                              form.setFieldsValue({ [item.name]: value });
+                            }}
+                            style={item.style}
+                            placeholder={item.labelName ? null : item.label}
+                            defaultValue={
+                              item.defaultValue ? item.defaultValue : ''
+                            }
+                            onBlur={() => {
+                              if (
+                                item.pattern !== null &&
+                                item.pattern !== undefined
+                              ) {
+                                isValid(
+                                  item.pattern,
+                                  form.getFieldValue(item.name),
+                                  item.name,
+                                  item?.emptyErrorMessage,
+                                  item?.invalidErrorMessage
+                                );
+                              }
+                            }}
+                          />
+                          {<ErrorMessage name={item.name} />}
+                        </div>
                       </div>
                     )}
                     {item?.type === 'file' && (
@@ -550,24 +567,41 @@ const GeneralForm = (props) => {
                       options={item?.options != undefined ? item?.options : []}
                       style={item.style}
                     /> */}
-                        <Dropdown
-                          labelName={item.labelName ? item.label : null}
-                          options={
-                            item?.options != undefined ? item?.options : []
-                          }
-                          onSelect={(value) => {
-                            if (isSuperAdmin) {
-                              item?.onSelectApiCall(value);
+                        <div>
+                          <Dropdown
+                            labelName={item.labelName ? item.label : null}
+                            options={
+                              item?.options != undefined ? item?.options : []
                             }
-                            form.setFieldsValue({ [item.name]: value });
-                          }}
-                          style={{ ...item.style }}
-                          // style={item.style}
-                          placeholder={item.labelName ? null : item.label}
-                          defaultValue={
-                            item.defaultValue ? item.defaultValue : ''
-                          }
-                        />
+                            onSelect={(value) => {
+                              if (isSuperAdmin) {
+                                item?.onSelectApiCall(value);
+                              }
+                              form.setFieldsValue({ [item.name]: value });
+                            }}
+                            style={{ ...item.style }}
+                            // style={item.style}
+                            placeholder={item.labelName ? null : item.label}
+                            defaultValue={
+                              item.defaultValue ? item.defaultValue : ''
+                            }
+                            onBlur={() => {
+                              if (
+                                item.pattern !== null &&
+                                item.pattern !== undefined
+                              ) {
+                                isValid(
+                                  item.pattern,
+                                  form.getFieldValue(item.name),
+                                  item.name,
+                                  item?.emptyErrorMessage,
+                                  item?.invalidErrorMessage
+                                );
+                              }
+                            }}
+                          />
+                          {<ErrorMessage name={item.name} />}
+                        </div>
                       </div>
                     )}
                     {item?.type === 'file' && (

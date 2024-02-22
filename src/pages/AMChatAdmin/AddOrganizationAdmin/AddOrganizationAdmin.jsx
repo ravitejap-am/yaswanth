@@ -18,6 +18,7 @@ import { useMessageState } from '../../../hooks/useapp-message';
 import { tokenDecodeJWT } from '../../../utils/authUtils';
 import AMChatHeader from '../AMChatHeader/AMChatHeader';
 import SuperAdminHeader from '../SuperAdminHeader/SuperAdminHeader';
+import PageLoader from '../../../components/loader/loader';
 
 function AddOrganizationAdmin() {
   let {
@@ -80,6 +81,7 @@ function AddOrganizationAdmin() {
   );
   const [cities, setCities] = useState([]);
   const [firstNamelocal, setFirstName] = useState('');
+  const [backDropLoading, setBackDropLoading] = useState(false);
   useEffect(() => {
     const storedFirstName = localStorage.getItem('firstName');
     setFirstName(storedFirstName);
@@ -94,7 +96,7 @@ function AddOrganizationAdmin() {
     if (body.hasOwnProperty('plan')) {
       delete body['plan'];
     }
-    setButtonLoading(true);
+    setBackDropLoading(true);
     try {
       const response = await axios.post(
         `${constants.BASE_ORG_API_URL}`,
@@ -106,7 +108,7 @@ function AddOrganizationAdmin() {
           },
         }
       );
-      setButtonLoading(false);
+      setBackDropLoading(false);
       // setIsReset(true);
       showNotifyMessage('success', response?.data?.message, messageHandler);
       console.log('API Response:', response.data);
@@ -116,7 +118,7 @@ function AddOrganizationAdmin() {
       if (error?.response?.status == 500 || error?.response?.status == '500') {
         navigate('/internal500');
       }
-      setButtonLoading(false);
+      setBackDropLoading(false);
       console.log(error);
       showNotifyMessage(
         'error',
@@ -125,8 +127,8 @@ function AddOrganizationAdmin() {
       );
     }
   };
-  const editOrganisation = async () => {
-    let body = orgData;
+  const editOrganisation = async (editedData) => {
+    let body = editedData;
     if (body.hasOwnProperty('plan')) {
       delete body['plan'];
     }
@@ -181,93 +183,103 @@ function AddOrganizationAdmin() {
   };
 
   return (
-    <div className={Styles.superAdminMainCardDivStyle}>
-      <div className={Styles.superAdminMiddleParentDiv}>
-        <div className={Styles.superAdminProfileCardStyle}>
-          <SuperAdminHeader
-            componentName={`${
-              organisation?.organisationStatus == 'add' ? 'Add' : 'Edit'
-            } Organization`}
-            name={firstNamelocal || ''}
-            profileImageSrc={profile}
-            customStyle={{
-              containerStyle: {
-                display: 'flex',
-                borderRadius: '8px',
-              },
-              imageStyle: {
-                width: '50%',
-                height: '70%',
-              },
-              textStyle: {
-                color: 'blue',
-                fontWeight: 'bold',
-              },
-            }}
-          />
-        </div>
+    <>
+      {backDropLoading && <PageLoader loadingStatus={backDropLoading} />}
 
-        <TabNavigation
-          selectedTab={selectedTab}
-          handleTabChange={handleTabChange}
-        />
-        <br />
-        <div className={Styles.superAdminTabChildCardStyle}>
-          {selectedTab === 'personalinformation' && (
-            <OrganizationInfo
-              orgData={orgData}
-              setSelectedTab={setSelectedTab}
-              selectedTab={selectedTab}
-              selectOrgData={selectOrgData}
-              buttonLoading={buttonLoading}
-              setButtonLoading={setButtonLoading}
-              countries={countries}
-              states={states}
-              localState={localState}
-              setLocalState={setLocalState}
-              cities={cities}
-              setCities={setCities}
-              setCountries={setCountries}
-              setStates={setStates}
-              organisation={organisation}
-              editOrganisation={editOrganisation}
+      <div className={Styles.superAdminMainCardDivStyle}>
+        <div className={Styles.superAdminMiddleParentDiv}>
+          <div className={Styles.superAdminProfileCardStyle}>
+            <SuperAdminHeader
+              componentName={`${
+                organisation?.organisationStatus == 'add' ? 'Add' : 'Edit'
+              } Organization`}
+              name={firstNamelocal || ''}
+              profileImageSrc={profile}
+              customStyle={{
+                containerStyle: {
+                  display: 'flex',
+                  borderRadius: '8px',
+                },
+                imageStyle: {
+                  width: '50%',
+                  height: '70%',
+                },
+                textStyle: {
+                  color: 'blue',
+                  fontWeight: 'bold',
+                },
+              }}
             />
-          )}
-          {selectedTab === 'organizationadmin' && (
-            <OrganizationAdmin
-              orgData={orgData}
-              setSelectedTab={setSelectedTab}
-              selectedTab={selectedTab}
-              selectOrgData={selectOrgData}
-              organisation={organisation}
-              editOrganisation={editOrganisation}
-            />
-          )}
-          {selectedTab === 'subscriptionplan' && (
-            <SubscriptionPlan
-              orgData={orgData}
-              setSelectedTab={setSelectedTab}
-              selectedTab={selectedTab}
-              selectOrgData={selectOrgData}
-              addOrganisation={addOrganisation}
-              buttonLoading={buttonLoading}
-              organisation={organisation}
-              editOrganisation={editOrganisation}
-            />
-          )}
-          {selectedTab === 'organizationdomains' && (
-            <OrganizationDomains
-              orgData={orgData}
-              setSelectedTab={setSelectedTab}
-              selectedTab={selectedTab}
-              selectOrgData={selectOrgData}
-              organisation={organisation}
-              editOrganisation={editOrganisation}
-            />
-          )}
-        </div>
-        <div className={Styles.generalButtonStyle}>
-          {/* <div>
+          </div>
+
+          <TabNavigation
+            selectedTab={selectedTab}
+            handleTabChange={handleTabChange}
+          />
+          <br />
+          <div className={Styles.superAdminTabChildCardStyle}>
+            {selectedTab === 'personalinformation' && (
+              <OrganizationInfo
+                orgData={orgData}
+                setSelectedTab={setSelectedTab}
+                selectedTab={selectedTab}
+                selectOrgData={selectOrgData}
+                buttonLoading={buttonLoading}
+                setButtonLoading={setButtonLoading}
+                countries={countries}
+                states={states}
+                localState={localState}
+                setLocalState={setLocalState}
+                cities={cities}
+                setCities={setCities}
+                setCountries={setCountries}
+                setStates={setStates}
+                organisation={organisation}
+                editOrganisation={editOrganisation}
+                setBackDropLoading={setBackDropLoading}
+              />
+            )}
+            {selectedTab === 'organizationadmin' && (
+              <OrganizationAdmin
+                orgData={orgData}
+                setSelectedTab={setSelectedTab}
+                selectedTab={selectedTab}
+                selectOrgData={selectOrgData}
+                organisation={organisation}
+                editOrganisation={editOrganisation}
+                buttonLoading={buttonLoading}
+                showNotifyMessage={showNotifyMessage}
+                messageHandler={messageHandler}
+              />
+            )}
+            {selectedTab === 'subscriptionplan' && (
+              <SubscriptionPlan
+                orgData={orgData}
+                setSelectedTab={setSelectedTab}
+                selectedTab={selectedTab}
+                selectOrgData={selectOrgData}
+                addOrganisation={addOrganisation}
+                buttonLoading={buttonLoading}
+                organisation={organisation}
+                editOrganisation={editOrganisation}
+              />
+            )}
+            {selectedTab === 'organizationdomains' && (
+              <OrganizationDomains
+                orgData={orgData}
+                setSelectedTab={setSelectedTab}
+                selectedTab={selectedTab}
+                selectOrgData={selectOrgData}
+                organisation={organisation}
+                editOrganisation={editOrganisation}
+                buttonLoading={buttonLoading}
+                showNotifyMessage={showNotifyMessage}
+                messageHandler={messageHandler}
+              />
+            )}
+          </div>
+          <div className={Styles.generalButtonStyle}>
+            {/* <div>
             <GeneralButton
               name="Submit"
               buttonProps={
@@ -285,7 +297,7 @@ function AddOrganizationAdmin() {
               buttonHandler={handleSubmit}
             />
           </div> */}
-          {/* <Link
+            {/* <Link
             to="/dashboardadmin/organizationlist"
             style={{ textDecoration: "none" }}
           >
@@ -308,9 +320,10 @@ function AddOrganizationAdmin() {
               />
             </div>
           </Link> */}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

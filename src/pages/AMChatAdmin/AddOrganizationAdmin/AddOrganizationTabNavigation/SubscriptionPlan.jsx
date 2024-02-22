@@ -77,7 +77,7 @@ function SubscriptionPlan({
         onClick={() => {
           console.log(orgData);
           if (organisation?.organisationStatus == 'edit') {
-            editOrganisation();
+            editOrganisation(orgData);
           } else {
             addOrganisation();
           }
