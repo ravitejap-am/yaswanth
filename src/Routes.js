@@ -48,11 +48,7 @@ const Rout = () => {
       <Route exact path="/signin" element={<SignIn />} />
       <Route exact path="/user/verify/:id" element={<SignIn />} />
       <Route exact path="/recoverypassword" element={<RecoveryPasswor />} />
-      <Route
-        exact
-        path="/user/verification/reset/:id"
-        element={<ResetPassword />}
-      />
+      <Route exact path="/api/v1/iam/user/verify" element={<ResetPassword />} />
       <Route exact path="/pagenotfound" element={<PageNotFound />} />
       <Route exact path="/internal500" element={<Page505 />} />
       <Route exact path="/undermaintenence" element={<MaintainencePage />} />
