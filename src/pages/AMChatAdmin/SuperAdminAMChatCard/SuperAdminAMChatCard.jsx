@@ -30,6 +30,7 @@ import { getUserProfileDetails } from '../../../apiCalls/ApiCalls';
 import { useSelector } from "react-redux";
 import { selectUser } from "../../../store/authSlice";
 import { tokenDecodeJWT } from '../../../utils/authUtils';
+import ChatSearch from '../../../components/common/chatSearch/ChatSearch';
 
 const style = {
   py: 0,
@@ -49,13 +50,9 @@ function SuperAdminAMChatCard() {
   const decodedToken = tokenDecodeJWT(jwt);
   // const organisationId = decodedToken ? decodedToken.organisationId : null;
   const userId = decodedToken ? decodedToken.userId : null;
+  const [chat, setChat] = useState('');
 
   useEffect(() => {
-    // Retrieve firstName from localStorage
-    // const storedFirstName = localStorage.getItem('firstName');
-    // console.log('localName', storedFirstName);
-    // setFirstName(storedFirstName);
-
     getUserDetails()
   }, []);
   const contentArray = [
@@ -74,7 +71,7 @@ function SuperAdminAMChatCard() {
     paddingLeft: '30px',
   };
   const handleSearchImageClick = () => {
-    // navigate("/chat");
+    navigate("/chat");
   };
 
   const getUserDetails = async () => {
@@ -110,8 +107,8 @@ function SuperAdminAMChatCard() {
                 borderRadius: '8px',
               },
               imageStyle: {
-                width: '50%',
-                height: '70%',
+                width: '44px',
+                height: '44px',
               },
               textStyle: {
                 color: 'black',
@@ -177,8 +174,6 @@ function SuperAdminAMChatCard() {
             </div>
           </div>
         </div>
-
-        {/* <div> */}
         <Card className={Styles.superAdminCardStyles}>
           <div className={Styles.AMChatMainCardTitleDiv}>
             <div className={Styles.SuperAdminAmChatStyle}>
@@ -191,7 +186,11 @@ function SuperAdminAMChatCard() {
                 </div>
               </div>
             </div>
-            <div className={Styles.superAdminAMChatMiddleDiv}>
+          </div>
+
+
+          <div className={Styles.footer}>
+          <div className={Styles.superAdminAMChatMiddleDiv}>
               <div className={Styles.AMChatFirstTitle}>
                 <p>Hello, I’m AM-Chat</p>
               </div>
@@ -199,8 +198,6 @@ function SuperAdminAMChatCard() {
                 <p>How can I help you today?</p>
               </div>
             </div>
-          </div>
-
           <div className="Example_main_div">
             <div className="Card_message_example_main">
               {contentArray.map((content, index) => (
@@ -210,20 +207,20 @@ function SuperAdminAMChatCard() {
               ))}
             </div>
           </div>
-
           <div className={Styles.AIChatInputBox}>
-            {/* <Link to="/chat"> */}
-            <Search
+            <ChatSearch
               name={'Ask anything..'}
-              style={searchStyles}
+              style={"searchStyles"}
               searchImage={Group2290}
               onSearchImageClick={handleSearchImageClick}
               readOnly={false}
+              chat={chat}
+              setChat={setChat}
             />
-            {/* </Link> */}
           </div>
+          </div>
+
         </Card>
-        {/* </div> */}
       </div>
     </div>
   );
