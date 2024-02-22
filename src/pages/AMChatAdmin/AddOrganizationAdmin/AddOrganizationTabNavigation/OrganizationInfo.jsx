@@ -18,11 +18,13 @@ function OrganizationInfo({
   setCities,
   organisation,
   editOrganisation,
+  setBackDropLoading,
 }) {
   useEffect(() => {
     console.log('orgData', orgData);
     const fetchCountries = async () => {
-      setButtonLoading(true);
+      // setButtonLoading(true);
+      setBackDropLoading(true);
       try {
         const response = await fetch(
           'https://countriesnow.space/api/v0.1/countries',
@@ -44,11 +46,13 @@ function OrganizationInfo({
           };
           countryArray.push(countryObject);
         });
-        setButtonLoading(false);
+        // setButtonLoading(false);
         setCountries(countryArray);
+        setBackDropLoading(false);
       } catch (error) {
         console.error('Error fetching countries:', error);
-        setButtonLoading(false);
+        // setButtonLoading(false);
+        setBackDropLoading(false);
       }
     };
 
@@ -80,9 +84,11 @@ function OrganizationInfo({
         address: values,
         name: values.name,
       };
+      console.log('updateData', updatedOrgData);
       selectOrgData(updatedOrgData);
       if (organisation?.organisationStatus == 'edit') {
-        editOrganisation();
+        editOrganisation(updatedOrgData);
+        return;
       }
 
       setSelectedTab('organizationadmin');
@@ -94,9 +100,11 @@ function OrganizationInfo({
 
   const handleCountryChange = async (value) => {
     console.log(value);
-    setButtonLoading(true);
+    // setButtonLoading(true);
+    setBackDropLoading(true);
     setLocalState({ ...localState, country: value.label });
     let payload = { country: value.label };
+
     try {
       const response = await fetch(
         `https://countriesnow.space/api/v0.1/countries/states`,
@@ -121,18 +129,20 @@ function OrganizationInfo({
         stateArray.push(stateObject);
       });
       setStates(stateArray);
-
-      setButtonLoading(false);
+      setBackDropLoading(false);
+      // setButtonLoading(false);
     } catch (error) {
       console.error('Error fetching testimonials:', error);
-      setButtonLoading(false);
+      // setButtonLoading(false);
+      setBackDropLoading(false);
     }
   };
 
   const handleStateChange = async (value) => {
     console.log(localState);
     setLocalState({ ...localState, state: value.label });
-    setButtonLoading(true);
+    // setButtonLoading(true);
+    setBackDropLoading(true);
     try {
       const response = await fetch(
         `https://countriesnow.space/api/v0.1/countries/state/cities`,
@@ -162,10 +172,12 @@ function OrganizationInfo({
       // setComments(data.data);
       // setCities(data.data);
       setCities(citiyArray);
-      setButtonLoading(false);
+      // setButtonLoading(false);
+      setBackDropLoading(false);
     } catch (error) {
       console.error('Error fetching testimonials:', error);
-      setButtonLoading(false);
+      // setButtonLoading(false);
+      setBackDropLoading(false);
     }
   };
 

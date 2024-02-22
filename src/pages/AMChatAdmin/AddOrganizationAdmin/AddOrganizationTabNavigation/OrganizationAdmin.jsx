@@ -8,6 +8,8 @@ function OrganizationAdmin({
   selectOrgData,
   organisation,
   editOrganisation,
+  buttonLoading,
+  
 }) {
   const navigate = useNavigate();
 
@@ -81,7 +83,8 @@ function OrganizationAdmin({
 
       selectOrgData(updatedOrgData);
       if (organisation?.organisationStatus == 'edit') {
-        editOrganisation();
+        editOrganisation(updatedOrgData);
+        return;
       }
       setSelectedTab('organizationdomains');
     }
@@ -157,7 +160,12 @@ function OrganizationAdmin({
   };
   return (
     <div>
-      <GeneralForm {...feedingVariable} isSuperAdmin={true} orgInfo={orgInfo} />
+      <GeneralForm
+        {...feedingVariable}
+        isSuperAdmin={true}
+        orgInfo={orgInfo}
+        buttonLoading={buttonLoading}
+      />
     </div>
   );
 }
