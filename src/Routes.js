@@ -40,6 +40,8 @@ import SuperAdminHeader from './pages/AMChatAdmin/SuperAdminHeader/SuperAdminHea
 // import OrganizationAdminSearchUIAIChat from "./pages/chatmain/organizationadmin/OrganizationAdminSearchUIAIChat.jsx";
 import OrganizationAdminSidebarSearchUIAIChat from './pages/chatmain/organizationadmin/OrganizationAdminSidebarSearchUIAIChat.jsx';
 
+import VerificationLink from './pages/linkverification/linkVerification.js';
+
 const Rout = () => {
   return (
     <Routes>
@@ -49,6 +51,7 @@ const Rout = () => {
       <Route exact path="/user/verify/:id" element={<SignIn />} />
       <Route exact path="/recoverypassword" element={<RecoveryPasswor />} />
       <Route exact path="/api/v1/iam/user/verify" element={<ResetPassword />} />
+      <Route exact path="/resetPassword" element={<ResetPassword />} />
       <Route exact path="/pagenotfound" element={<PageNotFound />} />
       <Route exact path="/internal500" element={<Page505 />} />
       <Route exact path="/undermaintenence" element={<MaintainencePage />} />
@@ -81,6 +84,13 @@ const Rout = () => {
         path="/EditAddOrganizationAdmin"
         element={<EditAddOrganizationAdminSidebar />}
       />
+
+      <Route
+        exact
+        path="/verificationLink/verify/:id"
+        element={<VerificationLink />}
+      />
+
       <Route exact path="/PrivacyPolicy" element={<PrivacyPolicy />} />
       <Route exact path="/adduser" element={<OrgAdminSidebar />} />
       <Route exact path="/orgdocumentList" element={<OrgUserListSidebar />} />

@@ -10,3 +10,5 @@ export const CONTACT_US_ENDPOINT = '/user/contactUs';
 export const DOCUMENT_ENDPOINT = '/document';
 export const USER_LIST_ENDPOINT = '/user/userlist';
 export const DUMMY_CHAT_ENDPOINT = '/user/chat/dummy';
+export const VERIFY_API =
+  'https://amchatd1.areteminds.com/api/v1/iam/user/verify';
