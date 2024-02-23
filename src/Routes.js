@@ -1,6 +1,6 @@
 // Rout.js
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route ,Navigate} from 'react-router-dom';
 import LoginPageError from './pages/errorHandler/LoginPageError';
 import Home from './pages/home/Home';
 import RegisterUser from './pages/registerUser/RegisterUser';
@@ -39,8 +39,21 @@ import SuperAdminPersonalInfoSideBar from './pages/AMChatAdmin/SuperAdminPersona
 import SuperAdminHeader from './pages/AMChatAdmin/SuperAdminHeader/SuperAdminHeader.jsx';
 // import OrganizationAdminSearchUIAIChat from "./pages/chatmain/organizationadmin/OrganizationAdminSearchUIAIChat.jsx";
 import OrganizationAdminSidebarSearchUIAIChat from './pages/chatmain/organizationadmin/OrganizationAdminSidebarSearchUIAIChat.jsx';
+// import  ProtectedRoute  from './ProtectedRoute'; 
+
+
+const ProtectedRoute = ({ element: Component, roles, userRole, ...rest }) => {
+  if (!roles.includes(userRole)) {
+    // If user role is not allowed, redirect to unauthorized page
+    return <Navigate to="/signin" />;
+  }
+
+  return <Route {...rest} element={<Component />} />;
+};
 
 const Rout = () => {
+  const userRole = localStorage.getItem('userRole');
+  console.log('userRole--->', userRole);
   return (
     <Routes>
       <Route exact path="/" element={<Home />} />
@@ -59,7 +72,17 @@ const Rout = () => {
         path="/chatOrgAdmin"
         element={<OrganizationAdminSidebarSearchUIAIChat />}
       />
+
+      {/* <ProtectedRoute
+        exact
+        path="/dashboardadmin"
+        element={<AMChatAdminHome />}
+        roles={['SUPER_ADMIN']}
+        userRole={userRole}
+      /> */}
       <Route exact path="/dashboardadmin" element={<AMChatAdminHome />} />
+
+
       <Route exact path="/AMChatHeader" element={<AMChatHeader />} />
       <Route
         exact

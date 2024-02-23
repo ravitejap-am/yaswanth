@@ -35,6 +35,8 @@ const SignIn = () => {
       const decodedToken = decodeJWT(jwtToken);
       if (decodedToken) {
         const role = decodedToken.role;
+        console.log('Role:----->', role);
+        localStorage.setItem("userRole", role);
         switch (role) {
           case 'ORG_ADMIN':
             navigate('/orgadminchat');
