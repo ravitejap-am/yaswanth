@@ -7,6 +7,8 @@ import { useMessageState } from "../../../../hooks/useapp-message";
 import { setUser, selectUser } from "../../../../store/authSlice";
 import { useSelector } from "react-redux";
 import * as constants from "../../../../constants/Constant";
+import { decodeJWT } from "../../../../utils/authUtils";
+import { updateAdminProfileDetails } from "../../../../apiCalls/ApiCalls";
 
 function OrganizationAdminPersonalInformation({
   setFileSysytem,
@@ -152,6 +154,20 @@ function OrganizationAdminPersonalInformation({
     },
   ];
 
+
+
+  const submitHandler = async (values) => {
+    try{
+      const headers = { Authorization: `Bearer ${jwt}`, 'Content-Type': 'application/json' };
+      console.log("values---->", values);
+      // const response = await updateAdminProfileDetails(userId, headers , reqBody);
+      // console.log("user details---->", response);
+    }catch(error){
+      console.log("Error in updating user details", error);
+      throw new Error("Failed to update user profile")
+    }
+  }
+
   const submitButtonProperty = {
     name: "Submit",
     color: "white",
@@ -170,9 +186,7 @@ function OrganizationAdminPersonalInformation({
       console.log("Canceling....");
     },
     isSubmit: true,
-    submitHandler: () => {
-      console.log("Submitting PersonalInformation form....");
-    },
+    submitHandler: submitHandler,
     submitButtonProperty: submitButtonProperty,
     formElements: formElements,
     formType: "normal",
@@ -181,6 +195,7 @@ function OrganizationAdminPersonalInformation({
     grid: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px" },
   };
 
+  
   return (
     <div className="personal-contentcard">
       <div className="user-profile-content">

@@ -202,12 +202,13 @@ function OrgUserList() {
                 borderRadius: "8px",
               },
               imageStyle: {
-                width: "50%",
-                height: "70%",
+                width: "44px",
+                height: "44px",
               },
               textStyle: {
-                color: "blue",
-                fontWeight: "bold",
+                color: 'black',
+                fontWeight: '500',
+                fontSize: '24px',
               },
             }}
           />

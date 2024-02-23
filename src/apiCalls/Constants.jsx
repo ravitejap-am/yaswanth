@@ -12,4 +12,5 @@ const USER_LIST_ENDPOINT = "/user/userlist";
 const DUMMY_CHAT_ENDPOINT = "/user/chat/dummy";
 
 export const USER_PROFILE = `${BASE_API_URL}/user`;
+export const UPDATE_ADMIN_USER = `${BASE_API_URL}/user`;
 
