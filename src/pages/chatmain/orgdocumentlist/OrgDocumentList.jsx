@@ -50,9 +50,9 @@ function OrgDocumentList() {
   };
 
   const [filters, setFilters] = useState({
-    email: "",
+    // email: "",
     active: true,
-    name: "",
+    // name: "",
     sortDirection: "desc",
     sortField: "createdAt",
     page: 0,

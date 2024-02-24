@@ -22,6 +22,12 @@ function OrganizationAdminHeader({
     width: 200,
     ...customStyle,
   };
+
+
+  const handleLogout = () => { 
+    localStorage.clear();
+    window.location.href = "/signin";
+  }
   return (
     <PopupState variant="popover" popupId="profile-popup-popover">
       {(popupState) => (
@@ -74,14 +80,12 @@ function OrganizationAdminHeader({
                 </ListItemButton>
               </ListItem>
               <Divider component="li" />
-              <ListItem>
+              <ListItem onClick={handleLogout}>
                 <ListItemButton>
                   <ListItemIcon>
                     <LogoutOutlinedIcon />
                   </ListItemIcon>
-                  <Link to="/signin" style={{ textDecoration: "none" }}>
                     <ListItemText primary="Logout" />
-                  </Link>
                 </ListItemButton>
               </ListItem>
             </List>
