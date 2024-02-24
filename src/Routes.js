@@ -28,7 +28,7 @@ import OrgEditDocumentSidebar from './pages/chatmain/orgadddocument/orgEditDocum
 import EditOrgUserSidebar from './pages/chatmain/organizationadmin/editorguser/EditOrgUserSidebar.jsx';
 import TermAndCondition from './pages/Terms&Conditions/TermAndCondition.jsx';
 import AMChatMainUserSidebar from './pages/chatmain/userChat/AMChatMainUserSidebar.jsx';
-import SearchUIAIChatSidebar from './pages/AMChatAdmin/SearchUIAMChat.jsx/SearchUIAIChatSidebar.jsx';
+import SearchUIAIChatSidebar from './pages/AMChatAdmin/SearchUIAMChat/SearchUIAIChatSidebar.jsx';
 import UserProfile from './pages/chatmain/UserProfile.jsx';
 import ResetPassword from './pages/setPassword/ResetPassword.jsx';
 import UserProfileSidebar from './pages/chatmain/userProfileSidebar.jsx';

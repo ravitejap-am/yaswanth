@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Styles from "../../AMChatAdmin/SearchUIAMChat.jsx/SearchUIAIChat.module.css";
+import Styles from "../../AMChatAdmin/SearchUIAMChat/SearchUIAIChat.module.css";
 import { Card } from "antd";
 import profile from "../../../asset/AmChatSuperAdmin/profile.png";
 import Group2290 from "../../../asset/Group2290.png";
