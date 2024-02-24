@@ -18,6 +18,11 @@ function AMChatHeader({ componentName, name, profileImageSrc, customStyle }) {
     ...customStyle,
   };
 
+  const handleLogout = () => { 
+    localStorage.clear();
+    window.location.href = "/signin";
+  }
+
   return (
     <PopupState variant="popover" popupId="profile-popup-popover">
       {(popupState) => (
@@ -67,14 +72,12 @@ function AMChatHeader({ componentName, name, profileImageSrc, customStyle }) {
                 </ListItemButton>
               </ListItem>
               <Divider component="li" />
-              <ListItem>
-                <ListItemButton>
+              <ListItem >
+                <ListItemButton onClick={handleLogout}>
                   <ListItemIcon>
                     <LogoutOutlinedIcon />
                   </ListItemIcon>
-                  <Link to="/signin" style={{ textDecoration: "none" }}>
                     <ListItemText primary="Logout" />
-                  </Link>
                 </ListItemButton>
               </ListItem>
             </List>
