@@ -27,7 +27,7 @@ import { useSelector } from "react-redux";
 import upload from "../../../asset/uploadlatesticon.png";
 import axios from "axios";
 import * as constants from "../../../constants/Constant";
-import { BASE_API_URL, DOCUMENT_ENDPOINT } from "../../../constants/Constant";
+import { BASE_API_URL, DOCUMENT_ENDPOINT, BASE_DOC_API_URL } from "../../../constants/Constant";
 import { Spin } from "antd";
 import { useMessageState } from "../../../hooks/useapp-message";
 import AMChatHeader from "../../AMChatAdmin/AMChatHeader/AMChatHeader";
@@ -160,7 +160,7 @@ function OrgUserList() {
   const handleDelete = async (documentId) => {
     try {
       const response = await axios.put(
-        `${BASE_API_URL}/document/${documentId}/status`,
+        `${BASE_DOC_API_URL}/${documentId}/status`,
         { isActive: false },
         {
           headers: {
