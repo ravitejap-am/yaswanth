@@ -57,6 +57,7 @@ function OrgAddDocument() {
       setButtonLoading(false);
       setIsReset(true);
       showNotifyMessage("success", response?.data?.message, messageHandler);
+      navigate("/orgdocumentlist");
       console.log("API Response:", response.data);
     } catch (error) {
       console.error("Error occurred:", error);
