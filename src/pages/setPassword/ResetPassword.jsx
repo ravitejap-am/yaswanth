@@ -10,7 +10,7 @@ import { useSelector } from 'react-redux'; // Import the useSelector hook
 import { useParams } from 'react-router-dom';
 import * as constants from '../../constants/Constant';
 import { useMessageState } from '../../hooks/useapp-message';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const ResetPassword = () => {
   let {
@@ -23,11 +23,13 @@ const ResetPassword = () => {
   } = useMessageState();
   const [form] = Form.useForm();
   const navigate = useNavigate();
-
+  const { search } = useLocation();
+  const params = new URLSearchParams(search);
+  const param = params.get('param');
   const jwtToken = false;
   const { id } = useParams();
 
-  console.log(id);
+  console.log(param);
   useEffect(() => {
     console.log('JWT Token from Redux Store:', jwtToken);
     if (jwtToken) {
@@ -117,7 +119,7 @@ const ResetPassword = () => {
       setButtonLoading(true);
       try {
         const response = await axios.put(
-          `${constants.BASE_API_URL}/user/verification/forget/${id}`,
+          `${constants.BASE_API_URL}/user/verification/forget/${param}`,
           {
             newPassword: values.password,
             confirmPassword: values.confirmPassword,

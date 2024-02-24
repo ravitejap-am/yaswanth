@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from "react";
-import "./registerUser.module2.css";
-import * as constants from "../../constants/Constant";
-import { Form, message } from "antd";
-import NotifyMessage from "../../components/common/toastMessages/NotifyMessage";
-import Spinner from "../../components/common/spinner/Spinner";
-import axios from "axios";
-import GeneralForm from "../../components/common/forms/GeneralForm";
-import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
-import Footer from "../../pages/home/Footer/Footer";
-import SignHeader from "../home/SignHeader/SignHeader";
-import { setUser, selectUser } from "../../store/authSlice";
-import { useMessageState } from "../../hooks/useapp-message";
-import Header from "../home/Header/Header";
+import React, { useEffect, useState } from 'react';
+import './registerUser.module2.css';
+import * as constants from '../../constants/Constant';
+import { Form, message } from 'antd';
+import NotifyMessage from '../../components/common/toastMessages/NotifyMessage';
+import Spinner from '../../components/common/spinner/Spinner';
+import axios from 'axios';
+import GeneralForm from '../../components/common/forms/GeneralForm';
+import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import Footer from '../../pages/home/Footer/Footer';
+import SignHeader from '../home/SignHeader/SignHeader';
+import { setUser, selectUser } from '../../store/authSlice';
+import { useMessageState } from '../../hooks/useapp-message';
+import Header from '../home/Header/Header';
 
 const RegisterUser = () => {
   let {
@@ -42,7 +42,7 @@ const RegisterUser = () => {
 
   const validatePassword = (_, value) => {
     if (value && value.length < 8) {
-      return Promise.reject("Password must be at least 8 characters");
+      return Promise.reject('Password must be at least 8 characters');
     } else {
       return Promise.resolve();
     }
@@ -53,35 +53,35 @@ const RegisterUser = () => {
     if (value && emailRegex.test(value)) {
       return Promise.resolve();
     }
-    return Promise.reject("Please enter a valid email address!");
+    return Promise.reject('Please enter a valid email address!');
   };
   const submitHandler = async (values) => {
     if (!values || !values.firstName) {
-      console.error("First Name is missing in form values");
+      console.error('First Name is missing in form values');
       return;
     }
 
     setButtonLoading(true);
     const apiUrl = `${constants.BASE_API_URL}${constants.SIGNUP_ENDPOINT}`;
     const data = {
-      firstName: values.firstName || "",
-      lastName: values.lastName || "",
-      email: values.email || "",
-      password: values.password || "",
-      confirmPassword: values.confirmPassword || "",
+      firstName: values.firstName || '',
+      lastName: values.lastName || '',
+      email: values.email || '',
+      password: values.password || '',
+      confirmPassword: values.confirmPassword || '',
     };
     try {
       setLoader(true);
       const response = await axios.post(apiUrl, data, {
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
       });
       if (response.data.code) {
         setButtonLoading(false);
         setIsReset(true);
-        showNotifyMessage("success", response?.data?.message, messageHandler);
-      } else if (response.data.code === "SIGNUP-ARR-004") {
+        showNotifyMessage('success', response?.data?.message, messageHandler);
+      } else if (response.data.code === 'SIGNUP-ARR-004') {
         // User is already registered
         setSignupMessage(response.data.message);
       } else {
@@ -90,84 +90,89 @@ const RegisterUser = () => {
         hideNotifyMessage();
       }
     } catch (error) {
-      console.error("Registration failed:", error.response?.data);
+      showNotifyMessage(
+        'error',
+        error?.response?.data?.message,
+        messageHandler
+      );
+      console.error('Registration failed:', error.response?.data);
     } finally {
       setLoader(false);
     }
   };
 
   const cancelHandler = (errorInfo) => {
-    console.log("Canceling....");
+    console.log('Canceling....');
     console.log(errorInfo);
   };
 
   const formElements = [
     {
-      label: "First Name",
-      type: "text",
-      name: "firstName",
+      label: 'First Name',
+      type: 'text',
+      name: 'firstName',
       rules: [
-        { required: true, message: "Please input your Full Name" },
-        { type: "name", message: "Invalid user Name" },
+        { required: true, message: 'Please input your Full Name' },
+        { type: 'name', message: 'Invalid user Name' },
       ],
     },
     {
-      label: "Last Name",
-      type: "text",
-      name: "lastName",
+      label: 'Last Name',
+      type: 'text',
+      name: 'lastName',
       rules: [
-        { required: true, message: "Please input your Full Name" },
-        { type: "name", message: "Invalid user Name" },
+        { required: true, message: 'Please input your Full Name' },
+        { type: 'name', message: 'Invalid user Name' },
       ],
     },
     {
-      label: "Email",
-      type: "email",
-      name: "email",
+      label: 'Email',
+      type: 'email',
+      name: 'email',
       rules: [
-        { required: true, message: "Please input your Enter your email" },
-        { type: "name", message: "Invalid Email" },
+        { required: true, message: 'Please input your Enter your email' },
+        { type: 'name', message: 'Invalid Email' },
       ],
     },
     {
-      label: "Password",
-      type: "password",
-      name: "password",
+      label: 'Password',
+      type: 'password',
+      name: 'password',
       rules: [
-        { required: true, message: "Please input valid password!" },
+        { required: true, message: 'Please input valid password!' },
         { validator: validatePassword },
       ],
     },
     {
-      label: " Confirm Password",
-      type: "password",
-      name: "confirmPassword",
-      rules: [{ required: true, message: "Please confirm your password!" }],
+      label: ' Confirm Password',
+      type: 'password',
+      name: 'confirmPassword',
+      rules: [{ required: true, message: 'Please confirm your password!' }],
     },
   ];
 
   const submitButtonProperty = {
-    name: "Sign Up",
-    color: "white",
-    backgroundColor: "#6366F1",
-    type: "primary",
-    width: "467px",
-    height: "50px",
-    borderRadius: "35px",
-    marginTop: ".7em",
-    fontSize: "0.9rem",
+    name: 'Sign Up',
+    color: 'white',
+    backgroundColor: '#6366F1',
+    type: 'primary',
+    width: '467px',
+    height: '50px',
+    borderRadius: '35px',
+    marginTop: '.7em',
+    fontSize: '0.9rem',
   };
 
   const buttonProps = {
-    name: "Sign In",
-    type: "primary",
-    color: "white",
-    backgroundColor: "#6366F1",
-    width: "120px",
-    padding: "10px 16px",
-    height: "40px",
-    borderRadius: "30px",
-    icons: "",
+    name: 'Sign In',
+    type: 'primary',
+    color: 'white',
+    backgroundColor: '#6366F1',
+    width: '120px',
+    padding: '10px 16px',
+    height: '40px',
+    borderRadius: '30px',
+    icons: '',
   };
 
   const feedingVariable = {
@@ -177,9 +182,9 @@ const RegisterUser = () => {
     submitHandler: submitHandler,
     submitButtonProperty: submitButtonProperty,
     formElements: formElements,
-    formType: "normal",
+    formType: 'normal',
     forgorPasswordHandler: () => {
-      console.log("forgot Password....");
+      console.log('forgot Password....');
     },
     validateEmail: validateEmail,
     setFileSysytem: setFileSysytem,
@@ -206,7 +211,7 @@ const RegisterUser = () => {
                     <div className="text-top">
                       <h2>Sign Up</h2>
                       <p>
-                        Please sign up with your organization email id. If your{" "}
+                        Please sign up with your organization email id. If your{' '}
                         <br />
                         organization is not registered with us, please reach out
                         to <br />
