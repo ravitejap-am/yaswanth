@@ -119,7 +119,7 @@ const ResetPassword = () => {
       setButtonLoading(true);
       try {
         const response = await axios.put(
-          `${constants.BASE_API_URL}/user/verification/forget/${param}`,
+          `${constants.BASE_API_URL}/user/verification/forget/${id}`,
           {
             newPassword: values.password,
             confirmPassword: values.confirmPassword,

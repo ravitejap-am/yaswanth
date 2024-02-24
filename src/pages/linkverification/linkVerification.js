@@ -51,7 +51,7 @@ const VerificationLink = () => {
         ) : (
           <p>
             Your email is verified successfully to set Password{' '}
-            <Link to={`/resetPassword?param=${urlId}`}>Click Here</Link>
+            <Link to={`/resetPassword/${urlId}`}>Click Here</Link>
           </p>
         )}
       </>
