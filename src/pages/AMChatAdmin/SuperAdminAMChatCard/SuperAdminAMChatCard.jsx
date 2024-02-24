@@ -26,6 +26,11 @@ import AssignmentIndOutlinedIcon from '@mui/icons-material/AssignmentIndOutlined
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import AMChatHeader from '../AMChatHeader/AMChatHeader';
 import SuperAdminHeader from '../SuperAdminHeader/SuperAdminHeader';
+import { getUserProfileDetails } from '../../../apiCalls/ApiCalls';
+import { useSelector } from "react-redux";
+import { selectUser } from "../../../store/authSlice";
+import { tokenDecodeJWT } from '../../../utils/authUtils';
+import ChatSearch from '../../../components/common/chatSearch/ChatSearch';
 
 const style = {
   py: 0,
@@ -40,11 +45,15 @@ const style = {
 function SuperAdminAMChatCard() {
   const navigate = useNavigate();
   const [firstName, setFirstName] = useState('');
+  const user = useSelector(selectUser);
+  const jwt = user.userToken;
+  const decodedToken = tokenDecodeJWT(jwt);
+  // const organisationId = decodedToken ? decodedToken.organisationId : null;
+  const userId = decodedToken ? decodedToken.userId : null;
+  const [chat, setChat] = useState('');
+
   useEffect(() => {
-    // Retrieve firstName from localStorage
-    const storedFirstName = localStorage.getItem('firstName');
-    console.log('localName', storedFirstName);
-    setFirstName(storedFirstName);
+    getUserDetails()
   }, []);
   const contentArray = [
     'Could you help me with the maternity policy of my organization?',
@@ -62,8 +71,28 @@ function SuperAdminAMChatCard() {
     paddingLeft: '30px',
   };
   const handleSearchImageClick = () => {
-    // navigate("/chat");
+    navigate("/chat");
   };
+
+  const getUserDetails = async () => {
+    try{
+      const headers = { Authorization: `Bearer ${jwt}`, 'Content-Type': 'application/json' };
+      const response = await getUserProfileDetails(userId, headers);
+      console.log("user details---->", response);
+      if(response.status === 200 && response.data.data && response?.data?.data?.user?.firstName){
+        // setFirstName(response.data.data.firstName)
+        console.log("firstName", response?.data?.data?.user?.firstName);
+        setFirstName(response?.data?.data?.user?.firstName || '')
+        localStorage.setItem('firstName', response?.data?.data?.user?.firstName);
+      }
+    }catch(error){
+      console.log("Error in getting user details", error);
+      throw new Error("Failed to fetch user profile-2")
+    }
+
+  }
+
+  console.log("firstName", firstName);
   return (
     <div className={Styles.superAdminMainCardDivStyle}>
       <div className={Styles.superAdminMiddleParentDiv}>
@@ -78,12 +107,13 @@ function SuperAdminAMChatCard() {
                 borderRadius: '8px',
               },
               imageStyle: {
-                width: '50%',
-                height: '70%',
+                width: '44px',
+                height: '44px',
               },
               textStyle: {
-                color: 'blue',
-                fontWeight: 'bold',
+                color: 'black',
+                fontWeight: '500',
+                fontSize: '24px',
               },
             }}
           />
@@ -144,8 +174,6 @@ function SuperAdminAMChatCard() {
             </div>
           </div>
         </div>
-
-        {/* <div> */}
         <Card className={Styles.superAdminCardStyles}>
           <div className={Styles.AMChatMainCardTitleDiv}>
             <div className={Styles.SuperAdminAmChatStyle}>
@@ -158,7 +186,11 @@ function SuperAdminAMChatCard() {
                 </div>
               </div>
             </div>
-            <div className={Styles.superAdminAMChatMiddleDiv}>
+          </div>
+
+
+          <div className={Styles.footer}>
+          <div className={Styles.superAdminAMChatMiddleDiv}>
               <div className={Styles.AMChatFirstTitle}>
                 <p>Hello, I’m AM-Chat</p>
               </div>
@@ -166,8 +198,6 @@ function SuperAdminAMChatCard() {
                 <p>How can I help you today?</p>
               </div>
             </div>
-          </div>
-
           <div className="Example_main_div">
             <div className="Card_message_example_main">
               {contentArray.map((content, index) => (
@@ -177,20 +207,20 @@ function SuperAdminAMChatCard() {
               ))}
             </div>
           </div>
-
           <div className={Styles.AIChatInputBox}>
-            {/* <Link to="/chat"> */}
-            <Search
+            <ChatSearch
               name={'Ask anything..'}
-              style={searchStyles}
+              style={"searchStyles"}
               searchImage={Group2290}
               onSearchImageClick={handleSearchImageClick}
               readOnly={false}
+              chat={chat}
+              setChat={setChat}
             />
-            {/* </Link> */}
           </div>
+          </div>
+
         </Card>
-        {/* </div> */}
       </div>
     </div>
   );

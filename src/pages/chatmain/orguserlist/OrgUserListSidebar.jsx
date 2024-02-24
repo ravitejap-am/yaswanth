@@ -44,19 +44,19 @@ function OrgUserListSidebar() {
           
           <div className={Styles.container}>
             <div className={Styles.SuperAdminChildContainer}>
+              <Link to="/orgadminchat" style={{ textDecoration: "none" }}>
               <span>
                 <img src={arrorLink} alt="" />
-                <Link to="/orgadminchat" style={{ textDecoration: "none" }}>
                   <p className={Styles.organizationTextStyle}>Back to Chat</p>{" "}
-                </Link>
               </span>
+              </Link>
 
+              <Link to="/orguserlist" style={{ textDecoration: "none" }}>
               <span>
                 <img src={usersicon} alt="" />
-                <Link to="/orguserlist" style={{ textDecoration: "none" }}>
                   <p className={Styles.organizationTextStyle}>Users</p>
-                </Link>
               </span>
+              </Link>
             </div>
             {/* <br />
             <div className={Styles.SuperAdminChildContainer}>

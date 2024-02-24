@@ -44,12 +44,12 @@ function OrgDocumentListSidebar() {
 
           <div className={Styles.container}>
             <div className={Styles.SuperAdminChildContainer}>
-              <span>
-                <img src={arrorLink} alt="" />
-                <Link to="/orgadminchat" style={{ textDecoration: "none" }}>
+              <Link to="/orgadminchat"  style={{ textDecoration: "none" }}>
+                <span>                
+                  <img src={arrorLink} alt="" />
                   <p className={Styles.organizationTextStyle}>Back to Chat</p>{" "}
-                </Link>
-              </span>
+                </span>
+              </Link>
 
               {/* <span>
                 <img src={usersicon} alt="" />
@@ -63,12 +63,12 @@ function OrgDocumentListSidebar() {
             </div>
             <br />
             <div className={Styles.SuperAdminChildContainer}>
+              <Link to="/orgdocumentlist" style={{ textDecoration: "none" }}>
               <span>
                 <img src={documenticon} alt="" />
-                <Link to="/orgdocumentlist" style={{ textDecoration: "none" }}>
                   <p className={Styles.organizationTextStyle}>Documents</p>
-                </Link>
               </span>
+              </Link>
             </div>
           </div>
         </div>

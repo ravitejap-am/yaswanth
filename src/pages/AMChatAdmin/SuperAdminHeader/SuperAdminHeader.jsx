@@ -21,6 +21,13 @@ function SuperAdminHeader({
     width: 200,
     ...customStyle,
   };
+
+
+
+  const handleLogout = () => { 
+    localStorage.clear();
+    window.location.href = "/signin";
+  }
   return (
     <PopupState variant="popover" popupId="profile-popup-popover">
       {(popupState) => (
@@ -74,13 +81,11 @@ function SuperAdminHeader({
               </ListItem>
               <Divider component="li" />
               <ListItem>
-                <ListItemButton>
+                <ListItemButton onClick={handleLogout}>
                   <ListItemIcon>
                     <LogoutOutlinedIcon />
                   </ListItemIcon>
-                  <Link to="/signin" style={{ textDecoration: "none" }}>
                     <ListItemText primary="Logout" />
-                  </Link>
                 </ListItemButton>
               </ListItem>
             </List>

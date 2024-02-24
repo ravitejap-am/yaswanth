@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Styles from "../../AMChatAdmin/SearchUIAMChat.jsx/SearchUIAIChat.module.css";
+import Styles from "../../AMChatAdmin/SearchUIAMChat/SearchUIAIChat.module.css";
 import { Card } from "antd";
 import profile from "../../../asset/AmChatSuperAdmin/profile.png";
 import Group2290 from "../../../asset/Group2290.png";
@@ -12,6 +12,8 @@ import { useSelector } from "react-redux";
 import { setUser, selectUser } from "../../../store/authSlice";
 import NotifyMessage from "../../../components/common/toastMessages/NotifyMessage";
 import AMChatHeader from "../../AMChatAdmin/AMChatHeader/AMChatHeader";
+import ChatSearch from "../../../components/common/chatSearch/ChatSearch";
+import './OrganizationAdmin.css'
 
 function OrganizationAdminSearchUIAIChat() {
   const [firstName, setFirstName] = useState("");
@@ -20,6 +22,7 @@ function OrganizationAdminSearchUIAIChat() {
   const user = useSelector(selectUser);
   const jwt = user.userToken;
   const navigate = useNavigate();
+  const [chat, setChat] = useState("");
 
   useEffect(() => {
     const storedFirstName = localStorage.getItem("firstNameOrganisation");
@@ -128,8 +131,8 @@ function OrganizationAdminSearchUIAIChat() {
               <div className={Styles.chatBubble}>{responseData.data}</div>
             )}
           </div>
-          <div className={Styles.AIChatInputBox}>
-            <Search
+          <div className='chat_container'>
+            {/* <Search
               name={"Ask anything.."}
               style={searchStyles}
               searchImage={Group2290}
@@ -137,7 +140,16 @@ function OrganizationAdminSearchUIAIChat() {
               onChange={handleSearchInputChange}
               onSearchImageClick={handleSearchImageClick}
               onKeyPress={handleKeyPress}
-            />
+            /> */}
+              <ChatSearch
+                name={'Ask anything..'}
+                style={"searchStyles"}
+                searchImage={Group2290}
+                onSearchImageClick={handleSearchImageClick}
+                readOnly={false}
+                chat={chat}
+                setChat={setChat}
+              />
           </div>
         </Card>
       </div>

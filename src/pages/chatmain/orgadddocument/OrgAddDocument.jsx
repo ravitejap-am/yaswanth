@@ -57,6 +57,7 @@ function OrgAddDocument() {
       setButtonLoading(false);
       setIsReset(true);
       showNotifyMessage("success", response?.data?.message, messageHandler);
+      navigate("/orgdocumentlist");
       console.log("API Response:", response.data);
     } catch (error) {
       console.error("Error occurred:", error);
@@ -149,12 +150,13 @@ function OrgAddDocument() {
                 borderRadius: "8px",
               },
               imageStyle: {
-                width: "50%",
-                height: "70%",
+                width: "44px",
+                height: "44px",
               },
               textStyle: {
-                color: "blue",
-                fontWeight: "bold",
+                color: 'black',
+                fontWeight: '500',
+                fontSize: '24px',
               },
             }}
           />

@@ -11,6 +11,7 @@ import * as constants from "../../../constants/Constant";
 import { useSelector } from "react-redux";
 import { setUser, selectUser } from "../../../store/authSlice";
 import NotifyMessage from "../../../components/common/toastMessages/NotifyMessage";
+import ChatSearch from "../../../components/common/chatSearch/ChatSearch";
 
 function SearchUIAIChat() {
   const [firstName, setFirstName] = useState("");
@@ -19,9 +20,11 @@ function SearchUIAIChat() {
   const user = useSelector(selectUser);
   const jwt = user.userToken;
   const navigate = useNavigate();
+  const [chat, setChat] = useState("");
 
   useEffect(() => {
-    const storedFirstName = localStorage.getItem("UserSectionfirstName");
+    // const storedFirstName = localStorage.getItem("UserSectionfirstName");
+    const storedFirstName = localStorage.getItem('firstName');
     setFirstName(storedFirstName || "");
   }, []);
 
@@ -111,12 +114,13 @@ function SearchUIAIChat() {
               borderRadius: "8px",
             },
             imageStyle: {
-              width: "50%",
-              height: "70%",
+              width: '44px',
+              height: '44px',
             },
             textStyle: {
-              color: "blue",
-              fontWeight: "bold",
+              color: 'black',
+              fontWeight: '500',
+              fontSize: '24px',
             },
           }}
         />
@@ -128,7 +132,7 @@ function SearchUIAIChat() {
             )}
           </div>
           <div className={Styles.AIChatInputBox}>
-            <Search
+            {/* <Search
               name={"Ask anything.."}
               style={searchStyles}
               searchImage={Group2290}
@@ -136,7 +140,16 @@ function SearchUIAIChat() {
               onChange={handleSearchInputChange}
               onSearchImageClick={handleSearchImageClick}
               onKeyPress={handleKeyPress}
-            />
+            /> */}
+              <ChatSearch
+                name={'Ask anything..'}
+                style={"searchStyles"}
+                searchImage={Group2290}
+                onSearchImageClick={handleSearchImageClick}
+                readOnly={false}
+                chat={chat}
+                setChat={setChat}
+              />
           </div>
         </Card>
       </div>

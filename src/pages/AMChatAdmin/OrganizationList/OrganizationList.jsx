@@ -255,8 +255,9 @@ function OrganizationList() {
                 height: '70%',
               },
               textStyle: {
-                color: 'blue',
-                fontWeight: 'bold',
+                color: 'black',
+                fontWeight: '500',
+                fontSize: '24px',
               },
             }}
           />
