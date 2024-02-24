@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Styles from "./OrgAdminChatSidebar.module.css";
 import Tooltip from "./Tooltip";
 import profile from "../../../asset/AmChatSuperAdmin/profile.png";
@@ -44,6 +44,9 @@ function AddOrgUser() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [fileList, setFileList] = useState([]);
   const [firstName, setFirstName] = useState("");
+  const inputRefs = useRef([]);
+
+
   useEffect(() => {
     // Retrieve firstName from localStorage
     const storedFirstName = localStorage.getItem("firstNameOrganisation");
@@ -91,63 +94,82 @@ function AddOrgUser() {
   };
 
   const submitHandler = async (values) => {
-    if (isSubmitting) {
-      return;
-    }
-    setIsSubmitting(true);
-    setButtonLoading(true);
-    try {
-      const formData = new FormData();
-      formData.append("image", fileList[0].originFileObj);
-
-      const responseImage = await fetch(`${constants.BASE_API_URL}/user/dp`, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${jwt}`,
-        },
-        body: formData,
-      });
-
-      if (!responseImage.ok) {
-        throw new Error(`HTTP error! status: ${responseImage.status}`);
+    console.log("values---->567", values);
+    if(values === undefined){
+      console.log("values are undefined");
+      // const isEmpty = inputRefs.current.some(ref => ref.current.value === '');
+    
+      // if (isEmpty) {
+      //   // Focus on the first empty input field
+      //   const emptyInput = inputRefs.current.find(ref => ref.current.value === '');
+      //   emptyInput.current.focus();
+      //   return;
+      // }
+    }else{
+      if (isSubmitting) {
+        console.log("AI USER 3");
+        return;
+      }
+      setIsSubmitting(true);
+      setButtonLoading(true);
+      try {
+        // const formData = new FormData();
+        // formData.append("image", fileList[0].originFileObj);
+        // console.log("fileList[0].originFileObj", fileList[0].originFileObj);
+        // console.log("formData---->", formData);
+        // const responseImage = await fetch(`${constants.BASE_API_URL}/user/dp`, {
+        //   method: "POST",
+        //   headers: {
+        //     Authorization: `Bearer ${jwt}`,
+        //   },
+        //   body: formData,
+        // });
+  
+        // if (!responseImage.ok) {
+        //   throw new Error(`HTTP error! status: ${responseImage.status}`);
+        // }
+  
+        // const responseData = await responseImage.json();
+        // console.log("Upload response:", responseData);
+        const responseUser = await fetch(`${constants.BASE_ORG_API_URL}/user`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${jwt}`,
+          },
+          body: JSON.stringify(values),
+        });
+        console.log("responseUser---->", responseUser);
+        if (!responseUser.ok) {
+          throw new Error(`HTTP error! status: ${responseUser.status}`);
+        }
+  
+        const data = await responseUser.json();
+        setButtonLoading(false);
+        setIsReset(true);
+        showNotifyMessage("success", data.message, messageHandler); // Update this line
+        if(responseUser.ok){
+          navigate("/orguserlist");
+        }
+      } catch (error) {
+        if (error?.response?.status == 500 || error?.response?.status == "500") {
+          navigate("/internal500");
+        }
+        setButtonLoading(false);
+        showNotifyMessage(
+          "error",
+          error?.response?.data?.message || "An error occurred", // Display a generic error message
+          messageHandler
+        );
+      } finally {
+        setIsSubmitting(false);
       }
 
-      const responseData = await responseImage.json();
-      console.log("Upload response:", responseData);
-
-      const responseUser = await fetch(`${constants.BASE_ORG_API_URL}/user`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${jwt}`,
-        },
-        body: JSON.stringify(values),
-      });
-
-      if (!responseUser.ok) {
-        throw new Error(`HTTP error! status: ${responseUser.status}`);
-      }
-
-      const data = await responseUser.json();
-      setButtonLoading(false);
-      setIsReset(true);
-      showNotifyMessage("success", data.message, messageHandler); // Update this line
-    } catch (error) {
-      if (error?.response?.status == 500 || error?.response?.status == "500") {
-        navigate("/internal500");
-      }
-      setButtonLoading(false);
-      showNotifyMessage(
-        "error",
-        error?.response?.data?.message || "An error occurred", // Display a generic error message
-        messageHandler
-      );
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
   const cancelHandler = () => {
+    console.log("calling cancelHandler");
     navigate("/orguserlist");
   };
 
@@ -162,8 +184,11 @@ function AddOrgUser() {
         border: "1px solid var(--Brand-700, #4338CA)",
         backgroundColor: "transparent",
       },
-      rules: [{ required: true, message: "Please enter your name" }],
+      // rules: [{ required: true, message: "Please enter your name" }],
       labelName: false,
+      pattern: /^([a-zA-Z]{3,30}\s*)+/,
+      emptyErrorMessage: 'Please Enter the First Name',
+      invalidErrorMessage: 'Please Enter the Valid First Name',
     },
     {
       name: "lastName",
@@ -175,17 +200,17 @@ function AddOrgUser() {
         border: "1px solid var(--Brand-700, #4338CA)",
         backgroundColor: "transparent",
       },
-      rules: [{ required: true, message: "Please enter your name" }],
+      // rules: [{ required: true, message: "Please enter your name" }],
       labelName: false,
     },
     {
       name: "email",
       label: "Email",
       type: "text",
-      rules: [
-        { required: true, message: "Please input your email" },
-        { type: "email", message: "Invalid email format" },
-      ],
+      // rules: [
+      //   { required: true, message: "Please input your email" },
+      //   { type: "email", message: "Invalid email format" },
+      // ],
       style: {
         width: "405px",
         borderRadius: "40px",
@@ -193,6 +218,9 @@ function AddOrgUser() {
         backgroundColor: "transparent",
       },
       labelName: false,
+      pattern: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+      emptyErrorMessage: 'Please Enter the Email',
+      invalidErrorMessage: 'Please Enter the Valid Email',
     },
   ];
 
@@ -258,7 +286,7 @@ function AddOrgUser() {
         </div>
 
         <div className={Styles.addOrganizationAdminSecondDiv}>
-          <div className={Styles.imageUploadSection}>
+          {/* <div className={Styles.imageUploadSection}>
             <Upload
               action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
               listType="picture-circle"
@@ -282,12 +310,12 @@ function AddOrgUser() {
                 src={previewImage}
               />
             </Modal>
-          </div>
+          </div> */}
           <GeneralForm
             {...feedingVariable}
             buttonLoading={buttonLoading}
             isReset={isReset}
-          />
+                      />
         </div>
         <NotifyMessage />
       </div>
