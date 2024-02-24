@@ -257,6 +257,7 @@ useEffect(() => {
 
   console.log("pageInfo---->", pageInfo);
 
+  console.log("documents---->", documents);
   return (
     <div className={Styles.superAdminMainCardDivStyle}>
       <div className={Styles.superAdminMiddleParentDiv}>
@@ -375,7 +376,8 @@ useEffect(() => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {documents
+                  {documents?.length > 0 ?
+                   documents
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row) => (
                       <TableRow key={row.id}>
@@ -427,7 +429,13 @@ useEffect(() => {
                           </IconButton>
                         </TableCell>
                       </TableRow>
-                    ))}
+                    )) :
+                    <TableRow>
+                    <TableCell colSpan={7} align="center">
+                      No data available
+                    </TableCell>
+                  </TableRow>
+                    }
                   {emptyRows > 0 && (
                     <TableRow style={{ height: 53 * emptyRows }}>
                       <TableCell colSpan={6} />

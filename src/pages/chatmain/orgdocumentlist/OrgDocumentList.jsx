@@ -94,14 +94,14 @@ function OrgDocumentList() {
     setFirstName(storedFirstName);
   }, []);
 
-  const filteredRows = rows.filter(
-    (row) =>
-      (row.firstName &&
-        row.firstName.toLowerCase().includes(searchQuery.toLowerCase())) ||
-      (row.lastName &&
-        row.lastName.toLowerCase().includes(searchQuery.toLowerCase())) ||
-      (row.email && row.email.toLowerCase().includes(searchQuery.toLowerCase()))
-  );
+  // const filteredRows = rows.filter(
+  //   (row) =>
+  //     (row.firstName &&
+  //       row.firstName.toLowerCase().includes(searchQuery.toLowerCase())) ||
+  //     (row.lastName &&
+  //       row.lastName.toLowerCase().includes(searchQuery.toLowerCase())) ||
+  //     (row.email && row.email.toLowerCase().includes(searchQuery.toLowerCase()))
+  // );
 
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
@@ -127,7 +127,7 @@ function OrgDocumentList() {
         sortDirection: order,
         email: "",
         active: true,
-        name:""
+        name:searchQuery
       });
       const response = await fetch(
         `${constants.BASE_API_URL}${constants.USER_LIST_ENDPOINT}?${queryParams}`,
