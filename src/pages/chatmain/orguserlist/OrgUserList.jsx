@@ -31,7 +31,8 @@ import { BASE_API_URL, DOCUMENT_ENDPOINT, BASE_DOC_API_URL } from "../../../cons
 import { Spin } from "antd";
 import { useMessageState } from "../../../hooks/useapp-message";
 import AMChatHeader from "../../AMChatAdmin/AMChatHeader/AMChatHeader";
-import Pagination from "@mui/material/Pagination";
+// import Pagination from "@mui/material/Pagination";
+import { Pagination } from 'antd';
 import OrganizationAdminHeader from "../organizationadmin/OrganizationAdminHeader/OrganizationAdminHeader";
 
 function OrgUserList() {
@@ -48,10 +49,18 @@ function OrgUserList() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [order, setOrder] = useState("asc");
-  const [orderBy, setOrderBy] = useState("documentName");
+  const [orderBy, setOrderBy] = useState("uploadDate");
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredDocuments, setFilteredDocuments] = useState([]);
+
+  const [pageInfo, setPageInfo] = useState({
+    pageSize: 5,
+    page: 0,
+    totalCount: null,
+    totalPages: null,
+  });
+
 
   const user = useSelector(selectUser);
   const jwt = user.userToken;
@@ -61,6 +70,7 @@ function OrgUserList() {
     const storedFirstName = localStorage.getItem("firstNameOrganisation");
     setFirstName(storedFirstName);
   }, []);
+
 
   const filterDocuments = () => {
     return documents.filter((doc) =>
@@ -87,44 +97,89 @@ function OrgUserList() {
     }
   };
 
-  useEffect(() => {
-    setFilteredDocuments(filterDocuments());
-  }, [searchQuery, documents]);
+  // useEffect(() => {
+  //   setFilteredDocuments(filterDocuments());
+  // }, [searchQuery, documents]);
 
-  useEffect(() => {
-    const fetchDocuments = async () => {
-      setLoading(true);
-      try {
-        const organizationId = decodeJWT(jwt).organisationId;
-        const documentUrl = `${constants.BASE_DOC_API_URL}/getAllByOrg/${organizationId}`;
-        const response = await axios.get(documentUrl, {
-          params: {
-            page: 0,
-            size: 10,
-            sortField: "uploadDate",
-            sortDirection: "desc",
-            name: "",
-            isActive: 1,
-            version: 1,
-            fileSize: "",
-          },
-          headers: {
-            Authorization: `Bearer ${jwt}`,
-          },
-        });
+  const fetchDocuments = async (page = 0) => {
+    setLoading(true);
+    try {
+      console.log("api called");
+      const organizationId = decodeJWT(jwt).organisationId;
+      const documentUrl = `${constants.BASE_DOC_API_URL}/getAllByOrg/${organizationId}`;
+      const response = await axios.get(documentUrl, {
+        params: {
+          page: page,
+          size: pageInfo?.pageSize,
+          sortField: orderBy,
+          sortDirection: order,
+          name: searchQuery,
+          isActive: 1,
+          version: 1,
+          fileSize: "",
+        },
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+        },
+      });
 
-        if (!response.data || !response.data.data) {
-          throw new Error("Failed to fetch documents");
-        }
-        setDocuments(response.data.data);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching documents:", error.message);
+      if (!response.data || !response.data.data) {
+        throw new Error("Failed to fetch documents");
       }
-    };
+      console.log("response----->", response);
+      setDocuments(response.data.data);
+      setPageInfo({
+        ...pageInfo,
+        pageSize: response?.data?.pageSize,
+        page: response?.data?.page,
+        totalCount: response?.data?.totalCount,
+        totalPages: response?.data?.totalPages,
+      });
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching documents:", error.message);
+    }
+  };
 
-    fetchDocuments();
-  }, [jwt, searchQuery]);
+useEffect(() => { 
+  fetchDocuments()
+}, [jwt, searchQuery, order]);
+  
+
+  // useEffect(() => {
+  //   const fetchDocuments = async () => {
+  //     setLoading(true);
+  //     try {
+  //       const organizationId = decodeJWT(jwt).organisationId;
+  //       const documentUrl = `${constants.BASE_DOC_API_URL}/getAllByOrg/${organizationId}`;
+  //       const response = await axios.get(documentUrl, {
+  //         params: {
+  //           page: 0,
+  //           size: 10,
+  //           sortField: "uploadDate",
+  //           sortDirection: "desc",
+  //           name: "",
+  //           isActive: 1,
+  //           version: 1,
+  //           fileSize: "",
+  //         },
+  //         headers: {
+  //           Authorization: `Bearer ${jwt}`,
+  //         },
+  //       });
+
+  //       if (!response.data || !response.data.data) {
+  //         throw new Error("Failed to fetch documents");
+  //       }
+  //       setDocuments(response.data.data);
+  //       setLoading(false);
+  //     } catch (error) {
+  //       console.error("Error fetching documents:", error.message);
+  //     }
+  //   };
+
+  //   fetchDocuments();
+  // }, [jwt, searchQuery]);
 
   const searchStyles = {
     width: "300px",
@@ -183,10 +238,24 @@ function OrgUserList() {
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, documents.length - page * rowsPerPage);
 
-  const handleSearch = (query) => {
-    setSearchQuery(query);
+  const handleSearch = (e) => {
+    setSearchQuery(e.target.value);
+    console.log("searchQuery", e.target.value);
     setPage(0);
   };
+
+
+  const itemRender = (_, type, originalElement) => {
+    if (type === 'prev') {
+      return <a>Previous</a>;
+    }
+    if (type === 'next') {
+      return <a>Next</a>;
+    }
+    return originalElement;
+  };
+
+  console.log("pageInfo---->", pageInfo);
 
   return (
     <div className={Styles.superAdminMainCardDivStyle}>
@@ -222,7 +291,8 @@ function OrgUserList() {
               searchImage={SerchImages}
               imageHeight={"46px"}
               imageMarginLeft={20}
-              onSearch={handleSearch}
+              handleChangeSearch={handleSearch}
+              searchValue={searchQuery}
             />
           </div>
           <div className={Styles.bannerButton}>
@@ -260,7 +330,7 @@ function OrgUserList() {
                     </TableCell>
                     <TableCell>
                       <TableSortLabel
-                        onClick={(e) => handleRequestSort(e, "documentName")}
+                        onClick={(e) => handleRequestSort(e, "uploadDate")}
                       >
                         <Typography
                           variant="body1"
@@ -305,7 +375,7 @@ function OrgUserList() {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {filteredDocuments
+                  {documents
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row) => (
                       <TableRow key={row.id}>
@@ -375,13 +445,24 @@ function OrgUserList() {
                 gap: "20px",
               }}
             >
-              <div>Total {filteredDocuments.length} items</div>
-              <Pagination
+              <div>Total {pageInfo?.totalCount} items</div>
+              {/* <Pagination
                 count={Math.ceil(filteredDocuments.length / rowsPerPage)}
                 page={page + 1}
                 onChange={(event, value) => setPage(value - 1)}
                 variant="outlined"
                 shape="rounded"
+              /> */}
+
+              <Pagination
+                defaultCurrent={1}
+                total={pageInfo?.totalPages * 10}
+                itemRender={itemRender}
+                current={pageInfo?.page + 1}
+                onChange={(newPage) => {
+                  setPageInfo({ ...pageInfo, page: newPage - 1 });
+                  fetchDocuments(newPage - 1)
+                }}
               />
             </div>
           </Paper>
