@@ -16,6 +16,7 @@ function OrganizationAdminPersonalInformation({
 }) {
   const user = useSelector(selectUser);
   const jwt = user.userToken;
+  let {showNotifyMessage, hideNotifyMessage} = useMessageState();
 
   const decodeJWT = (token) => {
     try {
@@ -43,7 +44,7 @@ function OrganizationAdminPersonalInformation({
   const [userStatus, setUserStatus] = useState("active");
   const [error, setError] = useState(null);
   const [organisationName, setOrganisationName] = useState("");
-  const [amChatUserStatus, setamChatUserStatus] = useState("");
+  const [amChatUserStatus, setamChatUserStatus] = useState(true);
 
   useEffect(() => {
     if (userId) {
@@ -52,6 +53,10 @@ function OrganizationAdminPersonalInformation({
       setError("User ID is missing or invalid.");
     }
   }, [userId]);
+
+  const messageHandler = () => {
+    hideNotifyMessage();
+  };
 
   const fetchUserProfile = async () => {
     try {
@@ -98,22 +103,22 @@ function OrganizationAdminPersonalInformation({
       name: "lastName",
       pattern: /^([a-zA-Z]{3,30}\s*)+/,
       defaultValue: userData ? userData.lastName : "",
-      rules: [
-        { required: true, message: "Please input your Last Name" },
-        { type: "name", message: "Invalid Last Name" },
-      ],
+      // rules: [
+      //   { required: true, message: "Please input your Last Name" },
+      //   { type: "name", message: "Invalid Last Name" },
+      // ],
       style: { width: "400px", height: "40px", marginLeft: "20px" },
     },
     {
       label: "Email",
       type: "email",
       name: "email",
-      pattern: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+      // pattern: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
       defaultValue: userData ? userData.email : "",
-      rules: [
-        { required: true, message: "Please enter your email" },
-        { type: "email", message: "Invalid Email" },
-      ],
+      // rules: [
+      //   { required: true, message: "Please enter your email" },
+      //   { type: "email", message: "Invalid Email" },
+      // ],
       style: {
         width: "400px",
         height: "40px",
@@ -126,10 +131,10 @@ function OrganizationAdminPersonalInformation({
       type: "text",
       name: "orgName",
       defaultValue: organisationName,
-      rules: [
-        { required: true, message: "Please input your Organization Name" },
-        { type: "name", message: "Invalid Organization Name" },
-      ],
+      // rules: [
+      //   { required: true, message: "Please input your Organization Name" },
+      //   { type: "name", message: "Invalid Organization Name" },
+      // ],
       style: {
         width: "400px",
         height: "40px",
@@ -141,11 +146,11 @@ function OrganizationAdminPersonalInformation({
       label: "Status",
       type: "text",
       name: "status",
-      defaultValue: amChatUserStatus,
-      rules: [
-        { required: true, message: "Please input your Organization Name" },
-        { type: "name", message: "Invalid Organization Name" },
-      ],
+      defaultValue: amChatUserStatus ? "Active" : "Inactive",
+      // rules: [
+      //   { required: true, message: "Please input your Organization Name" },
+      //   { type: "name", message: "Invalid Organization Name" },
+      // ],
       style: {
         width: "400px",
         height: "40px",
@@ -158,14 +163,29 @@ function OrganizationAdminPersonalInformation({
 
   const submitHandler = async (values) => {
     try{
-      const headers = { Authorization: `Bearer ${jwt}`, 'Content-Type': 'application/json' };
-      console.log("values---->", values);
-      // const response = await updateAdminProfileDetails(userId, headers , reqBody);
-      // console.log("user details---->", response);
+      if(values === undefined){
+        console.log("Values are undefined");
+        return;
+      }
+      else{
+        const headers = { Authorization: `Bearer ${jwt}`, 'Content-Type': 'application/json' };
+        console.log("values---->", values);
+        const {firstName, lastName, ...rest} = values;
+        console.log("firstName---->", firstName);
+        console.log("lastName---->", lastName);
+        const reqBody = { firstName : firstName, lastName : lastName};
+        console.log("reqBody---->", reqBody);
+        const response = await updateAdminProfileDetails(userId, headers , reqBody);
+        if(response.status === 200){ 
+          showNotifyMessage('success', response?.data?.message, messageHandler);
+        }
+        console.log("response---->", response);
+      }
     }catch(error){
       console.log("Error in updating user details", error);
       throw new Error("Failed to update user profile")
     }
+
   }
 
   const submitButtonProperty = {
@@ -190,12 +210,18 @@ function OrganizationAdminPersonalInformation({
     submitButtonProperty: submitButtonProperty,
     formElements: formElements,
     formType: "normal",
-    validateEmail: validateEmail,
-    setFileSysytem: setFileSysytem,
+    // validateEmail: validateEmail,
+    // setFileSysytem: setFileSysytem,
     grid: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px" },
+    isOrgAdmin: true,
+    orgInfo : { screen: "personalinformation" },
+    personalInfo: { userData: userData },
   };
 
-  
+  console.log("feedingVariable---->", feedingVariable);
+  console.log("amChatUserStatus---->", amChatUserStatus);
+  console.log(typeof amChatUserStatus);
+  console.log( amChatUserStatus ? "Active" : "Inactive");
   return (
     <div className="personal-contentcard">
       <div className="user-profile-content">

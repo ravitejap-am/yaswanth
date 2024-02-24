@@ -29,6 +29,8 @@ const GeneralForm = (props) => {
     isSuperAdmin = false,
     orgInfo = {},
     defaultValue = '',
+    isOrgAdmin = false,
+    personalInfo = {},
   } = props;
   console.log('props', props, 'grid', grid, 'formelements', formElements);
   const [form] = Form.useForm();
@@ -51,7 +53,18 @@ const GeneralForm = (props) => {
         form.setFieldsValue(orgInfo?.orgData?.contact);
       }
     }
-  }, []);
+
+    if (isOrgAdmin) {
+      if (orgInfo?.screen == 'personalinformation') {
+        console.log("initializing values");
+        // console.log("form elements---->", formElements);
+        console.log("personalInfo---->", personalInfo);
+        console.log("personalInfo?.firstName------>", personalInfo?.userData?.lastName)
+        form.setFieldsValue({ firstName:  personalInfo?.userData?.firstName , lastName: personalInfo?.userData?.lastName }) 
+        console.log("form---->", form);
+      }
+    }
+  }, [personalInfo]);
 
   const isValid = (
     pattern,
@@ -128,6 +141,8 @@ const GeneralForm = (props) => {
       </>
     );
   };
+
+  console.log(formElements, 'formElements');
   return (
     <Form
       style={{ padding: '18px' }}

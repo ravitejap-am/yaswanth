@@ -22,7 +22,7 @@ export const updateAdminProfileDetails = async (userId, headers, reqBody) => {
   try {
     console.log("userId----->", userId);
     console.log("headers---->", headers);
-    const data = await axios.put(`${UPDATE_ADMIN_USER}/${userId}`, headers, reqBody);
+    const data = await axios.put(`${UPDATE_ADMIN_USER}/${userId}`, reqBody, headers);
      return data;
   } catch (error) {
     console.log("Failed to update user profile.", error);
