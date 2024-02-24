@@ -11,8 +11,12 @@ import OrganizationDomains from './AddOrganizationTabNavigation/OrganizationDoma
 import SubscriptionPlan from './AddOrganizationTabNavigation/SubscriptionPlan';
 import GeneralButton from '../../../components/common/buttons/GeneralButton';
 import axios from 'axios';
-import { selectUser, selectOrganisation } from '../../../store/authSlice';
-import { useSelector } from 'react-redux';
+import {
+  selectUser,
+  selectOrganisation,
+  setOrganisationData,
+} from '../../../store/authSlice';
+import { useSelector, useDispatch } from 'react-redux';
 import * as constants from '../../../constants/Constant';
 import { useMessageState } from '../../../hooks/useapp-message';
 import { tokenDecodeJWT } from '../../../utils/authUtils';
@@ -31,6 +35,7 @@ function AddOrganizationAdmin() {
   } = useMessageState();
   const user = useSelector(selectUser);
   const organisation = useSelector(selectOrganisation);
+  const dispatch = useDispatch();
   console.log('organisation', organisation);
   const jwt = user.userToken;
   const navigate = useNavigate();
@@ -148,6 +153,7 @@ function AddOrganizationAdmin() {
       // setIsReset(true);
       showNotifyMessage('success', response?.data?.message, messageHandler);
       console.log('API Response:', response.data);
+      dispatch(setOrganisationData(response.data?.data));
       // navigate('/dashboardadmin/organizationlist');
     } catch (error) {
       console.error('Error occurred:', error);

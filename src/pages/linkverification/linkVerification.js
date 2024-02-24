@@ -13,12 +13,15 @@ const VerificationLink = () => {
   const parameterValue = inputString.substring(startIndex);
   const [isProcessing, setIsProcessing] = useState(true);
   const [isLogin, setIsLogin] = useState(parameterValue == 'au' ? false : true);
+  const [urlId, setId] = useState(
+    parameterValue == 'au' ? id.split('&')[0] : id
+  );
   const apiCalling = async () => {
     try {
       const url = `${VERIFY_API}`;
       const response = await axios.get(url, {
         params: {
-          id: id,
+          id: urlId,
         },
       });
 
@@ -34,6 +37,27 @@ const VerificationLink = () => {
       setIsProcessing(false);
     }
   };
+
+  const getBodyOfJsx = (isProcessing, isLogin, urlId) => {
+    return (
+      <>
+        {isProcessing ? (
+          <p>Your account is verifying...</p>
+        ) : isLogin ? (
+          <p>
+            Your email is verified to login{' '}
+            <Link to={'/signin'}>Click Here</Link>
+          </p>
+        ) : (
+          <p>
+            Your email is verified successfully to set Password{' '}
+            <Link to={`/resetPassword/${urlId}`}>Click Here</Link>
+          </p>
+        )}
+      </>
+    );
+  };
+
   useEffect(() => {
     apiCalling();
   }, []);
@@ -50,19 +74,7 @@ const VerificationLink = () => {
               <div className="row mainContent">
                 <div className="box-round">
                   <div className="text-top">
-                    {isProcessing ? (
-                      <p>Your account is verifying...</p>
-                    ) : isLogin ? (
-                      <p>
-                        Your email is verified to login{' '}
-                        <Link to={'/signin'}>Click Here</Link>
-                      </p>
-                    ) : (
-                      <p>
-                        Your email is verified successfully to set Password{' '}
-                        <Link to={'/resetPassword'}>Click Here</Link>
-                      </p>
-                    )}
+                    {getBodyOfJsx(isProcessing, isLogin, urlId)}
                   </div>
                 </div>
               </div>
