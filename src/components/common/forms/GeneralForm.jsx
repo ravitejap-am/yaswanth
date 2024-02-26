@@ -7,6 +7,9 @@ import Dropdown from '.././dropDown/dropDown';
 import { LockFilled } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import TextArea from 'antd/es/input/TextArea';
+import { ReactComponent as DeleteIcon } from '../../../asset/AmChatSuperAdmin/trash-solid.svg';
+import { PlusOutlined } from '@ant-design/icons';
+import { Button as AddButton } from 'antd';
 
 // const { TextArea } = Input;
 
@@ -31,6 +34,11 @@ const GeneralForm = (props) => {
     defaultValue = '',
     isOrgAdmin = false,
     personalInfo = {},
+    domainProps = {
+      isDomain: false,
+      domainDeleteHandler: () => {},
+      addDomainHandler: () => {},
+    },
   } = props;
   console.log('props', props, 'grid', grid, 'formelements', formElements);
   const [form] = Form.useForm();
@@ -56,12 +64,18 @@ const GeneralForm = (props) => {
 
     if (isOrgAdmin) {
       if (orgInfo?.screen == 'personalinformation') {
-        console.log("initializing values");
+        console.log('initializing values');
         // console.log("form elements---->", formElements);
-        console.log("personalInfo---->", personalInfo);
-        console.log("personalInfo?.firstName------>", personalInfo?.userData?.lastName)
-        form.setFieldsValue({ firstName:  personalInfo?.userData?.firstName , lastName: personalInfo?.userData?.lastName }) 
-        console.log("form---->", form);
+        console.log('personalInfo---->', personalInfo);
+        console.log(
+          'personalInfo?.firstName------>',
+          personalInfo?.userData?.lastName
+        );
+        form.setFieldsValue({
+          firstName: personalInfo?.userData?.firstName,
+          lastName: personalInfo?.userData?.lastName,
+        });
+        console.log('form---->', form);
       }
     }
   }, [personalInfo]);
@@ -450,31 +464,92 @@ const GeneralForm = (props) => {
               ),
               text: (
                 <div>
-                  <Input
-                    labelName={item.labelName ? item.label : null}
-                    type={item.type}
-                    placeholder={item.labelName ? null : item.label}
-                    iconClass={item.iconClass}
-                    onChange={(e) => {
-                      form.setFieldValue({ [item.name]: e.target.value });
-                    }}
-                    style={item.style}
-                    defaultValue={item.defaultValue ? item.defaultValue : ''}
-                    onBlur={() => {
-                      if (item.pattern !== null && item.pattern !== undefined) {
-                        isValid(
-                          item.pattern,
-                          form.getFieldValue(item.name),
-                          item.name,
-                          item?.emptyErrorMessage,
-                          item?.invalidErrorMessage
-                        );
-                      }
-                    }}
-                  />
-                  {<ErrorMessage name={item.name} />}
+                  {domainProps?.isDomain ? (
+                    <div
+                      style={{
+                        display: 'flex',
+                        gap: '1em',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                      }}
+                    >
+                      <div>
+                        <Input
+                          labelName={item.labelName ? item.label : null}
+                          type={item.type}
+                          placeholder={item.labelName ? null : item.label}
+                          iconClass={item.iconClass}
+                          onChange={(e) => {
+                            form.setFieldValue({ [item.name]: e.target.value });
+                          }}
+                          style={item.style}
+                          defaultValue={
+                            item.defaultValue ? item.defaultValue : ''
+                          }
+                          onBlur={() => {
+                            if (
+                              item.pattern !== null &&
+                              item.pattern !== undefined
+                            ) {
+                              isValid(
+                                item.pattern,
+                                form.getFieldValue(item.name),
+                                item.name,
+                                item?.emptyErrorMessage,
+                                item?.invalidErrorMessage
+                              );
+                            }
+                          }}
+                        />
+                        {<ErrorMessage name={item.name} />}
+                      </div>
+                      <DeleteIcon
+                        style={{
+                          height: '20px',
+                          width: '20px',
+                          cursor: 'pointer',
+                          fill: '#4338ca',
+                        }}
+                        onClick={() =>
+                          domainProps?.domainDeleteHandler(item?.domainIndex)
+                        }
+                      />
+                    </div>
+                  ) : (
+                    <div>
+                      <Input
+                        labelName={item.labelName ? item.label : null}
+                        type={item.type}
+                        placeholder={item.labelName ? null : item.label}
+                        iconClass={item.iconClass}
+                        onChange={(e) => {
+                          form.setFieldValue({ [item.name]: e.target.value });
+                        }}
+                        style={item.style}
+                        defaultValue={
+                          item.defaultValue ? item.defaultValue : ''
+                        }
+                        onBlur={() => {
+                          if (
+                            item.pattern !== null &&
+                            item.pattern !== undefined
+                          ) {
+                            isValid(
+                              item.pattern,
+                              form.getFieldValue(item.name),
+                              item.name,
+                              item?.emptyErrorMessage,
+                              item?.invalidErrorMessage
+                            );
+                          }
+                        }}
+                      />
+                      {<ErrorMessage name={item.name} />}
+                    </div>
+                  )}
                 </div>
               ),
+
               tel: (
                 <Input
                   type={item.type}
@@ -678,6 +753,17 @@ const GeneralForm = (props) => {
               fontSize={cancelButtonProperty.fontSize}
               marginTop={cancelButtonProperty.marginTop}
             />
+          )}
+          {domainProps?.isDomain && (
+            <AddButton
+              type="primary"
+              icon={<PlusOutlined />}
+              size="large"
+              style={{ backgroundColor: 'var(--Brand-500, #6366F1)' }}
+              onClick={domainProps?.addDomainHandler}
+            >
+              Add Domain
+            </AddButton>
           )}
         </div>
       </Form.Item>
