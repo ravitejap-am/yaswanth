@@ -16,7 +16,7 @@ import Search from "../../../components/common/search/Search";
 import Group2290 from "../../../asset/Group2290.png";
 import ChatSearch from "../../../components/common/chatSearch/ChatSearch";
 
-const OrgAdminChatPage = () => {
+const OrgAdminChatPage = (props) => {
   const navigate = useNavigate();
   const user = useSelector(selectUser);
   const jwt = user.userToken;
@@ -188,7 +188,7 @@ const OrgAdminChatPage = () => {
 
   const arrowButton = () => {
     console.log("arrowButton clicked");
-    navigate("/chatOrgAdmin");
+    navigate('/chatOrgAdmin', { state: { params: chat } });
   };
 
   return (
