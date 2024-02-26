@@ -284,6 +284,8 @@ const GeneralForm = (props) => {
                   onChange={(e) => {
                     form.setFieldValue({ [item.name]: e.target.value });
                   }}
+                  style={item.style}
+                  iconStyle={item.iconStyle}
                 />
               ),
               confirmPassword: (
@@ -494,6 +496,7 @@ const GeneralForm = (props) => {
                   onChange={(e) => {
                     form.setFieldValue({ [item.name]: e.target.value });
                   }}
+                  iconStyle={item.iconStyle}
                 />
               ),
               confirmPassword: (

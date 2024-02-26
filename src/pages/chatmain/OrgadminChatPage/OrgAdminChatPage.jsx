@@ -61,11 +61,11 @@ const OrgAdminChatPage = () => {
   ];
 
 
-  useEffect(() => {
-    // Retrieve firstName from localStorage
-    const storedFirstName = localStorage.getItem("firstNameOrganisation");
-    setFirstName(storedFirstName);
-  }, []);
+  // useEffect(() => {
+  //   // Retrieve firstName from localStorage
+  //   const storedFirstName = localStorage.getItem("firstNameOrganisation");
+  //   setFirstName(storedFirstName);
+  // }, []);
 
   useEffect(() => {
     if (organisationId) {
@@ -112,6 +112,7 @@ const OrgAdminChatPage = () => {
       }
       const responseData = await response.json();
       setActiveUsersCount(responseData.totalCount); // Set active users count from the API response
+      console.log("responseData----->", responseData);
     } catch (error) {
       navigate("/maintenance");
     }
@@ -132,6 +133,7 @@ const OrgAdminChatPage = () => {
       }
 
       const userData = await response.json();
+      console.log("userData---->", userData);
       localStorage.setItem(
         "firstNameOrganisation",
         userData?.data?.user?.firstName
@@ -144,6 +146,7 @@ const OrgAdminChatPage = () => {
       setUserData(userData?.data?.user);
       setOrganisationName(userData?.data?.organisation?.name);
       setamChatUserStatus(userData?.data?.user.active);
+      setFirstName(userData?.data?.user?.firstName);
 
       setUserStatus(userData.data.user.active ? "Active" : "Inactive");
     } catch (error) {

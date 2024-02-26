@@ -29,6 +29,14 @@ const ResetPassword = () => {
   const jwtToken = false;
   const { id } = useParams();
 
+  const passwordStyles =  {
+    position: 'absolute',
+    right: '10px',
+    top: '54%',
+    transform: 'translateY(-50%)',
+    cursor: 'pointer'
+  }
+
   console.log(param);
   useEffect(() => {
     console.log('JWT Token from Redux Store:', jwtToken);
@@ -69,6 +77,7 @@ const ResetPassword = () => {
         { required: true, message: 'Please input valid password!' },
         { validator: validatePassword },
       ],
+      iconStyle: passwordStyles
     },
     {
       label: 'Confirm Password',
@@ -81,6 +90,7 @@ const ResetPassword = () => {
         //     validateConfirmPassword(_, value, form.getFieldValue('password')),
         // },
       ],
+      iconStyle: passwordStyles
     },
   ];
 
