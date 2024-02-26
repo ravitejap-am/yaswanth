@@ -30,8 +30,9 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import NotifyMessage from "../../../components/common/toastMessages/NotifyMessage";
 import AMChatHeader from "../../AMChatAdmin/AMChatHeader/AMChatHeader";
-import Pagination from "@mui/material/Pagination"; // Import MUI Pagination
+// import Pagination from "@mui/material/Pagination"; // Import MUI Pagination
 import OrganizationAdminHeader from "../organizationadmin/OrganizationAdminHeader/OrganizationAdminHeader";
+import { Pagination } from 'antd';
 
 function OrgDocumentList() {
   const user = useSelector(selectUser);
@@ -49,36 +50,58 @@ function OrgDocumentList() {
     marginRight: "18px",
   };
 
-  const [filters, setFilters] = useState({
-    active: true,
-    sortDirection: "desc",
-    sortField: "createdAt",
-    page: 0,
-    size: "",
-  });
+  // const [filters, setFilters] = useState({
+  //   page: 0,
+  //   size: "",
+  //   sortField: "createdAt",
+  //   sortDirection: "desc",
+  //   email: "",
+  //   active: true,
+  //   name:""
+  // });
 
   const [rows, setRows] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [order, setOrder] = useState("asc");
-  const [orderBy, setOrderBy] = useState("name");
+  const [orderBy, setOrderBy] = useState("createdAt");
   const [loading, setLoading] = useState(false);
 
   const [searchQuery, setSearchQuery] = useState("");
   const [firstName, setFirstName] = useState("");
+
+  const [pageInfo, setPageInfo] = useState({
+    pageSize: 5,
+    page: 0,
+    totalCount: null,
+    totalPages: null,
+  });
+
+
+
+  const [filters, setFilters] = useState({
+    page: page,
+    size: pageInfo?.pageSize,
+    sortField: "createdAt",
+    sortDirection: "desc",
+    email: "",
+    active: true,
+    name:""
+  });
+
   useEffect(() => {
     const storedFirstName = localStorage.getItem("firstNameOrganisation");
     setFirstName(storedFirstName);
   }, []);
 
-  const filteredRows = rows.filter(
-    (row) =>
-      (row.firstName &&
-        row.firstName.toLowerCase().includes(searchQuery.toLowerCase())) ||
-      (row.lastName &&
-        row.lastName.toLowerCase().includes(searchQuery.toLowerCase())) ||
-      (row.email && row.email.toLowerCase().includes(searchQuery.toLowerCase()))
-  );
+  // const filteredRows = rows.filter(
+  //   (row) =>
+  //     (row.firstName &&
+  //       row.firstName.toLowerCase().includes(searchQuery.toLowerCase())) ||
+  //     (row.lastName &&
+  //       row.lastName.toLowerCase().includes(searchQuery.toLowerCase())) ||
+  //     (row.email && row.email.toLowerCase().includes(searchQuery.toLowerCase()))
+  // );
 
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
@@ -87,11 +110,25 @@ function OrgDocumentList() {
   useEffect(() => {
     setLoading(true);
     fetchUserList();
-  }, [filters]);
+  }, [searchQuery, order]);
 
-  const fetchUserList = async () => {
+
+  // useEffect(() => {
+  //   setFilters({ ...filters, name: searchQuery,page: page  });
+  //  }, [searchQuery , page]);
+
+  const fetchUserList = async ( page = 0) => {
     try {
-      const queryParams = new URLSearchParams(filters);
+      console.log("filters", filters);
+      const queryParams = new URLSearchParams({
+        page: page,
+        size: pageInfo?.pageSize,
+        sortField: orderBy,
+        sortDirection: order,
+        email: "",
+        active: true,
+        name:searchQuery
+      });
       const response = await fetch(
         `${constants.BASE_API_URL}${constants.USER_LIST_ENDPOINT}?${queryParams}`,
         {
@@ -113,6 +150,14 @@ function OrgDocumentList() {
         return;
       }
       const responseData = await response.json();
+      console.log("users-------->", responseData);
+      setPageInfo({
+        ...pageInfo,
+        pageSize: responseData?.pageSize,
+        page: responseData?.page,
+        totalCount: responseData?.totalCount,
+        totalPages: responseData?.totalPages,
+      });
       const users = responseData.data.users;
       setRows(users);
       setLoading(false);
@@ -211,6 +256,7 @@ function OrgDocumentList() {
     }
   };
 
+  console.log("pageInfo---->", pageInfo);
   return (
     <div className={Styles.superAdminMainCardDivStyle}>
       <div className={Styles.superAdminMiddleParentDiv}>
@@ -245,7 +291,8 @@ function OrgDocumentList() {
                 searchImage={SerchImages}
                 imageHeight={"46px"}
                 imageMarginLeft={20}
-                onChange={handleSearchChange}
+                handleChangeSearch={handleSearchChange}
+                searchValue={searchQuery}
               />
             </div>
           </div>
@@ -283,7 +330,7 @@ function OrgDocumentList() {
                     </TableCell>
                     <TableCell>
                       <TableSortLabel
-                        onClick={(e) => handleRequestSort(e, "name")}
+                        onClick={(e) => handleRequestSort(e, "createdAt")}
                       >
                         <Typography
                           variant="body1"
@@ -297,7 +344,7 @@ function OrgDocumentList() {
                       <TableSortLabel
                         active={orderBy === "email"}
                         direction={orderBy === "email" ? order : "asc"}
-                        onClick={(e) => handleRequestSort(e, "email")}
+                        // onClick={(e) => handleRequestSort(e, "email")}
                       >
                         <Typography
                           variant="body1"
@@ -311,7 +358,7 @@ function OrgDocumentList() {
                       <TableSortLabel
                         active={orderBy === "lastChat"}
                         direction={orderBy === "lastChat" ? order : "asc"}
-                        onClick={(e) => handleRequestSort(e, "lastChat")}
+                        // onClick={(e) => handleRequestSort(e, "lastChat")}
                       >
                         <Typography
                           variant="body1"
@@ -325,7 +372,7 @@ function OrgDocumentList() {
                       <TableSortLabel
                         active={orderBy === "totalChat"}
                         direction={orderBy === "totalChat" ? order : "asc"}
-                        onClick={(e) => handleRequestSort(e, "totalChat")}
+                        // onClick={(e) => handleRequestSort(e, "totalChat")}
                       >
                         <Typography
                           variant="body1"
@@ -339,7 +386,7 @@ function OrgDocumentList() {
                       <TableSortLabel
                         active={orderBy === "status"}
                         direction={orderBy === "status" ? order : "asc"}
-                        onClick={(e) => handleRequestSort(e, "status")}
+                        // onClick={(e) => handleRequestSort(e, "status")}
                       >
                         <Typography
                           variant="body1"
@@ -368,8 +415,8 @@ function OrgDocumentList() {
                     </TableRow>
                   ) : (
                     <>
-                      {filteredRows.length > 0 ? (
-                        filteredRows
+                      {rows.length > 0 ? (
+                        rows
                           .slice(
                             page * rowsPerPage,
                             page * rowsPerPage + rowsPerPage
@@ -461,12 +508,23 @@ function OrgDocumentList() {
                 gap: "20px",
               }}
             >
-              <div>Total {rows.length} items</div>
-              <Pagination
+              <div>Total {pageInfo?.totalCount} items</div>
+              {/* <Pagination
                 count={Math.ceil(rows.length / rowsPerPage)}
                 page={page + 1}
                 onChange={(event, value) => setPage(value - 1)}
                 shape="rounded"
+              /> */}
+
+              <Pagination
+                defaultCurrent={1}
+                total={pageInfo?.totalPages * 10}
+                itemRender={itemRender}
+                current={pageInfo?.page + 1}
+                onChange={(newPage) => {
+                  setPageInfo({ ...pageInfo, page: newPage - 1 });
+                  fetchUserList(newPage - 1);
+                }}
               />
             </div>
           </Paper>
