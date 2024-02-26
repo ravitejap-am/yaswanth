@@ -14,7 +14,8 @@ const Input = ({
   defaultValue = '',
   pattern = null,
   onBlur = null,
-  iconStyle
+  iconStyle,
+  disabled = false,
 }) => {
   const [visible, setVisible] = useState(false);
   const handleOnClick = () => {
@@ -49,6 +50,7 @@ const Input = ({
             defaultValue={defaultValue}
             pattern={pattern}
             onBlur={onBlur}
+            disabled={disabled}
           />
         {type === "password" && (
           <span

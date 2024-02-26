@@ -122,6 +122,7 @@ function SuperAdminPersonalInfoTab({ setFileSysytem, validateEmail }) {
         marginLeft: "20px",
         backgroundColor: "#CBD5E1",
       },
+      disabled: true,
     },
     {
       label: "Organization Name",
@@ -138,6 +139,7 @@ function SuperAdminPersonalInfoTab({ setFileSysytem, validateEmail }) {
         backgroundColor: "#CBD5E1",
         marginLeft: "20px",
       },
+      disabled: true,
     },
     {
       label: "Status",
