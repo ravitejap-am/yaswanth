@@ -1,4 +1,4 @@
-.input_filed_style {
+.input_filed_search_style {
     flex-shrink: 0;
     border-radius: 35px;
     border: 1px solid var(--Neutral-400, #94a3b8);
@@ -30,26 +30,28 @@
     padding-bottom: 8px; */
   }
   
-  .input_field_main_div {
+  .input_field_main_cont {
     width: 100%;
     flex-grow: 1;
     max-height: 100vh;
   }
   
   
-  .icon {
+  .send_icon {
     position: absolute;
-    top: 50%;
-    right: -20px;
+    top: 92%;
+    right: 0%;
     transform: translateY(-50%);
     width: 50px;
     height: 50px;
     flex-shrink: 0;
     fill: var(--Neutral-200, #e2e8f0);
+    /* bottom: 0.1%; */
   }
 
-  .icon-container{
-    background-color: red;
+  .input_filed_search_style {
+    padding-left: 30px;
   }
+
 
   

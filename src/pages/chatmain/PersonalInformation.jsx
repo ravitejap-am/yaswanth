@@ -38,7 +38,7 @@ const PersonalInformation = ({ setFileSysytem, validateEmail }) => {
   const [userStatus, setUserStatus] = useState("active");
   const [error, setError] = useState(null);
   const [organisationName, setOrganisationName] = useState("");
-  const [amChatUserStatus, setamChatUserStatus] = useState("");
+  const [amChatUserStatus, setamChatUserStatus] = useState(true);
   const [firstName, setFirstName] = useState("");
 
   useEffect(() => {
@@ -139,7 +139,7 @@ const PersonalInformation = ({ setFileSysytem, validateEmail }) => {
       label: "Status",
       type: "text",
       name: "status",
-      defaultValue: amChatUserStatus,
+      defaultValue: amChatUserStatus ? "Active" : "Inactive",
       rules: [
         { required: true, message: "Please input your Organization Name" },
         { type: "name", message: "Invalid Organization Name" },

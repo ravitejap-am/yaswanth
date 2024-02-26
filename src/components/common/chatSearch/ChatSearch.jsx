@@ -24,7 +24,7 @@ function ChatSearch({
 
   const adjustTextareaHeight = () => { 
     const textarea = document.querySelector('.search_input');
-    const textAreaCont = document.querySelector('.input_filed_style');
+    const textAreaCont = document.querySelector('.input_filed_search_style');
     // console.log("textarea------>", textarea);
     // console.log("textAreaCont------>", textAreaCont);
     textarea.style.height = 'auto';
@@ -38,9 +38,9 @@ function ChatSearch({
 
   return (
     <div>
-      <div className="input_field_main_div">
+      <div className="input_field_main_cont">
 
-        <div className="input_filed_style"> 
+        <div className="input_filed_search_style"> 
         <textarea
           type="text"
           placeholder={name}
@@ -54,14 +54,14 @@ function ChatSearch({
         />
         </div>
         <div
-          className="icon-container"
+          className="chat_icon-container"
           id={`${iconId?iconId:null}`}
           style={{ marginLeft: `${imageMarginLeft}px` }}
         >
           <img
             src={searchImage}
             alt=""
-            className="icon"
+            className="send_icon"
             style={{ width: imageWidth, height: imageHeight, cursor: "pointer" }}
             onClick={handleSearchImageClick} 
           />
