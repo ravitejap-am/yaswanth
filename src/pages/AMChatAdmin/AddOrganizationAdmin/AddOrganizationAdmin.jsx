@@ -200,7 +200,7 @@ function AddOrganizationAdmin() {
                 organisation?.organisationStatus == 'add' ? 'Add' : 'Edit'
               } Organization`}
               name={firstNamelocal || ''}
-              profileImageSrc={profile}
+              profileImageSrc={localStorage.getItem('userImageUrl')}
               customStyle={{
                 containerStyle: {
                   display: 'flex',
