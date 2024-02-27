@@ -55,12 +55,10 @@ function SuperAdminAMChatCard() {
   const jwt = user.userToken;
   const decodedToken = tokenDecodeJWT(jwt);
   // const organisationId = decodedToken ? decodedToken.organisationId : null;
+  const [organisationCount, setOrganisationCount] = useState(0);
+  const [documentCount, setDocumentCount] = useState(0);
   const userId = decodedToken ? decodedToken.userId : null;
   const [chat, setChat] = useState('');
-  const [counts, setcounts] = useState({
-    totalOrganisation: 0,
-    totalDocument: 0,
-  });
 
   useEffect(() => {
     getUserDetails();
@@ -127,7 +125,8 @@ function SuperAdminAMChatCard() {
       });
 
       console.log('get total document', response);
-      setcounts({ ...counts, totalDocument: response?.data?.totalElements });
+
+      setDocumentCount(response?.data?.totalElements);
     } catch (error) {
       console.log('Failed to fetch user profile.', error);
       // throw new Error('Failed to fetch user profile-1');
@@ -144,10 +143,7 @@ function SuperAdminAMChatCard() {
       });
 
       console.log('get total document', response);
-      setcounts({
-        ...counts,
-        totalOrganisation: response?.data?.totalElements,
-      });
+      setOrganisationCount(response?.data?.totalElements);
     } catch (error) {
       console.log('Failed to fetch user profile.', error);
       // throw new Error('Failed to fetch user profile-1');
@@ -193,7 +189,7 @@ function SuperAdminAMChatCard() {
               </div>
               <div className={Styles.titlePriceStyle}>
                 <p className={Styles.titleStyle}>Organizations</p>
-                <p className={Styles.priceStyle}>{counts?.totalOrganisation}</p>
+                <p className={Styles.priceStyle}>{organisationCount}</p>
               </div>
             </div>
 
@@ -221,7 +217,7 @@ function SuperAdminAMChatCard() {
                   <p>Documents Uploaded</p>
                 </div>
                 <div>
-                  <p className={Styles.priceStyle}>{counts?.totalDocument}</p>
+                  <p className={Styles.priceStyle}>{documentCount}</p>
                 </div>
               </div>
             </div>

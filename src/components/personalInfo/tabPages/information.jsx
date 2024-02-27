@@ -9,6 +9,9 @@ import { updateAdminProfileDetails } from '../../../apiCalls/ApiCalls';
 import { useMessageState } from '../../../hooks/useapp-message';
 import UploadProfilePic from '../upload/page';
 import PageLoader from '../../loader/loader';
+import CircularFileInfo from '../upload/circularFileInfo';
+import axios from 'axios';
+
 function Information({ setFileSysytem, validateEmail }) {
   const user = useSelector(selectUser);
   const jwt = user.userToken;
@@ -224,10 +227,35 @@ function Information({ setFileSysytem, validateEmail }) {
     personalInfo: { userData: userData },
   };
 
-  console.log('feedingVariable---->', feedingVariable);
-  console.log('amChatUserStatus---->', amChatUserStatus);
-  console.log(typeof amChatUserStatus);
-  console.log(amChatUserStatus ? 'Active' : 'Inactive');
+  const handleFileChange = (file) => {
+    // Handle file change here
+    setIsLoading(true);
+    uploadFile(file);
+  };
+  const uploadFile = async (file) => {
+    const formData = new FormData();
+    formData.append('image', file);
+
+    try {
+      const response = await axios.post(
+        `${constants.BASE_API_URL}/user/dp`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${jwt}`,
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
+      console.log(response);
+      showNotifyMessage('success', response?.data?.message, messageHandler);
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error);
+      showNotifyMessage('error', error?.message, messageHandler);
+      setIsLoading(false);
+    }
+  };
   return (
     <>
       {isLoading && <PageLoader loadingStatus={isLoading} />}
@@ -243,7 +271,10 @@ function Information({ setFileSysytem, validateEmail }) {
               marginLeft: '2em',
             }}
           >
-            <UploadProfilePic />
+            <CircularFileInfo
+              onChange={handleFileChange}
+              initialImageUrl={localStorage.getItem('userImageUrl')}
+            />
           </div>
         </div>
         <GeneralForm {...feedingVariable} />

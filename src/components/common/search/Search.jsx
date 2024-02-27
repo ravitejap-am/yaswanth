@@ -34,7 +34,7 @@ function Search({
           value={searchValue}
           onChange={handleChangeSearch}
         />
-        <div
+        {/* <div
           className="icon-container"
           id={`${iconId ? iconId : null}`}
           style={{ marginLeft: `${imageMarginLeft}px` }}
@@ -50,7 +50,7 @@ function Search({
             }}
             onClick={handleSearchImageClick}
           />
-        </div>
+        </div> */}
       </div>
     </div>
   );

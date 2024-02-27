@@ -62,6 +62,10 @@ function OrganizationDomains({
   };
 
   const handleRemoveDomain = async (index) => {
+    alert(index);
+
+    console.log('ne domains', newDomains);
+
     if (newDomains.length > 1) {
       if (
         organisation?.organisationStatus == 'edit' &&
@@ -88,8 +92,10 @@ function OrganizationDomains({
           setNewDomains((prevDomains) => {
             const updatedDomains = [...prevDomains];
             updatedDomains.splice(index, 1);
+            console.log('domainName', updatedDomains);
             return updatedDomains;
           });
+          console.log('updatedDomain', newDomains);
           showNotifyMessage('success', response?.data?.message, messageHandler);
           console.log('API Response:', response.data);
         } catch (error) {
@@ -284,6 +290,7 @@ function OrganizationDomains({
 
   return (
     <div>
+      {console.log('--------------domain data-------------------', newDomains)}
       <div className={Style.container}>
         <GeneralForm
           className={Style.generalForm}
