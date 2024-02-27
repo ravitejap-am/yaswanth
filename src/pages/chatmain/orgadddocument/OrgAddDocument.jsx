@@ -32,6 +32,7 @@ function OrgAddDocument() {
 
   const user = useSelector(selectUser);
   const jwt = user.userToken;
+  const profileSrc = localStorage.getItem("profileImage");
 
   const messageHandler = () => {
     setIsReset(false);
@@ -143,7 +144,7 @@ function OrgAddDocument() {
           <OrganizationAdminHeader
             componentName="Add Document"
             name={firstName || ""}
-            profileImageSrc={profile}
+            profileImageSrc={profileSrc}
             customStyle={{
               containerStyle: {
                 display: "flex",

@@ -15,6 +15,7 @@ function OrganizationAdminProfileInfo() {
     setFirstName(storedFirstName);
   }, []);
   const [selectedTab, setSelectedTab] = useState("personalinformation");
+  const profileSrc = localStorage.getItem("profileImage");
 
   const handleTabChange = (tab) => {
     if (tab !== selectedTab) {
@@ -30,7 +31,7 @@ function OrganizationAdminProfileInfo() {
             <AMChatHeader
               componentName={`Welcome ${firstName || ""}`}
               name={firstName || ""}
-              profileImageSrc={base}
+              profileImageSrc={profileSrc}
               customStyle={{
                 containerStyle: {
                   display: "flex",

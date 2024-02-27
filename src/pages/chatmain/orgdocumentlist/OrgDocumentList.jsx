@@ -69,6 +69,7 @@ function OrgDocumentList() {
 
   const [searchQuery, setSearchQuery] = useState("");
   const [firstName, setFirstName] = useState("");
+  const profileSrc = localStorage.getItem("profileImage");
 
   const [pageInfo, setPageInfo] = useState({
     pageSize: 5,
@@ -264,7 +265,7 @@ function OrgDocumentList() {
           <OrganizationAdminHeader
             componentName="User List"
             name={firstName || ""}
-            profileImageSrc={profile}
+            profileImageSrc={profileSrc}
             customStyle={{
               containerStyle: {
                 display: "flex",

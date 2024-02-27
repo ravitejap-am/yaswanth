@@ -10,6 +10,7 @@ const CONTACT_US_ENDPOINT = "/user/contactUs";
 const DOCUMENT_ENDPOINT = "/document";
 const USER_LIST_ENDPOINT = "/user/userlist";
 const DUMMY_CHAT_ENDPOINT = "/user/chat/dummy";
+export const PROFILE_URL = "https://medicalpublic.s3.amazonaws.com/"
 
 export const USER_PROFILE = `${BASE_API_URL}/user`;
 export const UPDATE_ADMIN_USER = `${BASE_API_URL}/user`;

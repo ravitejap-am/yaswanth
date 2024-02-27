@@ -521,4 +521,10 @@ margin-left: 15px;
   /* height: auto;  */
 }
 
+.edit-button {
+  /* display: flex; */
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
 

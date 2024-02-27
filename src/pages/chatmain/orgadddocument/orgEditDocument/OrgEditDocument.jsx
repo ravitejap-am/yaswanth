@@ -37,6 +37,7 @@ function OrgEditDocument() {
 
   const user = useSelector(selectUser);
   const jwt = user.userToken;
+  const profileSrc = localStorage.getItem("profileImage");
 
   useEffect(() => {
     const fetchDocumentDetails = async () => {
@@ -170,19 +171,20 @@ function OrgEditDocument() {
           <OrganizationAdminHeader
             componentName="Edit Document Name"
             name={firstName || ""}
-            profileImageSrc={profile}
+            profileImageSrc={profileSrc}
             customStyle={{
               containerStyle: {
                 display: "flex",
                 borderRadius: "8px",
               },
               imageStyle: {
-                width: "50%",
-                height: "70%",
+                width: "44px",
+                height: "44px",
               },
               textStyle: {
-                color: "blue",
-                fontWeight: "bold",
+                color: 'black',
+                fontWeight: '500',
+                fontSize: '24px',
               },
             }}
           />

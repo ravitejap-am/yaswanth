@@ -41,6 +41,7 @@ function OrgUpdateDocument() {
     setIsReset(false);
     hideNotifyMessage();
   };
+  const profileSrc = localStorage.getItem("profileImage");
 
   const submitHandler = async () => {
     if (isSubmitting) {
@@ -136,19 +137,20 @@ function OrgUpdateDocument() {
           <OrganizationAdminHeader
             componentName="Upload Correct Document"
             name={firstName || ""}
-            profileImageSrc={profile}
+            profileImageSrc={profileSrc}
             customStyle={{
               containerStyle: {
                 display: "flex",
                 borderRadius: "8px",
               },
               imageStyle: {
-                width: "50%",
-                height: "70%",
+                width: "44px",
+                height: "44px",
               },
               textStyle: {
-                color: "blue",
-                fontWeight: "bold",
+                color: 'black',
+                fontWeight: '500',
+                fontSize: '24px',
               },
             }}
           />

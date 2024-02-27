@@ -53,6 +53,7 @@ function EditOrgUser() {
     // },
   ]);
 
+  const profileSrc = localStorage.getItem("profileImage");
   const [firstName, setFirstName] = useState("");
   useEffect(() => {
     // Retrieve firstName from localStorage
@@ -334,19 +335,20 @@ function EditOrgUser() {
           <OrganizationAdminHeader
             componentName="Edit User"
             name={firstName || ""}
-            profileImageSrc={profile}
+            profileImageSrc={profileSrc}
             customStyle={{
               containerStyle: {
                 display: "flex",
                 borderRadius: "8px",
               },
               imageStyle: {
-                width: "50%",
-                height: "70%",
+                width: "44px",
+                height: "44px",
               },
               textStyle: {
-                color: "blue",
-                fontWeight: "bold",
+                color: 'black',
+                fontWeight: '500',
+                fontSize: '24px',
               },
             }}
           />

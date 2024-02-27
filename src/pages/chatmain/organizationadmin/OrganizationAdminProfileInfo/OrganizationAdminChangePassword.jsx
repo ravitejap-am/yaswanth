@@ -64,7 +64,7 @@ function OrganizationAdminChangePassword({ setFileSysytem, validateEmail }) {
             Authorization: `Bearer ${jwt}`,
           },
           body: JSON.stringify({
-            userId: "292",
+            // userId: "292",
             oldPassword: values.password,
             newPassword: values.newPassword,
             confirmPassword: values.confirmPassword,
