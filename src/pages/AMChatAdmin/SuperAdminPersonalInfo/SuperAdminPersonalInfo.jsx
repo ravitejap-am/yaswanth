@@ -39,7 +39,7 @@ function SuperAdminPersonalInfoTab({ setFileSysytem, validateEmail }) {
   const [userStatus, setUserStatus] = useState("active");
   const [error, setError] = useState(null);
   const [organisationName, setOrganisationName] = useState("");
-  const [amChatUserStatus, setamChatUserStatus] = useState("");
+  const [amChatUserStatus, setamChatUserStatus] = useState(true);
 
   useEffect(() => {
     if (userId) {
@@ -122,6 +122,7 @@ function SuperAdminPersonalInfoTab({ setFileSysytem, validateEmail }) {
         marginLeft: "20px",
         backgroundColor: "#CBD5E1",
       },
+      disabled: true,
     },
     {
       label: "Organization Name",
@@ -138,12 +139,13 @@ function SuperAdminPersonalInfoTab({ setFileSysytem, validateEmail }) {
         backgroundColor: "#CBD5E1",
         marginLeft: "20px",
       },
+      disabled: true,
     },
     {
       label: "Status",
       type: "text",
       name: "status",
-      defaultValue: amChatUserStatus,
+      defaultValue: amChatUserStatus ? "Active" : "Inactive",
       rules: [
         { required: true, message: "Please input your Organization Name" },
         { type: "name", message: "Invalid Organization Name" },

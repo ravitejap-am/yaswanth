@@ -62,10 +62,11 @@ function OrganizationDomains({
   };
 
   const handleRemoveDomain = async (index) => {
-    console.log(jwt);
-
     if (newDomains.length > 1) {
-      if (organisation?.organisationStatus == 'edit') {
+      if (
+        organisation?.organisationStatus == 'edit' &&
+        newDomains[index].typeDetails.length > 0
+      ) {
         try {
           setButtonLoading(true);
           let body = {
@@ -262,6 +263,7 @@ function OrganizationDomains({
         marginBottom: '10px',
       },
       labelName: false,
+      domainIndex: index,
       // rules: [
       //   {
       //     required: true,
@@ -287,13 +289,19 @@ function OrganizationDomains({
           className={Style.generalForm}
           {...feedingVariable}
           buttonLoading={buttonLoading}
+          domainProps={{
+            isDomain: true,
+            domainDeleteHandler: handleRemoveDomain,
+            addDomainHandler: handlePlusClick,
+          }}
+          isDomain={true}
         />
         <div className={Style.iconsContainer}>
-          <PlusSign className={Style.plusSign} onClick={handlePlusClick} />
-          <DeleteIcon
+          {/* <PlusSign className={Style.plusSign} onClick={handlePlusClick} /> */}
+          {/* <DeleteIcon
             className={Style.deleteIcon}
             onClick={() => handleRemoveDomain(newDomains.length - 1)}
-          />
+          /> */}
         </div>
       </div>
     </div>

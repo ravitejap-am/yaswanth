@@ -33,6 +33,25 @@ function OrganizationAdminChangePassword({ setFileSysytem, validateEmail }) {
   const user = useSelector(selectUser);
   const jwt = user.userToken;
 
+
+  const passwordStyles = { 
+      position: 'absolute',
+      // right: '10px',
+      top: '73%',
+      transform: 'translateY(-50%)',
+      cursor: 'pointer',
+      left: '340px'
+  }
+
+  const confirmPasswordStyles = { 
+    position: 'absolute',
+    // right: '10px',
+    top: '60%',
+    transform: 'translateY(-50%)',
+    cursor: 'pointer',
+    left: '340px'
+}
+
   const handleChangePassword = async (values) => {
     setButtonLoading(true);
     try {
@@ -107,6 +126,7 @@ function OrganizationAdminChangePassword({ setFileSysytem, validateEmail }) {
           { validator: validatePassword },
         ],
         style: { width: "350px", marginTop: "40px", marginLeft: "20px" },
+        iconStyle: passwordStyles
       },
       {
         label: "New Password",
@@ -116,7 +136,8 @@ function OrganizationAdminChangePassword({ setFileSysytem, validateEmail }) {
           { required: true, message: "Please input a valid password!" },
           { validator: validatePassword },
         ],
-        style: { width: "350px", marginLeft: "20px" },
+        style: { width: "350px", marginLeft: "20px",  marginTop: "40px" },
+        iconStyle: passwordStyles
       },
       {
         label: "Confirm Password",
@@ -124,6 +145,7 @@ function OrganizationAdminChangePassword({ setFileSysytem, validateEmail }) {
         name: "confirmPassword",
         rules: [{ required: true, message: "Please confirm your password!" }],
         style: { width: "350px", marginLeft: "20px" },
+        iconStyle: confirmPasswordStyles
       },
     ],
     formType: "normal",

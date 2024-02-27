@@ -3,7 +3,10 @@ import Logo from "../../../asset/images/logo.png";
 import Styles from "../../AMChatAdmin/AMChatBackgound/AMChat.module.css";
 import GroupCircleDot from "../../../asset/AmChatSuperAdmin/Group2306.png";
 import OrganizationAdminSearchUIAIChat from "./OrganizationAdminSearchUIAIChat";
-function OrganizationAdminSidebarSearchUIAIChat() {
+import { useLocation } from 'react-router-dom';
+function OrganizationAdminSidebarSearchUIAIChat(props) {
+  const location = useLocation();
+  const { params } = location.state;
   return (
     <>
       <div className={Styles.AMChatMainDiv}>
@@ -45,7 +48,7 @@ function OrganizationAdminSidebarSearchUIAIChat() {
           </div>
         </div>
 
-        <OrganizationAdminSearchUIAIChat />
+        <OrganizationAdminSearchUIAIChat  params = {params}/>
       </div>
       <div className={Styles.AMChatFooterStyle}>
         <footer className="AMChat-admin-footer">
