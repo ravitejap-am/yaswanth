@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from "react";
-import Styles from "./OrgEditDocument.module.css";
-import profile from "../../../../asset/AmChatSuperAdmin/profile.png";
-import GeneralForm from "../../../../components/common/forms/GeneralForm";
-import axios from "axios";
-import { useParams, useNavigate } from "react-router-dom";
-import { BASE_API_URL } from "../../../../constants/Constant";
-import { Spin } from "antd";
-import { useMessageState } from "../../../../hooks/useapp-message";
-import { setUser, selectUser } from "../../../../store/authSlice";
-import { useSelector } from "react-redux";
-import * as constants from "../../../../constants/Constant";
-import AMChatHeader from "../../../AMChatAdmin/AMChatHeader/AMChatHeader";
-import OrganizationAdminHeader from "../../organizationadmin/OrganizationAdminHeader/OrganizationAdminHeader";
+import React, { useState, useEffect } from 'react';
+import Styles from './OrgEditDocument.module.css';
+import profile from '../../../../asset/AmChatSuperAdmin/profile.png';
+import GeneralForm from '../../../../components/common/forms/GeneralForm';
+import axios from 'axios';
+import { useParams, useNavigate } from 'react-router-dom';
+import { BASE_API_URL } from '../../../../constants/Constant';
+import { Spin } from 'antd';
+import { useMessageState } from '../../../../hooks/useapp-message';
+import { setUser, selectUser } from '../../../../store/authSlice';
+import { useSelector } from 'react-redux';
+import * as constants from '../../../../constants/Constant';
+import AMChatHeader from '../../../AMChatAdmin/AMChatHeader/AMChatHeader';
+import OrganizationAdminHeader from '../../organizationadmin/OrganizationAdminHeader/OrganizationAdminHeader';
 
 function OrgEditDocument() {
   let {
@@ -24,10 +24,10 @@ function OrgEditDocument() {
   } = useMessageState();
   const { documentId } = useParams();
   const navigate = useNavigate();
-  const [firstName, setFirstName] = useState("");
+  const [firstName, setFirstName] = useState('');
   useEffect(() => {
     // Retrieve firstName from localStorage
-    const storedFirstName = localStorage.getItem("firstNameOrganisation");
+    const storedFirstName = localStorage.getItem('firstNameOrganisation');
     setFirstName(storedFirstName);
   }, []);
   const [documentDetails, setDocumentDetails] = useState({});
@@ -54,7 +54,7 @@ function OrgEditDocument() {
         setLoading(false);
         setIsReset(true);
       } catch (error) {
-        console.error("Error fetching document details:", error);
+        console.error('Error fetching document details:', error);
         setLoading(false);
       }
     };
@@ -63,7 +63,7 @@ function OrgEditDocument() {
 
   const cancelHandler = () => {
     // alert("Cancelling")
-    navigate("/orgdocumentlist");
+    navigate('/orgdocumentlist');
   };
   const messageHandler = () => {
     setIsReset(false);
@@ -77,20 +77,20 @@ function OrgEditDocument() {
     setIsSubmitting(true);
     setButtonLoading(true);
     try {
-      console.log("Submitting form with values:", values);
+      console.log('Submitting form with values:', values);
 
       const requestData = {
-        name: values["Document Name"],
+        name: values['Document Name'],
       };
 
-      console.log("Request Data:", requestData);
+      console.log('Request Data:', requestData);
 
       const response = await axios.put(
         `${constants.BASE_DOC_API_URL}/edit/${documentId}`,
         requestData,
         {
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
             Authorization: `Bearer ${jwt}`,
           },
         }
@@ -98,15 +98,15 @@ function OrgEditDocument() {
 
       setButtonLoading(false);
       setIsReset(true);
-      showNotifyMessage("success", response?.data?.message, messageHandler);
+      showNotifyMessage('success', response?.data?.message, messageHandler);
     } catch (error) {
-      if (error?.response?.status == 500 || error?.response?.status == "500") {
-        navigate("/internal500");
+      if (error?.response?.status == 500 || error?.response?.status == '500') {
+        navigate('/internal500');
       }
 
       setButtonLoading(false);
       showNotifyMessage(
-        "error",
+        'error',
         error?.response?.data?.message,
         messageHandler
       );
@@ -116,21 +116,21 @@ function OrgEditDocument() {
   };
 
   const submitButtonProperty = {
-    name: "Update",
-    color: "#ffffff",
-    backgroundColor: "var(--Brand-500, #6366F1)",
-    width: "150px",
-    height: "50px",
-    borderRadius: "28px",
+    name: 'Update',
+    color: '#ffffff',
+    backgroundColor: 'var(--Brand-500, #6366F1)',
+    width: '150px',
+    height: '50px',
+    borderRadius: '28px',
   };
 
   const cancelButtonProperty = {
-    name: "Cancel",
-    color: "black",
-    backgroundColor: "#fff",
-    width: "150px",
-    height: "50px",
-    borderRadius: "28px",
+    name: 'Cancel',
+    color: 'black',
+    backgroundColor: '#fff',
+    width: '150px',
+    height: '50px',
+    borderRadius: '28px',
   };
 
   const feedingVariable = {
@@ -142,26 +142,26 @@ function OrgEditDocument() {
     cancelButtonProperty: cancelButtonProperty,
     formElements: [
       {
-        name: "Document Name",
-        label: "Document Name",
-        type: "text",
+        name: 'Document Name',
+        label: 'Document Name',
+        type: 'text',
         style: {
-          width: "405px",
-          borderRadius: "40px",
-          border: "1px solid var(--Brand-700, #4338CA)",
-          backgroundColor: "transparent",
-          marginBottom: "20px",
+          width: '405px',
+          borderRadius: '40px',
+          border: '1px solid var(--Brand-700, #4338CA)',
+          backgroundColor: 'transparent',
+          marginBottom: '20px',
         },
-        rules: [{ required: true, message: "Please enter your Document Name" }],
+        rules: [{ required: true, message: 'Please enter your Document Name' }],
         labelName: false,
         defaultValue: documentDetails.name,
       },
     ],
-    formType: "normal",
+    formType: 'normal',
     forgorPasswordHandler: () => {
-      console.log("forgot Password....");
+      console.log('forgot Password....');
     },
-    grid: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px" },
+    grid: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' },
   };
 
   return (
@@ -170,21 +170,20 @@ function OrgEditDocument() {
         <div className={Styles.superAdminProfileCardStyle}>
           <OrganizationAdminHeader
             componentName="Edit Document Name"
-            name={firstName || ""}
-            profileImageSrc={profileSrc}
+            name={firstName || ''}
+            profileImageSrc={localStorage.getItem('userImageUrl')}
             customStyle={{
               containerStyle: {
-                display: "flex",
-                borderRadius: "8px",
+                display: 'flex',
+                borderRadius: '8px',
               },
               imageStyle: {
-                width: "44px",
-                height: "44px",
+                width: '48px',
+                height: '48px',
               },
               textStyle: {
-                color: 'black',
-                fontWeight: '500',
-                fontSize: '24px',
+                color: 'blue',
+                fontWeight: 'bold',
               },
             }}
           />

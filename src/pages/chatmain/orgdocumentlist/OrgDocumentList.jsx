@@ -1,37 +1,37 @@
-import React, { useState, useEffect } from "react";
-import Styles from "./OrgDocument.module.css";
-import profile from "../../../asset/AmChatSuperAdmin/profile.png";
-import GeneralButton from "../../../components/common/buttons/GeneralButton";
-import frame from "../../../asset/AmChatSuperAdmin/plus-sm.png";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TablePagination from "@mui/material/TablePagination";
-import TableRow from "@mui/material/TableRow";
-import TableSortLabel from "@mui/material/TableSortLabel";
-import Typography from "@mui/material/Typography";
-import Paper from "@mui/material/Paper";
-import Checkbox from "@mui/material/Checkbox";
-import IconButton from "@mui/material/IconButton";
-import editIcon from "../../../asset/AmChatSuperAdmin/pencil-alt.png";
-import deleteIcon from "../../../asset/AmChatSuperAdmin/Frame 2302.png";
-import { Link } from "react-router-dom";
-import Search from "../../../components/common/search/Search";
-import SerchImages from "../../../asset/AmChatSuperAdmin/Group2305.png";
-import Select from "@mui/material/Select";
-import { FormControl, MenuItem } from "@mui/material";
-import { setUser, selectUser } from "../../../store/authSlice";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import * as constants from "../../../constants/Constant";
-import axios from "axios";
-import { toast } from "react-toastify";
-import NotifyMessage from "../../../components/common/toastMessages/NotifyMessage";
-import AMChatHeader from "../../AMChatAdmin/AMChatHeader/AMChatHeader";
+import React, { useState, useEffect } from 'react';
+import Styles from './OrgDocument.module.css';
+import profile from '../../../asset/AmChatSuperAdmin/profile.png';
+import GeneralButton from '../../../components/common/buttons/GeneralButton';
+import frame from '../../../asset/AmChatSuperAdmin/plus-sm.png';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TablePagination from '@mui/material/TablePagination';
+import TableRow from '@mui/material/TableRow';
+import TableSortLabel from '@mui/material/TableSortLabel';
+import Typography from '@mui/material/Typography';
+import Paper from '@mui/material/Paper';
+import Checkbox from '@mui/material/Checkbox';
+import IconButton from '@mui/material/IconButton';
+import editIcon from '../../../asset/AmChatSuperAdmin/pencil-alt.png';
+import deleteIcon from '../../../asset/AmChatSuperAdmin/Frame 2302.png';
+import { Link } from 'react-router-dom';
+import Search from '../../../components/common/search/Search';
+import SerchImages from '../../../asset/AmChatSuperAdmin/Group2305.png';
+import Select from '@mui/material/Select';
+import { FormControl, MenuItem } from '@mui/material';
+import { setUser, selectUser } from '../../../store/authSlice';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import * as constants from '../../../constants/Constant';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import NotifyMessage from '../../../components/common/toastMessages/NotifyMessage';
+import AMChatHeader from '../../AMChatAdmin/AMChatHeader/AMChatHeader';
 // import Pagination from "@mui/material/Pagination"; // Import MUI Pagination
-import OrganizationAdminHeader from "../organizationadmin/OrganizationAdminHeader/OrganizationAdminHeader";
+import OrganizationAdminHeader from '../organizationadmin/OrganizationAdminHeader/OrganizationAdminHeader';
 import { Pagination } from 'antd';
 
 function OrgDocumentList() {
@@ -40,14 +40,14 @@ function OrgDocumentList() {
   const navigate = useNavigate();
 
   const searchStyles = {
-    width: "300px",
-    height: "45px",
-    borderRadius: "42px",
-    fontFamily: "Inter, sans-serif",
-    backgroundColor: "#EEF2FF",
-    display: "flex",
-    alignItems: "center",
-    marginRight: "18px",
+    width: '300px',
+    height: '45px',
+    borderRadius: '42px',
+    fontFamily: 'Inter, sans-serif',
+    backgroundColor: '#EEF2FF',
+    display: 'flex',
+    alignItems: 'center',
+    marginRight: '18px',
   };
 
   // const [filters, setFilters] = useState({
@@ -63,8 +63,8 @@ function OrgDocumentList() {
   const [rows, setRows] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [order, setOrder] = useState("asc");
-  const [orderBy, setOrderBy] = useState("createdAt");
+  const [order, setOrder] = useState('asc');
+  const [orderBy, setOrderBy] = useState('createdAt');
   const [loading, setLoading] = useState(false);
 
   const [searchQuery, setSearchQuery] = useState("");
@@ -78,20 +78,18 @@ function OrgDocumentList() {
     totalPages: null,
   });
 
-
-
   const [filters, setFilters] = useState({
     page: page,
     size: pageInfo?.pageSize,
-    sortField: "createdAt",
-    sortDirection: "desc",
-    email: "",
+    sortField: 'createdAt',
+    sortDirection: 'desc',
+    email: '',
     active: true,
-    name:""
+    name: '',
   });
 
   useEffect(() => {
-    const storedFirstName = localStorage.getItem("firstNameOrganisation");
+    const storedFirstName = localStorage.getItem('firstNameOrganisation');
     setFirstName(storedFirstName);
   }, []);
 
@@ -113,45 +111,44 @@ function OrgDocumentList() {
     fetchUserList();
   }, [searchQuery, order]);
 
-
   // useEffect(() => {
   //   setFilters({ ...filters, name: searchQuery,page: page  });
   //  }, [searchQuery , page]);
 
-  const fetchUserList = async ( page = 0) => {
+  const fetchUserList = async (page = 0) => {
     try {
-      console.log("filters", filters);
+      console.log('filters', filters);
       const queryParams = new URLSearchParams({
         page: page,
         size: pageInfo?.pageSize,
         sortField: orderBy,
         sortDirection: order,
-        email: "",
+        email: '',
         active: true,
-        name:searchQuery
+        name: searchQuery,
       });
       const response = await fetch(
         `${constants.BASE_API_URL}${constants.USER_LIST_ENDPOINT}?${queryParams}`,
         {
-          method: "GET",
+          method: 'GET',
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
             Authorization: `Bearer ${jwt}`,
           },
         }
       );
       if (!response.ok) {
         if (response.status === 404) {
-          console.log("400 error ");
+          console.log('400 error ');
         } else if (response.status === 405) {
-          console.log("response 405");
+          console.log('response 405');
         } else {
-          console.log("response 405");
+          console.log('response 405');
         }
         return;
       }
       const responseData = await response.json();
-      console.log("users-------->", responseData);
+      console.log('users-------->', responseData);
       setPageInfo({
         ...pageInfo,
         pageSize: responseData?.pageSize,
@@ -164,7 +161,7 @@ function OrgDocumentList() {
       setLoading(false);
     } catch (error) {
       setLoading(false);
-      navigate("/maintenance");
+      navigate('/maintenance');
     }
   };
 
@@ -180,16 +177,16 @@ function OrgDocumentList() {
         },
       });
       setRows(rows.filter((row) => row.id !== userId));
-      toast.success("User deleted successfully");
+      toast.success('User deleted successfully');
     } catch (error) {
-      console.error("Error deleting user:", error);
-      toast.error("Error deleting user");
+      console.error('Error deleting user:', error);
+      toast.error('Error deleting user');
     }
   };
 
   const handleRequestSort = (event, property) => {
-    const isAsc = orderBy === property && order === "asc";
-    setOrder(isAsc ? "desc" : "asc");
+    const isAsc = orderBy === property && order === 'asc';
+    setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
   };
 
@@ -203,10 +200,10 @@ function OrgDocumentList() {
   };
 
   const itemRender = (_, type, originalElement) => {
-    if (type === "prev") {
+    if (type === 'prev') {
       return <a>Previous</a>;
     }
-    if (type === "next") {
+    if (type === 'next') {
       return <a>Next</a>;
     }
     return originalElement;
@@ -223,7 +220,7 @@ function OrgDocumentList() {
 
   const handleCheckboxClick = async (userId, isChecked) => {
     try {
-      let roleId = isChecked ? "19" : "17";
+      let roleId = isChecked ? '19' : '17';
       await axios.put(
         `${constants.BASE_API_URL}/user/role`,
         {
@@ -233,7 +230,7 @@ function OrgDocumentList() {
         {
           headers: {
             Authorization: `Bearer ${jwt}`,
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
         }
       );
@@ -246,34 +243,34 @@ function OrgDocumentList() {
       );
 
       // Show different messages based on the roleId
-      if (roleId === "17") {
-        toast.success("Admin role assigned successfully");
-      } else if (roleId === "19") {
-        toast.success("User role assigned successfully");
+      if (roleId === '17') {
+        toast.success('Admin role assigned successfully');
+      } else if (roleId === '19') {
+        toast.success('User role assigned successfully');
       }
     } catch (error) {
-      console.error("Error updating role:", error);
-      toast.error("Error updating role");
+      console.error('Error updating role:', error);
+      toast.error('Error updating role');
     }
   };
 
-  console.log("pageInfo---->", pageInfo);
+  console.log('pageInfo---->', pageInfo);
   return (
     <div className={Styles.superAdminMainCardDivStyle}>
       <div className={Styles.superAdminMiddleParentDiv}>
         <div className={Styles.superAdminProfileCardStyle}>
           <OrganizationAdminHeader
             componentName="User List"
-            name={firstName || ""}
-            profileImageSrc={profileSrc}
+            name={firstName || ''}
+            profileImageSrc={localStorage.getItem('userImageUrl')}
             customStyle={{
               containerStyle: {
-                display: "flex",
-                borderRadius: "8px",
+                display: 'flex',
+                borderRadius: '8px',
               },
               imageStyle: {
-                width: "44px",
-                height: "44px",
+                width: '44px',
+                height: '44px',
               },
               textStyle: {
                 color: 'black',
@@ -287,10 +284,10 @@ function OrgDocumentList() {
           <div className={Styles.OrganizationListFilterSerchBox}>
             <div className={Styles.OrganizationListFilterSerchBox}>
               <Search
-                name={"Search name here."}
+                name={'Search name here.'}
                 styles={searchStyles}
                 searchImage={SerchImages}
-                imageHeight={"46px"}
+                imageHeight={'46px'}
                 imageMarginLeft={20}
                 handleChangeSearch={handleSearchChange}
                 searchValue={searchQuery}
@@ -298,16 +295,16 @@ function OrgDocumentList() {
             </div>
           </div>
           <div className={Styles.bannerButton}>
-            <Link to="/adduser" style={{ textDecoration: "none" }}>
+            <Link to="/adduser" style={{ textDecoration: 'none' }}>
               <GeneralButton
-                name={"Add User"}
-                type={"submit"}
-                color={"#f8fafc"}
-                borderRadius={"30px"}
-                backgroundColor={"#6366f1"}
+                name={'Add User'}
+                type={'submit'}
+                color={'#f8fafc'}
+                borderRadius={'30px'}
+                backgroundColor={'#6366f1'}
                 icons={frame}
-                width={"158px"}
-                height={"48px"}
+                width={'158px'}
+                height={'48px'}
               />
             </Link>
           </div>
@@ -318,24 +315,24 @@ function OrgDocumentList() {
               <Table
                 sx={{ minWidth: 750 }}
                 aria-labelledby="tableTitle"
-                size={"medium"}
+                size={'medium'}
                 aria-label="enhanced table"
               >
-                <TableHead style={{ borderBottom: "2px solid #0F172A" }}>
+                <TableHead style={{ borderBottom: '2px solid #0F172A' }}>
                   <TableRow>
                     <TableCell padding="checkbox">
                       <Checkbox
                         indeterminate={false}
-                        inputProps={{ "aria-label": "select all desserts" }}
+                        inputProps={{ 'aria-label': 'select all desserts' }}
                       />
                     </TableCell>
                     <TableCell>
                       <TableSortLabel
-                        onClick={(e) => handleRequestSort(e, "createdAt")}
+                        onClick={(e) => handleRequestSort(e, 'createdAt')}
                       >
                         <Typography
                           variant="body1"
-                          style={{ fontWeight: "bold" }}
+                          style={{ fontWeight: 'bold' }}
                         >
                           Name
                         </Typography>
@@ -343,13 +340,13 @@ function OrgDocumentList() {
                     </TableCell>
                     <TableCell>
                       <TableSortLabel
-                        active={orderBy === "email"}
-                        direction={orderBy === "email" ? order : "asc"}
+                        active={orderBy === 'email'}
+                        direction={orderBy === 'email' ? order : 'asc'}
                         // onClick={(e) => handleRequestSort(e, "email")}
                       >
                         <Typography
                           variant="body1"
-                          style={{ fontWeight: "bold" }}
+                          style={{ fontWeight: 'bold' }}
                         >
                           Email
                         </Typography>
@@ -357,13 +354,13 @@ function OrgDocumentList() {
                     </TableCell>
                     <TableCell>
                       <TableSortLabel
-                        active={orderBy === "lastChat"}
-                        direction={orderBy === "lastChat" ? order : "asc"}
+                        active={orderBy === 'lastChat'}
+                        direction={orderBy === 'lastChat' ? order : 'asc'}
                         // onClick={(e) => handleRequestSort(e, "lastChat")}
                       >
                         <Typography
                           variant="body1"
-                          style={{ fontWeight: "bold" }}
+                          style={{ fontWeight: 'bold' }}
                         >
                           Last Chat
                         </Typography>
@@ -371,13 +368,13 @@ function OrgDocumentList() {
                     </TableCell>
                     <TableCell>
                       <TableSortLabel
-                        active={orderBy === "totalChat"}
-                        direction={orderBy === "totalChat" ? order : "asc"}
+                        active={orderBy === 'totalChat'}
+                        direction={orderBy === 'totalChat' ? order : 'asc'}
                         // onClick={(e) => handleRequestSort(e, "totalChat")}
                       >
                         <Typography
                           variant="body1"
-                          style={{ fontWeight: "bold" }}
+                          style={{ fontWeight: 'bold' }}
                         >
                           Total Chat
                         </Typography>
@@ -385,13 +382,13 @@ function OrgDocumentList() {
                     </TableCell>
                     <TableCell>
                       <TableSortLabel
-                        active={orderBy === "status"}
-                        direction={orderBy === "status" ? order : "asc"}
+                        active={orderBy === 'status'}
+                        direction={orderBy === 'status' ? order : 'asc'}
                         // onClick={(e) => handleRequestSort(e, "status")}
                       >
                         <Typography
                           variant="body1"
-                          style={{ fontWeight: "bold" }}
+                          style={{ fontWeight: 'bold' }}
                         >
                           Status
                         </Typography>
@@ -400,7 +397,7 @@ function OrgDocumentList() {
                     <TableCell>
                       <Typography
                         variant="body1"
-                        style={{ fontWeight: "bold" }}
+                        style={{ fontWeight: 'bold' }}
                       >
                         Actions
                       </Typography>
@@ -432,12 +429,12 @@ function OrgDocumentList() {
                               </TableCell>
                               <TableCell>
                                 <div className={Styles.emailWithCheckbox}>
-                                  <span style={{ marginTop: "10px" }}>
+                                  <span style={{ marginTop: '10px' }}>
                                     {row.email}
                                   </span>
                                   <Checkbox
                                     inputProps={{
-                                      "aria-labelledby": row.firstName,
+                                      'aria-labelledby': row.firstName,
                                     }}
                                     onClick={() =>
                                       handleCheckboxClick(row.id, !row.active)
@@ -448,13 +445,13 @@ function OrgDocumentList() {
                               <TableCell>{row.createdAt}</TableCell>
                               <TableCell>{row.updatedAt}</TableCell>
                               <TableCell>
-                                <FormControl style={{ width: "110px" }}>
+                                <FormControl style={{ width: '110px' }}>
                                   <Select
                                     style={{
-                                      border: "none",
-                                      borderRadius: "none",
+                                      border: 'none',
+                                      borderRadius: 'none',
                                     }}
-                                    value={row.active ? "Active" : "Inactive"}
+                                    value={row.active ? 'Active' : 'Inactive'}
                                     onChange={(e) =>
                                       handleStatusChange(e, row.id)
                                     }
@@ -502,11 +499,11 @@ function OrgDocumentList() {
             </TableContainer>
             <div
               style={{
-                display: "flex",
-                justifyContent: "flex-end",
-                alignItems: "center",
-                marginTop: "16px",
-                gap: "20px",
+                display: 'flex',
+                justifyContent: 'flex-end',
+                alignItems: 'center',
+                marginTop: '16px',
+                gap: '20px',
               }}
             >
               <div>Total {pageInfo?.totalCount} items</div>

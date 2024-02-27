@@ -27,10 +27,16 @@ import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import AMChatHeader from '../AMChatHeader/AMChatHeader';
 import SuperAdminHeader from '../SuperAdminHeader/SuperAdminHeader';
 import { getUserProfileDetails } from '../../../apiCalls/ApiCalls';
-import { useSelector } from "react-redux";
-import { selectUser } from "../../../store/authSlice";
+import { useSelector } from 'react-redux';
+import { selectUser } from '../../../store/authSlice';
 import { tokenDecodeJWT } from '../../../utils/authUtils';
 import ChatSearch from '../../../components/common/chatSearch/ChatSearch';
+import {
+  BASE_DOC_API_URL,
+  BASE_USER_IMAGE_URL,
+  BASE_ORG_API_URL,
+} from '../../../constants/Constant';
+import axios from 'axios';
 
 const style = {
   py: 0,
@@ -51,9 +57,15 @@ function SuperAdminAMChatCard() {
   // const organisationId = decodedToken ? decodedToken.organisationId : null;
   const userId = decodedToken ? decodedToken.userId : null;
   const [chat, setChat] = useState('');
+  const [counts, setcounts] = useState({
+    totalOrganisation: 0,
+    totalDocument: 0,
+  });
 
   useEffect(() => {
-    getUserDetails()
+    getUserDetails();
+    getDocumentsCount();
+    getOrganisationCount();
   }, []);
   const contentArray = [
     'Could you help me with the maternity policy of my organization?',
@@ -71,28 +83,78 @@ function SuperAdminAMChatCard() {
     paddingLeft: '30px',
   };
   const handleSearchImageClick = () => {
-    navigate("/chat");
+    navigate('/chat');
   };
 
   const getUserDetails = async () => {
-    try{
-      const headers = { Authorization: `Bearer ${jwt}`, 'Content-Type': 'application/json' };
+    try {
+      const headers = {
+        Authorization: `Bearer ${jwt}`,
+        'Content-Type': 'application/json',
+      };
       const response = await getUserProfileDetails(userId, headers);
-      console.log("user details---->", response);
-      if(response.status === 200 && response.data.data && response?.data?.data?.user?.firstName){
+      console.log('user details---->', response);
+      if (
+        response.status === 200 &&
+        response.data.data &&
+        response?.data?.data?.user?.firstName
+      ) {
         // setFirstName(response.data.data.firstName)
-        console.log("firstName", response?.data?.data?.user?.firstName);
-        setFirstName(response?.data?.data?.user?.firstName || '')
-        localStorage.setItem('firstName', response?.data?.data?.user?.firstName);
+        console.log('firstName', response?.data?.data?.user?.firstName);
+        setFirstName(response?.data?.data?.user?.firstName || '');
+        localStorage.setItem(
+          'firstName',
+          response?.data?.data?.user?.firstName
+        );
+        localStorage.setItem(
+          'userImageUrl',
+          `${BASE_USER_IMAGE_URL}${response?.data?.data?.user?.profileImagePath}`
+        );
       }
-    }catch(error){
-      console.log("Error in getting user details", error);
-      throw new Error("Failed to fetch user profile-2")
+    } catch (error) {
+      console.log('Error in getting user details', error);
+      throw new Error('Failed to fetch user profile-2');
     }
+  };
 
-  }
+  const getDocumentsCount = async () => {
+    try {
+      console.log('jwt', jwt);
+      const response = await axios.get(`${BASE_DOC_API_URL}/total`, {
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+        },
+      });
 
-  console.log("firstName", firstName);
+      console.log('get total document', response);
+      setcounts({ ...counts, totalDocument: response?.data?.totalElements });
+    } catch (error) {
+      console.log('Failed to fetch user profile.', error);
+      // throw new Error('Failed to fetch user profile-1');
+    }
+  };
+
+  const getOrganisationCount = async () => {
+    try {
+      console.log('jwt', jwt);
+      const response = await axios.get(`${BASE_ORG_API_URL}/all?active=true`, {
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+        },
+      });
+
+      console.log('get total document', response);
+      setcounts({
+        ...counts,
+        totalOrganisation: response?.data?.totalElements,
+      });
+    } catch (error) {
+      console.log('Failed to fetch user profile.', error);
+      // throw new Error('Failed to fetch user profile-1');
+    }
+  };
+
+  console.log('firstName', firstName);
   return (
     <div className={Styles.superAdminMainCardDivStyle}>
       <div className={Styles.superAdminMiddleParentDiv}>
@@ -100,7 +162,7 @@ function SuperAdminAMChatCard() {
           <SuperAdminHeader
             componentName={`Welcome ${firstName || ''}`}
             name={firstName || ''}
-            profileImageSrc={profile}
+            profileImageSrc={localStorage.getItem('userImageUrl')}
             customStyle={{
               containerStyle: {
                 display: 'flex',
@@ -131,7 +193,7 @@ function SuperAdminAMChatCard() {
               </div>
               <div className={Styles.titlePriceStyle}>
                 <p className={Styles.titleStyle}>Organizations</p>
-                <p className={Styles.priceStyle}>500</p>
+                <p className={Styles.priceStyle}>{counts?.totalOrganisation}</p>
               </div>
             </div>
 
@@ -159,7 +221,7 @@ function SuperAdminAMChatCard() {
                   <p>Documents Uploaded</p>
                 </div>
                 <div>
-                  <p className={Styles.priceStyle}>500</p>
+                  <p className={Styles.priceStyle}>{counts?.totalDocument}</p>
                 </div>
               </div>
             </div>
@@ -188,9 +250,8 @@ function SuperAdminAMChatCard() {
             </div>
           </div>
 
-
           <div className={Styles.footer}>
-          <div className={Styles.superAdminAMChatMiddleDiv}>
+            <div className={Styles.superAdminAMChatMiddleDiv}>
               <div className={Styles.AMChatFirstTitle}>
                 <p>Hello, I’m AM-Chat</p>
               </div>
@@ -198,28 +259,27 @@ function SuperAdminAMChatCard() {
                 <p>How can I help you today?</p>
               </div>
             </div>
-          <div className="Example_main_div">
-            <div className="Card_message_example_main">
-              {contentArray.map((content, index) => (
-                <p key={index} className="Card_message_example">
-                  {content}
-                </p>
-              ))}
+            <div className="Example_main_div">
+              <div className="Card_message_example_main">
+                {contentArray.map((content, index) => (
+                  <p key={index} className="Card_message_example">
+                    {content}
+                  </p>
+                ))}
+              </div>
+            </div>
+            <div className={Styles.AIChatInputBox}>
+              <ChatSearch
+                name={'Ask anything..'}
+                style={'searchStyles'}
+                searchImage={Group2290}
+                onSearchImageClick={handleSearchImageClick}
+                readOnly={false}
+                chat={chat}
+                setChat={setChat}
+              />
             </div>
           </div>
-          <div className={Styles.AIChatInputBox}>
-            <ChatSearch
-              name={'Ask anything..'}
-              style={"searchStyles"}
-              searchImage={Group2290}
-              onSearchImageClick={handleSearchImageClick}
-              readOnly={false}
-              chat={chat}
-              setChat={setChat}
-            />
-          </div>
-          </div>
-
         </Card>
       </div>
     </div>

@@ -244,15 +244,15 @@ function OrganizationList() {
           <SuperAdminHeader
             componentName="Organization List"
             name={firstName || ''}
-            profileImageSrc={profile}
+            profileImageSrc={localStorage.getItem('userImageUrl')}
             customStyle={{
               containerStyle: {
                 display: 'flex',
                 borderRadius: '8px',
               },
               imageStyle: {
-                width: '50%',
-                height: '70%',
+                width: '44px',
+                height: '44px',
               },
               textStyle: {
                 color: 'black',

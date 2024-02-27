@@ -23,6 +23,7 @@ import { PROFILE_URL } from "../../../apiCalls/Constants";
 import profilePlaceholder from "../../../asset/profilePlaceholder.png";
 import editIcon from "../../../asset/AmChatSuperAdmin/pencil-alt.png";
 import Button from "../../../components/common/buttons/GeneralButton";
+import { BASE_USER_IMAGE_URL } from '../../../constants/Constant';
 
 const OrgAdminChatPage = (props) => {
   const navigate = useNavigate();
@@ -30,19 +31,19 @@ const OrgAdminChatPage = (props) => {
   const jwt = user.userToken;
   const decodeJWT = (token) => {
     try {
-      const base64Url = token.split(".")[1];
-      const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+      const base64Url = token.split('.')[1];
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
       const jsonPayload = decodeURIComponent(
         atob(base64)
-          .split("")
+          .split('')
           .map((char) => {
-            return "%" + ("00" + char.charCodeAt(0).toString(16)).slice(-2);
+            return '%' + ('00' + char.charCodeAt(0).toString(16)).slice(-2);
           })
-          .join("")
+          .join('')
       );
       return JSON.parse(jsonPayload);
     } catch (error) {
-      console.error("Error decoding JWT:", error);
+      console.error('Error decoding JWT:', error);
       return null;
     }
   };
@@ -52,14 +53,14 @@ const OrgAdminChatPage = (props) => {
 
   const [documentCount, setDocumentCount] = useState(0);
   const [activeUsersCount, setActiveUsersCount] = useState(0);
-  const [chat, setChat] = useState("");
+  const [chat, setChat] = useState('');
   const [page, setPage] = useState(0);
   const [userData, setUserData] = useState(null);
-  const [userStatus, setUserStatus] = useState("active");
+  const [userStatus, setUserStatus] = useState('active');
   const [error, setError] = useState(null);
-  const [organisationName, setOrganisationName] = useState("");
-  const [amChatUserStatus, setamChatUserStatus] = useState("");
-  const [firstName, setFirstName] = useState("");
+  const [organisationName, setOrganisationName] = useState('');
+  const [amChatUserStatus, setamChatUserStatus] = useState('');
+  const [firstName, setFirstName] = useState('');
   const contentArray = [
     'Could you help me with the maternity policy of my organization?',
     'Can you tell me about GDPR compliance.  Which I should follow in my organization?',
@@ -152,36 +153,36 @@ const OrgAdminChatPage = (props) => {
       .then((data) => {
         setDocumentCount(data.totalElements);
       })
-      .catch((error) => console.error("Error fetching document count:", error));
+      .catch((error) => console.error('Error fetching document count:', error));
   };
 
   const fetchUserList = async () => {
     try {
       const response = await fetch(
-        `${constants.BASE_API_URL}/user/userlist/?page=0&size=5&sortField=createdAt&sortDirection=desc&email=&active=true`,
+        `${constants.BASE_ORG_API_URL}/totalUsers/?active=true`,
         {
-          method: "GET",
+          method: 'GET',
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
             Authorization: `Bearer ${jwt}`,
           },
         }
       );
       if (!response.ok) {
         if (response.status === 404) {
-          console.log("400 error ");
+          console.log('400 error ');
         } else if (response.status === 405) {
-          console.log("response 405");
+          console.log('response 405');
         } else {
-          console.log("response 405");
+          console.log('response 405');
         }
         return;
       }
       const responseData = await response.json();
-      setActiveUsersCount(responseData.totalCount); // Set active users count from the API response
-      console.log("responseData----->", responseData);
+
+      setActiveUsersCount(responseData.totalElements); // Set active users count from the API response
     } catch (error) {
-      navigate("/maintenance");
+      navigate('/maintenance');
     }
   };
 
@@ -196,17 +197,17 @@ const OrgAdminChatPage = (props) => {
         }
       );
       if (!response.ok) {
-        throw new Error("Failed to fetch user profile.");
+        throw new Error('Failed to fetch user profile.');
       }
 
       const userData = await response.json();
-      console.log("userData---->", userData);
+      console.log('userData---->', userData);
       localStorage.setItem(
-        "firstNameOrganisation",
+        'firstNameOrganisation',
         userData?.data?.user?.firstName
       );
       localStorage.setItem(
-        "lastNameOrganisation",
+        'lastNameOrganisation',
         userData?.data?.user?.lastName
       );
       console.log("profile image path---->",userData?.data?.user?.profileImagePath);
@@ -224,38 +225,43 @@ const OrgAdminChatPage = (props) => {
       setOrganisationName(userData?.data?.organisation?.name);
       setamChatUserStatus(userData?.data?.user.active);
       setFirstName(userData?.data?.user?.firstName);
+      let { profileImagePath } = userData?.data?.user;
+      localStorage.setItem(
+        'userImageUrl',
+        `${BASE_USER_IMAGE_URL}${profileImagePath}`
+      );
 
-      setUserStatus(userData.data.user.active ? "Active" : "Inactive");
+      setUserStatus(userData.data.user.active ? 'Active' : 'Inactive');
     } catch (error) {
-      console.error("Error fetching user profile:", error);
-      setError("Failed to fetch user profile.");
+      console.error('Error fetching user profile:', error);
+      setError('Failed to fetch user profile.');
     }
   };
   const users = [
     {
       profile_img: { base },
-      username: "Radhi Gupta",
-      lastseen: "Last chat time : 5:00 PM",
+      username: 'Radhi Gupta',
+      lastseen: 'Last chat time : 5:00 PM',
     },
     {
       profile_img: { base },
-      username: "Radhi Gupta",
-      lastseen: "Last chat time : 5:00 PM",
+      username: 'Radhi Gupta',
+      lastseen: 'Last chat time : 5:00 PM',
     },
     {
       profile_img: { base },
-      username: "Radhi Gupta",
-      lastseen: "Last chat time : 5:00 PM",
+      username: 'Radhi Gupta',
+      lastseen: 'Last chat time : 5:00 PM',
     },
     {
       profile_img: { base },
-      username: "Radhi Gupta",
-      lastseen: "Last chat time : 5:00 PM",
+      username: 'Radhi Gupta',
+      lastseen: 'Last chat time : 5:00 PM',
     },
   ];
 
   const handleStartChat = () => {
-    console.log("start chatButton clicked");
+    console.log('start chatButton clicked');
   };
 
   const handleQuestionClick = (question) => {
@@ -285,17 +291,17 @@ const OrgAdminChatPage = (props) => {
       <div className="orgadminchat-chat-container">
         <div className="orgadminchat-chat-header">
           <OrganizationAdminHeader
-            componentName={`Welcome ${firstName || ""}`}
-            name={firstName || ""}
-            profileImageSrc={profileSrc}
+            componentName={`Welcome ${firstName || ''}`}
+            name={firstName || ''}
+            profileImageSrc={localStorage.getItem('userImageUrl')}
             customStyle={{
               containerStyle: {
-                display: "flex",
-                borderRadius: "8px",
+                display: 'flex',
+                borderRadius: '8px',
               },
               imageStyle: {
-                width: "44px",
-                height: "44px",
+                width: '44px',
+                height: '44px',
               },
               textStyle: {
                 color: 'black',
@@ -387,7 +393,7 @@ const OrgAdminChatPage = (props) => {
                 {!hideChatInitialPage && <div className="orgadminchat-chat-ui-text">
                   <div className="orgadminchat-chat-ui-am-chat-text">
                     <p>
-                      AM-Chat{" "}
+                      AM-Chat{' '}
                       <img className="orgchat-icon" src={orgvector} alt="" />
                     </p>
                   </div>
@@ -399,12 +405,10 @@ const OrgAdminChatPage = (props) => {
                   </div>}                
                   {!hideChatInitialPage && <div className="example_main_div">
                     {contentArray.map((content, index) => (
-                      <p key={index} className="card_message_example"
-                      onClick={() =>
-                        handleQuestionClick(
-                          content
-                        )
-                      }
+                      <p
+                        key={index}
+                        className="card_message_example"
+                        onClick={() => handleQuestionClick(content)}
                       >
                         {content}
                       </p>
@@ -413,7 +417,7 @@ const OrgAdminChatPage = (props) => {
                   <div className={"AIChatInputBox"}>
                     <ChatSearch
                       name={'Ask anything..'}
-                      style={"searchStyles"}
+                      style={'searchStyles'}
                       searchImage={Group2290}
                       onSearchImageClick={arrowButton}
                       readOnly={false}
@@ -421,8 +425,8 @@ const OrgAdminChatPage = (props) => {
                       setChat={setChat}
                     />
                   </div>
-                  </div>
-            </div>
+                </div>
+              </div>
             </div>
             <div className="hi">
               <div className="orgadminchat-orgadmin-cards">
@@ -456,7 +460,7 @@ const OrgAdminChatPage = (props) => {
                     <h2>Active Users</h2>
                     <h1 className="activeusers-value">
                       {activeUsersCount}
-                    </h1>{" "}
+                    </h1>{' '}
                     {/* Display active users count */}
                   </div>
                   <div className="vector-card-image">

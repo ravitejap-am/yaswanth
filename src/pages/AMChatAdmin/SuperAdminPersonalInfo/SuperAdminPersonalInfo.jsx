@@ -1,13 +1,10 @@
-import React, { useEffect, useState } from "react";
-import "./SuperAdminPersonalInfo.css";
-// import GeneralForm from "../../../../components/common/forms/GeneralForm";
-import editprofilepic from "../../../asset/editprofilepic.png";
-import GeneralForm from "../../../components/common/forms/GeneralForm";
-import { Spin } from "antd";
-import { useMessageState } from "../../../hooks/useapp-message";
-import { setUser, selectUser } from "../../../store/authSlice";
-import { useSelector } from "react-redux";
-import * as constants from "../../../constants/Constant";
+import React, { useEffect, useState } from 'react';
+import './SuperAdminPersonalInfo.css';
+import editprofilepic from '../../../asset/editprofilepic.png';
+import GeneralForm from '../../../components/common/forms/GeneralForm';
+import { setUser, selectUser } from '../../../store/authSlice';
+import { useSelector } from 'react-redux';
+import * as constants from '../../../constants/Constant';
 
 function SuperAdminPersonalInfoTab({ setFileSysytem, validateEmail }) {
   const user = useSelector(selectUser);
@@ -15,19 +12,19 @@ function SuperAdminPersonalInfoTab({ setFileSysytem, validateEmail }) {
 
   const decodeJWT = (token) => {
     try {
-      const base64Url = token.split(".")[1];
-      const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+      const base64Url = token.split('.')[1];
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
       const jsonPayload = decodeURIComponent(
         atob(base64)
-          .split("")
+          .split('')
           .map((char) => {
-            return "%" + ("00" + char.charCodeAt(0).toString(16)).slice(-2);
+            return '%' + ('00' + char.charCodeAt(0).toString(16)).slice(-2);
           })
-          .join("")
+          .join('')
       );
       return JSON.parse(jsonPayload);
     } catch (error) {
-      console.error("Error decoding JWT:", error);
+      console.error('Error decoding JWT:', error);
       return null;
     }
   };
@@ -36,16 +33,16 @@ function SuperAdminPersonalInfoTab({ setFileSysytem, validateEmail }) {
   const userId = decodedToken ? decodedToken.userId : null;
 
   const [userData, setUserData] = useState(null);
-  const [userStatus, setUserStatus] = useState("active");
+  const [userStatus, setUserStatus] = useState('active');
   const [error, setError] = useState(null);
-  const [organisationName, setOrganisationName] = useState("");
+  const [organisationName, setOrganisationName] = useState('');
   const [amChatUserStatus, setamChatUserStatus] = useState(true);
 
   useEffect(() => {
     if (userId) {
       fetchUserProfile();
     } else {
-      setError("User ID is missing or invalid.");
+      setError('User ID is missing or invalid.');
     }
   }, [userId]);
 
@@ -60,131 +57,131 @@ function SuperAdminPersonalInfoTab({ setFileSysytem, validateEmail }) {
         }
       );
       if (!response.ok) {
-        throw new Error("Failed to fetch user profile.");
+        throw new Error('Failed to fetch user profile.');
       }
 
       const userData = await response.json();
       const { firstName, lastName } = userData.data.user;
 
       // Store firstName and lastName in localStorage
-      localStorage.setItem("firstName", firstName);
-      localStorage.setItem("lastName", lastName);
+      localStorage.setItem('firstName', firstName);
+      localStorage.setItem('lastName', lastName);
       // console.log(userData, "****");
       setUserData(userData?.data?.user);
       setOrganisationName(userData?.data?.organisation?.name);
       setamChatUserStatus(userData?.data?.user.active);
 
-      setUserStatus(userData.data.user.active ? "Active" : "Inactive");
+      setUserStatus(userData.data.user.active ? 'Active' : 'Inactive');
     } catch (error) {
-      console.error("Error fetching user profile:", error);
-      setError("Failed to fetch user profile.");
+      console.error('Error fetching user profile:', error);
+      setError('Failed to fetch user profile.');
     }
   };
 
   const formElements = [
     {
-      label: "First Name",
-      type: "text",
-      name: "firstName",
+      label: 'First Name',
+      type: 'text',
+      name: 'firstName',
       pattern: /^([a-zA-Z]{3,30}\s*)+/,
-      defaultValue: userData ? userData.firstName : "",
+      defaultValue: userData ? userData.firstName : '',
       rules: [
-        { required: true, message: "Please input your First Name" },
-        { type: "name", message: "Invalid First Name" },
+        { required: true, message: 'Please input your First Name' },
+        { type: 'name', message: 'Invalid First Name' },
       ],
-      style: { width: "400px", height: "40px", marginLeft: "20px" },
+      style: { width: '400px', height: '40px', marginLeft: '20px' },
     },
     {
-      label: "Last Name",
-      type: "text",
-      name: "lastName",
+      label: 'Last Name',
+      type: 'text',
+      name: 'lastName',
       pattern: /^([a-zA-Z]{3,30}\s*)+/,
-      defaultValue: userData ? userData.lastName : "",
+      defaultValue: userData ? userData.lastName : '',
       rules: [
-        { required: true, message: "Please input your Last Name" },
-        { type: "name", message: "Invalid Last Name" },
+        { required: true, message: 'Please input your Last Name' },
+        { type: 'name', message: 'Invalid Last Name' },
       ],
-      style: { width: "400px", height: "40px", marginLeft: "20px" },
+      style: { width: '400px', height: '40px', marginLeft: '20px' },
     },
     {
-      label: "Email",
-      type: "email",
-      name: "email",
+      label: 'Email',
+      type: 'email',
+      name: 'email',
       pattern: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-      defaultValue: userData ? userData.email : "",
+      defaultValue: userData ? userData.email : '',
       rules: [
-        { required: true, message: "Please enter your email" },
-        { type: "email", message: "Invalid Email" },
+        { required: true, message: 'Please enter your email' },
+        { type: 'email', message: 'Invalid Email' },
       ],
       style: {
-        width: "400px",
-        height: "40px",
-        marginLeft: "20px",
-        backgroundColor: "#CBD5E1",
+        width: '400px',
+        height: '40px',
+        marginLeft: '20px',
+        backgroundColor: '#CBD5E1',
       },
       disabled: true,
     },
     {
-      label: "Organization Name",
-      type: "text",
-      name: "orgName",
+      label: 'Organization Name',
+      type: 'text',
+      name: 'orgName',
       defaultValue: organisationName,
       rules: [
-        { required: true, message: "Please input your Organization Name" },
-        { type: "name", message: "Invalid Organization Name" },
+        { required: true, message: 'Please input your Organization Name' },
+        { type: 'name', message: 'Invalid Organization Name' },
       ],
       style: {
-        width: "400px",
-        height: "40px",
-        backgroundColor: "#CBD5E1",
-        marginLeft: "20px",
+        width: '400px',
+        height: '40px',
+        backgroundColor: '#CBD5E1',
+        marginLeft: '20px',
       },
       disabled: true,
     },
     {
-      label: "Status",
-      type: "text",
-      name: "status",
-      defaultValue: amChatUserStatus ? "Active" : "Inactive",
+      label: 'Status',
+      type: 'text',
+      name: 'status',
+      defaultValue: amChatUserStatus ? 'Active' : 'Inactive',
       rules: [
-        { required: true, message: "Please input your Organization Name" },
-        { type: "name", message: "Invalid Organization Name" },
+        { required: true, message: 'Please input your Organization Name' },
+        { type: 'name', message: 'Invalid Organization Name' },
       ],
       style: {
-        width: "400px",
-        height: "40px",
-        marginLeft: "20px",
+        width: '400px',
+        height: '40px',
+        marginLeft: '20px',
       },
     },
   ];
 
   const submitButtonProperty = {
-    name: "Submit",
-    color: "white",
-    backgroundColor: "#6366F1",
-    type: "primary",
-    width: "150px",
-    height: "50px",
-    borderRadius: "34px",
-    marginLeft: "19px",
-    marginTop: "1.5rem",
+    name: 'Submit',
+    color: 'white',
+    backgroundColor: '#6366F1',
+    type: 'primary',
+    width: '150px',
+    height: '50px',
+    borderRadius: '34px',
+    marginLeft: '19px',
+    marginTop: '1.5rem',
   };
 
   const feedingVariable = {
     isCancel: false,
     cancelHandler: () => {
-      console.log("Canceling....");
+      console.log('Canceling....');
     },
     isSubmit: true,
     submitHandler: () => {
-      console.log("Submitting PersonalInformation form....");
+      console.log('Submitting PersonalInformation form....');
     },
     submitButtonProperty: submitButtonProperty,
     formElements: formElements,
-    formType: "normal",
+    formType: 'normal',
     validateEmail: validateEmail,
     setFileSysytem: setFileSysytem,
-    grid: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px" },
+    grid: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' },
   };
 
   return (

@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from "react";
-import Styles from "./EditOrgUserSidebar.module.css";
-import profile from "../../../../asset/AmChatSuperAdmin/profile.png";
-import GeneralForm from "../../../../components/common/forms/GeneralForm";
-import { useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
-import { Upload, Modal } from "antd";
-import { PlusOutlined } from "@ant-design/icons";
-import { useMessageState } from "../../../../hooks/useapp-message";
-import NotifyMessage from "../../../../components/common/toastMessages/NotifyMessage";
-import { selectUser } from "../../../../store/authSlice";
-import * as constants from "../../../../constants/Constant";
-import { toast } from "react-toastify";
-import AMChatHeader from "../../../AMChatAdmin/AMChatHeader/AMChatHeader";
-import Avatar from "@mui/material/Avatar";
-import OrganizationAdminHeader from "../OrganizationAdminHeader/OrganizationAdminHeader";
+import React, { useState, useEffect } from 'react';
+import Styles from './EditOrgUserSidebar.module.css';
+import profile from '../../../../asset/AmChatSuperAdmin/profile.png';
+import GeneralForm from '../../../../components/common/forms/GeneralForm';
+import { useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
+import { Upload, Modal } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
+import { useMessageState } from '../../../../hooks/useapp-message';
+import NotifyMessage from '../../../../components/common/toastMessages/NotifyMessage';
+import { selectUser } from '../../../../store/authSlice';
+import * as constants from '../../../../constants/Constant';
+import { toast } from 'react-toastify';
+import AMChatHeader from '../../../AMChatAdmin/AMChatHeader/AMChatHeader';
+import Avatar from '@mui/material/Avatar';
+import OrganizationAdminHeader from '../OrganizationAdminHeader/OrganizationAdminHeader';
 
 const getBase64 = (file) =>
   new Promise((resolve, reject) => {
@@ -39,9 +39,9 @@ function EditOrgUser() {
   const jwt = user.userToken;
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState(
-    "https://medicalpublic.s3.amazonaws.com/AMCHAT/UserDP_1707819604773.jpeg"
+    'https://medicalpublic.s3.amazonaws.com/AMCHAT/UserDP_1707819604773.jpeg'
   );
-  const [previewTitle, setPreviewTitle] = useState("");
+  const [previewTitle, setPreviewTitle] = useState('');
   const [userData, setUserData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [fileList, setFileList] = useState([
@@ -57,7 +57,7 @@ function EditOrgUser() {
   const [firstName, setFirstName] = useState("");
   useEffect(() => {
     // Retrieve firstName from localStorage
-    const storedFirstName = localStorage.getItem("firstNameOrganisation");
+    const storedFirstName = localStorage.getItem('firstNameOrganisation');
     setFirstName(storedFirstName);
   }, []);
 
@@ -70,19 +70,19 @@ function EditOrgUser() {
       <div
         // className={Styles.EditOrgUserImageStyle}
         style={{
-          width: "5.5rem",
-          height: "180%",
-          borderRadius: "50px",
-          position: "relative",
-          top: "-20px",
-          left: "-18px",
+          width: '5.5rem',
+          height: '180%',
+          borderRadius: '50px',
+          position: 'relative',
+          top: '-20px',
+          left: '-18px',
         }}
       >
         {userData?.profileImagePath?.length > 0 && (
           <img
             src="https://medicalpublic.s3.amazonaws.com/AMCHAT/UserDP_1707819604773.jpeg"
-            height={"80px"}
-            width={"120px"}
+            height={'80px'}
+            width={'120px'}
           />
         )}
       </div>
@@ -103,20 +103,20 @@ function EditOrgUser() {
       }
       const data = await response.json();
       setUserData(data.data);
-      console.log("====================================");
-      console.log(data, "*********************");
-      console.log("====================================");
+      console.log('====================================');
+      console.log(data, '*********************');
+      console.log('====================================');
       if (data?.data?.profileImagePath?.length > 0) {
         const obj = {
-          uid: "-1",
-          name: "image.png",
-          status: "done",
+          uid: '-1',
+          name: 'image.png',
+          status: 'done',
           url: constants.BASE_USER_IMAGE_URL + data?.data?.profileImagePath,
         };
         setFileList([obj]);
       }
     } catch (error) {
-      console.error("Error fetching user data:", error);
+      console.error('Error fetching user data:', error);
     }
   };
 
@@ -129,7 +129,7 @@ function EditOrgUser() {
     setPreviewImage(file.url || file.preview);
     setPreviewOpen(true);
     setPreviewTitle(
-      file.name || file.url.substring(file.url.lastIndexOf("/") + 1)
+      file.name || file.url.substring(file.url.lastIndexOf('/') + 1)
     );
   };
 
@@ -145,7 +145,7 @@ function EditOrgUser() {
     <button
       style={{
         border: 0,
-        background: "none",
+        background: 'none',
       }}
       type="button"
     >
@@ -175,14 +175,14 @@ function EditOrgUser() {
       const updateUserResponse = await fetch(
         `${constants.BASE_API_URL}/user/${userId}`,
         {
-          method: "PUT",
+          method: 'PUT',
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
             Authorization: `Bearer ${jwt}`,
           },
           body: JSON.stringify({
-            firstName: values["firstName"],
-            lastName: values["lastName"],
+            firstName: values['firstName'],
+            lastName: values['lastName'],
           }),
         }
       );
@@ -193,8 +193,8 @@ function EditOrgUser() {
 
       setIsReset(true);
       showNotifyMessage(
-        "success",
-        "User details updated successfully",
+        'success',
+        'User details updated successfully',
         messageHandler
       );
 
@@ -202,11 +202,11 @@ function EditOrgUser() {
 
       if (fileList.length > 0) {
         const formData = new FormData();
-        formData.append("image", fileList[0].originFileObj);
+        formData.append('image', fileList[0].originFileObj);
         const updateImageResponse = await fetch(
           `${constants.BASE_API_URL}/user/dp/${userId}`,
           {
-            method: "PUT",
+            method: 'PUT',
             headers: {
               Authorization: `Bearer ${jwt}`,
             },
@@ -221,10 +221,10 @@ function EditOrgUser() {
 
       setButtonLoading(false);
       setIsReset(true);
-      showNotifyMessage("success", updateUserData?.message, messageHandler);
+      showNotifyMessage('success', updateUserData?.message, messageHandler);
     } catch (error) {
-      if (error?.response?.status == 500 || error?.response?.status == "500") {
-        navigate("/internal500");
+      if (error?.response?.status == 500 || error?.response?.status == '500') {
+        navigate('/internal500');
       }
 
       setButtonLoading(false);
@@ -239,78 +239,78 @@ function EditOrgUser() {
   };
 
   const cancelHandler = () => {
-    navigate("/orguserlist");
+    navigate('/orguserlist');
   };
 
   const formElements = [
     {
-      name: "firstName",
-      label: "First Name",
-      type: "text",
+      name: 'firstName',
+      label: 'First Name',
+      type: 'text',
       style: {
-        width: "405px",
-        borderRadius: "40px",
-        border: "1px solid var(--Brand-700, #4338CA)",
-        backgroundColor: "transparent",
+        width: '405px',
+        borderRadius: '40px',
+        border: '1px solid var(--Brand-700, #4338CA)',
+        backgroundColor: 'transparent',
       },
-      defaultValue: userData?.firstName ? userData?.firstName : "",
-      rules: [{ required: true, message: "Please enter your name" }],
+      defaultValue: userData?.firstName ? userData?.firstName : '',
+      rules: [{ required: true, message: 'Please enter your name' }],
       labelName: false,
     },
     {
-      name: "lastName",
-      label: "Last Name",
-      type: "text",
+      name: 'lastName',
+      label: 'Last Name',
+      type: 'text',
       style: {
-        width: "405px",
-        borderRadius: "40px",
-        border: "1px solid var(--Brand-700, #4338CA)",
-        backgroundColor: "transparent",
+        width: '405px',
+        borderRadius: '40px',
+        border: '1px solid var(--Brand-700, #4338CA)',
+        backgroundColor: 'transparent',
       },
-      defaultValue: userData.lastName || "",
-      rules: [{ required: true, message: "Please enter your name" }],
+      defaultValue: userData.lastName || '',
+      rules: [{ required: true, message: 'Please enter your name' }],
       labelName: false,
     },
     {
-      name: "Email",
-      label: "Email",
-      type: "text",
-      defaultValue: userData.email || "",
+      name: 'Email',
+      label: 'Email',
+      type: 'text',
+      defaultValue: userData.email || '',
       rules: [
-        { required: true, message: "Please input your email" },
-        { type: "email", message: "Invalid email format" },
+        { required: true, message: 'Please input your email' },
+        { type: 'email', message: 'Invalid email format' },
       ],
       style: {
-        width: "405px",
-        borderRadius: "40px",
-        border: "1px solid var(--Brand-700, #4338CA)",
-        backgroundColor: "transparent",
+        width: '405px',
+        borderRadius: '40px',
+        border: '1px solid var(--Brand-700, #4338CA)',
+        backgroundColor: 'transparent',
       },
       disabled: true,
       labelName: false,
     },
   ];
-  
+
   // form.getFieldValue()
 
   const submitButtonProperty = {
-    name: "Update",
-    color: "#ffffff",
-    backgroundColor: "var(--Brand-500, #6366F1)",
-    width: "150px",
-    height: "50px",
-    borderRadius: "28px",
-    marginTop: "10px",
+    name: 'Update',
+    color: '#ffffff',
+    backgroundColor: 'var(--Brand-500, #6366F1)',
+    width: '150px',
+    height: '50px',
+    borderRadius: '28px',
+    marginTop: '10px',
   };
 
   const cancelButtonProperty = {
-    name: "Cancel",
-    color: "black",
-    backgroundColor: "#fff",
-    width: "150px",
-    height: "50px",
-    borderRadius: "28px",
-    marginTop: "10px",
+    name: 'Cancel',
+    color: 'black',
+    backgroundColor: '#fff',
+    width: '150px',
+    height: '50px',
+    borderRadius: '28px',
+    marginTop: '10px',
   };
 
   const feedingVariable = {
@@ -321,11 +321,11 @@ function EditOrgUser() {
     submitButtonProperty: submitButtonProperty,
     cancelButtonProperty: cancelButtonProperty,
     formElements: formElements,
-    formType: "normal",
+    formType: 'normal',
     forgorPasswordHandler: () => {
-      console.log("forgot Password....");
+      console.log('forgot Password....');
     },
-    grid: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px" },
+    grid: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' },
   };
 
   return (
@@ -334,21 +334,20 @@ function EditOrgUser() {
         <div className={Styles.superAdminProfileCardStyle}>
           <OrganizationAdminHeader
             componentName="Edit User"
-            name={firstName || ""}
-            profileImageSrc={profileSrc}
+            name={firstName || ''}
+            profileImageSrc={localStorage.getItem('userImageUrl')}
             customStyle={{
               containerStyle: {
-                display: "flex",
-                borderRadius: "8px",
+                display: 'flex',
+                borderRadius: '8px',
               },
               imageStyle: {
-                width: "44px",
-                height: "44px",
+                width: '48px',
+                height: '48px',
               },
               textStyle: {
-                color: 'black',
-                fontWeight: '500',
-                fontSize: '24px',
+                color: 'blue',
+                fontWeight: 'bold',
               },
             }}
           />
@@ -374,7 +373,7 @@ function EditOrgUser() {
               <img
                 alt="example"
                 style={{
-                  width: "100%",
+                  width: '100%',
                 }}
                 src={previewImage}
               />

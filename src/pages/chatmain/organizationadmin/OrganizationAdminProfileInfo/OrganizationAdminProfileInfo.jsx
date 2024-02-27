@@ -1,17 +1,18 @@
-import React, { useState, useEffect } from "react";
-import "./OrganizationAdmin.css";
-import OrganizationAdminPersonalInformation from "./OrganizationAdminPersonalInformation";
-import OrganizationAdminChangePassword from "./OrganizationAdminChangePassword";
-import OrganizationAdminPlans from "./OrganizationAdminPlans";
-import AMChatHeader from "../../../AMChatAdmin/AMChatHeader/AMChatHeader";
-import base from "../../../../asset/Base.png";
-import TabNavigation from "../../tabNaviagation";
+import React, { useState, useEffect } from 'react';
+import './OrganizationAdmin.css';
+import OrganizationAdminPersonalInformation from './OrganizationAdminPersonalInformation';
+import OrganizationAdminChangePassword from './OrganizationAdminChangePassword';
+import OrganizationAdminPlans from './OrganizationAdminPlans';
+import AMChatHeader from '../../../AMChatAdmin/AMChatHeader/AMChatHeader';
+import base from '../../../../asset/Base.png';
+import TabNavigation from '../../tabNaviagation';
+import PersonalInfo from '../../../../components/personalInfo/page';
 
 function OrganizationAdminProfileInfo() {
-  const [firstName, setFirstName] = useState("");
+  const [firstName, setFirstName] = useState('');
   useEffect(() => {
     // Retrieve firstName from localStorage
-    const storedFirstName = localStorage.getItem("firstNameOrganisation");
+    const storedFirstName = localStorage.getItem('firstNameOrganisation');
     setFirstName(storedFirstName);
   }, []);
   const [selectedTab, setSelectedTab] = useState("personalinformation");
@@ -34,12 +35,12 @@ function OrganizationAdminProfileInfo() {
               profileImageSrc={profileSrc}
               customStyle={{
                 containerStyle: {
-                  display: "flex",
-                  borderRadius: "8px",
+                  display: 'flex',
+                  borderRadius: '8px',
                 },
                 imageStyle: {
-                  width: "44px",
-                  height: "44px",
+                  width: '44px',
+                  height: '44px',
                 },
                 textStyle: {
                   color: 'black',
@@ -49,19 +50,21 @@ function OrganizationAdminProfileInfo() {
               }}
             />
           </div>
-          <TabNavigation
+
+          <PersonalInfo />
+          {/* <TabNavigation
             selectedTab={selectedTab}
             handleTabChange={handleTabChange}
           />
           <div>
-            {selectedTab === "personalinformation" && (
+            {selectedTab === 'personalinformation' && (
               <OrganizationAdminPersonalInformation />
             )}
-            {selectedTab === "changepassword" && (
+            {selectedTab === 'changepassword' && (
               <OrganizationAdminChangePassword />
             )}
-            {selectedTab === "plans" && <OrganizationAdminPlans />}
-          </div>
+            {selectedTab === 'plans' && <OrganizationAdminPlans />}
+          </div> */}
         </div>
       </div>
     </div>

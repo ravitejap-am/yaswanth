@@ -1,19 +1,21 @@
-import React, { useState, useEffect } from "react";
-import "./UserProfile.css";
-import Plans from "./Plans";
-import PersonalInformation from "./PersonalInformation";
-import ChangePassword from "./ChangePassword";
-import TabNavigation from "./tabNaviagation";
-import base from "../../asset/Base.png";
-import AMChatHeader from "../AMChatAdmin/AMChatHeader/AMChatHeader";
+import React, { useState, useEffect } from 'react';
+import './UserProfile.css';
+import Plans from './Plans';
+import PersonalInformation from './PersonalInformation';
+import ChangePassword from './ChangePassword';
+import TabNavigation from './tabNaviagation';
+import base from '../../asset/Base.png';
+import AMChatHeader from '../AMChatAdmin/AMChatHeader/AMChatHeader';
+
+import PersonalInfo from '../../components/personalInfo/page';
 
 const UserProfile = () => {
-  const [selectedTab, setSelectedTab] = useState("personalinformation");
-  const [firstName, setFirstName] = useState("");
+  const [selectedTab, setSelectedTab] = useState('personalinformation');
+  const [firstName, setFirstName] = useState('');
 
   useEffect(() => {
     // Retrieve firstName from localStorage
-    const storedFirstName = localStorage.getItem("UserSectionfirstName");
+    const storedFirstName = localStorage.getItem('UserSectionfirstName');
     setFirstName(storedFirstName);
   }, []);
 
@@ -30,34 +32,35 @@ const UserProfile = () => {
           <div className="userprofile-header">
             {/* Display firstName in the Welcome message */}
             <AMChatHeader
-              componentName={`Welcome ${firstName || ""}`}
-              name={firstName || ""}
-              profileImageSrc={base}
+              componentName={`Welcome ${firstName || ''}`}
+              name={firstName || ''}
+              profileImageSrc={localStorage.getItem('userImageUrl')}
               customStyle={{
                 containerStyle: {
-                  display: "flex",
-                  borderRadius: "8px",
+                  display: 'flex',
+                  borderRadius: '8px',
                 },
                 imageStyle: {
-                  width: "50%",
-                  height: "70%",
+                  width: '48px',
+                  height: '48px',
                 },
                 textStyle: {
-                  color: "blue",
-                  fontWeight: "bold",
+                  color: 'blue',
+                  fontWeight: 'bold',
                 },
               }}
             />
           </div>
-          <TabNavigation
+          <PersonalInfo />
+          {/* <TabNavigation
             selectedTab={selectedTab}
             handleTabChange={handleTabChange}
           />
           <div>
-            {selectedTab === "personalinformation" && <PersonalInformation />}
-            {selectedTab === "changepassword" && <ChangePassword />}
-            {selectedTab === "plans" && <Plans />}
-          </div>
+            {selectedTab === 'personalinformation' && <PersonalInformation />}
+            {selectedTab === 'changepassword' && <ChangePassword />}
+            {selectedTab === 'plans' && <Plans />}
+          </div> */}
         </div>
       </div>
     </div>
