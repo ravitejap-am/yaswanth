@@ -37,6 +37,7 @@ function OrgEditDocument() {
 
   const user = useSelector(selectUser);
   const jwt = user.userToken;
+  const profileSrc = localStorage.getItem("profileImage");
 
   useEffect(() => {
     const fetchDocumentDetails = async () => {

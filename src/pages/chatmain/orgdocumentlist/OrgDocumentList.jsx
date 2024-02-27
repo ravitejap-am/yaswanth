@@ -67,8 +67,9 @@ function OrgDocumentList() {
   const [orderBy, setOrderBy] = useState('createdAt');
   const [loading, setLoading] = useState(false);
 
-  const [searchQuery, setSearchQuery] = useState('');
-  const [firstName, setFirstName] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const profileSrc = localStorage.getItem("profileImage");
 
   const [pageInfo, setPageInfo] = useState({
     pageSize: 5,

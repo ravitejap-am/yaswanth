@@ -41,6 +41,7 @@ function OrgUpdateDocument() {
     setIsReset(false);
     hideNotifyMessage();
   };
+  const profileSrc = localStorage.getItem("profileImage");
 
   const submitHandler = async () => {
     if (isSubmitting) {

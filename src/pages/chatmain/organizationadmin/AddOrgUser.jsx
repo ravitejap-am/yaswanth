@@ -45,6 +45,7 @@ function AddOrgUser() {
   const [fileList, setFileList] = useState([]);
   const [firstName, setFirstName] = useState('');
   const inputRefs = useRef([]);
+  const profileSrc = localStorage.getItem("profileImage");
 
   useEffect(() => {
     // Retrieve firstName from localStorage

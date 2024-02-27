@@ -25,6 +25,7 @@ function OrganizationAdminSearchUIAIChat(props) {
   const navigate = useNavigate();
   const [chat, setChat] = useState("");
   const question = props.params;
+  const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
     const storedFirstName = localStorage.getItem("firstNameOrganisation");
@@ -100,8 +101,12 @@ function OrganizationAdminSearchUIAIChat(props) {
   };
 
   const handleSearchImageClick = () => {
-    navigate("/chat");
-    handleSubmit();
+    // navigate("/chat");
+    // handleSubmit();
+  };
+
+  const handleEditClick = () => {
+    setIsEditing(true);
   };
 
   return (
@@ -128,10 +133,11 @@ function OrganizationAdminSearchUIAIChat(props) {
           }}
         />
 
-        <Card className={Styles.superAdminCardStyles}>
+        <Card className={Styles.superAdminCardStyles} style={{height:'80vh'}}>
+          <div>
           <div className={Styles.questionContainer}>
           <div className={Styles.answerImageContainer}>
-             <div>A</div>
+             <div>Q</div>
           </div>
           <div className={Styles.name}>
             You
@@ -142,9 +148,15 @@ function OrganizationAdminSearchUIAIChat(props) {
               <div className={Styles.chatBubble}>{question} </div>
             )}
           </div>
+          {/* {!isEditing && (
+            <div className="edit-button" onClick={handleEditClick}>
+              Edit
+            </div>
+          )} */}
+          </div>
           <div className={Styles.questionContainer}>
           <div className={Styles.questionImageContainer}>
-             <div>q</div>
+             <div>A</div>
           </div>
           <div className={Styles.name}>
           AM-Chat
@@ -155,7 +167,7 @@ function OrganizationAdminSearchUIAIChat(props) {
               <div className={Styles.chatBubble}>{responseData.data}</div>
             )}
           </div>
-          <div className='chat_container'>
+          {/* <div className='chat_container'>
               <ChatSearch
                 name={'Ask anything..'}
                 style={"searchStyles"}
@@ -165,7 +177,7 @@ function OrganizationAdminSearchUIAIChat(props) {
                 chat={chat}
                 setChat={setChat}
               />
-          </div>
+          </div> */}
         </Card>
       </div>
     </div>

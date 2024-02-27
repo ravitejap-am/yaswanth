@@ -53,7 +53,8 @@ function EditOrgUser() {
     // },
   ]);
 
-  const [firstName, setFirstName] = useState('');
+  const profileSrc = localStorage.getItem("profileImage");
+  const [firstName, setFirstName] = useState("");
   useEffect(() => {
     // Retrieve firstName from localStorage
     const storedFirstName = localStorage.getItem('firstNameOrganisation');

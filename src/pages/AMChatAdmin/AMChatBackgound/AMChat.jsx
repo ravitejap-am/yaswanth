@@ -10,8 +10,10 @@ import { Link } from 'react-router-dom';
 import { setUser, selectUser } from '../../../store/authSlice';
 import { useSelector } from 'react-redux';
 import * as constants from '../../../constants/Constant';
+import OrgAdminChatPage from '../../chatmain/OrgadminChatPage/OrgAdminChatPage';
 
 function AMChat({ renderComponent }) {
+  // const navigationRoute = "/SuperAdminPersonalInfo"
   return (
     <>
       <div className={Styles.AMChatMainDiv}>
@@ -83,6 +85,7 @@ function AMChat({ renderComponent }) {
         </div>
 
         <SuperAdminAMChatCard />
+        {/* <OrgAdminChatPage navigationRoute= {navigationRoute}/> */}
       </div>
       <div className={Styles.AMChatFooterStyle}>
         <footer className="AMChat-admin-footer">

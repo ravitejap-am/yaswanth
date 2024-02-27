@@ -58,12 +58,12 @@
 }
 
 .chatBubble {
-  background-color: #e5e5ea;
+  /* background-color: #e5e5ea; */
   color: #000;
   padding: 10px 15px;
-  border-radius: 20px;
-  margin-bottom: 10px;
-  max-width: 100%;
+  border-radius: 5px;
+  /* margin-bottom: 10px; */
+  width: 100%;
 }
 
 .responseContainer {
@@ -109,6 +109,36 @@
   justify-content: center;
   align-items: center;
   margin-left: 10px;
+}
+
+/* .questionAndAnswerContainer {
+  display: flex;
+} */
+
+.chatAlignment {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+
+.chatContainer {
+  max-height: 200px;
+  overflow-y: scroll;
+  background-color: yellow;
+}
+
+.questionEdit{
+  display: flex;
+  flex-direction: column;
+}
+
+.saveAndCancelContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+  background-color: red;
 }
 
 

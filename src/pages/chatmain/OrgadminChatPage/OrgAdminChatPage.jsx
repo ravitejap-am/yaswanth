@@ -1,20 +1,28 @@
-import React, { useEffect, useState } from 'react';
-import './OrgAdminChatPage.css';
-import arrow from '../../../asset/inputarrow.png';
-import documentIcon from '../../../asset/Group 23 (1).png';
-import base from '../../../asset/Base.png';
-import vector from '../../../asset/vectoricon.png';
-import documentIconpink from '../../../asset/Group 23.png';
-import orgvector from '../../../asset/orgVector (1).png';
-import AMChatHeader from '../../AMChatAdmin/AMChatHeader/AMChatHeader';
-import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import * as constants from '../../../constants/Constant';
-import { selectUser } from '../../../store/authSlice';
-import OrganizationAdminHeader from '../organizationadmin/OrganizationAdminHeader/OrganizationAdminHeader';
-import Search from '../../../components/common/search/Search';
-import Group2290 from '../../../asset/Group2290.png';
-import ChatSearch from '../../../components/common/chatSearch/ChatSearch';
+import React, { useEffect, useState } from "react";
+import "./OrgAdminChatPage.css";
+import arrow from "../../../asset/inputarrow.png";
+import documentIcon from "../../../asset/Group 23 (1).png";
+import base from "../../../asset/Base.png";
+import vector from "../../../asset/vectoricon.png";
+import documentIconpink from "../../../asset/Group 23.png";
+import orgvector from "../../../asset/orgVector (1).png";
+import AMChatHeader from "../../AMChatAdmin/AMChatHeader/AMChatHeader";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import * as constants from "../../../constants/Constant";
+import { selectUser } from "../../../store/authSlice";
+import OrganizationAdminHeader from "../organizationadmin/OrganizationAdminHeader/OrganizationAdminHeader";
+import Search from "../../../components/common/search/Search";
+import Group2290 from "../../../asset/Group2290.png";
+import ChatSearch from "../../../components/common/chatSearch/ChatSearch";
+import { Card } from "antd";
+import Styles from "../../AMChatAdmin/SearchUIAMChat/SearchUIAIChat.module.css";
+import profile from "../../../asset/AmChatSuperAdmin/profile.png";
+import Image from "../../../components/common/image/image";
+import { PROFILE_URL } from "../../../apiCalls/Constants";
+import profilePlaceholder from "../../../asset/profilePlaceholder.png";
+import editIcon from "../../../asset/AmChatSuperAdmin/pencil-alt.png";
+import Button from "../../../components/common/buttons/GeneralButton";
 import { BASE_USER_IMAGE_URL } from '../../../constants/Constant';
 
 const OrgAdminChatPage = (props) => {
@@ -61,6 +69,65 @@ const OrgAdminChatPage = (props) => {
     'Can you explain me the quantum mechanics? ',
   ];
 
+  const [hideChatInitialPage, setHideChatInitialPage] = useState(false);
+  const [responseData, setResponseData] = useState("");
+  const [questions, setQuestions] = useState([]);
+  const [questionAndAnswer, setQuestionAndAnswer] = useState([]);
+  const profileUrl = PROFILE_URL;
+  const [profileSrc, setProfileSrc] = useState(localStorage.getItem("profileImage") || profilePlaceholder);
+  const [isEditing, setIsEditing] = useState(false);
+  const submitButtonProperty = {
+    name: 'Save & Submit',
+    color: 'white',
+    backgroundColor: '#6366F1',
+    type: 'primary',
+    width: '130px',
+    height: '40px',
+    borderRadius: '15px',
+    marginTop: '.6em',
+    fontSize: '0.7rem',
+  };
+
+  const cancelButtonProperty = { 
+    name: 'Cancel',
+    color: 'white',
+    backgroundColor: '#6366F1',
+    type: 'primary',
+    width: '90px',
+    height: '40px',
+    borderRadius: '15px',
+    marginTop: '.6em',
+    fontSize: '0.7rem',
+  }
+
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch(
+        `${constants.BASE_API_URL}/user/chat/dummy`,
+        {
+          headers: {
+            Authorization: `Bearer ${jwt}`,
+          },
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Failed to fetch data");
+      }
+      const data = await response.json();
+      const modifyData = {
+        question : chat,
+        answer : data?.data
+      }
+      setQuestionAndAnswer([...questionAndAnswer, modifyData]);
+      setChat("");
+      setResponseData(data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+
   // useEffect(() => {
   //   // Retrieve firstName from localStorage
   //   const storedFirstName = localStorage.getItem("firstNameOrganisation");
@@ -68,10 +135,11 @@ const OrgAdminChatPage = (props) => {
   // }, []);
 
   useEffect(() => {
+    setHideChatInitialPage(false);
     if (organisationId) {
+      fetchUserProfile();
       fetchDocumentCount();
       fetchUserList();
-      fetchUserProfile();
     }
   }, [organisationId]);
 
@@ -142,7 +210,17 @@ const OrgAdminChatPage = (props) => {
         'lastNameOrganisation',
         userData?.data?.user?.lastName
       );
-
+      console.log("profile image path---->",userData?.data?.user?.profileImagePath);
+      if(userData?.data?.user?.profileImagePath){
+        const imagePath = `${profileUrl}${userData?.data?.user?.profileImagePath}`;
+        setProfileSrc(imagePath);
+        localStorage.setItem(
+          "profileImage",
+          imagePath
+        );
+      }else{
+        localStorage.setItem("profileImage",profilePlaceholder);
+      }
       setUserData(userData?.data?.user);
       setOrganisationName(userData?.data?.organisation?.name);
       setamChatUserStatus(userData?.data?.user.active);
@@ -191,10 +269,22 @@ const OrgAdminChatPage = (props) => {
     setChat(question);
   };
 
-  const arrowButton = () => {
-    console.log('arrowButton clicked');
-    navigate('/chatOrgAdmin', { state: { params: chat } });
+  const arrowButton =async () => {
+    // console.log("arrowButton clicked");
+    // navigate('/chatOrgAdmin', { state: { params: chat } });
+    setQuestions([...questions, chat]);
+    await fetchData()
+    setHideChatInitialPage(true);
+    // setChat("");
   };
+
+  const handleEditClick = () => {
+    setIsEditing(true);
+  }
+
+
+  console.log("hide initial page", hideChatInitialPage);
+  console.log("questionAndAnswer------>",questionAndAnswer);
 
   return (
     <div className="orgadminchat-screen">
@@ -224,22 +314,96 @@ const OrgAdminChatPage = (props) => {
         <div className="hi-main">
           <div className="orgadminchat-chat-content-head">
             <div className="orgadminchat-chat-content">
-              <div>
-                <div className="orgadminchat-chat-ui-text">
+              <div className={Styles.questionAndAnswerContainer}>
+                {hideChatInitialPage && <div>
+                  <Card className={Styles.superAdminCardStyles} style={{height:'80vh', overflowY: 'auto'}}>
+                    {questionAndAnswer && questionAndAnswer.length > 0 && questionAndAnswer.map((item) => {
+                    return(
+                    <div>
+                    <div className={Styles.questionContainer}>
+                    <Image 
+                      className={Styles.answerImageContainer}
+                      src={profileSrc}
+                      alt=""
+                    />                    
+                    <div className={Styles.name}>
+                      You
+                    </div>
+                    </div>
+                    <div className={Styles.responseContainer} >
+                        <div >
+                        <div className={Styles.chatBubble} style={{display:"flex", justifyContent:'flex-start'}}>{item.question} </div>
+                    {/* {!isEditing && (
+                      <div 
+                      className="edit-button" 
+                      onClick={handleEditClick}
+                      >
+                        <img src={editIcon} alt="Edit" />
+                      </div>
+                    )}
+                      {isEditing && (
+                        <div className={Styles.saveAndCancelContainer}>
+                          <Button
+                              backgroundColor={submitButtonProperty.backgroundColor}
+                              name={submitButtonProperty.name}
+                              color={submitButtonProperty.color}
+                              // buttonHandler={submitHandler}
+                              marginLeft={submitButtonProperty.marginLeft}
+                              marginTop={submitButtonProperty.marginTop}
+                              width={submitButtonProperty.width}
+                              height={submitButtonProperty.height}
+                              boxShadow={submitButtonProperty.boxShadow}
+                              borderRadius={submitButtonProperty.borderRadius}
+                              fontSize={submitButtonProperty.fontSize}
+                              // buttonLoading={buttonLoading}
+                            />
+                            
+                          <Button
+                              backgroundColor={cancelButtonProperty.backgroundColor}
+                              name={cancelButtonProperty.name}
+                              color={submitButtonProperty.color}
+                              // buttonHandler={submitHandler}
+                              marginLeft={cancelButtonProperty.marginLeft}
+                              marginTop={cancelButtonProperty.marginTop}
+                              width={cancelButtonProperty.width}
+                              height={cancelButtonProperty.height}
+                              boxShadow={cancelButtonProperty.boxShadow}
+                              borderRadius={cancelButtonProperty.borderRadius}
+                              fontSize={cancelButtonProperty.fontSize}
+                              // buttonLoading={buttonLoading}
+                            />
+                        </div>
+                      )} */}
+                    </div>
+                    </div>
+                    <div className={Styles.questionContainer}>
+                    <div className={Styles.questionImageContainer}>
+                      <div>A</div>
+                    </div>
+                    <div className={Styles.name}>
+                    AM-Chat
+                    </div>
+                    </div>
+                    <div className={Styles.responseContainer}>
+                        <div className={Styles.chatBubble} style={{display:"flex", justifyContent:'flex-start'}}>{item?.answer}</div>
+                    </div>
+                    </div>)})}
+                  </Card>
+                </div>}
+                {!hideChatInitialPage && <div className="orgadminchat-chat-ui-text">
                   <div className="orgadminchat-chat-ui-am-chat-text">
                     <p>
                       AM-Chat{' '}
                       <img className="orgchat-icon" src={orgvector} alt="" />
                     </p>
                   </div>
-                </div>
-                <div className="footer">
-                  <div className="orgadminchat-chat-hello-text">
+                </div>}
+                  <div className="footer">
+                  {!hideChatInitialPage && <div className="orgadminchat-chat-hello-text">
                     <h2>Hello, I’m AM-Chat</h2>
                     <p>How can I help you today?</p>
-                  </div>
-
-                  <div className="example_main_div">
+                  </div>}                
+                  {!hideChatInitialPage && <div className="example_main_div">
                     {contentArray.map((content, index) => (
                       <p
                         key={index}
@@ -249,8 +413,8 @@ const OrgAdminChatPage = (props) => {
                         {content}
                       </p>
                     ))}
-                  </div>
-                  <div className={'AIChatInputBox'}>
+                  </div>}
+                  <div className={"AIChatInputBox"}>
                     <ChatSearch
                       name={'Ask anything..'}
                       style={'searchStyles'}

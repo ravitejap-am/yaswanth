@@ -52,11 +52,12 @@ function OrgUserList() {
   const [documents, setDocuments] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [order, setOrder] = useState('asc');
-  const [orderBy, setOrderBy] = useState('uploadDate');
+  const [order, setOrder] = useState("desc");
+  const [orderBy, setOrderBy] = useState("uploadDate");
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredDocuments, setFilteredDocuments] = useState([]);
+  const profileSrc = localStorage.getItem("profileImage");
 
   const [pageInfo, setPageInfo] = useState({
     pageSize: 5,
@@ -117,8 +118,8 @@ function OrgUserList() {
           sortDirection: order,
           name: searchQuery,
           isActive: 1,
-          version: 1,
-          fileSize: '',
+          version: "",
+          fileSize: "",
         },
         headers: {
           Authorization: `Bearer ${jwt}`,

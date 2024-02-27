@@ -24,7 +24,7 @@ function SuperAdminProfileInfo() {
   };
 
   return (
-    <div className="userprofile-screen">
+    <div className="userprofile-screen" style={{height:'100vh'}}>
       <div className="userprofile-main">
         <div className="userprofile-pofilecontainer">
           <div className="userprofile-header">

@@ -32,6 +32,7 @@ function OrgAddDocument() {
 
   const user = useSelector(selectUser);
   const jwt = user.userToken;
+  const profileSrc = localStorage.getItem("profileImage");
 
   const messageHandler = () => {
     setIsReset(false);

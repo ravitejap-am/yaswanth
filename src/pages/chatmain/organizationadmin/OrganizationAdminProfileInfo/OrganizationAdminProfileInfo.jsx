@@ -15,7 +15,8 @@ function OrganizationAdminProfileInfo() {
     const storedFirstName = localStorage.getItem('firstNameOrganisation');
     setFirstName(storedFirstName);
   }, []);
-  const [selectedTab, setSelectedTab] = useState('personalinformation');
+  const [selectedTab, setSelectedTab] = useState("personalinformation");
+  const profileSrc = localStorage.getItem("profileImage");
 
   const handleTabChange = (tab) => {
     if (tab !== selectedTab) {
@@ -29,9 +30,9 @@ function OrganizationAdminProfileInfo() {
         <div className="userprofile-pofilecontainer">
           <div className="userprofile-header">
             <AMChatHeader
-              componentName={`Welcome ${firstName || ''}`}
-              name={firstName || ''}
-              profileImageSrc={base}
+              componentName={`Welcome ${firstName || ""}`}
+              name={firstName || ""}
+              profileImageSrc={profileSrc}
               customStyle={{
                 containerStyle: {
                   display: 'flex',
