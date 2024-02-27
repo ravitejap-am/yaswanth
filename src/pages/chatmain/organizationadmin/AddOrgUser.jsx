@@ -139,17 +139,14 @@ function AddOrgUser() {
           },
           body: JSON.stringify(values),
         });
-        console.log("responseUser---->", responseUser);
-        if (!responseUser.ok) {
-          throw new Error(`HTTP error! status: ${responseUser.status}`);
-        }
-  
         const data = await responseUser.json();
         setButtonLoading(false);
-        setIsReset(true);
-        showNotifyMessage("success", data.message, messageHandler); // Update this line
         if(responseUser.ok){
+          setIsReset(true);
+          showNotifyMessage("success", data.message, messageHandler)
           navigate("/orguserlist");
+        }else if(!responseUser.ok && responseUser.status == 400){
+          showNotifyMessage("error", data.message, messageHandler)
         }
       } catch (error) {
         if (error?.response?.status == 500 || error?.response?.status == "500") {

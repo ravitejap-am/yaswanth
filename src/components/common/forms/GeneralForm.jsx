@@ -246,6 +246,7 @@ const GeneralForm = (props) => {
                     }}
                     style={item.style}
                     defaultValue={item.defaultValue ? item.defaultValue : ''}
+                    disabled={item?.disabled || false}
                     // required={item.required}
                   />
                   {<ErrorMessage name={item.name} />}
@@ -275,6 +276,7 @@ const GeneralForm = (props) => {
                         );
                       }
                     }}
+                    disabled={item?.disabled || false}
                   />
                   {<ErrorMessage name={item.name} />}
                 </div>
@@ -287,6 +289,7 @@ const GeneralForm = (props) => {
                   onChange={(e) => {
                     form.setFieldValue({ [item.name]: e.target.value });
                   }}
+                  disabled={item?.disabled || false}
                 />
               ),
               password: (
@@ -298,6 +301,9 @@ const GeneralForm = (props) => {
                   onChange={(e) => {
                     form.setFieldValue({ [item.name]: e.target.value });
                   }}
+                  style={item.style}
+                  iconStyle={item.iconStyle}
+                  disabled={item?.disabled || false}
                 />
               ),
               confirmPassword: (
@@ -310,6 +316,7 @@ const GeneralForm = (props) => {
                     form.setFieldValue({ [item.name]: e.target.value });
                   }}
                   style={item.style}
+                  disabled={item?.disabled || false}
                 />
               ),
 
@@ -323,6 +330,7 @@ const GeneralForm = (props) => {
                     form.setFieldValue({ [item.name]: e.target.value });
                   }}
                   style={item.style}
+                  disabled={item?.disabled || false}
                 />
               ),
               number: (
@@ -331,6 +339,7 @@ const GeneralForm = (props) => {
                   type={item.type}
                   placeholder={item.label}
                   iconClass={item.iconClass}
+                  disabled={item?.disabled || false}
                 />
               ),
               switch: <Switch />,
@@ -352,6 +361,7 @@ const GeneralForm = (props) => {
                       form.setFieldValue({ [item.name]: e.target.value });
                     }}
                     style={item.style}
+                    disabled={item?.disabled || false}
                   />
                 </>
               ),
@@ -569,6 +579,7 @@ const GeneralForm = (props) => {
                   onChange={(e) => {
                     form.setFieldValue({ [item.name]: e.target.value });
                   }}
+                  iconStyle={item.iconStyle}
                 />
               ),
               confirmPassword: (

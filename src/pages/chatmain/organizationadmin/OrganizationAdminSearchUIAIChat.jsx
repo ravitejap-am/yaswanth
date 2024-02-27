@@ -15,7 +15,8 @@ import AMChatHeader from "../../AMChatAdmin/AMChatHeader/AMChatHeader";
 import ChatSearch from "../../../components/common/chatSearch/ChatSearch";
 import './OrganizationAdmin.css'
 
-function OrganizationAdminSearchUIAIChat() {
+
+function OrganizationAdminSearchUIAIChat(props) {
   const [firstName, setFirstName] = useState("");
   const [responseData, setResponseData] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
@@ -23,6 +24,7 @@ function OrganizationAdminSearchUIAIChat() {
   const jwt = user.userToken;
   const navigate = useNavigate();
   const [chat, setChat] = useState("");
+  const question = props.params;
 
   useEffect(() => {
     const storedFirstName = localStorage.getItem("firstNameOrganisation");
@@ -115,32 +117,45 @@ function OrganizationAdminSearchUIAIChat() {
               borderRadius: "8px",
             },
             imageStyle: {
-              width: "50%",
-              height: "70%",
+              width: "44px",
+              height: "44px",
             },
             textStyle: {
-              color: "blue",
-              fontWeight: "bold",
+              color: 'black',
+              fontWeight: '500',
+              fontSize: '24px',
             },
           }}
         />
 
         <Card className={Styles.superAdminCardStyles}>
+          <div className={Styles.questionContainer}>
+          <div className={Styles.answerImageContainer}>
+             <div>A</div>
+          </div>
+          <div className={Styles.name}>
+            You
+          </div>
+          </div>
+          <div className={Styles.responseContainer}>
+            {responseData && responseData.data && (
+              <div className={Styles.chatBubble}>{question} </div>
+            )}
+          </div>
+          <div className={Styles.questionContainer}>
+          <div className={Styles.questionImageContainer}>
+             <div>q</div>
+          </div>
+          <div className={Styles.name}>
+          AM-Chat
+          </div>
+          </div>
           <div className={Styles.responseContainer}>
             {responseData && responseData.data && (
               <div className={Styles.chatBubble}>{responseData.data}</div>
             )}
           </div>
           <div className='chat_container'>
-            {/* <Search
-              name={"Ask anything.."}
-              style={searchStyles}
-              searchImage={Group2290}
-              value={searchQuery}
-              onChange={handleSearchInputChange}
-              onSearchImageClick={handleSearchImageClick}
-              onKeyPress={handleKeyPress}
-            /> */}
               <ChatSearch
                 name={'Ask anything..'}
                 style={"searchStyles"}

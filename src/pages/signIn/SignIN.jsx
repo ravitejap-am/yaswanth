@@ -169,6 +169,13 @@ const SignIn = () => {
         { required: true, message: 'Please input your password!' },
         { validator: validatePassword },
       ],
+      iconStyle: {
+        position: 'absolute',
+        right: '10px',
+        top: '54%',
+        transform: 'translateY(-50%)',
+        cursor: 'pointer'
+      }
     },
   ];
 
