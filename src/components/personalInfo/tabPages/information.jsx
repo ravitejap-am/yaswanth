@@ -1,19 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import './OrganizationAdmin.css';
-import GeneralForm from '../../../../components/common/forms/GeneralForm';
-import editprofilepic from '../../../../asset/editprofilepic.png';
-import { Spin } from 'antd';
-import { useMessageState } from '../../../../hooks/useapp-message';
-import { setUser, selectUser } from '../../../../store/authSlice';
+import './information.css';
+import editprofilepic from '../../../asset/editprofilepic.png';
+import GeneralForm from '../../../components/common/forms/GeneralForm';
+import { setUser, selectUser } from '../../../store/authSlice';
 import { useSelector } from 'react-redux';
-import * as constants from '../../../../constants/Constant';
-import { decodeJWT } from '../../../../utils/authUtils';
-import { updateAdminProfileDetails } from '../../../../apiCalls/ApiCalls';
-
-function OrganizationAdminPersonalInformation({
-  setFileSysytem,
-  validateEmail,
-}) {
+import * as constants from '../../../constants/Constant';
+import { updateAdminProfileDetails } from '../../../apiCalls/ApiCalls';
+import { useMessageState } from '../../../hooks/useapp-message';
+import UploadProfilePic from '../upload/page';
+import PageLoader from '../../loader/loader';
+function Information({ setFileSysytem, validateEmail }) {
   const user = useSelector(selectUser);
   const jwt = user.userToken;
   let { showNotifyMessage, hideNotifyMessage } = useMessageState();
@@ -45,6 +41,7 @@ function OrganizationAdminPersonalInformation({
   const [error, setError] = useState(null);
   const [organisationName, setOrganisationName] = useState('');
   const [amChatUserStatus, setamChatUserStatus] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (userId) {
@@ -160,11 +157,13 @@ function OrganizationAdminPersonalInformation({
   ];
 
   const submitHandler = async (values) => {
+    setIsLoading(true);
     try {
       if (values === undefined) {
         console.log('Values are undefined');
         return;
       } else {
+        console.log('values os submit handler', values);
         const headers = {
           Authorization: `Bearer ${jwt}`,
           'Content-Type': 'application/json',
@@ -182,12 +181,14 @@ function OrganizationAdminPersonalInformation({
         );
         if (response.status === 200) {
           showNotifyMessage('success', response?.data?.message, messageHandler);
+          setIsLoading(false);
         }
         console.log('response---->', response);
       }
     } catch (error) {
       console.log('Error in updating user details', error);
-      throw new Error('Failed to update user profile');
+      setIsLoading(false);
+      // throw new Error('Failed to update user profile');
     }
   };
 
@@ -226,23 +227,27 @@ function OrganizationAdminPersonalInformation({
   console.log(typeof amChatUserStatus);
   console.log(amChatUserStatus ? 'Active' : 'Inactive');
   return (
-    <div className="personal-contentcard">
-      <div className="user-profile-content">
-        <div className="user-profile-img">
-          <img className="edit-profilepic" src={editprofilepic} alt="" />
-        </div>
-        <div className="user-profle-name">
-          <h2>
-            {userData?.firstName} {userData?.lastName}
-          </h2>
-          <div className="personalinfo-user-Status">
-            <p>Active User</p>
+    <>
+      {isLoading && <PageLoader loadingStatus={isLoading} />}
+
+      <div className="personal-contentcard">
+        <div className="user-profile-content">
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginTop: '2em',
+              marginLeft: '2em',
+            }}
+          >
+            <UploadProfilePic />
           </div>
         </div>
+        <GeneralForm {...feedingVariable} />
       </div>
-      <GeneralForm {...feedingVariable} />
-    </div>
+    </>
   );
 }
 
-export default OrganizationAdminPersonalInformation;
+export default Information;

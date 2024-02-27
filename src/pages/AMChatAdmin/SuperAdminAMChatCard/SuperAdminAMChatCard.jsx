@@ -31,7 +31,11 @@ import { useSelector } from 'react-redux';
 import { selectUser } from '../../../store/authSlice';
 import { tokenDecodeJWT } from '../../../utils/authUtils';
 import ChatSearch from '../../../components/common/chatSearch/ChatSearch';
-import { BASE_DOC_API_URL } from '../../../constants/Constant';
+import {
+  BASE_DOC_API_URL,
+  BASE_USER_IMAGE_URL,
+  BASE_ORG_API_URL,
+} from '../../../constants/Constant';
 import axios from 'axios';
 
 const style = {
@@ -61,6 +65,7 @@ function SuperAdminAMChatCard() {
   useEffect(() => {
     getUserDetails();
     getDocumentsCount();
+    getOrganisationCount();
   }, []);
   const contentArray = [
     'Could you help me with the maternity policy of my organization?',
@@ -101,6 +106,10 @@ function SuperAdminAMChatCard() {
           'firstName',
           response?.data?.data?.user?.firstName
         );
+        localStorage.setItem(
+          'userImageUrl',
+          `${BASE_USER_IMAGE_URL}${response?.data?.data?.user?.profileImagePath}`
+        );
       }
     } catch (error) {
       console.log('Error in getting user details', error);
@@ -128,14 +137,17 @@ function SuperAdminAMChatCard() {
   const getOrganisationCount = async () => {
     try {
       console.log('jwt', jwt);
-      const response = await axios.get(`${BASE_DOC_API_URL}/total`, {
+      const response = await axios.get(`${BASE_ORG_API_URL}/all?active=true`, {
         headers: {
           Authorization: `Bearer ${jwt}`,
         },
       });
 
       console.log('get total document', response);
-      setcounts({ ...counts, totalDocument: response?.data?.totalElements });
+      setcounts({
+        ...counts,
+        totalOrganisation: response?.data?.totalElements,
+      });
     } catch (error) {
       console.log('Failed to fetch user profile.', error);
       // throw new Error('Failed to fetch user profile-1');
@@ -150,7 +162,7 @@ function SuperAdminAMChatCard() {
           <SuperAdminHeader
             componentName={`Welcome ${firstName || ''}`}
             name={firstName || ''}
-            profileImageSrc={profile}
+            profileImageSrc={localStorage.getItem('userImageUrl')}
             customStyle={{
               containerStyle: {
                 display: 'flex',

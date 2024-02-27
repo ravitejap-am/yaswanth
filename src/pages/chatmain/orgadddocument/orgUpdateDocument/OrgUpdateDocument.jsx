@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from "react";
-import Styles from "./OrgUpdateDocument.module.css";
-import profile from "../../../../asset/AmChatSuperAdmin/profile.png";
-import GeneralForm from "../../../../components/common/forms/GeneralForm";
-import axios from "axios";
-import Document from "../../../../components/common/upload/file/Document";
-import { useSelector } from "react-redux";
-import * as constants from "../../../../constants/Constant";
-import { selectUser } from "../../../../store/authSlice";
-import { Upload, Button } from "antd";
-import { UploadOutlined } from "@ant-design/icons";
-import { useMessageState } from "../../../../hooks/useapp-message";
-import { useParams, useNavigate } from "react-router-dom";
-import AMChatHeader from "../../../AMChatAdmin/AMChatHeader/AMChatHeader";
-import OrganizationAdminHeader from "../../organizationadmin/OrganizationAdminHeader/OrganizationAdminHeader";
+import React, { useEffect, useState } from 'react';
+import Styles from './OrgUpdateDocument.module.css';
+import profile from '../../../../asset/AmChatSuperAdmin/profile.png';
+import GeneralForm from '../../../../components/common/forms/GeneralForm';
+import axios from 'axios';
+import Document from '../../../../components/common/upload/file/Document';
+import { useSelector } from 'react-redux';
+import * as constants from '../../../../constants/Constant';
+import { selectUser } from '../../../../store/authSlice';
+import { Upload, Button } from 'antd';
+import { UploadOutlined } from '@ant-design/icons';
+import { useMessageState } from '../../../../hooks/useapp-message';
+import { useParams, useNavigate } from 'react-router-dom';
+import AMChatHeader from '../../../AMChatAdmin/AMChatHeader/AMChatHeader';
+import OrganizationAdminHeader from '../../organizationadmin/OrganizationAdminHeader/OrganizationAdminHeader';
 
 function OrgUpdateDocument() {
   const { documentId } = useParams();
@@ -27,11 +27,11 @@ function OrgUpdateDocument() {
 
   const [file, setFile] = useState(null);
   const navigate = useNavigate();
-  const [firstName, setFirstName] = useState("");
+  const [firstName, setFirstName] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   useEffect(() => {
     // Retrieve firstName from localStorage
-    const storedFirstName = localStorage.getItem("firstNameOrganisation");
+    const storedFirstName = localStorage.getItem('firstNameOrganisation');
     setFirstName(storedFirstName);
   }, []);
 
@@ -50,7 +50,7 @@ function OrgUpdateDocument() {
     setButtonLoading(true);
     try {
       const formData = new FormData();
-      formData.append("file", file);
+      formData.append('file', file);
 
       const response = await axios.put(
         `${constants.BASE_DOC_API_URL}/${documentId}`,
@@ -58,22 +58,22 @@ function OrgUpdateDocument() {
         {
           headers: {
             Authorization: `Bearer ${jwt}`,
-            "Content-Type": "multipart/form-data",
+            'Content-Type': 'multipart/form-data',
           },
         }
       );
       setButtonLoading(false);
       setIsReset(true);
-      showNotifyMessage("success", response?.data?.message, messageHandler);
-      console.log("API Response:", response.data);
+      showNotifyMessage('success', response?.data?.message, messageHandler);
+      console.log('API Response:', response.data);
     } catch (error) {
-      if (error?.response?.status == 500 || error?.response?.status == "500") {
-        navigate("/internal500");
+      if (error?.response?.status == 500 || error?.response?.status == '500') {
+        navigate('/internal500');
       }
 
       setButtonLoading(false);
       showNotifyMessage(
-        "error",
+        'error',
         error?.response?.data?.message,
         messageHandler
       );
@@ -83,36 +83,36 @@ function OrgUpdateDocument() {
   };
 
   const cancelHandler = () => {
-    navigate("/orgdocumentlist");
-    console.log(navigate("/orgdocumentlist"));
+    navigate('/orgdocumentlist');
+    console.log(navigate('/orgdocumentlist'));
   };
 
   const documentProps = {
-    name: "file",
+    name: 'file',
     fileList: file ? [file] : [],
     beforeUpload: (file) => {
       setFile(file);
       return false;
     },
-    accept: ".pdf",
+    accept: '.pdf',
   };
 
   const submitButtonProperty = {
-    name: "Add",
-    color: "#ffffff",
-    backgroundColor: "var(--Brand-500, #6366F1)",
-    width: "150px",
-    height: "50px",
-    borderRadius: "28px",
+    name: 'Add',
+    color: '#ffffff',
+    backgroundColor: 'var(--Brand-500, #6366F1)',
+    width: '150px',
+    height: '50px',
+    borderRadius: '28px',
   };
 
   const cancelButtonProperty = {
-    name: "Cancel",
-    color: "black",
-    backgroundColor: "#fff",
-    width: "150px",
-    height: "50px",
-    borderRadius: "28px",
+    name: 'Cancel',
+    color: 'black',
+    backgroundColor: '#fff',
+    width: '150px',
+    height: '50px',
+    borderRadius: '28px',
   };
   const feedingVariable = {
     isCancel: true,
@@ -122,11 +122,11 @@ function OrgUpdateDocument() {
     submitButtonProperty: submitButtonProperty,
     cancelButtonProperty: cancelButtonProperty,
     formElements: [],
-    formType: "normal",
+    formType: 'normal',
     forgorPasswordHandler: () => {
-      console.log("forgot Password....");
+      console.log('forgot Password....');
     },
-    grid: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px" },
+    grid: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' },
   };
 
   return (
@@ -135,20 +135,20 @@ function OrgUpdateDocument() {
         <div className={Styles.superAdminProfileCardStyle}>
           <OrganizationAdminHeader
             componentName="Upload Correct Document"
-            name={firstName || ""}
-            profileImageSrc={profile}
+            name={firstName || ''}
+            profileImageSrc={localStorage.getItem('userImageUrl')}
             customStyle={{
               containerStyle: {
-                display: "flex",
-                borderRadius: "8px",
+                display: 'flex',
+                borderRadius: '8px',
               },
               imageStyle: {
-                width: "50%",
-                height: "70%",
+                width: '48px',
+                height: '48px',
               },
               textStyle: {
-                color: "blue",
-                fontWeight: "bold",
+                color: 'blue',
+                fontWeight: 'bold',
               },
             }}
           />
@@ -156,7 +156,7 @@ function OrgUpdateDocument() {
 
         <div className={Styles.addOrganizationAdminSecondDiv}>
           <div className={Styles.uploadDocumentContainer}>
-            {" "}
+            {' '}
             <Upload {...documentProps}>
               <Button icon={<UploadOutlined />}>Upload Document</Button>
             </Upload>

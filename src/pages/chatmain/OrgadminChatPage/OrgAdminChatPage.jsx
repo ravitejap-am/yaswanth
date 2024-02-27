@@ -15,6 +15,7 @@ import OrganizationAdminHeader from '../organizationadmin/OrganizationAdminHeade
 import Search from '../../../components/common/search/Search';
 import Group2290 from '../../../asset/Group2290.png';
 import ChatSearch from '../../../components/common/chatSearch/ChatSearch';
+import { BASE_USER_IMAGE_URL } from '../../../constants/Constant';
 
 const OrgAdminChatPage = (props) => {
   const navigate = useNavigate();
@@ -146,6 +147,11 @@ const OrgAdminChatPage = (props) => {
       setOrganisationName(userData?.data?.organisation?.name);
       setamChatUserStatus(userData?.data?.user.active);
       setFirstName(userData?.data?.user?.firstName);
+      let { profileImagePath } = userData?.data?.user;
+      localStorage.setItem(
+        'userImageUrl',
+        `${BASE_USER_IMAGE_URL}${profileImagePath}`
+      );
 
       setUserStatus(userData.data.user.active ? 'Active' : 'Inactive');
     } catch (error) {
@@ -197,7 +203,7 @@ const OrgAdminChatPage = (props) => {
           <OrganizationAdminHeader
             componentName={`Welcome ${firstName || ''}`}
             name={firstName || ''}
-            profileImageSrc={base}
+            profileImageSrc={localStorage.getItem('userImageUrl')}
             customStyle={{
               containerStyle: {
                 display: 'flex',

@@ -1,39 +1,43 @@
-import React, { useState, useEffect } from "react";
-import Styles from "./OrgUserList.module.css";
-import profile from "../../../asset/AmChatSuperAdmin/profile.png";
-import GeneralButton from "../../../components/common/buttons/GeneralButton";
-import frame from "../../../asset/AmChatSuperAdmin/plus-sm.png";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import TableSortLabel from "@mui/material/TableSortLabel";
-import Typography from "@mui/material/Typography";
-import Paper from "@mui/material/Paper";
-import Checkbox from "@mui/material/Checkbox";
-import IconButton from "@mui/material/IconButton";
-import editIcon from "../../../asset/AmChatSuperAdmin/pencil-alt.png";
-import deleteIcon from "../../../asset/AmChatSuperAdmin/Frame 2302.png";
-import { Link } from "react-router-dom";
-import styles from "../../../pages/AMChatAdmin/OrganizationList/Organization.module.css";
-import Search from "../../../components/common/search/Search";
-import SerchImages from "../../../asset/AmChatSuperAdmin/Group2305.png";
-import { FormControl, MenuItem } from "@mui/material";
-import Select from "@mui/material/Select";
-import { setUser, selectUser } from "../../../store/authSlice";
-import { useSelector } from "react-redux";
-import upload from "../../../asset/uploadlatesticon.png";
-import axios from "axios";
-import * as constants from "../../../constants/Constant";
-import { BASE_API_URL, DOCUMENT_ENDPOINT, BASE_DOC_API_URL } from "../../../constants/Constant";
-import { Spin } from "antd";
-import { useMessageState } from "../../../hooks/useapp-message";
-import AMChatHeader from "../../AMChatAdmin/AMChatHeader/AMChatHeader";
+import React, { useState, useEffect } from 'react';
+import Styles from './OrgUserList.module.css';
+import profile from '../../../asset/AmChatSuperAdmin/profile.png';
+import GeneralButton from '../../../components/common/buttons/GeneralButton';
+import frame from '../../../asset/AmChatSuperAdmin/plus-sm.png';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import TableSortLabel from '@mui/material/TableSortLabel';
+import Typography from '@mui/material/Typography';
+import Paper from '@mui/material/Paper';
+import Checkbox from '@mui/material/Checkbox';
+import IconButton from '@mui/material/IconButton';
+import editIcon from '../../../asset/AmChatSuperAdmin/pencil-alt.png';
+import deleteIcon from '../../../asset/AmChatSuperAdmin/Frame 2302.png';
+import { Link } from 'react-router-dom';
+import styles from '../../../pages/AMChatAdmin/OrganizationList/Organization.module.css';
+import Search from '../../../components/common/search/Search';
+import SerchImages from '../../../asset/AmChatSuperAdmin/Group2305.png';
+import { FormControl, MenuItem } from '@mui/material';
+import Select from '@mui/material/Select';
+import { setUser, selectUser } from '../../../store/authSlice';
+import { useSelector } from 'react-redux';
+import upload from '../../../asset/uploadlatesticon.png';
+import axios from 'axios';
+import * as constants from '../../../constants/Constant';
+import {
+  BASE_API_URL,
+  DOCUMENT_ENDPOINT,
+  BASE_DOC_API_URL,
+} from '../../../constants/Constant';
+import { Spin } from 'antd';
+import { useMessageState } from '../../../hooks/useapp-message';
+import AMChatHeader from '../../AMChatAdmin/AMChatHeader/AMChatHeader';
 // import Pagination from "@mui/material/Pagination";
 import { Pagination } from 'antd';
-import OrganizationAdminHeader from "../organizationadmin/OrganizationAdminHeader/OrganizationAdminHeader";
+import OrganizationAdminHeader from '../organizationadmin/OrganizationAdminHeader/OrganizationAdminHeader';
 
 function OrgUserList() {
   let {
@@ -48,10 +52,10 @@ function OrgUserList() {
   const [documents, setDocuments] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [order, setOrder] = useState("asc");
-  const [orderBy, setOrderBy] = useState("uploadDate");
+  const [order, setOrder] = useState('asc');
+  const [orderBy, setOrderBy] = useState('uploadDate');
   const [loading, setLoading] = useState(true);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
   const [filteredDocuments, setFilteredDocuments] = useState([]);
 
   const [pageInfo, setPageInfo] = useState({
@@ -61,16 +65,14 @@ function OrgUserList() {
     totalPages: null,
   });
 
-
   const user = useSelector(selectUser);
   const jwt = user.userToken;
-  const [firstName, setFirstName] = useState("");
+  const [firstName, setFirstName] = useState('');
   useEffect(() => {
     // Retrieve firstName from localStorage
-    const storedFirstName = localStorage.getItem("firstNameOrganisation");
+    const storedFirstName = localStorage.getItem('firstNameOrganisation');
     setFirstName(storedFirstName);
   }, []);
-
 
   const filterDocuments = () => {
     return documents.filter((doc) =>
@@ -80,19 +82,19 @@ function OrgUserList() {
 
   const decodeJWT = (token) => {
     try {
-      const base64Url = token.split(".")[1];
-      const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+      const base64Url = token.split('.')[1];
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
       const jsonPayload = decodeURIComponent(
         atob(base64)
-          .split("")
+          .split('')
           .map((char) => {
-            return "%" + ("00" + char.charCodeAt(0).toString(16)).slice(-2);
+            return '%' + ('00' + char.charCodeAt(0).toString(16)).slice(-2);
           })
-          .join("")
+          .join('')
       );
       return JSON.parse(jsonPayload);
     } catch (error) {
-      console.error("Error decoding JWT:", error);
+      console.error('Error decoding JWT:', error);
       return null;
     }
   };
@@ -104,7 +106,7 @@ function OrgUserList() {
   const fetchDocuments = async (page = 0) => {
     setLoading(true);
     try {
-      console.log("api called");
+      console.log('api called');
       const organizationId = decodeJWT(jwt).organisationId;
       const documentUrl = `${constants.BASE_DOC_API_URL}/getAllByOrg/${organizationId}`;
       const response = await axios.get(documentUrl, {
@@ -116,7 +118,7 @@ function OrgUserList() {
           name: searchQuery,
           isActive: 1,
           version: 1,
-          fileSize: "",
+          fileSize: '',
         },
         headers: {
           Authorization: `Bearer ${jwt}`,
@@ -124,9 +126,9 @@ function OrgUserList() {
       });
 
       if (!response.data || !response.data.data) {
-        throw new Error("Failed to fetch documents");
+        throw new Error('Failed to fetch documents');
       }
-      console.log("response----->", response);
+      console.log('response----->', response);
       setDocuments(response.data.data);
       setPageInfo({
         ...pageInfo,
@@ -137,14 +139,13 @@ function OrgUserList() {
       });
       setLoading(false);
     } catch (error) {
-      console.error("Error fetching documents:", error.message);
+      console.error('Error fetching documents:', error.message);
     }
   };
 
-useEffect(() => { 
-  fetchDocuments()
-}, [jwt, searchQuery, order]);
-  
+  useEffect(() => {
+    fetchDocuments();
+  }, [jwt, searchQuery, order]);
 
   // useEffect(() => {
   //   const fetchDocuments = async () => {
@@ -182,19 +183,19 @@ useEffect(() => {
   // }, [jwt, searchQuery]);
 
   const searchStyles = {
-    width: "300px",
-    height: "45px",
-    borderRadius: "42px",
-    fontFamily: "Inter, sans-serif",
-    backgroundColor: "#EEF2FF",
-    display: "flex",
-    alignItems: "center",
-    marginRight: "18px",
+    width: '300px',
+    height: '45px',
+    borderRadius: '42px',
+    fontFamily: 'Inter, sans-serif',
+    backgroundColor: '#EEF2FF',
+    display: 'flex',
+    alignItems: 'center',
+    marginRight: '18px',
   };
 
   const handleRequestSort = (event, property) => {
-    const isAsc = orderBy === property && order === "asc";
-    setOrder(isAsc ? "desc" : "asc");
+    const isAsc = orderBy === property && order === 'asc';
+    setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
   };
 
@@ -220,18 +221,18 @@ useEffect(() => {
         {
           headers: {
             Authorization: `Bearer ${jwt}`,
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
         }
       );
       if (response.status === 200) {
         setDocuments(documents.filter((doc) => doc.id !== documentId));
-        showNotifyMessage("success", response?.data?.message, messageHandler);
+        showNotifyMessage('success', response?.data?.message, messageHandler);
       } else {
-        throw new Error("Failed to delete document");
+        throw new Error('Failed to delete document');
       }
     } catch (error) {
-      console.error("Error deleting document:", error.message);
+      console.error('Error deleting document:', error.message);
     }
   };
 
@@ -240,10 +241,9 @@ useEffect(() => {
 
   const handleSearch = (e) => {
     setSearchQuery(e.target.value);
-    console.log("searchQuery", e.target.value);
+    console.log('searchQuery', e.target.value);
     setPage(0);
   };
-
 
   const itemRender = (_, type, originalElement) => {
     if (type === 'prev') {
@@ -255,25 +255,25 @@ useEffect(() => {
     return originalElement;
   };
 
-  console.log("pageInfo---->", pageInfo);
+  console.log('pageInfo---->', pageInfo);
 
-  console.log("documents---->", documents);
+  console.log('documents---->', documents);
   return (
     <div className={Styles.superAdminMainCardDivStyle}>
       <div className={Styles.superAdminMiddleParentDiv}>
         <div className={Styles.superAdminProfileCardStyle}>
           <OrganizationAdminHeader
-            componentName={`Welcome ${firstName || ""}`}
-            name={firstName || ""}
-            profileImageSrc={profile}
+            componentName={`Welcome ${firstName || ''}`}
+            name={firstName || ''}
+            profileImageSrc={localStorage.getItem('userImageUrl')}
             customStyle={{
               containerStyle: {
-                display: "flex",
-                borderRadius: "8px",
+                display: 'flex',
+                borderRadius: '8px',
               },
               imageStyle: {
-                width: "44px",
-                height: "44px",
+                width: '44px',
+                height: '44px',
               },
               textStyle: {
                 color: 'black',
@@ -287,26 +287,26 @@ useEffect(() => {
         <div className={Styles.bannerBtn}>
           <div className={Styles.OrganizationListFilterSerchBox}>
             <Search
-              name={"Search name here."}
+              name={'Search name here.'}
               styles={searchStyles}
               searchImage={SerchImages}
-              imageHeight={"46px"}
+              imageHeight={'46px'}
               imageMarginLeft={20}
               handleChangeSearch={handleSearch}
               searchValue={searchQuery}
             />
           </div>
           <div className={Styles.bannerButton}>
-            <Link to="/orgadddocument" style={{ textDecoration: "none" }}>
+            <Link to="/orgadddocument" style={{ textDecoration: 'none' }}>
               <GeneralButton
-                name={"Add Document"}
-                type={"submit"}
-                color={"#f8fafc"}
-                borderRadius={"30px"}
-                backgroundColor={"#6366f1"}
+                name={'Add Document'}
+                type={'submit'}
+                color={'#f8fafc'}
+                borderRadius={'30px'}
+                backgroundColor={'#6366f1'}
                 icons={frame}
-                width={"158px"}
-                height={"48px"}
+                width={'158px'}
+                height={'48px'}
               />
             </Link>
           </div>
@@ -318,24 +318,24 @@ useEffect(() => {
               <Table
                 sx={{ minWidth: 750 }}
                 aria-labelledby="tableTitle"
-                size={"medium"}
+                size={'medium'}
                 aria-label="enhanced table"
               >
-                <TableHead style={{ borderBottom: "2px solid #0F172A" }}>
+                <TableHead style={{ borderBottom: '2px solid #0F172A' }}>
                   <TableRow>
                     <TableCell padding="checkbox">
                       <Checkbox
                         indeterminate={false}
-                        inputProps={{ "aria-label": "select all documents" }}
+                        inputProps={{ 'aria-label': 'select all documents' }}
                       />
                     </TableCell>
                     <TableCell>
                       <TableSortLabel
-                        onClick={(e) => handleRequestSort(e, "uploadDate")}
+                        onClick={(e) => handleRequestSort(e, 'uploadDate')}
                       >
                         <Typography
                           variant="body1"
-                          style={{ fontWeight: "bold" }}
+                          style={{ fontWeight: 'bold' }}
                         >
                           Document Name
                         </Typography>
@@ -344,7 +344,7 @@ useEffect(() => {
                     <TableCell>
                       <Typography
                         variant="body1"
-                        style={{ fontWeight: "bold" }}
+                        style={{ fontWeight: 'bold' }}
                       >
                         Size
                       </Typography>
@@ -352,7 +352,7 @@ useEffect(() => {
                     <TableCell>
                       <Typography
                         variant="body1"
-                        style={{ fontWeight: "bold" }}
+                        style={{ fontWeight: 'bold' }}
                       >
                         Version
                       </Typography>
@@ -360,7 +360,7 @@ useEffect(() => {
                     <TableCell>
                       <Typography
                         variant="body1"
-                        style={{ fontWeight: "bold" }}
+                        style={{ fontWeight: 'bold' }}
                       >
                         Status
                       </Typography>
@@ -368,7 +368,7 @@ useEffect(() => {
                     <TableCell>
                       <Typography
                         variant="body1"
-                        style={{ fontWeight: "bold", marginLeft: "20px" }}
+                        style={{ fontWeight: 'bold', marginLeft: '20px' }}
                       >
                         Actions
                       </Typography>
@@ -376,66 +376,70 @@ useEffect(() => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {documents?.length > 0 ?
-                   documents
-                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                    .map((row) => (
-                      <TableRow key={row.id}>
-                        <TableCell padding="checkbox">
-                          <Checkbox
-                            inputProps={{ "aria-labelledby": row.name }}
-                          />
-                        </TableCell>
-                        <TableCell component="th" scope="row">
-                          {row.name}
-                        </TableCell>
-                        <TableCell>{row.fileSize} MB</TableCell>
-                        <TableCell>{row.version}</TableCell>
-                        <TableCell>
-                          <FormControl style={{ width: "110px" }}>
-                            <Select
-                              style={{ border: "none", borderRadius: "none" }}
-                              value={row.active ? "Active" : "Inactive"}
-                              onChange={(e) => {
-                                console.log(e.target.value);
-                              }}
-                            >
-                              <MenuItem value="Active">Active</MenuItem>
-                              <MenuItem value="Inactive">Inactive</MenuItem>
-                            </Select>
-                          </FormControl>
-                        </TableCell>
-                        <TableCell>
-                          <Link to={`/editdocument/${row.id}`}>
-                            <IconButton aria-label="edit">
-                              <img src={editIcon} alt="Edit" />
-                            </IconButton>
-                          </Link>
-                          <Link to={`/updatedocument/${row.id}`}>
-                            <IconButton aria-label="Upload">
-                              <img
-                                className={Styles.uploadicon}
-                                src={upload}
-                                alt="Uploaddocument"
-                              />
-                            </IconButton>
-                          </Link>
+                  {documents?.length > 0 ? (
+                    documents
+                      .slice(
+                        page * rowsPerPage,
+                        page * rowsPerPage + rowsPerPage
+                      )
+                      .map((row) => (
+                        <TableRow key={row.id}>
+                          <TableCell padding="checkbox">
+                            <Checkbox
+                              inputProps={{ 'aria-labelledby': row.name }}
+                            />
+                          </TableCell>
+                          <TableCell component="th" scope="row">
+                            {row.name}
+                          </TableCell>
+                          <TableCell>{row.fileSize} MB</TableCell>
+                          <TableCell>{row.version}</TableCell>
+                          <TableCell>
+                            <FormControl style={{ width: '110px' }}>
+                              <Select
+                                style={{ border: 'none', borderRadius: 'none' }}
+                                value={row.active ? 'Active' : 'Inactive'}
+                                onChange={(e) => {
+                                  console.log(e.target.value);
+                                }}
+                              >
+                                <MenuItem value="Active">Active</MenuItem>
+                                <MenuItem value="Inactive">Inactive</MenuItem>
+                              </Select>
+                            </FormControl>
+                          </TableCell>
+                          <TableCell>
+                            <Link to={`/editdocument/${row.id}`}>
+                              <IconButton aria-label="edit">
+                                <img src={editIcon} alt="Edit" />
+                              </IconButton>
+                            </Link>
+                            <Link to={`/updatedocument/${row.id}`}>
+                              <IconButton aria-label="Upload">
+                                <img
+                                  className={Styles.uploadicon}
+                                  src={upload}
+                                  alt="Uploaddocument"
+                                />
+                              </IconButton>
+                            </Link>
 
-                          <IconButton
-                            aria-label="delete"
-                            onClick={() => handleDelete(row.id)}
-                          >
-                            <img src={deleteIcon} alt="Delete" />
-                          </IconButton>
-                        </TableCell>
-                      </TableRow>
-                    )) :
+                            <IconButton
+                              aria-label="delete"
+                              onClick={() => handleDelete(row.id)}
+                            >
+                              <img src={deleteIcon} alt="Delete" />
+                            </IconButton>
+                          </TableCell>
+                        </TableRow>
+                      ))
+                  ) : (
                     <TableRow>
-                    <TableCell colSpan={7} align="center">
-                      No data available
-                    </TableCell>
-                  </TableRow>
-                    }
+                      <TableCell colSpan={7} align="center">
+                        No data available
+                      </TableCell>
+                    </TableRow>
+                  )}
                   {emptyRows > 0 && (
                     <TableRow style={{ height: 53 * emptyRows }}>
                       <TableCell colSpan={6} />
@@ -446,11 +450,11 @@ useEffect(() => {
             </TableContainer>
             <div
               style={{
-                display: "flex",
-                justifyContent: "flex-end",
-                alignItems: "center",
-                marginTop: "16px",
-                gap: "20px",
+                display: 'flex',
+                justifyContent: 'flex-end',
+                alignItems: 'center',
+                marginTop: '16px',
+                gap: '20px',
               }}
             >
               <div>Total {pageInfo?.totalCount} items</div>
@@ -469,7 +473,7 @@ useEffect(() => {
                 current={pageInfo?.page + 1}
                 onChange={(newPage) => {
                   setPageInfo({ ...pageInfo, page: newPage - 1 });
-                  fetchDocuments(newPage - 1)
+                  fetchDocuments(newPage - 1);
                 }}
               />
             </div>
