@@ -18,6 +18,7 @@ function OrganizationAdminHeader({
   name,
   profileImageSrc,
   customStyle,
+  navigationRoute
 }) {
   const style = {
     width: 200,
@@ -72,7 +73,7 @@ function OrganizationAdminHeader({
                     <AssignmentIndOutlinedIcon />
                   </ListItemIcon>
                   <Link
-                    to="/organizationPersonalInfo"
+                    to= {navigationRoute}
                     style={{ textDecoration: 'none' }}
                   >
                     <ListItemText primary="View Profile" />

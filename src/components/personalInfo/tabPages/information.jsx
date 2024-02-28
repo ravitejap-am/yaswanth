@@ -89,8 +89,8 @@ function Information({ setFileSysytem, validateEmail }) {
       pattern: /^([a-zA-Z]{3,30}\s*)+/,
       defaultValue: userData ? userData.firstName : '',
       rules: [
-        { required: true, message: 'Please input your First Name' },
-        { type: 'name', message: 'Invalid First Name' },
+      { required: true, message: 'Please input your First Name' },
+      { type: 'name', message: 'Invalid First Name' },
       ],
       style: { width: '400px', height: '40px', marginLeft: '20px' },
     },
@@ -98,7 +98,7 @@ function Information({ setFileSysytem, validateEmail }) {
       label: 'Last Name',
       type: 'text',
       name: 'lastName',
-      pattern: /^([a-zA-Z]{3,30}\s*)+/,
+      // pattern: /^([a-zA-Z]{3,30}\s*)+/,
       defaultValue: userData ? userData.lastName : '',
       // rules: [
       //   { required: true, message: "Please input your Last Name" },
@@ -155,12 +155,13 @@ function Information({ setFileSysytem, validateEmail }) {
         height: '40px',
         marginLeft: '20px',
       },
+      disabled: true,
     },
   ];
 
   const submitHandler = async (values) => {
     setIsLoading(true);
-    try {
+        try {
       if (values === undefined) {
         console.log('Values are undefined');
         return;
@@ -232,7 +233,7 @@ function Information({ setFileSysytem, validateEmail }) {
     <>
       {isLoading && <PageLoader loadingStatus={isLoading} />}
 
-      <div className="personal-contentcard">
+      <div className="personal-contentcard" style={{overflow: 'auto'}}>
         <div className="user-profile-content">
           <div
             style={{

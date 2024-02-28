@@ -74,7 +74,7 @@ function OrganizationList() {
   });
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const [order, setOrder] = React.useState('asc');
+  const [order, setOrder] = React.useState('desc');
   const [orderBy, setOrderBy] = React.useState('name');
   const [tableloading, setTableLoading] = useState(false);
   const [searchValue, setSearchValue] = useState('');

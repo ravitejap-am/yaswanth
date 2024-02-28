@@ -29,6 +29,11 @@ const OrgAdminChatPage = (props) => {
   const navigate = useNavigate();
   const user = useSelector(selectUser);
   const jwt = user.userToken;
+  // const {navigationRoute} = props
+  // console.log("navigationRoute----->",navigationRoute);
+  console.log("admin props--->",props)
+  const {navigationRoute} = props
+  console.log("navigationRoute----->",navigationRoute);
   const decodeJWT = (token) => {
     try {
       const base64Url = token.split('.')[1];
@@ -151,6 +156,8 @@ const OrgAdminChatPage = (props) => {
     })
       .then((response) => response.json())
       .then((data) => {
+        console.log("data---->123",data);
+        console.log("data.totalElements---->",data.totalElements);
         setDocumentCount(data.totalElements);
       })
       .catch((error) => console.error('Error fetching document count:', error));
@@ -309,6 +316,7 @@ const OrgAdminChatPage = (props) => {
                 fontSize: '24px',
               },
             }}
+            navigationRoute={navigationRoute}
           />
         </div>
         <div className="hi-main">

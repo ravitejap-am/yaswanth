@@ -57,7 +57,7 @@ const RecoveryPasswor = () => {
       return;
     }
 
-    const url = `${constants.BASE_API_URL}${constants.RECOVERY_PASSWORD_ENDPOINT}`;
+    const url = `${constants.BASE_API_URL}${constants.MAIL_RECOVERY_PASSWORD_ENDPOINT}`;
     const data = {
       email: values.email,
     };
@@ -162,10 +162,10 @@ const RecoveryPasswor = () => {
             <div className="col">
               <div className="row mainContent">
                 <div className="box-round">
-                  <div className="text-top">
+                  {/* <div className="text-top">
                     <h2>Forgot Password</h2>
                     <p>Please use your organization email id.</p>
-                  </div>
+                  </div> */}
                   <div className="form-content">
                     <GeneralForm {...feedingVariable} />
                   </div>

@@ -13,7 +13,7 @@ import * as constants from '../../../constants/Constant';
 import OrgAdminChatPage from '../../chatmain/OrgadminChatPage/OrgAdminChatPage';
 
 function AMChat({ renderComponent }) {
-  // const navigationRoute = "/SuperAdminPersonalInfo"
+  const navigationRoute = "/SuperAdminPersonalInfo"
   return (
     <>
       <div className={Styles.AMChatMainDiv}>
@@ -84,8 +84,8 @@ function AMChat({ renderComponent }) {
           </div>
         </div>
 
-        <SuperAdminAMChatCard />
-        {/* <OrgAdminChatPage navigationRoute= {navigationRoute}/> */}
+        {/* <SuperAdminAMChatCard /> */}
+        <OrgAdminChatPage navigationRoute= {navigationRoute}/>
       </div>
       <div className={Styles.AMChatFooterStyle}>
         <footer className="AMChat-admin-footer">
