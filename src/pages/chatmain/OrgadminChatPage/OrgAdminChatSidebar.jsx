@@ -80,7 +80,7 @@ function OrgAdminChatSidebar() {
           </div>
         </div>
 
-        <OrgAdminChatPage navigationRoute={navigationRoute}/>
+        <OrgAdminChatPage navigationRoute={navigationRoute} rightSideDashBoard={true}/>
       </div>
       <div className={Styles.AMChatFooterStyle}>
         <footer className="AMChat-admin-footer">

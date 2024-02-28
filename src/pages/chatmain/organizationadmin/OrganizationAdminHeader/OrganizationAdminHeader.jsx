@@ -38,7 +38,7 @@ function OrganizationAdminHeader({
           </div>
 
           <div
-            className={Styles.superAdminProfileImgNameStyle}
+            className={Styles.superAdminProfileImgNameStyle} 
             onClick={popupState.open}
           >
             <img

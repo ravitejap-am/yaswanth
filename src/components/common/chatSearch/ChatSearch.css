@@ -16,7 +16,7 @@
     /* background-color: red; */
   }
   .search_input{
-    width: 98%;
+    width: 100%;
     border-color: rgba(240, 255, 240, 0);
     outline: none;
     overflow-y: hidden;
@@ -37,7 +37,8 @@
     max-height: 100vh;
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
+    justify-content: space-evenly;
+    align-items: center;
     border-radius: 35px;
     border: 1px solid var(--Neutral-400, #94a3b8);
   }
@@ -52,8 +53,9 @@
     height: 50px;
     flex-shrink: 0;
     fill: var(--Neutral-200, #e2e8f0);
-    margin-top: 5px;
-    margin-right: 5px;
+    /* padding: 10px; */
+    margin-top: 7px;
+    /* margin-right: 5px; */
     /* bottom: 0.1%; */
   }
 

@@ -166,79 +166,100 @@ function EditOrgUser() {
   };
 
   const submitHandler = async (values) => {
+    console.log("SBH 1");
     setButtonLoading(true);
     if (isSubmitting) {
+      console.log("SBH 2");
       return;
     }
     setIsSubmitting(true);
-    try {
-      const updateUserResponse = await fetch(
-        `${constants.BASE_API_URL}/user/${userId}`,
-        {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${jwt}`,
-          },
-          body: JSON.stringify({
-            firstName: values['firstName'],
-            lastName: values['lastName'],
-          }),
-        }
-      );
-
-      if (!updateUserResponse.ok) {
-        throw new Error(`HTTP error! status: ${updateUserResponse.status}`);
-      }
-
-      setIsReset(true);
-      showNotifyMessage(
-        'success',
-        'User details updated successfully',
-        messageHandler
-      );
-
-      const updateUserData = await updateUserResponse.json();
-
-      if (fileList.length > 0) {
-        const formData = new FormData();
-        formData.append('image', fileList[0].originFileObj);
-        const updateImageResponse = await fetch(
-          `${constants.BASE_API_URL}/user/dp/${userId}`,
+    if(values === undefined){
+      console.log("values are undefined"); 
+    }else{
+      try {
+        console.log("SBH 3");
+        console.log("values----->",values);
+        const updateUserResponse = await fetch(
+          `${constants.BASE_API_URL}/user/${userId}`,
           {
             method: 'PUT',
             headers: {
+              'Content-Type': 'application/json',
               Authorization: `Bearer ${jwt}`,
             },
-            body: formData,
+            body: JSON.stringify({
+              firstName: values['firstName'],
+              lastName: values['lastName'],
+            }),
           }
         );
-
-        if (!updateImageResponse.ok) {
-          throw new Error(`HTTP error! status: ${updateImageResponse.status}`);
+        console.log("SBH 4");
+        console.log("updateUserResponse----->",updateUserResponse);
+        if (!updateUserResponse.ok) {
+          console.log("SBH 5");
+          throw new Error(`HTTP error! status: ${updateUserResponse.status}`);
         }
+  
+        setIsReset(true);
+        console.log("SBH 6");
+        showNotifyMessage(
+          'success',
+          'User details updated successfully',
+          messageHandler
+        );
+        console.log("SBH 7");
+        const updateUserData = await updateUserResponse.json();
+        console.log("SBH 8");
+        if (fileList.length > 0) {
+          console.log("SBH 9");
+          const formData = new FormData();
+          console.log("SBH 10");
+          formData.append('image', fileList[0].originFileObj);
+          console.log("SBH 11");
+          const updateImageResponse = await fetch(
+            `${constants.BASE_API_URL}/user/dp/${userId}`,
+            {
+              method: 'PUT',
+              headers: {
+                Authorization: `Bearer ${jwt}`,
+              },
+              body: formData,
+            }
+          );
+          console.log("SBH 12");
+          if (!updateImageResponse.ok) {
+            console.log("SBH 13");
+            throw new Error(`HTTP error! status: ${updateImageResponse.status}`);
+          }
+        }
+        console.log("SBH 13");
+        setButtonLoading(false);
+        setIsReset(true);
+        console.log("SBH 14");
+        showNotifyMessage('success', updateUserData?.message, messageHandler);
+      } catch (error) {
+        console.log("SBH 15");
+        console.log('Error updating user details:', error);
+        if (error?.response?.status == 500 || error?.response?.status == '500') {
+          console.log("SBH 16");
+          navigate('/internal500');
+        }
+  
+        setButtonLoading(false);
+        // showNotifyMessage(
+        //   "error",
+        //   error?.response?.data?.message || "An error occurred",
+        //   messageHandler
+        // );
+      } finally {
+        console.log("SBH 17");
+        setIsSubmitting(false);
       }
-
-      setButtonLoading(false);
-      setIsReset(true);
-      showNotifyMessage('success', updateUserData?.message, messageHandler);
-    } catch (error) {
-      if (error?.response?.status == 500 || error?.response?.status == '500') {
-        navigate('/internal500');
-      }
-
-      setButtonLoading(false);
-      // showNotifyMessage(
-      //   "error",
-      //   error?.response?.data?.message || "An error occurred",
-      //   messageHandler
-      // );
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
   const cancelHandler = () => {
+    console.log("SBH 18");
     navigate('/orguserlist');
   };
 
@@ -342,12 +363,13 @@ function EditOrgUser() {
                 borderRadius: '8px',
               },
               imageStyle: {
-                width: '48px',
-                height: '48px',
+                width: '44px',
+                height: '44px',
               },
               textStyle: {
-                color: 'blue',
-                fontWeight: 'bold',
+                color: 'black',
+                fontWeight: '500',
+                fontSize: '24px',
               },
             }}
           />

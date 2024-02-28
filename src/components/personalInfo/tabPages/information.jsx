@@ -154,6 +154,7 @@ function Information({ setFileSysytem, validateEmail }) {
         width: '400px',
         height: '40px',
         marginLeft: '20px',
+        backgroundColor: '#CBD5E1'
       },
       disabled: true,
     },
@@ -233,7 +234,7 @@ function Information({ setFileSysytem, validateEmail }) {
     <>
       {isLoading && <PageLoader loadingStatus={isLoading} />}
 
-      <div className="personal-contentcard" style={{overflow: 'auto'}}>
+      <div className="personal-contentcard" style={{overflow: 'auto', minHeight: '40vh', maxHeight: '65vh'}}>
         <div className="user-profile-content">
           <div
             style={{

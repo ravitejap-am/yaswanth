@@ -48,11 +48,11 @@
 }
 
 .orgadminchat-chat-content {
-  margin-top: 5px;
-  margin-left: 10px;
+  /* margin-top: 5px;
+  margin-left: 10px; */
   border-radius: 15px;
   background: var(--Neutral-200, #e2e8f0);
-  width: 90%;
+  width: 100vw;
   height: 92vh;
   justify-content: center;
   text-align: center;
@@ -485,7 +485,7 @@ margin-left: 15px;
 
 .AIChatInputBox {
   padding-top: 20px;
-  width: 98%;
+  width: auto;
   /* min-height: 70px; */
   margin: 12px;
 }
@@ -514,10 +514,25 @@ margin-left: 15px;
 }
 
 
-.footer {
+.footer_for_admin {
   position: absolute;
   bottom: 20px;
   width: 78%;
+  margin-right: 20px;
+  /* min-width: 50%;
+  max-width: 78%; */
+  /* width: 62vw; */
+  /* height: auto;  */
+}
+
+.footer_for_user {
+  position: absolute;
+  bottom: 20px;
+  width: 97%;
+  margin-right: 20px;
+  /* min-width: 50%;
+  max-width: 78%; */
+  /* width: 62vw; */
   /* height: auto;  */
 }
 
@@ -525,6 +540,10 @@ margin-left: 15px;
   /* display: flex; */
   flex-direction: row;
   justify-content: flex-start;
+}
+
+.add_styles {
+  width: 90vw;
 }
 
 

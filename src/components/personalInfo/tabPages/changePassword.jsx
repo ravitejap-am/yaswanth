@@ -27,7 +27,7 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
     top: '73%',
     transform: 'translateY(-50%)',
     cursor: 'pointer',
-    left: '340px',
+    left: '320px',
   };
 
   const confirmPasswordStyles = {
@@ -36,7 +36,7 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
     top: '60%',
     transform: 'translateY(-50%)',
     cursor: 'pointer',
-    left: '340px',
+    left: '320px',
   };
 
   const messageHandler = () => {
@@ -134,7 +134,7 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
           { required: true, message: 'Please input a valid password!' },
           { validator: validatePassword },
         ],
-        style: { width: '350px', marginTop: '40px', marginLeft: '20px' },
+        style: { width: '350px', marginTop: '40px', marginLeft: '0px' },
         iconStyle: passwordStyles,
       },
       {
@@ -145,7 +145,7 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
           { required: true, message: 'Please input a valid password!' },
           { validator: validatePassword },
         ],
-        style: { width: '350px', marginTop: '40px', marginLeft: '20px' },
+        style: { width: '350px', marginTop: '40px', marginLeft: '0px' },
         iconStyle: passwordStyles,
       },
       {
@@ -153,7 +153,7 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
         type: 'password',
         name: 'confirmPassword',
         rules: [{ required: true, message: 'Please confirm your password!' }],
-        style: { width: '350px', marginLeft: '20px' },
+        style: { width: '350px', marginLeft: '0px' },
         iconStyle: confirmPasswordStyles,
       },
     ],

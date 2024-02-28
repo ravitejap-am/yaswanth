@@ -23,7 +23,14 @@ import { PROFILE_URL } from "../../../apiCalls/Constants";
 import profilePlaceholder from "../../../asset/profilePlaceholder.png";
 import editIcon from "../../../asset/AmChatSuperAdmin/pencil-alt.png";
 import Button from "../../../components/common/buttons/GeneralButton";
-import { BASE_USER_IMAGE_URL } from '../../../constants/Constant';
+import { BASE_USER_IMAGE_URL, BASE_DOC_API_URL,  BASE_ORG_API_URL} from '../../../constants/Constant';
+import SAStyles from '../../AMChatAdmin/SuperAdminAMChatCard/SuperAdminAMChatCard.module.css'
+import circle1 from '../../../asset/AmChatSuperAdmin/Group23.png';
+import circle2 from '../../../asset/AmChatSuperAdmin/Group24.png';
+import flow from '../../../asset/AmChatSuperAdmin/flow.png';
+import flowImage2 from '../../../asset/AmChatSuperAdmin/flow2.png';
+import axios from 'axios';
+
 
 const OrgAdminChatPage = (props) => {
   const navigate = useNavigate();
@@ -32,7 +39,9 @@ const OrgAdminChatPage = (props) => {
   // const {navigationRoute} = props
   // console.log("navigationRoute----->",navigationRoute);
   console.log("admin props--->",props)
-  const {navigationRoute} = props
+  const {navigationRoute, rightSideDashBoard} = props
+  const userRole = localStorage.getItem("userRole")
+  console.log("userRole--->", userRole);
   console.log("navigationRoute----->",navigationRoute);
   const decodeJWT = (token) => {
     try {
@@ -79,7 +88,8 @@ const OrgAdminChatPage = (props) => {
   const [questions, setQuestions] = useState([]);
   const [questionAndAnswer, setQuestionAndAnswer] = useState([]);
   const profileUrl = PROFILE_URL;
-  const [profileSrc, setProfileSrc] = useState(localStorage.getItem("profileImage") || profilePlaceholder);
+  // const [profileSrc, setProfileSrc] = useState(localStorage.getItem("profileImage") || profilePlaceholder);
+  const [profileSrc, setProfileSrc] = useState(profilePlaceholder);
   const [isEditing, setIsEditing] = useState(false);
   const submitButtonProperty = {
     name: 'Save & Submit',
@@ -104,6 +114,42 @@ const OrgAdminChatPage = (props) => {
     marginTop: '.6em',
     fontSize: '0.7rem',
   }
+
+  const [orgCount, setOrgCount] = useState(0);
+  const [docCount, setDocCount] = useState(0);
+
+
+  const getDocumentsCount = async () => {
+    try {
+      console.log('jwt', jwt);
+      const response = await axios.get(`${BASE_DOC_API_URL}/total`, {
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+        },
+      });
+
+      console.log('get total document', response);
+      setDocCount(response?.data?.totalElements)
+    } catch (error) {
+      console.log('Failed to fetch user profile.', error);
+      // throw new Error('Failed to fetch user profile-1');
+    }
+  };
+
+  const getOrganisationCount = async () => {
+    try {
+      console.log('jwt', jwt);
+      const response = await axios.get(`${BASE_ORG_API_URL}/all?active=true`, {
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+        },
+      });
+      setOrgCount(response?.data?.totalElements)
+    } catch (error) {
+      console.log('Failed to fetch user profile.', error);
+      // throw new Error('Failed to fetch user profile-1');
+    }
+  };
 
 
   const fetchData = async () => {
@@ -138,6 +184,10 @@ const OrgAdminChatPage = (props) => {
   //   const storedFirstName = localStorage.getItem("firstNameOrganisation");
   //   setFirstName(storedFirstName);
   // }, []);
+  const callAPiForSuperAdmin = async () => { 
+    await getDocumentsCount()
+    await getOrganisationCount()
+  } 
 
   useEffect(() => {
     setHideChatInitialPage(false);
@@ -146,6 +196,10 @@ const OrgAdminChatPage = (props) => {
       fetchDocumentCount();
       fetchUserList();
     }
+    if(userRole === 'SUPER_ADMIN'){
+      callAPiForSuperAdmin()
+    }
+
   }, [organisationId]);
 
   const fetchDocumentCount = () => {
@@ -293,9 +347,12 @@ const OrgAdminChatPage = (props) => {
   console.log("hide initial page", hideChatInitialPage);
   console.log("questionAndAnswer------>",questionAndAnswer);
 
+  
   return (
     <div className="orgadminchat-screen">
-      <div className="orgadminchat-chat-container">
+      <div className="orgadminchat-chat-container" 
+      // style={{width: '79vw' }} 
+      >
         <div className="orgadminchat-chat-header">
           <OrganizationAdminHeader
             componentName={`Welcome ${firstName || ''}`}
@@ -319,9 +376,70 @@ const OrgAdminChatPage = (props) => {
             navigationRoute={navigationRoute}
           />
         </div>
+        {/* super admin dashboard */}
+        {userRole === 'SUPER_ADMIN' && <div className={SAStyles.superAdminMiddleChildDiv} style={{marginBottom: '15px'}}>
+          <div
+            className={SAStyles.superAdminMiddleCardStyle}
+            style={{ backgroundColor: '#FFFFFF' }}
+          >
+            <div style={{ display: 'flex' }}>
+              {' '}
+              <div className={SAStyles.superAdminMiddleCardCircle1Style}>
+                {' '}
+                <img src={circle1} alt="" />
+              </div>
+              <div className={SAStyles.titlePriceStyle}>
+                <p className={SAStyles.titleStyle}>Organizations</p>
+                <p className={Styles.priceStyle}>{orgCount}</p>
+              </div>
+            </div>
+
+            <div className={SAStyles.flowImageParentDiv}>
+              <img src={flow} alt="" className={SAStyles.flowImageStyle} />
+              <img
+                src={flowImage2}
+                alt=""
+                className={SAStyles.flowBelowImageStyle}
+              />
+            </div>
+          </div>
+
+          <div
+            className={SAStyles.superAdminMiddleCardStyle}
+            style={{ backgroundColor: '#FFFFFF' }}
+          >
+            <div style={{ display: 'flex' }}>
+              <div className={SAStyles.superAdminMiddleCardCircle1Style}>
+                {' '}
+                <img src={circle2} alt="" />
+              </div>
+              <div className={SAStyles.titlePriceStyle}>
+                <div className={SAStyles.titleStyle}>
+                  <p>Documents Uploaded</p>
+                </div>
+                <div>
+                  <p className={Styles.priceStyle}>{docCount}</p>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <img src={flow} alt="" className={SAStyles.flowImageStyle} />
+              <img
+                src={flowImage2}
+                alt=""
+                className={SAStyles.flowBelowImageStyle}
+              />
+            </div>
+          </div>
+        </div>}
+
+{/* end super admin dashboard */}
         <div className="hi-main">
           <div className="orgadminchat-chat-content-head">
-            <div className="orgadminchat-chat-content">
+            <div className="orgadminchat-chat-content" 
+            // style={{width: '100%'}}
+            >
               <div className={Styles.questionAndAnswerContainer}>
                 {hideChatInitialPage && <div>
                   <Card className={Styles.superAdminCardStyles} style={{height:'80vh', overflowY: 'auto'}}>
@@ -406,7 +524,7 @@ const OrgAdminChatPage = (props) => {
                     </p>
                   </div>
                 </div>}
-                  <div className="footer">
+                <div className={userRole === "USER" || userRole === "SUPER_ADMIN"? "footer_for_user" : "footer_for_admin"}>
                   {!hideChatInitialPage && <div className="orgadminchat-chat-hello-text">
                     <h2>Hello, I’m AM-Chat</h2>
                     <p>How can I help you today?</p>
@@ -436,7 +554,7 @@ const OrgAdminChatPage = (props) => {
                 </div>
               </div>
             </div>
-            <div className="hi">
+            {rightSideDashBoard && <div className="hi">
               <div className="orgadminchat-orgadmin-cards">
                 <div className="orgadminchat-orgadmindoc-card">
                   <div className="activeuser-vectorimage">
@@ -492,7 +610,7 @@ const OrgAdminChatPage = (props) => {
                   </div>
                 </div>
               </div>
-            </div>
+            </div>}
           </div>
         </div>
       </div>
