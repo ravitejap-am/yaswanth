@@ -37,6 +37,7 @@ import {
   BASE_ORG_API_URL,
 } from '../../../constants/Constant';
 import axios from 'axios';
+import PageLoader from '../../../components/loader/loader';
 
 const style = {
   py: 0,
@@ -55,12 +56,11 @@ function SuperAdminAMChatCard() {
   const jwt = user.userToken;
   const decodedToken = tokenDecodeJWT(jwt);
   // const organisationId = decodedToken ? decodedToken.organisationId : null;
+  const [organisationCount, setOrganisationCount] = useState(0);
+  const [documentCount, setDocumentCount] = useState(0);
   const userId = decodedToken ? decodedToken.userId : null;
   const [chat, setChat] = useState('');
-  const [counts, setcounts] = useState({
-    totalOrganisation: 0,
-    totalDocument: 0,
-  });
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     getUserDetails();
@@ -87,6 +87,7 @@ function SuperAdminAMChatCard() {
   };
 
   const getUserDetails = async () => {
+    setIsLoading(true);
     try {
       const headers = {
         Authorization: `Bearer ${jwt}`,
@@ -112,6 +113,7 @@ function SuperAdminAMChatCard() {
         );
       }
     } catch (error) {
+      setIsLoading(false);
       console.log('Error in getting user details', error);
       throw new Error('Failed to fetch user profile-2');
     }
@@ -127,10 +129,12 @@ function SuperAdminAMChatCard() {
       });
 
       console.log('get total document', response);
-      setcounts({ ...counts, totalDocument: response?.data?.totalElements });
+
+      setDocumentCount(response?.data?.totalElements);
     } catch (error) {
       console.log('Failed to fetch user profile.', error);
       // throw new Error('Failed to fetch user profile-1');
+      setIsLoading(false);
     }
   };
 
@@ -144,145 +148,147 @@ function SuperAdminAMChatCard() {
       });
 
       console.log('get total document', response);
-      setcounts({
-        ...counts,
-        totalOrganisation: response?.data?.totalElements,
-      });
+      setOrganisationCount(response?.data?.totalElements);
+      setIsLoading(false);
     } catch (error) {
       console.log('Failed to fetch user profile.', error);
       // throw new Error('Failed to fetch user profile-1');
+      setIsLoading(false);
     }
   };
 
   console.log('firstName', firstName);
   return (
-    <div className={Styles.superAdminMainCardDivStyle}>
-      <div className={Styles.superAdminMiddleParentDiv}>
-        <div className={Styles.superAdminProfileCardStyle}>
-          <SuperAdminHeader
-            componentName={`Welcome ${firstName || ''}`}
-            name={firstName || ''}
-            profileImageSrc={localStorage.getItem('userImageUrl')}
-            customStyle={{
-              containerStyle: {
-                display: 'flex',
-                borderRadius: '8px',
-              },
-              imageStyle: {
-                width: '44px',
-                height: '44px',
-              },
-              textStyle: {
-                color: 'black',
-                fontWeight: '500',
-                fontSize: '24px',
-              },
-            }}
-          />
-        </div>
-        <div className={Styles.superAdminMiddleChildDiv}>
-          <div
-            className={Styles.superAdminMiddleCardStyle}
-            style={{ backgroundColor: '#FFFFFF' }}
-          >
-            <div style={{ display: 'flex' }}>
-              {' '}
-              <div className={Styles.superAdminMiddleCardCircle1Style}>
+    <>
+      {isLoading && <PageLoader loadingStatus={isLoading} />}
+      <div className={Styles.superAdminMainCardDivStyle}>
+        <div className={Styles.superAdminMiddleParentDiv}>
+          <div className={Styles.superAdminProfileCardStyle}>
+            <SuperAdminHeader
+              componentName={`Welcome ${firstName || ''}`}
+              name={firstName || ''}
+              profileImageSrc={localStorage.getItem('userImageUrl')}
+              customStyle={{
+                containerStyle: {
+                  display: 'flex',
+                  borderRadius: '8px',
+                },
+                imageStyle: {
+                  width: '44px',
+                  height: '44px',
+                },
+                textStyle: {
+                  color: 'black',
+                  fontWeight: '500',
+                  fontSize: '24px',
+                },
+              }}
+            />
+          </div>
+          <div className={Styles.superAdminMiddleChildDiv}>
+            <div
+              className={Styles.superAdminMiddleCardStyle}
+              style={{ backgroundColor: '#FFFFFF' }}
+            >
+              <div style={{ display: 'flex' }}>
                 {' '}
-                <img src={circle1} alt="" />
-              </div>
-              <div className={Styles.titlePriceStyle}>
-                <p className={Styles.titleStyle}>Organizations</p>
-                <p className={Styles.priceStyle}>{counts?.totalOrganisation}</p>
-              </div>
-            </div>
-
-            <div className={Styles.flowImageParentDiv}>
-              <img src={flow} alt="" className={Styles.flowImageStyle} />
-              <img
-                src={flowImage2}
-                alt=""
-                className={Styles.flowBelowImageStyle}
-              />
-            </div>
-          </div>
-
-          <div
-            className={Styles.superAdminMiddleCardStyle}
-            style={{ backgroundColor: '#FFFFFF' }}
-          >
-            <div style={{ display: 'flex' }}>
-              <div className={Styles.superAdminMiddleCardCircle1Style}>
-                {' '}
-                <img src={circle2} alt="" />
-              </div>
-              <div className={Styles.titlePriceStyle}>
-                <div className={Styles.titleStyle}>
-                  <p>Documents Uploaded</p>
+                <div className={Styles.superAdminMiddleCardCircle1Style}>
+                  {' '}
+                  <img src={circle1} alt="" />
                 </div>
-                <div>
-                  <p className={Styles.priceStyle}>{counts?.totalDocument}</p>
+                <div className={Styles.titlePriceStyle}>
+                  <p className={Styles.titleStyle}>Organizations</p>
+                  <p className={Styles.priceStyle}>{organisationCount}</p>
                 </div>
               </div>
+
+              <div className={Styles.flowImageParentDiv}>
+                <img src={flow} alt="" className={Styles.flowImageStyle} />
+                <img
+                  src={flowImage2}
+                  alt=""
+                  className={Styles.flowBelowImageStyle}
+                />
+              </div>
             </div>
 
-            <div>
-              <img src={flow} alt="" className={Styles.flowImageStyle} />
-              <img
-                src={flowImage2}
-                alt=""
-                className={Styles.flowBelowImageStyle}
-              />
+            <div
+              className={Styles.superAdminMiddleCardStyle}
+              style={{ backgroundColor: '#FFFFFF' }}
+            >
+              <div style={{ display: 'flex' }}>
+                <div className={Styles.superAdminMiddleCardCircle1Style}>
+                  {' '}
+                  <img src={circle2} alt="" />
+                </div>
+                <div className={Styles.titlePriceStyle}>
+                  <div className={Styles.titleStyle}>
+                    <p>Documents Uploaded</p>
+                  </div>
+                  <div>
+                    <p className={Styles.priceStyle}>{documentCount}</p>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <img src={flow} alt="" className={Styles.flowImageStyle} />
+                <img
+                  src={flowImage2}
+                  alt=""
+                  className={Styles.flowBelowImageStyle}
+                />
+              </div>
             </div>
           </div>
+          <Card className={Styles.superAdminCardStyles}>
+            <div className={Styles.AMChatMainCardTitleDiv}>
+              <div className={Styles.SuperAdminAmChatStyle}>
+                <div className={Styles.appHeading}>
+                  <div className={Styles.appLogo}>
+                    <span className={Styles.amChatTitle}>AM-Chat</span>
+                    <span>
+                      <img src={Logo} alt="" className={Styles.appName} />
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className={Styles.footer}>
+              <div className={Styles.superAdminAMChatMiddleDiv}>
+                <div className={Styles.AMChatFirstTitle}>
+                  <p>Hello, I’m AM-Chat</p>
+                </div>
+                <div className={Styles.AMChatSecondTitle}>
+                  <p>How can I help you today?</p>
+                </div>
+              </div>
+              <div className="Example_main_div">
+                <div className="Card_message_example_main">
+                  {contentArray.map((content, index) => (
+                    <p key={index} className="Card_message_example">
+                      {content}
+                    </p>
+                  ))}
+                </div>
+              </div>
+              <div className={Styles.AIChatInputBox}>
+                <ChatSearch
+                  name={'Ask anything..'}
+                  style={'searchStyles'}
+                  searchImage={Group2290}
+                  onSearchImageClick={handleSearchImageClick}
+                  readOnly={false}
+                  chat={chat}
+                  setChat={setChat}
+                />
+              </div>
+            </div>
+          </Card>
         </div>
-        <Card className={Styles.superAdminCardStyles}>
-          <div className={Styles.AMChatMainCardTitleDiv}>
-            <div className={Styles.SuperAdminAmChatStyle}>
-              <div className={Styles.appHeading}>
-                <div className={Styles.appLogo}>
-                  <span className={Styles.amChatTitle}>AM-Chat</span>
-                  <span>
-                    <img src={Logo} alt="" className={Styles.appName} />
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className={Styles.footer}>
-            <div className={Styles.superAdminAMChatMiddleDiv}>
-              <div className={Styles.AMChatFirstTitle}>
-                <p>Hello, I’m AM-Chat</p>
-              </div>
-              <div className={Styles.AMChatSecondTitle}>
-                <p>How can I help you today?</p>
-              </div>
-            </div>
-            <div className="Example_main_div">
-              <div className="Card_message_example_main">
-                {contentArray.map((content, index) => (
-                  <p key={index} className="Card_message_example">
-                    {content}
-                  </p>
-                ))}
-              </div>
-            </div>
-            <div className={Styles.AIChatInputBox}>
-              <ChatSearch
-                name={'Ask anything..'}
-                style={'searchStyles'}
-                searchImage={Group2290}
-                onSearchImageClick={handleSearchImageClick}
-                readOnly={false}
-                chat={chat}
-                setChat={setChat}
-              />
-            </div>
-          </div>
-        </Card>
       </div>
-    </div>
+    </>
   );
 }
 

@@ -9,6 +9,10 @@ import { updateAdminProfileDetails } from '../../../apiCalls/ApiCalls';
 import { useMessageState } from '../../../hooks/useapp-message';
 import UploadProfilePic from '../upload/page';
 import PageLoader from '../../loader/loader';
+import CircularFileInfo from '../upload/circularFileInfo';
+import axios from 'axios';
+import UserProfileForm from './user-profile-form';
+
 function Information({ setFileSysytem, validateEmail }) {
   const user = useSelector(selectUser);
   const jwt = user.userToken;
@@ -36,11 +40,15 @@ function Information({ setFileSysytem, validateEmail }) {
   const decodedToken = decodeJWT(jwt);
   const userId = decodedToken ? decodedToken.userId : null;
 
-  const [userData, setUserData] = useState(null);
-  const [userStatus, setUserStatus] = useState('active');
+  const [userData, setUserData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    organization: '',
+    status: '',
+  });
   const [error, setError] = useState(null);
-  const [organisationName, setOrganisationName] = useState('');
-  const [amChatUserStatus, setamChatUserStatus] = useState(true);
+
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -56,6 +64,7 @@ function Information({ setFileSysytem, validateEmail }) {
   };
 
   const fetchUserProfile = async () => {
+    setIsLoading(true);
     try {
       const response = await fetch(
         `${constants.BASE_API_URL}/user/${userId}/getUserProfile`,
@@ -66,101 +75,31 @@ function Information({ setFileSysytem, validateEmail }) {
         }
       );
       if (!response.ok) {
+        setIsLoading(false);
         throw new Error('Failed to fetch user profile.');
       }
 
       const userData = await response.json();
-
-      setUserData(userData?.data?.user);
-      setOrganisationName(userData?.data?.organisation?.name);
-      setamChatUserStatus(userData?.data?.user.active);
-      setUserStatus(userData.data.user.active ? 'Active' : 'Inactive');
+      setUserData({
+        firstName: userData?.data?.user?.firstName,
+        lastName: userData?.data?.user?.lastName,
+        email: userData?.data?.user?.email,
+        organization: userData?.data?.organisation?.name,
+        status:
+          userData?.data?.organisation?.active == true ? 'ACTIVE' : 'INACTIVE',
+      });
+      // setUserData(userData?.data?.user);
+      setIsLoading(false);
     } catch (error) {
       console.error('Error fetching user profile:', error);
       setError('Failed to fetch user profile.');
+      setIsLoading(false);
     }
   };
 
-  const formElements = [
-    {
-      label: 'First Name',
-      type: 'text',
-      name: 'firstName',
-      pattern: /^([a-zA-Z]{3,30}\s*)+/,
-      defaultValue: userData ? userData.firstName : '',
-      rules: [
-      { required: true, message: 'Please input your First Name' },
-      { type: 'name', message: 'Invalid First Name' },
-      ],
-      style: { width: '400px', height: '40px', marginLeft: '20px' },
-    },
-    {
-      label: 'Last Name',
-      type: 'text',
-      name: 'lastName',
-      // pattern: /^([a-zA-Z]{3,30}\s*)+/,
-      defaultValue: userData ? userData.lastName : '',
-      // rules: [
-      //   { required: true, message: "Please input your Last Name" },
-      //   { type: "name", message: "Invalid Last Name" },
-      // ],
-      style: { width: '400px', height: '40px', marginLeft: '20px' },
-    },
-    {
-      label: 'Email',
-      type: 'email',
-      name: 'email',
-      // pattern: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-      defaultValue: userData ? userData.email : '',
-      // rules: [
-      //   { required: true, message: "Please enter your email" },
-      //   { type: "email", message: "Invalid Email" },
-      // ],
-      style: {
-        width: '400px',
-        height: '40px',
-        marginLeft: '20px',
-        backgroundColor: '#CBD5E1',
-      },
-      disabled: true,
-    },
-    {
-      label: 'Organization Name',
-      type: 'text',
-      name: 'orgName',
-      defaultValue: organisationName,
-      // rules: [
-      //   { required: true, message: "Please input your Organization Name" },
-      //   { type: "name", message: "Invalid Organization Name" },
-      // ],
-      style: {
-        width: '400px',
-        height: '40px',
-        backgroundColor: '#CBD5E1',
-        marginLeft: '20px',
-      },
-      disabled: true,
-    },
-    {
-      label: 'Status',
-      type: 'text',
-      name: 'status',
-      defaultValue: amChatUserStatus ? 'Active' : 'Inactive',
-      // rules: [
-      //   { required: true, message: "Please input your Organization Name" },
-      //   { type: "name", message: "Invalid Organization Name" },
-      // ],
-      style: {
-        width: '400px',
-        height: '40px',
-        marginLeft: '20px',
-        backgroundColor: '#CBD5E1'
-      },
-      disabled: true,
-    },
-  ];
-
   const submitHandler = async (values) => {
+    console.log(values);
+
     setIsLoading(true);
         try {
       if (values === undefined) {
@@ -196,40 +135,34 @@ function Information({ setFileSysytem, validateEmail }) {
     }
   };
 
-  const submitButtonProperty = {
-    name: 'Submit',
-    color: 'white',
-    backgroundColor: '#6366F1',
-    type: 'primary',
-    width: '150px',
-    height: '50px',
-    borderRadius: '34px',
-    marginLeft: '19px',
-    marginTop: '1.5rem',
+  const handleFileChange = (file) => {
+    setIsLoading(true);
+    uploadFile(file);
   };
+  const uploadFile = async (file) => {
+    const formData = new FormData();
+    formData.append('image', file);
 
-  const feedingVariable = {
-    isCancel: false,
-    cancelHandler: () => {
-      console.log('Canceling....');
-    },
-    isSubmit: true,
-    submitHandler: submitHandler,
-    submitButtonProperty: submitButtonProperty,
-    formElements: formElements,
-    formType: 'normal',
-    // validateEmail: validateEmail,
-    // setFileSysytem: setFileSysytem,
-    grid: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' },
-    isOrgAdmin: true,
-    orgInfo: { screen: 'personalinformation' },
-    personalInfo: { userData: userData },
+    try {
+      const response = await axios.post(
+        `${constants.BASE_API_URL}/user/dp`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${jwt}`,
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
+      console.log(response);
+      showNotifyMessage('success', response?.data?.message, messageHandler);
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error);
+      showNotifyMessage('error', error?.message, messageHandler);
+      setIsLoading(false);
+    }
   };
-
-  console.log('feedingVariable---->', feedingVariable);
-  console.log('amChatUserStatus---->', amChatUserStatus);
-  console.log(typeof amChatUserStatus);
-  console.log(amChatUserStatus ? 'Active' : 'Inactive');
   return (
     <>
       {isLoading && <PageLoader loadingStatus={isLoading} />}
@@ -245,10 +178,19 @@ function Information({ setFileSysytem, validateEmail }) {
               marginLeft: '2em',
             }}
           >
-            <UploadProfilePic />
+            <CircularFileInfo
+              onChange={handleFileChange}
+              initialImageUrl={localStorage.getItem('userImageUrl')}
+            />
           </div>
         </div>
-        <GeneralForm {...feedingVariable} />
+        <div style={{ padding: '20px', width: '90%' }}>
+          <UserProfileForm
+            formData={userData}
+            setFormData={setUserData}
+            submitHandler={submitHandler}
+          />
+        </div>
       </div>
     </>
   );

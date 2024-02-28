@@ -6,6 +6,7 @@ import axios from 'axios';
 import { setUser, selectUser } from '../../../store/authSlice';
 import { useSelector } from 'react-redux';
 import { useMessageState } from '../../../hooks/useapp-message';
+import CircularFileInput from './circularFileInfo';
 const getBase64 = (file) =>
   new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -39,10 +40,10 @@ const UploadProfilePic = () => {
     showNotifyMessage,
     hideNotifyMessage,
   } = useMessageState();
-  const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
-    console.log(e.target.files[0]);
-  };
+  // const handleFileChange = (e) => {
+  //   setFile(e.target.files[0]);
+  //   console.log(e.target.files[0]);
+  // };
 
   const user = useSelector(selectUser);
   const jwt = user.userToken;
@@ -71,11 +72,14 @@ const UploadProfilePic = () => {
       uploadFile(fileList[0]?.originFileObj);
     }
   };
-
-  const uploadFile = async (data) => {
+  const handleFileChange = (file) => {
+    // Handle file change here
+    uploadFile(file);
+  };
+  const uploadFile = async (file) => {
     setIsFirst(false);
     const formData = new FormData();
-    formData.append('image', data);
+    formData.append('image', file);
 
     try {
       const response = await axios.post(`${BASE_API_URL}/user/dp`, formData, {
@@ -111,7 +115,8 @@ const UploadProfilePic = () => {
   );
   return (
     <>
-      <Upload
+      <CircularFileInput onChange={handleFileChange} />
+      {/* <Upload
         action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
         listType="picture-circle"
         fileList={fileList}
@@ -119,10 +124,10 @@ const UploadProfilePic = () => {
         onChange={handleChange}
       >
         {fileList.length >= 1 ? null : uploadButton}
-      </Upload>
-      {/* <input type="file" onChange={handleFileChange} /> */}
-      {/* <button onClick={handleUpload}>Upload</button> */}
-      <Modal
+      </Upload> */}
+      {/* <input type="file" onChange={handleFileChange} />
+      <button onClick={uploadFile}>Upload</button> */}
+      {/* <Modal
         open={previewOpen}
         title={previewTitle}
         footer={null}
@@ -135,7 +140,7 @@ const UploadProfilePic = () => {
           }}
           src={previewImage}
         />
-      </Modal>
+      </Modal> */}
     </>
   );
 };
