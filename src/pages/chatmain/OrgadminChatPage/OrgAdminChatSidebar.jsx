@@ -21,6 +21,7 @@ import threedot from "../../../asset/threedot.png";
 import usersicon from "../../../asset/users.png";
 import documenticon from "../../../asset/document1.png";
 function OrgAdminChatSidebar() {
+  const navigationRoute = "/organizationPersonalInfo";
   return (
     <>
       <div className={Styles.AMChatMainDiv}>
@@ -79,7 +80,7 @@ function OrgAdminChatSidebar() {
           </div>
         </div>
 
-        <OrgAdminChatPage />
+        <OrgAdminChatPage navigationRoute={navigationRoute} rightSideDashBoard={true}/>
       </div>
       <div className={Styles.AMChatFooterStyle}>
         <footer className="AMChat-admin-footer">

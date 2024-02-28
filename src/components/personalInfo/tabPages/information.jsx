@@ -101,7 +101,7 @@ function Information({ setFileSysytem, validateEmail }) {
     console.log(values);
 
     setIsLoading(true);
-    try {
+        try {
       if (values === undefined) {
         console.log('Values are undefined');
         return;
@@ -167,7 +167,7 @@ function Information({ setFileSysytem, validateEmail }) {
     <>
       {isLoading && <PageLoader loadingStatus={isLoading} />}
 
-      <div className="personal-contentcard">
+      <div className="personal-contentcard" style={{overflow: 'auto', minHeight: '40vh', maxHeight: '65vh'}}>
         <div className="user-profile-content">
           <div
             style={{

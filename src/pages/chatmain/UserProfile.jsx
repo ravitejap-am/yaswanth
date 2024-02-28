@@ -15,7 +15,8 @@ const UserProfile = () => {
 
   useEffect(() => {
     // Retrieve firstName from localStorage
-    const storedFirstName = localStorage.getItem('UserSectionfirstName');
+    const storedFirstName = localStorage.getItem('firstNameOrganisation');
+    console.log('storedFirstName', storedFirstName);
     setFirstName(storedFirstName);
   }, []);
 
@@ -28,7 +29,7 @@ const UserProfile = () => {
   return (
     <div className="userprofile-screen">
       <div className="userprofile-main">
-        <div className="userprofile-pofilecontainer">
+        <div className="userprofile-pofilecontainer" style={{flexWrap: 'wrap' , flexGrow: '1'}}>
           <div className="userprofile-header">
             {/* Display firstName in the Welcome message */}
             <AMChatHeader
@@ -41,12 +42,13 @@ const UserProfile = () => {
                   borderRadius: '8px',
                 },
                 imageStyle: {
-                  width: '48px',
-                  height: '48px',
+                  width: '44px',
+                  height: '44px',
                 },
                 textStyle: {
-                  color: 'blue',
-                  fontWeight: 'bold',
+                  color: 'black',
+                  fontWeight: '500',
+                  fontSize: '24px',
                 },
               }}
             />

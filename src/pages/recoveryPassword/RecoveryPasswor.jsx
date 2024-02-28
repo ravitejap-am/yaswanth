@@ -57,7 +57,7 @@ const RecoveryPasswor = () => {
       return;
     }
 
-    const url = `${constants.BASE_API_URL}${constants.RECOVERY_PASSWORD_ENDPOINT}`;
+    const url = `${constants.BASE_API_URL}${constants.MAIL_RECOVERY_PASSWORD_ENDPOINT}`;
     const data = {
       email: values.email,
     };

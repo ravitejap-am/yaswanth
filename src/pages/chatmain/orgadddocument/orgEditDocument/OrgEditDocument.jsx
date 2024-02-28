@@ -178,12 +178,13 @@ function OrgEditDocument() {
                 borderRadius: '8px',
               },
               imageStyle: {
-                width: '48px',
-                height: '48px',
+                width: '44px',
+                height: '44px',
               },
               textStyle: {
-                color: 'blue',
-                fontWeight: 'bold',
+                color: 'black',
+                fontWeight: '500',
+                fontSize: '24px',
               },
             }}
           />

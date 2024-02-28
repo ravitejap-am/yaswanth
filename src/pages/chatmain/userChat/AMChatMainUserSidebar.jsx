@@ -7,7 +7,9 @@ import organizationimage from "../../../asset/AmChatSuperAdmin/Frame 2301.png";
 import GroupCircleDot from "../../../asset/AmChatSuperAdmin/Group2306.png";
 import { Link } from "react-router-dom";
 import AmchatMainUser from "./AMChatMainUser";
+import OrgAdminChatPage from "../../chatmain/OrgadminChatPage/OrgAdminChatPage";
 function AMChatMainUserSidebar() {
+  const navigationRoute = "/userprofile";
   return (
     <>
       <div className={Styles.AMChatMainDiv}>
@@ -62,7 +64,8 @@ function AMChatMainUserSidebar() {
           </div>
         </div>
 
-        <AmchatMainUser />
+        {/* <AmchatMainUser /> */}
+        <OrgAdminChatPage navigationRoute={navigationRoute} rightSideDashBoard={false}/>
       </div>
       <div className={Styles.AMChatFooterStyle}>
         <footer className="AMChat-admin-footer">
