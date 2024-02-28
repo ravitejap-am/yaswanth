@@ -90,6 +90,7 @@ function OrganizationList() {
 
   const fetchlist = async (page = 0) => {
     // setLoading(true);
+
     setTableLoading(true);
     try {
       const documentUrl = `${BASE_ORG_API_URL}`;
@@ -114,10 +115,26 @@ function OrganizationList() {
         throw new Error('Failed to fetch documents');
       }
 
-      console.log(response?.data?.data);
+      console.log('----response', response);
+      if (
+        response?.data?.message == 'list is empty' ||
+        response?.data?.data == null ||
+        response?.data?.data.length == 0
+      ) {
+        setPageInfo({
+          ...pageInfo,
+          pageSize: 0,
+          page: 0,
+          totalCount: 0,
+          totalPages: 0,
+        });
+        setRows([]);
+        return;
+      }
       let organisationData = response?.data?.data;
       let responseData = response?.data;
       setResponseData(organisationData);
+
       setPageInfo({
         ...pageInfo,
         pageSize: responseData?.pageSize,
@@ -125,6 +142,7 @@ function OrganizationList() {
         totalCount: responseData?.totalCount,
         totalPages: responseData?.totalPages,
       });
+      console.log('-----organisationData', organisationData);
       let allOrgansisation = [];
       organisationData?.map((org) => {
         let individuvalOrg = {
@@ -144,6 +162,14 @@ function OrganizationList() {
       setRows(allOrgansisation);
       setTableLoading(false);
     } catch (error) {
+      setPageInfo({
+        ...pageInfo,
+        pageSize: 0,
+        page: 0,
+        totalCount: 0,
+        totalPages: 0,
+      });
+      setRows([]);
       console.error('Error fetching documents:', error.message);
       setTableLoading(false);
     }
@@ -430,26 +456,27 @@ function OrganizationList() {
                     </TableRow>
                   ) : (
                     <>
-                      {rows
-                        .slice(
-                          page * rowsPerPage,
-                          page * rowsPerPage + rowsPerPage
-                        )
-                        .map((row) => (
-                          <TableRow key={row.id}>
-                            {/* <TableCell padding="checkbox">
+                      {rows.length > 0 ? (
+                        rows
+                          .slice(
+                            page * rowsPerPage,
+                            page * rowsPerPage + rowsPerPage
+                          )
+                          .map((row) => (
+                            <TableRow key={row.id}>
+                              {/* <TableCell padding="checkbox">
                               <Checkbox
                                 inputProps={{ 'aria-labelledby': row.name }}
                               />
                             </TableCell> */}
-                            <TableCell component="th" scope="row">
-                              {row.name}
-                            </TableCell>
-                            <TableCell>{row.address}</TableCell>
-                            <TableCell>{row.contactPerson}</TableCell>
-                            <TableCell>{row.plans}</TableCell>
-                            <TableCell>{row.status}</TableCell>
-                            {/* <TableCell>
+                              <TableCell component="th" scope="row">
+                                {row.name}
+                              </TableCell>
+                              <TableCell>{row.address}</TableCell>
+                              <TableCell>{row.contactPerson}</TableCell>
+                              <TableCell>{row.plans}</TableCell>
+                              <TableCell>{row.status}</TableCell>
+                              {/* <TableCell>
                           <FormControl style={{ width: '110px' }}>
                             <Select
                               style={{ border: 'none', borderRadius: 'none' }}
@@ -463,47 +490,55 @@ function OrganizationList() {
                             </Select>
                           </FormControl>
                         </TableCell> */}
-                            <TableCell>
-                              {/* <IconButton aria-label="view">
+                              <TableCell>
+                                {/* <IconButton aria-label="view">
                             <img
                               src={eyesolid}
                               alt="View"
                               style={{ width: 24, height: 24 }}
                             />
                           </IconButton> */}
-                              <Link to="/dashboardadmin/addorganizationadmin">
+                                <Link to="/dashboardadmin/addorganizationadmin">
+                                  <IconButton
+                                    aria-label="edit"
+                                    onClick={() => {
+                                      console.log('editing');
+                                      console.log(row);
+                                      const orgObject = responseData.find(
+                                        (obj) => obj.id === row.id
+                                      );
+                                      dispatch(setOrganisationStatus('edit'));
+                                      dispatch(setOrganisationData(orgObject));
+                                    }}
+                                  >
+                                    <img src={editIcon} alt="Edit" />
+                                  </IconButton>
+                                </Link>
+
                                 <IconButton
-                                  aria-label="edit"
+                                  aria-label="delete"
                                   onClick={() => {
-                                    console.log('editing');
-                                    console.log(row);
-                                    const orgObject = responseData.find(
-                                      (obj) => obj.id === row.id
-                                    );
-                                    dispatch(setOrganisationStatus('edit'));
-                                    dispatch(setOrganisationData(orgObject));
+                                    deleteOrganisation(row.id);
+                                    setLoadingId(row.id);
                                   }}
                                 >
-                                  <img src={editIcon} alt="Edit" />
+                                  {loadingId == rows.id && loadingId != null ? (
+                                    <CircularProgress />
+                                  ) : (
+                                    <img src={deleteIcon} alt="Delete" />
+                                  )}
                                 </IconButton>
-                              </Link>
-
-                              <IconButton
-                                aria-label="delete"
-                                onClick={() => {
-                                  deleteOrganisation(row.id);
-                                  setLoadingId(row.id);
-                                }}
-                              >
-                                {loadingId == rows.id && loadingId != null ? (
-                                  <CircularProgress />
-                                ) : (
-                                  <img src={deleteIcon} alt="Delete" />
-                                )}
-                              </IconButton>
-                            </TableCell>
-                          </TableRow>
-                        ))}
+                              </TableCell>
+                            </TableRow>
+                          ))
+                      ) : (
+                        <TableRow>
+                          <TableCell colSpan={7} align="center">
+                            <h2>No data available</h2>
+                          </TableCell>
+                          {/* Adjust colSpan based on the number of columns */}
+                        </TableRow>
+                      )}
                     </>
                   )}
 
@@ -535,6 +570,7 @@ function OrganizationList() {
                   setPageInfo({ ...pageInfo, page: newPage - 1 });
                   fetchlist(newPage - 1);
                 }}
+                showSizeChanger={false}
               />
 
               {/* <Pagination

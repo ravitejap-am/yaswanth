@@ -47,7 +47,7 @@ function AddOrganizationAdmin() {
       ? {
           orgId: organisation?.organisationData?.id,
           address: {
-            name: organisation?.organisationData?.name,
+            orgName: organisation?.organisationData?.name,
             address1: organisation?.organisationData?.address?.address1,
             address2: organisation?.organisationData?.address?.address2,
             country:
@@ -57,7 +57,7 @@ function AddOrganizationAdmin() {
             postCode: organisation?.organisationData?.address?.postCode,
             landmark: '',
           },
-          name: organisation?.organisationData?.name,
+          orgName: organisation?.organisationData?.name,
           contact: {
             firstName: organisation?.organisationData?.contact?.firstName,
             lastName: organisation?.organisationData?.contact?.lastName,
@@ -90,7 +90,7 @@ function AddOrganizationAdmin() {
   useEffect(() => {
     const storedFirstName = localStorage.getItem('firstName');
     setFirstName(storedFirstName);
-  }, []);
+  }, [organisation]);
 
   const messageHandler = () => {
     hideNotifyMessage();

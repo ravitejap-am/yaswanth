@@ -82,7 +82,7 @@ function OrganizationInfo({
       const updatedOrgData = {
         ...orgData,
         address: values,
-        name: values.name,
+        name: values.orgName,
       };
       console.log('updateData', updatedOrgData);
       selectOrgData(updatedOrgData);
@@ -181,11 +181,9 @@ function OrganizationInfo({
     }
   };
 
-
- 
   const formElements = [
     {
-      name: 'name',
+      name: 'orgName',
       label: 'Organization Name',
       type: 'text',
       style: {
@@ -196,11 +194,10 @@ function OrganizationInfo({
       },
       // rules: [{ required: true, message: 'Please enter your name' }],
       labelName: false,
-      defaultValue: orgData?.name,
+      defaultValue: orgData?.orgName,
       pattern: /^([a-zA-Z]{3,30}\s*)+/,
       emptyErrorMessage: 'Please Enter the Organisation Name',
       invalidErrorMessage: 'Please Enter the Valid Organisation Name',
- 
     },
     {
       name: 'address1',
@@ -327,10 +324,9 @@ function OrganizationInfo({
       labelName: false,
       // rules: [{ required: true, message: 'Please enter Zipcode' }],
       defaultValue: orgData?.address?.postCode,
-      // pattern:/^\d{5}(?:[-\s]\d{4})?$/,
+      pattern: /^[1-9][0-9]{5}$/,
       emptyErrorMessage: 'Please Enter your zipcode',
       invalidErrorMessage: 'Please Enter the Valid City',
-
     },
   ];
   const cancelHandler = (values) => {
