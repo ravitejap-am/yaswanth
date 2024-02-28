@@ -115,7 +115,7 @@ function DynamicTextComponent({
             fontWeight: '700',
             lineHeight: '24px',
           }}
-          loading={buttonLoading}
+          // loading={buttonLoading}
         >
           Add Domain
         </Button>
