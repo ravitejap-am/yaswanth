@@ -36,8 +36,8 @@ const GeneralForm = (props) => {
     personalInfo = {},
     domainProps = {
       isDomain: false,
-      domainDeleteHandler: () => {},
-      addDomainHandler: () => {},
+      domainDeleteHandler: () => { },
+      addDomainHandler: () => { },
     },
   } = props;
   console.log('props', props, 'grid', grid, 'formelements', formElements);
@@ -80,22 +80,32 @@ const GeneralForm = (props) => {
     }
   }, [personalInfo]);
 
+
   const isValid = (
     pattern,
     value,
     name,
     emptyErrorMessage = null,
-    inValidErrorMessage = null
+    inValidErrorMessage = null,
+    passcallback = null
   ) => {
     let result = false;
     if (pattern !== null && pattern !== undefined) {
       const patternObj = new RegExp(pattern);
       if (patternObj.test(value)) {
-        // debugger;
+        
         result = true;
       } else {
-        // debugger;
-        const newMessages = [...Errors];
+      
+        // const newMessages = [...Errors];
+
+        let newMessages = [];
+
+        if (passcallback === null) {
+          newMessages = [...Errors];
+        }
+
+
         // if (value == '' || value == null || value == undefined) {
         //   newMessages.push({
         //     [name]: emptyErrorMessage
@@ -130,8 +140,17 @@ const GeneralForm = (props) => {
               : 'Please enter value',
           });
         }
-        console.log('newMessages ', newMessages);
-        setErrors(newMessages);
+        
+
+
+        // const merges=[...]
+
+        if (passcallback && newMessages?.length > 0) {
+          passcallback(newMessages[0]);
+        }else{
+          setErrors(newMessages);
+        }
+
 
         result = false;
       }
@@ -164,14 +183,13 @@ const GeneralForm = (props) => {
       // onFinish={submitHandler}
       onFinish={(value) => {
         console.log('onFinish values ', value);
-
         setErrors([]);
-
         const checkPatternFound = formElements.some(
           (ItemCheck) => ItemCheck.pattern
         );
         if (checkPatternFound) {
           let patterncountCompleted = 0;
+          const AllErrorMessages = [];
 
           const AvailablePattern = formElements.filter((ItemCheck) => {
             if (ItemCheck.pattern) {
@@ -189,18 +207,30 @@ const GeneralForm = (props) => {
               console.log('patternvalue  ', patternvalue);
               console.log('valuesfield  ', valuesfield);
               console.log('patternName  ', patternName);
+        
               const result = isValid(
                 patternvalue,
                 valuesfield,
                 patternName,
                 emptyErrorMessage,
-                invalidErrorMessage
+                invalidErrorMessage,
+                (message) => {
+                  AllErrorMessages.push(message);
+                  setErrors(AllErrorMessages)
+                }
               );
               if (result === true) {
                 patterncountCompleted = patterncountCompleted + 1;
               }
+
+              console.log('result  ', result);
               return ItemCheck;
             }
+
+
+            // if (no === formElements.length - 1) {
+            //   // setErrors(AllErrorMessages)
+            // }
           });
 
           if (AvailablePattern?.length === patterncountCompleted) {
@@ -231,6 +261,7 @@ const GeneralForm = (props) => {
                     iconClass={item.iconClass}
                     onChange={(e) => {
                       form.setFieldValue({ [item.name]: e.target.value });
+                     
                     }}
                     // pattern={item.pattern}
                     onBlur={() => {
@@ -247,7 +278,7 @@ const GeneralForm = (props) => {
                     style={item.style}
                     defaultValue={item.defaultValue ? item.defaultValue : ''}
                     disabled={item?.disabled || false}
-                    // required={item.required}
+                  // required={item.required}
                   />
                   {<ErrorMessage name={item.name} />}
                 </div>
@@ -256,15 +287,17 @@ const GeneralForm = (props) => {
               text: (
                 <div>
                   <Input
+                    // value={form.getFieldValue([item.name])}
                     labelName={item.labelName ? item.label : null}
                     type={item.type}
                     placeholder={item.labelName ? null : item.label}
                     iconClass={item.iconClass}
-                    onChange={(e) => {
+                    onChange={(e) => {                    
                       form.setFieldValue({ [item.name]: e.target.value });
+                   
                     }}
                     style={item.style}
-                    defaultValue={item.defaultValue ? item.defaultValue : ''}
+                    defaultValue={item?.defaultValue ? item?.defaultValue : ''}
                     onBlur={() => {
                       if (item.pattern !== null && item.pattern !== undefined) {
                         isValid(
@@ -288,6 +321,7 @@ const GeneralForm = (props) => {
                   iconClass={item.iconClass}
                   onChange={(e) => {
                     form.setFieldValue({ [item.name]: e.target.value });
+               
                   }}
                   disabled={item?.disabled || false}
                 />
@@ -300,6 +334,7 @@ const GeneralForm = (props) => {
                   iconClass={item.iconClass}
                   onChange={(e) => {
                     form.setFieldValue({ [item.name]: e.target.value });
+       
                   }}
                   style={item.style}
                   iconStyle={item.iconStyle}
@@ -314,6 +349,7 @@ const GeneralForm = (props) => {
                   iconClass={item.iconClass}
                   onChange={(e) => {
                     form.setFieldValue({ [item.name]: e.target.value });
+            
                   }}
                   style={item.style}
                   disabled={item?.disabled || false}
@@ -328,6 +364,7 @@ const GeneralForm = (props) => {
                   iconClass={item.iconClass}
                   onChange={(e) => {
                     form.setFieldValue({ [item.name]: e.target.value });
+     
                   }}
                   style={item.style}
                   disabled={item?.disabled || false}
@@ -359,6 +396,7 @@ const GeneralForm = (props) => {
                     iconClass={item.iconClass}
                     onChange={(e) => {
                       form.setFieldValue({ [item.name]: e.target.value });
+                  
                     }}
                     style={item.style}
                     disabled={item?.disabled || false}
@@ -402,7 +440,8 @@ const GeneralForm = (props) => {
                     /> */}
                         <div>
                           <Dropdown
-                            labelName={item.labelName ? item.label : null}
+                             key={item.name||"dropdown"}
+                             labelName={item.labelName ? item.label : null}
                             options={
                               item?.options != undefined ? item?.options : []
                             }
@@ -410,6 +449,8 @@ const GeneralForm = (props) => {
                               if (isSuperAdmin) {
                                 item?.onSelectApiCall(value);
                               }
+                              // const namevalue=item.name;
+                              
                               form.setFieldsValue({ [item.name]: value });
                             }}
                             style={item.style}
