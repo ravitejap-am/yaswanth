@@ -194,7 +194,7 @@ function OrganizationInfo({
       },
       // rules: [{ required: true, message: 'Please enter your name' }],
       labelName: false,
-      defaultValue: orgData?.orgName,
+      defaultValue: orgData?.name,
       pattern: /^([a-zA-Z]{3,30}\s*)+/,
       emptyErrorMessage: 'Please Enter the Organisation Name',
       invalidErrorMessage: 'Please Enter the Valid Organisation Name',
@@ -334,7 +334,7 @@ function OrganizationInfo({
     const updatedOrgData = {
       ...orgData,
       address: values,
-      name: values.name,
+      name: values.orgName,
     };
 
     selectOrgData(updatedOrgData);
