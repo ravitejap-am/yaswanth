@@ -181,6 +181,8 @@ function OrganizationInfo({
     }
   };
 
+
+ 
   const formElements = [
     {
       name: 'name',
@@ -198,6 +200,7 @@ function OrganizationInfo({
       pattern: /^([a-zA-Z]{3,30}\s*)+/,
       emptyErrorMessage: 'Please Enter the Organisation Name',
       invalidErrorMessage: 'Please Enter the Valid Organisation Name',
+ 
     },
     {
       name: 'address1',
@@ -307,8 +310,8 @@ function OrganizationInfo({
         console.log('handle city change');
       },
       pattern: /^([a-zA-Z]{3,30}\s*)+/,
-      emptyErrorMessage: 'Pleas Select the City',
-      invalidErrorMessage: 'Pleas Select the Valid City',
+      emptyErrorMessage: 'Please Select the City',
+      invalidErrorMessage: 'Please Select the Valid City',
     },
     {
       name: 'postCode',
@@ -324,6 +327,10 @@ function OrganizationInfo({
       labelName: false,
       // rules: [{ required: true, message: 'Please enter Zipcode' }],
       defaultValue: orgData?.address?.postCode,
+      // pattern:/^\d{5}(?:[-\s]\d{4})?$/,
+      emptyErrorMessage: 'Please Enter your zipcode',
+      invalidErrorMessage: 'Please Enter the Valid City',
+
     },
   ];
   const cancelHandler = (values) => {
