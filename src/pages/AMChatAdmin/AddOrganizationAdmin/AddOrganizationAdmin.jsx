@@ -87,7 +87,7 @@ function AddOrganizationAdmin() {
   const [cities, setCities] = useState([]);
   const [firstNamelocal, setFirstName] = useState('');
   const [backDropLoading, setBackDropLoading] = useState(false);
-  useEffect(() => {
+    useEffect(() => {
     const storedFirstName = localStorage.getItem('firstName');
     setFirstName(storedFirstName);
   }, [organisation]);
@@ -212,8 +212,8 @@ function AddOrganizationAdmin() {
                 },
                 textStyle: {
                   color: 'black',
-                  fontWeight: '500',
-                  fontSize: '24px',
+                  fontWeight: '600',
+                  fontSize: '18px',
                 },
               }}
             />

@@ -140,6 +140,7 @@ function OrgUserList() {
       });
       setLoading(false);
     } catch (error) {
+      setDocuments([]);
       console.error('Error fetching documents:', error.message);
     }
   };
@@ -264,7 +265,7 @@ function OrgUserList() {
       <div className={Styles.superAdminMiddleParentDiv}>
         <div className={Styles.superAdminProfileCardStyle}>
           <OrganizationAdminHeader
-            componentName={`Welcome ${firstName || ''}`}
+            componentName={`Document List`}
             name={firstName || ''}
             profileImageSrc={localStorage.getItem('userImageUrl')}
             customStyle={{
@@ -278,8 +279,8 @@ function OrgUserList() {
               },
               textStyle: {
                 color: 'black',
-                fontWeight: '500',
-                fontSize: '24px',
+                fontWeight: '600',
+                fontSize: '18px',
               },
             }}
           />

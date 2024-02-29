@@ -185,6 +185,7 @@ const OrgAdminChatPage = (props) => {
   //   setFirstName(storedFirstName);
   // }, []);
   const callAPiForSuperAdmin = async () => { 
+    // await fetchUserProfile();
     await getDocumentsCount()
     await getOrganisationCount()
   } 
@@ -267,6 +268,7 @@ const OrgAdminChatPage = (props) => {
         'firstNameOrganisation',
         userData?.data?.user?.firstName
       );
+      localStorage.setItem('firstName', userData?.data?.user?.firstName);
       localStorage.setItem(
         'lastNameOrganisation',
         userData?.data?.user?.lastName
@@ -369,8 +371,8 @@ const OrgAdminChatPage = (props) => {
               },
               textStyle: {
                 color: 'black',
-                fontWeight: '500',
-                fontSize: '24px',
+                fontWeight: '600',
+                fontSize: '18px',
               },
             }}
             navigationRoute={navigationRoute}
@@ -390,7 +392,7 @@ const OrgAdminChatPage = (props) => {
               </div>
               <div className={SAStyles.titlePriceStyle}>
                 <p className={SAStyles.titleStyle}>Organizations</p>
-                <p className={Styles.priceStyle}>{orgCount}</p>
+                <p className={SAStyles.priceStyle}>{orgCount}</p>
               </div>
             </div>
 
@@ -414,11 +416,11 @@ const OrgAdminChatPage = (props) => {
                 <img src={circle2} alt="" />
               </div>
               <div className={SAStyles.titlePriceStyle}>
-                <div className={SAStyles.titleStyle}>
+                <div className={SAStyles.titleStyle} >
                   <p>Documents Uploaded</p>
                 </div>
                 <div>
-                  <p className={Styles.priceStyle}>{docCount}</p>
+                  <p className={SAStyles.priceStyle}>{docCount}</p>
                 </div>
               </div>
             </div>

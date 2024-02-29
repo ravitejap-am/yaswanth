@@ -78,7 +78,7 @@ function OrganizationList() {
   const [orderBy, setOrderBy] = React.useState('name');
   const [tableloading, setTableLoading] = useState(false);
   const [searchValue, setSearchValue] = useState('');
-
+  
   useEffect(() => {
     const storedFirstName = localStorage.getItem('firstName');
     setFirstName(storedFirstName);
@@ -282,11 +282,11 @@ function OrganizationList() {
               },
               textStyle: {
                 color: 'black',
-                fontWeight: '500',
-                fontSize: '24px',
+                fontWeight: '600',
+                fontSize: '18px',
               },
             }}
-          />
+                      />
         </div>
 
         <div className={Styles.bannerBtn}>

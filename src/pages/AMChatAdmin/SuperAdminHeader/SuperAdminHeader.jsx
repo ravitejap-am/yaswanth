@@ -39,12 +39,14 @@ function SuperAdminHeader({
             className={Styles.superAdminProfileImgNameStyle}
             onClick={popupState.open}
           >
+            <div>
             <img
               src={profileImageSrc ? profileImageSrc : DefaultProfileImage}
               alt=""
               className={Styles.AdminProfileStyle}
               style={customStyle.imageStyle}
             />
+            </div>
             <span
               className={Styles.SuperAdminProfileStyle}
               style={customStyle.textStyle}
