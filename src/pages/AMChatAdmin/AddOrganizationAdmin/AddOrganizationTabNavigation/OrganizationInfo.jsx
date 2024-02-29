@@ -313,13 +313,17 @@ function OrganizationInfo({
     {
       name: 'postCode',
       label: 'Zipcode',
-      type: 'text',
+      type: 'number',
       style: {
-        width: '445px',
+        width: '465px',
         borderRadius: '40px',
         border: '1px solid var(--Brand-700, #4338CA)',
         backgroundColor: 'transparent',
         margin: '10px 0', // Adjusted for consistent spacing
+        height: '50px',
+        display: 'flex',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
       },
       labelName: false,
       // rules: [{ required: true, message: 'Please enter Zipcode' }],

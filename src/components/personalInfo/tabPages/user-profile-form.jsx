@@ -25,7 +25,7 @@ function UserProfileForm({ formData, setFormData, submitHandler }) {
     e.preventDefault();
     if (validateForm()) {
       // Submit the form
-      console.log(formData);
+      submitHandler(formData);
     }
   };
 
@@ -147,9 +147,9 @@ function UserProfileForm({ formData, setFormData, submitHandler }) {
         type="primary"
         htmlType="submit"
         className="buttonStyle"
-        onClick={() => {
-          submitHandler(formData);
-        }}
+        // onClick={() => {
+        //   submitHandler(formData);
+        // }}
       >
         Submit
       </Button>
