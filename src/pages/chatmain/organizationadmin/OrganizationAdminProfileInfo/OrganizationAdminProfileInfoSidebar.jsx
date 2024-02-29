@@ -19,7 +19,7 @@ function OrganizationAdminProfileInfoSidebar() {
             <img src={Logo} alt="" className={Styles.appName} />
           </div>
 
-          <div className={Styles.bannerBtn}>
+          {/* <div className={Styles.bannerBtn}>
             <div className={Styles.bannerButton}>
               <GeneralButton
                 name={"Start New Chat"}
@@ -32,7 +32,7 @@ function OrganizationAdminProfileInfoSidebar() {
                 height={"45px"}
               />
             </div>
-          </div>
+          </div> */}
 
           <div className={Styles.container}>
             <div className={Styles.SuperAdminChildContainer}>

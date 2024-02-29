@@ -19,7 +19,7 @@ function SuperAdminPersonalInfoSideBar() {
             <img src={Logo} alt="" className={Styles.appName} />
           </div>
 
-          <div className={Styles.bannerBtn}>
+          {/* <div className={Styles.bannerBtn}>
             <div className={Styles.bannerButton}>
               <GeneralButton
                 name={"Start New Chat"}
@@ -32,7 +32,7 @@ function SuperAdminPersonalInfoSideBar() {
                 height={"45px"}
               />
             </div>
-          </div>
+          </div> */}
 
           <div className={Styles.container}>
             <Link to="/dashboardadmin" style={{ textDecoration: "none" }}>

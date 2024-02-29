@@ -18,7 +18,7 @@ function userProfileSidebar() {
             <img src={Logo} alt="" className={Styles.appName} />
           </div>
 
-          <div className={Styles.bannerBtn}>
+          {/* <div className={Styles.bannerBtn}>
             <div className={Styles.bannerButton}>
               <GeneralButton
                 name={"Start New Chat"}
@@ -31,7 +31,7 @@ function userProfileSidebar() {
                 height={"45px"}
               />
             </div>
-          </div>
+          </div> */}
 
           <div className={Styles.container}>
             <Link to="/userchat" style={{ textDecoration: "none" }}>
