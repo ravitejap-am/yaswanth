@@ -177,28 +177,28 @@ function OrganizationDomains({
 
   const submitHandler = (values) => {
     if (values != undefined) {
-      if (domainFormatValidation(values)) {
-        if (domainNameValidation(values)) {
-          const updatedOrgData = {
-            ...orgData,
-            metaData: values,
-          };
-          console.log('updateorgdata', updatedOrgData);
-          selectOrgData(updatedOrgData);
-          if (organisation?.organisationStatus == 'edit') {
-            editOrganisation(updatedOrgData);
-            return;
-          }
-          setSelectedTab('subscriptionplan');
-        } else {
-          showNotifyMessage(
-            'warn',
-            'At least one domain name should match the organisation domain',
-            messageHandler
-          );
+      // if (domainFormatValidation(values)) {
+      if (domainNameValidation(values)) {
+        const updatedOrgData = {
+          ...orgData,
+          metaData: values,
+        };
+        console.log('updateorgdata', updatedOrgData);
+        selectOrgData(updatedOrgData);
+        if (organisation?.organisationStatus == 'edit') {
+          editOrganisation(updatedOrgData);
           return;
         }
+        setSelectedTab('subscriptionplan');
+      } else {
+        showNotifyMessage(
+          'warn',
+          'At least one domain name should match the organisation domain',
+          messageHandler
+        );
+        return;
       }
+      // }
     }
 
     // setSelectedTab('organizationadmin');

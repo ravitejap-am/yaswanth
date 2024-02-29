@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { PlusOutlined } from '@ant-design/icons';
+import { PlusOutlined, DeleteOutlined } from '@ant-design/icons'; // Import the delete icon
 
 const CircularFileInput = ({ initialImageUrl, apiUrl, onChange }) => {
   const [imageUrl, setImageUrl] = useState('');
@@ -17,8 +17,13 @@ const CircularFileInput = ({ initialImageUrl, apiUrl, onChange }) => {
     onChange(selectedFile);
   };
 
+  const handleDelete = () => {
+    setImageUrl(''); // Clear the image URL
+    onChange(null); // Clear the file selection
+  };
+
   return (
-    <label htmlFor="file-input" style={{ display: 'block', cursor: 'pointer' }}>
+    <div>
       <input
         type="file"
         id="file-input"
@@ -26,42 +31,62 @@ const CircularFileInput = ({ initialImageUrl, apiUrl, onChange }) => {
         style={{ display: 'none' }}
         onChange={handleFileChange}
       />
-      <div
-        style={{
-          width: '100px',
-          height: '100px',
-          borderRadius: '50%',
-          overflow: 'hidden',
-          border: '1px solid #d9d9d9',
-          position: 'relative',
-        }}
+      <label
+        htmlFor="file-input"
+        style={{ display: 'block', cursor: 'pointer' }}
       >
-        {imageUrl ? (
-          <img
-            src={imageUrl}
-            alt="Selected"
-            style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-            }}
+        <div
+          style={{
+            width: '100px',
+            height: '100px',
+            borderRadius: '50%',
+            overflow: 'hidden',
+            border: '1px solid #d9d9d9',
+            position: 'relative',
+          }}
+        >
+          {imageUrl ? (
+            <img
+              src={imageUrl}
+              alt="Selected"
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+              }}
+            />
+          ) : (
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                width: '100%',
+                height: '100%',
+                color: '#d9d9d9',
+              }}
+            >
+              <PlusOutlined style={{ fontSize: '24px' }} />
+            </div>
+          )}
+        </div>
+      </label>
+      {imageUrl && ( // Render delete button only if imageUrl is present
+        <div // Delete icon container
+          style={{
+            marginTop: '5px',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <DeleteOutlined
+            style={{ fontSize: '16px', color: 'red', cursor: 'pointer' }}
+            onClick={handleDelete}
           />
-        ) : (
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              width: '100%',
-              height: '100%',
-              color: '#d9d9d9',
-            }}
-          >
-            <PlusOutlined style={{ fontSize: '24px' }} />
-          </div>
-        )}
-      </div>
-    </label>
+        </div>
+      )}
+    </div>
   );
 };
 
