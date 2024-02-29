@@ -47,7 +47,7 @@ function AddOrganizationAdmin() {
       ? {
           orgId: organisation?.organisationData?.id,
           address: {
-            orgName: organisation?.organisationData?.name,
+            name: organisation?.organisationData?.name,
             address1: organisation?.organisationData?.address?.address1,
             address2: organisation?.organisationData?.address?.address2,
             country:
@@ -57,7 +57,7 @@ function AddOrganizationAdmin() {
             postCode: organisation?.organisationData?.address?.postCode,
             landmark: '',
           },
-          orgName: organisation?.organisationData?.name,
+          name: organisation?.organisationData?.name,
           contact: {
             firstName: organisation?.organisationData?.contact?.firstName,
             lastName: organisation?.organisationData?.contact?.lastName,
@@ -226,7 +226,7 @@ function AddOrganizationAdmin() {
           <br />
           <div
             className={Styles.superAdminTabChildCardStyle}
-            style={{ height: '74%' }}
+            style={{ height: '70%', overflowY: 'auto' }}
           >
             {selectedTab === 'personalinformation' && (
               <OrganizationInfo

@@ -106,6 +106,7 @@ function UserProfileForm({ formData, setFormData, submitHandler }) {
             value={formData.email}
             onChange={handleChange}
             disabled
+            style={{ backgroundColor: '#CBD5E1' }}
           />
           {errors.email && <span className="error">{errors.email}</span>}
         </div>
@@ -119,6 +120,7 @@ function UserProfileForm({ formData, setFormData, submitHandler }) {
             value={formData.organization}
             onChange={handleChange}
             disabled
+            style={{ backgroundColor: '#CBD5E1' }}
           />
           {errors.organization && (
             <span className="error">{errors.organization}</span>
@@ -136,6 +138,7 @@ function UserProfileForm({ formData, setFormData, submitHandler }) {
             value={formData.status}
             onChange={handleChange}
             disabled
+            style={{ backgroundColor: '#CBD5E1' }}
           />
           {errors.status && <span className="error">{errors.status}</span>}
         </div>
