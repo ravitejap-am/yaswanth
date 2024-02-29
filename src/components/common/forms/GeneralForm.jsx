@@ -100,7 +100,7 @@ const GeneralForm = (props) => {
           
           form.setFieldsValue({ [name]: namevalue });
         })
-        
+
       }
     }
   }, []);
@@ -119,6 +119,15 @@ const GeneralForm = (props) => {
       const patternObj = new RegExp(pattern);
       if (patternObj.test(value)) {
 
+        const IsErrorAvailable = [...Errors].filter((ErrorName) => {
+          
+          const keysname = Object?.keys(ErrorName);
+
+          if (ErrorName && keysname && keysname[0] !== name) {
+            return ErrorName;
+          }
+        });
+        setErrors(IsErrorAvailable||[])
         result = true;
       } else {
         result = false;
