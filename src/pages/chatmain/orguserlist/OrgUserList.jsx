@@ -39,7 +39,7 @@ import AMChatHeader from '../../AMChatAdmin/AMChatHeader/AMChatHeader';
 import { Pagination } from 'antd';
 import OrganizationAdminHeader from '../organizationadmin/OrganizationAdminHeader/OrganizationAdminHeader';
 
-function OrgUserList() {
+function OrgUserList(props) {
   let {
     buttonLoading,
     setButtonLoading,
@@ -69,6 +69,8 @@ function OrgUserList() {
   const user = useSelector(selectUser);
   const jwt = user.userToken;
   const [firstName, setFirstName] = useState('');
+  const navigationRoute = props.navigationRoute
+
   useEffect(() => {
     // Retrieve firstName from localStorage
     const storedFirstName = localStorage.getItem('firstNameOrganisation');
@@ -140,6 +142,7 @@ function OrgUserList() {
       });
       setLoading(false);
     } catch (error) {
+      setDocuments([]);
       console.error('Error fetching documents:', error.message);
     }
   };
@@ -264,7 +267,7 @@ function OrgUserList() {
       <div className={Styles.superAdminMiddleParentDiv}>
         <div className={Styles.superAdminProfileCardStyle}>
           <OrganizationAdminHeader
-            componentName={`Welcome ${firstName || ''}`}
+            componentName={`Document List`}
             name={firstName || ''}
             profileImageSrc={localStorage.getItem('userImageUrl')}
             customStyle={{
@@ -278,10 +281,11 @@ function OrgUserList() {
               },
               textStyle: {
                 color: 'black',
-                fontWeight: '500',
-                fontSize: '24px',
+                fontWeight: '600',
+                fontSize: '18px',
               },
             }}
+            navigationRoute={navigationRoute}
           />
         </div>
 

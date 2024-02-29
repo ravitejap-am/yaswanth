@@ -14,6 +14,7 @@ import OrgDocumentList from "../../../pages/chatmain/orgdocumentlist/OrgDocument
 import usersicon from "../../../asset/users.png";
 import documenticon from "../../../asset/document1.png";
 function OrgDocumentListSidebar() {
+  const navigationRoute = "/organizationPersonalInfo";
   return (
     <>
       <div className={Styles.AMChatMainDiv}>
@@ -72,7 +73,7 @@ function OrgDocumentListSidebar() {
             </div>
           </div>
         </div>
-        <OrgDocumentList />
+        <OrgDocumentList navigationRoute={navigationRoute}/>
         <br />
         <br />
       </div>

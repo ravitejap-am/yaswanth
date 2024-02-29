@@ -14,6 +14,7 @@ import OrgUserList from "../../../pages/chatmain/orguserlist/OrgUserList";
 import usersicon from "../../../asset/users.png";
 import documenticon from "../../../asset/document1.png";
 function OrgUserListSidebar() {
+  const navigationRoute = "/organizationPersonalInfo";
   return (
     <>
       <div className={Styles.AMChatMainDiv}>
@@ -73,7 +74,7 @@ function OrgUserListSidebar() {
             </div> */}
           </div>
         </div>
-        <OrgUserList />
+        <OrgUserList navigationRoute={navigationRoute}/>
       </div>
       <div className={Styles.AMChatFooterStyle}>
         <footer className="AMChat-admin-footer">

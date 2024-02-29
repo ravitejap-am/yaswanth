@@ -25,7 +25,7 @@ const getBase64 = (file) =>
     reader.onerror = (error) => reject(error);
   });
 
-function AddOrgUser() {
+function AddOrgUser(props) {
   let {
     buttonLoading,
     setButtonLoading,
@@ -46,6 +46,7 @@ function AddOrgUser() {
   const [firstName, setFirstName] = useState('');
   const inputRefs = useRef([]);
   const profileSrc = localStorage.getItem("profileImage");
+  const navigationRoute = props.navigationRoute;
 
   useEffect(() => {
     // Retrieve firstName from localStorage
@@ -141,12 +142,13 @@ function AddOrgUser() {
         });
         const data = await responseUser.json();
         setButtonLoading(false);
-        if (responseUser.ok) {
+        if (responseUser?.ok) {
           setIsReset(true);
           showNotifyMessage('success', data.message, messageHandler);
           navigate('/orguserlist');
-        } else if (!responseUser.ok && responseUser.status == 400) {
+        } else {
           showNotifyMessage('error', data.message, messageHandler);
+          return
         }
       } catch (error) {
         if (
@@ -277,10 +279,11 @@ function AddOrgUser() {
               },
               textStyle: {
                 color: 'black',
-                fontWeight: '500',
-                fontSize: '24px',
+                fontWeight: '600',
+                fontSize: '18px',
               },
             }}
+            navigationRoute={navigationRoute}
           />
         </div>
 

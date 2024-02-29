@@ -13,7 +13,7 @@ import { useMessageState } from '../../../hooks/useapp-message';
 import AMChatHeader from '../../AMChatAdmin/AMChatHeader/AMChatHeader';
 import OrganizationAdminHeader from '../organizationadmin/OrganizationAdminHeader/OrganizationAdminHeader';
 
-function OrgAddDocument() {
+function OrgAddDocument(props) {
   let {
     buttonLoading,
     setButtonLoading,
@@ -33,6 +33,7 @@ function OrgAddDocument() {
   const user = useSelector(selectUser);
   const jwt = user.userToken;
   const profileSrc = localStorage.getItem("profileImage");
+  const navigationRoute = props?.navigationRoute;
 
   const messageHandler = () => {
     setIsReset(false);
@@ -157,10 +158,11 @@ function OrgAddDocument() {
               },
               textStyle: {
                 color: 'black',
-                fontWeight: '500',
-                fontSize: '24px',
+                fontWeight: '600',
+                fontSize: '18px',
               },
             }}
+            navigationRoute = {navigationRoute}
           />
         </div>
 

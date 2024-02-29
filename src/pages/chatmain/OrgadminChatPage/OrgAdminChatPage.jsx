@@ -190,10 +190,11 @@ const OrgAdminChatPage = (props) => {
   //   const storedFirstName = localStorage.getItem("firstNameOrganisation");
   //   setFirstName(storedFirstName);
   // }, []);
-  const callAPiForSuperAdmin = async () => {
-    await getDocumentsCount();
-    await getOrganisationCount();
-  };
+  const callAPiForSuperAdmin = async () => { 
+    // await fetchUserProfile();
+    await getDocumentsCount()
+    await getOrganisationCount()
+  } 
 
   useEffect(() => {
     setHideChatInitialPage(false);
@@ -281,6 +282,7 @@ const OrgAdminChatPage = (props) => {
         'firstNameOrganisation',
         userData?.data?.user?.firstName
       );
+      localStorage.setItem('firstName', userData?.data?.user?.firstName);
       localStorage.setItem(
         'lastNameOrganisation',
         userData?.data?.user?.lastName
@@ -363,104 +365,98 @@ const OrgAdminChatPage = (props) => {
 
   return (
     <>
-      {isLoading && <PageLoader loadingStatus={isLoading} />}
-      <div className="orgadminchat-screen">
-        <div
-          className="orgadminchat-chat-container"
-          // style={{width: '79vw' }}
-        >
-          <div className="orgadminchat-chat-header">
-            <OrganizationAdminHeader
-              componentName={`Welcome ${firstName || ''}`}
-              name={firstName || ''}
-              profileImageSrc={localStorage.getItem('userImageUrl')}
-              customStyle={{
-                containerStyle: {
-                  display: 'flex',
-                  borderRadius: '8px',
-                },
-                imageStyle: {
-                  width: '44px',
-                  height: '44px',
-                },
-                textStyle: {
-                  color: 'black',
-                  fontWeight: '500',
-                  fontSize: '24px',
-                },
-              }}
-              navigationRoute={navigationRoute}
-            />
-          </div>
-          {/* super admin dashboard */}
-          {userRole === 'SUPER_ADMIN' && (
-            <div
-              className={SAStyles.superAdminMiddleChildDiv}
-              style={{ marginBottom: '15px' }}
-            >
-              <div
-                className={SAStyles.superAdminMiddleCardStyle}
-                style={{ backgroundColor: '#FFFFFF' }}
-              >
-                <div style={{ display: 'flex' }}>
-                  {' '}
-                  <div className={SAStyles.superAdminMiddleCardCircle1Style}>
-                    {' '}
-                    <img src={circle1} alt="" />
-                  </div>
-                  <div className={SAStyles.titlePriceStyle}>
-                    <p className={SAStyles.titleStyle}>Organizations</p>
-                    <p className={Styles.priceStyle}>{orgCount}</p>
-                  </div>
-                </div>
-
-                <div className={SAStyles.flowImageParentDiv}>
-                  <img src={flow} alt="" className={SAStyles.flowImageStyle} />
-                  <img
-                    src={flowImage2}
-                    alt=""
-                    className={SAStyles.flowBelowImageStyle}
-                  />
-                </div>
+    {isLoading && <PageLoader loadingStatus={isLoading} />}
+    <div className="orgadminchat-screen">
+      <div className="orgadminchat-chat-container" 
+      // style={{width: '79vw' }} 
+      >
+        <div className="orgadminchat-chat-header">
+          <OrganizationAdminHeader
+            componentName={`Welcome ${firstName || ''}`}
+            name={firstName || ''}
+            profileImageSrc={localStorage.getItem('userImageUrl')}
+            customStyle={{
+              containerStyle: {
+                display: 'flex',
+                borderRadius: '8px',
+              },
+              imageStyle: {
+                width: '44px',
+                height: '44px',
+              },
+              textStyle: {
+                color: 'black',
+                fontWeight: '600',
+                fontSize: '18px',
+              },
+            }}
+            navigationRoute={navigationRoute}
+          />
+        </div>
+        {/* super admin dashboard */}
+        {userRole === 'SUPER_ADMIN' && <div className={SAStyles.superAdminMiddleChildDiv} style={{marginBottom: '15px'}}>
+          <div
+            className={SAStyles.superAdminMiddleCardStyle}
+            style={{ backgroundColor: '#FFFFFF' }}
+          >
+            <div style={{ display: 'flex' }}>
+              {' '}
+              <div className={SAStyles.superAdminMiddleCardCircle1Style}>
+                {' '}
+                <img src={circle1} alt="" />
               </div>
+              <div className={SAStyles.titlePriceStyle}>
+                <p className={SAStyles.titleStyle}>Organizations</p>
+                <p className={SAStyles.priceStyle}>{orgCount}</p>
+              </div>
+            </div>
 
-              <div
-                className={SAStyles.superAdminMiddleCardStyle}
-                style={{ backgroundColor: '#FFFFFF' }}
-              >
-                <div style={{ display: 'flex' }}>
-                  <div className={SAStyles.superAdminMiddleCardCircle1Style}>
-                    {' '}
-                    <img src={circle2} alt="" />
-                  </div>
-                  <div className={SAStyles.titlePriceStyle}>
-                    <div className={SAStyles.titleStyle}>
-                      <p>Documents Uploaded</p>
-                    </div>
-                    <div>
-                      <p className={Styles.priceStyle}>{docCount}</p>
-                    </div>
-                  </div>
+            <div className={SAStyles.flowImageParentDiv}>
+              <img src={flow} alt="" className={SAStyles.flowImageStyle} />
+              <img
+                src={flowImage2}
+                alt=""
+                className={SAStyles.flowBelowImageStyle}
+              />
+            </div>
+          </div>
+
+          <div
+            className={SAStyles.superAdminMiddleCardStyle}
+            style={{ backgroundColor: '#FFFFFF' }}
+          >
+            <div style={{ display: 'flex' }}>
+              <div className={SAStyles.superAdminMiddleCardCircle1Style}>
+                {' '}
+                <img src={circle2} alt="" />
+              </div>
+              <div className={SAStyles.titlePriceStyle}>
+                <div className={SAStyles.titleStyle} >
+                  <p>Documents Uploaded</p>
                 </div>
-
                 <div>
-                  <img src={flow} alt="" className={SAStyles.flowImageStyle} />
-                  <img
-                    src={flowImage2}
-                    alt=""
-                    className={SAStyles.flowBelowImageStyle}
-                  />
+                  <p className={SAStyles.priceStyle}>{docCount}</p>
                 </div>
               </div>
             </div>
-          )}
 
-          {/* end super admin dashboard */}
-          <div className="hi-main">
-            <div className="orgadminchat-chat-content-head">
-              <div
-                className="orgadminchat-chat-content"
-                // style={{width: '100%'}}
+            <div>
+              <img src={flow} alt="" className={SAStyles.flowImageStyle} />
+              <img
+                src={flowImage2}
+                alt=""
+                className={SAStyles.flowBelowImageStyle}
+              />
+            </div>
+          </div>
+        </div>}
+
+{/* end super admin dashboard */}
+        <div className="hi-main">
+          <div className="orgadminchat-chat-content-head">
+            <div className="orgadminchat-chat-content" 
+            // style={{width: '100%'}}
+
               >
                 <div className={Styles.questionAndAnswerContainer}>
                   {hideChatInitialPage && (

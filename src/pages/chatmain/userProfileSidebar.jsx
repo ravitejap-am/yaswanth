@@ -18,7 +18,7 @@ function userProfileSidebar() {
             <img src={Logo} alt="" className={Styles.appName} />
           </div>
 
-          <div className={Styles.bannerBtn}>
+          {/* <div className={Styles.bannerBtn}>
             <div className={Styles.bannerButton}>
               <GeneralButton
                 name={"Start New Chat"}
@@ -31,17 +31,17 @@ function userProfileSidebar() {
                 height={"45px"}
               />
             </div>
-          </div>
+          </div> */}
 
           <div className={Styles.container}>
+            <Link to="/userchat" style={{ textDecoration: "none" }}>
             <div className={Styles.SuperAdminChildContainer}>
               <span>
                 <img src={arrorLink} alt="" />
-                <Link to="/userchat" style={{ textDecoration: "none" }}>
                   <p className={Styles.organizationTextStyle}>Back to Chat</p>{" "}
-                </Link>
               </span>
             </div>
+            </Link>
             <br />
             {/* <div className={Styles.SuperAdminChildContainer}>
             <Link

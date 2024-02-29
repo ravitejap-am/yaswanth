@@ -34,10 +34,13 @@ import AMChatHeader from '../../AMChatAdmin/AMChatHeader/AMChatHeader';
 import OrganizationAdminHeader from '../organizationadmin/OrganizationAdminHeader/OrganizationAdminHeader';
 import { Pagination } from 'antd';
 
-function OrgDocumentList() {
+function OrgDocumentList(props) {
   const user = useSelector(selectUser);
   const jwt = user.userToken;
   const navigate = useNavigate();
+  console.log("user props----->", props);
+  const navigationRoute = props.navigationRoute
+  console.log('navigationRoute---->', navigationRoute);
 
   const searchStyles = {
     width: '300px',
@@ -274,10 +277,11 @@ function OrgDocumentList() {
               },
               textStyle: {
                 color: 'black',
-                fontWeight: '500',
-                fontSize: '24px',
+                fontWeight: '600',
+                fontSize: '18px',
               },
             }}
+            navigationRoute = {navigationRoute}
           />
         </div>
         <div className={Styles.bannerBtn}>
