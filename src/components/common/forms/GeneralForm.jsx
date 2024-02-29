@@ -66,6 +66,12 @@ const GeneralForm = (props) => {
         })
       } else {
         form.setFieldsValue(orgInfo?.orgData?.contact);
+        formElements?.map((itemname)=>{
+          const name=itemname?.name||'';
+          const namevalue=itemname?.defaultValue||'';
+          
+          form.setFieldsValue({ [name]: namevalue });
+        })
       }
 
       console.log("_form_",form.getFieldsValue())
@@ -87,6 +93,14 @@ const GeneralForm = (props) => {
           lastName: personalInfo?.userData?.lastName,
         });
         console.log('form---->', form);
+
+        formElements?.map((itemname)=>{
+          const name=itemname?.name||'';
+          const namevalue=itemname?.defaultValue||'';
+          
+          form.setFieldsValue({ [name]: namevalue });
+        })
+        
       }
     }
   }, []);
