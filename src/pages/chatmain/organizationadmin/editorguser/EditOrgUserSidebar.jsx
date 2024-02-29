@@ -16,6 +16,7 @@ import documenticon from "../../../../asset/document1.png";
 import EditOrgUser from "./EditOrgUser";
 
 function EditOrgUserSidebar() {
+  const navigationRoute = "/organizationPersonalInfo";
   return (
     <>
       <div className={Styles.AMChatMainDiv}>
@@ -71,7 +72,7 @@ function EditOrgUserSidebar() {
             </div>
           </div>
         </div>
-        <EditOrgUser />
+        <EditOrgUser navigationRoute={navigationRoute}/>
       </div>
       <div className={Styles.AMChatFooterStyle}>
         <footer className="AMChat-admin-footer">

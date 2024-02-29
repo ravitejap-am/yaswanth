@@ -15,6 +15,8 @@ import usersicon from "../../../asset/users.png";
 import documenticon from "../../../asset/document1.png";
 
 function OrgAdminSidebar() {
+  const navigationRoute = "/organizationPersonalInfo";
+
   return (
     <>
       <div className={Styles.AMChatMainDiv}>
@@ -70,7 +72,7 @@ function OrgAdminSidebar() {
             </div>
           </div>
         </div>
-        <AddOrgUser />
+        <AddOrgUser navigationRoute={navigationRoute}/>
       </div>
       <div className={Styles.AMChatFooterStyle}>
         <footer className="AMChat-admin-footer">

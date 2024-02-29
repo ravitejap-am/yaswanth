@@ -13,7 +13,7 @@ import * as constants from '../../../../constants/Constant';
 import AMChatHeader from '../../../AMChatAdmin/AMChatHeader/AMChatHeader';
 import OrganizationAdminHeader from '../../organizationadmin/OrganizationAdminHeader/OrganizationAdminHeader';
 
-function OrgEditDocument() {
+function OrgEditDocument(props) {
   let {
     buttonLoading,
     setButtonLoading,
@@ -38,6 +38,7 @@ function OrgEditDocument() {
   const user = useSelector(selectUser);
   const jwt = user.userToken;
   const profileSrc = localStorage.getItem("profileImage");
+  const navigationRoute = props?.navigationRoute;
 
   useEffect(() => {
     const fetchDocumentDetails = async () => {
@@ -187,6 +188,7 @@ function OrgEditDocument() {
                 fontSize: '18px',
               },
             }}
+            navigationRoute={navigationRoute}
           />
         </div>
 

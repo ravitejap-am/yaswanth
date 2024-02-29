@@ -89,6 +89,7 @@ function EditForm({ formData, setFormData, submitHandler }) {
             name="email"
             value={formData.email}
             onChange={handleChange}
+            style={{ backgroundColor: '#CBD5E1' }}
             disabled
           />
           {errors.email && <span className="error">{errors.email}</span>}

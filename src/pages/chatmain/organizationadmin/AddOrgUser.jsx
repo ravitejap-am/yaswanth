@@ -25,7 +25,7 @@ const getBase64 = (file) =>
     reader.onerror = (error) => reject(error);
   });
 
-function AddOrgUser() {
+function AddOrgUser(props) {
   let {
     buttonLoading,
     setButtonLoading,
@@ -46,6 +46,7 @@ function AddOrgUser() {
   const [firstName, setFirstName] = useState('');
   const inputRefs = useRef([]);
   const profileSrc = localStorage.getItem("profileImage");
+  const navigationRoute = props.navigationRoute;
 
   useEffect(() => {
     // Retrieve firstName from localStorage
@@ -281,6 +282,7 @@ function AddOrgUser() {
                 fontSize: '18px',
               },
             }}
+            navigationRoute={navigationRoute}
           />
         </div>
 

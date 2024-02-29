@@ -39,7 +39,7 @@ import AMChatHeader from '../../AMChatAdmin/AMChatHeader/AMChatHeader';
 import { Pagination } from 'antd';
 import OrganizationAdminHeader from '../organizationadmin/OrganizationAdminHeader/OrganizationAdminHeader';
 
-function OrgUserList() {
+function OrgUserList(props) {
   let {
     buttonLoading,
     setButtonLoading,
@@ -69,6 +69,8 @@ function OrgUserList() {
   const user = useSelector(selectUser);
   const jwt = user.userToken;
   const [firstName, setFirstName] = useState('');
+  const navigationRoute = props.navigationRoute
+
   useEffect(() => {
     // Retrieve firstName from localStorage
     const storedFirstName = localStorage.getItem('firstNameOrganisation');
@@ -283,6 +285,7 @@ function OrgUserList() {
                 fontSize: '18px',
               },
             }}
+            navigationRoute={navigationRoute}
           />
         </div>
 

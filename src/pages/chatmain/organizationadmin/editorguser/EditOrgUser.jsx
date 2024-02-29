@@ -26,7 +26,7 @@ const getBase64 = (file) =>
     reader.onerror = (error) => reject(error);
   });
 
-function EditOrgUser() {
+function EditOrgUser(props) {
   const { userId } = useParams();
   let {
     buttonLoading,
@@ -52,7 +52,7 @@ function EditOrgUser() {
   const profileSrc = localStorage.getItem("profileImage");
   const [firstName, setFirstName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
+  const navigationRoute = props?.navigationRoute
 
   const [userData, setUserData] = useState({
     firstName: '',
@@ -259,6 +259,7 @@ function EditOrgUser() {
                 fontSize: '18px',
               },
             }}
+            navigationRoute={navigationRoute}
           />
         </div>
 

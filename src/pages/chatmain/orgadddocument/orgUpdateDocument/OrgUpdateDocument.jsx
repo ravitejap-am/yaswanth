@@ -14,7 +14,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import AMChatHeader from '../../../AMChatAdmin/AMChatHeader/AMChatHeader';
 import OrganizationAdminHeader from '../../organizationadmin/OrganizationAdminHeader/OrganizationAdminHeader';
 
-function OrgUpdateDocument() {
+function OrgUpdateDocument(props) {
   const { documentId } = useParams();
   let {
     buttonLoading,
@@ -29,6 +29,8 @@ function OrgUpdateDocument() {
   const navigate = useNavigate();
   const [firstName, setFirstName] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const navigationRoute = props?.navigationRoute;
+
   useEffect(() => {
     // Retrieve firstName from localStorage
     const storedFirstName = localStorage.getItem('firstNameOrganisation');
@@ -153,6 +155,7 @@ function OrgUpdateDocument() {
                 fontSize: '18px',
               },
             }}
+            navigationRoute={navigationRoute}
           />
         </div>
 

@@ -12,6 +12,8 @@ import usersicon from '../../../../asset/users.png'
 import documenticon from '../../../../asset/document1.png'
 import OrgUpdateDocument from "./OrgUpdateDocument";
 function OrgUpdateDocumentSidebar() {
+  const navigationRoute = "/organizationPersonalInfo";
+
   return (
     <>
       <div className={Styles.AMChatMainDiv}>
@@ -70,7 +72,7 @@ function OrgUpdateDocumentSidebar() {
             </div>
           </div>
         </div>
-        <OrgUpdateDocument />
+        <OrgUpdateDocument navigationRoute={navigationRoute}/>
       </div>
       <div className={Styles.AMChatFooterStyle}>
         <footer className="AMChat-admin-footer">

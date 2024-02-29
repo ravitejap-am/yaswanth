@@ -13,6 +13,8 @@ import OrgAddDocument from "../../chatmain/orgadddocument/OrgAddDocument";
 import usersicon from "../../../asset/users.png";
 import documenticon from "../../../asset/document1.png";
 function OrgAddDocumentSidebar() {
+  const navigationRoute = "/organizationPersonalInfo";
+
   return (
     <>
       <div className={Styles.AMChatMainDiv}>
@@ -68,7 +70,7 @@ function OrgAddDocumentSidebar() {
             </div>
           </div>
         </div>
-        <OrgAddDocument />
+        <OrgAddDocument navigationRoute={navigationRoute}/>
       </div>
       <div className={Styles.AMChatFooterStyle}>
         <footer className="AMChat-admin-footer">

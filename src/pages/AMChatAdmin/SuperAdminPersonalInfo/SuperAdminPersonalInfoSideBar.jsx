@@ -35,14 +35,14 @@ function SuperAdminPersonalInfoSideBar() {
           </div>
 
           <div className={Styles.container}>
+            <Link to="/dashboardadmin" style={{ textDecoration: "none" }}>
             <div className={Styles.SuperAdminChildContainer}>
               <span>
                 <img src={arrorLink} alt="" />
-                <Link to="/dashboardadmin" style={{ textDecoration: "none" }}>
                   <p className={Styles.organizationTextStyle}>Back to Chat</p>{" "}
-                </Link>
               </span>
             </div>
+            </Link>
             <br />
             {/* <div className={Styles.SuperAdminChildContainer}>
           <Link

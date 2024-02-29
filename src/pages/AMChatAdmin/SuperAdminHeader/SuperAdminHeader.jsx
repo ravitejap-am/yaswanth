@@ -27,6 +27,10 @@ function SuperAdminHeader({
     localStorage.clear();
     window.location.href = '/signin';
   };
+
+  const handleNavigation = () => { 
+    window.location.href = '/SuperAdminPersonalInfo';
+  }
   return (
     <PopupState variant="popover" popupId="profile-popup-popover">
       {(popupState) => (
@@ -68,16 +72,16 @@ function SuperAdminHeader({
           >
             <List sx={style}>
               <ListItem>
-                <ListItemButton>
+                <ListItemButton onClick={handleNavigation}>
                   <ListItemIcon>
                     <AssignmentIndOutlinedIcon />
                   </ListItemIcon>
-                  <Link
+                  {/* <Link
                     to="/SuperAdminPersonalInfo"
                     style={{ textDecoration: 'none' }}
-                  >
+                  > */}
                     <ListItemText primary="View Profile" />
-                  </Link>
+                  {/* </Link> */}
                 </ListItemButton>
               </ListItem>
               <Divider component="li" />

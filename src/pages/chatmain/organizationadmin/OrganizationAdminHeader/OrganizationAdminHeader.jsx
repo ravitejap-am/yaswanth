@@ -29,6 +29,10 @@ function OrganizationAdminHeader({
     localStorage.clear();
     window.location.href = '/signin';
   };
+
+  const handleViewProfile = () => { 
+    window.location.href = navigationRoute
+  }
   return (
     <PopupState variant="popover" popupId="profile-popup-popover">
       {(popupState) => (
@@ -69,18 +73,18 @@ function OrganizationAdminHeader({
             }}
           >
             <List sx={style}>
-              <ListItem>
+              <ListItem onClick={handleViewProfile}>
+                  {/* <Link
+                    to= {navigationRoute}
+                    style={{ textDecoration: 'none' }}
+                  > */}
                 <ListItemButton>
                   <ListItemIcon>
                     <AssignmentIndOutlinedIcon />
                   </ListItemIcon>
-                  <Link
-                    to= {navigationRoute}
-                    style={{ textDecoration: 'none' }}
-                  >
                     <ListItemText primary="View Profile" />
-                  </Link>
                 </ListItemButton>
+                {/* </Link> */}
               </ListItem>
               <Divider component="li" />
               <ListItem onClick={handleLogout}>
