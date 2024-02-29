@@ -34,7 +34,9 @@ function DynamicTextComponent({
 
   const isValidDomain = (domain) => {
     const domainRegex = /^[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$/;
-    return domainRegex.test(domain);
+    const domainRegexone = /^[a-zA-Z0-9-]+\.[a-zA-Z]{2,}\.[a-zA-Z]{2,}$/;
+    // console.log("domain name",domainRegexone.test(domain));
+    return domainRegex.test(domain) || domainRegexone.test(domain);
   };
 
   const isSubmitDisabled = () => {
