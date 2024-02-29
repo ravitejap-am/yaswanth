@@ -180,7 +180,7 @@ function OrganizationInfo({
       setBackDropLoading(false);
     }
   };
-
+ 
   const formElements = [
     {
       name: 'orgName',
@@ -256,7 +256,7 @@ function OrganizationInfo({
       onSelectApiCall: handleCountryChange,
       pattern: /^([a-zA-Z]{3,30}\s*)+/,
       emptyErrorMessage: 'Pleas Select the Country',
-      invalidErrorMessage: 'Pleas Select the Valid Country',
+      invalidErrorMessage: 'Pleas Select the Valid Country'
     },
     {
       name: 'state',
@@ -274,10 +274,11 @@ function OrganizationInfo({
         paddingRight: '20px',
         appearance: 'border',
         color: '#475569',
+  
       },
       labelName: false,
       // rules: [{ required: true, message: 'Please select State' }],
-      defaultValue: orgData?.address?.state,
+       defaultValue: orgData?.address?.state,
       onSelectApiCall: handleStateChange,
       pattern: /^([a-zA-Z]{3,30}\s*)+/,
       emptyErrorMessage: 'Pleas Select the State',
@@ -344,6 +345,8 @@ function OrganizationInfo({
     // navigate('/dashboardadmin/organizationlist');
   };
 
+
+
   const submitButtonProperty = {
     display: 'flex',
     width: '130px',
@@ -409,6 +412,8 @@ function OrganizationInfo({
     orgData: orgData,
     screen: selectedTab,
   };
+
+
   return (
     <div style={{}}>
       <GeneralForm
