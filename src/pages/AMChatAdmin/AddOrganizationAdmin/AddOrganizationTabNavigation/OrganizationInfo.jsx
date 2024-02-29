@@ -326,7 +326,7 @@ function OrganizationInfo({
       defaultValue: orgData?.address?.postCode,
       pattern: /^[1-9][0-9]{5}$/,
       emptyErrorMessage: 'Please Enter your zipcode',
-      invalidErrorMessage: 'Please Enter the Valid City',
+      invalidErrorMessage: 'Please Enter the Valid zipcode',
     },
   ];
   const cancelHandler = (values) => {

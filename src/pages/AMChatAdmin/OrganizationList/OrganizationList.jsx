@@ -97,7 +97,7 @@ function OrganizationList() {
       const response = await axios.get(documentUrl, {
         params: {
           page: page,
-          size: pageInfo?.pageSize,
+          size: 5,
           sortField: orderBy,
           sortDirection: order,
           organisationName: searchValue,
@@ -123,7 +123,7 @@ function OrganizationList() {
       ) {
         setPageInfo({
           ...pageInfo,
-          pageSize: 0,
+          pageSize: 5,
           page: 0,
           totalCount: 0,
           totalPages: 0,
