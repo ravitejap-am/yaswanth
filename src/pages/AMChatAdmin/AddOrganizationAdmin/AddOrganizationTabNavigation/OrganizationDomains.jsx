@@ -22,6 +22,7 @@ function OrganizationDomains({
   messageHandler,
   jwt = '',
   setButtonLoading,
+  setBackDropLoading,
 }) {
   const navigate = useNavigate();
   const [newDomains, setNewDomains] = useState(
@@ -214,6 +215,10 @@ function OrganizationDomains({
           submitHandler={submitHandler}
           handleRemoveDomain={handleRemoveDomain}
           buttonLoading={buttonLoading}
+          setBackDropLoading={setBackDropLoading}
+          showNotifyMessage={showNotifyMessage}
+          messageHandler={messageHandler}
+          orgStatus={organisation?.organisationStatus}
         />
       </div>
     </div>

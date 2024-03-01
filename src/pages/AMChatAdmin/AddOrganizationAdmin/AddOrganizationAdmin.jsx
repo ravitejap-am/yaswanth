@@ -89,7 +89,7 @@ function AddOrganizationAdmin() {
   const [backDropLoading, setBackDropLoading] = useState(false);
   const [fullName, setFullName] = useState('');
 
-    useEffect(() => {
+  useEffect(() => {
     const storedFirstName = localStorage.getItem('firstName');
     setFirstName(storedFirstName);
     const storedfullName = localStorage.getItem('fullName');
@@ -292,6 +292,7 @@ function AddOrganizationAdmin() {
                 messageHandler={messageHandler}
                 jwt={jwt}
                 setButtonLoading={setButtonLoading}
+                setBackDropLoading={setBackDropLoading}
               />
             )}
           </div>
