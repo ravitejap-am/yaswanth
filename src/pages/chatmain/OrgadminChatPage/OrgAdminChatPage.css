@@ -259,6 +259,7 @@
   width: 90%;
   height: 18vh;
   margin-left: 10px;
+  display: flex;
 }
 
 .orgadminchat-orgadmin-activeuser-card h2 {
@@ -416,11 +417,13 @@
 .orgadmin-lastseen {
   position: relative;
   left: 30px;
+  font-size: 12px;
+  font-weight: 400;
 }
 
 .orgadmin-profile-pic {
   position: relative;
-  right: 26px;
+  right: 40px;
   top: 18px;
 }
 
@@ -546,4 +549,83 @@ margin-left: 15px;
   width: 90vw;
 }
 
+.user-title {
+  text-align: left !important;
+}
 
+.user-profile-pic {
+  height : 30px;
+  width: 30px;
+  border-radius: 15px;
+}
+
+.title-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.active-table{
+  margin: 0;
+  text-align: left;
+  width: 100%;
+}
+
+.name-text {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.divider {
+  border-top: 1px solid #ccc; 
+  width: auto
+}
+
+
+.activeuser-dashboard {
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  padding: 5px;
+  border-radius: 8px;
+  width: 90%;
+  height: auto;
+  margin-left: 10px;
+}
+
+.title-container {
+  margin-left: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.user-pic {
+  height:35px;
+  width:35px;
+  border-radius: 20px;
+  margin-top: 10px;
+}
+
+.content-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  margin-top: 8px;
+}
+
+
+
+.content-bg {
+  margin-left: 10px;
+} 
+
+.title-text {
+  font-size: 18px;
+  color: #333;
+  font-weight: 500;
+}
+
+.lastseen-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: grey;
+}

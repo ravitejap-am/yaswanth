@@ -17,6 +17,7 @@ import PersonalInfo from '../../../components/personalInfo/page';
 function SuperAdminProfileInfo() {
   const [selectedTab, setSelectedTab] = useState('personalinformation');
   const firstName = localStorage.getItem('firstName')
+  const fullName = localStorage.getItem('fullName')
 
   const handleTabChange = (tab) => {
     if (tab !== selectedTab) {
@@ -30,8 +31,8 @@ function SuperAdminProfileInfo() {
         <div className="userprofile-pofilecontainer">
           <div className="userprofile-header">
             <SuperAdminHeader
-              componentName={`Welcome ${firstName || ''}`}
-              name={firstName || ''}
+              componentName={`Welcome ${fullName || ''}`}
+              name={fullName || ''}
               profileImageSrc={localStorage.getItem('userImageUrl')}
               customStyle={{
                 containerStyle: {
