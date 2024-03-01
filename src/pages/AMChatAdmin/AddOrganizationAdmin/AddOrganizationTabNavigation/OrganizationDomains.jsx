@@ -22,6 +22,7 @@ function OrganizationDomains({
   messageHandler,
   jwt = '',
   setButtonLoading,
+  setBackDropLoading,
 }) {
   const navigate = useNavigate();
   const [newDomains, setNewDomains] = useState(
@@ -177,28 +178,28 @@ function OrganizationDomains({
 
   const submitHandler = (values) => {
     if (values != undefined) {
-      if (domainFormatValidation(values)) {
-        if (domainNameValidation(values)) {
-          const updatedOrgData = {
-            ...orgData,
-            metaData: values,
-          };
-          console.log('updateorgdata', updatedOrgData);
-          selectOrgData(updatedOrgData);
-          if (organisation?.organisationStatus == 'edit') {
-            editOrganisation(updatedOrgData);
-            return;
-          }
-          setSelectedTab('subscriptionplan');
-        } else {
-          showNotifyMessage(
-            'warn',
-            'At least one domain name should match the organisation domain',
-            messageHandler
-          );
+      // if (domainFormatValidation(values)) {
+      if (domainNameValidation(values)) {
+        const updatedOrgData = {
+          ...orgData,
+          metaData: values,
+        };
+        console.log('updateorgdata', updatedOrgData);
+        selectOrgData(updatedOrgData);
+        if (organisation?.organisationStatus == 'edit') {
+          editOrganisation(updatedOrgData);
           return;
         }
+        setSelectedTab('subscriptionplan');
+      } else {
+        showNotifyMessage(
+          'warn',
+          'At least one domain name should match the organisation domain',
+          messageHandler
+        );
+        return;
       }
+      // }
     }
 
     // setSelectedTab('organizationadmin');
@@ -214,6 +215,10 @@ function OrganizationDomains({
           submitHandler={submitHandler}
           handleRemoveDomain={handleRemoveDomain}
           buttonLoading={buttonLoading}
+          setBackDropLoading={setBackDropLoading}
+          showNotifyMessage={showNotifyMessage}
+          messageHandler={messageHandler}
+          orgStatus={organisation?.organisationStatus}
         />
       </div>
     </div>

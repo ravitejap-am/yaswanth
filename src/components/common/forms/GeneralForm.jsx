@@ -36,8 +36,8 @@ const GeneralForm = (props) => {
     personalInfo = {},
     domainProps = {
       isDomain: false,
-      domainDeleteHandler: () => { },
-      addDomainHandler: () => { },
+      domainDeleteHandler: () => {},
+      addDomainHandler: () => {},
     },
   } = props;
   console.log('props', props, 'grid', grid, 'formelements', formElements);
@@ -105,7 +105,6 @@ const GeneralForm = (props) => {
     }
   }, []);
 
-
   const isValid = (
     pattern,
     value,
@@ -138,7 +137,6 @@ const GeneralForm = (props) => {
         if (passcallback === null|| passcallback === undefined) {
           newMessages = [...Errors];
         }
-
 
         // if (value == '' || value == null || value == undefined) {
         //   newMessages.push({
@@ -227,7 +225,6 @@ const GeneralForm = (props) => {
           setErrors(newMessages);
         }
 
-
         result = false;
       }
     }
@@ -296,7 +293,7 @@ const GeneralForm = (props) => {
                 invalidErrorMessage,
                 (message) => {
                   AllErrorMessages.push(message);
-                  setErrors(AllErrorMessages)
+                  setErrors(AllErrorMessages);
                 }
               );
               if (result === true) {
@@ -306,7 +303,6 @@ const GeneralForm = (props) => {
               console.log('result  ', result);
               return ItemCheck;
             }
-
 
             // if (no === formElements.length - 1) {
             //   // setErrors(AllErrorMessages)
@@ -359,7 +355,7 @@ const GeneralForm = (props) => {
                     style={item.style}
                     defaultValue={item.defaultValue ? item.defaultValue : ''}
                     disabled={item?.disabled || false}
-                  // required={item.required}
+                    // required={item.required}
                   />
                   {<ErrorMessage name={item.name} />}
                 </div>
@@ -376,7 +372,6 @@ const GeneralForm = (props) => {
                     iconClass={item.iconClass}
                     onChange={(e) => {
                       form.setFieldValue({ [item.name]: e.target.value });
-
                     }}
                     style={item.style}
                     defaultValue={item?.defaultValue ? item?.defaultValue : ''}
@@ -403,7 +398,6 @@ const GeneralForm = (props) => {
                   iconClass={item.iconClass}
                   onChange={(e) => {
                     form.setFieldValue({ [item.name]: e.target.value });
-
                   }}
                   disabled={item?.disabled || false}
                 />
@@ -416,7 +410,6 @@ const GeneralForm = (props) => {
                   iconClass={item.iconClass}
                   onChange={(e) => {
                     form.setFieldValue({ [item.name]: e.target.value });
-
                   }}
                   style={item.style}
                   iconStyle={item.iconStyle}
@@ -431,7 +424,6 @@ const GeneralForm = (props) => {
                   iconClass={item.iconClass}
                   onChange={(e) => {
                     form.setFieldValue({ [item.name]: e.target.value });
-
                   }}
                   style={item.style}
                   disabled={item?.disabled || false}
@@ -446,20 +438,35 @@ const GeneralForm = (props) => {
                   iconClass={item.iconClass}
                   onChange={(e) => {
                     form.setFieldValue({ [item.name]: e.target.value });
-
                   }}
                   style={item.style}
                   disabled={item?.disabled || false}
                 />
               ),
               number: (
-                <InputNumber
-                  labelName={item.labelName ? item.label : null}
-                  type={item.type}
-                  placeholder={item.label}
-                  iconClass={item.iconClass}
-                  disabled={item?.disabled || false}
-                />
+                <div>
+                  <InputNumber
+                    labelName={item.labelName ? item.label : null}
+                    type={item.type}
+                    placeholder={item.label}
+                    iconClass={item.iconClass}
+                    disabled={item?.disabled || false}
+                    style={item.style}
+                    onBlur={() => {
+                      if (item.pattern !== null && item.pattern !== undefined) {
+                        isValid(
+                          item.pattern,
+                          form.getFieldValue(item.name),
+                          item.name,
+                          item?.emptyErrorMessage,
+                          item?.invalidErrorMessage
+                        );
+                      }
+                    }}
+                    defaultValue={item?.defaultValue ? item?.defaultValue : ''}
+                  />
+                  {<ErrorMessage name={item.name} />}
+                </div>
               ),
               switch: <Switch />,
               date: <DatePicker />,
@@ -478,7 +485,6 @@ const GeneralForm = (props) => {
                     iconClass={item.iconClass}
                     onChange={(e) => {
                       form.setFieldValue({ [item.name]: e.target.value });
-
                     }}
                     style={item.style}
                     disabled={item?.disabled || false}
@@ -735,12 +741,29 @@ const GeneralForm = (props) => {
                 />
               ),
               number: (
-                <InputNumber
-                  labelName={item.labelName ? item.label : null}
-                  type={item.type}
-                  placeholder={item.label}
-                  iconClass={item.iconClass}
-                />
+                <div>
+                  <InputNumber
+                    labelName={item.labelName ? item.label : null}
+                    type={item.type}
+                    placeholder={item.label}
+                    iconClass={item.iconClass}
+                    disabled={item?.disabled || false}
+                    style={item.style}
+                    onBlur={() => {
+                      if (item.pattern !== null && item.pattern !== undefined) {
+                        isValid(
+                          item.pattern,
+                          form.getFieldValue(item.name),
+                          item.name,
+                          item?.emptyErrorMessage,
+                          item?.invalidErrorMessage
+                        );
+                      }
+                    }}
+                    defaultValue={item?.defaultValue ? item?.defaultValue : ''}
+                  />
+                  {<ErrorMessage name={item.name} />}
+                </div>
               ),
               switch: <Switch />,
               date: <DatePicker />,

@@ -12,6 +12,7 @@ import PageLoader from '../../loader/loader';
 import CircularFileInfo from '../upload/circularFileInfo';
 import axios from 'axios';
 import UserProfileForm from './user-profile-form';
+import { USER_PROFILE } from '../../../apiCalls/Constants';
 
 function Information({ setFileSysytem, validateEmail }) {
   const user = useSelector(selectUser);
@@ -101,22 +102,17 @@ function Information({ setFileSysytem, validateEmail }) {
     console.log(values);
 
     setIsLoading(true);
-        try {
+    try {
       if (values === undefined) {
         console.log('Values are undefined');
         return;
       } else {
-        console.log('values os submit handler', values);
         const headers = {
           Authorization: `Bearer ${jwt}`,
           'Content-Type': 'application/json',
         };
-        console.log('values---->', values);
         const { firstName, lastName, ...rest } = values;
-        console.log('firstName---->', firstName);
-        console.log('lastName---->', lastName);
         const reqBody = { firstName: firstName, lastName: lastName };
-        console.log('reqBody---->', reqBody);
         const response = await updateAdminProfileDetails(
           userId,
           headers,
@@ -137,7 +133,11 @@ function Information({ setFileSysytem, validateEmail }) {
 
   const handleFileChange = (file) => {
     setIsLoading(true);
-    uploadFile(file);
+    if (!!file) {
+      uploadFile(file);
+    } else {
+      deleteFile();
+    }
   };
   const uploadFile = async (file) => {
     const formData = new FormData();
@@ -163,11 +163,38 @@ function Information({ setFileSysytem, validateEmail }) {
       setIsLoading(false);
     }
   };
+
+  const deleteFile = async () => {
+    try {
+      let body = {
+        userId: userId,
+      };
+      const response = await axios.put(
+        `${USER_PROFILE}/delete_dp`,
+        JSON.stringify(body),
+        {
+          headers: {
+            Authorization: `Bearer ${jwt}`,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      showNotifyMessage('success', response?.data?.message, messageHandler);
+      setIsLoading(false);
+    } catch (error) {
+      showNotifyMessage('error', error?.message, messageHandler);
+      setIsLoading(false);
+    }
+  };
+
   return (
     <>
       {isLoading && <PageLoader loadingStatus={isLoading} />}
 
-      <div className="personal-contentcard" style={{overflow: 'auto', minHeight: '40vh', maxHeight: '65vh'}}>
+      <div
+        className="personal-contentcard"
+        style={{ overflow: 'auto', minHeight: '40vh', maxHeight: '65vh' }}
+      >
         <div className="user-profile-content">
           <div
             style={{

@@ -87,9 +87,13 @@ function AddOrganizationAdmin() {
   const [cities, setCities] = useState([]);
   const [firstNamelocal, setFirstName] = useState('');
   const [backDropLoading, setBackDropLoading] = useState(false);
+  const [fullName, setFullName] = useState('');
+
   useEffect(() => {
     const storedFirstName = localStorage.getItem('firstName');
     setFirstName(storedFirstName);
+    const storedfullName = localStorage.getItem('fullName');
+    setFullName(storedfullName);
   }, [organisation]);
 
   const messageHandler = () => {
@@ -199,7 +203,7 @@ function AddOrganizationAdmin() {
               componentName={`${
                 organisation?.organisationStatus == 'add' ? 'Add' : 'Edit'
               } Organization`}
-              name={firstNamelocal || ''}
+              name={fullName || ''}
               profileImageSrc={localStorage.getItem('userImageUrl')}
               customStyle={{
                 containerStyle: {
@@ -212,8 +216,8 @@ function AddOrganizationAdmin() {
                 },
                 textStyle: {
                   color: 'black',
-                  fontWeight: '500',
-                  fontSize: '24px',
+                  fontWeight: '600',
+                  fontSize: '18px',
                 },
               }}
             />
@@ -288,6 +292,7 @@ function AddOrganizationAdmin() {
                 messageHandler={messageHandler}
                 jwt={jwt}
                 setButtonLoading={setButtonLoading}
+                setBackDropLoading={setBackDropLoading}
               />
             )}
           </div>

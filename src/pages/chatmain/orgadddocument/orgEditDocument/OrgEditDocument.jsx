@@ -13,7 +13,7 @@ import * as constants from '../../../../constants/Constant';
 import AMChatHeader from '../../../AMChatAdmin/AMChatHeader/AMChatHeader';
 import OrganizationAdminHeader from '../../organizationadmin/OrganizationAdminHeader/OrganizationAdminHeader';
 
-function OrgEditDocument() {
+function OrgEditDocument(props) {
   let {
     buttonLoading,
     setButtonLoading,
@@ -24,12 +24,8 @@ function OrgEditDocument() {
   } = useMessageState();
   const { documentId } = useParams();
   const navigate = useNavigate();
-  const [firstName, setFirstName] = useState('');
-  useEffect(() => {
-    // Retrieve firstName from localStorage
-    const storedFirstName = localStorage.getItem('firstNameOrganisation');
-    setFirstName(storedFirstName);
-  }, []);
+  const fullName=  useState(localStorage.getItem('fullName') || "");
+ 
   const [documentDetails, setDocumentDetails] = useState({});
   const [loading, setLoading] = useState(true);
 
@@ -38,6 +34,7 @@ function OrgEditDocument() {
   const user = useSelector(selectUser);
   const jwt = user.userToken;
   const profileSrc = localStorage.getItem("profileImage");
+  const navigationRoute = props?.navigationRoute;
 
   useEffect(() => {
     const fetchDocumentDetails = async () => {
@@ -170,7 +167,7 @@ function OrgEditDocument() {
         <div className={Styles.superAdminProfileCardStyle}>
           <OrganizationAdminHeader
             componentName="Edit Document Name"
-            name={firstName || ''}
+            name={fullName || ''}
             profileImageSrc={localStorage.getItem('userImageUrl')}
             customStyle={{
               containerStyle: {
@@ -183,10 +180,11 @@ function OrgEditDocument() {
               },
               textStyle: {
                 color: 'black',
-                fontWeight: '500',
-                fontSize: '24px',
+                fontWeight: '600',
+                fontSize: '18px',
               },
             }}
+            navigationRoute={navigationRoute}
           />
         </div>
 

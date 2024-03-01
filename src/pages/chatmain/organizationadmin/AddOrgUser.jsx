@@ -25,7 +25,7 @@ const getBase64 = (file) =>
     reader.onerror = (error) => reject(error);
   });
 
-function AddOrgUser() {
+function AddOrgUser(props) {
   let {
     buttonLoading,
     setButtonLoading,
@@ -43,14 +43,17 @@ function AddOrgUser() {
   const [previewTitle, setPreviewTitle] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [fileList, setFileList] = useState([]);
-  const [firstName, setFirstName] = useState('');
+
   const inputRefs = useRef([]);
   const profileSrc = localStorage.getItem("profileImage");
+  const navigationRoute = props.navigationRoute;
+  const [fullName, setFullName] = useState('');
 
   useEffect(() => {
     // Retrieve firstName from localStorage
-    const storedFirstName = localStorage.getItem('firstNameOrganisation');
-    setFirstName(storedFirstName);
+
+    const storedFullName = localStorage.getItem('fullName');
+    setFullName(storedFullName);
   }, []);
 
   const handleCancel = () => setPreviewOpen(false);
@@ -141,12 +144,13 @@ function AddOrgUser() {
         });
         const data = await responseUser.json();
         setButtonLoading(false);
-        if (responseUser.ok) {
+        if (responseUser?.ok) {
           setIsReset(true);
           showNotifyMessage('success', data.message, messageHandler);
           navigate('/orguserlist');
-        } else if (!responseUser.ok && responseUser.status == 400) {
+        } else {
           showNotifyMessage('error', data.message, messageHandler);
+          return
         }
       } catch (error) {
         if (
@@ -264,7 +268,7 @@ function AddOrgUser() {
         <div className={Styles.superAdminProfileCardStyle}>
           <OrganizationAdminHeader
             componentName="Add User"
-            name={firstName || ''}
+            name={fullName || ''}
             profileImageSrc={localStorage.getItem('userImageUrl')}
             customStyle={{
               containerStyle: {
@@ -277,10 +281,11 @@ function AddOrgUser() {
               },
               textStyle: {
                 color: 'black',
-                fontWeight: '500',
-                fontSize: '24px',
+                fontWeight: '600',
+                fontSize: '18px',
               },
             }}
+            navigationRoute={navigationRoute}
           />
         </div>
 

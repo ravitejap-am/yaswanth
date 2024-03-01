@@ -15,6 +15,8 @@ import usersicon from "../../../asset/users.png";
 import documenticon from "../../../asset/document1.png";
 
 function OrgAdminSidebar() {
+  const navigationRoute = "/organizationPersonalInfo";
+
   return (
     <>
       <div className={Styles.AMChatMainDiv}>
@@ -45,32 +47,32 @@ function OrgAdminSidebar() {
 
           <div className={Styles.container}>
             <div className={Styles.SuperAdminChildContainer}>
+              <Link to="/orgadminchat" style={{ textDecoration: "none" }}>
               <span>
                 <img src={arrorLink} alt="" />
-                <Link to="/orgadminchat" style={{ textDecoration: "none" }}>
                   <p className={Styles.organizationTextStyle}>Back to Chat</p>{" "}
-                </Link>
               </span>
+              </Link>
 
+              <Link to="/orguserlist" style={{ textDecoration: "none" }}>
               <span>
                 <img src={usersicon} alt="" />
-                <Link to="/orguserlist" style={{ textDecoration: "none" }}>
                   <p className={Styles.organizationTextStyle}>Users</p>
-                </Link>
               </span>
+              </Link>
             </div>
             <br />
             <div className={Styles.SuperAdminChildContainer}>
+              <Link to="/orgdocumentlist" style={{ textDecoration: "none" }}>
               <span>
                 <img src={documenticon} alt="" />
-                <Link to="/orgdocumentlist" style={{ textDecoration: "none" }}>
                   <p className={Styles.organizationTextStyle}>Documents</p>
-                </Link>
               </span>
+              </Link>
             </div>
           </div>
         </div>
-        <AddOrgUser />
+        <AddOrgUser navigationRoute={navigationRoute}/>
       </div>
       <div className={Styles.AMChatFooterStyle}>
         <footer className="AMChat-admin-footer">

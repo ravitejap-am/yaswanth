@@ -65,7 +65,8 @@ function OrganizationList() {
   const [responseData, setResponseData] = useState([]);
   const dispatch = useDispatch();
   const [loadingId, setLoadingId] = useState(null);
-  const [firstName, setFirstName] = useState('');
+
+  const [fullName, setFullName] = useState('');
   const [pageInfo, setPageInfo] = useState({
     pageSize: 5,
     page: 0,
@@ -78,10 +79,11 @@ function OrganizationList() {
   const [orderBy, setOrderBy] = React.useState('name');
   const [tableloading, setTableLoading] = useState(false);
   const [searchValue, setSearchValue] = useState('');
-
+  
   useEffect(() => {
-    const storedFirstName = localStorage.getItem('firstName');
-    setFirstName(storedFirstName);
+
+    const storedFullName = localStorage.getItem('fullName');
+    setFullName(storedFullName)
   }, []);
 
   useEffect(() => {
@@ -269,7 +271,7 @@ function OrganizationList() {
         <div className={Styles.superAdminProfileCardStyle}>
           <SuperAdminHeader
             componentName="Organization List"
-            name={firstName || ''}
+            name={fullName || ''}
             profileImageSrc={localStorage.getItem('userImageUrl')}
             customStyle={{
               containerStyle: {
@@ -282,11 +284,11 @@ function OrganizationList() {
               },
               textStyle: {
                 color: 'black',
-                fontWeight: '500',
-                fontSize: '24px',
+                fontWeight: '600',
+                fontSize: '18px',
               },
             }}
-          />
+                      />
         </div>
 
         <div className={Styles.bannerBtn}>

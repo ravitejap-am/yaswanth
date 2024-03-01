@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useState } from 'react';
 
-import { USER_PROFILE, UPDATE_ADMIN_USER } from './Constants';
+import { USER_PROFILE, UPDATE_ADMIN_USER, GET_ACTIVE_USERS } from './Constants';
 
 export const getUserProfileDetails = async (userId, headers) => {
   try {
@@ -31,5 +31,20 @@ export const updateAdminProfileDetails = async (userId, headers, reqBody) => {
   } catch (error) {
     console.log('Failed to update user profile.', error);
     throw new Error('Failed to update user profile');
+  }
+};
+
+
+export const getActiveUserList = async ( headers) => {
+  try {
+    console.log('headers---->', headers);
+    const data = await axios.get(
+      `${GET_ACTIVE_USERS}`,
+      headers
+    );
+    return data;
+  } catch (error) {
+    console.log('Failed to get users.', error);
+    throw new Error('Failed to get users');
   }
 };

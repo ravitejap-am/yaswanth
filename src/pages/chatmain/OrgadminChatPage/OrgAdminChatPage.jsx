@@ -1,36 +1,42 @@
-import React, { useEffect, useState } from "react";
-import "./OrgAdminChatPage.css";
-import arrow from "../../../asset/inputarrow.png";
-import documentIcon from "../../../asset/Group 23 (1).png";
-import base from "../../../asset/Base.png";
-import vector from "../../../asset/vectoricon.png";
-import documentIconpink from "../../../asset/Group 23.png";
-import orgvector from "../../../asset/orgVector (1).png";
-import AMChatHeader from "../../AMChatAdmin/AMChatHeader/AMChatHeader";
-import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import * as constants from "../../../constants/Constant";
-import { selectUser } from "../../../store/authSlice";
-import OrganizationAdminHeader from "../organizationadmin/OrganizationAdminHeader/OrganizationAdminHeader";
-import Search from "../../../components/common/search/Search";
-import Group2290 from "../../../asset/Group2290.png";
-import ChatSearch from "../../../components/common/chatSearch/ChatSearch";
-import { Card } from "antd";
-import Styles from "../../AMChatAdmin/SearchUIAMChat/SearchUIAIChat.module.css";
-import profile from "../../../asset/AmChatSuperAdmin/profile.png";
-import Image from "../../../components/common/image/image";
-import { PROFILE_URL } from "../../../apiCalls/Constants";
-import profilePlaceholder from "../../../asset/profilePlaceholder.png";
-import editIcon from "../../../asset/AmChatSuperAdmin/pencil-alt.png";
-import Button from "../../../components/common/buttons/GeneralButton";
-import { BASE_USER_IMAGE_URL, BASE_DOC_API_URL,  BASE_ORG_API_URL} from '../../../constants/Constant';
-import SAStyles from '../../AMChatAdmin/SuperAdminAMChatCard/SuperAdminAMChatCard.module.css'
+import React, { useEffect, useState } from 'react';
+import './OrgAdminChatPage.css';
+import arrow from '../../../asset/inputarrow.png';
+import documentIcon from '../../../asset/Group 23 (1).png';
+import base from '../../../asset/Base.png';
+import vector from '../../../asset/vectoricon.png';
+import documentIconpink from '../../../asset/Group 23.png';
+import orgvector from '../../../asset/orgVector (1).png';
+import AMChatHeader from '../../AMChatAdmin/AMChatHeader/AMChatHeader';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import * as constants from '../../../constants/Constant';
+import { selectUser } from '../../../store/authSlice';
+import OrganizationAdminHeader from '../organizationadmin/OrganizationAdminHeader/OrganizationAdminHeader';
+import Search from '../../../components/common/search/Search';
+import Group2290 from '../../../asset/Group2290.png';
+import ChatSearch from '../../../components/common/chatSearch/ChatSearch';
+import { Card } from 'antd';
+import Styles from '../../AMChatAdmin/SearchUIAMChat/SearchUIAIChat.module.css';
+import profile from '../../../asset/AmChatSuperAdmin/profile.png';
+import Image from '../../../components/common/image/image';
+import { PROFILE_URL } from '../../../apiCalls/Constants';
+import profilePlaceholder from '../../../asset/profilePlaceholder.png';
+import editIcon from '../../../asset/AmChatSuperAdmin/pencil-alt.png';
+import Button from '../../../components/common/buttons/GeneralButton';
+import {
+  BASE_USER_IMAGE_URL,
+  BASE_DOC_API_URL,
+  BASE_ORG_API_URL,
+} from '../../../constants/Constant';
+import SAStyles from '../../AMChatAdmin/SuperAdminAMChatCard/SuperAdminAMChatCard.module.css';
 import circle1 from '../../../asset/AmChatSuperAdmin/Group23.png';
 import circle2 from '../../../asset/AmChatSuperAdmin/Group24.png';
 import flow from '../../../asset/AmChatSuperAdmin/flow.png';
 import flowImage2 from '../../../asset/AmChatSuperAdmin/flow2.png';
 import axios from 'axios';
-
+import PageLoader from '../../../components/loader/loader';
+import { getActiveUserList } from '../../../apiCalls/ApiCalls';
+import { timeExtracter } from '../../../../src/utils/timeStampGenerateUtils'
 
 const OrgAdminChatPage = (props) => {
   const navigate = useNavigate();
@@ -38,11 +44,11 @@ const OrgAdminChatPage = (props) => {
   const jwt = user.userToken;
   // const {navigationRoute} = props
   // console.log("navigationRoute----->",navigationRoute);
-  console.log("admin props--->",props)
-  const {navigationRoute, rightSideDashBoard} = props
-  const userRole = localStorage.getItem("userRole")
-  console.log("userRole--->", userRole);
-  console.log("navigationRoute----->",navigationRoute);
+  console.log('admin props--->', props);
+  const { navigationRoute, rightSideDashBoard } = props;
+  const userRole = localStorage.getItem('userRole');
+  console.log('userRole--->', userRole);
+  console.log('navigationRoute----->', navigationRoute);
   const decodeJWT = (token) => {
     try {
       const base64Url = token.split('.')[1];
@@ -84,13 +90,14 @@ const OrgAdminChatPage = (props) => {
   ];
 
   const [hideChatInitialPage, setHideChatInitialPage] = useState(false);
-  const [responseData, setResponseData] = useState("");
+  const [responseData, setResponseData] = useState('');
   const [questions, setQuestions] = useState([]);
   const [questionAndAnswer, setQuestionAndAnswer] = useState([]);
   const profileUrl = PROFILE_URL;
   // const [profileSrc, setProfileSrc] = useState(localStorage.getItem("profileImage") || profilePlaceholder);
   const [profileSrc, setProfileSrc] = useState(profilePlaceholder);
   const [isEditing, setIsEditing] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const submitButtonProperty = {
     name: 'Save & Submit',
     color: 'white',
@@ -103,7 +110,7 @@ const OrgAdminChatPage = (props) => {
     fontSize: '0.7rem',
   };
 
-  const cancelButtonProperty = { 
+  const cancelButtonProperty = {
     name: 'Cancel',
     color: 'white',
     backgroundColor: '#6366F1',
@@ -113,11 +120,12 @@ const OrgAdminChatPage = (props) => {
     borderRadius: '15px',
     marginTop: '.6em',
     fontSize: '0.7rem',
-  }
+  };
 
   const [orgCount, setOrgCount] = useState(0);
   const [docCount, setDocCount] = useState(0);
-
+  const [fullName, setFullName] = useState('');
+  const [activeUserList, setActiveUserList] = useState([]);
 
   const getDocumentsCount = async () => {
     try {
@@ -129,10 +137,11 @@ const OrgAdminChatPage = (props) => {
       });
 
       console.log('get total document', response);
-      setDocCount(response?.data?.totalElements)
+      setDocCount(response?.data?.totalElements);
     } catch (error) {
       console.log('Failed to fetch user profile.', error);
       // throw new Error('Failed to fetch user profile-1');
+      setIsLoading(false);
     }
   };
 
@@ -144,13 +153,14 @@ const OrgAdminChatPage = (props) => {
           Authorization: `Bearer ${jwt}`,
         },
       });
-      setOrgCount(response?.data?.totalElements)
+      setOrgCount(response?.data?.totalElements);
+      setIsLoading(false);
     } catch (error) {
       console.log('Failed to fetch user profile.', error);
       // throw new Error('Failed to fetch user profile-1');
+      setIsLoading(false);
     }
   };
-
 
   const fetchData = async () => {
     try {
@@ -163,21 +173,21 @@ const OrgAdminChatPage = (props) => {
         }
       );
       if (!response.ok) {
-        throw new Error("Failed to fetch data");
+        throw new Error('Failed to fetch data');
       }
       const data = await response.json();
       const modifyData = {
-        question : chat,
-        answer : data?.data
-      }
+        question: chat,
+        answer: data?.data,
+      };
       setQuestionAndAnswer([...questionAndAnswer, modifyData]);
-      setChat("");
+      setChat('');
       setResponseData(data);
     } catch (error) {
-      console.error("Error fetching data:", error);
+      console.error('Error fetching data:', error);
+      setIsLoading(false);
     }
   };
-
 
   // useEffect(() => {
   //   // Retrieve firstName from localStorage
@@ -185,21 +195,23 @@ const OrgAdminChatPage = (props) => {
   //   setFirstName(storedFirstName);
   // }, []);
   const callAPiForSuperAdmin = async () => { 
+    // await fetchUserProfile();
     await getDocumentsCount()
     await getOrganisationCount()
   } 
 
   useEffect(() => {
     setHideChatInitialPage(false);
+    setIsLoading(true);
     if (organisationId) {
       fetchUserProfile();
       fetchDocumentCount();
       fetchUserList();
+      fetchActiveUserList()
     }
-    if(userRole === 'SUPER_ADMIN'){
-      callAPiForSuperAdmin()
+    if (userRole === 'SUPER_ADMIN') {
+      callAPiForSuperAdmin();
     }
-
   }, [organisationId]);
 
   const fetchDocumentCount = () => {
@@ -210,11 +222,14 @@ const OrgAdminChatPage = (props) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("data---->123",data);
-        console.log("data.totalElements---->",data.totalElements);
+        console.log('data---->123', data);
+        console.log('data.totalElements---->', data.totalElements);
         setDocumentCount(data.totalElements);
       })
-      .catch((error) => console.error('Error fetching document count:', error));
+      .catch((error) => {
+        setIsLoading(false);
+        console.error('Error fetching document count:', error);
+      });
   };
 
   const fetchUserList = async () => {
@@ -232,20 +247,43 @@ const OrgAdminChatPage = (props) => {
       if (!response.ok) {
         if (response.status === 404) {
           console.log('400 error ');
+          setIsLoading(false);
         } else if (response.status === 405) {
           console.log('response 405');
+          setIsLoading(false);
         } else {
           console.log('response 405');
+          setIsLoading(false);
         }
         return;
       }
       const responseData = await response.json();
 
       setActiveUsersCount(responseData.totalElements); // Set active users count from the API response
+      setIsLoading(false);
     } catch (error) {
+      setIsLoading(false);
       navigate('/maintenance');
     }
   };
+
+
+  const fetchActiveUserList = async () => { 
+    try{
+      const headers =  {Authorization: `Bearer ${jwt}`}
+      const response = await getActiveUserList(headers)
+      console.log('response of active users---->', response);
+      if(response.data?.data){
+        setActiveUserList(response.data?.data)
+      }else{
+        setActiveUserList([])
+      }
+
+    }catch(error) {
+      setActiveUserList([])
+      console.log('Failed to get active users.', error);
+    }
+  }
 
   const fetchUserProfile = async () => {
     try {
@@ -263,24 +301,28 @@ const OrgAdminChatPage = (props) => {
 
       const userData = await response.json();
       console.log('userData---->', userData);
+      const fullName = `${userData?.data?.user?.firstName || ""} ${userData?.data?.user?.lastName || ""}`;
+      localStorage.setItem('fullName', fullName);
+      setFullName(fullName);
       localStorage.setItem(
         'firstNameOrganisation',
         userData?.data?.user?.firstName
       );
+      localStorage.setItem('firstName', userData?.data?.user?.firstName);
       localStorage.setItem(
         'lastNameOrganisation',
         userData?.data?.user?.lastName
       );
-      console.log("profile image path---->",userData?.data?.user?.profileImagePath);
-      if(userData?.data?.user?.profileImagePath){
+      console.log(
+        'profile image path---->',
+        userData?.data?.user?.profileImagePath
+      );
+      if (userData?.data?.user?.profileImagePath) {
         const imagePath = `${profileUrl}${userData?.data?.user?.profileImagePath}`;
         setProfileSrc(imagePath);
-        localStorage.setItem(
-          "profileImage",
-          imagePath
-        );
-      }else{
-        localStorage.setItem("profileImage",profilePlaceholder);
+        localStorage.setItem('profileImage', imagePath);
+      } else {
+        localStorage.setItem('profileImage', profilePlaceholder);
       }
       setUserData(userData?.data?.user);
       setOrganisationName(userData?.data?.organisation?.name);
@@ -296,6 +338,7 @@ const OrgAdminChatPage = (props) => {
     } catch (error) {
       console.error('Error fetching user profile:', error);
       setError('Failed to fetch user profile.');
+      setIsLoading(false);
     }
   };
   const users = [
@@ -330,33 +373,33 @@ const OrgAdminChatPage = (props) => {
     setChat(question);
   };
 
-  const arrowButton =async () => {
+  const arrowButton = async () => {
     // console.log("arrowButton clicked");
     // navigate('/chatOrgAdmin', { state: { params: chat } });
     setQuestions([...questions, chat]);
-    await fetchData()
+    await fetchData();
     setHideChatInitialPage(true);
     // setChat("");
   };
 
   const handleEditClick = () => {
     setIsEditing(true);
-  }
+  };
 
+  console.log('hide initial page', hideChatInitialPage);
+  console.log('questionAndAnswer------>', questionAndAnswer);
 
-  console.log("hide initial page", hideChatInitialPage);
-  console.log("questionAndAnswer------>",questionAndAnswer);
-
-  
   return (
+    <>
+    {isLoading && <PageLoader loadingStatus={isLoading} />}
     <div className="orgadminchat-screen">
       <div className="orgadminchat-chat-container" 
       // style={{width: '79vw' }} 
       >
         <div className="orgadminchat-chat-header">
           <OrganizationAdminHeader
-            componentName={`Welcome ${firstName || ''}`}
-            name={firstName || ''}
+            componentName={`Welcome ${fullName || ''}`}
+            name={fullName || ''}
             profileImageSrc={localStorage.getItem('userImageUrl')}
             customStyle={{
               containerStyle: {
@@ -369,8 +412,8 @@ const OrgAdminChatPage = (props) => {
               },
               textStyle: {
                 color: 'black',
-                fontWeight: '500',
-                fontSize: '24px',
+                fontWeight: '600',
+                fontSize: '18px',
               },
             }}
             navigationRoute={navigationRoute}
@@ -390,7 +433,7 @@ const OrgAdminChatPage = (props) => {
               </div>
               <div className={SAStyles.titlePriceStyle}>
                 <p className={SAStyles.titleStyle}>Organizations</p>
-                <p className={Styles.priceStyle}>{orgCount}</p>
+                <p className={SAStyles.priceStyle}>{orgCount}</p>
               </div>
             </div>
 
@@ -414,11 +457,11 @@ const OrgAdminChatPage = (props) => {
                 <img src={circle2} alt="" />
               </div>
               <div className={SAStyles.titlePriceStyle}>
-                <div className={SAStyles.titleStyle}>
+                <div className={SAStyles.titleStyle} >
                   <p>Documents Uploaded</p>
                 </div>
                 <div>
-                  <p className={Styles.priceStyle}>{docCount}</p>
+                  <p className={SAStyles.priceStyle}>{docCount}</p>
                 </div>
               </div>
             </div>
@@ -439,27 +482,40 @@ const OrgAdminChatPage = (props) => {
           <div className="orgadminchat-chat-content-head">
             <div className="orgadminchat-chat-content" 
             // style={{width: '100%'}}
-            >
-              <div className={Styles.questionAndAnswerContainer}>
-                {hideChatInitialPage && <div>
-                  <Card className={Styles.superAdminCardStyles} style={{height:'80vh', overflowY: 'auto'}}>
-                    {questionAndAnswer && questionAndAnswer.length > 0 && questionAndAnswer.map((item) => {
-                    return(
+
+              >
+                <div className={Styles.questionAndAnswerContainer}>
+                  {hideChatInitialPage && (
                     <div>
-                    <div className={Styles.questionContainer}>
-                    <Image 
-                      className={Styles.answerImageContainer}
-                      src={profileSrc}
-                      alt=""
-                    />                    
-                    <div className={Styles.name}>
-                      You
-                    </div>
-                    </div>
-                    <div className={Styles.responseContainer} >
-                        <div >
-                        <div className={Styles.chatBubble} style={{display:"flex", justifyContent:'flex-start'}}>{item.question} </div>
-                    {/* {!isEditing && (
+                      <Card
+                        className={Styles.superAdminCardStyles}
+                        style={{ height: '80vh', overflowY: 'auto' }}
+                      >
+                        {questionAndAnswer &&
+                          questionAndAnswer.length > 0 &&
+                          questionAndAnswer.map((item) => {
+                            return (
+                              <div>
+                                <div className={Styles.questionContainer}>
+                                  <Image
+                                    className={Styles.answerImageContainer}
+                                    src={profileSrc}
+                                    alt=""
+                                  />
+                                  <div className={Styles.name}>You</div>
+                                </div>
+                                <div className={Styles.responseContainer}>
+                                  <div>
+                                    <div
+                                      className={Styles.chatBubble}
+                                      style={{
+                                        display: 'flex',
+                                        justifyContent: 'flex-start',
+                                      }}
+                                    >
+                                      {item.question}{' '}
+                                    </div>
+                                    {/* {!isEditing && (
                       <div 
                       className="edit-button" 
                       onClick={handleEditClick}
@@ -500,121 +556,153 @@ const OrgAdminChatPage = (props) => {
                             />
                         </div>
                       )} */}
+                                  </div>
+                                </div>
+                                <div className={Styles.questionContainer}>
+                                  <div
+                                    className={Styles.questionImageContainer}
+                                  >
+                                    <div>A</div>
+                                  </div>
+                                  <div className={Styles.name}>AM-Chat</div>
+                                </div>
+                                <div className={Styles.responseContainer}>
+                                  <div
+                                    className={Styles.chatBubble}
+                                    style={{
+                                      display: 'flex',
+                                      justifyContent: 'flex-start',
+                                    }}
+                                  >
+                                    {item?.answer}
+                                  </div>
+                                </div>
+                              </div>
+                            );
+                          })}
+                      </Card>
                     </div>
-                    </div>
-                    <div className={Styles.questionContainer}>
-                    <div className={Styles.questionImageContainer}>
-                      <div>A</div>
-                    </div>
-                    <div className={Styles.name}>
-                    AM-Chat
-                    </div>
-                    </div>
-                    <div className={Styles.responseContainer}>
-                        <div className={Styles.chatBubble} style={{display:"flex", justifyContent:'flex-start'}}>{item?.answer}</div>
-                    </div>
-                    </div>)})}
-                  </Card>
-                </div>}
-                {!hideChatInitialPage && <div className="orgadminchat-chat-ui-text">
-                  <div className="orgadminchat-chat-ui-am-chat-text">
-                    <p>
-                      AM-Chat{' '}
-                      <img className="orgchat-icon" src={orgvector} alt="" />
-                    </p>
-                  </div>
-                </div>}
-                <div className={userRole === "USER" || userRole === "SUPER_ADMIN"? "footer_for_user" : "footer_for_admin"}>
-                  {!hideChatInitialPage && <div className="orgadminchat-chat-hello-text">
-                    <h2>Hello, I’m AM-Chat</h2>
-                    <p>How can I help you today?</p>
-                  </div>}                
-                  {!hideChatInitialPage && <div className="example_main_div">
-                    {contentArray.map((content, index) => (
-                      <p
-                        key={index}
-                        className="card_message_example"
-                        onClick={() => handleQuestionClick(content)}
-                      >
-                        {content}
-                      </p>
-                    ))}
-                  </div>}
-                  <div className={"AIChatInputBox"}>
-                    <ChatSearch
-                      name={'Ask anything..'}
-                      style={'searchStyles'}
-                      searchImage={Group2290}
-                      onSearchImageClick={arrowButton}
-                      readOnly={false}
-                      chat={chat}
-                      setChat={setChat}
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-            {rightSideDashBoard && <div className="hi">
-              <div className="orgadminchat-orgadmin-cards">
-                <div className="orgadminchat-orgadmindoc-card">
-                  <div className="activeuser-vectorimage">
-                    <div className="orgadminchat-orgadmindocument-card">
-                      <img
-                        className="orgadminchat-document-icon"
-                        src={documentIcon}
-                        alt="Document"
-                      />
-                      <h2>Documents</h2>
-                      <h1 className="document-value">{documentCount}</h1>
-                    </div>
-                    <div className="vector-card-image">
-                      <img
-                        className="vector-image-activeuser"
-                        src={vector}
-                        alt=""
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="orgadmin-vectorimage">
-                  <div className="orgadminchat-orgadmin-activeuser-card">
-                    <img
-                      className="orgadminchat-activeuser-icon"
-                      src={documentIconpink}
-                      alt="Document"
-                    />
-                    <h2>Active Users</h2>
-                    <h1 className="activeusers-value">
-                      {activeUsersCount}
-                    </h1>{' '}
-                    {/* Display active users count */}
-                  </div>
-                  <div className="vector-card-image">
-                    <img
-                      className="vector-image-activeuser"
-                      src={vector}
-                      alt=""
-                    />
-                  </div>
-                </div>
-
-                <div className="orgadmin-activeuser-card">
-                  <div className="user-table">
-                    {users.map((user, index) => (
-                      <div key={index}>
-                        <img className="orgadmin-profile-pic" src={base} />
-                        {user.username}
-                        <td className="orgadmin-lastseen">{user.lastseen}</td>
+                  )}
+                  {!hideChatInitialPage && (
+                    <div className="orgadminchat-chat-ui-text">
+                      <div className="orgadminchat-chat-ui-am-chat-text">
+                        <p>
+                          AM-Chat{' '}
+                          <img
+                            className="orgchat-icon"
+                            src={orgvector}
+                            alt=""
+                          />
+                        </p>
                       </div>
-                    ))}
+                    </div>
+                  )}
+                  <div
+                    className={
+                      userRole === 'USER' || userRole === 'SUPER_ADMIN'
+                        ? 'footer_for_user'
+                        : 'footer_for_admin'
+                    }
+                  >
+                    {!hideChatInitialPage && (
+                      <div className="orgadminchat-chat-hello-text">
+                        <h2>Hello, I’m AM-Chat</h2>
+                        <p>How can I help you today?</p>
+                      </div>
+                    )}
+                    {!hideChatInitialPage && (
+                      <div className="example_main_div">
+                        {contentArray.map((content, index) => (
+                          <p
+                            key={index}
+                            className="card_message_example"
+                            onClick={() => handleQuestionClick(content)}
+                          >
+                            {content}
+                          </p>
+                        ))}
+                      </div>
+                    )}
+                    <div className={'AIChatInputBox'}>
+                      <ChatSearch
+                        name={'Ask anything..'}
+                        style={'searchStyles'}
+                        searchImage={Group2290}
+                        onSearchImageClick={arrowButton}
+                        readOnly={false}
+                        chat={chat}
+                        setChat={setChat}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>}
+              {rightSideDashBoard && (
+                <div className="hi">
+                  <div className="orgadminchat-orgadmin-cards">
+                    <div className="orgadminchat-orgadmindoc-card">
+                      <div className="activeuser-vectorimage">
+                        <div className="orgadminchat-orgadmindocument-card">
+                          <img
+                            className="orgadminchat-document-icon"
+                            src={documentIcon}
+                            alt="Document"
+                          />
+                          <h2>Documents</h2>
+                          <h1 className="document-value">{documentCount}</h1>
+                        </div>
+                        <div className="vector-card-image">
+                          <img
+                            className="vector-image-activeuser"
+                            src={vector}
+                            alt=""
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div className="orgadmin-vectorimage">
+                      <div className="orgadminchat-orgadmin-activeuser-card">
+                        <img
+                          className="orgadminchat-activeuser-icon"
+                          src={documentIconpink}
+                          alt="Document"
+                        />
+                        <h2>Active Users</h2>
+                        <h1 className="activeusers-value">
+                          {activeUsersCount}
+                        </h1>{' '}
+                        {/* Display active users count */}
+                      </div>
+                      <div className="vector-card-image">
+                        <img
+                          className="vector-image-activeuser"
+                          src={vector}
+                          alt=""
+                        />
+                      </div>
+                    </div>
+
+                    <div className="orgadmin-activeuser-card">
+                      <div className="user-table">
+                        {users.map((user, index) => (
+                          <div key={index}>
+                            <img className="orgadmin-profile-pic" src={base} />
+                            {user.username}
+                            <td className="orgadmin-lastseen">
+                              {user.lastseen}
+                            </td>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

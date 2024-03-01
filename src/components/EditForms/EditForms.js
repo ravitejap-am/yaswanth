@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Button } from 'antd';
-import './userform.css'; // Import CSS file for styling
+import './editForm.css'; // Import CSS file for styling
 
-function UserProfileForm({ formData, setFormData, submitHandler }) {
+function EditForm({ formData, setFormData, submitHandler }) {
   // const [formData, setFormData] = useState({
   //   firstName: '',
   //   lastName: '',
@@ -23,9 +23,11 @@ function UserProfileForm({ formData, setFormData, submitHandler }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log("validateForm---->",validateForm);
     if (validateForm()) {
       // Submit the form
-      submitHandler(formData);
+      submitHandler(formData)
+      console.log(formData);
     }
   };
 
@@ -38,28 +40,10 @@ function UserProfileForm({ formData, setFormData, submitHandler }) {
       isValid = false;
     }
 
-    if (!formData.lastName.trim()) {
-      errors.lastName = 'Last name is required';
-      isValid = false;
-    }
-
-    if (!formData.email.trim()) {
-      errors.email = 'Email is required';
-      isValid = false;
-    } else if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
-      errors.email = 'Invalid email format';
-      isValid = false;
-    }
-
-    if (!formData.organization.trim()) {
-      errors.organization = 'Organization is required';
-      isValid = false;
-    }
-
-    if (!formData.status.trim()) {
-      errors.status = 'Status is required';
-      isValid = false;
-    }
+    // if (!formData.lastName.trim()) {
+    //   errors.lastName = 'Last name is required';
+    //   isValid = false;
+    // }
 
     setErrors(errors);
     return isValid;
@@ -105,44 +89,13 @@ function UserProfileForm({ formData, setFormData, submitHandler }) {
             name="email"
             value={formData.email}
             onChange={handleChange}
-            disabled
             style={{ backgroundColor: '#CBD5E1' }}
+            disabled
           />
           {errors.email && <span className="error">{errors.email}</span>}
         </div>
-        <div className="form-group">
-          <label htmlFor="organization">Organization:</label>
-          <input
-            className="inputstyle"
-            type="text"
-            id="organization"
-            name="organization"
-            value={formData.organization}
-            onChange={handleChange}
-            disabled
-            style={{ backgroundColor: '#CBD5E1' }}
-          />
-          {errors.organization && (
-            <span className="error">{errors.organization}</span>
-          )}
-        </div>
       </div>
-      <div className="form-row">
-        <div className="form-group">
-          <label htmlFor="status">Status:</label>
-          <input
-            className="inputstyle"
-            type="text"
-            id="status"
-            name="status"
-            value={formData.status}
-            onChange={handleChange}
-            disabled
-            style={{ backgroundColor: '#CBD5E1' }}
-          />
-          {errors.status && <span className="error">{errors.status}</span>}
-        </div>
-      </div>
+
       <Button
         type="primary"
         htmlType="submit"
@@ -157,4 +110,4 @@ function UserProfileForm({ formData, setFormData, submitHandler }) {
   );
 }
 
-export default UserProfileForm;
+export default EditForm;

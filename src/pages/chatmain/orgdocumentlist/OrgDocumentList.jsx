@@ -34,10 +34,13 @@ import AMChatHeader from '../../AMChatAdmin/AMChatHeader/AMChatHeader';
 import OrganizationAdminHeader from '../organizationadmin/OrganizationAdminHeader/OrganizationAdminHeader';
 import { Pagination } from 'antd';
 
-function OrgDocumentList() {
+function OrgDocumentList(props) {
   const user = useSelector(selectUser);
   const jwt = user.userToken;
   const navigate = useNavigate();
+  console.log("user props----->", props);
+  const navigationRoute = props.navigationRoute
+  console.log('navigationRoute---->', navigationRoute);
 
   const searchStyles = {
     width: '300px',
@@ -70,6 +73,7 @@ function OrgDocumentList() {
   const [searchQuery, setSearchQuery] = useState("");
   const [firstName, setFirstName] = useState("");
   const profileSrc = localStorage.getItem("profileImage");
+  const [fullName, setFullName] = useState("");
 
   const [pageInfo, setPageInfo] = useState({
     pageSize: 5,
@@ -89,8 +93,9 @@ function OrgDocumentList() {
   });
 
   useEffect(() => {
-    const storedFirstName = localStorage.getItem('firstNameOrganisation');
-    setFirstName(storedFirstName);
+
+    const storedFullName = localStorage.getItem('fullName');
+    setFullName(storedFullName)
   }, []);
 
   // const filteredRows = rows.filter(
@@ -261,7 +266,7 @@ function OrgDocumentList() {
         <div className={Styles.superAdminProfileCardStyle}>
           <OrganizationAdminHeader
             componentName="User List"
-            name={firstName || ''}
+            name={fullName || ''}
             profileImageSrc={localStorage.getItem('userImageUrl')}
             customStyle={{
               containerStyle: {
@@ -274,10 +279,11 @@ function OrgDocumentList() {
               },
               textStyle: {
                 color: 'black',
-                fontWeight: '500',
-                fontSize: '24px',
+                fontWeight: '600',
+                fontSize: '18px',
               },
             }}
+            navigationRoute = {navigationRoute}
           />
         </div>
         <div className={Styles.bannerBtn}>
