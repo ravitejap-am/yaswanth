@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import { ReactComponent as DeleteIcon } from '../../asset/AmChatSuperAdmin/trash-solid.svg';
 import { Button } from 'antd';
+import axios from 'axios';
+import { BASE_ORG_API_URL } from '../../constants/Constant';
+import { useSelector } from 'react-redux';
+import { selectUser } from '../../store/authSlice';
 
 function DynamicTextComponent({
   textFields,
@@ -8,7 +12,15 @@ function DynamicTextComponent({
   submitHandler,
   handleRemoveDomain,
   buttonLoading,
+  setBackDropLoading,
+  showNotifyMessage,
+  messageHandler,
+  orgStatus,
 }) {
+  const user = useSelector(selectUser);
+  const jwt = user.userToken;
+  console.log('token', jwt);
+
   const handleAddText = () => {
     setTextFields([
       ...textFields,
@@ -35,12 +47,38 @@ function DynamicTextComponent({
   const isValidDomain = (domain) => {
     const domainRegex = /^[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$/;
     const domainRegexone = /^[a-zA-Z0-9-]+\.[a-zA-Z]{2,}\.[a-zA-Z]{2,}$/;
-    // console.log("domain name",domainRegexone.test(domain));
     return domainRegex.test(domain) || domainRegexone.test(domain);
   };
 
   const isSubmitDisabled = () => {
     return textFields.some((field) => !isValidDomain(field.typeDetails));
+  };
+
+  const handleCheckDomain = async (index, data) => {
+    if (isValidDomain(data) && orgStatus == 'edit') {
+      setBackDropLoading(true);
+      try {
+        const response = await axios.get(
+          `${BASE_ORG_API_URL}/verify_domain/${data}`,
+          {
+            headers: {
+              Authorization: `Bearer ${jwt}`,
+            },
+          }
+        );
+        console.log('api-response', response);
+        showNotifyMessage('success', response?.data?.message, messageHandler);
+        setBackDropLoading(false);
+      } catch (error) {
+        console.log('api-error', error);
+        showNotifyMessage(
+          'error',
+          error?.response?.data?.message,
+          messageHandler
+        );
+        setBackDropLoading(false);
+      }
+    }
   };
 
   return (
@@ -61,6 +99,7 @@ function DynamicTextComponent({
               type="text"
               value={typeDetails}
               onChange={(event) => handleTextChange(index, event.target.value)}
+              onBlur={(event) => handleCheckDomain(index, event.target.value)}
               style={{
                 width: '445px',
                 height: '35px',
