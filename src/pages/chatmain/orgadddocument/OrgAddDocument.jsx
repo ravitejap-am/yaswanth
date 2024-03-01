@@ -34,6 +34,7 @@ function OrgAddDocument(props) {
   const jwt = user.userToken;
   const profileSrc = localStorage.getItem("profileImage");
   const navigationRoute = props?.navigationRoute;
+  const fullName = localStorage.getItem('fullName') || '';
 
   const messageHandler = () => {
     setIsReset(false);
@@ -145,7 +146,7 @@ function OrgAddDocument(props) {
         <div className={Styles.superAdminProfileCardStyle}>
           <OrganizationAdminHeader
             componentName="Add Document"
-            name={firstName || ''}
+            name={fullName || ''}
             profileImageSrc={localStorage.getItem('userImageUrl')}
             customStyle={{
               containerStyle: {

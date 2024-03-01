@@ -122,6 +122,7 @@ const OrgAdminChatPage = (props) => {
 
   const [orgCount, setOrgCount] = useState(0);
   const [docCount, setDocCount] = useState(0);
+  const [fullName, setFullName] = useState('');
 
   const getDocumentsCount = async () => {
     try {
@@ -278,6 +279,9 @@ const OrgAdminChatPage = (props) => {
 
       const userData = await response.json();
       console.log('userData---->', userData);
+      const fullName = `${userData?.data?.user?.firstName || ""} ${userData?.data?.user?.lastName || ""}`;
+      localStorage.setItem('fullName', fullName);
+      setFullName(fullName);
       localStorage.setItem(
         'firstNameOrganisation',
         userData?.data?.user?.firstName
@@ -372,8 +376,8 @@ const OrgAdminChatPage = (props) => {
       >
         <div className="orgadminchat-chat-header">
           <OrganizationAdminHeader
-            componentName={`Welcome ${firstName || ''}`}
-            name={firstName || ''}
+            componentName={`Welcome ${fullName || ''}`}
+            name={fullName || ''}
             profileImageSrc={localStorage.getItem('userImageUrl')}
             customStyle={{
               containerStyle: {

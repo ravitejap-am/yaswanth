@@ -43,15 +43,17 @@ function AddOrgUser(props) {
   const [previewTitle, setPreviewTitle] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [fileList, setFileList] = useState([]);
-  const [firstName, setFirstName] = useState('');
+
   const inputRefs = useRef([]);
   const profileSrc = localStorage.getItem("profileImage");
   const navigationRoute = props.navigationRoute;
+  const [fullName, setFullName] = useState('');
 
   useEffect(() => {
     // Retrieve firstName from localStorage
-    const storedFirstName = localStorage.getItem('firstNameOrganisation');
-    setFirstName(storedFirstName);
+
+    const storedFullName = localStorage.getItem('fullName');
+    setFullName(storedFullName);
   }, []);
 
   const handleCancel = () => setPreviewOpen(false);
@@ -266,7 +268,7 @@ function AddOrgUser(props) {
         <div className={Styles.superAdminProfileCardStyle}>
           <OrganizationAdminHeader
             componentName="Add User"
-            name={firstName || ''}
+            name={fullName || ''}
             profileImageSrc={localStorage.getItem('userImageUrl')}
             customStyle={{
               containerStyle: {

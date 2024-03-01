@@ -24,12 +24,8 @@ function OrgEditDocument(props) {
   } = useMessageState();
   const { documentId } = useParams();
   const navigate = useNavigate();
-  const [firstName, setFirstName] = useState('');
-  useEffect(() => {
-    // Retrieve firstName from localStorage
-    const storedFirstName = localStorage.getItem('firstNameOrganisation');
-    setFirstName(storedFirstName);
-  }, []);
+  const fullName=  useState(localStorage.getItem('fullName') || "");
+ 
   const [documentDetails, setDocumentDetails] = useState({});
   const [loading, setLoading] = useState(true);
 
@@ -171,7 +167,7 @@ function OrgEditDocument(props) {
         <div className={Styles.superAdminProfileCardStyle}>
           <OrganizationAdminHeader
             componentName="Edit Document Name"
-            name={firstName || ''}
+            name={fullName || ''}
             profileImageSrc={localStorage.getItem('userImageUrl')}
             customStyle={{
               containerStyle: {

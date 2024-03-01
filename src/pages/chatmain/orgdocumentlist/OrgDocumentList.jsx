@@ -73,6 +73,7 @@ function OrgDocumentList(props) {
   const [searchQuery, setSearchQuery] = useState("");
   const [firstName, setFirstName] = useState("");
   const profileSrc = localStorage.getItem("profileImage");
+  const [fullName, setFullName] = useState("");
 
   const [pageInfo, setPageInfo] = useState({
     pageSize: 5,
@@ -92,8 +93,9 @@ function OrgDocumentList(props) {
   });
 
   useEffect(() => {
-    const storedFirstName = localStorage.getItem('firstNameOrganisation');
-    setFirstName(storedFirstName);
+
+    const storedFullName = localStorage.getItem('fullName');
+    setFullName(storedFullName)
   }, []);
 
   // const filteredRows = rows.filter(
@@ -264,7 +266,7 @@ function OrgDocumentList(props) {
         <div className={Styles.superAdminProfileCardStyle}>
           <OrganizationAdminHeader
             componentName="User List"
-            name={firstName || ''}
+            name={fullName || ''}
             profileImageSrc={localStorage.getItem('userImageUrl')}
             customStyle={{
               containerStyle: {

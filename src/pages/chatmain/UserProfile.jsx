@@ -11,14 +11,10 @@ import PersonalInfo from '../../components/personalInfo/page';
 
 const UserProfile = () => {
   const [selectedTab, setSelectedTab] = useState('personalinformation');
-  const [firstName, setFirstName] = useState('');
 
-  useEffect(() => {
-    // Retrieve firstName from localStorage
-    const storedFirstName = localStorage.getItem('firstNameOrganisation');
-    console.log('storedFirstName', storedFirstName);
-    setFirstName(storedFirstName);
-  }, []);
+  const fullName = localStorage.getItem('fullName') || '';
+
+
 
   const handleTabChange = (tab) => {
     if (tab !== selectedTab) {
@@ -33,8 +29,8 @@ const UserProfile = () => {
           <div className="userprofile-header">
             {/* Display firstName in the Welcome message */}
             <AMChatHeader
-              componentName={`Welcome ${firstName || ''}`}
-              name={firstName || ''}
+              componentName={`Welcome ${fullName || ''}`}
+              name={fullName || ''}
               profileImageSrc={localStorage.getItem('userImageUrl')}
               customStyle={{
                 containerStyle: {

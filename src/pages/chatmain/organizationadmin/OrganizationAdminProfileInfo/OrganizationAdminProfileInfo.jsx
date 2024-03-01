@@ -9,12 +9,9 @@ import TabNavigation from '../../tabNaviagation';
 import PersonalInfo from '../../../../components/personalInfo/page';
 
 function OrganizationAdminProfileInfo() {
-  const [firstName, setFirstName] = useState('');
-  useEffect(() => {
-    // Retrieve firstName from localStorage
-    const storedFirstName = localStorage.getItem('firstNameOrganisation');
-    setFirstName(storedFirstName);
-  }, []);
+
+  const fullName = localStorage.getItem('fullName') || '';
+
   const [selectedTab, setSelectedTab] = useState("personalinformation");
   const profileSrc = localStorage.getItem("profileImage");
 
@@ -30,8 +27,8 @@ function OrganizationAdminProfileInfo() {
         <div className="userprofile-pofilecontainer">
           <div className="userprofile-header">
             <AMChatHeader
-              componentName={`Welcome ${firstName || ""}`}
-              name={firstName || ""}
+              componentName={`Welcome ${fullName || ""}`}
+              name={fullName || ""}
               profileImageSrc={profileSrc}
               customStyle={{
                 containerStyle: {

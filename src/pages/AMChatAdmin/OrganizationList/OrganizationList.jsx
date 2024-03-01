@@ -65,7 +65,8 @@ function OrganizationList() {
   const [responseData, setResponseData] = useState([]);
   const dispatch = useDispatch();
   const [loadingId, setLoadingId] = useState(null);
-  const [firstName, setFirstName] = useState('');
+
+  const [fullName, setFullName] = useState('');
   const [pageInfo, setPageInfo] = useState({
     pageSize: 5,
     page: 0,
@@ -80,8 +81,9 @@ function OrganizationList() {
   const [searchValue, setSearchValue] = useState('');
   
   useEffect(() => {
-    const storedFirstName = localStorage.getItem('firstName');
-    setFirstName(storedFirstName);
+
+    const storedFullName = localStorage.getItem('fullName');
+    setFullName(storedFullName)
   }, []);
 
   useEffect(() => {
@@ -269,7 +271,7 @@ function OrganizationList() {
         <div className={Styles.superAdminProfileCardStyle}>
           <SuperAdminHeader
             componentName="Organization List"
-            name={firstName || ''}
+            name={fullName || ''}
             profileImageSrc={localStorage.getItem('userImageUrl')}
             customStyle={{
               containerStyle: {

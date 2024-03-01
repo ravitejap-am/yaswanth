@@ -46,22 +46,20 @@ function OrgUpdateDocumentSidebar() {
             <div className={Styles.SuperAdminChildContainer}>
               <span>
                 <img src={arrorLink} alt="" />
-                <Link to="/userchat" style={{ textDecoration: "none" }}>
+                <Link to="/orgadminchat" style={{ textDecoration: "none" }}>
                   <p className={Styles.organizationTextStyle}>Back to Chat</p>{" "}
                 </Link>
               </span>
 
+              <Link to="/orguserlist" style={{ textDecoration: "none" }}>
               <span>
                 <img src={usersicon} alt="" />
-                <Link
-                  to="/or"
-                  style={{ textDecoration: "none" }}
-                >
                   <p className={Styles.organizationTextStyle}>Users</p>
-                </Link>
               </span>
+              </Link>
             </div>
             <br />
+            <Link to="/orgdocumentlist" style={{ textDecoration: "none" }}>
             <div className={Styles.SuperAdminChildContainer}>
               <span>
                 <img src={documenticon} alt="" />
@@ -70,6 +68,7 @@ function OrgUpdateDocumentSidebar() {
                 </p>
               </span>
             </div>
+            </Link>
           </div>
         </div>
         <OrgUpdateDocument navigationRoute={navigationRoute}/>

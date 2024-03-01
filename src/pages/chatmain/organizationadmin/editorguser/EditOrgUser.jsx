@@ -58,11 +58,14 @@ function EditOrgUser(props) {
     firstName: '',
     lastName: '',
   });
+  const [fullName, setFullName] = useState('');
 
   useEffect(() => {
     // Retrieve firstName from localStorage
     const storedFirstName = localStorage.getItem('firstNameOrganisation');
     setFirstName(storedFirstName);
+    const storedFullName = localStorage.getItem('fullName');
+    setFullName(storedFullName);
   }, []);
 
   useEffect(() => {
@@ -242,7 +245,7 @@ function EditOrgUser(props) {
         <div className={Styles.superAdminProfileCardStyle}>
           <OrganizationAdminHeader
             componentName="Edit User"
-            name={firstName || ''}
+            name={fullName || ''}
             profileImageSrc={localStorage.getItem('userImageUrl')}
             customStyle={{
               containerStyle: {

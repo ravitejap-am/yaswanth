@@ -30,6 +30,7 @@ function OrgUpdateDocument(props) {
   const [firstName, setFirstName] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigationRoute = props?.navigationRoute;
+  const fullName = localStorage.getItem('fullName') || '';
 
   useEffect(() => {
     // Retrieve firstName from localStorage
@@ -138,7 +139,7 @@ function OrgUpdateDocument(props) {
         <div className={Styles.superAdminProfileCardStyle}>
           <OrganizationAdminHeader
             componentName="Upload Correct Document"
-            name={firstName || ''}
+            name={fullName || ''}
             profileImageSrc={localStorage.getItem('userImageUrl')}
             customStyle={{
               containerStyle: {
