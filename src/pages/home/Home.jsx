@@ -134,7 +134,7 @@ const Home = () => {
         </div>
       </section> */}
 
-      <div style={{ position: "fixed" }}>
+      <div style={{ position: "fixed", zIndex: 1 }}>
         {" "}
         <Header />
       </div>
@@ -144,7 +144,7 @@ const Home = () => {
       </div>
       <div className={Style.divider}>
         <div className={Style.dividerMainUlStyle}>
-          <p>Secure</p>
+          <p>Secured</p>
           <p>Personalized</p>
           <p>Knowledge Based</p>
           <p>Scalable</p>

@@ -14,4 +14,5 @@ export const PROFILE_URL = "https://medicalpublic.s3.amazonaws.com/"
 
 export const USER_PROFILE = `${BASE_API_URL}/user`;
 export const UPDATE_ADMIN_USER = `${BASE_API_URL}/user`;
+export const GET_ACTIVE_USERS = `${BASE_API_URL}/user/recently_visited_users`;
 
