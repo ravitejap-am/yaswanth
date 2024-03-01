@@ -35,6 +35,8 @@ import flow from '../../../asset/AmChatSuperAdmin/flow.png';
 import flowImage2 from '../../../asset/AmChatSuperAdmin/flow2.png';
 import axios from 'axios';
 import PageLoader from '../../../components/loader/loader';
+import { getActiveUserList } from '../../../apiCalls/ApiCalls';
+import { timeExtracter } from '../../../../src/utils/timeStampGenerateUtils'
 
 const OrgAdminChatPage = (props) => {
   const navigate = useNavigate();
@@ -123,6 +125,7 @@ const OrgAdminChatPage = (props) => {
   const [orgCount, setOrgCount] = useState(0);
   const [docCount, setDocCount] = useState(0);
   const [fullName, setFullName] = useState('');
+  const [activeUserList, setActiveUserList] = useState([]);
 
   const getDocumentsCount = async () => {
     try {
@@ -204,6 +207,7 @@ const OrgAdminChatPage = (props) => {
       fetchUserProfile();
       fetchDocumentCount();
       fetchUserList();
+      fetchActiveUserList()
     }
     if (userRole === 'SUPER_ADMIN') {
       callAPiForSuperAdmin();
@@ -262,6 +266,24 @@ const OrgAdminChatPage = (props) => {
       navigate('/maintenance');
     }
   };
+
+
+  const fetchActiveUserList = async () => { 
+    try{
+      const headers =  {Authorization: `Bearer ${jwt}`}
+      const response = await getActiveUserList(headers)
+      console.log('response of active users---->', response);
+      if(response.data?.data){
+        setActiveUserList(response.data?.data)
+      }else{
+        setActiveUserList([])
+      }
+
+    }catch(error) {
+      setActiveUserList([])
+      console.log('Failed to get active users.', error);
+    }
+  }
 
   const fetchUserProfile = async () => {
     try {
