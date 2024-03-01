@@ -161,9 +161,9 @@ const SignIn = () => {
         { type: 'email', message: 'Invalid email format' },
       ],
       style: {},
-      pattern: /^([a-zA-Z]{3,30}\s*)+/,
-      emptyErrorMessage: 'Please Enter the First Name',
-      invalidErrorMessage: 'Please Enter the Valid First Name',
+      pattern: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+      emptyErrorMessage: 'Please Enter the Email',
+      invalidErrorMessage: 'Please Enter the Valid Email',
     },
     {
       label: 'Password',
@@ -178,7 +178,9 @@ const SignIn = () => {
         top: '54%',
         transform: 'translateY(-50%)',
         cursor: 'pointer'
-      }
+      },
+      pattern: /^.+$/,
+      emptyErrorMessage: 'Please Enter the passsword',
     },
   ];
 
