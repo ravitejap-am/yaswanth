@@ -48,7 +48,7 @@ const GeneralForm = (props) => {
     if (isReset) {
       form.resetFields();
     }
-  }, [isReset, form]);
+  }, [isReset]);
 
   useEffect(() => {
     if (isSuperAdmin) {
@@ -57,9 +57,26 @@ const GeneralForm = (props) => {
 
         form.setFieldsValue(orgInfo?.orgData?.address);
         form.setFieldsValue({ name: orgInfo?.orgData?.name });
+        form.setFieldsValue({ orgName: orgInfo?.orgData?.name });
+        formElements?.map((itemname)=>{
+          const name=itemname?.name||'';
+          const namevalue=itemname?.defaultValue||'';
+          
+          form.setFieldsValue({ [name]: namevalue });
+        })
       } else {
         form.setFieldsValue(orgInfo?.orgData?.contact);
+        formElements?.map((itemname)=>{
+          const name=itemname?.name||'';
+          const namevalue=itemname?.defaultValue||'';
+          
+          form.setFieldsValue({ [name]: namevalue });
+        })
       }
+
+      console.log("_form_",form.getFieldsValue())
+      console.log("_form_status ",orgInfo?.orgData)
+      debugger
     }
 
     if (isOrgAdmin) {
@@ -76,9 +93,17 @@ const GeneralForm = (props) => {
           lastName: personalInfo?.userData?.lastName,
         });
         console.log('form---->', form);
+
+        formElements?.map((itemname)=>{
+          const name=itemname?.name||'';
+          const namevalue=itemname?.defaultValue||'';
+          
+          form.setFieldsValue({ [name]: namevalue });
+        })
+
       }
     }
-  }, [personalInfo]);
+  }, []);
 
   const isValid = (
     pattern,
@@ -92,13 +117,24 @@ const GeneralForm = (props) => {
     if (pattern !== null && pattern !== undefined) {
       const patternObj = new RegExp(pattern);
       if (patternObj.test(value)) {
+
+        const IsErrorAvailable = [...Errors].filter((ErrorName) => {
+          
+          const keysname = Object?.keys(ErrorName);
+
+          if (ErrorName && keysname && keysname[0] !== name) {
+            return ErrorName;
+          }
+        });
+        setErrors(IsErrorAvailable||[])
         result = true;
       } else {
+        result = false;
         // const newMessages = [...Errors];
 
         let newMessages = [];
 
-        if (passcallback === null) {
+        if (passcallback === null|| passcallback === undefined) {
           newMessages = [...Errors];
         }
 
@@ -116,7 +152,7 @@ const GeneralForm = (props) => {
         //   });
         // }
 
-        const IsErrorAvailable = newMessages.find((ErrorName) => {
+        const IsErrorAvailable = [newMessages].find((ErrorName) => {
           const keysname = Object.keys(ErrorName);
 
           if (ErrorName && keysname && keysname[0] == name) {
@@ -124,23 +160,67 @@ const GeneralForm = (props) => {
           }
         });
 
-        if (IsErrorAvailable) {
-          const indexError = Errors.indexOf(IsErrorAvailable);
-          Errors[indexError][name] = inValidErrorMessage
+
+        // console.log(" IsErrorAvailable ",IsErrorAvailable)
+        // if (IsErrorAvailable) {
+        //   const indexError = newMessages.indexOf(IsErrorAvailable);
+        //   newMessages[indexError][name] = inValidErrorMessage
+        //     ? inValidErrorMessage
+        //     : 'Please enter valid input value';
+        // } else {
+        //   newMessages.push({
+        //     [name]: emptyErrorMessage
+        //       ? emptyErrorMessage
+        //       : 'Please enter value',
+        //   });
+        // }
+
+        console.log(" IsErrorAvailable ",IsErrorAvailable);
+
+         if (IsErrorAvailable===true) {
+          const indexError = newMessages.indexOf(IsErrorAvailable);
+          newMessages[indexError][name] = inValidErrorMessage
             ? inValidErrorMessage
             : 'Please enter valid input value';
-        } else {
-          newMessages.push({
-            [name]: emptyErrorMessage
-              ? emptyErrorMessage
-              : 'Please enter value',
-          });
+        } else if((IsErrorAvailable===null || IsErrorAvailable===undefined)&& value?.length  && value?.length>0)
+        {
+          // const indexError = newMessages.indexOf(IsErrorAvailable);
+          // newMessages[indexError][name] = inValidErrorMessage
+          //   ? inValidErrorMessage
+          //   : 'Please enter valid input value';
+
+            newMessages.push({
+              [name]: inValidErrorMessage
+                ? inValidErrorMessage
+                :'Please enter valid input value'
+            });
+
+        }else{
+          {
+            newMessages.push({
+              [name]: emptyErrorMessage
+                ? emptyErrorMessage
+                : 'Please enter value',
+            });
+          }
         }
+
+
+
 
         // const merges=[...]
 
         if (passcallback && newMessages?.length > 0) {
-          passcallback(newMessages[0]);
+       
+
+           if(newMessages?.length>=0)
+           {
+            debugger
+            passcallback(newMessages[newMessages.length-1]);
+           }    else{
+            debugger
+            passcallback(newMessages[0]);
+           }
         } else {
           setErrors(newMessages);
         }
@@ -168,14 +248,18 @@ const GeneralForm = (props) => {
     );
   };
 
-  console.log(formElements, 'formElements');
+  console.log(" general is here ",form.getFieldsValue());
+
   return (
     <Form
       style={{ padding: '18px' }}
       form={form}
       // onFinish={submitHandler}
       onFinish={(value) => {
+        // console.log('onFinish values ', value);
         console.log('onFinish values ', value);
+        console.log('formElements', formElements);
+        debugger;
         setErrors([]);
         const checkPatternFound = formElements.some(
           (ItemCheck) => ItemCheck.pattern
@@ -195,12 +279,12 @@ const GeneralForm = (props) => {
                 : '';
               const valuesfield = value[ItemCheck?.name] || '';
               const patternName = ItemCheck?.name ? ItemCheck?.name : '';
-
+              debugger
               console.log('patternvalue  ', ItemCheck);
               console.log('patternvalue  ', patternvalue);
               console.log('valuesfield  ', valuesfield);
               console.log('patternName  ', patternName);
-
+              debugger
               const result = isValid(
                 patternvalue,
                 valuesfield,
@@ -245,14 +329,16 @@ const GeneralForm = (props) => {
           {formElements.map((item, index) => {
             const elements = {
               email: (
-                <div>
+                <div key={"divs" + index.toString()}>
                   <Input
+                    key={"input" + index.toString()}
                     labelName={item.labelName ? item.label : null}
                     type={item.type}
                     placeholder={item.labelName ? null : item.label}
                     iconClass={item.iconClass}
                     onChange={(e) => {
                       form.setFieldValue({ [item.name]: e.target.value });
+                      
                     }}
                     // pattern={item.pattern}
                     onBlur={() => {
@@ -276,9 +362,10 @@ const GeneralForm = (props) => {
               ),
 
               text: (
-                <div>
+                <div key={"divs" + index.toString()}>
                   <Input
-                    // value={form.getFieldValue([item.name])}
+                    key={"val" + index.toString()}
+                     value={form.getFieldValue([item.name])}
                     labelName={item.labelName ? item.label : null}
                     type={item.type}
                     placeholder={item.labelName ? null : item.label}
@@ -441,18 +528,19 @@ const GeneralForm = (props) => {
                     /> */}
                         <div>
                           <Dropdown
-                            key={item.name || 'dropdown'}
+                            key={item.name || "dropdown"}
                             labelName={item.labelName ? item.label : null}
                             options={
                               item?.options != undefined ? item?.options : []
                             }
                             onSelect={(value) => {
+                                                        
                               if (isSuperAdmin) {
                                 item?.onSelectApiCall(value);
                               }
-                              // const namevalue=item.name;
+                            
+                              form.setFieldsValue({ [item.name]: value });                          
 
-                              form.setFieldsValue({ [item.name]: value });
                             }}
                             style={item.style}
                             placeholder={item.labelName ? null : item.label}
@@ -532,13 +620,16 @@ const GeneralForm = (props) => {
                           placeholder={item.labelName ? null : item.label}
                           iconClass={item.iconClass}
                           onChange={(e) => {
+                            debugger
                             form.setFieldValue({ [item.name]: e.target.value });
+                            debugger
                           }}
                           style={item.style}
                           defaultValue={
                             item.defaultValue ? item.defaultValue : ''
                           }
                           onBlur={() => {
+                            debugger
                             if (
                               item.pattern !== null &&
                               item.pattern !== undefined
