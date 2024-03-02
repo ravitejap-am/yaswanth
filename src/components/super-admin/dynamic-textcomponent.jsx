@@ -44,6 +44,11 @@ function DynamicTextComponent({
   };
 
   const handleTextChange = (index, newText) => {
+    if (usedDomainIndexCollection.includes(index)) {
+      setUsedDomainIndexCollection((prevArray) =>
+        prevArray.filter((item) => item != index)
+      );
+    }
     const updatedTextFields = [...textFields];
     updatedTextFields[index].typeDetails = newText;
     setTextFields(updatedTextFields);
@@ -166,7 +171,7 @@ function DynamicTextComponent({
           {usedDomainIndexCollection.includes(index) && (
             <span
               style={{ color: 'red' }}
-            >{`${typeDetails} this domain are already used`}</span>
+            >{`${typeDetails} domain are already used`}</span>
           )}
         </div>
       ))}
