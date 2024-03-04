@@ -5,6 +5,7 @@ import axios from 'axios';
 import { BASE_ORG_API_URL } from '../../constants/Constant';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../../store/authSlice';
+import CircularProgress from '@mui/material/CircularProgress';
 
 function DynamicTextComponent({
   textFields,
@@ -20,6 +21,10 @@ function DynamicTextComponent({
   const user = useSelector(selectUser);
   const jwt = user.userToken;
   console.log('token', jwt);
+  const [loadingIndex, setLoadingIndex] = useState(null);
+  const [usedDomainIndexCollection, setUsedDomainIndexCollection] = useState(
+    []
+  );
 
   const handleAddText = () => {
     setTextFields([
@@ -39,6 +44,11 @@ function DynamicTextComponent({
   };
 
   const handleTextChange = (index, newText) => {
+    if (usedDomainIndexCollection.includes(index)) {
+      setUsedDomainIndexCollection((prevArray) =>
+        prevArray.filter((item) => item != index)
+      );
+    }
     const updatedTextFields = [...textFields];
     updatedTextFields[index].typeDetails = newText;
     setTextFields(updatedTextFields);
@@ -56,7 +66,8 @@ function DynamicTextComponent({
 
   const handleCheckDomain = async (index, data) => {
     if (isValidDomain(data) && orgStatus == 'edit') {
-      setBackDropLoading(true);
+      setLoadingIndex(index);
+
       try {
         const response = await axios.get(
           `${BASE_ORG_API_URL}/verify_domain/${data}`,
@@ -67,8 +78,13 @@ function DynamicTextComponent({
           }
         );
         console.log('api-response', response);
-        showNotifyMessage('success', response?.data?.message, messageHandler);
-        setBackDropLoading(false);
+        // showNotifyMessage('success', response?.data?.message, messageHandler);
+        if (usedDomainIndexCollection.includes(index)) {
+          setUsedDomainIndexCollection((prevArray) =>
+            prevArray.filter((item) => item != index)
+          );
+        }
+        setLoadingIndex(null);
       } catch (error) {
         console.log('api-error', error);
         showNotifyMessage(
@@ -76,8 +92,32 @@ function DynamicTextComponent({
           error?.response?.data?.message,
           messageHandler
         );
-        setBackDropLoading(false);
+
+        if (!usedDomainIndexCollection.includes(index)) {
+          setUsedDomainIndexCollection((prevArray) => [...prevArray, index]);
+        }
+        setLoadingIndex(null);
       }
+    }
+  };
+
+  function onFocusFunction(index) {
+    // Check if the function hasn't been executed yet
+
+    if (usedDomainIndexCollection.includes(index)) {
+      setUsedDomainIndexCollection((prevArray) =>
+        prevArray.filter((item) => item != index)
+      );
+    }
+  }
+
+  const handleOnfocus = (index, data) => {
+    alert('hi');
+    console.log('index of domain-------', index);
+    if (usedDomainIndexCollection.includes(index)) {
+      setUsedDomainIndexCollection((prevArray) =>
+        prevArray.filter((item) => item != index)
+      );
     }
   };
 
@@ -89,7 +129,7 @@ function DynamicTextComponent({
           key={index}
           style={{
             display: 'flex',
-            justifyContent: 'center',
+            justifyContent: 'flex-start',
             alignItems: 'center',
             gap: '2em',
           }}
@@ -100,6 +140,8 @@ function DynamicTextComponent({
               value={typeDetails}
               onChange={(event) => handleTextChange(index, event.target.value)}
               onBlur={(event) => handleCheckDomain(index, event.target.value)}
+              // onfocus={onfocus()}
+              // onfocus={onFocusFunction(index)}
               style={{
                 width: '445px',
                 height: '35px',
@@ -124,6 +166,13 @@ function DynamicTextComponent({
             }}
             onClick={() => handleRemoveDomain(index)}
           />
+
+          {!!loadingIndex && loadingIndex == index ? <CircularProgress /> : ''}
+          {usedDomainIndexCollection.includes(index) && (
+            <span
+              style={{ color: 'red' }}
+            >{`${typeDetails} domain are already used`}</span>
+          )}
         </div>
       ))}
       {/* Button to add text field */}
@@ -136,6 +185,7 @@ function DynamicTextComponent({
           marginTop: '1em',
         }}
       >
+        {console.log('----used domain index', usedDomainIndexCollection)}
         <Button
           onClick={handleAddText}
           style={{
@@ -180,7 +230,7 @@ function DynamicTextComponent({
             fontWeight: '700',
             lineHeight: '24px',
           }}
-          disabled={isSubmitDisabled()}
+          disabled={isSubmitDisabled() || usedDomainIndexCollection.length > 0}
           loading={buttonLoading}
         >
           Save
