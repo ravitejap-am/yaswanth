@@ -321,6 +321,10 @@ const OrgAdminChatPage = (props) => {
         const imagePath = `${profileUrl}${userData?.data?.user?.profileImagePath}`;
         setProfileSrc(imagePath);
         localStorage.setItem('profileImage', imagePath);
+        localStorage.setItem(
+          'userImageUrl',
+          imagePath
+        );
       } else {
         localStorage.setItem('profileImage', profilePlaceholder);
       }
@@ -328,11 +332,13 @@ const OrgAdminChatPage = (props) => {
       setOrganisationName(userData?.data?.organisation?.name);
       setamChatUserStatus(userData?.data?.user.active);
       setFirstName(userData?.data?.user?.firstName);
-      let { profileImagePath } = userData?.data?.user;
-      localStorage.setItem(
-        'userImageUrl',
-        `${BASE_USER_IMAGE_URL}${profileImagePath}`
-      );
+      // if(userData?.data?.user){
+      //   let { profileImagePath } = userData?.data?.user;
+      //   localStorage.setItem(
+      //     'userImageUrl',
+      //     `${BASE_USER_IMAGE_URL}${profileImagePath}`
+      //   );
+      // }
 
       setUserStatus(userData.data.user.active ? 'Active' : 'Inactive');
     } catch (error) {
@@ -388,7 +394,7 @@ const OrgAdminChatPage = (props) => {
 
   console.log('hide initial page', hideChatInitialPage);
   console.log('questionAndAnswer------>', questionAndAnswer);
-
+  
   return (
     <>
     {isLoading && <PageLoader loadingStatus={isLoading} />}
@@ -705,10 +711,13 @@ const OrgAdminChatPage = (props) => {
                         <span className='title-text'>Active Users</span>
                       </div>
                       <div className="divider"></div>
-                      {activeUserList.map((user, index) => (
+                      {activeUserList.map((user, index) => {
+                        
+                        const imagePath = user?.imageUrl ? `${BASE_USER_IMAGE_URL}${user?.imageUrl}` : profilePlaceholder;
+                        return(
                           <div key={index} className='content-container'>
                             <div> 
-                              <img className="user-pic" src={base} />
+                              <img className="user-pic" src={imagePath} />
                             </div>
                             <div className='content-bg'>
                               <span className='name-text'>{user.name}</span>
@@ -717,7 +726,8 @@ const OrgAdminChatPage = (props) => {
                             </div>
                             <div className="divider"></div>
                           </div>
-                        ))}
+                        )
+})}
                     </div>
                   </div>
                 </div>

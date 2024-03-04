@@ -10,8 +10,7 @@ import TextArea from 'antd/es/input/TextArea';
 import { ReactComponent as DeleteIcon } from '../../../asset/AmChatSuperAdmin/trash-solid.svg';
 import { PlusOutlined } from '@ant-design/icons';
 import { Button as AddButton } from 'antd';
-
-// const { TextArea } = Input;
+import './GeneralForm.css';
 
 const GeneralForm = (props) => {
   const {
@@ -43,6 +42,13 @@ const GeneralForm = (props) => {
   console.log('props', props, 'grid', grid, 'formelements', formElements);
   const [form] = Form.useForm();
   const [Errors, setErrors] = useState([]);
+
+
+  const inputNumberStyle = {
+    '& .ant-input-number-handler-wrap': {
+      display: 'none',
+    },
+  };
 
   useEffect(() => {
     if (isReset) {
@@ -459,6 +465,7 @@ const GeneralForm = (props) => {
                       }
                     }}
                     defaultValue={item?.defaultValue ? item?.defaultValue : ''}
+                    className={item?.className ? item?.className:''}
                   />
                   {<ErrorMessage name={item.name} />}
                 </div>
@@ -782,7 +789,7 @@ const GeneralForm = (props) => {
                       }
                     }}
                     defaultValue={item?.defaultValue ? item?.defaultValue : ''}
-                  />
+                                      />
                   {<ErrorMessage name={item.name} />}
                 </div>
               ),
