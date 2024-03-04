@@ -56,6 +56,8 @@ function AddOrganizationAdmin() {
             city: organisation?.organisationData?.address?.city,
             postCode: organisation?.organisationData?.address?.postCode,
             landmark: '',
+            countryCode: organisation?.organisationData?.address?.country?.countryCode,
+            stateCode: organisation?.organisationData?.address?.state?.stateCode,
           },
           name: organisation?.organisationData?.name,
           contact: {
@@ -77,6 +79,8 @@ function AddOrganizationAdmin() {
             organisation?.organisationData?.address?.country?.countryName,
           state: organisation?.organisationData?.address?.state?.stateName,
           city: organisation?.organisationData?.address?.city,
+          countryCode: organisation?.organisationData?.address?.country?.countryCode,
+          stateCode: organisation?.organisationData?.address?.state?.stateCode,
         }
       : {
           country: '',

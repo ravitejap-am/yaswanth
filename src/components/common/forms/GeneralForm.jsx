@@ -66,17 +66,16 @@ const GeneralForm = (props) => {
         })
       } else {
         form.setFieldsValue(orgInfo?.orgData?.contact);
-        formElements?.map((itemname)=>{
-          const name=itemname?.name||'';
-          const namevalue=itemname?.defaultValue||'';
-          
-          form.setFieldsValue({ [name]: namevalue });
-        })
+      
       }
-
+      formElements?.map((itemname)=>{
+        const name=itemname?.name||'';
+        const namevalue=itemname?.defaultValue||'';
+        
+        form.setFieldsValue({ [name]: namevalue });
+      })
       console.log("_form_",form.getFieldsValue())
       console.log("_form_status ",orgInfo?.orgData)
-      debugger
     }
 
     if (isOrgAdmin) {
@@ -215,10 +214,8 @@ const GeneralForm = (props) => {
 
            if(newMessages?.length>=0)
            {
-            debugger
             passcallback(newMessages[newMessages.length-1]);
            }    else{
-            debugger
             passcallback(newMessages[0]);
            }
         } else {
@@ -259,7 +256,6 @@ const GeneralForm = (props) => {
         // console.log('onFinish values ', value);
         console.log('onFinish values ', value);
         console.log('formElements', formElements);
-        debugger;
         setErrors([]);
         const checkPatternFound = formElements.some(
           (ItemCheck) => ItemCheck.pattern
@@ -279,12 +275,11 @@ const GeneralForm = (props) => {
                 : '';
               const valuesfield = value[ItemCheck?.name] || '';
               const patternName = ItemCheck?.name ? ItemCheck?.name : '';
-              debugger
+        
               console.log('patternvalue  ', ItemCheck);
               console.log('patternvalue  ', patternvalue);
               console.log('valuesfield  ', valuesfield);
               console.log('patternName  ', patternName);
-              debugger
               const result = isValid(
                 patternvalue,
                 valuesfield,
@@ -589,6 +584,7 @@ const GeneralForm = (props) => {
           {formElements.map((item, index) => {
             const elements = {
               email: (
+                <div>
                 <Input
                   labelName={item.labelName ? item.label : null}
                   type={item.type}
@@ -600,7 +596,20 @@ const GeneralForm = (props) => {
                   style={item.style}
                   // required={item.required}
                   defaultValue={item.defaultValue ? item.defaultValue : ''}
+                  onBlur={() => {
+                    if (item.pattern !== null && item.pattern !== undefined) {
+                      isValid(
+                        item.pattern,
+                        form.getFieldValue(item.name),
+                        item.name,
+                        item?.emptyErrorMessage,
+                        item?.invalidErrorMessage
+                      );
+                    }
+                  }}
                 />
+                {<ErrorMessage name={item.name} />}
+                </div>
               ),
               text: (
                 <div>
@@ -620,16 +629,14 @@ const GeneralForm = (props) => {
                           placeholder={item.labelName ? null : item.label}
                           iconClass={item.iconClass}
                           onChange={(e) => {
-                            debugger
+                      
                             form.setFieldValue({ [item.name]: e.target.value });
-                            debugger
                           }}
                           style={item.style}
                           defaultValue={
                             item.defaultValue ? item.defaultValue : ''
                           }
                           onBlur={() => {
-                            debugger
                             if (
                               item.pattern !== null &&
                               item.pattern !== undefined
@@ -704,6 +711,7 @@ const GeneralForm = (props) => {
                 />
               ),
               password: (
+                <div>
                 <Input
                   labelName={item.labelName ? item.label : null}
                   type={item.type}
@@ -712,8 +720,21 @@ const GeneralForm = (props) => {
                   onChange={(e) => {
                     form.setFieldValue({ [item.name]: e.target.value });
                   }}
+                  onBlur={() => {
+                    if (item.pattern !== null && item.pattern !== undefined) {
+                      isValid(
+                        item.pattern,
+                        form.getFieldValue(item.name),
+                        item.name,
+                        item?.emptyErrorMessage,
+                        item?.invalidErrorMessage
+                      );
+                    }
+                  }}
                   iconStyle={item.iconStyle}
                 />
+                {<ErrorMessage name={item.name} />}
+                </div>
               ),
               confirmPassword: (
                 <Input

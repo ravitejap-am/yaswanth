@@ -8,7 +8,7 @@ import img4 from "../../../asset/img4.png";
 function AISolution() {
   const columns = [
     {
-      img: img1,
+      img: img4,
       title: "Analytics",
       subTitle: "Find about the usage of your organizational knowledge base.",
       style: {
@@ -16,7 +16,7 @@ function AISolution() {
       },
     },
     {
-      img: img2,
+      img: img3,
       title: "Insights",
       subTitle:
         "Learn & Explore what’s hidden knowledge in your organizational document.",
@@ -25,12 +25,12 @@ function AISolution() {
       },
     },
     {
-      img: img3,
+      img: img2,
       title: "Multilingual Support",
       subTitle: "Use the Gen AI based chat in your language. ",
     },
     {
-      img: img4,
+      img: img1,
       title: "Gen AI Chatbots",
       subTitle:
         "Use the power of generative AI to interact with your document.",

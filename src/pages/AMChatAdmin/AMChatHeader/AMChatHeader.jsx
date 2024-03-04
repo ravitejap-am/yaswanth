@@ -67,7 +67,7 @@ function AMChatHeader({ componentName, name, profileImageSrc, customStyle }) {
                   <ListItemIcon>
                     <AssignmentIndOutlinedIcon />
                   </ListItemIcon>
-                  <Link to="/userprofile" style={{ textDecoration: 'none' }}>
+                  <Link to="/organizationPersonalInfo" style={{ textDecoration: 'none' }}>
                     <ListItemText primary="View Profile" />
                   </Link>
                 </ListItemButton>

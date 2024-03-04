@@ -155,11 +155,15 @@ const SignIn = () => {
       label: 'Email',
       type: 'email',
       name: 'email',
+      labelname: 'email',
       rules: [
         { required: true, message: 'Please input your email' },
         { type: 'email', message: 'Invalid email format' },
       ],
       style: {},
+      pattern: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+      emptyErrorMessage: 'Please Enter the Email',
+      invalidErrorMessage: 'Please Enter the Valid Email',
     },
     {
       label: 'Password',
@@ -167,7 +171,6 @@ const SignIn = () => {
       name: 'password',
       rules: [
         { required: true, message: 'Please input your password!' },
-        { validator: validatePassword },
       ],
       iconStyle: {
         position: 'absolute',
@@ -175,7 +178,9 @@ const SignIn = () => {
         top: '54%',
         transform: 'translateY(-50%)',
         cursor: 'pointer'
-      }
+      },
+      pattern: /^.+$/,
+      emptyErrorMessage: 'Please Enter the passsword',
     },
   ];
 

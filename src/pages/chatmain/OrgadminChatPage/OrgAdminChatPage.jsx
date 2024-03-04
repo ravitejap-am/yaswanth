@@ -682,18 +682,42 @@ const OrgAdminChatPage = (props) => {
                       </div>
                     </div>
 
-                    <div className="orgadmin-activeuser-card">
+                    {/* <div className="orgadmin-activeuser-card">
+                    
                       <div className="user-table">
+                      <span>Active Users</span>
+                      <div className="divider"></div>
                         {users.map((user, index) => (
-                          <div key={index}>
+                          <div key={index} style={{marginTop: '0px'}}>
                             <img className="orgadmin-profile-pic" src={base} />
-                            {user.username}
+                            <span className='name-text'>{user.username}</span>
                             <td className="orgadmin-lastseen">
                               {user.lastseen}
                             </td>
+                            <div className="divider"></div>
                           </div>
                         ))}
                       </div>
+                    </div> */}
+
+                    <div className='activeuser-dashboard'>
+                      <div className='title-container'>
+                        <span className='title-text'>Active Users</span>
+                      </div>
+                      <div className="divider"></div>
+                      {activeUserList.map((user, index) => (
+                          <div key={index} className='content-container'>
+                            <div> 
+                              <img className="user-pic" src={base} />
+                            </div>
+                            <div className='content-bg'>
+                              <span className='name-text'>{user.name}</span>
+                              <br/>
+                              <span className='lastseen-text'>{`Last chat time : ${timeExtracter(user.lastChatTime)}`}</span>
+                            </div>
+                            <div className="divider"></div>
+                          </div>
+                        ))}
                     </div>
                   </div>
                 </div>
