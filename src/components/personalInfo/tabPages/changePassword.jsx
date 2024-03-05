@@ -54,54 +54,75 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
   const user = useSelector(selectUser);
   const jwt = user.userToken;
 
+  const verifyPassword = (values) => {
+    if(values?.newPassword?.length > 0 && values?.confirmPassword?.length > 0 &&  values?.newPassword !== values?.confirmPassword){
+      showNotifyMessage('error', 'new password and confirm password should be same', messageHandler);
+      return false;
+    }
+    return true;
+  }
+
   const handleChangePassword = async (values) => {
-    setButtonLoading(true);
-    setIsLoading(true);
-    try {
-      const response = await fetch(
-        `${constants.BASE_API_URL}/user/verification/reset`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${jwt}`,
-          },
-          body: JSON.stringify({
-            oldPassword: values.password,
-            newPassword: values.newPassword,
-            confirmPassword: values.confirmPassword,
-          }),
-        }
-      );
-      console.log(response, '$$$33333334444556789');
-      if (response.ok) {
-        if (response.status === 200) {
+    console.log('change values', values);
+    if(values !== undefined && values !== null){
+      if(verifyPassword(values)){ 
+        try {
+          setButtonLoading(true);
+          setIsLoading(true);
+          const response = await fetch(
+            `${constants.BASE_API_URL}/user/verification/reset`,
+            {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${jwt}`,
+              },
+              body: JSON.stringify({
+                oldPassword: values.password,
+                newPassword: values.newPassword,
+                confirmPassword: values.confirmPassword,
+              }),
+            }
+          );
+          console.log( '$$$33333334444556789', response);
+          if (response?.ok) {
+            if (response.status === 200) {
+              setButtonLoading(false);
+              setIsLoading(false);
+              setIsReset(true);
+              showNotifyMessage(
+                'success',
+                'Password Changed Successfully',
+                messageHandler
+              );
+            }
+          } 
+          else {
+              const errorMsg = await response.json();
+              console.log('Error changing password:', errorMsg);
+              showNotifyMessage(
+                'error',
+                errorMsg?.message ? errorMsg.message : 'Failed to change password',
+                messageHandler
+              );
+          }
+          setIsLoading(false);
+        } catch (error) {
+          if (error?.response?.status == 500 || error?.response?.status == '500') {
+            navigate('/internal500');
+          }
+    
           setButtonLoading(false);
           setIsLoading(false);
-          setIsReset(true);
           showNotifyMessage(
-            'success',
-            'Password Changed Successfully',
+            'error',
+            error?.response?.data?.message,
             messageHandler
           );
         }
-      } else {
-        showNotifyMessage('error', 'Failed to change password', messageHandler);
-        setIsLoading(false);
       }
-    } catch (error) {
-      if (error?.response?.status == 500 || error?.response?.status == '500') {
-        navigate('/internal500');
-      }
+     }
 
-      setButtonLoading(false);
-      setIsLoading(false);
-      showNotifyMessage(
-        'error',
-        error?.response?.data?.message,
-        messageHandler
-      );
-    }
   };
 
   const feedingVariable = {
@@ -130,42 +151,52 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
         label: 'Old Password',
         type: 'password',
         name: 'password',
-        rules: [
-          { required: true, message: 'Please input a valid password!' },
-          { validator: validatePassword },
-        ],
+        // rules: [
+        //   { required: true, message: 'Please input a valid password!' },
+        //   { validator: validatePassword },
+        // ],
         style: { width: '350px', marginTop: '40px', marginLeft: '0px' },
         iconStyle: passwordStyles,
+        pattern: /^.+$/,
+        emptyErrorMessage: 'Please Enter the old passsword',
+        containerStyles : {width: '375px'}
       },
       {
         label: 'New Password',
         type: 'password',
         name: 'newPassword',
-        rules: [
-          { required: true, message: 'Please input a valid password!' },
-          { validator: validatePassword },
-        ],
+        // rules: [
+        //   { required: true, message: 'Please input a valid password!' },
+        //   { validator: validatePassword },
+        // ],
         style: { width: '350px', marginTop: '40px', marginLeft: '0px' },
         iconStyle: passwordStyles,
+        pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d\S]{8,20}$/,
+        emptyErrorMessage: 'Please Enter the new passsword',
+        invalidErrorMessage: 'Password should have atleast 8 characters, 1 uppercase, 1 lowercase ,1 digit and 1 special character',
+        errorMsgStyles: {width: '375px'},
+        containerStyles : {width: '375px'}
       },
       {
         label: 'Confirm Password',
         type: 'password',
         name: 'confirmPassword',
-        rules: [{ required: true, message: 'Please confirm your password!' }],
         style: { width: '350px', marginLeft: '0px' },
         iconStyle: confirmPasswordStyles,
+        pattern: /^.+$/,
+        emptyErrorMessage: 'Please Enter the confirm passsword',
+        containerStyles : {width: '375px'}
       },
     ],
     formType: 'normal',
-    validateEmail: validateEmail,
+    // validateEmail: validateEmail,
     setFileSysytem: setFileSysytem,
     grid: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' },
   };
   return (
     <>
       {isLoading && <PageLoader loadingStatus={isLoading} />}
-      <div className="changepassword-main" style={{ width: '96%' }}>
+      <div className="changepassword-main" style={{ width: '96%', height:'auto' }}>
         <div className="changepassword-input">
           <GeneralForm {...feedingVariable} />
         </div>

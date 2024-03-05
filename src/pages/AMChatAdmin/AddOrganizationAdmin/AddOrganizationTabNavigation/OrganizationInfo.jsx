@@ -336,8 +336,10 @@ function OrganizationInfo({
       name: 'postCode',
       label: 'Zipcode',
       type: 'number',
+      className:"custom-input-number",
       style: {
         width: '465px',
+        display:'none',
         borderRadius: '40px',
         border: '1px solid var(--Brand-700, #4338CA)',
         backgroundColor: 'transparent',
