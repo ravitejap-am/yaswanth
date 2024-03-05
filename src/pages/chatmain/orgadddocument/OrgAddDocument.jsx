@@ -35,6 +35,7 @@ function OrgAddDocument(props) {
   const profileSrc = localStorage.getItem("profileImage");
   const navigationRoute = props?.navigationRoute;
   const fullName = localStorage.getItem('fullName') || '';
+  const [errors, setErrors] = useState("");
 
   const messageHandler = () => {
     setIsReset(false);
@@ -42,8 +43,13 @@ function OrgAddDocument(props) {
   };
   const submitHandler = async (values) => {
     console.log('upload values', values);
-    setButtonLoading(true);
+
+    if(!file){
+      setErrors("Please upload the document");
+      return;
+    }
     try {
+      setButtonLoading(true);
       const formData = new FormData();
       formData.append('file', file);
       formData.append('name', values['Document Name']);
@@ -60,20 +66,22 @@ function OrgAddDocument(props) {
       );
       setButtonLoading(false);
       setIsReset(true);
+      setErrors("");
       showNotifyMessage('success', response?.data?.message, messageHandler);
       navigate('/orgdocumentlist');
       console.log('API Response:', response.data);
     } catch (error) {
+      setErrors("");
       console.error('Error occurred:', error);
-      if (error?.response?.status == 500 || error?.response?.status == '500') {
-        navigate('/internal500');
-      }
-      setButtonLoading(false);
       showNotifyMessage(
         'error',
         error?.response?.data?.message,
         messageHandler
       );
+      if (error?.response?.status == 500 || error?.response?.status == '500') {
+        navigate('/internal500');
+      }
+      setButtonLoading(false);
     }
   };
 
@@ -87,6 +95,10 @@ function OrgAddDocument(props) {
     fileList: file ? [file] : [],
     beforeUpload: (file) => {
       setFile(file);
+      return false;
+    },
+    onRemove:(file) => { 
+      setFile(null);
       return false;
     },
     accept: '.pdf',
@@ -127,10 +139,12 @@ function OrgAddDocument(props) {
           borderRadius: '40px',
           border: '1px solid var(--Brand-700, #4338CA)',
           backgroundColor: 'transparent',
-          marginBottom: '20px',
+          marginBottom: '10px',
         },
-        rules: [{ required: true, message: 'Please enter your Document Name' }],
-        labelName: false,
+        // rules: [{ required: true, message: 'Please enter your Document Name' }],
+        labelName: 'Document Name',
+        pattern: /^.+$/,
+        emptyErrorMessage: 'Please Enter the document name',
       },
     ],
     formType: 'normal',
@@ -139,6 +153,12 @@ function OrgAddDocument(props) {
     },
     grid: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' },
   };
+
+  const ErrorMsg = () => {
+    return(
+      <span style={{ color: 'red', fontSize:'14px' }}>{errors}</span>
+    )
+  }
 
   return (
     <div className={Styles.superAdminMainCardDivStyle}>
@@ -173,6 +193,7 @@ function OrgAddDocument(props) {
             <Upload {...documentProps}>
               <Button icon={<UploadOutlined />}>Upload Document</Button>
             </Upload>
+            <ErrorMsg />
           </div>
           <GeneralForm
             {...feedingVariable}

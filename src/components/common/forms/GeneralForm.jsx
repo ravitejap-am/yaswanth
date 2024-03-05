@@ -239,8 +239,9 @@ const GeneralForm = (props) => {
   });
   const ErrorMessage = (name) => {
     const namevalue = name?.name;
+    console.log('Errors msg--->', Errors);
     const findresult = Errors?.find((Item) => Item[namevalue]);
-    console.log(' findresult name', findresult);
+    console.log('findresult name--->', findresult);
     // console.log(" findresult ",findresult[namevalue]);
     return (
       <>
@@ -294,9 +295,11 @@ const GeneralForm = (props) => {
                 invalidErrorMessage,
                 (message) => {
                   AllErrorMessages.push(message);
+                  console.log('AllErrorMessages  ', AllErrorMessages);
                   setErrors(AllErrorMessages);
                 }
               );
+              console.log('result  valid', result);
               if (result === true) {
                 patterncountCompleted = patterncountCompleted + 1;
               }
@@ -404,6 +407,7 @@ const GeneralForm = (props) => {
                 />
               ),
               password: (
+                <div style={item?.containerStyles ? item?.containerStyles : ""}>
                 <Input
                   labelName={item.labelName ? item.label : null}
                   type={item.type}
@@ -415,9 +419,23 @@ const GeneralForm = (props) => {
                   style={item.style}
                   iconStyle={item.iconStyle}
                   disabled={item?.disabled || false}
+                  onBlur={() => {
+                    if (item.pattern !== null && item.pattern !== undefined) {
+                      isValid(
+                        item.pattern,
+                        form.getFieldValue(item.name),
+                        item.name,
+                        item?.emptyErrorMessage,
+                        item?.invalidErrorMessage
+                      );
+                    }
+                  }}
                 />
+                {<ErrorMessage name={item.name} style={item.errorMsgStyles}/>}
+                </div>
               ),
               confirmPassword: (
+                <div >
                 <Input
                   labelName={item.labelName ? item.label : null}
                   type={item.type}
@@ -428,7 +446,20 @@ const GeneralForm = (props) => {
                   }}
                   style={item.style}
                   disabled={item?.disabled || false}
+                  onBlur={() => {
+                    if (item.pattern !== null && item.pattern !== undefined) {
+                      isValid(
+                        item.pattern,
+                        form.getFieldValue(item.name),
+                        item.name,
+                        item?.emptyErrorMessage,
+                        item?.invalidErrorMessage
+                      );
+                    }
+                  }}
                 />
+                {<ErrorMessage name={item.name} style={item.errorMsgStyles}/>}
+                </div>
               ),
 
               comment: (
@@ -718,7 +749,7 @@ const GeneralForm = (props) => {
                 />
               ),
               password: (
-                <div>
+                <div style={item?.passwordContainerStyle ?  item?.passwordContainerStyle : {} }>
                 <Input
                   labelName={item.labelName ? item.label : null}
                   type={item.type}
@@ -739,11 +770,13 @@ const GeneralForm = (props) => {
                     }
                   }}
                   iconStyle={item.iconStyle}
+                  
                 />
-                {<ErrorMessage name={item.name} />}
+                {<ErrorMessage name={item.name} style={item.errorMsgStyles}/>}
                 </div>
               ),
               confirmPassword: (
+                <div>
                 <Input
                   labelName={item.labelName ? item.label : null}
                   type={item.type}
@@ -752,8 +785,21 @@ const GeneralForm = (props) => {
                   onChange={(e) => {
                     form.setFieldValue({ [item.name]: e.target.value });
                   }}
+                  onBlur={() => {
+                    if (item.pattern !== null && item.pattern !== undefined) {
+                      isValid(
+                        item.pattern,
+                        form.getFieldValue(item.name),
+                        item.name,
+                        item?.emptyErrorMessage,
+                        item?.invalidErrorMessage
+                      );
+                    }
+                  }}
                   style={item.style}
                 />
+                {<ErrorMessage name={item.name} />}
+                </div>
               ),
 
               comment: (

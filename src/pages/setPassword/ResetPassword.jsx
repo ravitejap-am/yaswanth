@@ -37,6 +37,10 @@ const ResetPassword = () => {
     cursor: 'pointer'
   }
 
+  const errorMsgStyles = { 
+    width: '30%'
+  }
+
   console.log(param);
   useEffect(() => {
     console.log('JWT Token from Redux Store:', jwtToken);
@@ -73,24 +77,31 @@ const ResetPassword = () => {
       label: 'Password',
       type: 'password',
       name: 'password',
-      rules: [
-        { required: true, message: 'Please input valid password!' },
-        { validator: validatePassword },
-      ],
-      iconStyle: passwordStyles
+      labelname: 'password',
+      // rules: [
+      //   { required: true, message: 'Please input valid password!' },
+      //   { validator: validatePassword },
+      // ],
+      iconStyle: passwordStyles,
+      pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d\S]{8,20}$/,
+      emptyErrorMessage: 'Please Enter the passsword',
+      invalidErrorMessage: 'Password should have atleast 8 characters, 1 uppercase, 1 lowercase ,1 digit and 1 special character',
+      // invalidErrorMessage: 'Password is invalid',
+      errorMsgStyles: errorMsgStyles,
+      passwordContainerStyle: {width : '460px'}
     },
     {
       label: 'Confirm Password',
       type: 'password',
       name: 'confirmPassword',
-      rules: [
-        { required: true, message: 'Please confirm your password!' },
-        // {
-        //   validator: (_, value) =>
-        //     validateConfirmPassword(_, value, form.getFieldValue('password')),
-        // },
-      ],
-      iconStyle: passwordStyles
+      labelname: 'Confirm Password',
+      // rules: [
+      //   { required: true, message: 'Please confirm your password!' },
+      // ],
+      iconStyle: passwordStyles,
+      pattern: /^.+$/,
+      emptyErrorMessage: 'Please Enter the confirm passsword',
+      passwordContainerStyle: {width : '460px'} ,
     },
   ];
 
@@ -117,6 +128,14 @@ const ResetPassword = () => {
     icons: '',
   };
 
+  const verifyPassword = (values) => {
+    if(values?.password?.length === values?.confirmPassword?.length &&  values.password !== values.confirmPassword){
+      showNotifyMessage('error', 'Password and confirm password should be same', messageHandler);
+      return false;
+    }
+    return true;
+  }
+
   const feedingVariable = {
     isCancel: false,
     cancelHandler: (errorInfo) => {
@@ -127,36 +146,42 @@ const ResetPassword = () => {
       console.log('Resetting password....');
       console.log(values);
       setButtonLoading(true);
-      try {
-        const response = await axios.put(
-          `${constants.BASE_API_URL}/user/verification/forget/${id}`,
-          {
-            newPassword: values.password,
-            confirmPassword: values.confirmPassword,
+      if(values !== undefined && values !== null){
+        if(verifyPassword(values)){
+          try {
+            console.log("values--->",values);
+            const response = await axios.put(
+              `${constants.BASE_API_URL}/user/verification/forget/${id}`,
+              {
+                newPassword: values.password,
+                confirmPassword: values.confirmPassword,
+              }
+            );
+            console.log('succes', response);
+            setButtonLoading(false);
+            setIsReset(true);
+            showNotifyMessage('success', response?.data?.message, messageHandler);
+            navigate('/signin');
+          } catch (error) {
+            setButtonLoading(false);
+            console.error('Error resetting password:', error);
+            console.log(error);
+            if (
+              error?.response?.status == 500 ||
+              error?.response?.status == '500'
+            ) {
+              navigate('/internal500');
+            }
+    
+            showNotifyMessage(
+              'error',
+              error?.response?.data?.message,
+              messageHandler
+            );
           }
-        );
-        console.log('succes', response);
-        setButtonLoading(false);
-        setIsReset(true);
-        showNotifyMessage('success', response?.data?.message, messageHandler);
-        navigate('/signin');
-      } catch (error) {
-        console.error('Error resetting password:', error);
-        console.log(error);
-        if (
-          error?.response?.status == 500 ||
-          error?.response?.status == '500'
-        ) {
-          navigate('/internal500');
         }
-
-        setButtonLoading(false);
-        showNotifyMessage(
-          'error',
-          error?.response?.data?.message,
-          messageHandler
-        );
       }
+      setButtonLoading(false);
     },
     submitButtonProperty: submitButtonProperty,
     formElements: formElements,

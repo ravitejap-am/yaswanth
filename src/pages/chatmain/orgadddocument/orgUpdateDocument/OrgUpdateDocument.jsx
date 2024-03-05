@@ -31,6 +31,7 @@ function OrgUpdateDocument(props) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigationRoute = props?.navigationRoute;
   const fullName = localStorage.getItem('fullName') || '';
+  const [errors, setErrors] = useState("");
 
   useEffect(() => {
     // Retrieve firstName from localStorage
@@ -48,6 +49,10 @@ function OrgUpdateDocument(props) {
 
   const submitHandler = async () => {
     if (isSubmitting) {
+      return;
+    }
+    if(!file){
+      setErrors("Please upload the document");
       return;
     }
     setIsSubmitting(true);
@@ -69,8 +74,10 @@ function OrgUpdateDocument(props) {
       setButtonLoading(false);
       setIsReset(true);
       showNotifyMessage('success', response?.data?.message, messageHandler);
+      setErrors("");
       console.log('API Response:', response.data);
     } catch (error) {
+      setErrors("");
       if (error?.response?.status == 500 || error?.response?.status == '500') {
         navigate('/internal500');
       }
@@ -96,6 +103,10 @@ function OrgUpdateDocument(props) {
     fileList: file ? [file] : [],
     beforeUpload: (file) => {
       setFile(file);
+      return false;
+    },
+    onRemove:(file) => { 
+      setFile(null);
       return false;
     },
     accept: '.pdf',
@@ -133,6 +144,12 @@ function OrgUpdateDocument(props) {
     grid: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' },
   };
 
+  const ErrorMsg = () => {
+    return(
+      <span style={{ color: 'red', fontSize:'14px' }}>{errors}</span>
+    )
+  }
+
   return (
     <div className={Styles.superAdminMainCardDivStyle}>
       <div className={Styles.superAdminMiddleParentDiv}>
@@ -166,6 +183,7 @@ function OrgUpdateDocument(props) {
             <Upload {...documentProps}>
               <Button icon={<UploadOutlined />}>Upload Document</Button>
             </Upload>
+            <ErrorMsg />
           </div>
           <GeneralForm
             {...feedingVariable}

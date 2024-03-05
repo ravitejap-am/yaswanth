@@ -99,10 +99,14 @@ const RecoveryPasswor = () => {
       type: "email",
       name: "email",
       // iconClass: <MailOutlined />,
-      rules: [
-        { required: true, message: "Please input your Enter your email" },
-        { type: "name", message: "Invalid Email" },
-      ],
+      labelname: 'email',
+      // rules: [
+      //   { required: true, message: "Please input your email" },
+      //   { type: "email", message: "Invalid Email format" },
+      // ],
+      pattern: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+      emptyErrorMessage: 'Please Enter the Email',
+      invalidErrorMessage: 'Please Enter the Valid Email',
     },
   ];
 
