@@ -238,7 +238,9 @@ function DynamicTextComponent({
           disabled={
             isSubmitDisabled() ||
             usedDomainIndexCollection.length > 0 ||
-            isNewDomain
+            orgStatus == 'edit'
+              ? isNewDomain
+              : false
           }
           loading={buttonLoading}
         >
