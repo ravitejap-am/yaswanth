@@ -28,7 +28,10 @@ function DynamicTextComponent({
   const [isNewDomain, setIsNewDomain] = useState(false);
 
   const handleAddText = () => {
-    setIsNewDomain(true);
+    if (orgStatus == 'edit') {
+      setIsNewDomain(true);
+    }
+
     setTextFields([
       ...textFields,
       {
@@ -46,7 +49,10 @@ function DynamicTextComponent({
   };
 
   const handleTextChange = (index, newText) => {
-    setIsNewDomain(true);
+    if (orgStatus == 'edit') {
+      setIsNewDomain(true);
+    }
+
     if (usedDomainIndexCollection.includes(index)) {
       setUsedDomainIndexCollection((prevArray) =>
         prevArray.filter((item) => item != index)
@@ -88,7 +94,9 @@ function DynamicTextComponent({
           );
         }
         setLoadingIndex(null);
-        setIsNewDomain(false);
+        if (orgStatus == 'edit') {
+          setIsNewDomain(false);
+        }
       } catch (error) {
         console.log('api-error', error);
         showNotifyMessage(
@@ -101,7 +109,9 @@ function DynamicTextComponent({
           setUsedDomainIndexCollection((prevArray) => [...prevArray, index]);
         }
         setLoadingIndex(null);
-        setIsNewDomain(false);
+        if (orgStatus == 'edit') {
+          setIsNewDomain(false);
+        }
       }
     }
   };
@@ -238,9 +248,7 @@ function DynamicTextComponent({
           disabled={
             isSubmitDisabled() ||
             usedDomainIndexCollection.length > 0 ||
-            orgStatus == 'edit'
-              ? isNewDomain
-              : false
+            isNewDomain
           }
           loading={buttonLoading}
         >
