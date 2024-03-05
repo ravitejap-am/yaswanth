@@ -25,8 +25,10 @@ function DynamicTextComponent({
   const [usedDomainIndexCollection, setUsedDomainIndexCollection] = useState(
     []
   );
+  const [isNewDomain, setIsNewDomain] = useState(false);
 
   const handleAddText = () => {
+    setIsNewDomain(true);
     setTextFields([
       ...textFields,
       {
@@ -44,6 +46,7 @@ function DynamicTextComponent({
   };
 
   const handleTextChange = (index, newText) => {
+    setIsNewDomain(true);
     if (usedDomainIndexCollection.includes(index)) {
       setUsedDomainIndexCollection((prevArray) =>
         prevArray.filter((item) => item != index)
@@ -85,6 +88,7 @@ function DynamicTextComponent({
           );
         }
         setLoadingIndex(null);
+        setIsNewDomain(false);
       } catch (error) {
         console.log('api-error', error);
         showNotifyMessage(
@@ -97,6 +101,7 @@ function DynamicTextComponent({
           setUsedDomainIndexCollection((prevArray) => [...prevArray, index]);
         }
         setLoadingIndex(null);
+        setIsNewDomain(false);
       }
     }
   };
@@ -230,7 +235,11 @@ function DynamicTextComponent({
             fontWeight: '700',
             lineHeight: '24px',
           }}
-          disabled={isSubmitDisabled() || usedDomainIndexCollection.length > 0}
+          disabled={
+            isSubmitDisabled() ||
+            usedDomainIndexCollection.length > 0 ||
+            isNewDomain
+          }
           loading={buttonLoading}
         >
           Save
