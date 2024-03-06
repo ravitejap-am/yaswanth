@@ -19,7 +19,7 @@ import { Card } from 'antd';
 import Styles from '../../AMChatAdmin/SearchUIAMChat/SearchUIAIChat.module.css';
 import profile from '../../../asset/AmChatSuperAdmin/profile.png';
 import Image from '../../../components/common/image/image';
-import { PROFILE_URL } from '../../../apiCalls/Constants';
+// import { PROFILE_URL } from '../../../apiCalls/Constants';
 import profilePlaceholder from '../../../asset/profilePlaceholder.png';
 import editIcon from '../../../asset/AmChatSuperAdmin/pencil-alt.png';
 import Button from '../../../components/common/buttons/GeneralButton';
@@ -93,7 +93,7 @@ const OrgAdminChatPage = (props) => {
   const [responseData, setResponseData] = useState('');
   const [questions, setQuestions] = useState([]);
   const [questionAndAnswer, setQuestionAndAnswer] = useState([]);
-  const profileUrl = PROFILE_URL;
+  const profileUrl = constants.PROFILE_URL;
   // const [profileSrc, setProfileSrc] = useState(localStorage.getItem("profileImage") || profilePlaceholder);
   const [profileSrc, setProfileSrc] = useState(profilePlaceholder);
   const [isEditing, setIsEditing] = useState(false);

@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { useState } from 'react';
 
-import { USER_PROFILE, UPDATE_ADMIN_USER, GET_ACTIVE_USERS } from './Constants';
+// import {   GET_ACTIVE_USERS } from './Constants';
+import { UPDATE_ADMIN_USER, USER_PROFILE,GET_ACTIVE_USERS } from '../constants/Constant';
 
 export const getUserProfileDetails = async (userId, headers) => {
   try {
