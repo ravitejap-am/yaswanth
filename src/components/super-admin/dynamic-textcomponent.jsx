@@ -199,9 +199,10 @@ function DynamicTextComponent({
 
           {!!loadingIndex && loadingIndex == index ? <CircularProgress /> : ''}
           {usedDomainIndexCollection.includes(index) && (
-            <span
-              style={{ color: 'red' }}
-            >{`${typeDetails} domain are already exist, change new domain`}</span>
+            <span style={{ color: 'red' }}>
+              {' '}
+              {`The domain ${typeDetails} already exists, please change it to the new domain`}
+            </span>
           )}
         </div>
       ))}
