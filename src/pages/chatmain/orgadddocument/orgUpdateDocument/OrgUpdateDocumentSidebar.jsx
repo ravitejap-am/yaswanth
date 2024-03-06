@@ -11,6 +11,8 @@ import OrgAddDocument from '../../../chatmain/orgadddocument/OrgAddDocument'
 import usersicon from '../../../../asset/users.png'
 import documenticon from '../../../../asset/document1.png'
 import OrgUpdateDocument from "./OrgUpdateDocument";
+import GroupIcon from '@mui/icons-material/Group';
+
 function OrgUpdateDocumentSidebar() {
   const navigationRoute = "/organizationPersonalInfo";
 
@@ -50,25 +52,26 @@ function OrgUpdateDocumentSidebar() {
                   <p className={Styles.organizationTextStyle}>Back to Chat</p>{" "}
                 </Link>
               </span>
-
+            </div>
+            <div className={Styles.SuperAdminChildContainer}>
               <Link to="/orguserlist" style={{ textDecoration: "none" }}>
               <span>
-                <img src={usersicon} alt="" />
+                 <GroupIcon style={{ color: 'white', paddingLeft : '5px', fontSize:'20px', paddingRight:'5px'}}/>
                   <p className={Styles.organizationTextStyle}>Users</p>
               </span>
               </Link>
             </div>
-            <br />
-            <Link to="/orgdocumentlist" style={{ textDecoration: "none" }}>
+            
             <div className={Styles.SuperAdminChildContainer}>
+            <Link to="/orgdocumentlist" style={{ textDecoration: "none" }}>
               <span>
                 <img src={documenticon} alt="" />
                 <p className={Styles.organizationTextStyle}>
                   Documents
                 </p>
               </span>
-            </div>
             </Link>
+            </div>
           </div>
         </div>
         <OrgUpdateDocument navigationRoute={navigationRoute}/>

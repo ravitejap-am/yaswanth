@@ -20,6 +20,8 @@ import vector from "../../../asset/vectoricon.png";
 import threedot from "../../../asset/threedot.png";
 import usersicon from "../../../asset/users.png";
 import documenticon from "../../../asset/document1.png";
+import GroupIcon from '@mui/icons-material/Group';
+
 function OrgAdminChatSidebar() {
   const navigationRoute = "/organizationPersonalInfo";
   return (
@@ -53,8 +55,8 @@ function OrgAdminChatSidebar() {
             <Link to="/orguserlist" style={{ textDecoration: "none" }}>
               <div className={Styles.SuperAdminChildContainer}>
                 <span>
-                  <img src={usersicon} alt="" />
-
+                  {/* <img src={usersicon} alt="" /> */}
+                  <GroupIcon style={{ color: 'white', paddingLeft : '12px', fontSize:'20px', paddingRight:'5px' }}/>
                   <p className={Styles.organizationTextStyle}>Users</p>
                 </span>
               </div>

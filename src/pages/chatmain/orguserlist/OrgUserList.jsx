@@ -480,6 +480,7 @@ function OrgUserList(props) {
                   setPageInfo({ ...pageInfo, page: newPage - 1 });
                   fetchDocuments(newPage - 1);
                 }}
+                showSizeChanger={false}
               />
             </div>
           </Paper>

@@ -53,15 +53,15 @@ function OrgEditDocumentSidebar() {
                 </Link>
               </span>
             </div>
-            <br />
+            
+            <div className={Styles.SuperAdminChildContainer}>
             <Link to="/orgdocumentlist" style={{ textDecoration: "none" }}>
-              <div className={Styles.SuperAdminChildContainer}>
                 <span>
                   <img src={documenticon} alt="" />
                   <p className={Styles.organizationTextStyle}>Documents</p>
                 </span>
-              </div>
             </Link>
+            </div>
           </div>
         </div>
         <OrgEditDocument navigationRoute={navigationRoute}/>

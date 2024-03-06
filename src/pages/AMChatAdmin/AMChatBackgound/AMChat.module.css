@@ -67,6 +67,13 @@
   justify-content: space-between;
   flex-wrap: wrap;
   margin-top: 60px;
+  padding-left: 10px;
+  border-radius: 5px;
+}
+
+.container:hover {
+  background-color: #6366f1; /* Change background color on hover */
+  color: #f8fafc; /* Change text color on hover */
 }
 
 .AmChatsTwoContents {
