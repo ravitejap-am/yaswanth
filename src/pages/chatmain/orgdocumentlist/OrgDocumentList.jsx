@@ -92,6 +92,8 @@ function OrgDocumentList(props) {
     name: '',
   });
 
+  console.log(" rows ",rows);
+
   useEffect(() => {
 
     const storedFullName = localStorage.getItem('fullName');
@@ -338,8 +340,7 @@ function OrgDocumentList(props) {
                       >
                         <Typography
                           variant="body1"
-                          style={{ fontWeight: 'bold' }}
-                        >
+                          style={{ fontWeight: 'bold' }}>
                           Name
                         </Typography>
                       </TableSortLabel>
@@ -450,8 +451,11 @@ function OrgDocumentList(props) {
                               </TableCell>
                               <TableCell>{row.createdAt}</TableCell>
                               <TableCell>{row.updatedAt}</TableCell>
-                              <TableCell>
-                                <FormControl style={{ width: '110px' }}>
+                              <TableCell >
+                                        { row?.active ===true? 'Active' : ''}
+                                        { row?.active ===false?   'Inactive':""}
+
+                                {/* <FormControl style={{ width: '110px' }}>
                                   <Select
                                     style={{
                                       border: 'none',
@@ -467,7 +471,7 @@ function OrgDocumentList(props) {
                                       Inactive
                                     </MenuItem>
                                   </Select>
-                                </FormControl>
+                                </FormControl> */}
                               </TableCell>
                               <TableCell>
                                 <IconButton
