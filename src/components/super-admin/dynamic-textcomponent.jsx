@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ReactComponent as DeleteIcon } from '../../asset/AmChatSuperAdmin/trash-solid.svg';
 import { Button } from 'antd';
 import axios from 'axios';
@@ -116,6 +116,16 @@ function DynamicTextComponent({
     }
   };
 
+  function decreaseIfGreater(array, givenElement) {
+    return array.map((element) => {
+      if (element > givenElement) {
+        return element - 1;
+      } else {
+        return element;
+      }
+    });
+  }
+
   function onFocusFunction(index) {
     // Check if the function hasn't been executed yet
 
@@ -126,14 +136,19 @@ function DynamicTextComponent({
     }
   }
 
-  const handleOnfocus = (index, data) => {
-    alert('hi');
-    console.log('index of domain-------', index);
-    if (usedDomainIndexCollection.includes(index)) {
-      setUsedDomainIndexCollection((prevArray) =>
-        prevArray.filter((item) => item != index)
-      );
+  const handleDeleteDomain = (index) => {
+    if (orgStatus == 'edit' && usedDomainIndexCollection.length > 0) {
+      if (usedDomainIndexCollection.includes(index)) {
+        setUsedDomainIndexCollection((prevArray) =>
+          decreaseIfGreater(
+            prevArray.filter((item) => item != index),
+            index
+          )
+        );
+      }
     }
+
+    handleRemoveDomain(index);
   };
 
   return (
@@ -179,14 +194,14 @@ function DynamicTextComponent({
               cursor: 'pointer',
               fill: '#4338ca',
             }}
-            onClick={() => handleRemoveDomain(index)}
+            onClick={() => handleDeleteDomain(index)}
           />
 
           {!!loadingIndex && loadingIndex == index ? <CircularProgress /> : ''}
           {usedDomainIndexCollection.includes(index) && (
             <span
               style={{ color: 'red' }}
-            >{`${typeDetails} domain are already used`}</span>
+            >{`${typeDetails} domain are already exist, change new domain`}</span>
           )}
         </div>
       ))}
@@ -201,59 +216,80 @@ function DynamicTextComponent({
         }}
       >
         {console.log('----used domain index', usedDomainIndexCollection)}
-        <Button
-          onClick={handleAddText}
-          style={{
-            display: 'flex',
-            width: '130px',
-            height: '50px',
-            padding: '10px 16px',
-            justifyContent: 'center',
-            alignItems: 'center',
-            gap: '8px',
-            flexShrink: '0',
-            borderRadius: '30px',
-            backgroundColor: 'var(--Brand-500, #6366F1)',
-            color: '#FFFFFF',
-            fontFamily: 'Into Lato',
-            fontSize: '16px',
-            fontStyle: 'normal',
-            fontWeight: '700',
-            lineHeight: '24px',
-          }}
-          // loading={buttonLoading}
-        >
-          Add Domain
-        </Button>
-        <Button
-          onClick={() => submitHandler(textFields)}
-          style={{
-            display: 'flex',
-            width: '130px',
-            height: '50px',
-            padding: '10px 16px',
-            justifyContent: 'center',
-            alignItems: 'center',
-            gap: '8px',
-            flexShrink: '0',
-            borderRadius: '30px',
-            backgroundColor: 'var(--Brand-500, #6366F1)',
-            color: '#FFFFFF',
-            fontFamily: 'Into Lato',
-            fontSize: '16px',
-            fontStyle: 'normal',
-            fontWeight: '700',
-            lineHeight: '24px',
-          }}
-          disabled={
-            isSubmitDisabled() ||
-            usedDomainIndexCollection.length > 0 ||
-            isNewDomain
-          }
-          loading={buttonLoading}
-        >
-          Save
-        </Button>
+        {!(
+          isSubmitDisabled() ||
+          usedDomainIndexCollection.length > 0 ||
+          isNewDomain
+        ) ? (
+          <Button
+            onClick={handleAddText}
+            style={{
+              display: 'flex',
+              width: '130px',
+              height: '50px',
+              padding: '10px 16px',
+              justifyContent: 'center',
+              alignItems: 'center',
+              gap: '8px',
+              flexShrink: '0',
+              borderRadius: '30px',
+              backgroundColor: 'var(--Brand-500, #6366F1)',
+              color: '#FFFFFF',
+              fontFamily: 'Into Lato',
+              fontSize: '16px',
+              fontStyle: 'normal',
+              fontWeight: '700',
+              lineHeight: '24px',
+            }}
+            disabled={
+              isSubmitDisabled() ||
+              usedDomainIndexCollection.length > 0 ||
+              isNewDomain
+            }
+            // loading={buttonLoading}
+          >
+            Add Domain
+          </Button>
+        ) : (
+          ''
+        )}
+        {!(
+          isSubmitDisabled() ||
+          usedDomainIndexCollection.length > 0 ||
+          isNewDomain
+        ) ? (
+          <Button
+            onClick={() => submitHandler(textFields)}
+            style={{
+              display: 'flex',
+              width: '130px',
+              height: '50px',
+              padding: '10px 16px',
+              justifyContent: 'center',
+              alignItems: 'center',
+              gap: '8px',
+              flexShrink: '0',
+              borderRadius: '30px',
+              backgroundColor: 'var(--Brand-500, #6366F1)',
+              color: '#FFFFFF',
+              fontFamily: 'Into Lato',
+              fontSize: '16px',
+              fontStyle: 'normal',
+              fontWeight: '700',
+              lineHeight: '24px',
+            }}
+            disabled={
+              isSubmitDisabled() ||
+              usedDomainIndexCollection.length > 0 ||
+              isNewDomain
+            }
+            loading={buttonLoading}
+          >
+            Save
+          </Button>
+        ) : (
+          ''
+        )}
       </div>
     </div>
   );

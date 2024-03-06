@@ -83,6 +83,7 @@ function SubscriptionPlan({
           }
         }}
         loading={buttonLoading}
+        disabled={!!!selectedPlan}
       >
         {organisation?.organisationStatus == 'edit' ? 'Save' : 'Submit'}
       </Button>
