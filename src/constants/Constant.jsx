@@ -11,6 +11,11 @@ export const DOCUMENT_ENDPOINT = '/document';
 export const USER_LIST_ENDPOINT = '/user/userlist';
 export const DUMMY_CHAT_ENDPOINT = '/user/chat/dummy';
 export const VERIFY_API =
-  'https://amchatd1.areteminds.com/api/v1/iam/user/verify';
+  BASE_API_URL + '/user/verify';
 
-  export const MAIL_RECOVERY_PASSWORD_ENDPOINT = '/user/verification';
+export const MAIL_RECOVERY_PASSWORD_ENDPOINT = '/user/verification';
+
+export const USER_PROFILE = `${BASE_API_URL}/user`;
+export const UPDATE_ADMIN_USER = `${BASE_API_URL}/user`;
+export const GET_ACTIVE_USERS = `${BASE_API_URL}/user/recently_visited_users`;
+export const PROFILE_URL = "https://medicalpublic.s3.amazonaws.com/"
