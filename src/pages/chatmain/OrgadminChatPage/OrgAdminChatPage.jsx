@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import './OrgAdminChatPage.css';
 import arrow from '../../../asset/inputarrow.png';
 import documentIcon from '../../../asset/Group 23 (1).png';
@@ -19,7 +19,7 @@ import { Card } from 'antd';
 import Styles from '../../AMChatAdmin/SearchUIAMChat/SearchUIAIChat.module.css';
 import profile from '../../../asset/AmChatSuperAdmin/profile.png';
 import Image from '../../../components/common/image/image';
-import { PROFILE_URL } from '../../../apiCalls/Constants';
+// import { PROFILE_URL } from '../../../apiCalls/Constants';
 import profilePlaceholder from '../../../asset/profilePlaceholder.png';
 import editIcon from '../../../asset/AmChatSuperAdmin/pencil-alt.png';
 import Button from '../../../components/common/buttons/GeneralButton';
@@ -93,7 +93,7 @@ const OrgAdminChatPage = (props) => {
   const [responseData, setResponseData] = useState('');
   const [questions, setQuestions] = useState([]);
   const [questionAndAnswer, setQuestionAndAnswer] = useState([]);
-  const profileUrl = PROFILE_URL;
+  const profileUrl = constants.PROFILE_URL;
   // const [profileSrc, setProfileSrc] = useState(localStorage.getItem("profileImage") || profilePlaceholder);
   const [profileSrc, setProfileSrc] = useState(profilePlaceholder);
   const [isEditing, setIsEditing] = useState(false);
@@ -126,6 +126,7 @@ const OrgAdminChatPage = (props) => {
   const [docCount, setDocCount] = useState(0);
   const [fullName, setFullName] = useState('');
   const [activeUserList, setActiveUserList] = useState([]);
+  const endRef = useRef(null);
 
   const getDocumentsCount = async () => {
     try {
@@ -188,6 +189,11 @@ const OrgAdminChatPage = (props) => {
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    // Scroll to the bottom when questionAndAnswer changes
+    endRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [questionAndAnswer]);
 
   // useEffect(() => {
   //   // Retrieve firstName from localStorage
@@ -483,7 +489,8 @@ const OrgAdminChatPage = (props) => {
           </div>
         </div>}
 
-{/* end super admin dashboard */}
+        {/* end super admin dashboard */}
+        {userRole !== 'SUPER_ADMIN' &&
         <div className="hi-main">
           <div className="orgadminchat-chat-content-head">
             <div className="orgadminchat-chat-content" 
@@ -510,58 +517,21 @@ const OrgAdminChatPage = (props) => {
                                   />
                                   <div className={Styles.name}>You</div>
                                 </div>
-                                <div className={Styles.responseContainer}>
+                                <div 
+                                className={Styles.responseContainer}
+                                >
                                   <div>
                                     <div
                                       className={Styles.chatBubble}
                                       style={{
                                         display: 'flex',
                                         justifyContent: 'flex-start',
+                                        // backgroundColor:'yellow',
+                                        textAlign: 'left'
                                       }}
                                     >
                                       {item.question}{' '}
                                     </div>
-                                    {/* {!isEditing && (
-                      <div 
-                      className="edit-button" 
-                      onClick={handleEditClick}
-                      >
-                        <img src={editIcon} alt="Edit" />
-                      </div>
-                    )}
-                      {isEditing && (
-                        <div className={Styles.saveAndCancelContainer}>
-                          <Button
-                              backgroundColor={submitButtonProperty.backgroundColor}
-                              name={submitButtonProperty.name}
-                              color={submitButtonProperty.color}
-                              // buttonHandler={submitHandler}
-                              marginLeft={submitButtonProperty.marginLeft}
-                              marginTop={submitButtonProperty.marginTop}
-                              width={submitButtonProperty.width}
-                              height={submitButtonProperty.height}
-                              boxShadow={submitButtonProperty.boxShadow}
-                              borderRadius={submitButtonProperty.borderRadius}
-                              fontSize={submitButtonProperty.fontSize}
-                              // buttonLoading={buttonLoading}
-                            />
-                            
-                          <Button
-                              backgroundColor={cancelButtonProperty.backgroundColor}
-                              name={cancelButtonProperty.name}
-                              color={submitButtonProperty.color}
-                              // buttonHandler={submitHandler}
-                              marginLeft={cancelButtonProperty.marginLeft}
-                              marginTop={cancelButtonProperty.marginTop}
-                              width={cancelButtonProperty.width}
-                              height={cancelButtonProperty.height}
-                              boxShadow={cancelButtonProperty.boxShadow}
-                              borderRadius={cancelButtonProperty.borderRadius}
-                              fontSize={cancelButtonProperty.fontSize}
-                              // buttonLoading={buttonLoading}
-                            />
-                        </div>
-                      )} */}
                                   </div>
                                 </div>
                                 <div className={Styles.questionContainer}>
@@ -586,6 +556,7 @@ const OrgAdminChatPage = (props) => {
                               </div>
                             );
                           })}
+                           <div ref={endRef} />
                       </Card>
                     </div>
                   )}
@@ -734,6 +705,7 @@ const OrgAdminChatPage = (props) => {
               )}
             </div>
           </div>
+        }
         </div>
       </div>
     </>

@@ -12,7 +12,7 @@ import PageLoader from '../../loader/loader';
 import CircularFileInfo from '../upload/circularFileInfo';
 import axios from 'axios';
 import UserProfileForm from './user-profile-form';
-import { USER_PROFILE } from '../../../apiCalls/Constants';
+// import { USER_PROFILE } from '../../../apiCalls/Constants';
 
 function Information({ setFileSysytem, validateEmail }) {
   const user = useSelector(selectUser);
@@ -170,7 +170,7 @@ function Information({ setFileSysytem, validateEmail }) {
         userId: userId,
       };
       const response = await axios.put(
-        `${USER_PROFILE}/delete_dp`,
+        `${constants.USER_PROFILE}/delete_dp`,
         JSON.stringify(body),
         {
           headers: {

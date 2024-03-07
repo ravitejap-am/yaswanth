@@ -13,6 +13,9 @@ import arrorLink from "../../../asset/arrow-left.png";
 import OrgUserList from "../../../pages/chatmain/orguserlist/OrgUserList";
 import usersicon from "../../../asset/users.png";
 import documenticon from "../../../asset/document1.png";
+import GroupIcon from '@mui/icons-material/Group';
+
+
 function OrgUserListSidebar() {
   const navigationRoute = "/organizationPersonalInfo";
   return (
@@ -51,27 +54,15 @@ function OrgUserListSidebar() {
                   <p className={Styles.organizationTextStyle}>Back to Chat</p>{" "}
               </span>
               </Link>
-
+            </div>
+            <div className={Styles.SuperAdminChildContainer}>
               <Link to="/orguserlist" style={{ textDecoration: "none" }}>
               <span>
-                <img src={usersicon} alt="" />
+                  <GroupIcon style={{ color: 'white', fontSize:'20px', paddingRight:'10px' }}/>
                   <p className={Styles.organizationTextStyle}>Users</p>
               </span>
               </Link>
             </div>
-            {/* <br />
-            <div className={Styles.SuperAdminChildContainer}>
-              <span>
-                <img src={documenticon} alt="" />
-                <Link to="/orgdocumentlist"
-                  style={{ textDecoration: "none" }}
-                >
-                <p className={Styles.organizationTextStyle}>
-                  Documents
-                </p>
-                </Link>
-              </span>
-            </div> */}
           </div>
         </div>
         <OrgUserList navigationRoute={navigationRoute}/>

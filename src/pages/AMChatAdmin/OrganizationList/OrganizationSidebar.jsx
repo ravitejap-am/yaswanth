@@ -5,6 +5,7 @@ import organizationimage from '../../../asset/AmChatSuperAdmin/Frame 2301.png';
 import OrganizationList from '../OrganizationList/OrganizationList';
 import { Link } from 'react-router-dom';
 import arrorLink from '../../../asset/AmChatSuperAdmin/arrow-left.png';
+import DashboardIcon from '@mui/icons-material/Dashboard';
 
 function OrganizationSidebar() {
   return (
@@ -34,9 +35,10 @@ function OrganizationSidebar() {
             <div className={Styles.SuperAdminChildContainer}>
               <Link to="/dashboardadmin" style={{ textDecoration: 'none' }}>
                 <span>
-                  <img src={arrorLink} alt="" />
+                  {/* <img src={arrorLink} alt="" /> */}
+                  <DashboardIcon style={{ color: 'white', fontSize:'20px', paddingRight:'5px' }}/>
                   <p className={Styles.organizationTextStyle}>
-                    Back to Chat
+                    Dashboard
                   </p>{' '}
                 </span>
               </Link>

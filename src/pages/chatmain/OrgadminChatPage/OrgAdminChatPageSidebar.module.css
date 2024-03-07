@@ -81,6 +81,7 @@
 
 .SuperAdminChildContainer img {
   margin-right: 8px;
+  padding-left: 10px;
 }
 
 .bannerBtn {
@@ -173,3 +174,12 @@
   width: 87px;
   margin-left: -8px;
 }
+
+
+.SuperAdminChildContainer:hover {
+  background-color: #6366f1; /* Change background color on hover */
+  color: #f8fafc; /* Change text color on hover */
+  border-radius: 5px;
+}
+
+

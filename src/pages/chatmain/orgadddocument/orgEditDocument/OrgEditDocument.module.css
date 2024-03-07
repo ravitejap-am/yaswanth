@@ -255,6 +255,8 @@
   }
   
   .SuperAdminChildContainer {
+    padding-left: 10px;
+    width: 100%;
   }
   
   .SuperAdminChildContainer span {
@@ -266,6 +268,12 @@
   
   .SuperAdminChildContainer img {
     margin-right: 8px;
+  }
+
+  .SuperAdminChildContainer:hover {
+    background-color: #6366f1; 
+    color: #f8fafc; 
+    border-radius: 5px;
   }
   
   .bannerBtn {
