@@ -12,17 +12,13 @@ import { PlusCircleFilled } from '@ant-design/icons';
 function DynamicTextComponent({
   textFields,
   setTextFields,
-  submitHandler,
-  handleRemoveDomain,
   buttonLoading,
-  setBackDropLoading,
   showNotifyMessage,
   messageHandler,
   orgStatus,
   selectOrgData,
   orgData,
   setButtonLoading,
-  setSelectedTab,
   personalInformationHandler,
 }) {
   const user = useSelector(selectUser);
@@ -105,7 +101,6 @@ function DynamicTextComponent({
           }
         );
         console.log('api-response', response);
-        // showNotifyMessage('success', response?.data?.message, messageHandler);
         if (usedDomainIndexCollection.includes(index)) {
           setUsedDomainIndexCollection((prevArray) =>
             prevArray.filter((item) => item != index)
@@ -155,6 +150,14 @@ function DynamicTextComponent({
   }
 
   const handleDeleteDomain = (index) => {
+    if (textFields.length <= 1) {
+      showNotifyMessage(
+        'warn',
+        'A minimum of one domain name is required',
+        messageHandler
+      );
+      return;
+    }
     if (orgStatus != 'edit') {
       handleRemoveIndDomain(index);
       return;
@@ -190,20 +193,12 @@ function DynamicTextComponent({
       deleteApiCalling(index);
     }
 
-    if (textFields.length <= 1) {
-      showNotifyMessage(
-        'warn',
-        'A minimum of one domain name is required',
-        messageHandler
-      );
-      return;
-    }
-
     if (
       orgStatus == 'edit' &&
       (!!textFields[index].typeDetails.trim() ||
         textFields[index].id == undefined)
     ) {
+      setIsNewDomain(false);
       handleRemoveIndDomain(index);
     }
   };
@@ -260,8 +255,16 @@ function DynamicTextComponent({
 
   return (
     <div style={{ padding: '10px', marginTop: '2em' }}>
-      {console.log('textfields', textFields, 'orgdata', orgData)}
-      {textFields.map(({ typeDetails }, index) => (
+      {/* {console.log('textfields', textFields, 'orgdata', orgData)} */}
+      {console.log(
+        'submitDisable',
+        isSubmitDisabled(),
+        'lenght',
+        usedDomainIndexCollection.length,
+        'newdomain',
+        isNewDomain
+      )}
+      {textFields.map(({ typeDetails, id }, index) => (
         <div
           key={index}
           style={{
@@ -288,6 +291,7 @@ function DynamicTextComponent({
                 marginBottom: '2em',
                 padding: '0.375rem 0.75rem',
               }}
+              disabled={id ? true : false}
             />
             {typeDetails && !isValidDomain(typeDetails) && (
               <span style={{ color: 'red' }}>Invalid domain name format</span>
@@ -318,9 +322,10 @@ function DynamicTextComponent({
         style={{
           display: 'flex',
           justifyContent: 'flex-start',
-          alignItems: 'center',
+          // alignItems: 'center',
           gap: '2em',
           marginTop: '1em',
+          flexDirection: 'column',
         }}
       >
         {!(
@@ -328,100 +333,71 @@ function DynamicTextComponent({
           usedDomainIndexCollection.length > 0 ||
           isNewDomain
         ) ? (
-          <Tooltip placement="rightTop" title="Add Domain">
-            <Button
-              onClick={handleAddText}
+          <>
+            <Tooltip placement="rightTop" title="Add Domain">
+              <Button
+                onClick={handleAddText}
+                style={{
+                  display: 'flex',
+                  width: '50px',
+                  height: '50px',
+                  padding: '10px 16px',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  gap: '8px',
+                  flexShrink: '0',
+                  borderRadius: '30px',
+                  backgroundColor: 'var(--Brand-500, #6366F1)',
+                  color: '#FFFFFF',
+                  fontFamily: 'Into Lato',
+                  fontSize: '16px',
+                  fontStyle: 'normal',
+                  fontWeight: '700',
+                  lineHeight: '24px',
+                }}
+                disabled={
+                  isSubmitDisabled() ||
+                  usedDomainIndexCollection.length > 0 ||
+                  isNewDomain
+                }
+                icon={<PlusCircleFilled />}
+                // loading={buttonLoading}
+              >
+                {/* Add Domain */}
+              </Button>
+            </Tooltip>
+            <div
+              className="center"
               style={{
-                display: 'flex',
-                width: '50px',
-                height: '50px',
-                padding: '10px 16px',
-                justifyContent: 'center',
-                alignItems: 'center',
-                gap: '8px',
-                flexShrink: '0',
-                borderRadius: '30px',
-                backgroundColor: 'var(--Brand-500, #6366F1)',
-                color: '#FFFFFF',
-                fontFamily: 'Into Lato',
-                fontSize: '16px',
-                fontStyle: 'normal',
-                fontWeight: '700',
-                lineHeight: '24px',
+                // marginTop: '1em',
+                gap: '2em',
+                justifyContent: 'flex-start',
               }}
-              disabled={
-                isSubmitDisabled() ||
-                usedDomainIndexCollection.length > 0 ||
-                isNewDomain
-              }
-              icon={<PlusCircleFilled />}
-              // loading={buttonLoading}
             >
-              {/* Add Domain */}
-            </Button>
-          </Tooltip>
+              <Button
+                style={{ marginTop: '1em', width: '8em' }}
+                onClick={() => {
+                  personalInformationHandler('organizationadmin');
+                }}
+                loading={buttonLoading}
+              >
+                Back
+              </Button>
+              <Button
+                type="primary"
+                style={{ marginTop: '1em', width: '8em' }}
+                onClick={() => {
+                  personalInformationHandler('subscriptionplan');
+                }}
+                loading={buttonLoading}
+              >
+                Next
+              </Button>
+            </div>
+          </>
         ) : (
           ''
         )}
-        {/* {!(
-          isSubmitDisabled() ||
-          usedDomainIndexCollection.length > 0 ||
-          isNewDomain
-        ) ? (
-          <Button
-            onClick={() => submitHandler(textFields)}
-            style={{
-              display: 'flex',
-              width: '130px',
-              height: '50px',
-              padding: '10px 16px',
-              justifyContent: 'center',
-              alignItems: 'center',
-              gap: '8px',
-              flexShrink: '0',
-              borderRadius: '30px',
-              backgroundColor: 'var(--Brand-500, #6366F1)',
-              color: '#FFFFFF',
-              fontFamily: 'Into Lato',
-              fontSize: '16px',
-              fontStyle: 'normal',
-              fontWeight: '700',
-              lineHeight: '24px',
-            }}
-            disabled={
-              isSubmitDisabled() ||
-              usedDomainIndexCollection.length > 0 ||
-              isNewDomain
-            }
-            loading={buttonLoading}
-          >
-            Save
-          </Button>
-        ) : (
-          ''
-        )} */}
-      </div>
-      <div
-        className="center"
-        style={{ marginTop: '1em', gap: '2em', justifyContent: 'flex-start' }}
-      >
-        <Button
-          style={{ marginTop: '1em', width: '8em' }}
-          onClick={() => {
-            personalInformationHandler('organizationadmin');
-          }}
-        >
-          Back
-        </Button>
-        <Button
-          type="primary"
-          style={{ marginTop: '1em', width: '8em' }}
-          onClick={() => {
-            personalInformationHandler('subscriptionplan');
-          }}
-        >
-          Next
-        </Button>
       </div>
     </div>
   );
