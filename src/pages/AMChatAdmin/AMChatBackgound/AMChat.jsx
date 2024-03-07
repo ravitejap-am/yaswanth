@@ -11,18 +11,19 @@ import { setUser, selectUser } from '../../../store/authSlice';
 import { useSelector } from 'react-redux';
 import * as constants from '../../../constants/Constant';
 import OrgAdminChatPage from '../../chatmain/OrgadminChatPage/OrgAdminChatPage';
+import DashboardIcon from '@mui/icons-material/Dashboard';
 
 function AMChat({ renderComponent }) {
   const navigationRoute = "/SuperAdminPersonalInfo"
   return (
-    <>
+    <><div className={Styles.dashboardContainer}>
       <div className={Styles.AMChatMainDiv}>
         <div className={Styles.AMChatSidebar}>
           <div className={Styles.AMChatSuperAdminSidebar}>
             <img src={Logo} alt="" className={Styles.appName} />
           </div>
 
-          <div className={Styles.bannerBtn}>
+          {/* <div className={Styles.bannerBtn}>
             <div className={Styles.bannerButton}>
               <GeneralButton
                 name={'Start New Chat'}
@@ -35,8 +36,22 @@ function AMChat({ renderComponent }) {
                 height={'45px'}
               />
             </div>
-          </div>
+          </div> */}
 
+          <div className={Styles.navbarTitles}>
+          <div className={Styles.container}>
+            <div className={Styles.SuperAdminChildContainer}>
+              <Link
+                to="/dashboardadmin"
+                style={{ textDecoration: 'none' }}
+              >
+                <span>
+                  <DashboardIcon style={{ color: 'white', fontSize:'20px', paddingRight:'5px' }}/>
+                  <p className={Styles.organizationTextStyle}>Dashboard</p>
+                </span>
+              </Link>
+            </div>
+          </div>
           <div className={Styles.container}>
             <div className={Styles.SuperAdminChildContainer}>
               <Link
@@ -50,7 +65,7 @@ function AMChat({ renderComponent }) {
                 </span>
               </Link>
             </div>
-            <br />
+          </div>
           </div>
 
           <div className={Styles.AMchatMainDiv}>
@@ -93,6 +108,7 @@ function AMChat({ renderComponent }) {
             @2024. All rights reserved by Areteminds
           </p>
         </footer>
+      </div>
       </div>
     </>
   );

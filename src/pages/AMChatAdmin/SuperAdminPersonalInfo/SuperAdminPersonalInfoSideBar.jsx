@@ -9,6 +9,7 @@ import arrorLink from "../../../asset/AmChatSuperAdmin/arrow-left.png";
 import { Link } from "react-router-dom";
 import SuperAdminProfileTabNavigation from "./SuperAdminProfileTabNavigation";
 import SuperAdminProfileInfo from "./SuperAdminProfileInfo";
+import DashboardIcon from '@mui/icons-material/Dashboard';
 
 function SuperAdminPersonalInfoSideBar() {
   return (
@@ -38,8 +39,9 @@ function SuperAdminPersonalInfoSideBar() {
             <Link to="/dashboardadmin" style={{ textDecoration: "none" }}>
             <div className={Styles.SuperAdminChildContainer}>
               <span>
-                <img src={arrorLink} alt="" />
-                  <p className={Styles.organizationTextStyle}>Back to Chat</p>{" "}
+                {/* <img src={arrorLink} alt="" /> */}
+                <DashboardIcon style={{ color: 'white', fontSize:'20px', paddingRight:'5px' }}/>
+                  <p className={Styles.organizationTextStyle}>Dashboard</p>
               </span>
             </div>
             </Link>

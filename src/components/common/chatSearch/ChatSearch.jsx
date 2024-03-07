@@ -1,6 +1,7 @@
 // components/common/search/Search.js
 import React from "react";
 import "./ChatSearch.css";
+import  { useEffect } from 'react';
 
 function ChatSearch({
   name,
@@ -21,6 +22,12 @@ function ChatSearch({
       onSearchImageClick();
     }
   };
+
+  useEffect(() => {
+    if(chat === "" || chat === null){
+      adjustTextareaHeight()
+    }
+  },[chat])
 
   const adjustTextareaHeight = () => {
     const textarea = document.querySelector(".search_input");
@@ -52,7 +59,10 @@ function ChatSearch({
           }}
         />
       </div>
+      <div className="icon_alignment">
+      <div style={{display: 'flex'}}></div>
       <div
+      
         // className="chat_icon-container"
         id={`${iconId ? iconId : null}`}
         style={{marginRight: "10px"}}
@@ -65,6 +75,7 @@ function ChatSearch({
           style={{ width: 50, height: 50, cursor: "pointer" }}
           onClick={handleSearchImageClick}
         />
+      </div>
       </div>
     </div>
   );

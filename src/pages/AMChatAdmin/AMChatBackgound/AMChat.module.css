@@ -1,6 +1,6 @@
 .AMChatMainDiv {
   width: 100%;
-  height: 100%;
+  height: 92%;
   flex-shrink: 0;
   background: linear-gradient(
     114deg,
@@ -66,7 +66,7 @@
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  margin-top: 60px;
+  /* margin-top: 60px; */
   padding-left: 10px;
   border-radius: 5px;
 }
@@ -142,13 +142,14 @@
     #1a2e5e 92.75%
   );
   border-style: none;
-  margin-top: -20px;
+  /* margin-top: -20px; */
   color: var(--White, #fff);
   font-family: Lato;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
   line-height: 20px;
+  margin-top: 10px;
 }
 .footerPTagStyle {
   margin-left: 150px;
@@ -187,7 +188,7 @@
     #1a2e5e 92.75%
   );
   border-style: none;
-  margin-top: -20px;
+  /* margin-top: -20px; */
 }
 .organizationTextStyle {
   color: var(--White, #fff);
@@ -204,4 +205,18 @@
   font-size: 14px;
   font-style: normal;
   font-weight: 1.2rem;
+}
+
+.dashboardContainer {
+  height: 100vh;
+  background: linear-gradient(
+    114deg,
+    #0f172a 51.52%,
+    #152346 73.32%,
+    #1a2e5e 92.75%
+  );
+}
+
+.navbarTitles {
+  margin-top: 20px;
 }

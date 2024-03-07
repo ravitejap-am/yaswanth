@@ -56,10 +56,10 @@ function UserProfileForm({ formData, setFormData, submitHandler }) {
       isValid = false;
     }
 
-    if (!formData.status.trim()) {
-      errors.status = 'Status is required';
-      isValid = false;
-    }
+    // if (!formData.status.trim()) {
+    //   errors.status = 'Status is required';
+    //   isValid = false;
+    // }
 
     setErrors(errors);
     return isValid;
@@ -127,7 +127,7 @@ function UserProfileForm({ formData, setFormData, submitHandler }) {
           )}
         </div>
       </div>
-      <div className="form-row">
+      {/* <div className="form-row">
         <div className="form-group">
           <label htmlFor="status">Status:</label>
           <input
@@ -142,7 +142,7 @@ function UserProfileForm({ formData, setFormData, submitHandler }) {
           />
           {errors.status && <span className="error">{errors.status}</span>}
         </div>
-      </div>
+      </div> */}
       <Button
         type="primary"
         htmlType="submit"

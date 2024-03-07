@@ -340,7 +340,7 @@ function OrgUserList(props) {
                       >
                         <Typography
                           variant="body1"
-                          style={{ fontWeight: 'bold' }}
+                          style={{ fontWeight: 'bold'}}
                         >
                           Document Name
                         </Typography>
@@ -395,10 +395,10 @@ function OrgUserList(props) {
                             />
                           </TableCell>
                           <TableCell component="th" scope="row">
-                            {row.name}
+                            <span className={Styles.docTableText}>{row.name}</span>
                           </TableCell>
-                          <TableCell>{row.fileSize} MB</TableCell>
-                          <TableCell>{row.version}</TableCell>
+                          <TableCell><span className={Styles.docTableText}> {row.fileSize} MB</span></TableCell>
+                          <TableCell><span className={Styles.docTableText}> {row.version}</span></TableCell>
                           <TableCell>
                             <FormControl style={{ width: '110px' }}>
                               <Select

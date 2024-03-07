@@ -97,3 +97,9 @@
     font-size: 14px; /* Adjust font size for smaller screens */
   }
 }
+
+.tableText{
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+}

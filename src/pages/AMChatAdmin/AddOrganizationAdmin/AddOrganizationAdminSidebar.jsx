@@ -46,33 +46,9 @@ function AddOrganizationAdminSidebar() {
                     Organization List
                   </p>{' '}
               </span>
-
-              {/* <span>
-                <img src={organizationimage} alt="" />
-                <Link
-                to="/dashboardadmin/organizationlist"
-                style={{ textDecoration: "none" }}
-                >
-                <p className={Styles.organizationTextStyle}>Organizations</p>
-                </Link>
-              </span> */}
             </div>
             </Link>
             <br />
-
-            {/* <div className={Styles.SuperAdminChildContainer}>
-              <span>
-                <img src={userImage} alt="" />
-                <Link
-                  to="/dashboardadmin/organizationadminlist"
-                  style={{ textDecoration: "none" }}
-                >
-                  <p className={Styles.organizationTextStyle}>
-                    Organization Admin
-                  </p>
-                </Link>
-              </span>
-            </div> */}
           </div>
         </div>
         <AddOrganizationAdmin />

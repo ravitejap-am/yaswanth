@@ -472,12 +472,12 @@ function OrganizationList() {
                               />
                             </TableCell> */}
                               <TableCell component="th" scope="row">
-                                {row.name}
+                                <span className={Styles.tableText}> {row.name}</span>
                               </TableCell>
-                              <TableCell>{row.address}</TableCell>
-                              <TableCell>{row.contactPerson}</TableCell>
-                              <TableCell>{row.plans}</TableCell>
-                              <TableCell>{row.status}</TableCell>
+                              <TableCell><span className={Styles.tableText}>{row.address}</span></TableCell>
+                              <TableCell><span className={Styles.tableText}>{row.contactPerson}</span></TableCell>
+                              <TableCell><span className={Styles.tableText}>{row.plans}</span></TableCell>
+                              <TableCell><span className={Styles.tableText}>{row.status}</span></TableCell>
                               {/* <TableCell>
                           <FormControl style={{ width: '110px' }}>
                             <Select
