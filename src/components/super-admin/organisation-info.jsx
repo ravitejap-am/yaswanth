@@ -185,7 +185,7 @@ function OrganizationForm({
           errors
         )}
         <div>
-          <label htmlFor="org-name">Organization Name:</label>
+          <label htmlFor="org-name">Organisation Name:</label>
           <input
             type="text"
             id="name"

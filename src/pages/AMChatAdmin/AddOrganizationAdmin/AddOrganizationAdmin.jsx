@@ -285,7 +285,7 @@ function AddOrganizationAdmin() {
             <SuperAdminHeader
               componentName={`${
                 organisation?.organisationStatus == 'add' ? 'Add' : 'Edit'
-              } Organization`}
+              } Organisation`}
               name={fullName || ''}
               profileImageSrc={localStorage.getItem('userImageUrl')}
               customStyle={{

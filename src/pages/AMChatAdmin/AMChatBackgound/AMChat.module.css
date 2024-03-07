@@ -131,7 +131,7 @@
   font-weight: 500;
 }
 
-.AMChatFooterStyle {
+/* .AMChatFooterStyle {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -142,7 +142,6 @@
     #1a2e5e 92.75%
   );
   border-style: none;
-  /* margin-top: -20px; */
   color: var(--White, #fff);
   font-family: Lato;
   font-size: 14px;
@@ -150,7 +149,7 @@
   font-weight: 400;
   line-height: 20px;
   margin-top: 10px;
-}
+} */
 .footerPTagStyle {
   margin-left: 150px;
   font-family: var(--text-base-font-family, "Lato-SemiBold", sans-serif);
@@ -169,13 +168,13 @@
 .AMchatMainDiv {
   margin-top: 30px;
 }
-.AMChatFooterStyle {
+/* .AMChatFooterStyle {
   color: var(--White, #fff);
   font-family: Lato;
   font-size: 14px;
   font-style: normal;
   font-weight: 1.2rem;
-}
+} */
 
 .AMChatFooterStyle {
   display: flex;
@@ -188,6 +187,11 @@
     #1a2e5e 92.75%
   );
   border-style: none;
+  color: var(--White, #fff);
+  font-family: Lato;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 1.2rem;
   /* margin-top: -20px; */
 }
 .organizationTextStyle {
@@ -199,13 +203,13 @@
   line-height: var(--text-base-line-height, 24px);
   font-weight: var(--text-base-font-weight, 500);
 }
-.AMChatFooterStyle {
+/* .AMChatFooterStyle {
   color: var(--White, #fff);
   font-family: Lato;
   font-size: 14px;
   font-style: normal;
   font-weight: 1.2rem;
-}
+} */
 
 .dashboardContainer {
   height: 100vh;

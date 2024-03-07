@@ -61,7 +61,7 @@ function AMChat({ renderComponent }) {
                 <span>
                   <img src={organizationimage} alt="" />
 
-                  <p className={Styles.organizationTextStyle}>Organizations</p>
+                  <p className={Styles.organizationTextStyle}>Organisations</p>
                 </span>
               </Link>
             </div>

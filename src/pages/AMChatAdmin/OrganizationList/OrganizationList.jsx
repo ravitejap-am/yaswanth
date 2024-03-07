@@ -270,7 +270,7 @@ function OrganizationList() {
       <div className={Styles.superAdminMiddleParentDiv}>
         <div className={Styles.superAdminProfileCardStyle}>
           <SuperAdminHeader
-            componentName="Organization List"
+            componentName="Organisation List"
             name={fullName || ''}
             profileImageSrc={localStorage.getItem('userImageUrl')}
             customStyle={{
@@ -309,7 +309,7 @@ function OrganizationList() {
               style={{ textDecoration: 'none' }}
             >
               <GeneralButton
-                name={'Add Organization'}
+                name={'Add Organisation'}
                 type={'submit'}
                 color={'#f8fafc'}
                 borderRadius={'30px'}
@@ -351,7 +351,7 @@ function OrganizationList() {
                           variant="body1"
                           style={{ fontWeight: 'bold' }}
                         >
-                          Organization Name
+                          Organisation Name
                         </Typography>
                       </TableSortLabel>
                     </TableCell>

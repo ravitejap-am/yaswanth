@@ -27,7 +27,7 @@ const tabNavigations = ({
               personalInformationHandler('personalinformation');
             }}
           >
-            Organization Info
+            Organisation Info
           </Link>
           <Link
             style={{ textDecoration: 'none' }}
@@ -37,7 +37,7 @@ const tabNavigations = ({
             }`}
             onClick={() => personalInformationHandler('organizationadmin')}
           >
-            Organization Admin
+            Organisation Admin
           </Link>
 
           <Link
@@ -50,7 +50,7 @@ const tabNavigations = ({
               personalInformationHandler('organizationdomains');
             }}
           >
-            Organization Domains
+            Organisation Domains
           </Link>
 
           <Link

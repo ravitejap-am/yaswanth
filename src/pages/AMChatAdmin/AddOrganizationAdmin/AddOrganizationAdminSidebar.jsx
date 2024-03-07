@@ -43,7 +43,7 @@ function AddOrganizationAdminSidebar() {
               <span>
                 <img src={arrorLink} alt="" />
                   <p className={Styles.organizationTextStyle}>
-                    Organization List
+                  Organisation List
                   </p>{' '}
               </span>
             </div>
