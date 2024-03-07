@@ -23,6 +23,12 @@ import { tokenDecodeJWT } from '../../../utils/authUtils';
 import AMChatHeader from '../AMChatHeader/AMChatHeader';
 import SuperAdminHeader from '../SuperAdminHeader/SuperAdminHeader';
 import PageLoader from '../../../components/loader/loader';
+import OrganizationInfoForm from '../../../components/super-admin/organisation-info';
+import UserInfoForm from '../../../components/super-admin/userInfo';
+import {
+  validatePersonalInfoForm,
+  validateUserInfoForm,
+} from '../../../components/super-admin/validation';
 
 function AddOrganizationAdmin() {
   let {
@@ -56,8 +62,10 @@ function AddOrganizationAdmin() {
             city: organisation?.organisationData?.address?.city,
             postCode: organisation?.organisationData?.address?.postCode,
             landmark: '',
-            countryCode: organisation?.organisationData?.address?.country?.countryCode,
-            stateCode: organisation?.organisationData?.address?.state?.stateCode,
+            countryCode:
+              organisation?.organisationData?.address?.country?.countryCode,
+            stateCode:
+              organisation?.organisationData?.address?.state?.stateCode,
           },
           name: organisation?.organisationData?.name,
           contact: {
@@ -67,7 +75,29 @@ function AddOrganizationAdmin() {
           },
           metaData: organisation?.organisationData?.metadata,
         }
-      : ''
+      : {
+          address: {
+            address1: '',
+            address2: '',
+            country: '',
+            state: '',
+            city: '',
+            postCode: '',
+          },
+          name: '',
+          contact: {
+            firstName: '',
+            lastName: '',
+            email: '',
+          },
+          metaData: [
+            {
+              typeDetails: '',
+              typeId: '20',
+              status: 'ACTIVE',
+            },
+          ],
+        }
   );
   const [isEdit, setIsEdit] = useState(false);
   const [countries, setCountries] = useState([]);
@@ -79,7 +109,8 @@ function AddOrganizationAdmin() {
             organisation?.organisationData?.address?.country?.countryName,
           state: organisation?.organisationData?.address?.state?.stateName,
           city: organisation?.organisationData?.address?.city,
-          countryCode: organisation?.organisationData?.address?.country?.countryCode,
+          countryCode:
+            organisation?.organisationData?.address?.country?.countryCode,
           stateCode: organisation?.organisationData?.address?.state?.stateCode,
         }
       : {
@@ -92,6 +123,8 @@ function AddOrganizationAdmin() {
   const [firstNamelocal, setFirstName] = useState('');
   const [backDropLoading, setBackDropLoading] = useState(false);
   const [fullName, setFullName] = useState('');
+  const [orgInfoErrors, setOrgInfoErrors] = useState({});
+  const [userInfoErrors, setUserInfoErrors] = useState({});
 
   useEffect(() => {
     const storedFirstName = localStorage.getItem('firstName');
@@ -195,13 +228,59 @@ function AddOrganizationAdmin() {
     // Add logic for handling form cancellation
     console.log('Cancelling form');
   };
+  const personalInformationHandler = (tab) => {
+    console.log('orgData', orgData, 'tabData', selectedTab, 'tab', tab);
 
+    if (selectedTab == 'personalinformation') {
+      const errors = validatePersonalInfoForm(orgData);
+      if (Object.keys(errors).length === 0) {
+        setOrgInfoErrors({});
+        handleTabChange(tab);
+        return;
+      } else {
+        setOrgInfoErrors(errors);
+        showNotifyMessage(
+          'error',
+          'Please add the required fields',
+          messageHandler
+        );
+        return;
+      }
+    }
+    if (selectedTab == 'organizationadmin') {
+      const usererrors = validateUserInfoForm(orgData);
+      if (Object.keys(usererrors).length === 0) {
+        setUserInfoErrors({});
+        handleTabChange(tab);
+      } else {
+        setUserInfoErrors(usererrors);
+        showNotifyMessage(
+          'error',
+          'Please add the required fields',
+          messageHandler
+        );
+        return;
+      }
+      return;
+    }
+    if (
+      selectedTab == 'organizationdomains' ||
+      selectedTab == 'subscriptionplan'
+    ) {
+      handleTabChange(tab);
+    }
+
+    // handleTabChange(tab);
+  };
   return (
     <>
       {backDropLoading && <PageLoader loadingStatus={backDropLoading} />}
 
       <div className={Styles.superAdminMainCardDivStyle}>
-        <div className={Styles.superAdminMiddleParentDiv}>
+        <div
+          className={Styles.superAdminMiddleParentDiv}
+          style={{ height: '104%' }}
+        >
           <div className={Styles.superAdminProfileCardStyle}>
             <SuperAdminHeader
               componentName={`${
@@ -230,6 +309,10 @@ function AddOrganizationAdmin() {
           <TabNavigation
             selectedTab={selectedTab}
             handleTabChange={handleTabChange}
+            setOrgInfoErrors={setOrgInfoErrors}
+            orgData={orgData}
+            setUserInfoErrors={setUserInfoErrors}
+            personalInformationHandler={personalInformationHandler}
           />
           <br />
           <div
@@ -237,7 +320,7 @@ function AddOrganizationAdmin() {
             style={{ height: '70%', overflowY: 'auto' }}
           >
             {selectedTab === 'personalinformation' && (
-              <OrganizationInfo
+              <OrganizationInfoForm
                 orgData={orgData}
                 setSelectedTab={setSelectedTab}
                 selectedTab={selectedTab}
@@ -255,10 +338,32 @@ function AddOrganizationAdmin() {
                 organisation={organisation}
                 editOrganisation={editOrganisation}
                 setBackDropLoading={setBackDropLoading}
+                errors={orgInfoErrors}
+                setErrors={setOrgInfoErrors}
+                personalInformationHandler={personalInformationHandler}
               />
+              // <OrganizationInfo
+              //   orgData={orgData}
+              //   setSelectedTab={setSelectedTab}
+              //   selectedTab={selectedTab}
+              //   selectOrgData={selectOrgData}
+              //   buttonLoading={buttonLoading}
+              //   setButtonLoading={setButtonLoading}
+              //   countries={countries}
+              //   states={states}
+              //   localState={localState}
+              //   setLocalState={setLocalState}
+              //   cities={cities}
+              //   setCities={setCities}
+              //   setCountries={setCountries}
+              //   setStates={setStates}
+              //   organisation={organisation}
+              //   editOrganisation={editOrganisation}
+              //   setBackDropLoading={setBackDropLoading}
+              // />
             )}
             {selectedTab === 'organizationadmin' && (
-              <OrganizationAdmin
+              <UserInfoForm
                 orgData={orgData}
                 setSelectedTab={setSelectedTab}
                 selectedTab={selectedTab}
@@ -269,7 +374,24 @@ function AddOrganizationAdmin() {
                 showNotifyMessage={showNotifyMessage}
                 messageHandler={messageHandler}
                 jwt={jwt}
+                formData={orgData.contact}
+                setFormData={selectOrgData}
+                errors={userInfoErrors}
+                setErrors={setUserInfoErrors}
+                personalInformationHandler={personalInformationHandler}
               />
+              // <OrganizationAdmin
+              //   orgData={orgData}
+              //   setSelectedTab={setSelectedTab}
+              //   selectedTab={selectedTab}
+              //   selectOrgData={selectOrgData}
+              //   organisation={organisation}
+              //   editOrganisation={editOrganisation}
+              //   buttonLoading={buttonLoading}
+              //   showNotifyMessage={showNotifyMessage}
+              //   messageHandler={messageHandler}
+              //   jwt={jwt}
+              // />
             )}
             {selectedTab === 'subscriptionplan' && (
               <SubscriptionPlan
@@ -281,6 +403,7 @@ function AddOrganizationAdmin() {
                 buttonLoading={buttonLoading}
                 organisation={organisation}
                 editOrganisation={editOrganisation}
+                personalInformationHandler={personalInformationHandler}
               />
             )}
             {selectedTab === 'organizationdomains' && (
@@ -297,51 +420,61 @@ function AddOrganizationAdmin() {
                 jwt={jwt}
                 setButtonLoading={setButtonLoading}
                 setBackDropLoading={setBackDropLoading}
+                personalInformationHandler={personalInformationHandler}
               />
             )}
           </div>
           <div className={Styles.generalButtonStyle}>
-            {/* <div>
-            <GeneralButton
-              name="Submit"
-              buttonProps={
-                {
-                 
-                }
-              }
-              type="primary"
-              color="#FFFFFF"
-              backgroundColor="#6366F1"
-              width="130px"
-              height="50px"
-              borderRadius="30px"
-             
-              buttonHandler={handleSubmit}
-            />
-          </div> */}
-            {/* <Link
-            to="/dashboardadmin/organizationlist"
-            style={{ textDecoration: "none" }}
-          >
             <div>
-              <GeneralButton
-                name="Cancel"
-                buttonProps={
-                  {
-                    
+              <Button
+                onClick={() => {
+                  if (organisation?.organisationStatus == 'edit') {
+                    editOrganisation(orgData);
+                    return;
                   }
-                }
-                type="default"
-                color="#334155"
-                backgroundColor="transparent"
-                width="130px"
-                height="50px"
-                borderRadius="30px"
-              
-                buttonHandler={handleCancel}
-              />
+                  addOrganisation();
+                }}
+                style={{
+                  display: 'flex',
+                  width: '130px',
+                  height: '50px',
+                  padding: '10px 16px',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  gap: '8px',
+                  flexShrink: '0',
+                  borderRadius: '30px',
+                  backgroundColor: 'var(--Brand-500, #6366F1)',
+                  color: '#FFFFFF',
+                  fontFamily: 'Into Lato',
+                  fontSize: '16px',
+                  fontStyle: 'normal',
+                  fontWeight: '700',
+                  lineHeight: '24px',
+                }}
+                loading={buttonLoading}
+              >
+                Save
+              </Button>
             </div>
-          </Link> */}
+            <Link
+              to="/dashboardadmin/organizationlist"
+              style={{ textDecoration: 'none' }}
+            >
+              <div>
+                <GeneralButton
+                  name="Cancel"
+                  buttonProps={{}}
+                  type="default"
+                  color="#334155"
+                  backgroundColor="transparent"
+                  width="130px"
+                  height="50px"
+                  borderRadius="30px"
+                  buttonHandler={handleCancel}
+                />
+              </div>
+            </Link>
           </div>
         </div>
       </div>
