@@ -32,7 +32,7 @@ import NotifyMessage from '../../../components/common/toastMessages/NotifyMessag
 import AMChatHeader from '../../AMChatAdmin/AMChatHeader/AMChatHeader';
 // import Pagination from "@mui/material/Pagination"; // Import MUI Pagination
 import OrganizationAdminHeader from '../organizationadmin/OrganizationAdminHeader/OrganizationAdminHeader';
-import { Pagination } from 'antd';
+import { Pagination, Popconfirm, message } from 'antd';
 
 function OrgDocumentList(props) {
   const user = useSelector(selectUser);
@@ -92,7 +92,7 @@ function OrgDocumentList(props) {
     name: '',
   });
 
-  console.log(" rows ",rows);
+  console.log(" rows ", rows);
 
   useEffect(() => {
 
@@ -285,7 +285,7 @@ function OrgDocumentList(props) {
                 fontSize: '18px',
               },
             }}
-            navigationRoute = {navigationRoute}
+            navigationRoute={navigationRoute}
           />
         </div>
         <div className={Styles.bannerBtn}>
@@ -328,12 +328,12 @@ function OrgDocumentList(props) {
               >
                 <TableHead style={{ borderBottom: '2px solid #0F172A' }}>
                   <TableRow>
-                    <TableCell padding="checkbox">
+                    {/* <TableCell padding="checkbox">
                       <Checkbox
                         indeterminate={false}
                         inputProps={{ 'aria-label': 'select all desserts' }}
                       />
-                    </TableCell>
+                    </TableCell> */}
                     <TableCell>
                       <TableSortLabel
                         onClick={(e) => handleRequestSort(e, 'createdAt')}
@@ -349,7 +349,7 @@ function OrgDocumentList(props) {
                       <TableSortLabel
                         active={orderBy === 'email'}
                         direction={orderBy === 'email' ? order : 'asc'}
-                        // onClick={(e) => handleRequestSort(e, "email")}
+                      // onClick={(e) => handleRequestSort(e, "email")}
                       >
                         <Typography
                           variant="body1"
@@ -363,7 +363,7 @@ function OrgDocumentList(props) {
                       <TableSortLabel
                         active={orderBy === 'lastChat'}
                         direction={orderBy === 'lastChat' ? order : 'asc'}
-                        // onClick={(e) => handleRequestSort(e, "lastChat")}
+                      // onClick={(e) => handleRequestSort(e, "lastChat")}
                       >
                         <Typography
                           variant="body1"
@@ -377,7 +377,7 @@ function OrgDocumentList(props) {
                       <TableSortLabel
                         active={orderBy === 'totalChat'}
                         direction={orderBy === 'totalChat' ? order : 'asc'}
-                        // onClick={(e) => handleRequestSort(e, "totalChat")}
+                      // onClick={(e) => handleRequestSort(e, "totalChat")}
                       >
                         <Typography
                           variant="body1"
@@ -391,7 +391,7 @@ function OrgDocumentList(props) {
                       <TableSortLabel
                         active={orderBy === 'status'}
                         direction={orderBy === 'status' ? order : 'asc'}
-                        // onClick={(e) => handleRequestSort(e, "status")}
+                      // onClick={(e) => handleRequestSort(e, "status")}
                       >
                         <Typography
                           variant="body1"
@@ -428,9 +428,9 @@ function OrgDocumentList(props) {
                           )
                           .map((row) => (
                             <TableRow key={row.id}>
-                              <TableCell padding="checkbox">
+                              {/* <TableCell padding="checkbox">
                                 <Checkbox />
-                              </TableCell>
+                              </TableCell> */}
                               <TableCell component="th" scope="row">
                                 {`${row.firstName} ${row.lastName}`}
                               </TableCell>
@@ -452,8 +452,8 @@ function OrgDocumentList(props) {
                               <TableCell>{row.createdAt}</TableCell>
                               <TableCell>{row.updatedAt}</TableCell>
                               <TableCell >
-                                        { row?.active ===true? 'Active' : ''}
-                                        { row?.active ===false?   'Inactive':""}
+                                {row?.active === true ? 'Active' : ''}
+                                {row?.active === false ? 'Inactive' : ""}
 
                                 {/* <FormControl style={{ width: '110px' }}>
                                   <Select
@@ -482,9 +482,32 @@ function OrgDocumentList(props) {
                                 </IconButton>
                                 <IconButton
                                   aria-label="delete"
-                                  onClick={() => handleDelete(row.id)}
+                                  onClick={() => {
+                                    //  handleDelete(row.id)}}
+                                  }}
                                 >
-                                  <img src={deleteIcon} alt="Delete" />
+                                  {
+                                    row?.active ===true &&
+                                    <Popconfirm
+                                    key={row?.id || "amchat"}
+                                    title="Am Chat"
+                                    description="Do you Really want to delete this user"
+                                    onConfirm={() => {
+                                      handleDelete(row.id)
+                                      // message.success('Click on Yes');
+                                    }}
+                                    onCancel={() => {
+                                      // message.error('Click on No');
+                                    }}
+                                    okText="Submit"
+                                    cancelText="Close"
+                                  >
+                                    <img src={deleteIcon} alt="Delete" />
+                                  </Popconfirm>
+                                  }
+                              
+
+                                  {/* <img src={deleteIcon} alt="Delete" />   */}
                                 </IconButton>
                               </TableCell>
                             </TableRow>
