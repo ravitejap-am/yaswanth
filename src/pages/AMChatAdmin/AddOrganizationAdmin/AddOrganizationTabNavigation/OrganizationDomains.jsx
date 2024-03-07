@@ -13,7 +13,6 @@ let domainNameRegex = /^[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$/;
 function OrganizationDomains({
   orgData,
   setSelectedTab,
-  selectedTab,
   selectOrgData,
   organisation,
   editOrganisation,

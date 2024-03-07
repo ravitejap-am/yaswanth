@@ -29,7 +29,7 @@ import {
   validatePersonalInfoForm,
   validateUserInfoForm,
 } from '../../../components/super-admin/validation';
-
+import { extractDomain } from '../../../utils/generalUtils';
 function AddOrganizationAdmin() {
   let {
     buttonLoading,
@@ -239,11 +239,11 @@ function AddOrganizationAdmin() {
         return;
       } else {
         setOrgInfoErrors(errors);
-        showNotifyMessage(
-          'error',
-          'Please add the required fields',
-          messageHandler
-        );
+        // showNotifyMessage(
+        //   'error',
+        //   'Please add the required fields with valid data',
+        //   messageHandler
+        // );
         return;
       }
     }
@@ -254,24 +254,63 @@ function AddOrganizationAdmin() {
         handleTabChange(tab);
       } else {
         setUserInfoErrors(usererrors);
-        showNotifyMessage(
-          'error',
-          'Please add the required fields',
-          messageHandler
-        );
+        // showNotifyMessage(
+        //   'error',
+        //   'Please add the required fields with valid data',
+        //   messageHandler
+        // );
         return;
       }
       return;
     }
-    if (
-      selectedTab == 'organizationdomains' ||
-      selectedTab == 'subscriptionplan'
-    ) {
+    if (selectedTab == 'organizationdomains') {
+      if (!domainNameValidation(orgData?.metaData)) {
+        showNotifyMessage(
+          'warn',
+          'At least one domain name should match the organisation domain',
+          messageHandler
+        );
+        return;
+      }
+      if (hasRepeatingValues(orgData?.metaData, 'typeDetails')) {
+        showNotifyMessage(
+          'warn',
+          'Duplicate domains are not allowed',
+          messageHandler
+        );
+        return;
+      }
+      if (domainNameValidation(orgData?.metaData)) {
+        handleTabChange(tab);
+      }
+    }
+    if (selectedTab == 'subscriptionplan') {
       handleTabChange(tab);
     }
 
     // handleTabChange(tab);
   };
+
+  const domainNameValidation = (domainArray) => {
+    if (orgData?.contact?.email.length > 0) {
+      let isDomainValid = domainArray.find(
+        (obj) => obj['typeDetails'] == extractDomain(orgData?.contact?.email)
+      );
+      console.log('isDomainValid', !!isDomainValid);
+      return !!isDomainValid;
+    }
+  };
+
+  function hasRepeatingValues(arr, prop) {
+    const uniqueValues = new Set();
+
+    for (const obj of arr) {
+      uniqueValues.add(obj[prop]);
+    }
+
+    return uniqueValues.size !== arr.length;
+  }
+
   return (
     <>
       {backDropLoading && <PageLoader loadingStatus={backDropLoading} />}

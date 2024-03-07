@@ -8,7 +8,6 @@ function UserInfoForm({
   orgData,
   errors,
   setErrors,
-  setSelectedTab,
   personalInformationHandler,
 }) {
   const handleChange = (e) => {
@@ -25,8 +24,6 @@ function UserInfoForm({
     e.preventDefault();
     console.log('validateForm---->', validateForm);
     if (validateForm()) {
-      // Submit the form
-      // submitHandler(formData)
       console.log(formData);
     }
   };
@@ -40,11 +37,6 @@ function UserInfoForm({
       isValid = false;
     }
 
-    // if (!formData.lastName.trim()) {
-    //   errors.lastName = 'Last name is required';
-    //   isValid = false;
-    // }
-
     setErrors(errors);
     return isValid;
   };
@@ -55,7 +47,6 @@ function UserInfoForm({
       onSubmit={handleSubmit}
       style={{ padding: '10px', marginTop: '2em' }}
     >
-      {console.log('orgdat', orgData, 'errors', errors)}
       <div className="form-row">
         <div className="form-group">
           <label htmlFor="firstName">First Name:</label>
