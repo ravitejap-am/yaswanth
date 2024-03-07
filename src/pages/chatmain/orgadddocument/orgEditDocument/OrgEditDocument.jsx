@@ -98,7 +98,7 @@ function OrgEditDocument(props) {
       showNotifyMessage('success', response?.data?.message, messageHandler);
     } catch (error) {
       if (error?.response?.status == 500 || error?.response?.status == '500') {
-        navigate('/internal500');
+        navigate('/customerSupport');
       }
 
       setButtonLoading(false);

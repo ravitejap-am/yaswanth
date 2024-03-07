@@ -148,7 +148,7 @@ function EditOrgUser(props) {
       } catch (error) {
         console.log('Error updating user details:', error);
         if (error?.response?.status == 500 || error?.response?.status == '500') {
-          navigate('/internal500');
+          navigate('/customerSupport');
         }
   
         setButtonLoading(false);
