@@ -162,7 +162,7 @@ function AddOrganizationAdmin() {
     } catch (error) {
       console.error('Error occurred:', error);
       if (error?.response?.status == 500 || error?.response?.status == '500') {
-        navigate('/internal500');
+        navigate('/customerSupport');
       }
       setBackDropLoading(false);
       console.log(error);
@@ -199,7 +199,7 @@ function AddOrganizationAdmin() {
     } catch (error) {
       console.error('Error occurred:', error);
       if (error?.response?.status == 500 || error?.response?.status == '500') {
-        navigate('/internal500');
+        navigate('/customerSupport');
       }
       setButtonLoading(false);
       console.log(error);
