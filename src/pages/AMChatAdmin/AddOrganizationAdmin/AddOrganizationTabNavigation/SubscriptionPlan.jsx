@@ -2,26 +2,10 @@ import React, { useState } from 'react';
 import SubscriptionPlanStyle from './SubscriptionPlan.module.css';
 import { Button } from 'antd';
 
-function SubscriptionPlan({
-  orgData,
-  setSelectedTab,
-  selectedTab,
-  selectOrgData,
-  addOrganisation,
-  buttonLoading,
-  organisation,
-  editOrganisation,
-}) {
-  const [selectedPlan, setSelectedPlan] = useState(null);
+function SubscriptionPlan({ personalInformationHandler }) {
+  const [selectedPlan, setSelectedPlan] = useState('freemium');
 
   const handlePlanSelection = (plan) => {
-    // const updatedOrgData = {
-    //   ...orgData,
-    //   plan: plan,
-    // };
-
-    // selectOrgData(updatedOrgData);
-    // setSelectedTab('subscriptionplan');
     setSelectedPlan(plan);
   };
 
@@ -55,38 +39,20 @@ function SubscriptionPlan({
           </label>
         </div>
       </label>
-      <Button
-        style={{
-          display: 'flex',
-          width: '130px',
-          height: '50px',
-          padding: '10px 16px',
-          justifyContent: 'center',
-          alignItems: 'center',
-          gap: '8px',
-          flexShrink: '0',
-          borderRadius: '30px',
-          backgroundColor: 'var(--Brand-500, #6366F1)',
-          color: '#FFFFFF',
-          fontFamily: 'Into Lato',
-          fontSize: '16px',
-          fontStyle: 'normal',
-          fontWeight: '700',
-          lineHeight: '24px',
-        }}
-        onClick={() => {
-          console.log(orgData);
-          if (organisation?.organisationStatus == 'edit') {
-            editOrganisation(orgData);
-          } else {
-            addOrganisation();
-          }
-        }}
-        loading={buttonLoading}
-        disabled={!!!selectedPlan}
+
+      <div
+        className="center"
+        style={{ marginTop: '1em', gap: '2em', justifyContent: 'flex-start' }}
       >
-        {organisation?.organisationStatus == 'edit' ? 'Save' : 'Submit'}
-      </Button>
+        <Button
+          style={{ marginTop: '1em', width: '8em' }}
+          onClick={() => {
+            personalInformationHandler('organizationdomains');
+          }}
+        >
+          Back
+        </Button>
+      </div>
     </div>
   );
 }

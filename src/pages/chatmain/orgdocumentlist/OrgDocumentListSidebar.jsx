@@ -51,18 +51,7 @@ function OrgDocumentListSidebar() {
                   <p className={Styles.organizationTextStyle}>Back to Chat</p>{" "}
                 </span>
               </Link>
-
-              {/* <span>
-                <img src={usersicon} alt="" />
-                <Link
-                  to="/orguserlist"
-                  style={{ textDecoration: "none" }}
-                >
-                  <p className={Styles.organizationTextStyle}>Users</p>
-                </Link>
-              </span> */}
             </div>
-            <br />
             <div className={Styles.SuperAdminChildContainer}>
               <Link to="/orgdocumentlist" style={{ textDecoration: "none" }}>
               <span>

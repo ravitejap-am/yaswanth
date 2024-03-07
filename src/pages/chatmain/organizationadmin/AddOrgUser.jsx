@@ -157,7 +157,7 @@ function AddOrgUser(props) {
           error?.response?.status == 500 ||
           error?.response?.status == '500'
         ) {
-          navigate('/internal500');
+          navigate('/customerSupport');
         }
         setButtonLoading(false);
         showNotifyMessage(

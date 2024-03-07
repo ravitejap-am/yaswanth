@@ -11,6 +11,7 @@
 
 .userprofile-main {
   display: flex;
+  margin: 15px;
 }
 
 .sidebar-amchat {

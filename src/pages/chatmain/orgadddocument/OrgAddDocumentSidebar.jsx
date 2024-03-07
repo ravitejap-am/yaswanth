@@ -12,6 +12,8 @@ import arrorLink from "../../../asset/AmChatSuperAdmin/arrow-left.png";
 import OrgAddDocument from "../../chatmain/orgadddocument/OrgAddDocument";
 import usersicon from "../../../asset/users.png";
 import documenticon from "../../../asset/document1.png";
+import GroupIcon from '@mui/icons-material/Group';
+
 function OrgAddDocumentSidebar() {
   const navigationRoute = "/organizationPersonalInfo";
 
@@ -51,15 +53,19 @@ function OrgAddDocumentSidebar() {
                   <p className={Styles.organizationTextStyle}>Back to Chat</p>{" "}
                 </Link>
               </span>
+            </div>
 
+            <div className={Styles.SuperAdminChildContainer}>
               <span>
-                <img src={usersicon} alt="" />
+                {/* <img src={usersicon} alt="" /> */}
+                <GroupIcon style={{ color: 'white', paddingLeft : '4px', fontSize:'20px', paddingRight:'5px' }}/>
                 <Link to="/orguserlist" style={{ textDecoration: "none" }}>
                   <p className={Styles.organizationTextStyle}>Users</p>
                 </Link>
               </span>
             </div>
-            <br />
+            
+
             <div className={Styles.SuperAdminChildContainer}>
               <span>
                 <img src={documenticon} alt="" />
@@ -69,6 +75,7 @@ function OrgAddDocumentSidebar() {
               </span>
             </div>
           </div>
+          
         </div>
         <OrgAddDocument navigationRoute={navigationRoute}/>
       </div>

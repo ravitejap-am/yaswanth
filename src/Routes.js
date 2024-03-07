@@ -43,6 +43,7 @@ import  ProtectedRoute  from './ProtectedRoute';
 
 
 import VerificationLink from './pages/linkverification/linkVerification.js';
+import CustomerSupportPage from './pages/errorHandler/InternalServerError/CustomerSupportPage.jsx';
 
 const Rout = () => {
   const userRole = localStorage.getItem('userRole');
@@ -62,6 +63,8 @@ const Rout = () => {
       <Route path="/userchat" element={<ProtectedRoute element={<AMChatMainUserSidebar />} allowedRoles={['USER']} />}></Route>
       <Route path="/chat" element={<ProtectedRoute element={<SearchUIAIChatSidebar />} allowedRoles={['SUPER_ADMIN' ,'USER' ]} />}></Route>
       <Route path="/chatOrgAdmin" element={<ProtectedRoute element={<OrganizationAdminSidebarSearchUIAIChat />} allowedRoles={['ORG_ADMIN']} />}></Route>
+      
+      <Route exact path="/customerSupport" element={<CustomerSupportPage />} />
 
 
       <Route path="/dashboardadmin" element={<ProtectedRoute element={<AMChatAdminHome />} allowedRoles={['SUPER_ADMIN']} />}></Route>

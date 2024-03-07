@@ -84,7 +84,7 @@ function OrganizationAdminChangePassword({ setFileSysytem, validateEmail }) {
       }
     } catch (error) {
       if (error.response && error.response.status === 500) {
-        navigate("/internal500");
+        navigate("/customerSupport");
       }
       setButtonLoading(false);
       // showNotifyMessage(

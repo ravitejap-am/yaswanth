@@ -431,12 +431,12 @@ function OrgDocumentList(props) {
                               {/* <TableCell padding="checkbox">
                                 <Checkbox />
                               </TableCell> */}
-                              <TableCell component="th" scope="row">
-                                {`${row.firstName} ${row.lastName}`}
+                              <TableCell component="th" scope="row" >
+                                <span className={Styles.tableText}> {`${row.firstName} ${row.lastName}`}</span>
                               </TableCell>
                               <TableCell>
                                 <div className={Styles.emailWithCheckbox}>
-                                  <span style={{ marginTop: '10px' }}>
+                                  <span style={{ marginTop: '10px'}} className={Styles.tableText} >
                                     {row.email}
                                   </span>
                                   <Checkbox
@@ -449,13 +449,10 @@ function OrgDocumentList(props) {
                                   />
                                 </div>
                               </TableCell>
-                              <TableCell>{row.createdAt}</TableCell>
-                              <TableCell>{row.updatedAt}</TableCell>
-                              <TableCell >
-                                {row?.active === true ? 'Active' : ''}
-                                {row?.active === false ? 'Inactive' : ""}
-
-                                {/* <FormControl style={{ width: '110px' }}>
+                              <TableCell ><span className={Styles.tableText}>{row.createdAt}</span></TableCell>
+                              <TableCell ><span className={Styles.tableText}> {row.updatedAt}</span></TableCell>
+                              <TableCell>
+                                <FormControl style={{ width: '110px' }}>
                                   <Select
                                     style={{
                                       border: 'none',
@@ -471,12 +468,13 @@ function OrgDocumentList(props) {
                                       Inactive
                                     </MenuItem>
                                   </Select>
-                                </FormControl> */}
+                                </FormControl> 
                               </TableCell>
                               <TableCell>
                                 <IconButton
                                   aria-label="edit"
                                   onClick={() => handleEdit(row.id)}
+                                  
                                 >
                                   <img src={editIcon} alt="Edit" />
                                 </IconButton>

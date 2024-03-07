@@ -7,13 +7,12 @@ import axios from 'axios';
 import { BASE_API_URL, BASE_ORG_API_URL } from '../../../../constants/Constant';
 import { useNavigate } from 'react-router-dom';
 import DynamicTextComponent from '../../../../components/super-admin/dynamic-textcomponent';
-
+import { Button } from 'antd';
 let domainNameRegex = /^[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$/;
 
 function OrganizationDomains({
   orgData,
   setSelectedTab,
-  selectedTab,
   selectOrgData,
   organisation,
   editOrganisation,
@@ -23,6 +22,7 @@ function OrganizationDomains({
   jwt = '',
   setButtonLoading,
   setBackDropLoading,
+  personalInformationHandler,
 }) {
   const navigate = useNavigate();
   const [newDomains, setNewDomains] = useState(
@@ -39,7 +39,6 @@ function OrganizationDomains({
 
   useEffect(() => {
     // Update dropdownDomains if needed
-    console.log('orgData domains', orgData);
   }, [newDomains]);
 
   const handlePlusClick = () => {
@@ -117,7 +116,7 @@ function OrganizationDomains({
             error?.response?.status == 500 ||
             error?.response?.status == '500'
           ) {
-            navigate('/internal500');
+            navigate('/customerSupport');
           }
           setButtonLoading(false);
           console.log(error);
@@ -207,10 +206,11 @@ function OrganizationDomains({
 
   return (
     <div>
-      {console.log('--------------domain data-------------------', newDomains)}
       <div className={Style.container}>
         <DynamicTextComponent
-          textFields={newDomains}
+          textFields={orgData?.metaData.filter(
+            (obj) => obj['status'] !== 'INACTIVE'
+          )}
           setTextFields={setNewDomains}
           submitHandler={submitHandler}
           handleRemoveDomain={handleRemoveDomain}
@@ -219,6 +219,11 @@ function OrganizationDomains({
           showNotifyMessage={showNotifyMessage}
           messageHandler={messageHandler}
           orgStatus={organisation?.organisationStatus}
+          selectOrgData={selectOrgData}
+          orgData={orgData}
+          setButtonLoading={setButtonLoading}
+          setSelectedTab={setSelectedTab}
+          personalInformationHandler={personalInformationHandler}
         />
       </div>
     </div>
