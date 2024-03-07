@@ -11,6 +11,7 @@ function SubscriptionPlan({
   buttonLoading,
   organisation,
   editOrganisation,
+  personalInformationHandler,
 }) {
   const [selectedPlan, setSelectedPlan] = useState(null);
 
@@ -55,7 +56,7 @@ function SubscriptionPlan({
           </label>
         </div>
       </label>
-      <Button
+      {/* <Button
         style={{
           display: 'flex',
           width: '130px',
@@ -86,7 +87,20 @@ function SubscriptionPlan({
         disabled={!!!selectedPlan}
       >
         {organisation?.organisationStatus == 'edit' ? 'Save' : 'Submit'}
-      </Button>
+      </Button> */}
+      <div
+        className="center"
+        style={{ marginTop: '1em', gap: '2em', justifyContent: 'flex-start' }}
+      >
+        <Button
+          style={{ marginTop: '1em', width: '8em' }}
+          onClick={() => {
+            personalInformationHandler('organizationdomains');
+          }}
+        >
+          Back
+        </Button>
+      </div>
     </div>
   );
 }
