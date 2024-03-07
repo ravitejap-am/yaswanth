@@ -47,7 +47,6 @@ function UserInfoForm({
       onSubmit={handleSubmit}
       style={{ padding: '10px', marginTop: '2em' }}
     >
-      {console.log('orgdat', orgData, 'errors', errors)}
       <div className="form-row">
         <div className="form-group">
           <label htmlFor="firstName">First Name:</label>

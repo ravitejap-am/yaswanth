@@ -255,15 +255,6 @@ function DynamicTextComponent({
 
   return (
     <div style={{ padding: '10px', marginTop: '2em' }}>
-      {/* {console.log('textfields', textFields, 'orgdata', orgData)} */}
-      {console.log(
-        'submitDisable',
-        isSubmitDisabled(),
-        'lenght',
-        usedDomainIndexCollection.length,
-        'newdomain',
-        isNewDomain
-      )}
       {textFields.map(({ typeDetails, id }, index) => (
         <div
           key={index}

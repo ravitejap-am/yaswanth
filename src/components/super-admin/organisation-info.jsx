@@ -166,18 +166,6 @@ function OrganizationForm({
         className={styles.formContainer}
         style={{ padding: '10px', marginTop: '2em' }}
       >
-        {console.log(
-          'country',
-          countries,
-          'state',
-          states,
-          'city',
-          cities,
-          'staeData',
-          orgData,
-          'errors',
-          errors
-        )}
         <div>
           <label htmlFor="org-name">Organization Name:</label>
           <input
