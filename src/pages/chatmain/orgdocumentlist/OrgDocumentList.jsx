@@ -267,7 +267,7 @@ function OrgDocumentList(props) {
       <div className={Styles.superAdminMiddleParentDiv}>
         <div className={Styles.superAdminProfileCardStyle}>
           <OrganizationAdminHeader
-            componentName="Your Organisation User"
+            componentName={"Your Organisation User"}
             name={fullName || ''}
             profileImageSrc={localStorage.getItem('userImageUrl')}
             customStyle={{
@@ -452,7 +452,8 @@ function OrgDocumentList(props) {
                               <TableCell ><span className={Styles.tableText}>{row.createdAt}</span></TableCell>
                               <TableCell ><span className={Styles.tableText}> {row.updatedAt}</span></TableCell>
                               <TableCell>
-                                <FormControl style={{ width: '110px' }}>
+                                <span>{row.active ? 'Active' : 'Inactive'}</span>
+                                {/* <FormControl style={{ width: '110px' }}>
                                   <Select
                                     style={{
                                       border: 'none',
@@ -468,9 +469,11 @@ function OrgDocumentList(props) {
                                       Inactive
                                     </MenuItem>
                                   </Select>
-                                </FormControl> 
+                                </FormControl>  */}
                               </TableCell>
                               <TableCell>
+
+                                
                                 <IconButton
                                   aria-label="edit"
                                   onClick={() => handleEdit(row.id)}
