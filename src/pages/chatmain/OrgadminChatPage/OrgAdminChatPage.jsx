@@ -200,11 +200,11 @@ const OrgAdminChatPage = (props) => {
   //   const storedFirstName = localStorage.getItem("firstNameOrganisation");
   //   setFirstName(storedFirstName);
   // }, []);
-  const callAPiForSuperAdmin = async () => { 
+  const callAPiForSuperAdmin = async () => {
     // await fetchUserProfile();
     await getDocumentsCount()
     await getOrganisationCount()
-  } 
+  }
 
   useEffect(() => {
     setHideChatInitialPage(false);
@@ -274,18 +274,18 @@ const OrgAdminChatPage = (props) => {
   };
 
 
-  const fetchActiveUserList = async () => { 
-    try{
-      const headers =  {Authorization: `Bearer ${jwt}`}
+  const fetchActiveUserList = async () => {
+    try {
+      const headers = { Authorization: `Bearer ${jwt}` }
       const response = await getActiveUserList(headers)
       console.log('response of active users---->', response);
-      if(response.data?.data){
+      if (response.data?.data) {
         setActiveUserList(response.data?.data)
-      }else{
+      } else {
         setActiveUserList([])
       }
 
-    }catch(error) {
+    } catch (error) {
       setActiveUserList([])
       console.log('Failed to get active users.', error);
     }
@@ -400,95 +400,100 @@ const OrgAdminChatPage = (props) => {
 
   console.log('hide initial page', hideChatInitialPage);
   console.log('questionAndAnswer------>', questionAndAnswer);
-  
+
   return (
     <>
-    {isLoading && <PageLoader loadingStatus={isLoading} />}
-    <div className="orgadminchat-screen">
-      <div className="orgadminchat-chat-container" 
-      // style={{width: '79vw' }} 
-      >
-        <div className="orgadminchat-chat-header">
-          <OrganizationAdminHeader
-            componentName={`Welcome ${fullName || ''}`}
-            name={fullName || ''}
-            profileImageSrc={localStorage.getItem('userImageUrl')}
-            customStyle={{
-              containerStyle: {
-                display: 'flex',
-                borderRadius: '8px',
-              },
-              imageStyle: {
-                width: '44px',
-                height: '44px',
-              },
-              textStyle: {
-                color: 'black',
-                fontWeight: '600',
-                fontSize: '18px',
-              },
-            }}
-            navigationRoute={navigationRoute}
-          />
-        </div>
-        {/* super admin dashboard */}
-        {userRole === 'SUPER_ADMIN' && <div className={SAStyles.superAdminMiddleChildDiv} style={{marginBottom: '15px'}}>
-          <div
-            className={SAStyles.superAdminMiddleCardStyle}
-            style={{ backgroundColor: '#FFFFFF' }}
-          >
-            <div style={{ display: 'flex' }}>
-              {' '}
-              <div className={SAStyles.superAdminMiddleCardCircle1Style}>
-                {' '}
-                <img src={circle1} alt="" />
-              </div>
-              <div className={SAStyles.titlePriceStyle}>
-                <p className={SAStyles.titleStyle}>Organizations</p>
-                <p className={SAStyles.priceStyle}>{orgCount}</p>
-              </div>
-            </div>
-
-            <div className={SAStyles.flowImageParentDiv}>
-              <img src={flow} alt="" className={SAStyles.flowImageStyle} />
-              <img
-                src={flowImage2}
-                alt=""
-                className={SAStyles.flowBelowImageStyle}
-              />
-            </div>
+      {isLoading && <PageLoader loadingStatus={isLoading} />}
+      <div className="orgadminchat-screen">
+        <div className="orgadminchat-chat-container"
+        // style={{width: '79vw' }} 
+        >
+          <div className="orgadminchat-chat-header">
+            <OrganizationAdminHeader
+              componentName={`Welcome ${fullName || ''}`}
+              name={fullName || ''}
+              profileImageSrc={localStorage.getItem('userImageUrl')}
+              customStyle={{
+                containerStyle: {
+                  display: 'flex',
+                  borderRadius: '8px',
+                },
+                imageStyle: {
+                  width: '44px',
+                  height: '44px',
+                },
+                textStyle: {
+                  color: 'black',
+                  fontWeight: '600',
+                  fontSize: '18px',
+                },
+              }}
+              navigationRoute={navigationRoute}
+            />
           </div>
-
-          <div
-            className={SAStyles.superAdminMiddleCardStyle}
-            style={{ backgroundColor: '#FFFFFF' }}
-          >
-            <div style={{ display: 'flex' }}>
-              <div className={SAStyles.superAdminMiddleCardCircle1Style}>
+          {/* super admin dashboard */}
+          {userRole === 'SUPER_ADMIN' && <div className={SAStyles.superAdminMiddleChildDiv} style={{ marginBottom: '15px' }}>
+            <div
+              className={SAStyles.superAdminMiddleCardStyle}
+              style={{ backgroundColor: '#FFFFFF' }}
+            >
+              <div style={{ display: 'flex' }}>
                 {' '}
-                <img src={circle2} alt="" />
-              </div>
-              <div className={SAStyles.titlePriceStyle}>
-                <div className={SAStyles.titleStyle} >
-                  <p>Documents Uploaded</p>
+                <div className={SAStyles.superAdminMiddleCardCircle1Style}>
+                  {' '}
+                  <img src={circle1} alt="" />
                 </div>
-                <div>
-                  <p className={SAStyles.priceStyle}>{docCount}</p>
+                <div className={SAStyles.titlePriceStyle}>
+                  <p className={SAStyles.titleStyle}>Organizations</p>
+                  <p className={SAStyles.priceStyle}>{orgCount}</p>
                 </div>
               </div>
+
+              <div className={SAStyles.flowImageParentDiv}>
+                <img src={flow} alt="" className={SAStyles.flowImageStyle} />
+                <img
+                  src={flowImage2}
+                  alt=""
+                  className={SAStyles.flowBelowImageStyle}
+                />
+              </div>
             </div>
 
-            <div>
-              <img src={flow} alt="" className={SAStyles.flowImageStyle} />
-              <img
-                src={flowImage2}
-                alt=""
-                className={SAStyles.flowBelowImageStyle}
-              />
-            </div>
-          </div>
-        </div>}
+            <div
+              className={SAStyles.superAdminMiddleCardStyle}
+              style={{ backgroundColor: '#FFFFFF' }}
+            >
+              <div style={{ display: 'flex' }}>
+                <div className={SAStyles.superAdminMiddleCardCircle1Style}>
+                  {' '}
+                  <img src={circle2} alt="" />
+                </div>
+                <div className={SAStyles.titlePriceStyle}>
+                  <div className={SAStyles.titleStyle} >
+                    <p>Documents Uploaded</p>
+                  </div>
+                  <div>
+                    <p className={SAStyles.priceStyle}>{docCount}</p>
+                  </div>
+                </div>
+              </div>
 
+              <div>
+                <img src={flow} alt="" className={SAStyles.flowImageStyle} />
+                <img
+                  src={flowImage2}
+                  alt=""
+                  className={SAStyles.flowBelowImageStyle}
+                />
+              </div>
+            </div>
+          </div>}
+
+          {/* end super admin dashboard */}
+          {/* <div className="hi-main">
+            <div className="orgadminchat-chat-content-head">
+              <div className="orgadminchat-chat-content"
+              // style={{width: '100%'}} */}
         {/* end super admin dashboard */}
         {userRole !== 'SUPER_ADMIN' &&
         <div className="hi-main">
@@ -679,26 +684,28 @@ const OrgAdminChatPage = (props) => {
 
                     <div className='activeuser-dashboard'>
                       <div className='title-container'>
-                        <span className='title-text'>Active Users</span>
+                        {/* <span className='title-text'>Active Users</span> */}
+                        <span className='title-text'>Organisation
+Chat Session</span>
                       </div>
                       <div className="divider"></div>
                       {activeUserList.map((user, index) => {
-                        
+
                         const imagePath = user?.imageUrl ? `${BASE_USER_IMAGE_URL}${user?.imageUrl}` : profilePlaceholder;
-                        return(
+                        return (
                           <div key={index} className='content-container'>
-                            <div> 
+                            <div>
                               <img className="user-pic" src={imagePath} />
                             </div>
                             <div className='content-bg'>
                               <span className='name-text'>{user.name}</span>
-                              <br/>
-                              <span className='lastseen-text'>{`Last chat time : ${timeExtracter(user.lastChatTime)}`}</span>
+                              <br />
+                              <span className='lastseen-text'>{`Last session Time: ${timeExtracter(user.lastChatTime)}`}</span>
                             </div>
                             <div className="divider"></div>
                           </div>
                         )
-})}
+                      })}
                     </div>
                   </div>
                 </div>
