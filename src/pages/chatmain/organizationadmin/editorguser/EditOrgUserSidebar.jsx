@@ -48,7 +48,7 @@ function EditOrgUserSidebar() {
 
           <div className={Styles.container}>
             <div className={Styles.SuperAdminChildContainer}>
-              <Link to="/orguserlist" style={{ textDecoration: 'none' }}>
+              <Link to="/users" style={{ textDecoration: 'none' }}>
                 <span>
                   <img src={arrorLink} alt="" />
                   <p className={Styles.organizationTextStyle}>
@@ -58,7 +58,7 @@ function EditOrgUserSidebar() {
               </Link>
             </div>
             <div className={Styles.SuperAdminChildContainer}>
-              <Link to="/orguserlist" style={{ textDecoration: 'none' }}>
+              <Link to="/users" style={{ textDecoration: 'none' }}>
                 <span>
                   {/* <img src={usersicon} alt="" /> */}
                   <GroupIcon

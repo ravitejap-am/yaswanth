@@ -52,7 +52,7 @@ function OrgAdminChatSidebar() {
             </div>
           </div>
           <div className={Styles.container}>
-            <Link to="/orguserlist" style={{ textDecoration: 'none' }}>
+            <Link to="/users" style={{ textDecoration: 'none' }}>
               <div className={Styles.SuperAdminChildContainer}>
                 <span>
                   {/* <img src={usersicon} alt="" /> */}

@@ -54,7 +54,7 @@ function OrgUpdateDocumentSidebar() {
               </span>
             </div>
             <div className={Styles.SuperAdminChildContainer}>
-              <Link to="/orguserlist" style={{ textDecoration: 'none' }}>
+              <Link to="/users" style={{ textDecoration: 'none' }}>
                 <span>
                   <GroupIcon
                     style={{

@@ -58,7 +58,7 @@ function OrgAdminSidebar() {
               </Link>
             </div>
             <div className={Styles.SuperAdminChildContainer}>
-              <Link to="/orguserlist" style={{ textDecoration: 'none' }}>
+              <Link to="/users" style={{ textDecoration: 'none' }}>
                 <span>
                   {/* <img src={usersicon} alt="" /> */}
                   <GroupIcon

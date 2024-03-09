@@ -66,7 +66,7 @@ function OrgAddDocumentSidebar() {
                     paddingRight: '5px',
                   }}
                 />
-                <Link to="/orguserlist" style={{ textDecoration: 'none' }}>
+                <Link to="/users" style={{ textDecoration: 'none' }}>
                   <p className={Styles.organizationTextStyle}>Users</p>
                 </Link>
               </span>
