@@ -33,6 +33,7 @@ import AMChatHeader from '../../AMChatAdmin/AMChatHeader/AMChatHeader';
 // import Pagination from "@mui/material/Pagination"; // Import MUI Pagination
 import OrganizationAdminHeader from '../organizationadmin/OrganizationAdminHeader/OrganizationAdminHeader';
 import { Pagination } from 'antd';
+import Skeleton from '@mui/material/Skeleton';
 
 function OrgDocumentList(props) {
   const user = useSelector(selectUser);
@@ -65,7 +66,7 @@ function OrgDocumentList(props) {
 
   const [rows, setRows] = useState([]);
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('createdAt');
   const [loading, setLoading] = useState(false);
@@ -74,9 +75,10 @@ function OrgDocumentList(props) {
   const [firstName, setFirstName] = useState("");
   const profileSrc = localStorage.getItem("profileImage");
   const [fullName, setFullName] = useState("");
+  const [tableloading, setTableLoading] = useState(false);
 
   const [pageInfo, setPageInfo] = useState({
-    pageSize: 5,
+    pageSize: 10,
     page: 0,
     totalCount: null,
     totalPages: null,
@@ -132,6 +134,7 @@ function OrgDocumentList(props) {
         active: true,
         name: searchQuery,
       });
+      setTableLoading(true)
       const response = await fetch(
         `${constants.BASE_API_URL}${constants.USER_LIST_ENDPOINT}?${queryParams}`,
         {
@@ -142,6 +145,7 @@ function OrgDocumentList(props) {
           },
         }
       );
+      setTableLoading(false)
       if (!response.ok) {
         if (response.status === 404) {
           console.log('400 error ');
@@ -165,6 +169,7 @@ function OrgDocumentList(props) {
       setRows(users);
       setLoading(false);
     } catch (error) {
+      setTableLoading(false)
       setLoading(false);
       navigate('/maintenance');
     }
@@ -411,12 +416,15 @@ function OrgDocumentList(props) {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {loading ? (
+                  {tableloading ? (
                     <TableRow>
-                      <TableCell colSpan={7} align="center">
-                        Loading...
-                      </TableCell>
-                    </TableRow>
+                    <TableCell colSpan={7} align="center">
+                      <Skeleton variant="rectangular" width="100%" height="80vh">
+                        <div style={{ paddingTop: '21%' }} />
+                      </Skeleton>
+                      {/* <CircularProgress /> */}
+                    </TableCell>
+                  </TableRow>
                   ) : (
                     <>
                       {rows.length > 0 ? (

@@ -69,6 +69,7 @@
   /* margin-top: 60px; */
   padding-left: 10px;
   border-radius: 5px;
+  margin-top: 10px;
 }
 
 .container:hover {
@@ -223,4 +224,9 @@
 
 .navbarTitles {
   margin-top: 20px;
+}
+
+
+.activeColor {
+  background-color: #6366f1;
 }

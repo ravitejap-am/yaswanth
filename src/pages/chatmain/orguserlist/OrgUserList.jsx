@@ -38,6 +38,7 @@ import AMChatHeader from '../../AMChatAdmin/AMChatHeader/AMChatHeader';
 // import Pagination from "@mui/material/Pagination";
 import { Pagination } from 'antd';
 import OrganizationAdminHeader from '../organizationadmin/OrganizationAdminHeader/OrganizationAdminHeader';
+import Skeleton from '@mui/material/Skeleton';
 
 function OrgUserList(props) {
   let {
@@ -51,7 +52,7 @@ function OrgUserList(props) {
 
   const [documents, setDocuments] = useState([]);
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const [order, setOrder] = useState("desc");
   const [orderBy, setOrderBy] = useState("uploadDate");
   const [loading, setLoading] = useState(true);
@@ -60,7 +61,7 @@ function OrgUserList(props) {
   const profileSrc = localStorage.getItem("profileImage");
 
   const [pageInfo, setPageInfo] = useState({
-    pageSize: 5,
+    pageSize: 10,
     page: 0,
     totalCount: null,
     totalPages: null,
@@ -70,6 +71,7 @@ function OrgUserList(props) {
   const jwt = user.userToken;
   const navigationRoute = props.navigationRoute
   const [fullName, setFullName] = useState('');
+  const [tableloading, setTableLoading] = useState(false);
 
   useEffect(() => {
 
@@ -111,6 +113,7 @@ function OrgUserList(props) {
     try {
       console.log('api called');
       const organizationId = decodeJWT(jwt).organisationId;
+      setTableLoading(true)
       const documentUrl = `${constants.BASE_DOC_API_URL}/getAllByOrg/${organizationId}`;
       const response = await axios.get(documentUrl, {
         params: {
@@ -141,8 +144,10 @@ function OrgUserList(props) {
         totalPages: response?.data?.totalPages,
       });
       setLoading(false);
+      setTableLoading(false)
     } catch (error) {
       setDocuments([]);
+      setTableLoading(false)
       console.error('Error fetching documents:', error.message);
     }
   };
@@ -381,75 +386,89 @@ function OrgUserList(props) {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {documents?.length > 0 ? (
-                    documents
-                      .slice(
-                        page * rowsPerPage,
-                        page * rowsPerPage + rowsPerPage
-                      )
-                      .map((row) => (
-                        <TableRow key={row.id}>
-                          <TableCell padding="checkbox">
-                            <Checkbox
-                              inputProps={{ 'aria-labelledby': row.name }}
-                            />
-                          </TableCell>
-                          <TableCell component="th" scope="row">
-                            <span className={Styles.docTableText}>{row.name}</span>
-                          </TableCell>
-                          <TableCell><span className={Styles.docTableText}> {row.fileSize} MB</span></TableCell>
-                          <TableCell><span className={Styles.docTableText}> {row.version}</span></TableCell>
-                          <TableCell>
-                            <FormControl style={{ width: '110px' }}>
-                              <Select
-                                style={{ border: 'none', borderRadius: 'none' }}
-                                value={row.active ? 'Active' : 'Inactive'}
-                                onChange={(e) => {
-                                  console.log(e.target.value);
-                                }}
-                              >
-                                <MenuItem value="Active">Active</MenuItem>
-                                <MenuItem value="Inactive">Inactive</MenuItem>
-                              </Select>
-                            </FormControl>
-                          </TableCell>
-                          <TableCell>
-                            <Link to={`/editdocument/${row.id}`}>
-                              <IconButton aria-label="edit">
-                                <img src={editIcon} alt="Edit" />
-                              </IconButton>
-                            </Link>
-                            <Link to={`/updatedocument/${row.id}`}>
-                              <IconButton aria-label="Upload">
-                                <img
-                                  className={Styles.uploadicon}
-                                  src={upload}
-                                  alt="Uploaddocument"
-                                />
-                              </IconButton>
-                            </Link>
-
-                            <IconButton
-                              aria-label="delete"
-                              onClick={() => handleDelete(row.id)}
-                            >
-                              <img src={deleteIcon} alt="Delete" />
-                            </IconButton>
-                          </TableCell>
-                        </TableRow>
-                      ))
-                  ) : (
+                  {tableloading ? (
                     <TableRow>
-                      <TableCell colSpan={7} align="center">
-                        No data available
-                      </TableCell>
-                    </TableRow>
-                  )}
-                  {emptyRows > 0 && (
-                    <TableRow style={{ height: 53 * emptyRows }}>
-                      <TableCell colSpan={6} />
-                    </TableRow>
-                  )}
+                    <TableCell colSpan={7} align="center">
+                      <Skeleton variant="rectangular" width="100%" height="80vh">
+                        <div style={{ paddingTop: '21%' }} />
+                      </Skeleton>
+                      {/* <CircularProgress /> */}
+                    </TableCell>
+                  </TableRow>                    
+                  ):(
+                    <>
+                    {documents?.length > 0 ? (
+                      documents
+                        .slice(
+                          page * rowsPerPage,
+                          page * rowsPerPage + rowsPerPage
+                        )
+                        .map((row) => (
+                          <TableRow key={row.id}>
+                            <TableCell padding="checkbox">
+                              <Checkbox
+                                inputProps={{ 'aria-labelledby': row.name }}
+                              />
+                            </TableCell>
+                            <TableCell component="th" scope="row">
+                              <span className={Styles.docTableText}>{row.name}</span>
+                            </TableCell>
+                            <TableCell><span className={Styles.docTableText}> {row.fileSize} MB</span></TableCell>
+                            <TableCell><span className={Styles.docTableText}> {row.version}</span></TableCell>
+                            <TableCell>
+                              <FormControl style={{ width: '110px' }}>
+                                <Select
+                                  style={{ border: 'none', borderRadius: 'none' }}
+                                  value={row.active ? 'Active' : 'Inactive'}
+                                  onChange={(e) => {
+                                    console.log(e.target.value);
+                                  }}
+                                >
+                                  <MenuItem value="Active">Active</MenuItem>
+                                  <MenuItem value="Inactive">Inactive</MenuItem>
+                                </Select>
+                              </FormControl>
+                            </TableCell>
+                            <TableCell>
+                              <Link to={`/editdocument/${row.id}`}>
+                                <IconButton aria-label="edit">
+                                  <img src={editIcon} alt="Edit" />
+                                </IconButton>
+                              </Link>
+                              <Link to={`/updatedocument/${row.id}`}>
+                                <IconButton aria-label="Upload">
+                                  <img
+                                    className={Styles.uploadicon}
+                                    src={upload}
+                                    alt="Uploaddocument"
+                                  />
+                                </IconButton>
+                              </Link>
+  
+                              <IconButton
+                                aria-label="delete"
+                                onClick={() => handleDelete(row.id)}
+                              >
+                                <img src={deleteIcon} alt="Delete" />
+                              </IconButton>
+                            </TableCell>
+                          </TableRow>
+                        ))
+                    ) : (
+                      <TableRow>
+                        <TableCell colSpan={7} align="center">
+                          No data available
+                        </TableCell>
+                      </TableRow>
+                    )}
+                    {emptyRows > 0 && (
+                      <TableRow style={{ height: 53 * emptyRows }}>
+                        <TableCell colSpan={6} />
+                      </TableRow>
+                    )}
+                    </>
+                  )
+                  }
                 </TableBody>
               </Table>
             </TableContainer>

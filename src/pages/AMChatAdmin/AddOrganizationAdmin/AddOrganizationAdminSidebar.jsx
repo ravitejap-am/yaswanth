@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import arrorLink from '../../../asset/AmChatSuperAdmin/arrow-left.png';
 import OrganizationAdminListSidebar from '../OrganizationAdminList/OrganizationAdminListSidebar';
 import AddOrganizationAdmin from './AddOrganizationAdmin';
+import DashboardIcon from '@mui/icons-material/Dashboard';
 
 function AddOrganizationAdminSidebar() {
   return (
@@ -33,15 +34,31 @@ function AddOrganizationAdminSidebar() {
               />
             </div>
           </div> */}
-
           <div className={Styles.container}>
             <Link
-              to="/dashboardadmin/organizationlist"
-              style={{ textDecoration: 'none' }}
+              to="/dashboardadmin"
+              style={{ textDecoration: 'none', width:'100%' }}
             >
             <div className={Styles.SuperAdminChildContainer}>
               <span>
-                <img src={arrorLink} alt="" />
+                  <DashboardIcon style={{ color: 'white', fontSize:'20px', paddingRight:'5px' }}/>
+                  <p className={Styles.organizationTextStyle}>
+                  Dashboard
+                  </p>
+              </span>
+            </div>
+            </Link>
+            <br />
+          </div>
+          <div className={Styles.container} style={{backgroundColor: '#6366f1'}}>
+            <Link
+              to="/dashboardadmin/organizationlist"
+              style={{ textDecoration: 'none', width:'100%' }}
+            >
+            <div className={Styles.SuperAdminChildContainer}>
+              <span>
+                {/* <img src={arrorLink} alt="" /> */}
+                  <img src={organizationimage} alt="" />
                   <p className={Styles.organizationTextStyle}>
                   Organisation List
                   </p>{' '}
