@@ -23,7 +23,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Search from '../../../components/common/search/Search';
 import IconButton from '@mui/material/IconButton';
 import SerchImages from '../../../asset/AmChatSuperAdmin/Group2305.png';
-import { Pagination } from 'antd';
+import { Pagination, Popconfirm } from 'antd';
 // import "antd/dist/antd.css";
 
 import { useSelector, useDispatch } from 'react-redux';
@@ -517,17 +517,41 @@ function OrganizationList() {
                                   </IconButton>
                                 </Link>
 
+
+                        
+                                
                                 <IconButton
                                   aria-label="delete"
                                   onClick={() => {
-                                    deleteOrganisation(row.id);
-                                    setLoadingId(row.id);
+                                    // setLoadingId(row.id);
+                                    // deleteOrganisation(row.id);
+                               
                                   }}
                                 >
                                   {loadingId == rows.id && loadingId != null ? (
                                     <CircularProgress />
                                   ) : (
+                                    // <img src={deleteIcon} alt="Delete" />
+                                    <Popconfirm
+                                    key={row?.id || "amchat"}
+                                    title="Am Chat"
+                                    description="Do you Really want to delete this organization!!"
+                                    onConfirm={() => {
+                                      // handleDelete(row.id)
+                                      setLoadingId(row.id);
+                                      deleteOrganisation(row.id);
+
+                                      // message.success('Click on Yes');
+                                    }}
+                                    onCancel={() => {
+                                      // message.error('Click on No');
+                                    }}
+                                    okText="Submit"
+                                    cancelText="Close"
+                                  >
                                     <img src={deleteIcon} alt="Delete" />
+                                  </Popconfirm>
+                                  
                                   )}
                                 </IconButton>
                               </TableCell>

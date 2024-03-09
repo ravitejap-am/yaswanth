@@ -32,7 +32,7 @@ import {
   DOCUMENT_ENDPOINT,
   BASE_DOC_API_URL,
 } from '../../../constants/Constant';
-import { Spin } from 'antd';
+import { Popconfirm, Spin } from 'antd';
 import { useMessageState } from '../../../hooks/useapp-message';
 import AMChatHeader from '../../AMChatAdmin/AMChatHeader/AMChatHeader';
 // import Pagination from "@mui/material/Pagination";
@@ -340,7 +340,7 @@ function OrgUserList(props) {
                       >
                         <Typography
                           variant="body1"
-                          style={{ fontWeight: 'bold'}}
+                          style={{ fontWeight: 'bold' }}
                         >
                           Document Name
                         </Typography>
@@ -431,9 +431,20 @@ function OrgUserList(props) {
 
                             <IconButton
                               aria-label="delete"
-                              onClick={() => handleDelete(row.id)}
+                              onClick={() => { }}
                             >
-                              <img src={deleteIcon} alt="Delete" />
+                              <Popconfirm
+                                title="AM-Chat"
+                                description="Are you sure to delete this document?"
+                                onConfirm={() => { handleDelete(row.id) }}
+                                onCancel={() => { }}
+                                okText="Delete"
+                                cancelText="Close"
+                              >
+                                <img src={deleteIcon} alt="Delete" />
+                              </Popconfirm>
+
+
                             </IconButton>
                           </TableCell>
                         </TableRow>
