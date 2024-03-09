@@ -113,10 +113,18 @@ function OrgDocumentList(props) {
     setSearchQuery(event.target.value);
   };
 
+
+  
   useEffect(() => {
-    setLoading(true);
-    fetchUserList();
-  }, [searchQuery, order]);
+    if(searchQuery?.length>=3)
+    {   setLoading(true);
+       fetchUserList();}
+
+       else     if(searchQuery?.length===0)
+       {   setLoading(true);
+          fetchUserList();}
+     }, [searchQuery, order]);
+
 
   // useEffect(() => {
   //   setFilters({ ...filters, name: searchQuery,page: page  });
