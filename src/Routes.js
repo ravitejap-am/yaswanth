@@ -70,7 +70,7 @@ const Rout = () => {
                 <OrgAdminSidebar />
               )
             }
-            allowedRoles={[userRole]}
+            allowedRoles={['USER', 'ORG_ADMIN']}
           />
         }
       ></Route>
