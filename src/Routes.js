@@ -63,8 +63,14 @@ const Rout = () => {
         path="/user"
         element={
           <ProtectedRoute
-            element={<AMChatMainUserSidebar />}
-            allowedRoles={['USER']}
+            element={
+              userRole == 'USER' ? (
+                <AMChatMainUserSidebar />
+              ) : (
+                <OrgAdminSidebar />
+              )
+            }
+            allowedRoles={[userRole]}
           />
         }
       ></Route>
@@ -197,7 +203,7 @@ const Rout = () => {
       <Route exact path="/error405" element={<Error405 />} />
       <Route exact path="/error404" element={<Error404 />} />
       <Route
-        path="/updatedocument/:documentId"
+        path="/document/:documentId"
         element={
           <ProtectedRoute
             element={<OrgUpdateDocumentSidebar />}
@@ -215,7 +221,7 @@ const Rout = () => {
         }
       ></Route>
       <Route
-        path="/edituser/:userId"
+        path="/user/:userId"
         element={
           <ProtectedRoute
             element={<EditOrgUserSidebar />}
@@ -245,7 +251,7 @@ const Rout = () => {
       <Route exact path="/termsandconditions" element={<TermAndCondition />} />
       {/* Fallback route for any other URL */}
       <Route path="*" element={<PageNotFound />} />
-      <Route
+      {/* <Route
         path="/Info"
         element={
           <ProtectedRoute
@@ -253,7 +259,7 @@ const Rout = () => {
             allowedRoles={['ORG_ADMIN']}
           />
         }
-      ></Route>
+      ></Route> */}
       <Route
         exact
         path="/OrganizationAdminHeader"

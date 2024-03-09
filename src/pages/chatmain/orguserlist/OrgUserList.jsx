@@ -430,7 +430,7 @@ function OrgUserList(props) {
                                 <img src={editIcon} alt="Edit" />
                               </IconButton>
                             </Link>
-                            <Link to={`/updatedocument/${row.id}`}>
+                            <Link to={`/document/${row.id}`}>
                               <IconButton aria-label="Upload">
                                 <img
                                   className={Styles.uploadicon}
