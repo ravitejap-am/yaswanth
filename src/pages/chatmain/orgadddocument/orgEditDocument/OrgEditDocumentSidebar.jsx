@@ -1,20 +1,20 @@
-import React from "react";
-import Logo from "../../../../asset/logo.png";
+import React from 'react';
+import Logo from '../../../../asset/logo.png';
 // import
-import Styles from "./OrgEditDocument.module.css";
-import GeneralButton from "../../../../components/common/buttons/GeneralButton";
-import frame from "../../../../asset/Frame 1.png";
-import organizationimage from "../../../../asset/AmChatSuperAdmin/Frame 2301.png";
-import userImage from "../../../../asset/AmChatSuperAdmin/users.png";
-import { Link } from "react-router-dom";
-import arrorLink from "../../../../asset/AmChatSuperAdmin/arrow-left.png";
+import Styles from './OrgEditDocument.module.css';
+import GeneralButton from '../../../../components/common/buttons/GeneralButton';
+import frame from '../../../../asset/Frame 1.png';
+import organizationimage from '../../../../asset/AmChatSuperAdmin/Frame 2301.png';
+import userImage from '../../../../asset/AmChatSuperAdmin/users.png';
+import { Link } from 'react-router-dom';
+import arrorLink from '../../../../asset/AmChatSuperAdmin/arrow-left.png';
 // import OrganizationAdminListSidebar from "../OrganizationAdminList/OrganizationAdminListSidebar";
-import OrgAddDocument from "../../../chatmain/orgadddocument/OrgAddDocument";
-import usersicon from "../../../../asset/users.png";
-import documenticon from "../../../../asset/document1.png";
-import OrgEditDocument from "./OrgEditDocument";
+import OrgAddDocument from '../../../chatmain/orgadddocument/OrgAddDocument';
+import usersicon from '../../../../asset/users.png';
+import documenticon from '../../../../asset/document1.png';
+import OrgEditDocument from './OrgEditDocument';
 function OrgEditDocumentSidebar() {
-  const navigationRoute = "/organizationPersonalInfo";
+  const navigationRoute = '/organizationPersonalInfo';
 
   return (
     <>
@@ -48,23 +48,23 @@ function OrgEditDocumentSidebar() {
             <div className={Styles.SuperAdminChildContainer}>
               <span>
                 <img src={arrorLink} alt="" />
-                <Link to="/orgadminchat" style={{ textDecoration: "none" }}>
-                  <p className={Styles.organizationTextStyle}>Back to Chat</p>{" "}
+                <Link to="/orgadminchat" style={{ textDecoration: 'none' }}>
+                  <p className={Styles.organizationTextStyle}>Back to Chat</p>{' '}
                 </Link>
               </span>
             </div>
-            
+
             <div className={Styles.SuperAdminChildContainer}>
-            <Link to="/orgdocumentlist" style={{ textDecoration: "none" }}>
+              <Link to="/orgdocumentlist" style={{ textDecoration: 'none' }}>
                 <span>
                   <img src={documenticon} alt="" />
                   <p className={Styles.organizationTextStyle}>Documents</p>
                 </span>
-            </Link>
+              </Link>
             </div>
           </div>
         </div>
-        <OrgEditDocument navigationRoute={navigationRoute}/>
+        <OrgEditDocument navigationRoute={navigationRoute} />
       </div>
       <div className={Styles.AMChatFooterStyle}>
         <footer className="AMChat-admin-footer">

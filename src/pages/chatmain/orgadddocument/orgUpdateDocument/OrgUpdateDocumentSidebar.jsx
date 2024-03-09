@@ -1,20 +1,20 @@
-import React from "react";
-import Logo from "../../../../asset/logo.png";
-import Styles from "./OrgUpdateDocument.module.css";
-import GeneralButton from "../../../../components/common/buttons/GeneralButton";
-import frame from "../../../../asset/Frame 1.png";
-import organizationimage from "../../../../asset/AmChatSuperAdmin/Frame 2301.png";
-import userImage from "../../../../asset/AmChatSuperAdmin/users.png";
-import { Link } from "react-router-dom";
-import arrorLink from "../../../../asset/AmChatSuperAdmin/arrow-left.png";
-import OrgAddDocument from '../../../chatmain/orgadddocument/OrgAddDocument'
-import usersicon from '../../../../asset/users.png'
-import documenticon from '../../../../asset/document1.png'
-import OrgUpdateDocument from "./OrgUpdateDocument";
+import React from 'react';
+import Logo from '../../../../asset/logo.png';
+import Styles from './OrgUpdateDocument.module.css';
+import GeneralButton from '../../../../components/common/buttons/GeneralButton';
+import frame from '../../../../asset/Frame 1.png';
+import organizationimage from '../../../../asset/AmChatSuperAdmin/Frame 2301.png';
+import userImage from '../../../../asset/AmChatSuperAdmin/users.png';
+import { Link } from 'react-router-dom';
+import arrorLink from '../../../../asset/AmChatSuperAdmin/arrow-left.png';
+import OrgAddDocument from '../../../chatmain/orgadddocument/OrgAddDocument';
+import usersicon from '../../../../asset/users.png';
+import documenticon from '../../../../asset/document1.png';
+import OrgUpdateDocument from './OrgUpdateDocument';
 import GroupIcon from '@mui/icons-material/Group';
 
 function OrgUpdateDocumentSidebar() {
-  const navigationRoute = "/organizationPersonalInfo";
+  const navigationRoute = '/organizationPersonalInfo';
 
   return (
     <>
@@ -48,33 +48,38 @@ function OrgUpdateDocumentSidebar() {
             <div className={Styles.SuperAdminChildContainer}>
               <span>
                 <img src={arrorLink} alt="" />
-                <Link to="/orgadminchat" style={{ textDecoration: "none" }}>
-                  <p className={Styles.organizationTextStyle}>Back to Chat</p>{" "}
+                <Link to="/orgadminchat" style={{ textDecoration: 'none' }}>
+                  <p className={Styles.organizationTextStyle}>Back to Chat</p>{' '}
                 </Link>
               </span>
             </div>
             <div className={Styles.SuperAdminChildContainer}>
-              <Link to="/orguserlist" style={{ textDecoration: "none" }}>
-              <span>
-                 <GroupIcon style={{ color: 'white', paddingLeft : '5px', fontSize:'20px', paddingRight:'5px'}}/>
+              <Link to="/orguserlist" style={{ textDecoration: 'none' }}>
+                <span>
+                  <GroupIcon
+                    style={{
+                      color: 'white',
+                      paddingLeft: '5px',
+                      fontSize: '20px',
+                      paddingRight: '5px',
+                    }}
+                  />
                   <p className={Styles.organizationTextStyle}>Users</p>
-              </span>
+                </span>
               </Link>
             </div>
-            
+
             <div className={Styles.SuperAdminChildContainer}>
-            <Link to="/orgdocumentlist" style={{ textDecoration: "none" }}>
-              <span>
-                <img src={documenticon} alt="" />
-                <p className={Styles.organizationTextStyle}>
-                  Documents
-                </p>
-              </span>
-            </Link>
+              <Link to="/orgdocumentlist" style={{ textDecoration: 'none' }}>
+                <span>
+                  <img src={documenticon} alt="" />
+                  <p className={Styles.organizationTextStyle}>Documents</p>
+                </span>
+              </Link>
             </div>
           </div>
         </div>
-        <OrgUpdateDocument navigationRoute={navigationRoute}/>
+        <OrgUpdateDocument navigationRoute={navigationRoute} />
       </div>
       <div className={Styles.AMChatFooterStyle}>
         <footer className="AMChat-admin-footer">

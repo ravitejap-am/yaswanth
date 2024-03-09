@@ -1,21 +1,21 @@
-import React from "react";
-import Logo from "../../../asset/logo.png";
+import React from 'react';
+import Logo from '../../../asset/logo.png';
 // import
-import Styles from "./OrgAddDocumentSidebar.module.css";
-import GeneralButton from "../../../components/common/buttons/GeneralButton";
-import frame from "../../../asset/Frame 1.png";
-import organizationimage from "../../../asset/AmChatSuperAdmin/Frame 2301.png";
-import userImage from "../../../asset/AmChatSuperAdmin/users.png";
-import { Link } from "react-router-dom";
-import arrorLink from "../../../asset/AmChatSuperAdmin/arrow-left.png";
+import Styles from './OrgAddDocumentSidebar.module.css';
+import GeneralButton from '../../../components/common/buttons/GeneralButton';
+import frame from '../../../asset/Frame 1.png';
+import organizationimage from '../../../asset/AmChatSuperAdmin/Frame 2301.png';
+import userImage from '../../../asset/AmChatSuperAdmin/users.png';
+import { Link } from 'react-router-dom';
+import arrorLink from '../../../asset/AmChatSuperAdmin/arrow-left.png';
 // import OrganizationAdminListSidebar from "../OrganizationAdminList/OrganizationAdminListSidebar";
-import OrgAddDocument from "../../chatmain/orgadddocument/OrgAddDocument";
-import usersicon from "../../../asset/users.png";
-import documenticon from "../../../asset/document1.png";
+import OrgAddDocument from '../../chatmain/orgadddocument/OrgAddDocument';
+import usersicon from '../../../asset/users.png';
+import documenticon from '../../../asset/document1.png';
 import GroupIcon from '@mui/icons-material/Group';
 
 function OrgAddDocumentSidebar() {
-  const navigationRoute = "/organizationPersonalInfo";
+  const navigationRoute = '/organizationPersonalInfo';
 
   return (
     <>
@@ -49,8 +49,8 @@ function OrgAddDocumentSidebar() {
             <div className={Styles.SuperAdminChildContainer}>
               <span>
                 <img src={arrorLink} alt="" />
-                <Link to="/orgadminchat" style={{ textDecoration: "none" }}>
-                  <p className={Styles.organizationTextStyle}>Back to Chat</p>{" "}
+                <Link to="/orgadminchat" style={{ textDecoration: 'none' }}>
+                  <p className={Styles.organizationTextStyle}>Back to Chat</p>{' '}
                 </Link>
               </span>
             </div>
@@ -58,26 +58,31 @@ function OrgAddDocumentSidebar() {
             <div className={Styles.SuperAdminChildContainer}>
               <span>
                 {/* <img src={usersicon} alt="" /> */}
-                <GroupIcon style={{ color: 'white', paddingLeft : '4px', fontSize:'20px', paddingRight:'5px' }}/>
-                <Link to="/orguserlist" style={{ textDecoration: "none" }}>
+                <GroupIcon
+                  style={{
+                    color: 'white',
+                    paddingLeft: '4px',
+                    fontSize: '20px',
+                    paddingRight: '5px',
+                  }}
+                />
+                <Link to="/orguserlist" style={{ textDecoration: 'none' }}>
                   <p className={Styles.organizationTextStyle}>Users</p>
                 </Link>
               </span>
             </div>
-            
 
             <div className={Styles.SuperAdminChildContainer}>
               <span>
                 <img src={documenticon} alt="" />
-                <Link to="/orgdocumentlist" style={{ textDecoration: "none" }}>
+                <Link to="/orgdocumentlist" style={{ textDecoration: 'none' }}>
                   <p className={Styles.organizationTextStyle}>Documents</p>
                 </Link>
               </span>
             </div>
           </div>
-          
         </div>
-        <OrgAddDocument navigationRoute={navigationRoute}/>
+        <OrgAddDocument navigationRoute={navigationRoute} />
       </div>
       <div className={Styles.AMChatFooterStyle}>
         <footer className="AMChat-admin-footer">

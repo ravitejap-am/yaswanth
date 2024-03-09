@@ -1,13 +1,13 @@
-import React from "react";
-import Logo from "../../asset/images/logo.png";
-import Styles from "../AMChatAdmin/AMChatBackgound/AMChat.module.css";
-import GeneralButton from "../../components/common/buttons/GeneralButton";
-import frame from "../../asset/Frame 1.png";
-import arrorLink from "../../asset/AmChatSuperAdmin/arrow-left.png";
+import React from 'react';
+import Logo from '../../asset/images/logo.png';
+import Styles from '../AMChatAdmin/AMChatBackgound/AMChat.module.css';
+import GeneralButton from '../../components/common/buttons/GeneralButton';
+import frame from '../../asset/Frame 1.png';
+import arrorLink from '../../asset/AmChatSuperAdmin/arrow-left.png';
 // import SuperAdminAMChatCard from "../SuperAdminAMChatCard/SuperAdminAMChatCard";
 // import OrganizationList from "../OrganizationList/OrganizationList";
-import { Link } from "react-router-dom";
-import UserProfile from "./UserProfile";
+import { Link } from 'react-router-dom';
+import UserProfile from './UserProfile';
 
 function userProfileSidebar() {
   return (
@@ -34,13 +34,15 @@ function userProfileSidebar() {
           </div> */}
 
           <div className={Styles.container}>
-            <Link to="/userchat" style={{ textDecoration: "none" }}>
-            <div className={Styles.SuperAdminChildContainer}>
-              <span>
-                <img src={arrorLink} alt="" />
-                  <p className={Styles.organizationTextStyle}>Back to Chat</p>{" "}
-              </span>
-            </div>
+            <Link to="/user" style={{ textDecoration: 'none' }}>
+              <div className={Styles.SuperAdminChildContainer}>
+                <span>
+                  <img src={arrorLink} alt="" />
+                  <p className={Styles.organizationTextStyle}>
+                    Back to Chat
+                  </p>{' '}
+                </span>
+              </div>
             </Link>
             <br />
             {/* <div className={Styles.SuperAdminChildContainer}>

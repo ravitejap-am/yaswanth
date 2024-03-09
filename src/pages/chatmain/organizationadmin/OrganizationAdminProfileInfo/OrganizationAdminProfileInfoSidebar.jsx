@@ -1,14 +1,14 @@
-import React from "react";
-import Logo from "../../../../asset/images/logo.png";
-import Styles from "../../../AMChatAdmin/AMChatBackgound/AMChat.module.css";
-import GeneralButton from "../../../../components/common/buttons/GeneralButton";
-import frame from "../../../../asset/Frame 1.png";
-import arrorLink from "../../../../asset/AmChatSuperAdmin/arrow-left.png";
+import React from 'react';
+import Logo from '../../../../asset/images/logo.png';
+import Styles from '../../../AMChatAdmin/AMChatBackgound/AMChat.module.css';
+import GeneralButton from '../../../../components/common/buttons/GeneralButton';
+import frame from '../../../../asset/Frame 1.png';
+import arrorLink from '../../../../asset/AmChatSuperAdmin/arrow-left.png';
 // import SuperAdminAMChatCard from "../SuperAdminAMChatCard/SuperAdminAMChatCard";
 // import OrganizationList from "../OrganizationList/OrganizationList";
-import { Link } from "react-router-dom";
-import UserProfile from "./OrganizationAdminProfileInfo";
-import OrganizationAdminProfileInfo from "./OrganizationAdminProfileInfo";
+import { Link } from 'react-router-dom';
+import UserProfile from './OrganizationAdminProfileInfo';
+import OrganizationAdminProfileInfo from './OrganizationAdminProfileInfo';
 
 function OrganizationAdminProfileInfoSidebar() {
   return (
@@ -38,8 +38,8 @@ function OrganizationAdminProfileInfoSidebar() {
             <div className={Styles.SuperAdminChildContainer}>
               <span>
                 <img src={arrorLink} alt="" />
-                <Link to="/orgadminchat" style={{ textDecoration: "none" }}>
-                  <p className={Styles.organizationTextStyle}>Back to Chat</p>{" "}
+                <Link to="/orgadminchat" style={{ textDecoration: 'none' }}>
+                  <p className={Styles.organizationTextStyle}>Back to Chat</p>{' '}
                 </Link>
               </span>
             </div>

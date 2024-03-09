@@ -1,23 +1,22 @@
-import React from "react";
-import Logo from "../../../asset/logo.png";
-import Styles from "./OrgUserListSidebar.module.css";
-import GeneralButton from "../../../components/common/buttons/GeneralButton";
-import frame from "../../../asset/Frame 1.png";
-import organizationimage from "../../../asset/AmChatSuperAdmin/Frame 2301.png";
-import userImage from "../../../asset/AmChatSuperAdmin/users.png";
+import React from 'react';
+import Logo from '../../../asset/logo.png';
+import Styles from './OrgUserListSidebar.module.css';
+import GeneralButton from '../../../components/common/buttons/GeneralButton';
+import frame from '../../../asset/Frame 1.png';
+import organizationimage from '../../../asset/AmChatSuperAdmin/Frame 2301.png';
+import userImage from '../../../asset/AmChatSuperAdmin/users.png';
 // import circle from "../../../asset/AmChatSuperAdmin/Ellipse 6.png";
 // import SuperAdminAMChatCard from "../SuperAdminAMChatCard/SuperAdminAMChatCard";
 // import OrganizationList from "../OrganizationList/OrganizationList";
-import { Link } from "react-router-dom";
-import arrorLink from "../../../asset/arrow-left.png";
-import OrgUserList from "../../../pages/chatmain/orguserlist/OrgUserList";
-import usersicon from "../../../asset/users.png";
-import documenticon from "../../../asset/document1.png";
+import { Link } from 'react-router-dom';
+import arrorLink from '../../../asset/arrow-left.png';
+import OrgUserList from '../../../pages/chatmain/orguserlist/OrgUserList';
+import usersicon from '../../../asset/users.png';
+import documenticon from '../../../asset/document1.png';
 import GroupIcon from '@mui/icons-material/Group';
 
-
 function OrgUserListSidebar() {
-  const navigationRoute = "/organizationPersonalInfo";
+  const navigationRoute = '/organizationPersonalInfo';
   return (
     <>
       <div className={Styles.AMChatMainDiv}>
@@ -45,27 +44,35 @@ function OrgUserListSidebar() {
               />
             </div> */}
           </div>
-          
+
           <div className={Styles.container}>
             <div className={Styles.SuperAdminChildContainer}>
-              <Link to="/orgadminchat" style={{ textDecoration: "none" }}>
-              <span>
-                <img src={arrorLink} alt="" />
-                  <p className={Styles.organizationTextStyle}>Back to Chat</p>{" "}
-              </span>
+              <Link to="/orgadminchat" style={{ textDecoration: 'none' }}>
+                <span>
+                  <img src={arrorLink} alt="" />
+                  <p className={Styles.organizationTextStyle}>
+                    Back to Chat
+                  </p>{' '}
+                </span>
               </Link>
             </div>
             <div className={Styles.SuperAdminChildContainer}>
-              <Link to="/orguserlist" style={{ textDecoration: "none" }}>
-              <span>
-                  <GroupIcon style={{ color: 'white', fontSize:'20px', paddingRight:'10px' }}/>
+              <Link to="/orguserlist" style={{ textDecoration: 'none' }}>
+                <span>
+                  <GroupIcon
+                    style={{
+                      color: 'white',
+                      fontSize: '20px',
+                      paddingRight: '10px',
+                    }}
+                  />
                   <p className={Styles.organizationTextStyle}>Users</p>
-              </span>
+                </span>
               </Link>
             </div>
           </div>
         </div>
-        <OrgUserList navigationRoute={navigationRoute}/>
+        <OrgUserList navigationRoute={navigationRoute} />
       </div>
       <div className={Styles.AMChatFooterStyle}>
         <footer className="AMChat-admin-footer">

@@ -33,13 +33,17 @@ function OrganizationSidebar() {
 
           <div className={Styles.container}>
             <div className={Styles.SuperAdminChildContainer}>
-              <Link to="/dashboardadmin" style={{ textDecoration: 'none' }}>
+              <Link to="/dashboard" style={{ textDecoration: 'none' }}>
                 <span>
                   {/* <img src={arrorLink} alt="" /> */}
-                  <DashboardIcon style={{ color: 'white', fontSize:'20px', paddingRight:'5px' }}/>
-                  <p className={Styles.organizationTextStyle}>
-                    Dashboard
-                  </p>{' '}
+                  <DashboardIcon
+                    style={{
+                      color: 'white',
+                      fontSize: '20px',
+                      paddingRight: '5px',
+                    }}
+                  />
+                  <p className={Styles.organizationTextStyle}>Dashboard</p>{' '}
                 </span>
               </Link>
 

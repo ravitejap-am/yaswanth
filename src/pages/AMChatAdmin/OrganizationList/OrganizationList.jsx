@@ -79,11 +79,10 @@ function OrganizationList() {
   const [orderBy, setOrderBy] = React.useState('createdAt');
   const [tableloading, setTableLoading] = useState(false);
   const [searchValue, setSearchValue] = useState('');
-  
-  useEffect(() => {
 
+  useEffect(() => {
     const storedFullName = localStorage.getItem('fullName');
-    setFullName(storedFullName)
+    setFullName(storedFullName);
   }, []);
 
   useEffect(() => {
@@ -270,7 +269,7 @@ function OrganizationList() {
       <div className={Styles.superAdminMiddleParentDiv}>
         <div className={Styles.superAdminProfileCardStyle}>
           <SuperAdminHeader
-            componentName="Organization List"
+            componentName="Organisations"
             name={fullName || ''}
             profileImageSrc={localStorage.getItem('userImageUrl')}
             customStyle={{
@@ -288,7 +287,7 @@ function OrganizationList() {
                 fontSize: '18px',
               },
             }}
-                      />
+          />
         </div>
 
         <div className={Styles.bannerBtn}>
@@ -304,10 +303,7 @@ function OrganizationList() {
             />
           </div>
           <div className={Styles.bannerButton}>
-            <Link
-              to="/dashboardadmin/addorganizationadmin"
-              style={{ textDecoration: 'none' }}
-            >
+            <Link to="/organisation" style={{ textDecoration: 'none' }}>
               <GeneralButton
                 name={'Add Organization'}
                 type={'submit'}
@@ -472,12 +468,31 @@ function OrganizationList() {
                               />
                             </TableCell> */}
                               <TableCell component="th" scope="row">
-                                <span className={Styles.tableText}> {row.name}</span>
+                                <span className={Styles.tableText}>
+                                  {' '}
+                                  {row.name}
+                                </span>
                               </TableCell>
-                              <TableCell><span className={Styles.tableText}>{row.address}</span></TableCell>
-                              <TableCell><span className={Styles.tableText}>{row.contactPerson}</span></TableCell>
-                              <TableCell><span className={Styles.tableText}>{row.plans}</span></TableCell>
-                              <TableCell><span className={Styles.tableText}>{row.status}</span></TableCell>
+                              <TableCell>
+                                <span className={Styles.tableText}>
+                                  {row.address}
+                                </span>
+                              </TableCell>
+                              <TableCell>
+                                <span className={Styles.tableText}>
+                                  {row.contactPerson}
+                                </span>
+                              </TableCell>
+                              <TableCell>
+                                <span className={Styles.tableText}>
+                                  {row.plans}
+                                </span>
+                              </TableCell>
+                              <TableCell>
+                                <span className={Styles.tableText}>
+                                  {row.status}
+                                </span>
+                              </TableCell>
                               {/* <TableCell>
                           <FormControl style={{ width: '110px' }}>
                             <Select
@@ -500,7 +515,7 @@ function OrganizationList() {
                               style={{ width: 24, height: 24 }}
                             />
                           </IconButton> */}
-                                <Link to="/dashboardadmin/addorganizationadmin">
+                                <Link to="/organisation">
                                   <IconButton
                                     aria-label="edit"
                                     onClick={() => {

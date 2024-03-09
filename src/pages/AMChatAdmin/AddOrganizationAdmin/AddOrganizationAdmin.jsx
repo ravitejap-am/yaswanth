@@ -158,7 +158,7 @@ function AddOrganizationAdmin() {
       // setIsReset(true);
       showNotifyMessage('success', response?.data?.message, messageHandler);
       console.log('API Response:', response.data);
-      navigate('/dashboardadmin/organizationlist');
+      navigate('/organisations');
     } catch (error) {
       console.error('Error occurred:', error);
       if (error?.response?.status == 500 || error?.response?.status == '500') {
@@ -496,10 +496,7 @@ function AddOrganizationAdmin() {
                 Save
               </Button>
             </div>
-            <Link
-              to="/dashboardadmin/organizationlist"
-              style={{ textDecoration: 'none' }}
-            >
+            <Link to="/organisations" style={{ textDecoration: 'none' }}>
               <div>
                 <GeneralButton
                   name="Cancel"
