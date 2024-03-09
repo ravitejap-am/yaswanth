@@ -9,6 +9,10 @@ import arrorLink from "../../../../asset/AmChatSuperAdmin/arrow-left.png";
 import { Link } from "react-router-dom";
 import UserProfile from "./OrganizationAdminProfileInfo";
 import OrganizationAdminProfileInfo from "./OrganizationAdminProfileInfo";
+import GroupIcon from '@mui/icons-material/Group';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import ChatIcon from '@mui/icons-material/Chat';
+import documenticon from '../../../../asset/document1.png'
 
 function OrganizationAdminProfileInfoSidebar() {
   return (
@@ -39,25 +43,50 @@ function OrganizationAdminProfileInfoSidebar() {
               <span>
                 <img src={arrorLink} alt="" />
                 <Link to="/orgadminchat" style={{ textDecoration: "none" }}>
-                  <p className={Styles.organizationTextStyle}>Back to Chat</p>{" "}
+                  <p className={Styles.organizationTextStyle}>Back</p>{" "}
                 </Link>
               </span>
             </div>
-            <br />
-            {/* <div className={Styles.SuperAdminChildContainer}>
-            <Link
-              to="/dashboardadmin/organizationadminlist"
-              style={{ textDecoration: "none" }}
-            >
+          </div>
+          <div className={Styles.container}>
+            <div className={Styles.SuperAdminChildContainer}>
               <span>
-                <img src={userImage} alt="" />
-
-                <p className={Styles.organizationTextStyle}>
-                  Organization Admin
-                </p>
+              <DashboardIcon style={{ color: 'white', paddingLeft : '5px', fontSize:'20px', paddingRight:'5px'}}/>
+                <Link to="/orgadminchat" style={{ textDecoration: "none" }}>
+                  <p className={Styles.organizationTextStyle}>Dashboard</p>{" "}
+                </Link>
               </span>
-            </Link>
-          </div> */}
+            </div>
+          </div>
+          <div className={Styles.container}>
+            <div className={Styles.SuperAdminChildContainer}>
+              <span>
+              <GroupIcon style={{ color: 'white', paddingLeft : '5px', fontSize:'20px', paddingRight:'5px'}}/>
+                <Link to="/orguserlist" style={{ textDecoration: "none" }}>
+                  <p className={Styles.organizationTextStyle}>Users</p>{" "}
+                </Link>
+              </span>
+            </div>
+          </div>
+          <div className={Styles.container}>
+            <div className={Styles.SuperAdminChildContainer}>
+              <span>
+              <img src={documenticon} alt="" />
+                <Link to="/orgdocumentlist" style={{ textDecoration: "none" }}>
+                  <p className={Styles.organizationTextStyle}>Documents</p>{" "}
+                </Link>
+              </span>
+            </div>
+          </div>
+          <div className={Styles.container}>
+            <div className={Styles.SuperAdminChildContainer}>
+              <span>
+              <ChatIcon style={{ color: 'white', paddingLeft : '5px', fontSize:'20px', paddingRight:'5px'}}/>
+                <Link to="/orgadminchat" style={{ textDecoration: "none" }}>
+                  <p className={Styles.organizationTextStyle}>Chat</p>{" "}
+                </Link>
+              </span>
+            </div>
           </div>
         </div>
 

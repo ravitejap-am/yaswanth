@@ -13,6 +13,9 @@ import OrgAddDocument from "../../chatmain/orgadddocument/OrgAddDocument";
 import usersicon from "../../../asset/users.png";
 import documenticon from "../../../asset/document1.png";
 import GroupIcon from '@mui/icons-material/Group';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import ChatIcon from '@mui/icons-material/Chat';
+
 
 function OrgAddDocumentSidebar() {
   const navigationRoute = "/organizationPersonalInfo";
@@ -49,24 +52,29 @@ function OrgAddDocumentSidebar() {
             <div className={Styles.SuperAdminChildContainer}>
               <span>
                 <img src={arrorLink} alt="" />
-                <Link to="/orgadminchat" style={{ textDecoration: "none" }}>
-                  <p className={Styles.organizationTextStyle}>Back to Chat</p>{" "}
+                <Link to="/orgdocumentlist" style={{ textDecoration: "none" }}>
+                  <p className={Styles.organizationTextStyle}>Back</p>{" "}
                 </Link>
               </span>
             </div>
 
             <div className={Styles.SuperAdminChildContainer}>
               <span>
-                {/* <img src={usersicon} alt="" /> */}
+                <DashboardIcon style={{ color: 'white', fontSize:'20px', paddingRight:'10px' }}/>
+                <Link to="/orgadminchat" style={{ textDecoration: "none" }}>
+                  <p className={Styles.organizationTextStyle}>Dashboard</p>
+                </Link>
+              </span>
+            </div>
+            <div className={Styles.SuperAdminChildContainer}>
+              <span>
                 <GroupIcon style={{ color: 'white', paddingLeft : '4px', fontSize:'20px', paddingRight:'5px' }}/>
                 <Link to="/orguserlist" style={{ textDecoration: "none" }}>
                   <p className={Styles.organizationTextStyle}>Users</p>
                 </Link>
               </span>
             </div>
-            
-
-            <div className={Styles.SuperAdminChildContainer}>
+            <div className={Styles.SuperAdminChildContainer} style={{backgroundColor:'#6366f1', borderRadius: '5px'}}>
               <span>
                 <img src={documenticon} alt="" />
                 <Link to="/orgdocumentlist" style={{ textDecoration: "none" }}>
@@ -74,6 +82,15 @@ function OrgAddDocumentSidebar() {
                 </Link>
               </span>
             </div>
+            <div className={Styles.SuperAdminChildContainer}>
+              <span>
+                <ChatIcon style={{ color: 'white', paddingLeft : '4px', fontSize:'20px', paddingRight:'5px' }}/>
+                <Link to="/orgadminchat" style={{ textDecoration: "none" }}>
+                  <p className={Styles.organizationTextStyle}>Chat</p>
+                </Link>
+              </span>
+            </div>
+
           </div>
           
         </div>

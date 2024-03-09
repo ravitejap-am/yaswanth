@@ -12,6 +12,9 @@ import usersicon from '../../../../asset/users.png'
 import documenticon from '../../../../asset/document1.png'
 import OrgUpdateDocument from "./OrgUpdateDocument";
 import GroupIcon from '@mui/icons-material/Group';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import ChatIcon from '@mui/icons-material/Chat';
+
 
 function OrgUpdateDocumentSidebar() {
   const navigationRoute = "/organizationPersonalInfo";
@@ -48,10 +51,18 @@ function OrgUpdateDocumentSidebar() {
             <div className={Styles.SuperAdminChildContainer}>
               <span>
                 <img src={arrorLink} alt="" />
-                <Link to="/orgadminchat" style={{ textDecoration: "none" }}>
-                  <p className={Styles.organizationTextStyle}>Back to Chat</p>{" "}
+                <Link to="/orgdocumentlist" style={{ textDecoration: "none" }}>
+                  <p className={Styles.organizationTextStyle}>Back</p>
                 </Link>
               </span>
+            </div>
+            <div className={Styles.SuperAdminChildContainer}>
+              <Link to="/orgadminchat" style={{ textDecoration: "none" }}>
+              <span>
+                 <DashboardIcon style={{ color: 'white', paddingLeft : '5px', fontSize:'20px', paddingRight:'5px'}}/>
+                  <p className={Styles.organizationTextStyle}>Dashboard</p>
+              </span>
+              </Link>
             </div>
             <div className={Styles.SuperAdminChildContainer}>
               <Link to="/orguserlist" style={{ textDecoration: "none" }}>
@@ -61,9 +72,8 @@ function OrgUpdateDocumentSidebar() {
               </span>
               </Link>
             </div>
-            
-            <div className={Styles.SuperAdminChildContainer}>
-            <Link to="/orgdocumentlist" style={{ textDecoration: "none" }}>
+            <div className={Styles.SuperAdminChildContainer} style={{backgroundColor:'#6366f1', borderRadius: '5px'}}>
+            <Link to="/orgdocumentlist" style={{ textDecoration: "none" }} >
               <span>
                 <img src={documenticon} alt="" />
                 <p className={Styles.organizationTextStyle}>
@@ -72,6 +82,15 @@ function OrgUpdateDocumentSidebar() {
               </span>
             </Link>
             </div>
+            <div className={Styles.SuperAdminChildContainer}>
+              <Link to="/orgadminchat" style={{ textDecoration: "none" }}>
+              <span>
+                 <ChatIcon style={{ color: 'white', paddingLeft : '5px', fontSize:'20px', paddingRight:'5px'}}/>
+                  <p className={Styles.organizationTextStyle}>Chat</p>
+              </span>
+              </Link>
+            </div>
+            
           </div>
         </div>
         <OrgUpdateDocument navigationRoute={navigationRoute}/>

@@ -80,6 +80,7 @@
   .SuperAdminChildContainer {
     width: 100%;
     padding-left: 5px;
+    margin-top: 10px;
   }
   
   .SuperAdminChildContainer span {

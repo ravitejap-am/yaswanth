@@ -21,6 +21,8 @@ import threedot from "../../../asset/threedot.png";
 import usersicon from "../../../asset/users.png";
 import documenticon from "../../../asset/document1.png";
 import GroupIcon from '@mui/icons-material/Group';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import ChatIcon from '@mui/icons-material/Chat';
 
 function OrgAdminChatSidebar() {
   const navigationRoute = "/organizationPersonalInfo";
@@ -52,6 +54,15 @@ function OrgAdminChatSidebar() {
             </div>
           </div>
           <div className={Styles.container}>
+          <Link to="/orgadminchat" style={{ textDecoration: "none" }}>
+              <div className={Styles.SuperAdminChildContainer} style={{backgroundColor:'#6366f1', borderRadius: '5px'}}>
+                <span>
+                  {/* <img src={usersicon} alt="" /> */}
+                  <DashboardIcon style={{ color: 'white', paddingLeft : '12px', fontSize:'20px', paddingRight:'5px' }}/>
+                  <p className={Styles.organizationTextStyle}>Dashboard</p>
+                </span>
+              </div>
+            </Link>
             <Link to="/orguserlist" style={{ textDecoration: "none" }}>
               <div className={Styles.SuperAdminChildContainer}>
                 <span>
@@ -67,6 +78,15 @@ function OrgAdminChatSidebar() {
                 <span>
                   <img src={documenticon} alt="" />
                   <p className={Styles.organizationTextStyle}>Document</p>
+                </span>
+              </div>
+            </Link>
+            <Link to="/orgadminchat" style={{ textDecoration: "none" }}>
+              <div className={Styles.SuperAdminChildContainer}>
+                <span>
+                  {/* <img src={usersicon} alt="" /> */}
+                  <ChatIcon style={{ color: 'white', paddingLeft : '12px', fontSize:'20px', paddingRight:'5px' }}/>
+                  <p className={Styles.organizationTextStyle}>Chat</p>
                 </span>
               </div>
             </Link>
