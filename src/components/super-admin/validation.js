@@ -1,3 +1,6 @@
+const emailregex =
+  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
 export const validatePersonalInfoForm = (data) => {
   let errors = {};
   if (!data.name.trim()) {
@@ -21,6 +24,12 @@ export const validatePersonalInfoForm = (data) => {
   if (data?.address?.postCode.length <= 0) {
     errors.postCode = 'Zip code is required';
   }
+  if (
+    data?.address?.postCode.length > 0 &&
+    data?.address?.postCode.length <= 3
+  ) {
+    errors.postCode = 'Please enter valid zipcode';
+  }
   return errors;
 };
 export const validateUserInfoForm = (data) => {
@@ -33,6 +42,13 @@ export const validateUserInfoForm = (data) => {
   }
   if (!data?.contact?.email.trim()) {
     errors.email = 'Email is required';
+  }
+
+  if (
+    data.contact.firstName.trim().length > 0 &&
+    !emailregex.test(data?.contact?.email)
+  ) {
+    errors.email = 'Please Enter Valid Email';
   }
 
   return errors;

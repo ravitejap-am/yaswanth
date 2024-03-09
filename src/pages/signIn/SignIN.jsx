@@ -11,6 +11,7 @@ import SignHeader from '../home/SignHeader/SignHeader';
 import { setUser, selectUser } from '../../store/authSlice';
 import * as constants from '../../constants/Constant';
 import { useMessageState } from '../../hooks/useapp-message';
+import { SetSessionToken } from '../../utils/SessionManager';
 
 const SignIn = () => {
   let {
@@ -114,10 +115,18 @@ const SignIn = () => {
             'Content-Type': 'application/json',
           },
         });
+     
         if (response.data.code) {
           const jwtToken = response.data.data?.jwtToken;
+          if(jwtToken)
+          { 
+            SetSessionToken(jwtToken);
+            
+          }
+         
           const fetchedUserData = { userToken: jwtToken };
           dispatch(setUser(fetchedUserData));
+          console.log('JWT Token after dispatch:', response.data);
           console.log('JWT Token after dispatch:', jwtToken);
           setShowSuccessMessage(true);
           setButtonLoading(false);

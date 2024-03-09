@@ -32,7 +32,7 @@ import {
   DOCUMENT_ENDPOINT,
   BASE_DOC_API_URL,
 } from '../../../constants/Constant';
-import { Spin } from 'antd';
+import { Popconfirm, Spin } from 'antd';
 import { useMessageState } from '../../../hooks/useapp-message';
 import AMChatHeader from '../../AMChatAdmin/AMChatHeader/AMChatHeader';
 // import Pagination from "@mui/material/Pagination";
@@ -333,19 +333,19 @@ function OrgUserList(props) {
               >
                 <TableHead style={{ borderBottom: '2px solid #0F172A' }}>
                   <TableRow>
-                    <TableCell padding="checkbox">
+                    {/* <TableCell padding="checkbox">
                       <Checkbox
                         indeterminate={false}
                         inputProps={{ 'aria-label': 'select all documents' }}
                       />
-                    </TableCell>
+                    </TableCell> */}
                     <TableCell>
                       <TableSortLabel
                         onClick={(e) => handleRequestSort(e, 'uploadDate')}
                       >
                         <Typography
                           variant="body1"
-                          style={{ fontWeight: 'bold'}}
+                          style={{ fontWeight: 'bold' }}
                         >
                           Document Name
                         </Typography>
