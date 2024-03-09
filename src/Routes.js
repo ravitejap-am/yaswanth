@@ -147,7 +147,7 @@ const Rout = () => {
         }
       ></Route>
       <Route
-        path="/orgdocumentList"
+        path="/documents"
         element={
           <ProtectedRoute
             element={<OrgUserListSidebar />}

@@ -75,7 +75,7 @@ function OrgAddDocumentSidebar() {
             <div className={Styles.SuperAdminChildContainer}>
               <span>
                 <img src={documenticon} alt="" />
-                <Link to="/orgdocumentlist" style={{ textDecoration: 'none' }}>
+                <Link to="/documents" style={{ textDecoration: 'none' }}>
                   <p className={Styles.organizationTextStyle}>Documents</p>
                 </Link>
               </span>
