@@ -566,7 +566,7 @@ function OrganizationList() {
                                     <Popconfirm
                                     key={row?.id || "amchat"}
                                     title="Am Chat"
-                                    description="Do you Really want to delete this organization!!"
+                                    description={"Do you Really want to delete this organization '"+row?.name+"'"}
                                     onConfirm={() => {
                                       // handleDelete(row.id)
                                       setLoadingId(row.id);
@@ -575,6 +575,7 @@ function OrganizationList() {
                                       // message.success('Click on Yes');
                                     }}
                                     onCancel={() => {
+                                      console.log(" row?.id ",row)
                                       // message.error('Click on No');
                                     }}
                                     okText="Submit"
