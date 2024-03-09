@@ -25,6 +25,8 @@ import IconButton from '@mui/material/IconButton';
 import SerchImages from '../../../asset/AmChatSuperAdmin/Group2305.png';
 import { Pagination, Popconfirm } from 'antd';
 // import "antd/dist/antd.css";
+import CustomerSupportPopUp from '../../errorHandler/InternalServerError/CustomerSupportPopUp';
+import { Modal } from 'antd';
 
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -37,6 +39,7 @@ import { useMessageState } from '../../../hooks/useapp-message';
 import CircularProgress from '@mui/material/CircularProgress';
 import SuperAdminHeader from '../SuperAdminHeader/SuperAdminHeader';
 import Skeleton from '@mui/material/Skeleton';
+import { EllipsisText } from 'antd';
 
 const style = {
   py: 0,
@@ -68,7 +71,7 @@ function OrganizationList() {
 
   const [fullName, setFullName] = useState('');
   const [pageInfo, setPageInfo] = useState({
-    pageSize: 5,
+    pageSize: 10,
     page: 0,
     totalCount: null,
     totalPages: null,
@@ -79,6 +82,7 @@ function OrganizationList() {
   const [orderBy, setOrderBy] = React.useState('createdAt');
   const [tableloading, setTableLoading] = useState(false);
   const [searchValue, setSearchValue] = useState('');
+  const [isOpen, setIsOpen] = useState(false)
   
   useEffect(() => {
 
@@ -99,13 +103,11 @@ function OrganizationList() {
       const response = await axios.get(documentUrl, {
         params: {
           page: page,
-          size: 5,
+          size: pageInfo.pageSize ,
           sortField: orderBy,
           sortDirection: order,
           organisationName: searchValue,
           isActive: 1,
-          version: '',
-          // fileSize: "",
         },
         headers: {
           Authorization: `Bearer ${jwt}`,
@@ -147,10 +149,11 @@ function OrganizationList() {
       console.log('-----organisationData', organisationData);
       let allOrgansisation = [];
       organisationData?.map((org) => {
+        let address = `${org?.address?.address1 ? org.address?.address1 : ""}, ${org.address?.address2 ? org.address?.address2 : ""}, ${org?.address?.city ? org?.address?.city: ""}, ${org?.address?.state?.stateName ? org?.address?.state?.stateName : ""}, ${org?.address?.country?.countryName ? org?.address?.country?.countryName : ""}-${org?.address?.postCode ? org?.address?.postCode : ""}`
         let individuvalOrg = {
           id: org.id,
           name: org.name,
-          address: org.address?.address1,
+          address: address,
           contactPerson: `${
             org?.contact?.firstName ? org?.contact?.firstName : ''
           }  ${org?.contact?.lastName ? org?.contact?.lastName : ''}`,
@@ -164,6 +167,12 @@ function OrganizationList() {
       setRows(allOrgansisation);
       setTableLoading(false);
     } catch (error) {
+      // <CustomerSupportPopUp isOpen={isOpen} setIsOpen={setIsOpen} />
+      console.log("error---->",error);
+      if(error?.response?.status === 500){
+        // CustomerSupportPopUp({isOpen,setIsOpen})
+        setIsOpen(true)
+      }
       setPageInfo({
         ...pageInfo,
         pageSize: 0,
@@ -203,7 +212,8 @@ function OrganizationList() {
     } catch (error) {
       console.error('Error occurred:', error);
       if (error?.response?.status == 500 || error?.response?.status == '500') {
-        navigate('/internal500');
+        // navigate('/internal500');
+        setIsOpen(true)
       }
       setLoadingId(null);
       console.log(error);
@@ -265,12 +275,33 @@ function OrganizationList() {
     setSearchValue(e.target.value);
   };
 
+  const handleVerification = () => {
+    const isValidJwtToken = true
+    if(isValidJwtToken){
+      // navigate("/dashboardadmin")
+      console.log("valid jwt token");
+      // verify jwt token
+      setIsOpen(false)
+      navigate("/dashboardadmin")
+    }else{
+      localStorage.clear()
+      setIsOpen(false)
+      navigate("/signin")
+    }
+  }
+
+  const handleCancelVerification = () => {
+    setIsOpen(false)
+  }
+
+
+
   return (
-    <div className={Styles.superAdminMainCardDivStyle}>
+    <div className={Styles.superAdminMainCardDivStyle} style={{minHeight: '100vh'}}>
       <div className={Styles.superAdminMiddleParentDiv}>
         <div className={Styles.superAdminProfileCardStyle}>
           <SuperAdminHeader
-            componentName="Organization List"
+            componentName="Organisation List"
             name={fullName || ''}
             profileImageSrc={localStorage.getItem('userImageUrl')}
             customStyle={{
@@ -309,7 +340,7 @@ function OrganizationList() {
               style={{ textDecoration: 'none' }}
             >
               <GeneralButton
-                name={'Add Organization'}
+                name={'Add Organisation'}
                 type={'submit'}
                 color={'#f8fafc'}
                 borderRadius={'30px'}
@@ -325,7 +356,7 @@ function OrganizationList() {
             </Link>
           </div>
         </div>
-
+        <CustomerSupportPopUp  isOpen={isOpen} setIsOpen={setIsOpen} handleVerification={handleVerification} handleCancelVerification={handleCancelVerification}/>
         <div className={Styles.OrganizationListTable}>
           <Paper>
             <TableContainer>
@@ -351,7 +382,7 @@ function OrganizationList() {
                           variant="body1"
                           style={{ fontWeight: 'bold' }}
                         >
-                          Organization Name
+                          Organisation Name
                         </Typography>
                       </TableSortLabel>
                     </TableCell>
@@ -380,7 +411,7 @@ function OrganizationList() {
                         variant="body1"
                         style={{ fontWeight: 'bold' }}
                       >
-                        Contact Person
+                        Organisation Admin
                       </Typography>
                       {/* <TableSortLabel
                         active={orderBy === 'contactPerson'}
@@ -450,7 +481,7 @@ function OrganizationList() {
                   {tableloading ? (
                     <TableRow>
                       <TableCell colSpan={7} align="center">
-                        <Skeleton variant="rectangular" width="100%">
+                        <Skeleton variant="rectangular" width="100%" height={'74vh'}>
                           <div style={{ paddingTop: '21%' }} />
                         </Skeleton>
                         {/* <CircularProgress /> */}
@@ -474,7 +505,7 @@ function OrganizationList() {
                               <TableCell component="th" scope="row">
                                 <span className={Styles.tableText}> {row.name}</span>
                               </TableCell>
-                              <TableCell><span className={Styles.tableText}>{row.address}</span></TableCell>
+                              <TableCell  style={{width:'250px'}} ><span className={Styles.tableText}>{row.address}</span></TableCell>
                               <TableCell><span className={Styles.tableText}>{row.contactPerson}</span></TableCell>
                               <TableCell><span className={Styles.tableText}>{row.plans}</span></TableCell>
                               <TableCell><span className={Styles.tableText}>{row.status}</span></TableCell>

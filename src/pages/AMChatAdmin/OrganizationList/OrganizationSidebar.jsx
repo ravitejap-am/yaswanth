@@ -32,41 +32,30 @@ function OrganizationSidebar() {
           </div> */}
 
           <div className={Styles.container}>
+            <Link to="/dashboardadmin" style={{ textDecoration: 'none',width:'100%' }}>
             <div className={Styles.SuperAdminChildContainer}>
-              <Link to="/dashboardadmin" style={{ textDecoration: 'none' }}>
                 <span>
                   {/* <img src={arrorLink} alt="" /> */}
                   <DashboardIcon style={{ color: 'white', fontSize:'20px', paddingRight:'5px' }}/>
                   <p className={Styles.organizationTextStyle}>
                     Dashboard
-                  </p>{' '}
-                </span>
-              </Link>
-
-              {/* <span>
-                <img src={organizationimage} alt="" />
-                <Link
-                  to="/dashboardadmin/organizationlist"
-                  style={{ textDecoration: "none" }}
-                >
-                  <p className={Styles.organizationTextStyle}>Organizations</p>
-                </Link>
-              </span> */}
-            </div>
-            <br />
-            {/* <div className={Styles.SuperAdminChildContainer}>
-              <span>
-                <img src={userImage} alt="" />
-                <Link
-                  to="/dashboardadmin/organizationadminlist"
-                  style={{ textDecoration: "none" }}
-                >
-                  <p className={Styles.organizationTextStyle}>
-                    Organization Admin
                   </p>
-                </Link>
-              </span>
-            </div> */}
+                </span>
+            </div>
+            </Link>
+
+          </div>
+          <div className={Styles.container} style={{backgroundColor:'#6366f1'}}>
+            <Link to="/dashboardadmin/organizationlist" style={{ textDecoration: 'none', width:'100%' }}>
+            <div className={Styles.SuperAdminChildContainer}>
+                <span>
+                <img src={organizationimage} alt="" />
+                  <p className={Styles.organizationTextStyle}>
+                  Organisations
+                  </p>
+                </span>
+            </div>
+            </Link>
           </div>
         </div>
         <OrganizationList />

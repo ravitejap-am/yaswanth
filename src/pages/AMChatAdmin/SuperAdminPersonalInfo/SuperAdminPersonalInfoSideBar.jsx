@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import SuperAdminProfileTabNavigation from "./SuperAdminProfileTabNavigation";
 import SuperAdminProfileInfo from "./SuperAdminProfileInfo";
 import DashboardIcon from '@mui/icons-material/Dashboard';
+import organizationimage from "../../../asset/AmChatSuperAdmin/Frame 2301.png";
 
 function SuperAdminPersonalInfoSideBar() {
   return (
@@ -34,7 +35,17 @@ function SuperAdminPersonalInfoSideBar() {
               />
             </div>
           </div> */}
-
+          <div className={Styles.container}>
+            <Link to="/dashboardadmin" style={{ textDecoration: "none" }}>
+            <div className={Styles.SuperAdminChildContainer}>
+              <span>
+                <img src={arrorLink} alt="" />
+                  <p className={Styles.organizationTextStyle}>Back</p>
+              </span>
+            </div>
+            </Link>
+            <br />
+          </div>
           <div className={Styles.container}>
             <Link to="/dashboardadmin" style={{ textDecoration: "none" }}>
             <div className={Styles.SuperAdminChildContainer}>
@@ -42,6 +53,17 @@ function SuperAdminPersonalInfoSideBar() {
                 {/* <img src={arrorLink} alt="" /> */}
                 <DashboardIcon style={{ color: 'white', fontSize:'20px', paddingRight:'5px' }}/>
                   <p className={Styles.organizationTextStyle}>Dashboard</p>
+              </span>
+            </div>
+            </Link>
+            <br />
+          </div>
+          <div className={Styles.container}>
+            <Link to="/dashboardadmin/organizationlist" style={{ textDecoration: "none" }}>
+            <div className={Styles.SuperAdminChildContainer}>
+              <span>
+                 <img src={organizationimage} alt="" />
+                  <p className={Styles.organizationTextStyle}>Organisations</p>
               </span>
             </div>
             </Link>

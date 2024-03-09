@@ -323,8 +323,8 @@ function AddOrganizationAdmin() {
           <div className={Styles.superAdminProfileCardStyle}>
             <SuperAdminHeader
               componentName={`${
-                organisation?.organisationStatus == 'add' ? 'Add' : 'Edit'
-              } Organization`}
+                organisation?.organisationStatus == 'add' ? 'Add' : 'Update'
+              } Organisation`}
               name={fullName || ''}
               profileImageSrc={localStorage.getItem('userImageUrl')}
               customStyle={{

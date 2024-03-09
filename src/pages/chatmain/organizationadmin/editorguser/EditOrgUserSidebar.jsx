@@ -15,6 +15,8 @@ import usersicon from "../../../../asset/users.png";
 import documenticon from "../../../../asset/document1.png";
 import EditOrgUser from "./EditOrgUser";
 import GroupIcon from '@mui/icons-material/Group';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import ChatIcon from '@mui/icons-material/Chat';
 
 function EditOrgUserSidebar() {
   const navigationRoute = "/organizationPersonalInfo";
@@ -51,19 +53,26 @@ function EditOrgUserSidebar() {
               <Link to="/orguserlist" style={{ textDecoration: "none" }}>
               <span>
                 <img src={arrorLink} alt="" />
-                  <p className={Styles.organizationTextStyle}>Back to Chat</p>{" "}
+                  <p className={Styles.organizationTextStyle}>Back</p>{" "}
               </span>
               </Link>
             </div>
             <div className={Styles.SuperAdminChildContainer}>
+              <Link to="/orgadminchat" style={{ textDecoration: "none" }}>
+              <span>
+                  <DashboardIcon style={{ color: 'white', paddingLeft : '5px', fontSize:'20px', paddingRight:'5px' }}/>
+                  <p className={Styles.organizationTextStyle}>Dashboard</p>
+              </span>
+              </Link>
+            </div>
+            <div className={Styles.SuperAdminChildContainer} style={{backgroundColor:'#6366f1', borderRadius: '5px'}}>
               <Link to="/orguserlist" style={{ textDecoration: "none" }}>
               <span>
-                {/* <img src={usersicon} alt="" /> */}
                   <GroupIcon style={{ color: 'white', paddingLeft : '5px', fontSize:'20px', paddingRight:'5px' }}/>
                   <p className={Styles.organizationTextStyle}>Users</p>
               </span>
               </Link>
-              </div>
+            </div>
             <div className={Styles.SuperAdminChildContainer}>
               <Link to="/orgdocumentlist" style={{ textDecoration: "none" }}>
               <span>
@@ -72,6 +81,15 @@ function EditOrgUserSidebar() {
               </span>
               </Link>
             </div>
+            <div className={Styles.SuperAdminChildContainer}>
+              <Link to="/orgadminchat" style={{ textDecoration: "none" }}>
+              <span>
+                  <ChatIcon style={{ color: 'white', paddingLeft : '5px', fontSize:'20px', paddingRight:'5px' }}/>
+                  <p className={Styles.organizationTextStyle}>Chat</p>
+              </span>
+              </Link>
+            </div>
+
           </div>
         </div>
         <EditOrgUser navigationRoute={navigationRoute}/>
