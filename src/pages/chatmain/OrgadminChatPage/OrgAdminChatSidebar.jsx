@@ -23,7 +23,7 @@ import documenticon from '../../../asset/document1.png';
 import GroupIcon from '@mui/icons-material/Group';
 
 function OrgAdminChatSidebar() {
-  const navigationRoute = '/organizationPersonalInfo';
+  const navigationRoute = '/Info';
   return (
     <>
       <div className={Styles.AMChatMainDiv}>

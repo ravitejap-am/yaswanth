@@ -72,8 +72,14 @@ const Rout = () => {
         path="/chat"
         element={
           <ProtectedRoute
-            element={<SearchUIAIChatSidebar />}
-            allowedRoles={['SUPER_ADMIN', 'USER']}
+            element={
+              userRole == 'SUPER_ADMIN' || userRole == 'USER' ? (
+                <SearchUIAIChatSidebar />
+              ) : (
+                <OrgAdminChatSidebar />
+              )
+            }
+            allowedRoles={['SUPER_ADMIN', 'USER', 'ORG_ADMIN']}
           />
         }
       ></Route>
@@ -165,7 +171,7 @@ const Rout = () => {
         }
       ></Route>
       <Route
-        path="/orgadddocument"
+        path="/document"
         element={
           <ProtectedRoute
             element={<OrgAddDocumentSidebar />}
@@ -200,7 +206,7 @@ const Rout = () => {
         }
       ></Route>
       <Route
-        path="/editdocument/:documentId"
+        path="/document/:documentId"
         element={
           <ProtectedRoute
             element={<OrgEditDocumentSidebar />}
@@ -221,8 +227,18 @@ const Rout = () => {
         path="/Info"
         element={
           <ProtectedRoute
-            element={<UserProfileSidebar />}
-            allowedRoles={['USER']}
+            element={
+              userRole == 'USER' ? (
+                <UserProfileSidebar />
+              ) : userRole == 'SUPER_ADMIN' ? (
+                <SuperAdminPersonalInfoSideBar />
+              ) : userRole == 'ORG_ADMIN' ? (
+                <OrganizationAdminProfileInfoSidebar />
+              ) : (
+                ''
+              )
+            }
+            allowedRoles={[userRole]}
           />
         }
       ></Route>
@@ -230,7 +246,7 @@ const Rout = () => {
       {/* Fallback route for any other URL */}
       <Route path="*" element={<PageNotFound />} />
       <Route
-        path="/organizationPersonalInfo"
+        path="/Info"
         element={
           <ProtectedRoute
             element={<OrganizationAdminProfileInfoSidebar />}
@@ -244,7 +260,7 @@ const Rout = () => {
         element={<OrganizationAdminHeader />}
       />
       <Route path="/SuperAdminHeader" element={<SuperAdminHeader />} />
-      <Route
+      {/* <Route
         path="/info"
         element={
           <ProtectedRoute
@@ -252,7 +268,7 @@ const Rout = () => {
             allowedRoles={['SUPER_ADMIN']}
           />
         }
-      ></Route>
+      ></Route> */}
     </Routes>
   );
 };

@@ -14,7 +14,7 @@ import OrgDocumentList from '../../../pages/chatmain/orgdocumentlist/OrgDocument
 import usersicon from '../../../asset/users.png';
 import documenticon from '../../../asset/document1.png';
 function OrgDocumentListSidebar() {
-  const navigationRoute = '/organizationPersonalInfo';
+  const navigationRoute = '/Info';
   return (
     <>
       <div className={Styles.AMChatMainDiv}>
@@ -45,7 +45,7 @@ function OrgDocumentListSidebar() {
 
           <div className={Styles.container}>
             <div className={Styles.SuperAdminChildContainer}>
-              <Link to="/orgadminchat" style={{ textDecoration: 'none' }}>
+              <Link to="/chat" style={{ textDecoration: 'none' }}>
                 <span>
                   <img src={arrorLink} alt="" />
                   <p className={Styles.organizationTextStyle}>

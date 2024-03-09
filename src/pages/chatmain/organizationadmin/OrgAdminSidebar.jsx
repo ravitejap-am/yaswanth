@@ -16,7 +16,7 @@ import documenticon from '../../../asset/document1.png';
 import GroupIcon from '@mui/icons-material/Group';
 
 function OrgAdminSidebar() {
-  const navigationRoute = '/organizationPersonalInfo';
+  const navigationRoute = '/Info';
 
   return (
     <>
@@ -48,7 +48,7 @@ function OrgAdminSidebar() {
 
           <div className={Styles.container}>
             <div className={Styles.SuperAdminChildContainer}>
-              <Link to="/orgadminchat" style={{ textDecoration: 'none' }}>
+              <Link to="/chat" style={{ textDecoration: 'none' }}>
                 <span>
                   <img src={arrorLink} alt="" />
                   <p className={Styles.organizationTextStyle}>

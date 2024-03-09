@@ -17,7 +17,7 @@ import EditOrgUser from './EditOrgUser';
 import GroupIcon from '@mui/icons-material/Group';
 
 function EditOrgUserSidebar() {
-  const navigationRoute = '/organizationPersonalInfo';
+  const navigationRoute = '/Info';
   return (
     <>
       <div className={Styles.AMChatMainDiv}>

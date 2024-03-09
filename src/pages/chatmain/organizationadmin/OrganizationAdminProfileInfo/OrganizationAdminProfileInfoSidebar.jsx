@@ -38,7 +38,7 @@ function OrganizationAdminProfileInfoSidebar() {
             <div className={Styles.SuperAdminChildContainer}>
               <span>
                 <img src={arrorLink} alt="" />
-                <Link to="/orgadminchat" style={{ textDecoration: 'none' }}>
+                <Link to="/chat" style={{ textDecoration: 'none' }}>
                   <p className={Styles.organizationTextStyle}>Back to Chat</p>{' '}
                 </Link>
               </span>
