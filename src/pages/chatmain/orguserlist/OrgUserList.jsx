@@ -224,6 +224,7 @@ function OrgUserList(props) {
 
   const handleDelete = async (documentId) => {
     try {
+      setTableLoading(true)
       const response = await axios.put(
         `${BASE_DOC_API_URL}/${documentId}/status`,
         { isActive: false },
@@ -237,10 +238,13 @@ function OrgUserList(props) {
       if (response.status === 200) {
         setDocuments(documents.filter((doc) => doc.id !== documentId));
         showNotifyMessage('success', response?.data?.message, messageHandler);
+        setTableLoading(false)
       } else {
+        setTableLoading(false)
         throw new Error('Failed to delete document');
       }
     } catch (error) {
+      setTableLoading(false)
       console.error('Error deleting document:', error.message);
     }
   };

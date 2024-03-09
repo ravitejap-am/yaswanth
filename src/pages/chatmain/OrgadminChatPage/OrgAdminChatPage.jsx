@@ -507,7 +507,7 @@ const OrgAdminChatPage = (props) => {
                     <div>
                       <Card
                         className={Styles.superAdminCardStyles}
-                        style={{ height: '80vh', overflowY: 'auto' }}
+                        style={{ height: '80vh', overflowY: 'auto', marginBottom: '100px' }}
                       >
                         {questionAndAnswer &&
                           questionAndAnswer.length > 0 &&

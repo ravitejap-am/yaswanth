@@ -191,14 +191,17 @@ function OrgDocumentList(props) {
 
   const handleDelete = async (userId) => {
     try {
+      setTableLoading(true)
       await axios.delete(`${constants.BASE_API_URL}/user/disable/${userId}`, {
         headers: {
           Authorization: `Bearer ${jwt}`,
         },
       });
       setRows(rows.filter((row) => row.id !== userId));
+      setTableLoading(false)
       toast.success('User deleted successfully');
     } catch (error) {
+      setTableLoading(false)
       console.error('Error deleting user:', error);
       toast.error('Error deleting user');
     }

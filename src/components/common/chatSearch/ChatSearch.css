@@ -20,7 +20,7 @@
 
     resize: none;
 
-    max-height: 100px;
+    max-height: 40px;
     padding-left: 15px;
     padding-top: 5px;
     padding-bottom: 5px;
@@ -38,7 +38,7 @@
     align-items: center;
     border-radius: 35px;
     border: 1px solid var(--Neutral-400, #94a3b8);
-  }
+      }
   
   
   .send_icon {
