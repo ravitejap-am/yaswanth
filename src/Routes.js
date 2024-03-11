@@ -64,22 +64,25 @@ const Rout = () => {
         element={
           <ProtectedRoute
             element={
-              userRole == 'USER' ? (
+              !!localStorage.getItem('userRole') &&
+              localStorage.getItem('userRole') == 'USER' ? (
                 <>
-                {console.log("userSidecomming-----")}
-                 <AMChatMainUserSidebar />
+                  <AMChatMainUserSidebar />
                 </>
-               
+              ) : !!localStorage.getItem('userRole') &&
+                localStorage.getItem('userRole') == 'ORG_ADMIN' ? (
+                <>
+                  <OrgAdminSidebar />
+                </>
               ) : (
-                <>
-                {console.log("orgsdminside---commming",)}
-                 <OrgAdminSidebar />
-                </>
-               
-              
+                <AMChatMainUserSidebar />
               )
             }
-            allowedRoles={['USER', 'ORG_ADMIN']}
+            allowedRoles={
+              !!localStorage.getItem('userRole')
+                ? [localStorage.getItem('userRole')]
+                : ['USER', 'ORG_ADMIN']
+            }
           />
         }
       ></Route>
