@@ -15,6 +15,7 @@ import {
   selectUser,
   selectOrganisation,
   setOrganisationData,
+  setErrorMsg
 } from '../../../store/authSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import * as constants from '../../../constants/Constant';
@@ -137,6 +138,19 @@ function AddOrganizationAdmin() {
     hideNotifyMessage();
   };
 
+  const handleVerification = () => {
+    const isValidJwtToken = true
+    if(isValidJwtToken){
+      // navigate("/dashboardadmin")
+      console.log("valid jwt token");
+      // verify jwt token
+      navigate("/dashboardadmin")
+    }else{
+      localStorage.clear()
+      navigate("/signin")
+    }
+  }
+
   const addOrganisation = async () => {
     let body = orgData;
     if (body.hasOwnProperty('plan')) {
@@ -149,7 +163,7 @@ function AddOrganizationAdmin() {
         JSON.stringify(body),
         {
           headers: {
-            Authorization: `Bearer ${jwt}`,
+            Authorization: `Bearer ${jwt} nn`,
             'Content-Type': 'application/json',
           },
         }
@@ -162,7 +176,16 @@ function AddOrganizationAdmin() {
     } catch (error) {
       console.error('Error occurred:', error);
       if (error?.response?.status == 500 || error?.response?.status == '500') {
-        navigate('/customerSupport');
+          const errorMsgprops = {
+            message : {
+              title : "Something went wrong",
+              content: "Please contact our customer support team"
+            },
+            handleVerification: handleVerification,
+            onOkButtonText:"Retry"
+          }
+          dispatch(setErrorMsg({...errorMsgprops}))
+        
       }
       setBackDropLoading(false);
       console.log(error);
@@ -199,7 +222,17 @@ function AddOrganizationAdmin() {
     } catch (error) {
       console.error('Error occurred:', error);
       if (error?.response?.status == 500 || error?.response?.status == '500') {
-        navigate('/customerSupport');
+        // navigate('/customerSupport');
+          const errorMsgprops = {
+            message : {
+              title : "Something went wrong",
+              content: "Please contact our customer support team"
+            },
+            // handleCancelVerification: handleCancelVerification,
+            handleVerification: handleVerification,
+            onOkButtonText:"Retry"
+          }
+          dispatch(setErrorMsg({...errorMsgprops}))
       }
       setButtonLoading(false);
       console.log(error);

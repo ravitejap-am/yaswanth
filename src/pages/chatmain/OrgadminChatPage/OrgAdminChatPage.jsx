@@ -8,7 +8,7 @@ import documentIconpink from '../../../asset/Group 23.png';
 import orgvector from '../../../asset/orgVector (1).png';
 import AMChatHeader from '../../AMChatAdmin/AMChatHeader/AMChatHeader';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import * as constants from '../../../constants/Constant';
 import { selectUser } from '../../../store/authSlice';
 import OrganizationAdminHeader from '../organizationadmin/OrganizationAdminHeader/OrganizationAdminHeader';
@@ -37,13 +37,14 @@ import axios from 'axios';
 import PageLoader from '../../../components/loader/loader';
 import { getActiveUserList } from '../../../apiCalls/ApiCalls';
 import { timeExtracter } from '../../../../src/utils/timeStampGenerateUtils'
+import {setErrorMsg } from '../../../store/authSlice'
 
 const OrgAdminChatPage = (props) => {
   const navigate = useNavigate();
   const user = useSelector(selectUser);
   const jwt = user.userToken;
-  // const {navigationRoute} = props
-  // console.log("navigationRoute----->",navigationRoute);
+  const dispatch = useDispatch();
+
   console.log('admin props--->', props);
   const { navigationRoute, rightSideDashBoard } = props;
   const userRole = localStorage.getItem('userRole');
@@ -158,6 +159,18 @@ const OrgAdminChatPage = (props) => {
       setIsLoading(false);
     } catch (error) {
       console.log('Failed to fetch user profile.', error);
+      if (error?.response?.status == 500 || error?.response?.status == '500') {
+        const errorMsgprops = {
+          message : {
+            title : "Something went wrong",
+            content: "Please contact our customer support team"
+          },
+          handleVerification: handleVerification,
+          onOkButtonText:"Retry"
+        }
+        dispatch(setErrorMsg({...errorMsgprops}))
+      
+    }
       // throw new Error('Failed to fetch user profile-1');
       setIsLoading(false);
     }
@@ -220,6 +233,19 @@ const OrgAdminChatPage = (props) => {
     }
   }, [organisationId]);
 
+  const handleVerification = () => {
+    const isValidJwtToken = true
+    if(isValidJwtToken){
+      // navigate("/dashboardadmin")
+      console.log("valid jwt token");
+      // verify jwt token
+      navigate("/dashboardadmin")
+    }else{
+      localStorage.clear()
+      navigate("/signin")
+    }
+  }
+
   const fetchDocumentCount = () => {
     fetch(`${constants.BASE_DOC_API_URL}/${organisationId}`, {
       headers: {
@@ -234,6 +260,18 @@ const OrgAdminChatPage = (props) => {
       })
       .catch((error) => {
         setIsLoading(false);
+        if (error?.response?.status == 500 || error?.response?.status == '500') {
+          const errorMsgprops = {
+            message : {
+              title : "Something went wrong",
+              content: "Please contact our customer support team"
+            },
+            handleVerification: handleVerification,
+            onOkButtonText:"Retry"
+          }
+          dispatch(setErrorMsg({...errorMsgprops}))
+        
+      }
         console.error('Error fetching document count:', error);
       });
   };
