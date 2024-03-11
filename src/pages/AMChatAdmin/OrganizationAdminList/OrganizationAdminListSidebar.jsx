@@ -1,16 +1,16 @@
-import React from "react";
-import Logo from "../../../asset/Vector.png";
-import Styles from "../AMChatBackgound/AMChat.module.css";
-import GeneralButton from "../../../components/common/buttons/GeneralButton";
-import frame from "../../../asset/Frame 1.png";
-import organizationimage from "../../../asset/AmChatSuperAdmin/Frame 2301.png";
-import userImage from "../../../asset/AmChatSuperAdmin/users.png";
-import circle from "../../../asset/AmChatSuperAdmin/Ellipse 6.png";
-import SuperAdminAMChatCard from "../SuperAdminAMChatCard/SuperAdminAMChatCard";
-import OrganizationList from "../OrganizationList/OrganizationList";
-import { Link } from "react-router-dom";
-import arrorLink from "../../../asset/AmChatSuperAdmin/arrow-left.png";
-import OrganizationAdminList from "./OrganizationAdminList";
+import React from 'react';
+import Logo from '../../../asset/Vector.png';
+import Styles from '../AMChatBackgound/AMChat.module.css';
+import GeneralButton from '../../../components/common/buttons/GeneralButton';
+import frame from '../../../asset/Frame 1.png';
+import organizationimage from '../../../asset/AmChatSuperAdmin/Frame 2301.png';
+import userImage from '../../../asset/AmChatSuperAdmin/users.png';
+import circle from '../../../asset/AmChatSuperAdmin/Ellipse 6.png';
+import SuperAdminAMChatCard from '../SuperAdminAMChatCard/SuperAdminAMChatCard';
+import OrganizationList from '../OrganizationList/OrganizationList';
+import { Link } from 'react-router-dom';
+import arrorLink from '../../../asset/AmChatSuperAdmin/arrow-left.png';
+import OrganizationAdminList from './OrganizationAdminList';
 function OrganizationAdminListSidebar() {
   return (
     <>
@@ -28,14 +28,14 @@ function OrganizationAdminListSidebar() {
           <div className={Styles.bannerBtn}>
             <div className={Styles.bannerButton}>
               <GeneralButton
-                name={"Start New Chat"}
-                type={"submit"}
-                color={"#f8fafc"}
-                borderRadius={"30px"}
-                backgroundColor={"#6366f1"}
+                name={'Start New Chat'}
+                type={'submit'}
+                color={'#f8fafc'}
+                borderRadius={'30px'}
+                backgroundColor={'#6366f1'}
                 icons={frame}
-                width={"140px"}
-                height={"45px"}
+                width={'140px'}
+                height={'45px'}
               />
             </div>
           </div>
@@ -44,18 +44,15 @@ function OrganizationAdminListSidebar() {
             <div className={Styles.SuperAdminChildContainer}>
               <span>
                 <img src={arrorLink} alt="" />
-                <Link to="/dashboardadmin" style={{ textDecoration: "none" }}>
-                  <p className={Styles.organizationTextStyle}>Back to Chat</p>{" "}
+                <Link to="/dashboard" style={{ textDecoration: 'none' }}>
+                  <p className={Styles.organizationTextStyle}>Back to Chat</p>{' '}
                 </Link>
               </span>
 
               <span>
                 <img src={organizationimage} alt="" />
-                <Link
-                  to="/dashboardadmin/organizationlist"
-                  style={{ textDecoration: "none" }}
-                >
-                  <p className={Styles.organizationTextStyle}>Organizations</p>
+                <Link to="/organisations" style={{ textDecoration: 'none' }}>
+                  <p className={Styles.organizationTextStyle}>Organisations</p>
                 </Link>
               </span>
             </div>
@@ -65,7 +62,7 @@ function OrganizationAdminListSidebar() {
                 <img src={userImage} alt="" />
                 <Link
                   to="/dashboardadmin/organizationadminlist"
-                  style={{ textDecoration: "none" }}
+                  style={{ textDecoration: 'none' }}
                 >
                   <p className={Styles.organizationTextStyle}>
                     Organization Admin
@@ -79,7 +76,9 @@ function OrganizationAdminListSidebar() {
       </div>
       <div className={Styles.AMChatFooterStyle}>
         <footer className="AMChat-admin-footer">
-          <p className={Styles.footerPTagStyle}>@2024. All rights reserved by Areteminds</p>
+          <p className={Styles.footerPTagStyle}>
+            @2024. All rights reserved by Areteminds
+          </p>
         </footer>
       </div>
     </>

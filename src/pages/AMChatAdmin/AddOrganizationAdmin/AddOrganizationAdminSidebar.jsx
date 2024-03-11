@@ -37,7 +37,7 @@ function AddOrganizationAdminSidebar() {
 
           <div className={Styles.container}>
             <Link
-              to="/dashboardadmin/organizationlist"
+              to="/organisations"
               style={{ textDecoration: 'none', width:'100%' }}
             >
             <div className={Styles.SuperAdminChildContainer}>
@@ -53,7 +53,7 @@ function AddOrganizationAdminSidebar() {
           </div>
           <div className={Styles.container}>
             <Link
-              to="/dashboardadmin"
+              to="/dashboard"
               style={{ textDecoration: 'none', width:'100%' }}
             >
             <div className={Styles.SuperAdminChildContainer}>
@@ -69,7 +69,7 @@ function AddOrganizationAdminSidebar() {
           </div>
           <div className={Styles.container} style={{backgroundColor: '#6366f1'}}>
             <Link
-              to="/dashboardadmin/organizationlist"
+              to="/organisations"
               style={{ textDecoration: 'none', width:'100%' }}
             >
             <div className={Styles.SuperAdminChildContainer}>
@@ -79,8 +79,8 @@ function AddOrganizationAdminSidebar() {
                   <p className={Styles.organizationTextStyle}>
                   Organisations
                   </p>{' '}
-              </span>
-            </div>
+                </span>
+              </div>
             </Link>
             <br />
           </div>

@@ -197,7 +197,7 @@ function SuperAdminAMChatCard() {
                   <img src={circle1} alt="" />
                 </div>
                 <div className={Styles.titlePriceStyle}>
-                  <p className={Styles.titleStyle}>Organizations</p>
+                  <p className={Styles.titleStyle}>Organisations</p>
                   <p className={Styles.priceStyle}>{organisationCount}</p>
                 </div>
               </div>

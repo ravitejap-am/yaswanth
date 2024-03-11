@@ -32,7 +32,7 @@ function OrganizationSidebar() {
           </div> */}
 
           <div className={Styles.container}>
-            <Link to="/dashboardadmin" style={{ textDecoration: 'none',width:'100%' }}>
+            <Link to="/dashboard" style={{ textDecoration: 'none',width:'100%' }}>
             <div className={Styles.SuperAdminChildContainer}>
                 <span>
                   {/* <img src={arrorLink} alt="" /> */}
@@ -46,7 +46,7 @@ function OrganizationSidebar() {
 
           </div>
           <div className={Styles.container} style={{backgroundColor:'#6366f1'}}>
-            <Link to="/dashboardadmin/organizationlist" style={{ textDecoration: 'none', width:'100%' }}>
+            <Link to="/organisations" style={{ textDecoration: 'none', width:'100%' }}>
             <div className={Styles.SuperAdminChildContainer}>
                 <span>
                 <img src={organizationimage} alt="" />

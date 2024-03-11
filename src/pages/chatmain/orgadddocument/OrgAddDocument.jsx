@@ -32,10 +32,10 @@ function OrgAddDocument(props) {
 
   const user = useSelector(selectUser);
   const jwt = user.userToken;
-  const profileSrc = localStorage.getItem("profileImage");
+  const profileSrc = localStorage.getItem('profileImage');
   const navigationRoute = props?.navigationRoute;
   const fullName = localStorage.getItem('fullName') || '';
-  const [errors, setErrors] = useState("");
+  const [errors, setErrors] = useState('');
 
   const messageHandler = () => {
     setIsReset(false);
@@ -44,8 +44,8 @@ function OrgAddDocument(props) {
   const submitHandler = async (values) => {
     console.log('upload values', values);
 
-    if(!file){
-      setErrors("Please upload the document");
+    if (!file) {
+      setErrors('Please upload the document');
       return;
     }
     try {
@@ -66,12 +66,12 @@ function OrgAddDocument(props) {
       );
       setButtonLoading(false);
       setIsReset(true);
-      setErrors("");
+      setErrors('');
       showNotifyMessage('success', response?.data?.message, messageHandler);
-      navigate('/orgdocumentlist');
+      navigate('/documents');
       console.log('API Response:', response.data);
     } catch (error) {
-      setErrors("");
+      setErrors('');
       console.error('Error occurred:', error);
       showNotifyMessage(
         'error',
@@ -87,7 +87,7 @@ function OrgAddDocument(props) {
 
   const cancelHandler = (values) => {
     console.log('Form values:', values);
-    navigate('/orgdocumentlist');
+    navigate('/documents');
   };
 
   const documentProps = {
@@ -97,7 +97,7 @@ function OrgAddDocument(props) {
       setFile(file);
       return false;
     },
-    onRemove:(file) => { 
+    onRemove: (file) => {
       setFile(null);
       return false;
     },
@@ -155,10 +155,8 @@ function OrgAddDocument(props) {
   };
 
   const ErrorMsg = () => {
-    return(
-      <span style={{ color: 'red', fontSize:'14px' }}>{errors}</span>
-    )
-  }
+    return <span style={{ color: 'red', fontSize: '14px' }}>{errors}</span>;
+  };
 
   return (
     <div className={Styles.superAdminMainCardDivStyle}>
@@ -183,7 +181,7 @@ function OrgAddDocument(props) {
                 fontSize: '18px',
               },
             }}
-            navigationRoute = {navigationRoute}
+            navigationRoute={navigationRoute}
           />
         </div>
 

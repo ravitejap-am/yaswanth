@@ -34,6 +34,14 @@ const RegisterUser = () => {
   const [form] = Form.useForm();
   const [filesystem, setFileSysytem] = useState([]);
 
+  const passwordIconStyles = {
+    position: 'absolute',
+    right: '10px',
+    top: '54%',
+    transform: 'translateY(-50%)',
+    cursor: 'pointer',
+  }
+
   useEffect(() => {
     if (signupMessage) {
       toast.success(signupMessage);
@@ -142,12 +150,14 @@ const RegisterUser = () => {
         { required: true, message: 'Please input valid password!' },
         { validator: validatePassword },
       ],
+      iconStyle: passwordIconStyles
     },
     {
       label: ' Confirm Password',
       type: 'password',
       name: 'confirmPassword',
       rules: [{ required: true, message: 'Please confirm your password!' }],
+      iconStyle: passwordIconStyles
     },
   ];
 

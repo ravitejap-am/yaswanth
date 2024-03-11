@@ -1,15 +1,15 @@
-import React from "react";
-import Logo from "../../../asset/images/logo.png";
-import Styles from "../AMChatBackgound/AMChat.module.css";
-import GeneralButton from "../../../components/common/buttons/GeneralButton";
-import frame from "../../../asset/Frame 1.png";
-import organizationimage from "../../../asset/AmChatSuperAdmin/Frame 2301.png";
-import userImage from "../../../asset/AmChatSuperAdmin/users.png";
-import { Link } from "react-router-dom";
-import arrorLink from "../../../asset/AmChatSuperAdmin/arrow-left.png";
-import OrganizationAdminListSidebar from "../OrganizationAdminList/OrganizationAdminListSidebar";
-import AddOrganizationAdmin from "./EditAddOrganizationAdmin";
-import EditAddOrganizationAdmin from "./EditAddOrganizationAdmin";
+import React from 'react';
+import Logo from '../../../asset/images/logo.png';
+import Styles from '../AMChatBackgound/AMChat.module.css';
+import GeneralButton from '../../../components/common/buttons/GeneralButton';
+import frame from '../../../asset/Frame 1.png';
+import organizationimage from '../../../asset/AmChatSuperAdmin/Frame 2301.png';
+import userImage from '../../../asset/AmChatSuperAdmin/users.png';
+import { Link } from 'react-router-dom';
+import arrorLink from '../../../asset/AmChatSuperAdmin/arrow-left.png';
+import OrganizationAdminListSidebar from '../OrganizationAdminList/OrganizationAdminListSidebar';
+import AddOrganizationAdmin from './EditAddOrganizationAdmin';
+import EditAddOrganizationAdmin from './EditAddOrganizationAdmin';
 
 function EditAddOrganizationAdminSidebar() {
   return (
@@ -39,13 +39,8 @@ function EditAddOrganizationAdminSidebar() {
             <div className={Styles.SuperAdminChildContainer}>
               <span>
                 <img src={arrorLink} alt="" />
-                <Link
-                  to="/dashboardadmin/organizationlist"
-                  style={{ textDecoration: "none" }}
-                >
-                  <p className={Styles.organizationTextStyle}>
-                    Organization List
-                  </p>{" "}
+                <Link to="/organisations" style={{ textDecoration: 'none' }}>
+                  <p className={Styles.organizationTextStyle}>Organisations</p>{' '}
                 </Link>
               </span>
 
