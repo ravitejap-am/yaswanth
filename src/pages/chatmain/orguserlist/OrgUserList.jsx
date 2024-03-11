@@ -58,7 +58,7 @@ function OrgUserList(props) {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredDocuments, setFilteredDocuments] = useState([]);
-  const profileSrc = localStorage.getItem("profileImage");
+  const profileSrc = localStorage.getItem('profileImage');
 
   const [pageInfo, setPageInfo] = useState({
     pageSize: 10,
@@ -69,12 +69,11 @@ function OrgUserList(props) {
 
   const user = useSelector(selectUser);
   const jwt = user.userToken;
-  const navigationRoute = props.navigationRoute
+  const navigationRoute = props.navigationRoute;
   const [fullName, setFullName] = useState('');
   const [tableloading, setTableLoading] = useState(false);
 
   useEffect(() => {
-
     const storedFullName = localStorage.getItem('fullName');
     setFullName(storedFullName);
   }, []);
@@ -123,8 +122,8 @@ function OrgUserList(props) {
           sortDirection: order,
           name: searchQuery,
           isActive: 1,
-          version: "",
-          fileSize: "",
+          version: '',
+          fileSize: '',
         },
         headers: {
           Authorization: `Bearer ${jwt}`,
@@ -276,7 +275,7 @@ function OrgUserList(props) {
       <div className={Styles.superAdminMiddleParentDiv}>
         <div className={Styles.superAdminProfileCardStyle}>
           <OrganizationAdminHeader
-            componentName={`Document List`}
+            componentName={`Documents`}
             name={fullName || ''}
             profileImageSrc={localStorage.getItem('userImageUrl')}
             customStyle={{
@@ -311,7 +310,7 @@ function OrgUserList(props) {
             />
           </div>
           <div className={Styles.bannerButton}>
-            <Link to="/orgadddocument" style={{ textDecoration: 'none' }}>
+            <Link to="/document" style={{ textDecoration: 'none' }}>
               <GeneralButton
                 name={'Add Document'}
                 type={'submit'}
@@ -409,18 +408,18 @@ function OrgUserList(props) {
                         )
                         .map((row) => (
                           <TableRow key={row.id}>
-                            <TableCell padding="checkbox">
+                            {/* <TableCell padding="checkbox">
                               <Checkbox
                                 inputProps={{ 'aria-labelledby': row.name }}
                               />
-                            </TableCell>
+                            </TableCell> */}
                             <TableCell component="th" scope="row">
                               <span className={Styles.docTableText}>{row.name}</span>
                             </TableCell>
                             <TableCell><span className={Styles.docTableText}> {row.fileSize} MB</span></TableCell>
                             <TableCell><span className={Styles.docTableText}> {row.version}</span></TableCell>
                             <TableCell>
-                              <FormControl style={{ width: '110px' }}>
+                              {/* <FormControl style={{ width: '110px' }}>
                                 <Select
                                   style={{ border: 'none', borderRadius: 'none' }}
                                   value={row.active ? 'Active' : 'Inactive'}
@@ -431,15 +430,18 @@ function OrgUserList(props) {
                                   <MenuItem value="Active">Active</MenuItem>
                                   <MenuItem value="Inactive">Inactive</MenuItem>
                                 </Select>
-                              </FormControl>
+                              </FormControl> */}
+                              {
+                                row?.active ===true? 'Active' : 'Inactive'
+                              }
                             </TableCell>
                             <TableCell>
-                              <Link to={`/editdocument/${row.id}`}>
+                              <Link to={`/document/${row.id}`}>
                                 <IconButton aria-label="edit">
                                   <img src={editIcon} alt="Edit" />
                                 </IconButton>
                               </Link>
-                              <Link to={`/updatedocument/${row.id}`}>
+                              <Link to={`/document/${row.id}`}>
                                 <IconButton aria-label="Upload">
                                   <img
                                     className={Styles.uploadicon}

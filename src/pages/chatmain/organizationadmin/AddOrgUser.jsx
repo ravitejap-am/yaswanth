@@ -45,7 +45,7 @@ function AddOrgUser(props) {
   const [fileList, setFileList] = useState([]);
 
   const inputRefs = useRef([]);
-  const profileSrc = localStorage.getItem("profileImage");
+  const profileSrc = localStorage.getItem('profileImage');
   const navigationRoute = props.navigationRoute;
   const [fullName, setFullName] = useState('');
 
@@ -147,10 +147,10 @@ function AddOrgUser(props) {
         if (responseUser?.ok) {
           setIsReset(true);
           showNotifyMessage('success', data.message, messageHandler);
-          navigate('/orguserlist');
+          navigate('/users');
         } else {
           showNotifyMessage('error', data.message, messageHandler);
-          return
+          return;
         }
       } catch (error) {
         if (
@@ -173,7 +173,7 @@ function AddOrgUser(props) {
 
   const cancelHandler = () => {
     console.log('calling cancelHandler');
-    navigate('/orguserlist');
+    navigate('/users');
   };
 
   const formElements = [

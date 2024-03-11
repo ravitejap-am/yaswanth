@@ -1,10 +1,10 @@
-import React from "react";
-import Logo from "../../../asset/logo.png";
-import Styles from "./OrgDocumentListSidebar.module.css";
-import GeneralButton from "../../../components/common/buttons/GeneralButton";
-import frame from "../../../asset/Frame 1.png";
-import organizationimage from "../../../asset/AmChatSuperAdmin/Frame 2301.png";
-import userImage from "../../../asset/AmChatSuperAdmin/users.png";
+import React from 'react';
+import Logo from '../../../asset/logo.png';
+import Styles from './OrgDocumentListSidebar.module.css';
+import GeneralButton from '../../../components/common/buttons/GeneralButton';
+import frame from '../../../asset/Frame 1.png';
+import organizationimage from '../../../asset/AmChatSuperAdmin/Frame 2301.png';
+import userImage from '../../../asset/AmChatSuperAdmin/users.png';
 // import circle from "../../../asset/AmChatSuperAdmin/Ellipse 6.png";
 // import SuperAdminAMChatCard from "../SuperAdminAMChatCard/SuperAdminAMChatCard";
 // import OrganizationList from "../OrganizationList/OrganizationList";
@@ -18,7 +18,7 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import ChatIcon from '@mui/icons-material/Chat';
 
 function OrgDocumentListSidebar() {
-  const navigationRoute = "/organizationPersonalInfo";
+  const navigationRoute = '/Info';
   return (
     <>
       <div className={Styles.AMChatMainDiv}>
@@ -52,12 +52,14 @@ function OrgDocumentListSidebar() {
               <Link to="/orgadminchat"  style={{ textDecoration: "none" }}>
                 <span>                
                   <img src={arrorLink} alt="" />
-                  <p className={Styles.organizationTextStyle}>Back to Chat</p>{" "}
+                  <p className={Styles.organizationTextStyle}>
+                    Back to Chat
+                  </p>{' '}
                 </span>
               </Link>
             </div> */}
             <div className={Styles.SuperAdminChildContainer}>
-              <Link to="/orgadminchat" style={{ textDecoration: "none" }}>
+              <Link to="/chat" style={{ textDecoration: "none" }}>
               <span>
                 <DashboardIcon style={{ color: 'white', paddingLeft : '6px', fontSize:'20px', paddingRight:'5px' }}/>
                 <p className={Styles.organizationTextStyle}>Dashboard</p>
@@ -65,7 +67,7 @@ function OrgDocumentListSidebar() {
               </Link>
             </div>
             <div className={Styles.SuperAdminChildContainer} style={{backgroundColor:'#6366f1', borderRadius: '5px'}}>
-              <Link to="/orguserlist" style={{ textDecoration: "none" }}>
+              <Link to="/users" style={{ textDecoration: "none" }}>
               <span>
                 <GroupIcon style={{ color: 'white', paddingLeft : '6px', fontSize:'20px', paddingRight:'5px' }}/>
                 <p className={Styles.organizationTextStyle}>Users</p>
@@ -73,7 +75,7 @@ function OrgDocumentListSidebar() {
               </Link>
             </div>
             <div className={Styles.SuperAdminChildContainer}>
-              <Link to="/orgdocumentlist" style={{ textDecoration: "none" }}>
+              <Link to="/documents" style={{ textDecoration: "none" }}>
               <span>
                 <img src={documenticon} alt="" />
                 <p className={Styles.organizationTextStyle}>Documents</p>
@@ -81,7 +83,7 @@ function OrgDocumentListSidebar() {
               </Link>
             </div>
             <div className={Styles.SuperAdminChildContainer}>
-              <Link to="/orgadminchat" style={{ textDecoration: "none" }}>
+              <Link to="/chat" style={{ textDecoration: "none" }}>
               <span>
                   <ChatIcon style={{ color: 'white', paddingLeft : '6px', fontSize:'20px', paddingRight:'5px' }}/>
                   <p className={Styles.organizationTextStyle}>Chat</p>
@@ -90,7 +92,7 @@ function OrgDocumentListSidebar() {
             </div>
           </div>
         </div>
-        <OrgDocumentList navigationRoute={navigationRoute}/>
+        <OrgDocumentList navigationRoute={navigationRoute} />
         <br />
         <br />
       </div>

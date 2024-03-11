@@ -1,9 +1,9 @@
-import React from "react";
-import Logo from "../../../../asset/images/logo.png";
-import Styles from "../../../AMChatAdmin/AMChatBackgound/AMChat.module.css";
-import GeneralButton from "../../../../components/common/buttons/GeneralButton";
-import frame from "../../../../asset/Frame 1.png";
-import arrorLink from "../../../../asset/AmChatSuperAdmin/arrow-left.png";
+import React from 'react';
+import Logo from '../../../../asset/images/logo.png';
+import Styles from '../../../AMChatAdmin/AMChatBackgound/AMChat.module.css';
+import GeneralButton from '../../../../components/common/buttons/GeneralButton';
+import frame from '../../../../asset/Frame 1.png';
+import arrorLink from '../../../../asset/AmChatSuperAdmin/arrow-left.png';
 // import SuperAdminAMChatCard from "../SuperAdminAMChatCard/SuperAdminAMChatCard";
 // import OrganizationList from "../OrganizationList/OrganizationList";
 import { Link } from "react-router-dom";
@@ -42,7 +42,7 @@ function OrganizationAdminProfileInfoSidebar() {
             <div className={Styles.SuperAdminChildContainer}>
               <span>
                 <img src={arrorLink} alt="" />
-                <Link to="/orgadminchat" style={{ textDecoration: "none" }}>
+                <Link to="/chat" style={{ textDecoration: "none" }}>
                   <p className={Styles.organizationTextStyle}>Back</p>{" "}
                 </Link>
               </span>
@@ -52,7 +52,7 @@ function OrganizationAdminProfileInfoSidebar() {
             <div className={Styles.SuperAdminChildContainer}>
               <span>
               <DashboardIcon style={{ color: 'white', paddingLeft : '5px', fontSize:'20px', paddingRight:'5px'}}/>
-                <Link to="/orgadminchat" style={{ textDecoration: "none" }}>
+                <Link to="/chat" style={{ textDecoration: "none" }}>
                   <p className={Styles.organizationTextStyle}>Dashboard</p>{" "}
                 </Link>
               </span>
@@ -62,7 +62,7 @@ function OrganizationAdminProfileInfoSidebar() {
             <div className={Styles.SuperAdminChildContainer}>
               <span>
               <GroupIcon style={{ color: 'white', paddingLeft : '5px', fontSize:'20px', paddingRight:'5px'}}/>
-                <Link to="/orguserlist" style={{ textDecoration: "none" }}>
+                <Link to="/users" style={{ textDecoration: "none" }}>
                   <p className={Styles.organizationTextStyle}>Users</p>{" "}
                 </Link>
               </span>
@@ -72,7 +72,7 @@ function OrganizationAdminProfileInfoSidebar() {
             <div className={Styles.SuperAdminChildContainer}>
               <span>
               <img src={documenticon} alt="" />
-                <Link to="/orgdocumentlist" style={{ textDecoration: "none" }}>
+                <Link to="/documents" style={{ textDecoration: "none" }}>
                   <p className={Styles.organizationTextStyle}>Documents</p>{" "}
                 </Link>
               </span>
@@ -82,7 +82,7 @@ function OrganizationAdminProfileInfoSidebar() {
             <div className={Styles.SuperAdminChildContainer}>
               <span>
               <ChatIcon style={{ color: 'white', paddingLeft : '5px', fontSize:'20px', paddingRight:'5px'}}/>
-                <Link to="/orgadminchat" style={{ textDecoration: "none" }}>
+                <Link to="/chat" style={{ textDecoration: "none" }}>
                   <p className={Styles.organizationTextStyle}>Chat</p>{" "}
                 </Link>
               </span>

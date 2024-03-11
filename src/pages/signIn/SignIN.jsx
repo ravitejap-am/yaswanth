@@ -37,16 +37,16 @@ const SignIn = () => {
       if (decodedToken) {
         const role = decodedToken.role;
         console.log('Role:----->', role);
-        localStorage.setItem("userRole", role);
+        localStorage.setItem('userRole', role);
         switch (role) {
           case 'ORG_ADMIN':
-            navigate('/orgadminchat');
+            navigate('/chat');
             break;
           case 'USER':
-            navigate('/userchat');
+            navigate('/user');
             break;
           case 'SUPER_ADMIN':
-            navigate('/dashboardadmin');
+            navigate('/dashboard');
             break;
           default:
             navigate('/default');
@@ -115,15 +115,13 @@ const SignIn = () => {
             'Content-Type': 'application/json',
           },
         });
-     
+
         if (response.data.code) {
           const jwtToken = response.data.data?.jwtToken;
-          if(jwtToken)
-          { 
+          if (jwtToken) {
             SetSessionToken(jwtToken);
-            
           }
-         
+
           const fetchedUserData = { userToken: jwtToken };
           dispatch(setUser(fetchedUserData));
           console.log('JWT Token after dispatch:', response.data);
@@ -178,15 +176,13 @@ const SignIn = () => {
       label: 'Password',
       type: 'password',
       name: 'password',
-      rules: [
-        { required: true, message: 'Please input your password!' },
-      ],
+      rules: [{ required: true, message: 'Please input your password!' }],
       iconStyle: {
         position: 'absolute',
         right: '10px',
         top: '54%',
         transform: 'translateY(-50%)',
-        cursor: 'pointer'
+        cursor: 'pointer',
       },
       pattern: /^.+$/,
       emptyErrorMessage: 'Please Enter the passsword',

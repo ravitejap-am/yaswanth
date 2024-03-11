@@ -28,9 +28,9 @@ function SuperAdminHeader({
     window.location.href = '/signin';
   };
 
-  const handleNavigation = () => { 
-    window.location.href = '/SuperAdminPersonalInfo';
-  }
+  const handleNavigation = () => {
+    window.location.href = '/Info';
+  };
   return (
     <PopupState variant="popover" popupId="profile-popup-popover">
       {(popupState) => (
@@ -44,12 +44,12 @@ function SuperAdminHeader({
             onClick={popupState.open}
           >
             <div>
-            <img
-              src={profileImageSrc ? profileImageSrc : DefaultProfileImage}
-              alt=""
-              className={Styles.AdminProfileStyle}
-              style={customStyle.imageStyle}
-            />
+              <img
+                src={profileImageSrc ? profileImageSrc : DefaultProfileImage}
+                alt=""
+                className={Styles.AdminProfileStyle}
+                style={customStyle.imageStyle}
+              />
             </div>
             <span
               className={Styles.SuperAdminProfileStyle}
@@ -80,7 +80,7 @@ function SuperAdminHeader({
                     to="/SuperAdminPersonalInfo"
                     style={{ textDecoration: 'none' }}
                   > */}
-                    <ListItemText primary="View Profile" />
+                  <ListItemText primary="View Profile" />
                   {/* </Link> */}
                 </ListItemButton>
               </ListItem>

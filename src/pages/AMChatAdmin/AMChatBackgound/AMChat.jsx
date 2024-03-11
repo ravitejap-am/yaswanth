@@ -14,16 +14,17 @@ import OrgAdminChatPage from '../../chatmain/OrgadminChatPage/OrgAdminChatPage';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 
 function AMChat({ renderComponent }) {
-  const navigationRoute = "/SuperAdminPersonalInfo"
+  const navigationRoute = '/Info';
   return (
-    <><div className={Styles.dashboardContainer}>
-      <div className={Styles.AMChatMainDiv}>
-        <div className={Styles.AMChatSidebar}>
-          <div className={Styles.AMChatSuperAdminSidebar}>
-            <img src={Logo} alt="" className={Styles.appName} />
-          </div>
+    <>
+      <div className={Styles.dashboardContainer}>
+        <div className={Styles.AMChatMainDiv}>
+          <div className={Styles.AMChatSidebar}>
+            <div className={Styles.AMChatSuperAdminSidebar}>
+              <img src={Logo} alt="" className={Styles.appName} />
+            </div>
 
-          {/* <div className={Styles.bannerBtn}>
+            {/* <div className={Styles.bannerBtn}>
             <div className={Styles.bannerButton}>
               <GeneralButton
                 name={'Start New Chat'}
@@ -41,7 +42,7 @@ function AMChat({ renderComponent }) {
           <div className={Styles.navbarTitles}>
           <div className={Styles.container} style={{backgroundColor:'#6366f1'}}>
           <Link
-            to="/dashboardadmin"
+            to="/dashboard"
             style={{ textDecoration: 'none',width:'100%' }}
           >
             <div className={Styles.SuperAdminChildContainer} >
@@ -54,7 +55,7 @@ function AMChat({ renderComponent }) {
           </div>
           <div className={Styles.container}>
               <Link
-                to="/dashboardadmin/organizationlist"
+                to="/organisations"
                 style={{ textDecoration: 'none',width:'100%' }}
               >
             <div className={Styles.SuperAdminChildContainer}>
@@ -80,35 +81,63 @@ function AMChat({ renderComponent }) {
                   alt=""
                   className={Styles.AmChatCircleStyle}
                 />
+              {/* </div>
+              <div className={Styles.container}>
+                <div className={Styles.SuperAdminChildContainer}>
+                  <Link to="/organisations" style={{ textDecoration: 'none' }}>
+                    <span>
+                      <img src={organizationimage} alt="" />
+
+                      <p className={Styles.organizationTextStyle}>
+                        Organisations
+                      </p>
+                    </span>
+                  </Link>
+                </div>
               </div>
-              <br />
-              <div className={Styles.AmChatBelowTwoDiv}>
-                <p
-                  className={Styles.AmChatChatPlaceholder}
-                  style={{ marginRight: '40px' }}
-                >
-                  What is AM-Chat?
-                </p>
-                <img
-                  src={GroupCircleDot}
-                  alt=""
-                  className={Styles.AmChatCircleStyle}
-                />
+            </div>
+
+            <div className={Styles.AMchatMainDiv}>
+              <p className={Styles.AmChatMainTextStyle}>Chats</p>
+              <div className={Styles.AmChatsTwoContents}>
+                <div className={Styles.AmChatBelowTwoDiv}>
+                  <p className={Styles.AmChatChatPlaceholder}>
+                    How to upload my Docume...{' '}
+                  </p>{' '}
+                  <img
+                    src={GroupCircleDot}
+                    alt=""
+                    className={Styles.AmChatCircleStyle}
+                  /> */}
+                </div>
+                <br />
+                <div className={Styles.AmChatBelowTwoDiv}>
+                  <p
+                    className={Styles.AmChatChatPlaceholder}
+                    style={{ marginRight: '40px' }}
+                  >
+                    What is AM-Chat?
+                  </p>
+                  <img
+                    src={GroupCircleDot}
+                    alt=""
+                    className={Styles.AmChatCircleStyle}
+                  />
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        {/* <SuperAdminAMChatCard /> */}
-        <OrgAdminChatPage navigationRoute= {navigationRoute}/>
-      </div>
-      <div className={Styles.AMChatFooterStyle}>
-        <footer className="AMChat-admin-footer">
-          <p className={Styles.footerPTagStyle}>
-            @2024. All rights reserved by Areteminds
-          </p>
-        </footer>
-      </div>
+          {/* <SuperAdminAMChatCard /> */}
+          <OrgAdminChatPage navigationRoute={navigationRoute} />
+        </div>
+        <div className={Styles.AMChatFooterStyle}>
+          <footer className="AMChat-admin-footer">
+            <p className={Styles.footerPTagStyle}>
+              @2024. All rights reserved by Areteminds
+            </p>
+          </footer>
+        </div>
       </div>
     </>
   );
