@@ -33,7 +33,7 @@ import {
   selectUser,
   setOrganisationStatus,
   setOrganisationData,
-  setErrorMsg
+  setErrorMsg,
 } from '../../../store/authSlice';
 import { BASE_API_URL, BASE_ORG_API_URL } from '../../../constants/Constant';
 import { useMessageState } from '../../../hooks/useapp-message';
@@ -41,6 +41,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import SuperAdminHeader from '../SuperAdminHeader/SuperAdminHeader';
 import Skeleton from '@mui/material/Skeleton';
 import { EllipsisText } from 'antd';
+import PageLoader from '../../../components/loader/loader';
 
 const style = {
   py: 0,
@@ -83,7 +84,8 @@ function OrganizationList() {
   const [orderBy, setOrderBy] = React.useState('createdAt');
   const [tableloading, setTableLoading] = useState(false);
   const [searchValue, setSearchValue] = useState('');
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
+  // const [backDropLoading,setBackDropLoading] = useState(false);
 
   useEffect(() => {
     const storedFullName = localStorage.getItem('fullName');
@@ -103,7 +105,7 @@ function OrganizationList() {
       const response = await axios.get(documentUrl, {
         params: {
           page: page,
-          size: pageInfo.pageSize ,
+          size: pageInfo.pageSize,
           sortField: orderBy,
           sortDirection: order,
           organisationName: searchValue,
@@ -149,7 +151,17 @@ function OrganizationList() {
       console.log('-----organisationData', organisationData);
       let allOrgansisation = [];
       organisationData?.map((org) => {
-        let address = `${org?.address?.address1 ? org.address?.address1 : ""}, ${org.address?.address2 ? org.address?.address2 : ""}, ${org?.address?.city ? org?.address?.city: ""}, ${org?.address?.state?.stateName ? org?.address?.state?.stateName : ""}, ${org?.address?.country?.countryName ? org?.address?.country?.countryName : ""}-${org?.address?.postCode ? org?.address?.postCode : ""}`
+        let address = `${
+          org?.address?.address1 ? org.address?.address1 : ''
+        }, ${org.address?.address2 ? org.address?.address2 : ''}, ${
+          org?.address?.city ? org?.address?.city : ''
+        }, ${
+          org?.address?.state?.stateName ? org?.address?.state?.stateName : ''
+        }, ${
+          org?.address?.country?.countryName
+            ? org?.address?.country?.countryName
+            : ''
+        }-${org?.address?.postCode ? org?.address?.postCode : ''}`;
         let individuvalOrg = {
           id: org.id,
           name: org.name,
@@ -167,18 +179,18 @@ function OrganizationList() {
       setRows(allOrgansisation);
       setTableLoading(false);
     } catch (error) {
-      console.log("error---->",error);
-      if(error?.response?.status === 500){
+      console.log('error---->', error);
+      if (error?.response?.status === 500) {
         const errorMsgprops = {
-          message : {
-            title : "Something went wrong",
-            content: "Please contact our customer support team"
+          message: {
+            title: 'Something went wrong',
+            content: 'Please contact our customer support team',
           },
           handleCancelVerification: handleCancelVerification,
           handleVerification: handleVerification,
-          onOkButtonText:"Retry"
-        }
-        dispatch(setErrorMsg({...errorMsgprops}))
+          onOkButtonText: 'Retry',
+        };
+        dispatch(setErrorMsg({ ...errorMsgprops }));
       }
       setPageInfo({
         ...pageInfo,
@@ -221,15 +233,15 @@ function OrganizationList() {
       console.error('Error occurred:', error);
       if (error?.response?.status == 500 || error?.response?.status == '500') {
         const errorMsgprops = {
-          message : {
-            title : "Something went wrong",
-            content: "Please contact our customer support team"
+          message: {
+            title: 'Something went wrong',
+            content: 'Please contact our customer support team',
           },
           handleCancelVerification: handleCancelVerification,
           handleVerification: handleVerification,
-          onOkButtonText:"Retry"
-        }
-        dispatch(setErrorMsg({...errorMsgprops}))
+          onOkButtonText: 'Retry',
+        };
+        dispatch(setErrorMsg({ ...errorMsgprops }));
       }
       setLoadingId(null);
       console.log(error);
@@ -292,26 +304,28 @@ function OrganizationList() {
   };
 
   const handleVerification = () => {
-    const isValidJwtToken = true
-    if(isValidJwtToken){
+    const isValidJwtToken = true;
+    if (isValidJwtToken) {
       // navigate("/dashboardadmin")
-      console.log("valid jwt token");
+      console.log('valid jwt token');
       // verify jwt token
-      navigate("/dashboardadmin")
-    }else{
-      localStorage.clear()
-      navigate("/signin")
+      navigate('/dashboardadmin');
+    } else {
+      localStorage.clear();
+      navigate('/signin');
     }
-  }
+  };
 
   const handleCancelVerification = () => {
-    setIsOpen(false)
-  }
-
-
+    setIsOpen(false);
+  };
 
   return (
-    <div className={Styles.superAdminMainCardDivStyle} style={{minHeight: '100vh'}}>
+    <div
+      className={Styles.superAdminMainCardDivStyle}
+      style={{ minHeight: '100vh' }}
+    >
+      {tableloading && <PageLoader loadingStatus={tableloading} />}
       <div className={Styles.superAdminMiddleParentDiv}>
         <div className={Styles.superAdminProfileCardStyle}>
           <SuperAdminHeader
@@ -489,41 +503,47 @@ function OrganizationList() {
                 </TableHead>
                 <TableBody>
                   {/* Map through the data and create rows */}
-                  {tableloading ? (
-                    <TableRow>
-                      <TableCell colSpan={7} align="center">
-                        <Skeleton variant="rectangular" width="100%" height={'74vh'}>
-                          <div style={{ paddingTop: '21%' }} />
-                        </Skeleton>
-                        {/* <CircularProgress /> */}
-                      </TableCell>
-                    </TableRow>
-                  ) : (
-                    <>
-                      {rows.length > 0 ? (
-                        rows
-                          .slice(
-                            page * rowsPerPage,
-                            page * rowsPerPage + rowsPerPage
-                          )
-                          .map((row) => (
-                            <TableRow key={row.id}>
-                              {/* <TableCell padding="checkbox">
+                  <>
+                    {rows.length > 0 ? (
+                      rows
+                        .slice(
+                          page * rowsPerPage,
+                          page * rowsPerPage + rowsPerPage
+                        )
+                        .map((row) => (
+                          <TableRow key={row.id}>
+                            {/* <TableCell padding="checkbox">
                               <Checkbox
                                 inputProps={{ 'aria-labelledby': row.name }}
                               />
                             </TableCell> */}
-                              <TableCell component="th" scope="row">
-                                <span className={Styles.tableText}>
-                                  {' '}
-                                  {row.name}
-                                </span>
-                              </TableCell>
-                              <TableCell  style={{width:'250px'}} ><span className={Styles.tableText}>{row.address}</span></TableCell>
-                              <TableCell><span className={Styles.tableText}>{row.contactPerson}</span></TableCell>
-                              <TableCell><span className={Styles.tableText}>{row.plans}</span></TableCell>
-                              <TableCell><span className={Styles.tableText}>{row.status}</span></TableCell>
-                              {/* <TableCell>
+                            <TableCell component="th" scope="row">
+                              <span className={Styles.tableText}>
+                                {' '}
+                                {row.name}
+                              </span>
+                            </TableCell>
+                            <TableCell style={{ width: '250px' }}>
+                              <span className={Styles.tableText}>
+                                {row.address}
+                              </span>
+                            </TableCell>
+                            <TableCell>
+                              <span className={Styles.tableText}>
+                                {row.contactPerson}
+                              </span>
+                            </TableCell>
+                            <TableCell>
+                              <span className={Styles.tableText}>
+                                {row.plans}
+                              </span>
+                            </TableCell>
+                            <TableCell>
+                              <span className={Styles.tableText}>
+                                {row.status}
+                              </span>
+                            </TableCell>
+                            {/* <TableCell>
                           <FormControl style={{ width: '110px' }}>
                             <Select
                               style={{ border: 'none', borderRadius: 'none' }}
@@ -537,50 +557,50 @@ function OrganizationList() {
                             </Select>
                           </FormControl>
                         </TableCell> */}
-                              <TableCell>
-                                {/* <IconButton aria-label="view">
+                            <TableCell>
+                              {/* <IconButton aria-label="view">
                             <img
                               src={eyesolid}
                               alt="View"
                               style={{ width: 24, height: 24 }}
                             />
                           </IconButton> */}
-                                <Link to="/organisation">
-                                  <IconButton
-                                    aria-label="edit"
-                                    onClick={() => {
-                                      console.log('editing');
-                                      console.log(row);
-                                      const orgObject = responseData.find(
-                                        (obj) => obj.id === row.id
-                                      );
-                                      dispatch(setOrganisationStatus('edit'));
-                                      dispatch(setOrganisationData(orgObject));
-                                    }}
-                                  >
-                                    <img src={editIcon} alt="Edit" />
-                                  </IconButton>
-                                </Link>
-
-
-                        
-                                
+                              <Link to="/organisation">
                                 <IconButton
-                                  aria-label="delete"
+                                  aria-label="edit"
                                   onClick={() => {
-                                    // setLoadingId(row.id);
-                                    // deleteOrganisation(row.id);
-                               
+                                    console.log('editing');
+                                    console.log(row);
+                                    const orgObject = responseData.find(
+                                      (obj) => obj.id === row.id
+                                    );
+                                    dispatch(setOrganisationStatus('edit'));
+                                    dispatch(setOrganisationData(orgObject));
                                   }}
                                 >
-                                  {loadingId == rows.id && loadingId != null ? (
-                                    <CircularProgress />
-                                  ) : (
-                                    // <img src={deleteIcon} alt="Delete" />
-                                    <Popconfirm
-                                    key={row?.id || "amchat"}
+                                  <img src={editIcon} alt="Edit" />
+                                </IconButton>
+                              </Link>
+
+                              <IconButton
+                                aria-label="delete"
+                                onClick={() => {
+                                  // setLoadingId(row.id);
+                                  // deleteOrganisation(row.id);
+                                }}
+                              >
+                                {loadingId == rows.id && loadingId != null ? (
+                                  <CircularProgress />
+                                ) : (
+                                  // <img src={deleteIcon} alt="Delete" />
+                                  <Popconfirm
+                                    key={row?.id || 'amchat'}
                                     title="Am Chat"
-                                    description={"Do you Really want to delete this organization '"+row?.name+"'"}
+                                    description={
+                                      "Do you Really want to delete this organization '" +
+                                      row?.name +
+                                      "'"
+                                    }
                                     onConfirm={() => {
                                       // handleDelete(row.id)
                                       setLoadingId(row.id);
@@ -589,7 +609,7 @@ function OrganizationList() {
                                       // message.success('Click on Yes');
                                     }}
                                     onCancel={() => {
-                                      console.log(" row?.id ",row)
+                                      console.log(' row?.id ', row);
                                       // message.error('Click on No');
                                     }}
                                     okText="Submit"
@@ -597,22 +617,20 @@ function OrganizationList() {
                                   >
                                     <img src={deleteIcon} alt="Delete" />
                                   </Popconfirm>
-                                  
-                                  )}
-                                </IconButton>
-                              </TableCell>
-                            </TableRow>
-                          ))
-                      ) : (
-                        <TableRow>
-                          <TableCell colSpan={7} align="center">
-                            <h2>No data available</h2>
-                          </TableCell>
-                          {/* Adjust colSpan based on the number of columns */}
-                        </TableRow>
-                      )}
-                    </>
-                  )}
+                                )}
+                              </IconButton>
+                            </TableCell>
+                          </TableRow>
+                        ))
+                    ) : (
+                      <TableRow>
+                        <TableCell colSpan={7} align="center">
+                          <h2>No data available</h2>
+                        </TableCell>
+                        {/* Adjust colSpan based on the number of columns */}
+                      </TableRow>
+                    )}
+                  </>
 
                   {/* {emptyRows > 0 && (
                     <TableRow style={{ height: 53 * emptyRows }}>
