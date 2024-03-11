@@ -408,18 +408,18 @@ function OrgUserList(props) {
                         )
                         .map((row) => (
                           <TableRow key={row.id}>
-                            <TableCell padding="checkbox">
+                            {/* <TableCell padding="checkbox">
                               <Checkbox
                                 inputProps={{ 'aria-labelledby': row.name }}
                               />
-                            </TableCell>
+                            </TableCell> */}
                             <TableCell component="th" scope="row">
                               <span className={Styles.docTableText}>{row.name}</span>
                             </TableCell>
                             <TableCell><span className={Styles.docTableText}> {row.fileSize} MB</span></TableCell>
                             <TableCell><span className={Styles.docTableText}> {row.version}</span></TableCell>
                             <TableCell>
-                              <FormControl style={{ width: '110px' }}>
+                              {/* <FormControl style={{ width: '110px' }}>
                                 <Select
                                   style={{ border: 'none', borderRadius: 'none' }}
                                   value={row.active ? 'Active' : 'Inactive'}
@@ -430,7 +430,10 @@ function OrgUserList(props) {
                                   <MenuItem value="Active">Active</MenuItem>
                                   <MenuItem value="Inactive">Inactive</MenuItem>
                                 </Select>
-                              </FormControl>
+                              </FormControl> */}
+                              {
+                                row?.active ===true? 'Active' : 'Inactive'
+                              }
                             </TableCell>
                             <TableCell>
                               <Link to={`/document/${row.id}`}>
