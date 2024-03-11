@@ -215,9 +215,9 @@ const OrgAdminChatPage = (props) => {
   // }, []);
   const callAPiForSuperAdmin = async () => {
     // await fetchUserProfile();
-    await getDocumentsCount()
-    await getOrganisationCount()
-  }
+    await getDocumentsCount();
+    await getOrganisationCount();
+  };
 
   useEffect(() => {
     setHideChatInitialPage(false);
@@ -226,7 +226,7 @@ const OrgAdminChatPage = (props) => {
       fetchUserProfile();
       fetchDocumentCount();
       fetchUserList();
-      fetchActiveUserList()
+      fetchActiveUserList();
     }
     if (userRole === 'SUPER_ADMIN') {
       callAPiForSuperAdmin();
@@ -311,23 +311,21 @@ const OrgAdminChatPage = (props) => {
     }
   };
 
-
   const fetchActiveUserList = async () => {
     try {
-      const headers = { Authorization: `Bearer ${jwt}` }
-      const response = await getActiveUserList(headers)
+      const headers = { Authorization: `Bearer ${jwt}` };
+      const response = await getActiveUserList(headers);
       console.log('response of active users---->', response);
       if (response.data?.data) {
-        setActiveUserList(response.data?.data)
+        setActiveUserList(response.data?.data);
       } else {
-        setActiveUserList([])
+        setActiveUserList([]);
       }
-
     } catch (error) {
-      setActiveUserList([])
+      setActiveUserList([]);
       console.log('Failed to get active users.', error);
     }
-  }
+  };
 
   const fetchUserProfile = async () => {
     try {
@@ -345,7 +343,9 @@ const OrgAdminChatPage = (props) => {
 
       const userData = await response.json();
       console.log('userData---->', userData);
-      const fullName = `${userData?.data?.user?.firstName || ""} ${userData?.data?.user?.lastName || ""}`;
+      const fullName = `${userData?.data?.user?.firstName || ''} ${
+        userData?.data?.user?.lastName || ''
+      }`;
       localStorage.setItem('fullName', fullName);
       setFullName(fullName);
       localStorage.setItem(
@@ -365,10 +365,7 @@ const OrgAdminChatPage = (props) => {
         const imagePath = `${profileUrl}${userData?.data?.user?.profileImagePath}`;
         setProfileSrc(imagePath);
         localStorage.setItem('profileImage', imagePath);
-        localStorage.setItem(
-          'userImageUrl',
-          imagePath
-        );
+        localStorage.setItem('userImageUrl', imagePath);
       } else {
         localStorage.setItem('profileImage', profilePlaceholder);
       }
@@ -443,8 +440,9 @@ const OrgAdminChatPage = (props) => {
     <>
       {isLoading && <PageLoader loadingStatus={isLoading} />}
       <div className="orgadminchat-screen">
-        <div className="orgadminchat-chat-container"
-        // style={{width: '79vw' }} 
+        <div
+          className="orgadminchat-chat-container"
+          // style={{width: '79vw' }}
         >
           <div className="orgadminchat-chat-header">
             <OrganizationAdminHeader
@@ -470,62 +468,67 @@ const OrgAdminChatPage = (props) => {
             />
           </div>
           {/* super admin dashboard */}
-          {userRole === 'SUPER_ADMIN' && <div className={SAStyles.superAdminMiddleChildDiv} style={{ marginBottom: '15px' }}>
+          {userRole === 'SUPER_ADMIN' && (
             <div
-              className={SAStyles.superAdminMiddleCardStyle}
-              style={{ backgroundColor: '#FFFFFF' }}
+              className={SAStyles.superAdminMiddleChildDiv}
+              style={{ marginBottom: '15px' }}
             >
-              <div style={{ display: 'flex' }}>
-                {' '}
-                <div className={SAStyles.superAdminMiddleCardCircle1Style}>
+              <div
+                className={SAStyles.superAdminMiddleCardStyle}
+                style={{ backgroundColor: '#FFFFFF' }}
+              >
+                <div style={{ display: 'flex' }}>
                   {' '}
-                  <img src={circle1} alt="" />
-                </div>
-                <div className={SAStyles.titlePriceStyle}>
-                  <p className={SAStyles.titleStyle}>Organizations</p>
-                  <p className={SAStyles.priceStyle}>{orgCount}</p>
-                </div>
-              </div>
-
-              <div className={SAStyles.flowImageParentDiv}>
-                <img src={flow} alt="" className={SAStyles.flowImageStyle} />
-                <img
-                  src={flowImage2}
-                  alt=""
-                  className={SAStyles.flowBelowImageStyle}
-                />
-              </div>
-            </div>
-
-            <div
-              className={SAStyles.superAdminMiddleCardStyle}
-              style={{ backgroundColor: '#FFFFFF' }}
-            >
-              <div style={{ display: 'flex' }}>
-                <div className={SAStyles.superAdminMiddleCardCircle1Style}>
-                  {' '}
-                  <img src={circle2} alt="" />
-                </div>
-                <div className={SAStyles.titlePriceStyle}>
-                  <div className={SAStyles.titleStyle} >
-                    <p>Documents Uploaded</p>
+                  <div className={SAStyles.superAdminMiddleCardCircle1Style}>
+                    {' '}
+                    <img src={circle1} alt="" />
                   </div>
-                  <div>
-                    <p className={SAStyles.priceStyle}>{docCount}</p>
+                  <div className={SAStyles.titlePriceStyle}>
+                    <p className={SAStyles.titleStyle}>Organisations</p>
+                    <p className={SAStyles.priceStyle}>{orgCount}</p>
                   </div>
                 </div>
+
+                <div className={SAStyles.flowImageParentDiv}>
+                  <img src={flow} alt="" className={SAStyles.flowImageStyle} />
+                  <img
+                    src={flowImage2}
+                    alt=""
+                    className={SAStyles.flowBelowImageStyle}
+                  />
+                </div>
               </div>
 
-              <div>
-                <img src={flow} alt="" className={SAStyles.flowImageStyle} />
-                <img
-                  src={flowImage2}
-                  alt=""
-                  className={SAStyles.flowBelowImageStyle}
-                />
+              <div
+                className={SAStyles.superAdminMiddleCardStyle}
+                style={{ backgroundColor: '#FFFFFF' }}
+              >
+                <div style={{ display: 'flex' }}>
+                  <div className={SAStyles.superAdminMiddleCardCircle1Style}>
+                    {' '}
+                    <img src={circle2} alt="" />
+                  </div>
+                  <div className={SAStyles.titlePriceStyle}>
+                    <div className={SAStyles.titleStyle}>
+                      <p>Documents Uploaded</p>
+                    </div>
+                    <div>
+                      <p className={SAStyles.priceStyle}>{docCount}</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <img src={flow} alt="" className={SAStyles.flowImageStyle} />
+                  <img
+                    src={flowImage2}
+                    alt=""
+                    className={SAStyles.flowBelowImageStyle}
+                  />
+                </div>
               </div>
             </div>
-          </div>}
+          )}
 
           {/* end super admin dashboard */}
           {/* <div className="hi-main">
@@ -564,112 +567,164 @@ const OrgAdminChatPage = (props) => {
                                 className={Styles.responseContainer}
                                 >
                                   <div>
+          {/* end super admin dashboard
+          {userRole !== 'SUPER_ADMIN' && (
+            <div className="hi-main">
+              <div className="orgadminchat-chat-content-head">
+                <div
+                  className="orgadminchat-chat-content"
+                  // style={{width: '100%'}}
+                >
+                  <div className={Styles.questionAndAnswerContainer}>
+                    {hideChatInitialPage && (
+                      <div>
+                        <Card
+                          className={Styles.superAdminCardStyles}
+                          style={{ height: '80vh', overflowY: 'auto' }}
+                        >
+                          {questionAndAnswer &&
+                            questionAndAnswer.length > 0 &&
+                            questionAndAnswer.map((item) => {
+                              return (
+                                <div>
+                                  <div className={Styles.questionContainer}>
+                                    <Image
+                                      className={Styles.answerImageContainer}
+                                      src={profileSrc}
+                                      alt=""
+                                    />
+                                    <div className={Styles.name}>You</div>
+                                  </div>
+                                  <div className={Styles.responseContainer}>
+                                    <div> */}
+                                      <div
+                                        className={Styles.chatBubble}
+                                        style={{
+                                          display: 'flex',
+                                          justifyContent: 'flex-start',
+                                          // backgroundColor:'yellow',
+                                          textAlign: 'left',
+                                        }}
+                                      >
+                                        {item.question}{' '}
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div className={Styles.questionContainer}>
+                                    <div
+                                      className={Styles.questionImageContainer}
+                                    >
+                                      <div>A</div>
+                                    </div>
+                                    <div className={Styles.name}>AM-Chat</div>
+                                  </div>
+                                  <div className={Styles.responseContainer}>
                                     <div
                                       className={Styles.chatBubble}
                                       style={{
                                         display: 'flex',
                                         justifyContent: 'flex-start',
-                                        // backgroundColor:'yellow',
-                                        textAlign: 'left'
                                       }}
                                     >
-                                      {item.question}{' '}
+                                      {item?.answer}
                                     </div>
                                   </div>
                                 </div>
-                                <div className={Styles.questionContainer}>
-                                  <div
-                                    className={Styles.questionImageContainer}
-                                  >
-                                    <div>A</div>
-                                  </div>
-                                  <div className={Styles.name}>AM-Chat</div>
-                                </div>
-                                <div className={Styles.responseContainer}>
-                                  <div
-                                    className={Styles.chatBubble}
-                                    style={{
-                                      display: 'flex',
-                                      justifyContent: 'flex-start',
-                                    }}
-                                  >
-                                    {item?.answer}
-                                  </div>
-                                </div>
-                              </div>
-                            );
-                          })}
-                           <div ref={endRef} />
-                      </Card>
-                    </div>
-                  )}
-                  {!hideChatInitialPage && (
-                    <div className="orgadminchat-chat-ui-text">
-                      <div className="orgadminchat-chat-ui-am-chat-text">
-                        <p>
-                          AM-Chat{' '}
-                          <img
-                            className="orgchat-icon"
-                            src={orgvector}
-                            alt=""
-                          />
-                        </p>
-                      </div>
-                    </div>
-                  )}
-                  <div
-                    className={
-                      userRole === 'USER' || userRole === 'SUPER_ADMIN'
-                        ? 'footer_for_user'
-                        : 'footer_for_admin'
-                    }
-                  >
-                    {!hideChatInitialPage && (
-                      <div className="orgadminchat-chat-hello-text">
-                        <h2>Hello, I’m AM-Chat</h2>
-                        <p>How can I help you today?</p>
+                              );
+                            })}
+                          <div ref={endRef} />
+                        </Card>
                       </div>
                     )}
                     {!hideChatInitialPage && (
-                      <div className="example_main_div">
-                        {contentArray.map((content, index) => (
-                          <p
-                            key={index}
-                            className="card_message_example"
-                            onClick={() => handleQuestionClick(content)}
-                          >
-                            {content}
+                      <div className="orgadminchat-chat-ui-text">
+                        <div className="orgadminchat-chat-ui-am-chat-text">
+                          <p>
+                            AM-Chat{' '}
+                            <img
+                              className="orgchat-icon"
+                              src={orgvector}
+                              alt=""
+                            />
                           </p>
-                        ))}
+                        </div>
                       </div>
                     )}
-                    <div className={'AIChatInputBox'}>
-                      <ChatSearch
-                        name={'Ask anything..'}
-                        style={'searchStyles'}
-                        searchImage={Group2290}
-                        onSearchImageClick={arrowButton}
-                        readOnly={false}
-                        chat={chat}
-                        setChat={setChat}
-                      />
+                    <div
+                      className={
+                        userRole === 'USER' || userRole === 'SUPER_ADMIN'
+                          ? 'footer_for_user'
+                          : 'footer_for_admin'
+                      }
+                    >
+                      {!hideChatInitialPage && (
+                        <div className="orgadminchat-chat-hello-text">
+                          <h2>Hello, I’m AM-Chat</h2>
+                          <p>How can I help you today?</p>
+                        </div>
+                      )}
+                      {!hideChatInitialPage && (
+                        <div className="example_main_div">
+                          {contentArray.map((content, index) => (
+                            <p
+                              key={index}
+                              className="card_message_example"
+                              onClick={() => handleQuestionClick(content)}
+                            >
+                              {content}
+                            </p>
+                          ))}
+                        </div>
+                      )}
+                      <div className={'AIChatInputBox'}>
+                        <ChatSearch
+                          name={'Ask anything..'}
+                          style={'searchStyles'}
+                          searchImage={Group2290}
+                          onSearchImageClick={arrowButton}
+                          readOnly={false}
+                          chat={chat}
+                          setChat={setChat}
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              {rightSideDashBoard && (
-                <div className="hi">
-                  <div className="orgadminchat-orgadmin-cards">
-                    <div className="orgadminchat-orgadmindoc-card">
-                      <div className="activeuser-vectorimage">
-                        <div className="orgadminchat-orgadmindocument-card">
+                {rightSideDashBoard && (
+                  <div className="hi">
+                    <div className="orgadminchat-orgadmin-cards">
+                      <div className="orgadminchat-orgadmindoc-card">
+                        <div className="activeuser-vectorimage">
+                          <div className="orgadminchat-orgadmindocument-card">
+                            <img
+                              className="orgadminchat-document-icon"
+                              src={documentIcon}
+                              alt="Document"
+                            />
+                            <h2>Documents</h2>
+                            <h1 className="document-value">{documentCount}</h1>
+                          </div>
+                          <div className="vector-card-image">
+                            <img
+                              className="vector-image-activeuser"
+                              src={vector}
+                              alt=""
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div className="orgadmin-vectorimage">
+                        <div className="orgadminchat-orgadmin-activeuser-card">
                           <img
-                            className="orgadminchat-document-icon"
-                            src={documentIcon}
+                            className="orgadminchat-activeuser-icon"
+                            src={documentIconpink}
                             alt="Document"
                           />
-                          <h2>Documents</h2>
-                          <h1 className="document-value">{documentCount}</h1>
+                          <h2>Active Users</h2>
+                          <h1 className="activeusers-value">
+                            {activeUsersCount}
+                          </h1>{' '}
+                          {/* Display active users count */}
                         </div>
                         <div className="vector-card-image">
                           <img
@@ -679,30 +734,8 @@ const OrgAdminChatPage = (props) => {
                           />
                         </div>
                       </div>
-                    </div>
-                    <div className="orgadmin-vectorimage">
-                      <div className="orgadminchat-orgadmin-activeuser-card">
-                        <img
-                          className="orgadminchat-activeuser-icon"
-                          src={documentIconpink}
-                          alt="Document"
-                        />
-                        <h2>Active Users</h2>
-                        <h1 className="activeusers-value">
-                          {activeUsersCount}
-                        </h1>{' '}
-                        {/* Display active users count */}
-                      </div>
-                      <div className="vector-card-image">
-                        <img
-                          className="vector-image-activeuser"
-                          src={vector}
-                          alt=""
-                        />
-                      </div>
-                    </div>
 
-                    {/* <div className="orgadmin-activeuser-card">
+                      {/* <div className="orgadmin-activeuser-card">
                     
                       <div className="user-table">
                       <span>Active Users</span>
@@ -720,37 +753,41 @@ const OrgAdminChatPage = (props) => {
                       </div>
                     </div> */}
 
-                    <div className='activeuser-dashboard'>
-                      <div className='title-container'>
-                        {/* <span className='title-text'>Active Users</span> */}
-                        <span className='title-text'>Organisation
-Chat Session</span>
+                      <div className="activeuser-dashboard">
+                        <div className="title-container">
+                          {/* <span className='title-text'>Active Users</span> */}
+                          <span className="title-text">
+                            Organisation Chat Session
+                          </span>
+                        </div>
+                        <div className="divider"></div>
+                        {activeUserList.map((user, index) => {
+                          const imagePath = user?.imageUrl
+                            ? `${BASE_USER_IMAGE_URL}${user?.imageUrl}`
+                            : profilePlaceholder;
+                          return (
+                            <div key={index} className="content-container">
+                              <div>
+                                <img className="user-pic" src={imagePath} />
+                              </div>
+                              <div className="content-bg">
+                                <span className="name-text">{user.name}</span>
+                                <br />
+                                <span className="lastseen-text">{`Last session Time: ${timeExtracter(
+                                  user.lastChatTime
+                                )}`}</span>
+                              </div>
+                              <div className="divider"></div>
+                            </div>
+                          );
+                        })}
                       </div>
-                      <div className="divider"></div>
-                      {activeUserList.map((user, index) => {
-
-                        const imagePath = user?.imageUrl ? `${BASE_USER_IMAGE_URL}${user?.imageUrl}` : profilePlaceholder;
-                        return (
-                          <div key={index} className='content-container'>
-                            <div>
-                              <img className="user-pic" src={imagePath} />
-                            </div>
-                            <div className='content-bg'>
-                              <span className='name-text'>{user.name}</span>
-                              <br />
-                              <span className='lastseen-text'>{`Last session Time: ${timeExtracter(user.lastChatTime)}`}</span>
-                            </div>
-                            <div className="divider"></div>
-                          </div>
-                        )
-                      })}
                     </div>
                   </div>
-                </div>
-              )}
+                )}
+              </div>
             </div>
-          </div>
-        }
+          }
         </div>
       </div>
     </>

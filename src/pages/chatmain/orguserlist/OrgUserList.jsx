@@ -58,7 +58,7 @@ function OrgUserList(props) {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredDocuments, setFilteredDocuments] = useState([]);
-  const profileSrc = localStorage.getItem("profileImage");
+  const profileSrc = localStorage.getItem('profileImage');
 
   const [pageInfo, setPageInfo] = useState({
     pageSize: 10,
@@ -69,12 +69,11 @@ function OrgUserList(props) {
 
   const user = useSelector(selectUser);
   const jwt = user.userToken;
-  const navigationRoute = props.navigationRoute
+  const navigationRoute = props.navigationRoute;
   const [fullName, setFullName] = useState('');
   const [tableloading, setTableLoading] = useState(false);
 
   useEffect(() => {
-
     const storedFullName = localStorage.getItem('fullName');
     setFullName(storedFullName);
   }, []);
@@ -123,8 +122,8 @@ function OrgUserList(props) {
           sortDirection: order,
           name: searchQuery,
           isActive: 1,
-          version: "",
-          fileSize: "",
+          version: '',
+          fileSize: '',
         },
         headers: {
           Authorization: `Bearer ${jwt}`,
@@ -276,7 +275,7 @@ function OrgUserList(props) {
       <div className={Styles.superAdminMiddleParentDiv}>
         <div className={Styles.superAdminProfileCardStyle}>
           <OrganizationAdminHeader
-            componentName={`Document List`}
+            componentName={`Documents`}
             name={fullName || ''}
             profileImageSrc={localStorage.getItem('userImageUrl')}
             customStyle={{
@@ -311,7 +310,7 @@ function OrgUserList(props) {
             />
           </div>
           <div className={Styles.bannerButton}>
-            <Link to="/orgadddocument" style={{ textDecoration: 'none' }}>
+            <Link to="/document" style={{ textDecoration: 'none' }}>
               <GeneralButton
                 name={'Add Document'}
                 type={'submit'}
@@ -434,12 +433,12 @@ function OrgUserList(props) {
                               </FormControl>
                             </TableCell>
                             <TableCell>
-                              <Link to={`/editdocument/${row.id}`}>
+                              <Link to={`/document/${row.id}`}>
                                 <IconButton aria-label="edit">
                                   <img src={editIcon} alt="Edit" />
                                 </IconButton>
                               </Link>
-                              <Link to={`/updatedocument/${row.id}`}>
+                              <Link to={`/document/${row.id}`}>
                                 <IconButton aria-label="Upload">
                                   <img
                                     className={Styles.uploadicon}

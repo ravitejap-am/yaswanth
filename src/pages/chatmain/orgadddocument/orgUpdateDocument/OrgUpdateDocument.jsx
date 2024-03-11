@@ -31,7 +31,7 @@ function OrgUpdateDocument(props) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigationRoute = props?.navigationRoute;
   const fullName = localStorage.getItem('fullName') || '';
-  const [errors, setErrors] = useState("");
+  const [errors, setErrors] = useState('');
 
   useEffect(() => {
     // Retrieve firstName from localStorage
@@ -45,14 +45,14 @@ function OrgUpdateDocument(props) {
     setIsReset(false);
     hideNotifyMessage();
   };
-  const profileSrc = localStorage.getItem("profileImage");
+  const profileSrc = localStorage.getItem('profileImage');
 
   const submitHandler = async () => {
     if (isSubmitting) {
       return;
     }
-    if(!file){
-      setErrors("Please upload the document");
+    if (!file) {
+      setErrors('Please upload the document');
       return;
     }
     setIsSubmitting(true);
@@ -74,10 +74,10 @@ function OrgUpdateDocument(props) {
       setButtonLoading(false);
       setIsReset(true);
       showNotifyMessage('success', response?.data?.message, messageHandler);
-      setErrors("");
+      setErrors('');
       console.log('API Response:', response.data);
     } catch (error) {
-      setErrors("");
+      setErrors('');
       if (error?.response?.status == 500 || error?.response?.status == '500') {
         navigate('/customerSupport');
       }
@@ -94,8 +94,8 @@ function OrgUpdateDocument(props) {
   };
 
   const cancelHandler = () => {
-    navigate('/orgdocumentlist');
-    console.log(navigate('/orgdocumentlist'));
+    navigate('/documents');
+    // console.log(navigate('/document'));
   };
 
   const documentProps = {
@@ -105,7 +105,7 @@ function OrgUpdateDocument(props) {
       setFile(file);
       return false;
     },
-    onRemove:(file) => { 
+    onRemove: (file) => {
       setFile(null);
       return false;
     },
@@ -145,10 +145,8 @@ function OrgUpdateDocument(props) {
   };
 
   const ErrorMsg = () => {
-    return(
-      <span style={{ color: 'red', fontSize:'14px' }}>{errors}</span>
-    )
-  }
+    return <span style={{ color: 'red', fontSize: '14px' }}>{errors}</span>;
+  };
 
   return (
     <div className={Styles.superAdminMainCardDivStyle}>
