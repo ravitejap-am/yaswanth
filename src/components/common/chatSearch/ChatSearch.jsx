@@ -61,12 +61,9 @@ function ChatSearch({
       </div>
       <div className="icon_alignment">
       <div style={{display: 'flex'}}></div>
-      <div
-      
-        // className="chat_icon-container"
+      {chat !== "" && chat !== null && chat?.length > 0 && <div
         id={`${iconId ? iconId : null}`}
         style={{marginRight: "10px"}}
-        // style={{ marginLeft: `${imageMarginLeft}px` }}
       >
         <img
           src={searchImage}
@@ -75,7 +72,7 @@ function ChatSearch({
           style={{ width: 50, height: 50, cursor: "pointer" }}
           onClick={handleSearchImageClick}
         />
-      </div>
+      </div>}
       </div>
     </div>
   );

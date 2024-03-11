@@ -13,8 +13,9 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 
 function AddOrganizationAdminSidebar() {
   return (
-    <>
-      <div className={Styles.AMChatMainDiv} style={{ height: '100vh' }}>
+    
+      <div className={Styles.AMChatMainDivMain}>
+      <div className={Styles.OrgMainDiv}>
         <div className={Styles.AMChatSidebar}>
           <div className={Styles.AMChatSuperAdminSidebar}>
             <img src={Logo} alt="" className={Styles.appName} />
@@ -94,7 +95,8 @@ function AddOrganizationAdminSidebar() {
           </p>
         </footer>
       </div>
-    </>
+      </div>
+  
   );
 }
 
