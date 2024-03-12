@@ -452,7 +452,7 @@ function OrgUserList(props) {
                                     <img src={editIcon} alt="Edit" />
                                   </IconButton>
                                 </Link>
-                                <Link to={`/document/${row.id}`}>
+                                {/* <Link to={`/document/${row.id}`}>
                                   <IconButton aria-label="Upload">
                                     <img
                                       className={Styles.uploadicon}
@@ -460,7 +460,7 @@ function OrgUserList(props) {
                                       alt="Uploaddocument"
                                     />
                                   </IconButton>
-                                </Link>
+                                </Link> */}
 
                                 <IconButton
                                   aria-label="delete"
@@ -513,6 +513,7 @@ function OrgUserList(props) {
                 alignItems: 'center',
                 marginTop: '16px',
                 gap: '20px',
+                marginRight: '5px'
               }}
             >
               <div>Total {pageInfo?.totalCount} items</div>

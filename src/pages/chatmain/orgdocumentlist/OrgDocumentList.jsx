@@ -317,7 +317,7 @@ function OrgDocumentList(props) {
             </div>
           </div>
           <div className={Styles.bannerButton}>
-            <Link to="/user" style={{ textDecoration: 'none' }}>
+            <Link to="/adduser" style={{ textDecoration: 'none' }}>
               <GeneralButton
                 name={'Add User'}
                 type={'submit'}
@@ -555,6 +555,7 @@ function OrgDocumentList(props) {
                 alignItems: 'center',
                 marginTop: '16px',
                 gap: '20px',
+                marginRight: '5px'
               }}
             >
               <div>Total {pageInfo?.totalCount} items</div>
