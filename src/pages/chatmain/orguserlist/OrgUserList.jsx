@@ -453,9 +453,33 @@ function OrgUserList(props) {
   
                               <IconButton
                                 aria-label="delete"
-                                onClick={() => handleDelete(row.id)}
+                                onClick={() => {
+                                  // handleDelete(row.id)}
+                                }
+                                }
                               >
-                                <img src={deleteIcon} alt="Delete" />
+                                
+
+                                {row?.active === true && (
+                                    <Popconfirm
+                                      key={row?.id || 'amchat'}
+                                      title="Am Chat"
+                                      description="Do you Really want to delete this document file?"
+                                      onConfirm={() => {
+                                        handleDelete(row.id);
+                                        // message.success('Click on Yes');
+                                      }}
+                                      onCancel={() => {
+                                        // message.error('Click on No');
+                                      }}
+                                      okText="Submit"
+                                      cancelText="Close"
+                                    >
+                                      <img src={deleteIcon} alt="Delete" />
+                                    </Popconfirm>
+                                  )}
+
+                                {/* <img src={deleteIcon} alt="Delete" /> */}
                               </IconButton>
                             </TableCell>
                           </TableRow>
