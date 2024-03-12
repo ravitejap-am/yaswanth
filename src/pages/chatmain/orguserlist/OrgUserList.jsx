@@ -39,6 +39,7 @@ import AMChatHeader from '../../AMChatAdmin/AMChatHeader/AMChatHeader';
 import { Pagination } from 'antd';
 import OrganizationAdminHeader from '../organizationadmin/OrganizationAdminHeader/OrganizationAdminHeader';
 import Skeleton from '@mui/material/Skeleton';
+import PageLoader from '../../../components/loader/loader';
 
 function OrgUserList(props) {
   let {
@@ -273,6 +274,7 @@ function OrgUserList(props) {
   return (
     <div className={Styles.superAdminMainCardDivStyle}>
       <div className={Styles.superAdminMiddleParentDiv}>
+      {tableloading && <PageLoader loadingStatus={tableloading} />}
         <div className={Styles.superAdminProfileCardStyle}>
           <OrganizationAdminHeader
             componentName={`Documents`}
@@ -389,20 +391,7 @@ function OrgUserList(props) {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {tableloading ? (
-                    <TableRow>
-                      <TableCell colSpan={7} align="center">
-                        <Skeleton
-                          variant="rectangular"
-                          width="100%"
-                          height="80vh"
-                        >
-                          <div style={{ paddingTop: '21%' }} />
-                        </Skeleton>
-                        {/* <CircularProgress /> */}
-                      </TableCell>
-                    </TableRow>
-                  ) : (
+                  {
                     <>
                       {documents?.length > 0 ? (
                         documents
@@ -491,7 +480,7 @@ function OrgUserList(props) {
                         </TableRow>
                       )}
                     </>
-                  )}
+                  }
                 </TableBody>
               </Table>
             </TableContainer>

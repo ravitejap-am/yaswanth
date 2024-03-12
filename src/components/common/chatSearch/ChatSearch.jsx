@@ -61,7 +61,8 @@ function ChatSearch({
       </div>
       <div className="icon_alignment">
       <div style={{display: 'flex'}}></div>
-      {chat !== "" && chat !== null && chat?.length > 0 && <div
+      {chat !== "" && chat !== null && chat !== undefined && chat.replace(/\s+/g, '')?.length > 0 && 
+      <div
         id={`${iconId ? iconId : null}`}
         style={{marginRight: "10px"}}
       >
