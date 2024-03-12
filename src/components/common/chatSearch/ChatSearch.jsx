@@ -16,6 +16,8 @@ function ChatSearch({
   readOnly,
   chat,
   setChat,
+  adjustChatHeight, 
+  setAdjustChatHeight
 }) {
   const handleSearchImageClick = () => {
     if (onSearchImageClick) {
@@ -42,6 +44,7 @@ function ChatSearch({
       textAreaCont.scrollHeight < 65 ? 65 : textAreaCont.scrollHeight;
     textarea.style.height = textarea.scrollHeight + "px";
     textAreaCont.style.height = textAreaCont.scrollHeight + "px";
+    setAdjustChatHeight(textAreaCont.style.height)
   };
 
   return (

@@ -40,7 +40,7 @@ const SignIn = () => {
         localStorage.setItem('userRole', role);
         switch (role) {
           case 'ORG_ADMIN':
-            navigate('/chat');
+            navigate('/dashboard');
             break;
           case 'USER':
             navigate('/user');
