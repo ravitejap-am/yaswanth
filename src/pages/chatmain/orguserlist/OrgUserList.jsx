@@ -153,7 +153,11 @@ function OrgUserList(props) {
   };
 
   useEffect(() => {
-    fetchDocuments();
+    if (searchQuery?.length >= 3){
+      fetchDocuments();
+    }else if (searchQuery?.length === 0){
+      fetchDocuments();
+    }
   }, [jwt, searchQuery, order]);
 
   // useEffect(() => {
