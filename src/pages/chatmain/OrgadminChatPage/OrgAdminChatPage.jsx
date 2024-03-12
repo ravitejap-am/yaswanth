@@ -548,7 +548,7 @@ const OrgAdminChatPage = (props) => {
                     <div>
                       <Card
                         className={Styles.superAdminCardStyles}
-                        style={{ height: '80vh', overflowY: 'auto', marginBottom: '100px' }}
+                        style={{ overflowY: 'auto', height:'80vh'}}
                       >
                         {questionAndAnswer &&
                           questionAndAnswer.length > 0 &&
@@ -656,6 +656,7 @@ const OrgAdminChatPage = (props) => {
                           ? 'footer_for_user'
                           : 'footer_for_admin'
                       }
+                      
                     >
                       {!hideChatInitialPage && (
                         <div className="orgadminchat-chat-hello-text">
