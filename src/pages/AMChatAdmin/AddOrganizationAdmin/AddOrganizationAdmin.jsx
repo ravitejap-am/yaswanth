@@ -163,7 +163,7 @@ function AddOrganizationAdmin() {
         JSON.stringify(body),
         {
           headers: {
-            Authorization: `Bearer ${jwt} nn`,
+            Authorization: `Bearer ${jwt}`,
             'Content-Type': 'application/json',
           },
         }
@@ -351,7 +351,6 @@ function AddOrganizationAdmin() {
       <div className={Styles.superAdminMainCardDivStyle}>
         <div
           className={Styles.superAdminMiddleParentDiv}
-          style={{ height: '104%' }}
         >
           <div className={Styles.superAdminProfileCardStyle}>
             <SuperAdminHeader
