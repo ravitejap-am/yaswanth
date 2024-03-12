@@ -111,10 +111,11 @@
   margin-left: 10px;
 }
 
-/* .questionAndAnswerContainer {
+.questionAndAnswerContainer {
   display: flex;
-  flex-direction: ;
-} */
+  flex-direction: column ;
+  height: 100%;
+}
 
 .chatAlignment {
   display: flex;
