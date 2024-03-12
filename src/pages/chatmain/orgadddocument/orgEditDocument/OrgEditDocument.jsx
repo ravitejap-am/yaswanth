@@ -24,8 +24,8 @@ function OrgEditDocument(props) {
   } = useMessageState();
   const { documentId } = useParams();
   const navigate = useNavigate();
-  const fullName=  useState(localStorage.getItem('fullName') || "");
- 
+  const fullName = useState(localStorage.getItem('fullName') || '');
+
   const [documentDetails, setDocumentDetails] = useState({});
   const [loading, setLoading] = useState(true);
 
@@ -33,7 +33,7 @@ function OrgEditDocument(props) {
 
   const user = useSelector(selectUser);
   const jwt = user.userToken;
-  const profileSrc = localStorage.getItem("profileImage");
+  const profileSrc = localStorage.getItem('profileImage');
   const navigationRoute = props?.navigationRoute;
 
   useEffect(() => {
@@ -60,7 +60,7 @@ function OrgEditDocument(props) {
 
   const cancelHandler = () => {
     // alert("Cancelling")
-    navigate('/orgdocumentlist');
+    navigate('/documents');
   };
   const messageHandler = () => {
     setIsReset(false);

@@ -15,7 +15,7 @@ import AMChatHeader from '../../../AMChatAdmin/AMChatHeader/AMChatHeader';
 import Avatar from '@mui/material/Avatar';
 import OrganizationAdminHeader from '../OrganizationAdminHeader/OrganizationAdminHeader';
 import EditForm from '../../../../components/EditForms/EditForms';
-import CircularFileInfo from '../../../../components/personalInfo/upload/circularFileInfo'
+import CircularFileInfo from '../../../../components/personalInfo/upload/circularFileInfo';
 import axios from 'axios';
 
 const getBase64 = (file) =>
@@ -49,10 +49,10 @@ function EditOrgUser(props) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [fileList, setFileList] = useState();
 
-  const profileSrc = localStorage.getItem("profileImage");
-  const [firstName, setFirstName] = useState("");
+  const profileSrc = localStorage.getItem('profileImage');
+  const [firstName, setFirstName] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const navigationRoute = props?.navigationRoute
+  const navigationRoute = props?.navigationRoute;
 
   const [userData, setUserData] = useState({
     firstName: '',
@@ -72,7 +72,6 @@ function EditOrgUser(props) {
     fetchUserData();
   }, []);
 
-
   const fetchUserData = async () => {
     try {
       const response = await fetch(
@@ -90,23 +89,22 @@ function EditOrgUser(props) {
       // setUserData(data.data);
       setUserData({
         firstName: data?.data?.firstName,
-        lastName: data?.data?.lastName || "",
-        email: data?.data?.email
+        lastName: data?.data?.lastName || '',
+        email: data?.data?.email,
       });
       console.log('====================================');
       console.log(data, '*********************');
       console.log('====================================');
-      console.log("data image ----->",data?.data?.profileImagePath);
+      console.log('data image ----->', data?.data?.profileImagePath);
       if (data?.data?.profileImagePath?.length > 0) {
-        const url = constants.BASE_USER_IMAGE_URL + data?.data?.profileImagePath
+        const url =
+          constants.BASE_USER_IMAGE_URL + data?.data?.profileImagePath;
         setFileList(url);
       }
     } catch (error) {
       console.error('Error fetching user data:', error);
     }
   };
-
-
 
   const messageHandler = () => {
     setIsReset(false);
@@ -119,8 +117,8 @@ function EditOrgUser(props) {
       return;
     }
     setIsSubmitting(true);
-    if(values === undefined){
-    }else{
+    if (values === undefined) {
+    } else {
       try {
         const updateUserResponse = await fetch(
           `${constants.BASE_API_URL}/user/${userId}`,
@@ -139,7 +137,7 @@ function EditOrgUser(props) {
         if (!updateUserResponse.ok) {
           throw new Error(`HTTP error! status: ${updateUserResponse.status}`);
         }
-  
+
         setIsReset(true);
         const updateUserData = await updateUserResponse.json();
         setButtonLoading(false);
@@ -147,10 +145,13 @@ function EditOrgUser(props) {
         showNotifyMessage('success', updateUserData?.message, messageHandler);
       } catch (error) {
         console.log('Error updating user details:', error);
-        if (error?.response?.status == 500 || error?.response?.status == '500') {
+        if (
+          error?.response?.status == 500 ||
+          error?.response?.status == '500'
+        ) {
           navigate('/customerSupport');
         }
-  
+
         setButtonLoading(false);
         // showNotifyMessage(
         //   "error",
@@ -158,16 +159,15 @@ function EditOrgUser(props) {
         //   messageHandler
         // );
       } finally {
-        console.log("SBH 17");
+        console.log('SBH 17');
         setIsSubmitting(false);
       }
     }
   };
 
   const cancelHandler = () => {
-    navigate('/orguserlist');
+    navigate('/users');
   };
-
 
   const handleFileChange = (file) => {
     setIsLoading(true);
@@ -198,7 +198,6 @@ function EditOrgUser(props) {
       setIsLoading(false);
     }
   };
-
 
   const submitButtonProperty = {
     name: 'Update',
@@ -235,9 +234,7 @@ function EditOrgUser(props) {
     grid: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' },
   };
 
-
-  console.log("user data---->",userData);
-
+  console.log('user data---->', userData);
 
   return (
     <div className={Styles.superAdminMainCardDivStyle}>
@@ -267,17 +264,17 @@ function EditOrgUser(props) {
         </div>
 
         <div className={Styles.addOrganizationAdminSecondDiv}>
-            {/* <CircularFileInfo
+          {/* <CircularFileInfo
               onChange={handleFileChange}
               initialImageUrl={fileList}
             /> */}
           <div>
             <div style={{ padding: '20px', width: '90%' }}>
-            <EditForm 
-              formData={userData}
-              setFormData={setUserData}
-              submitHandler={submitHandler}
-            />
+              <EditForm
+                formData={userData}
+                setFormData={setUserData}
+                submitHandler={submitHandler}
+              />
             </div>
           </div>
         </div>

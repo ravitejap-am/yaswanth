@@ -1,6 +1,6 @@
 // Rout.js
 import React from 'react';
-import { Routes, Route ,Navigate} from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import LoginPageError from './pages/errorHandler/LoginPageError';
 import Home from './pages/home/Home';
 import RegisterUser from './pages/registerUser/RegisterUser';
@@ -39,8 +39,7 @@ import SuperAdminPersonalInfoSideBar from './pages/AMChatAdmin/SuperAdminPersona
 import SuperAdminHeader from './pages/AMChatAdmin/SuperAdminHeader/SuperAdminHeader.jsx';
 // import OrganizationAdminSearchUIAIChat from "./pages/chatmain/organizationadmin/OrganizationAdminSearchUIAIChat.jsx";
 import OrganizationAdminSidebarSearchUIAIChat from './pages/chatmain/organizationadmin/OrganizationAdminSidebarSearchUIAIChat.jsx';
-import  ProtectedRoute  from './ProtectedRoute'; 
-
+import ProtectedRoute from './ProtectedRoute';
 
 import VerificationLink from './pages/linkverification/linkVerification.js';
 import CustomerSupportPage from './pages/errorHandler/InternalServerError/CustomerSupportPage.jsx';
@@ -60,25 +59,95 @@ const Rout = () => {
       <Route exact path="/pagenotfound" element={<PageNotFound />} />
       <Route exact path="/internal500" element={<Page505 />} />
       <Route exact path="/undermaintenence" element={<MaintainencePage />} />
-      <Route path="/userchat" element={<ProtectedRoute element={<AMChatMainUserSidebar />} allowedRoles={['USER']} />}></Route>
-      <Route path="/chat" element={<ProtectedRoute element={<SearchUIAIChatSidebar />} allowedRoles={['SUPER_ADMIN' ,'USER' ]} />}></Route>
-      <Route path="/chatOrgAdmin" element={<ProtectedRoute element={<OrganizationAdminSidebarSearchUIAIChat />} allowedRoles={['ORG_ADMIN']} />}></Route>
-      
+      <Route
+        path="/user"
+        element={
+          <ProtectedRoute
+            element={
+              !!localStorage.getItem('userRole') &&
+              localStorage.getItem('userRole') == 'USER' ? (
+                <>
+                  <AMChatMainUserSidebar />
+                </>
+              ) : !!localStorage.getItem('userRole') &&
+                localStorage.getItem('userRole') == 'ORG_ADMIN' ? (
+                <>
+                  <OrgAdminSidebar />
+                </>
+              ) : (
+                <AMChatMainUserSidebar />
+              )
+            }
+            allowedRoles={
+              !!localStorage.getItem('userRole')
+                ? [localStorage.getItem('userRole')]
+                : ['USER', 'ORG_ADMIN']
+            }
+          />
+        }
+      ></Route>
+      <Route
+        path="/chat"
+        element={
+          <ProtectedRoute
+            element={
+              userRole == 'SUPER_ADMIN' || userRole == 'USER' ? (
+                <SearchUIAIChatSidebar />
+              ) : (
+                <OrgAdminChatSidebar />
+              )
+            }
+            allowedRoles={['SUPER_ADMIN', 'USER', 'ORG_ADMIN']}
+          />
+        }
+      ></Route>
+      <Route
+        path="/chatOrgAdmin"
+        element={
+          <ProtectedRoute
+            element={<OrganizationAdminSidebarSearchUIAIChat />}
+            allowedRoles={['ORG_ADMIN']}
+          />
+        }
+      ></Route>
+
       <Route exact path="/customerSupport" element={<CustomerSupportPage />} />
 
-
-      <Route path="/dashboardadmin" element={<ProtectedRoute element={<AMChatAdminHome />} allowedRoles={['SUPER_ADMIN']} />}></Route>
-
+      <Route
+        path="/dashboard"
+        element={
+          <ProtectedRoute
+            element={<AMChatAdminHome />}
+            allowedRoles={['SUPER_ADMIN']}
+          />
+        }
+      ></Route>
 
       <Route exact path="/AMChatHeader" element={<AMChatHeader />} />
-        <Route path="/dashboardadmin/organizationlist" element={<ProtectedRoute element={<OrganizationSidebar />} allowedRoles={['SUPER_ADMIN']} />}></Route>
+      <Route
+        path="/organisations"
+        element={
+          <ProtectedRoute
+            element={<OrganizationSidebar />}
+            allowedRoles={['SUPER_ADMIN']}
+          />
+        }
+      ></Route>
       <Route
         exact
         path="/dashboardadmin/organizationadminlist"
         element={<OrganizationAdminListSidebar />}
       />
 
-      <Route path="/dashboardadmin/addorganizationadmin" element={<ProtectedRoute element={<AddOrganizationAdminSidebar />} allowedRoles={['SUPER_ADMIN']} />}></Route>
+      <Route
+        path="/organisation"
+        element={
+          <ProtectedRoute
+            element={<AddOrganizationAdminSidebar />}
+            allowedRoles={['SUPER_ADMIN']}
+          />
+        }
+      ></Route>
       <Route
         exact
         path="/EditAddOrganizationAdmin"
@@ -92,11 +161,51 @@ const Rout = () => {
       />
 
       <Route exact path="/PrivacyPolicy" element={<PrivacyPolicy />} />
-      <Route path="/adduser" element={<ProtectedRoute element={<OrgAdminSidebar />} allowedRoles={['ORG_ADMIN']} />}></Route>
-      <Route path="/orgdocumentList" element={<ProtectedRoute element={<OrgUserListSidebar />} allowedRoles={['ORG_ADMIN']} />}></Route>
-      <Route path="/orguserlist" element={<ProtectedRoute element={<OrgDocumentListSidebar />} allowedRoles={['ORG_ADMIN']} />}></Route>
-      <Route path="/orgadddocument" element={<ProtectedRoute element={<OrgAddDocumentSidebar />} allowedRoles={['ORG_ADMIN']} />}></Route>
-      <Route path="/orgadminchat" element={<ProtectedRoute element={<OrgAdminChatSidebar />} allowedRoles={['ORG_ADMIN']} />}></Route>
+      <Route
+        path="/adduser"
+        element={
+          <ProtectedRoute
+            element={<OrgAdminSidebar />}
+            allowedRoles={['ORG_ADMIN']}
+          />
+        }
+      ></Route>
+      <Route
+        path="/documents"
+        element={
+          <ProtectedRoute
+            element={<OrgUserListSidebar />}
+            allowedRoles={['ORG_ADMIN']}
+          />
+        }
+      ></Route>
+      <Route
+        path="/users"
+        element={
+          <ProtectedRoute
+            element={<OrgDocumentListSidebar />}
+            allowedRoles={['ORG_ADMIN']}
+          />
+        }
+      ></Route>
+      <Route
+        path="/document"
+        element={
+          <ProtectedRoute
+            element={<OrgAddDocumentSidebar />}
+            allowedRoles={['ORG_ADMIN']}
+          />
+        }
+      ></Route>
+      <Route
+        path="/orgadminchat"
+        element={
+          <ProtectedRoute
+            element={<OrgAdminChatSidebar />}
+            allowedRoles={['ORG_ADMIN']}
+          />
+        }
+      ></Route>
 
       <Route
         exact
@@ -105,21 +214,79 @@ const Rout = () => {
       />
       <Route exact path="/error405" element={<Error405 />} />
       <Route exact path="/error404" element={<Error404 />} />
-      <Route path="/updatedocument/:documentId" element={<ProtectedRoute element={<OrgUpdateDocumentSidebar />} allowedRoles={['ORG_ADMIN']} />}></Route>
-      <Route path="/editdocument/:documentId" element={<ProtectedRoute element={<OrgEditDocumentSidebar />} allowedRoles={['ORG_ADMIN']} />}></Route>
-      <Route path="/edituser/:userId" element={<ProtectedRoute element={<EditOrgUserSidebar />} allowedRoles={['ORG_ADMIN']} />}></Route>
-      <Route path="/UserProfile" element={<ProtectedRoute element={<UserProfileSidebar />} allowedRoles={['USER']} />}></Route>
+      <Route
+        path="/document/:documentId"
+        element={
+          <ProtectedRoute
+            element={<OrgUpdateDocumentSidebar />}
+            allowedRoles={['ORG_ADMIN']}
+          />
+        }
+      ></Route>
+      <Route
+        path="/document/:documentId"
+        element={
+          <ProtectedRoute
+            element={<OrgEditDocumentSidebar />}
+            allowedRoles={['ORG_ADMIN']}
+          />
+        }
+      ></Route>
+      <Route
+        path="/user/:userId"
+        element={
+          <ProtectedRoute
+            element={<EditOrgUserSidebar />}
+            allowedRoles={['ORG_ADMIN']}
+          />
+        }
+      ></Route>
+      <Route
+        path="/Info"
+        element={
+          <ProtectedRoute
+            element={
+              userRole == 'USER' ? (
+                <UserProfileSidebar />
+              ) : userRole == 'SUPER_ADMIN' ? (
+                <SuperAdminPersonalInfoSideBar />
+              ) : userRole == 'ORG_ADMIN' ? (
+                <OrganizationAdminProfileInfoSidebar />
+              ) : (
+                ''
+              )
+            }
+            allowedRoles={[userRole]}
+          />
+        }
+      ></Route>
       <Route exact path="/termsandconditions" element={<TermAndCondition />} />
       {/* Fallback route for any other URL */}
       <Route path="*" element={<PageNotFound />} />
-      <Route path="/organizationPersonalInfo" element={<ProtectedRoute element={<OrganizationAdminProfileInfoSidebar />} allowedRoles={['ORG_ADMIN']} />}></Route>
+      {/* <Route
+        path="/Info"
+        element={
+          <ProtectedRoute
+            element={<OrganizationAdminProfileInfoSidebar />}
+            allowedRoles={['ORG_ADMIN']}
+          />
+        }
+      ></Route> */}
       <Route
         exact
         path="/OrganizationAdminHeader"
         element={<OrganizationAdminHeader />}
       />
       <Route path="/SuperAdminHeader" element={<SuperAdminHeader />} />
-      <Route path="/SuperAdminPersonalInfo" element={<ProtectedRoute element={<SuperAdminPersonalInfoSideBar />} allowedRoles={['SUPER_ADMIN']} />}></Route>
+      {/* <Route
+        path="/info"
+        element={
+          <ProtectedRoute
+            element={<SuperAdminPersonalInfoSideBar />}
+            allowedRoles={['SUPER_ADMIN']}
+          />
+        }
+      ></Route> */}
     </Routes>
   );
 };

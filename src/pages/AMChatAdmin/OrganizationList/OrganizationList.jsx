@@ -33,6 +33,7 @@ import {
   selectUser,
   setOrganisationStatus,
   setOrganisationData,
+  setErrorMsg
 } from '../../../store/authSlice';
 import { BASE_API_URL, BASE_ORG_API_URL } from '../../../constants/Constant';
 import { useMessageState } from '../../../hooks/useapp-message';
@@ -83,11 +84,10 @@ function OrganizationList() {
   const [tableloading, setTableLoading] = useState(false);
   const [searchValue, setSearchValue] = useState('');
   const [isOpen, setIsOpen] = useState(false)
-  
-  useEffect(() => {
 
+  useEffect(() => {
     const storedFullName = localStorage.getItem('fullName');
-    setFullName(storedFullName)
+    setFullName(storedFullName);
   }, []);
 
   useEffect(() => {
@@ -167,11 +167,18 @@ function OrganizationList() {
       setRows(allOrgansisation);
       setTableLoading(false);
     } catch (error) {
-      // <CustomerSupportPopUp isOpen={isOpen} setIsOpen={setIsOpen} />
       console.log("error---->",error);
       if(error?.response?.status === 500){
-        // CustomerSupportPopUp({isOpen,setIsOpen})
-        setIsOpen(true)
+        const errorMsgprops = {
+          message : {
+            title : "Something went wrong",
+            content: "Please contact our customer support team"
+          },
+          handleCancelVerification: handleCancelVerification,
+          handleVerification: handleVerification,
+          onOkButtonText:"Retry"
+        }
+        dispatch(setErrorMsg({...errorMsgprops}))
       }
       setPageInfo({
         ...pageInfo,
@@ -200,6 +207,7 @@ function OrganizationList() {
           Authorization: `Bearer ${jwt}`,
           'Content-Type': 'application/json',
         },
+        // data: JSON.stringify(body),
         data: JSON.stringify(body),
       });
       setLoadingId(null);
@@ -212,8 +220,16 @@ function OrganizationList() {
     } catch (error) {
       console.error('Error occurred:', error);
       if (error?.response?.status == 500 || error?.response?.status == '500') {
-        // navigate('/internal500');
-        setIsOpen(true)
+        const errorMsgprops = {
+          message : {
+            title : "Something went wrong",
+            content: "Please contact our customer support team"
+          },
+          handleCancelVerification: handleCancelVerification,
+          handleVerification: handleVerification,
+          onOkButtonText:"Retry"
+        }
+        dispatch(setErrorMsg({...errorMsgprops}))
       }
       setLoadingId(null);
       console.log(error);
@@ -281,11 +297,9 @@ function OrganizationList() {
       // navigate("/dashboardadmin")
       console.log("valid jwt token");
       // verify jwt token
-      setIsOpen(false)
       navigate("/dashboardadmin")
     }else{
       localStorage.clear()
-      setIsOpen(false)
       navigate("/signin")
     }
   }
@@ -301,7 +315,7 @@ function OrganizationList() {
       <div className={Styles.superAdminMiddleParentDiv}>
         <div className={Styles.superAdminProfileCardStyle}>
           <SuperAdminHeader
-            componentName="Organisation List"
+            componentName="Organisations"
             name={fullName || ''}
             profileImageSrc={localStorage.getItem('userImageUrl')}
             customStyle={{
@@ -319,7 +333,7 @@ function OrganizationList() {
                 fontSize: '18px',
               },
             }}
-                      />
+          />
         </div>
 
         <div className={Styles.bannerBtn}>
@@ -335,10 +349,7 @@ function OrganizationList() {
             />
           </div>
           <div className={Styles.bannerButton}>
-            <Link
-              to="/dashboardadmin/addorganizationadmin"
-              style={{ textDecoration: 'none' }}
-            >
+            <Link to="/organisation" style={{ textDecoration: 'none' }}>
               <GeneralButton
                 name={'Add Organisation'}
                 type={'submit'}
@@ -356,7 +367,7 @@ function OrganizationList() {
             </Link>
           </div>
         </div>
-        <CustomerSupportPopUp  isOpen={isOpen} setIsOpen={setIsOpen} handleVerification={handleVerification} handleCancelVerification={handleCancelVerification}/>
+        {/* <CustomerSupportPopUp  isOpen={isOpen} setIsOpen={setIsOpen} handleVerification={handleVerification} handleCancelVerification={handleCancelVerification}/> */}
         <div className={Styles.OrganizationListTable}>
           <Paper>
             <TableContainer>
@@ -503,7 +514,10 @@ function OrganizationList() {
                               />
                             </TableCell> */}
                               <TableCell component="th" scope="row">
-                                <span className={Styles.tableText}> {row.name}</span>
+                                <span className={Styles.tableText}>
+                                  {' '}
+                                  {row.name}
+                                </span>
                               </TableCell>
                               <TableCell  style={{width:'250px'}} ><span className={Styles.tableText}>{row.address}</span></TableCell>
                               <TableCell><span className={Styles.tableText}>{row.contactPerson}</span></TableCell>
@@ -531,7 +545,7 @@ function OrganizationList() {
                               style={{ width: 24, height: 24 }}
                             />
                           </IconButton> */}
-                                <Link to="/dashboardadmin/addorganizationadmin">
+                                <Link to="/organisation">
                                   <IconButton
                                     aria-label="edit"
                                     onClick={() => {

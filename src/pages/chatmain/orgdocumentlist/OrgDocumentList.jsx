@@ -39,8 +39,8 @@ function OrgDocumentList(props) {
   const user = useSelector(selectUser);
   const jwt = user.userToken;
   const navigate = useNavigate();
-  console.log("user props----->", props);
-  const navigationRoute = props.navigationRoute
+  console.log('user props----->', props);
+  const navigationRoute = props.navigationRoute;
   console.log('navigationRoute---->', navigationRoute);
 
   const searchStyles = {
@@ -94,12 +94,11 @@ function OrgDocumentList(props) {
     name: '',
   });
 
-  console.log(" rows ", rows);
+  console.log(' rows ', rows);
 
   useEffect(() => {
-
     const storedFullName = localStorage.getItem('fullName');
-    setFullName(storedFullName)
+    setFullName(storedFullName);
   }, []);
 
   // const filteredRows = rows.filter(
@@ -186,7 +185,7 @@ function OrgDocumentList(props) {
   };
 
   const handleEdit = (userId) => {
-    navigate(`/edituser/${userId}`);
+    navigate(`/user/${userId}`);
   };
 
   const handleDelete = async (userId) => {
@@ -319,7 +318,7 @@ function OrgDocumentList(props) {
             </div>
           </div>
           <div className={Styles.bannerButton}>
-            <Link to="/adduser" style={{ textDecoration: 'none' }}>
+            <Link to="/user" style={{ textDecoration: 'none' }}>
               <GeneralButton
                 name={'Add User'}
                 type={'submit'}
@@ -356,7 +355,8 @@ function OrgDocumentList(props) {
                       >
                         <Typography
                           variant="body1"
-                          style={{ fontWeight: 'bold' }}>
+                          style={{ fontWeight: 'bold' }}
+                        >
                           Name
                         </Typography>
                       </TableSortLabel>
@@ -365,7 +365,7 @@ function OrgDocumentList(props) {
                       <TableSortLabel
                         active={orderBy === 'email'}
                         direction={orderBy === 'email' ? order : 'asc'}
-                      // onClick={(e) => handleRequestSort(e, "email")}
+                        // onClick={(e) => handleRequestSort(e, "email")}
                       >
                         <Typography
                           variant="body1"
@@ -379,7 +379,7 @@ function OrgDocumentList(props) {
                       <TableSortLabel
                         active={orderBy === 'lastChat'}
                         direction={orderBy === 'lastChat' ? order : 'asc'}
-                      // onClick={(e) => handleRequestSort(e, "lastChat")}
+                        // onClick={(e) => handleRequestSort(e, "lastChat")}
                       >
                         <Typography
                           variant="body1"
@@ -393,7 +393,7 @@ function OrgDocumentList(props) {
                       <TableSortLabel
                         active={orderBy === 'totalChat'}
                         direction={orderBy === 'totalChat' ? order : 'asc'}
-                      // onClick={(e) => handleRequestSort(e, "totalChat")}
+                        // onClick={(e) => handleRequestSort(e, "totalChat")}
                       >
                         <Typography
                           variant="body1"
@@ -407,7 +407,7 @@ function OrgDocumentList(props) {
                       <TableSortLabel
                         active={orderBy === 'status'}
                         direction={orderBy === 'status' ? order : 'asc'}
-                      // onClick={(e) => handleRequestSort(e, "status")}
+                        // onClick={(e) => handleRequestSort(e, "status")}
                       >
                         <Typography
                           variant="body1"
@@ -450,12 +450,18 @@ function OrgDocumentList(props) {
                               {/* <TableCell padding="checkbox">
                                 <Checkbox />
                               </TableCell> */}
-                              <TableCell component="th" scope="row" >
-                                <span className={Styles.tableText}> {`${row.firstName} ${row.lastName}`}</span>
+                              <TableCell component="th" scope="row">
+                                <span className={Styles.tableText}>
+                                  {' '}
+                                  {`${row.firstName} ${row.lastName}`}
+                                </span>
                               </TableCell>
                               <TableCell>
                                 <div className={Styles.emailWithCheckbox}>
-                                  <span style={{ marginTop: '10px'}} className={Styles.tableText} >
+                                  <span
+                                    style={{ marginTop: '10px' }}
+                                    className={Styles.tableText}
+                                  >
                                     {row.email}
                                   </span>
                                   <Checkbox
@@ -468,8 +474,17 @@ function OrgDocumentList(props) {
                                   />
                                 </div>
                               </TableCell>
-                              <TableCell ><span className={Styles.tableText}>{row.createdAt}</span></TableCell>
-                              <TableCell ><span className={Styles.tableText}> {row.updatedAt}</span></TableCell>
+                              <TableCell>
+                                <span className={Styles.tableText}>
+                                  {row.createdAt}
+                                </span>
+                              </TableCell>
+                              <TableCell>
+                                <span className={Styles.tableText}>
+                                  {' '}
+                                  {row.updatedAt}
+                                </span>
+                              </TableCell>
                               <TableCell>
                                 <span>{row.active ? 'Active' : 'Inactive'}</span>
                                 {/* <FormControl style={{ width: '110px' }}>
@@ -496,7 +511,6 @@ function OrgDocumentList(props) {
                                 <IconButton
                                   aria-label="edit"
                                   onClick={() => handleEdit(row.id)}
-                                  
                                 >
                                   <img src={editIcon} alt="Edit" />
                                 </IconButton>
@@ -506,26 +520,24 @@ function OrgDocumentList(props) {
                                     //  handleDelete(row.id)}}
                                   }}
                                 >
-                                  {
-                                    row?.active ===true &&
+                                  {row?.active === true && (
                                     <Popconfirm
-                                    key={row?.id || "amchat"}
-                                    title="Am Chat"
-                                    description="Do you Really want to delete this user"
-                                    onConfirm={() => {
-                                      handleDelete(row.id)
-                                      // message.success('Click on Yes');
-                                    }}
-                                    onCancel={() => {
-                                      // message.error('Click on No');
-                                    }}
-                                    okText="Submit"
-                                    cancelText="Close"
-                                  >
-                                    <img src={deleteIcon} alt="Delete" />
-                                  </Popconfirm>
-                                  }
-                              
+                                      key={row?.id || 'amchat'}
+                                      title="Am Chat"
+                                      description="Do you Really want to delete this user"
+                                      onConfirm={() => {
+                                        handleDelete(row.id);
+                                        // message.success('Click on Yes');
+                                      }}
+                                      onCancel={() => {
+                                        // message.error('Click on No');
+                                      }}
+                                      okText="Submit"
+                                      cancelText="Close"
+                                    >
+                                      <img src={deleteIcon} alt="Delete" />
+                                    </Popconfirm>
+                                  )}
 
                                   {/* <img src={deleteIcon} alt="Delete" />   */}
                                 </IconButton>
