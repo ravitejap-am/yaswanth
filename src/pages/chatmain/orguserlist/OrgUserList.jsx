@@ -401,11 +401,11 @@ function OrgUserList(props) {
                           )
                           .map((row) => (
                             <TableRow key={row.id}>
-                              <TableCell padding="checkbox">
+                              {/* <TableCell padding="checkbox">
                                 <Checkbox
                                   inputProps={{ 'aria-labelledby': row.name }}
                                 />
-                              </TableCell>
+                              </TableCell> */}
                               <TableCell component="th" scope="row">
                                 <span className={Styles.docTableText}>
                                   {row.name}
@@ -424,6 +424,7 @@ function OrgUserList(props) {
                                 </span>
                               </TableCell>
                               <TableCell>
+{/*                               
                                 <FormControl style={{ width: '110px' }}>
                                   <Select
                                     style={{
@@ -440,7 +441,10 @@ function OrgUserList(props) {
                                       Inactive
                                     </MenuItem>
                                   </Select>
-                                </FormControl>
+                                </FormControl> */}
+                              {
+                                row?.active ===true? 'Active' : 'Inactive'
+                              }
                               </TableCell>
                               <TableCell>
                                 <Link to={`/document/${row.id}`}>
@@ -460,9 +464,27 @@ function OrgUserList(props) {
 
                                 <IconButton
                                   aria-label="delete"
-                                  onClick={() => handleDelete(row.id)}
+                                  // onClick={() => handleDelete(row.id)}
                                 >
-                                  <img src={deleteIcon} alt="Delete" />
+                                  {row?.active === true && (
+                                    <Popconfirm
+                                      key={row?.id || 'amchat'}
+                                      title="Am Chat"
+                                      description="Do you Really want to delete this document file?"
+                                      onConfirm={() => {
+                                        handleDelete(row.id);
+                                        // message.success('Click on Yes');
+                                      }}
+                                      onCancel={() => {
+                                        // message.error('Click on No');
+                                      }}
+                                      okText="Submit"
+                                      cancelText="Close"
+                                    >
+                                      <img src={deleteIcon} alt="Delete" />
+                                    </Popconfirm>
+                                  )}
+                                  {/* <img src={deleteIcon} alt="Delete" /> */}
                                 </IconButton>
                               </TableCell>
                             </TableRow>
