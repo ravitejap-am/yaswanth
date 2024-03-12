@@ -69,7 +69,7 @@ function AMChat({ renderComponent }) {
           </div>
           </div>
 
-          <div className={Styles.AMchatMainDiv}>
+          {/* <div className={Styles.AMchatMainDiv}>
             <p className={Styles.AmChatMainTextStyle}>Chats</p>
             <div className={Styles.AmChatsTwoContents}>
               <div className={Styles.AmChatBelowTwoDiv}>
@@ -81,34 +81,6 @@ function AMChat({ renderComponent }) {
                   alt=""
                   className={Styles.AmChatCircleStyle}
                 />
-              {/* </div>
-              <div className={Styles.container}>
-                <div className={Styles.SuperAdminChildContainer}>
-                  <Link to="/organisations" style={{ textDecoration: 'none' }}>
-                    <span>
-                      <img src={organizationimage} alt="" />
-
-                      <p className={Styles.organizationTextStyle}>
-                        Organisations
-                      </p>
-                    </span>
-                  </Link>
-                </div>
-              </div>
-            </div>
-
-            <div className={Styles.AMchatMainDiv}>
-              <p className={Styles.AmChatMainTextStyle}>Chats</p>
-              <div className={Styles.AmChatsTwoContents}>
-                <div className={Styles.AmChatBelowTwoDiv}>
-                  <p className={Styles.AmChatChatPlaceholder}>
-                    How to upload my Docume...{' '}
-                  </p>{' '}
-                  <img
-                    src={GroupCircleDot}
-                    alt=""
-                    className={Styles.AmChatCircleStyle}
-                  /> */}
                 </div>
                 <br />
                 <div className={Styles.AmChatBelowTwoDiv}>
@@ -125,7 +97,7 @@ function AMChat({ renderComponent }) {
                   />
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
 
           {/* <SuperAdminAMChatCard /> */}

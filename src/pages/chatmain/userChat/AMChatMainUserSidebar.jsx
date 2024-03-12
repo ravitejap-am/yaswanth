@@ -8,8 +8,25 @@ import GroupCircleDot from '../../../asset/AmChatSuperAdmin/Group2306.png';
 import { Link } from 'react-router-dom';
 import AmchatMainUser from './AMChatMainUser';
 import OrgAdminChatPage from '../../chatmain/OrgadminChatPage/OrgAdminChatPage';
+import { useState } from 'react'; 
+
 function AMChatMainUserSidebar() {
   const navigationRoute = '/Info';
+  const [hideChatInitialPage, setHideChatInitialPage] = useState(false);
+  const [questionAndAnswer, setQuestionAndAnswer] = useState([]);
+  const [chat, setChat] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  
+  const buttonHandler = () =>{
+    console.log("clicked new chat");
+    setHideChatInitialPage(false)
+    setQuestionAndAnswer([])
+    setChat("")
+    setIsLoading(true)
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 2000);
+  }
   return (
     <>
       <div className={Styles.AMChatMainDiv}>
@@ -29,6 +46,7 @@ function AMChatMainUserSidebar() {
                 icons={frame}
                 width={'148px'}
                 height={'45px'}
+                buttonHandler={buttonHandler}
               />
             </div>
           </div>
@@ -68,6 +86,14 @@ function AMChatMainUserSidebar() {
         <OrgAdminChatPage
           navigationRoute={navigationRoute}
           rightSideDashBoard={false}
+          hideChatInitialPage={hideChatInitialPage}
+          setHideChatInitialPage={setHideChatInitialPage}
+          questionAndAnswer={questionAndAnswer}
+          setQuestionAndAnswer={setQuestionAndAnswer}
+          chat={chat}
+          setChat={setChat}
+          isLoading={isLoading}
+          setIsLoading={setIsLoading}
         />
       </div>
       <div className={Styles.AMChatFooterStyle}>
