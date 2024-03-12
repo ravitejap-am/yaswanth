@@ -193,6 +193,7 @@
   font-size: 14px;
   font-style: normal;
   font-weight: 1.2rem;
+  height: auto;
   /* margin-top: -20px; */
 }
 .organizationTextStyle {
@@ -229,4 +230,25 @@
 
 .activeColor {
   background-color: #6366f1;
+}
+
+
+.OrgMainDiv {
+  width: 100%;
+  height: auto;
+  flex-shrink: 0;
+  background: linear-gradient(
+    114deg,
+    #0f172a 51.52%,
+    #152346 73.32%,
+    #1a2e5e 92.75%
+  );
+  display: flex;
+  justify-content: flex-start;
+  /* position: fixed; */
+}
+
+.AMChatMainDivMain {
+  height: auto;
+  overflow-x: hidden;
 }
