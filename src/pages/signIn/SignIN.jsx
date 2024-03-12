@@ -12,7 +12,7 @@ import { setUser, selectUser } from '../../store/authSlice';
 import * as constants from '../../constants/Constant';
 import { useMessageState } from '../../hooks/useapp-message';
 import { SetSessionToken } from '../../utils/SessionManager';
-
+import "./sign-in.css"
 const SignIn = () => {
   let {
     buttonLoading,
@@ -243,11 +243,11 @@ const SignIn = () => {
           buttonProps={buttonProps}
         />
       </div>
-      <div className="main">
-        <div className="container">
+      <div className="main signin-main">
+        <div className="container main-container">
           <div className="row">
             <div className="col">
-              <div className="row mainContent">
+              <div className="row">
                 <div className="box-round">
                   <div className="text-top">
                     <h2>Sign In</h2>

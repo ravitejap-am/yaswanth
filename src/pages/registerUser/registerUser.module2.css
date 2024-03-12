@@ -166,6 +166,37 @@ a {
   color: #475f7b;
   width: 500px;
 }
+
+@media screen and (max-width: 767px) {
+  .Signup-header {
+  min-width: 645px;
+  box-sizing: border-box;
+  margin-bottom: -2px;
+  }
+
+  .signup-footer{
+    min-width: 645px;
+    box-sizing: border-box;
+  }
+  .signup-main{
+  width: 100%;
+  min-width: 645px;
+  }
+
+  .signup-main-container {
+    width: 100%; 
+    max-width: 100%; 
+    padding: 0 20px; 
+    box-sizing: border-box; 
+  }
+
+  .box-round {
+    width: 100%; 
+    max-width: 600px; 
+    margin: 0 auto; 
+  }
+}
+
 .signup-footer{
   /* margin-top: 10px; */
 }

@@ -59,22 +59,25 @@ const Footer = () => {
         </p>
       </div>
       <div className={Style.footerFIrstCOntent}>
-        <p className="footer_p_tag" style={{ color: "#FFF", fontSize: "14px" }}>
+        <p className="footer_p_tag" style={{ color: "#FFF", fontSize: "14px", display: "flex"}}>
           {" "}
-          <img src={img4} alt="" /> 4th Cross, Ramanjaneya Layout,
-          <p style={{ marginLeft: "28px" }}>Marathahalli, Bangalore, India.</p>
+         <span> <img src={img4} alt="" /></span> <span> 4th Cross, Ramanjaneya Layout,
+           Marathahalli, Bangalore, India.</span>
         </p>
-        <p className="footer_p_tag" style={{ color: "#FFF", fontSize: "14px" }}>
-          <img src={img5} alt="" />
+        <p className="footer_p_tag" style={{ color: "#FFF", fontSize: "14px", display: "flex" }}>
+          <span>
+          <img src={img5} alt="" /></span>
+          <span>
           <a
             href="mailto:sales@areteminds.com"
             style={{ textDecoration: "none", color: "#FFF" }}
           >
             sales@areteminds.com
           </a>
+          </span>
         </p>
-        <p style={{ color: "#FFF", fontSize: "14px" }}>
-          <img src={img6} alt="" /> +91 9663205304
+        <p style={{ color: "#FFF", fontSize: "14px", display: "flex" }}>
+         <span> <img src={img6} alt="" /> </span><span>+919663205304</span>
         </p>
       </div>
     </div>
