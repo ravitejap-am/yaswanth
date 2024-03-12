@@ -23,9 +23,29 @@ import documenticon from '../../../asset/document1.png';
 import GroupIcon from '@mui/icons-material/Group';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import ChatIcon from '@mui/icons-material/Chat';
+import { useLocation,useNavigate } from 'react-router-dom';
+import { useState } from 'react'; 
 
 function OrgAdminChatSidebar() {
   const navigationRoute = '/Info';
+  const {pathname} = useLocation();
+  const navigate = useNavigate();
+  let refresh = 0
+  const [hideChatInitialPage, setHideChatInitialPage] = useState(false);
+  const [questionAndAnswer, setQuestionAndAnswer] = useState([]);
+  const [chat, setChat] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  
+  const buttonHandler = () =>{
+    console.log("clicked new chat");
+    setHideChatInitialPage(false)
+    setQuestionAndAnswer([])
+    setChat("")
+    setIsLoading(true)
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 2000);
+  }
   return (
     <>
       <div className={Styles.AMChatMainDiv}>
@@ -50,12 +70,13 @@ function OrgAdminChatSidebar() {
                 icons={frame}
                 width={'140px'}
                 height={'45px'}
+                buttonHandler={buttonHandler}
               />
             </div>
           </div>
           <div className={Styles.container}>
-          <Link to="/chat" style={{ textDecoration: "none" }}>
-              <div className={Styles.SuperAdminChildContainer} style={{backgroundColor:'#6366f1', borderRadius: '5px'}}>
+          <Link to="/dashboard" style={{ textDecoration: "none" }}>
+              <div className={Styles.SuperAdminChildContainer} style={{backgroundColor:pathname == '/dashboard' ?'#6366f1':'', borderRadius: pathname == '/dashboard' ?'5px':'0px'}}>
                 <span>
                   {/* <img src={usersicon} alt="" /> */}
                   <DashboardIcon style={{ color: 'white', paddingLeft : '12px', fontSize:'20px', paddingRight:'5px' }}/>
@@ -81,7 +102,7 @@ function OrgAdminChatSidebar() {
             </Link>
 
             <Link to="/documents" style={{ textDecoration: 'none' }}>
-              <div className={Styles.SuperAdminChildContainer}>
+              <div className={Styles.SuperAdminChildContainer}> 
                 <span>
                   <img src={documenticon} alt="" />
                   <p className={Styles.organizationTextStyle}>Document</p>
@@ -89,7 +110,7 @@ function OrgAdminChatSidebar() {
               </div>
             </Link>
             <Link to="/chat" style={{ textDecoration: "none" }}>
-              <div className={Styles.SuperAdminChildContainer}>
+              <div className={Styles.SuperAdminChildContainer} style={{backgroundColor:pathname == '/chat' ?'#6366f1':'', borderRadius: pathname == '/chat' ?'5px':'0px'}}>
                 <span>
                   {/* <img src={usersicon} alt="" /> */}
                   <ChatIcon style={{ color: 'white', paddingLeft : '12px', fontSize:'20px', paddingRight:'5px' }}/>
@@ -112,6 +133,14 @@ function OrgAdminChatSidebar() {
         <OrgAdminChatPage
           navigationRoute={navigationRoute}
           rightSideDashBoard={true}
+          hideChatInitialPage={hideChatInitialPage}
+          setHideChatInitialPage={setHideChatInitialPage}
+          questionAndAnswer={questionAndAnswer}
+          setQuestionAndAnswer={setQuestionAndAnswer}
+          chat={chat}
+          setChat={setChat}
+          isLoading={isLoading}
+          setIsLoading={setIsLoading}
         />
       </div>
       <div className={Styles.AMChatFooterStyle}>

@@ -39,6 +39,7 @@ import { getActiveUserList } from '../../../apiCalls/ApiCalls';
 import { timeExtracter } from '../../../../src/utils/timeStampGenerateUtils'
 import {setErrorMsg } from '../../../store/authSlice'
 import { getUserType } from '../../../utils/SessionManager';
+// import FilterChatContainer from './FilterContainer';
 
 const OrgAdminChatPage = (props) => {
   const navigate = useNavigate();
@@ -47,7 +48,7 @@ const OrgAdminChatPage = (props) => {
   const dispatch = useDispatch();
 
   console.log('admin props--->', props);
-  const { navigationRoute, rightSideDashBoard } = props;
+  const { navigationRoute, rightSideDashBoard , hideChatInitialPage, setHideChatInitialPage,questionAndAnswer, setQuestionAndAnswer, chat, setChat,isLoading, setIsLoading} = props;
   const userRole = localStorage.getItem('userRole');
   console.log('userRole--->', userRole);
   console.log('navigationRoute----->', navigationRoute);
@@ -75,7 +76,7 @@ const OrgAdminChatPage = (props) => {
 
   const [documentCount, setDocumentCount] = useState(0);
   const [activeUsersCount, setActiveUsersCount] = useState(0);
-  const [chat, setChat] = useState('');
+  // const [chat, setChat] = useState('');
   const [page, setPage] = useState(0);
   const [userData, setUserData] = useState(null);
   const [userStatus, setUserStatus] = useState('active');
@@ -91,15 +92,15 @@ const OrgAdminChatPage = (props) => {
     'Can you explain me the quantum mechanics? ',
   ];
 
-  const [hideChatInitialPage, setHideChatInitialPage] = useState(false);
+  // const [hideChatInitialPage, setHideChatInitialPage] = useState(false);
   const [responseData, setResponseData] = useState('');
   const [questions, setQuestions] = useState([]);
-  const [questionAndAnswer, setQuestionAndAnswer] = useState([]);
+  // const [questionAndAnswer, setQuestionAndAnswer] = useState([]);
   const profileUrl = constants.PROFILE_URL;
   // const [profileSrc, setProfileSrc] = useState(localStorage.getItem("profileImage") || profilePlaceholder);
   const [profileSrc, setProfileSrc] = useState(profilePlaceholder);
   const [isEditing, setIsEditing] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
   const submitButtonProperty = {
     name: 'Save & Submit',
     color: 'white',
@@ -129,6 +130,7 @@ const OrgAdminChatPage = (props) => {
   const [fullName, setFullName] = useState('');
   const [activeUserList, setActiveUserList] = useState([]);
   const endRef = useRef(null);
+  const [adjustChatHeight, setAdjustChatHeight] = useState(0)
 
   const getDocumentsCount = async () => {
     try {
@@ -537,25 +539,17 @@ const OrgAdminChatPage = (props) => {
             </div>
           )}
 
-          {/* end super admin dashboard */}
-          {/* <div className="hi-main">
-            <div className="orgadminchat-chat-content-head">
-              <div className="orgadminchat-chat-content"
-              // style={{width: '100%'}} */}
-        {/* end super admin dashboard */}
+
         {userRole !== 'SUPER_ADMIN' &&
         <div className="hi-main">
           <div className="orgadminchat-chat-content-head">
-            <div className="orgadminchat-chat-content" 
-            // style={{width: '100%'}}
-
-              >
+            <div className="orgadminchat-chat-content" > 
                 <div className={Styles.questionAndAnswerContainer}>
-                  {hideChatInitialPage && (
-                    <div>
+                  {/* {hideChatInitialPage && (
+                    <div style={{display:'flex'}}>
                       <Card
                         className={Styles.superAdminCardStyles}
-                        style={{ overflowY: 'auto', height:'80vh'}}
+                        style={{ overflowY: 'auto',height:'80vh'}}
                       >
                         {questionAndAnswer &&
                           questionAndAnswer.length > 0 &&
@@ -574,36 +568,90 @@ const OrgAdminChatPage = (props) => {
                                 className={Styles.responseContainer}
                                 >
                                   <div>
-          {/* end super admin dashboard
-          {userRole !== 'SUPER_ADMIN' && (
-            <div className="hi-main">
-              <div className="orgadminchat-chat-content-head">
-                <div
-                  className="orgadminchat-chat-content"
-                  // style={{width: '100%'}}
-                >
-                  <div className={Styles.questionAndAnswerContainer}>
-                    {hideChatInitialPage && (
-                      <div>
-                        <Card
-                          className={Styles.superAdminCardStyles}
-                          style={{ height: '80vh', overflowY: 'auto' }}
-                        >
-                          {questionAndAnswer &&
-                            questionAndAnswer.length > 0 &&
-                            questionAndAnswer.map((item) => {
-                              return (
-                                <div>
+                                      <div
+                                        className={Styles.chatBubble}
+                                        style={{
+                                          display: 'flex',
+                                          justifyContent: 'flex-start',
+                                          // backgroundColor:'yellow',
+                                          textAlign: 'left',
+                                        }}
+                                      >
+                                        {item.question}{' '}
+                                      </div>
+                                    </div>
+                                  </div>
                                   <div className={Styles.questionContainer}>
-                                    <Image
-                                      className={Styles.answerImageContainer}
-                                      src={profileSrc}
-                                      alt=""
-                                    />
-                                    <div className={Styles.name}>You</div>
+                                    <div
+                                      className={Styles.questionImageContainer}
+                                    >
+                                      <div>A</div>
+                                    </div>
+                                    <div className={Styles.name}>AM-Chat</div>
                                   </div>
                                   <div className={Styles.responseContainer}>
-                                    <div> */}
+                                    <div
+                                      className={Styles.chatBubble}
+                                      style={{
+                                        display: 'flex',
+                                        justifyContent: 'flex-start',
+                                      }}
+                                    >
+                                      {item?.answer}
+                                    </div>
+                                  </div>
+                                </div>
+                              );
+                            })}
+                          <div ref={endRef} />
+                        </Card>
+                      </div>
+                    )} */}
+                    {!hideChatInitialPage && (
+                      <div className="orgadminchat-chat-ui-text">
+                        <div className="orgadminchat-chat-ui-am-chat-text">
+                          <p>
+                            AM-Chat{' '}
+                            <img
+                              className="orgchat-icon"
+                              src={orgvector}
+                              alt=""
+                            />
+                          </p>
+                        </div>
+                      </div>
+                    )}
+                    <div
+                      className={
+                        userRole === 'USER' || userRole === 'SUPER_ADMIN'
+                          ? 'footer_for_user'
+                          : 'footer_for_admin'
+                      }
+                      
+                    >
+                  {hideChatInitialPage && (
+                    <div >
+                      <Card
+                        className={Styles.superAdminCardStyles}
+                        style={{ overflowY: 'auto',height:'72vh'}}
+                      >
+                        {questionAndAnswer &&
+                          questionAndAnswer.length > 0 &&
+                          questionAndAnswer.map((item) => {
+                            return (
+                              <div>
+                                <div className={Styles.questionContainer}>
+                                  <Image
+                                    className={Styles.answerImageContainer}
+                                    src={profileSrc}
+                                    alt=""
+                                  />
+                                  <div className={Styles.name}>You</div>
+                                </div>
+                                <div 
+                                className={Styles.responseContainer}
+                                >
+                                  <div>
                                       <div
                                         className={Styles.chatBubble}
                                         style={{
@@ -643,28 +691,6 @@ const OrgAdminChatPage = (props) => {
                         </Card>
                       </div>
                     )}
-                    {!hideChatInitialPage && (
-                      <div className="orgadminchat-chat-ui-text">
-                        <div className="orgadminchat-chat-ui-am-chat-text">
-                          <p>
-                            AM-Chat{' '}
-                            <img
-                              className="orgchat-icon"
-                              src={orgvector}
-                              alt=""
-                            />
-                          </p>
-                        </div>
-                      </div>
-                    )}
-                    <div
-                      className={
-                        userRole === 'USER' || userRole === 'SUPER_ADMIN'
-                          ? 'footer_for_user'
-                          : 'footer_for_admin'
-                      }
-                      
-                    >
                       {!hideChatInitialPage && (
                         <div className="orgadminchat-chat-hello-text">
                           <h2>Hello, I’m AM-Chat</h2>
@@ -693,6 +719,8 @@ const OrgAdminChatPage = (props) => {
                           readOnly={false}
                           chat={chat}
                           setChat={setChat}
+                          setAdjustChatHeight={setAdjustChatHeight}
+                          adjustChatHeight={adjustChatHeight}
                         />
                       </div>
                     </div>

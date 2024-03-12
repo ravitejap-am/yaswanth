@@ -43,10 +43,21 @@ import ProtectedRoute from './ProtectedRoute';
 
 import VerificationLink from './pages/linkverification/linkVerification.js';
 import CustomerSupportPage from './pages/errorHandler/InternalServerError/CustomerSupportPage.jsx';
+import { setUser, selectUser } from './store/authSlice.js';
+import { useDispatch, useSelector } from 'react-redux';
+import { tokenDecodeJWT } from './utils/authUtils.js';
 
 const Rout = () => {
   const userRole = localStorage.getItem('userRole');
+  const user = useSelector(selectUser);
+  let decodedToken = {};
+  if (!!user) {
+    const jwtToken = user?.userToken;
+    decodedToken = tokenDecodeJWT(jwtToken);
+  }
+
   console.log('userRole--->', userRole);
+
   return (
     <Routes>
       <Route exact path="/" element={<Home />} />
@@ -64,25 +75,19 @@ const Rout = () => {
         element={
           <ProtectedRoute
             element={
-              !!localStorage.getItem('userRole') &&
-              localStorage.getItem('userRole') == 'USER' ? (
+              decodedToken?.role == 'USER' ? (
                 <>
                   <AMChatMainUserSidebar />
                 </>
-              ) : !!localStorage.getItem('userRole') &&
-                localStorage.getItem('userRole') == 'ORG_ADMIN' ? (
+              ) : decodedToken?.role == 'ORG_ADMIN' ? (
                 <>
                   <OrgAdminSidebar />
                 </>
               ) : (
-                <AMChatMainUserSidebar />
+                <PageNotFound />
               )
             }
-            allowedRoles={
-              !!localStorage.getItem('userRole')
-                ? [localStorage.getItem('userRole')]
-                : ['USER', 'ORG_ADMIN']
-            }
+            allowedRoles={['USER', 'ORG_ADMIN']}
           />
         }
       ></Route>
@@ -91,10 +96,13 @@ const Rout = () => {
         element={
           <ProtectedRoute
             element={
-              userRole == 'SUPER_ADMIN' || userRole == 'USER' ? (
+              decodedToken?.role == 'SUPER_ADMIN' ||
+              decodedToken?.role == 'USER' ? (
                 <SearchUIAIChatSidebar />
-              ) : (
+              ) : decodedToken?.role == 'ORG_ADMIN' ? (
                 <OrgAdminChatSidebar />
+              ) : (
+                <PageNotFound />
               )
             }
             allowedRoles={['SUPER_ADMIN', 'USER', 'ORG_ADMIN']}
@@ -117,9 +125,26 @@ const Rout = () => {
         path="/dashboard"
         element={
           <ProtectedRoute
-            element={<AMChatAdminHome />}
-            allowedRoles={['SUPER_ADMIN']}
+            element={
+              decodedToken?.role == 'SUPER_ADMIN' ? (
+                <>
+                  <AMChatAdminHome />
+                </>
+              ) : decodedToken?.role == 'ORG_ADMIN' ? (
+                <>
+                  <OrgAdminChatSidebar />
+                </>
+              ) : (
+                <PageNotFound />
+              )
+            }
+            allowedRoles={['SUPER_ADMIN', 'ORG_ADMIN']}
           />
+
+          // <ProtectedRoute
+          //   element={<AMChatAdminHome />}
+          //   allowedRoles={['SUPER_ADMIN']}
+          // />
         }
       ></Route>
 
@@ -246,17 +271,17 @@ const Rout = () => {
         element={
           <ProtectedRoute
             element={
-              userRole == 'USER' ? (
+              decodedToken?.role == 'USER' ? (
                 <UserProfileSidebar />
-              ) : userRole == 'SUPER_ADMIN' ? (
+              ) : decodedToken?.role == 'SUPER_ADMIN' ? (
                 <SuperAdminPersonalInfoSideBar />
-              ) : userRole == 'ORG_ADMIN' ? (
+              ) : decodedToken?.role == 'ORG_ADMIN' ? (
                 <OrganizationAdminProfileInfoSidebar />
               ) : (
-                ''
+                <PageNotFound />
               )
             }
-            allowedRoles={[userRole]}
+            allowedRoles={['USER', 'SUPER_ADMIN', 'ORG_ADMIN']}
           />
         }
       ></Route>

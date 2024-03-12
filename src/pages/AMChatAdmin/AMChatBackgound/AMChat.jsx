@@ -13,9 +13,14 @@ import * as constants from '../../../constants/Constant';
 import OrgAdminChatPage from '../../chatmain/OrgadminChatPage/OrgAdminChatPage';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import { GetSetSessionToken, getUserType } from '../../../utils/SessionManager';
+import { useState } from 'react'; 
 
 function AMChat({ renderComponent }) {
   const navigationRoute = '/Info';
+  const [hideChatInitialPage, setHideChatInitialPage] = useState(false);
+  const [questionAndAnswer, setQuestionAndAnswer] = useState([]);
+  const [chat, setChat] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   return (
     <>
       <div className={Styles.dashboardContainer}>
@@ -107,7 +112,17 @@ function AMChat({ renderComponent }) {
           </div>
 
           {/* <SuperAdminAMChatCard /> */}
-          <OrgAdminChatPage navigationRoute={navigationRoute} />
+          <OrgAdminChatPage 
+          navigationRoute={navigationRoute} 
+          hideChatInitialPage={hideChatInitialPage}
+          setHideChatInitialPage={setHideChatInitialPage}
+          questionAndAnswer={questionAndAnswer}
+          setQuestionAndAnswer={setQuestionAndAnswer}
+          chat={chat}
+          setChat={setChat}
+          isLoading={isLoading}
+          setIsLoading={setIsLoading}
+          />
         </div>
         <div className={Styles.AMChatFooterStyle}>
           <footer className="AMChat-admin-footer">
