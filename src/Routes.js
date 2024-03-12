@@ -44,6 +44,18 @@ import ProtectedRoute from './ProtectedRoute';
 import VerificationLink from './pages/linkverification/linkVerification.js';
 import CustomerSupportPage from './pages/errorHandler/InternalServerError/CustomerSupportPage.jsx';
 
+/*  
+new flow import statements start
+
+ */
+
+import Dashboard from './pages/dashboard/Dashboard.jsx';
+
+/*  
+new flow import statements stop
+
+ */
+
 const Rout = () => {
   const userRole = localStorage.getItem('userRole');
   console.log('userRole--->', userRole);
@@ -117,7 +129,7 @@ const Rout = () => {
         path="/dashboard"
         element={
           <ProtectedRoute
-            element={<AMChatAdminHome />}
+            element={<Dashboard />}
             allowedRoles={['SUPER_ADMIN']}
           />
         }
