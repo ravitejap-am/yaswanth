@@ -12,6 +12,7 @@ import { useSelector } from 'react-redux';
 import * as constants from '../../../constants/Constant';
 import OrgAdminChatPage from '../../chatmain/OrgadminChatPage/OrgAdminChatPage';
 import DashboardIcon from '@mui/icons-material/Dashboard';
+import { GetSetSessionToken, getUserType } from '../../../utils/SessionManager';
 
 function AMChat({ renderComponent }) {
   const navigationRoute = '/Info';
@@ -43,9 +44,8 @@ function AMChat({ renderComponent }) {
           <div className={Styles.container} style={{backgroundColor:'#6366f1'}}>
           <Link
             to="/dashboard"
-            style={{ textDecoration: 'none',width:'100%' }}
-          >
-            <div className={Styles.SuperAdminChildContainer} >
+            style={{ textDecoration: 'none',width:'100%' }}>
+            <div className={Styles.SuperAdminChildContainer}>
                 <span>
                   <DashboardIcon style={{ color: 'white', fontSize:'20px', paddingRight:'5px' }}/>
                   <p className={Styles.organizationTextStyle}>Dashboard</p>
@@ -69,35 +69,10 @@ function AMChat({ renderComponent }) {
           </div>
           </div>
 
-          <div className={Styles.AMchatMainDiv}>
-            <p className={Styles.AmChatMainTextStyle}>Chats</p>
-            <div className={Styles.AmChatsTwoContents}>
-              <div className={Styles.AmChatBelowTwoDiv}>
-                <p className={Styles.AmChatChatPlaceholder}>
-                  How to upload my Docume...{' '}
-                </p>{' '}
-                <img
-                  src={GroupCircleDot}
-                  alt=""
-                  className={Styles.AmChatCircleStyle}
-                />
-              {/* </div>
-              <div className={Styles.container}>
-                <div className={Styles.SuperAdminChildContainer}>
-                  <Link to="/organisations" style={{ textDecoration: 'none' }}>
-                    <span>
-                      <img src={organizationimage} alt="" />
-
-                      <p className={Styles.organizationTextStyle}>
-                        Organisations
-                      </p>
-                    </span>
-                  </Link>
-                </div>
-              </div>
-            </div>
-
-            <div className={Styles.AMchatMainDiv}>
+            {
+              getUserType()!==null && getUserType()!==undefined && getUserType() !==constants.SuperAdminAccount
+               && 
+             <div className={Styles.AMchatMainDiv}>
               <p className={Styles.AmChatMainTextStyle}>Chats</p>
               <div className={Styles.AmChatsTwoContents}>
                 <div className={Styles.AmChatBelowTwoDiv}>
@@ -108,24 +83,27 @@ function AMChat({ renderComponent }) {
                     src={GroupCircleDot}
                     alt=""
                     className={Styles.AmChatCircleStyle}
-                  /> */}
-                </div>
-                <br />
-                <div className={Styles.AmChatBelowTwoDiv}>
-                  <p
-                    className={Styles.AmChatChatPlaceholder}
-                    style={{ marginRight: '40px' }}
-                  >
-                    What is AM-Chat?
-                  </p>
-                  <img
-                    src={GroupCircleDot}
-                    alt=""
-                    className={Styles.AmChatCircleStyle}
                   />
+               
+                  </div>
+                  <br />
+                  <div className={Styles.AmChatBelowTwoDiv}>
+                    <p
+                      className={Styles.AmChatChatPlaceholder}
+                      style={{ marginRight: '40px' }}
+                    >
+                      What is AM-Chat?
+                    </p>
+                    <img
+                      src={GroupCircleDot}
+                      alt=""
+                      className={Styles.AmChatCircleStyle}
+                    />
+                  </div>
                 </div>
-              </div>
-            </div>
+              </div> 
+            }
+        
           </div>
 
           {/* <SuperAdminAMChatCard /> */}

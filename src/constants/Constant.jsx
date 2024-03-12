@@ -19,3 +19,9 @@ export const USER_PROFILE = `${BASE_API_URL}/user`;
 export const UPDATE_ADMIN_USER = `${BASE_API_URL}/user`;
 export const GET_ACTIVE_USERS = `${BASE_API_URL}/user/recently_visited_users`;
 export const PROFILE_URL = "https://medicalpublic.s3.amazonaws.com/"
+
+
+
+export const UserAccount="";
+export const OrgAdminAccount="ORG_ADMIN";
+export const SuperAdminAccount="SUPER_ADMIN";

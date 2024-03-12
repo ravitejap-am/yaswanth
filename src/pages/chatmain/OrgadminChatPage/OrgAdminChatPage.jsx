@@ -38,6 +38,7 @@ import PageLoader from '../../../components/loader/loader';
 import { getActiveUserList } from '../../../apiCalls/ApiCalls';
 import { timeExtracter } from '../../../../src/utils/timeStampGenerateUtils'
 import {setErrorMsg } from '../../../store/authSlice'
+import { getUserType } from '../../../utils/SessionManager';
 
 const OrgAdminChatPage = (props) => {
   const navigate = useNavigate();
@@ -477,13 +478,19 @@ const OrgAdminChatPage = (props) => {
                 className={SAStyles.superAdminMiddleCardStyle}
                 style={{ backgroundColor: '#FFFFFF' }}
               >
-                <div style={{ display: 'flex' }}>
+                <div  style={{cursor:'pointer' ,display: 'flex'}} onClick={()=>{
+                  if(getUserType()=== constants.SuperAdminAccount)
+                  { 
+                    window.location.href="organisations"
+                  }
+                
+                }} >
                   {' '}
-                  <div className={SAStyles.superAdminMiddleCardCircle1Style}>
+                  <div  className={SAStyles.superAdminMiddleCardCircle1Style}>
                     {' '}
                     <img src={circle1} alt="" />
                   </div>
-                  <div className={SAStyles.titlePriceStyle}>
+                  <div       className={SAStyles.titlePriceStyle}>
                     <p className={SAStyles.titleStyle}>Organisations</p>
                     <p className={SAStyles.priceStyle}>{orgCount}</p>
                   </div>
@@ -696,7 +703,14 @@ const OrgAdminChatPage = (props) => {
                     <div className="orgadminchat-orgadmin-cards">
                       <div className="orgadminchat-orgadmindoc-card">
                         <div className="activeuser-vectorimage">
-                          <div className="orgadminchat-orgadmindocument-card">
+
+                        <div style={{cursor:'pointer'}} onClick={()=>{
+                            if(getUserType()===constants.OrgAdminAccount)
+                            { 
+                              window.location.href="documents"
+                            }
+                          
+                          }} className="orgadminchat-orgadmindocument-card">
                             <img
                               className="orgadminchat-document-icon"
                               src={documentIcon}
@@ -704,7 +718,7 @@ const OrgAdminChatPage = (props) => {
                             />
                             <h2>Documents</h2>
                             <h1 className="document-value">{documentCount}</h1>
-                          </div>
+                          </div> 
                           <div className="vector-card-image">
                             <img
                               className="vector-image-activeuser"
@@ -714,8 +728,17 @@ const OrgAdminChatPage = (props) => {
                           </div>
                         </div>
                       </div>
-                      <div className="orgadmin-vectorimage">
-                        <div className="orgadminchat-orgadmin-activeuser-card">
+                      <div  className="orgadmin-vectorimage">
+                        <div 
+                        style={{cursor:'pointer'}} onClick={()=>{
+                  
+                          if(getUserType()===constants.OrgAdminAccount)
+                          {     window.location.href="users"
+                            
+                          }
+                        }}
+
+                         className="orgadminchat-orgadmin-activeuser-card">
                           <img
                             className="orgadminchat-activeuser-icon"
                             src={documentIconpink}
