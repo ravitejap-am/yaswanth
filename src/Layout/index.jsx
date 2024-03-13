@@ -1,12 +1,13 @@
 import React from 'react';
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import Sidebar from '../components/sidebar';
 
 function Layout({ children }) {
   return (
     <Box
       sx={{
-        backgroundColor: '#10141F',
+        background:
+          'linear-gradient(114deg,#0f172a 51.52%, #152346 73.32%,#1a2e5e 92.75%)',
         display: 'flex',
         flexDirection: {
           xs: 'column',
@@ -24,8 +25,23 @@ function Layout({ children }) {
         sx={{
           width: '100%',
           // overflowY: 'scroll'
+          backgroundColor: '#F8FAFC',
+          borderRadius: 5,
+          padding: 3,
+          color: 'black',
+          height: '92%',
         }}
       >
+        <Box
+          sx={{
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'flex-end',
+            alignItems: 'center',
+          }}
+        >
+          <Typography>Header</Typography>
+        </Box>
         {children}
       </Box>
     </Box>

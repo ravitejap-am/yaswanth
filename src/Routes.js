@@ -138,7 +138,7 @@ const Rout = () => {
         element={
           <ProtectedRoute
             element={<Dashboard />}
-            allowedRoles={['SUPER_ADMIN']}
+            allowedRoles={['SUPER_ADMIN', 'ORG_ADMIN']}
           />
 
           // <ProtectedRoute
