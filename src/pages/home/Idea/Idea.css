@@ -5,21 +5,14 @@
     #152346 73.32%,
     #1a2e5e 92.75%
   );
-  width: 100%;
-  height: 650px;
-  flex-shrink: 0;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 100px 40px;
 }
 
-.idea_chid_div {
-  display: flex;
-  align-items: center;
-  /* gap: 50px; */
-  padding: 20px;
-  width: 70%;
-  margin-left: -150px;
+.text-content {
+  width: 50%;
 }
 
 .bannerBtn1 {
@@ -31,31 +24,27 @@
 }
 
 .bannerButton {
+  margin-top: 15px;
   display: flex;
-  width: 110px;
+  width: auto;
   height: 36px;
-  margin-left: 10px;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
-  flex-shrink: 0;
   border-radius: 30px;
-  background: var(--Brand-500, #dbdbe2);
   color: #f8fafc;
 }
 
 .bannerHeading {
-  width: 70%;
   width: 70%;
   color: var(--White, #fff);
   font-family: Montserrat;
   font-size: 36px;
   font-style: normal;
   font-weight: 500;
-  line-height: 40px;
 }
 
 .bannerPara {
-  width: 100%;
+  width: auto;
   color: var(--Neutral-200, #e2e8f0);
   margin-top: 10px;
   font-family: "Lato", sans-serif; /* Ensure fallback to sans-serif */
@@ -71,21 +60,42 @@
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
-}
-.bannerPareInnerTextStyle {
-  padding-left: 10px;
+  display: flex;
+  flex-direction: column;
 }
 
 .bannerPareInnerTextStyle {
   display: flex;
   align-items: center;
-  padding-left: 20px;
+  width: auto;
 }
 
-.bannerImage3 {
-  width: 245px;
-  height: 94px;
-  flex-shrink: 0;
+.image-style {
+  width: 100%;
+  height: 60%;
+}
+
+@media (max-width: 767px) {
+  .idea_page_main{
+    padding: 20px;
+  }
+  .bannerButton{
+    justify-content: center;
+  }
+  .text-content{
+    width: auto;
+  }
+  .bannerHeading{
+    font-size: 28px;
+    width: 100%;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .bannerHeading{
+    font-size: 28px;
+    width: 100%;
+  }
 }
 
 /* Remove the commented-out style */

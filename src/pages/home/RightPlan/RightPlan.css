@@ -1,8 +1,5 @@
 .Right_Plan_Main_Card {
-  width: 100%;
-  height: 750px;
-  padding: 0;
-  margin: -40px 0 0 0;
+  padding: 100px 40px;
   background: linear-gradient(
     114deg,
     #0f172a 51.52%,
@@ -25,7 +22,7 @@
   }
 
   .Right_Plan_Content {
-    width: 100%;
+    width: auto;
     height: auto;
     margin-bottom: 20px;
   }
@@ -74,6 +71,9 @@
 }
 .Right_Plan_Gernal_Button {
   margin-top: -12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .Right_Plan_Content_Title {
   color: #ffffff;
@@ -95,16 +95,12 @@
   font-size: 2.25rem;
   font-style: normal;
   font-weight: 300;
-  margin-bottom: -30px;
-  /* line-height: 40px; */
 }
 .Right_Plan_Top_Content_SubTitle {
   color: var(--Neutral-200, #e2e8f0);
   text-align: center;
   font-family: Lato;
-  /* font-weight: 400; */
   font-size: 0.875rem;
-  margin-top: 35px;
 }
 
 .Right_Plan_below_Content_Sub_Div {
@@ -145,4 +141,32 @@
   font-style: normal;
   font-weight: 300;
   line-height: 24px;
+}
+
+@media (max-width: 767px) {
+  .Right_Plan_Top_Content_Title {
+    font-size: 28px;
+    text-align: center;
+  }
+  .Right_Plan_Top_Content_SubTitle {
+    font-size: 14px;
+    text-align: center;
+  }
+  .Right_Plan_Content {
+    width: 260px;
+  }
+  .Right_Plan_Content_Sub_Div {
+    width: 250px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .Right_Plan_Top_Content_Title {
+    font-size: 30px;
+    text-align: center;
+  }
+  .Right_Plan_Top_Content_SubTitle {
+    font-size: 14px;
+    text-align: center;
+  }
 }

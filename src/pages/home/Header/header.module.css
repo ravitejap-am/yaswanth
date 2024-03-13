@@ -132,17 +132,52 @@
   line-height: 24px;
 }
 .appLogo {
-  width: 2.5rem;
-  color: var(--White, #fff);
-  font-family: Lato !important;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 24px;
-  margin-left: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 10px 0 0;
 }
 
 .logo {
   width: 150px;
   margin-top: 20px;
+}
+
+.mainHeader {
+  position: fixed;
+  top: 0;
+  z-index: 1;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.drawer {
+  background: linear-gradient(
+    114deg,
+    #0f172a 51.52%,
+    #152346 73.32%,
+    #1a2e5e 92.75%
+  );
+}
+
+.ant-drawer .ant-drawer-content {
+  background: linear-gradient(
+    114deg,
+    #0f172a 51.52%,
+    #152346 73.32%,
+    #1a2e5e 92.75%
+  ) !important;
+}
+
+@media (max-width: 767px) {
+  .mainHeader {
+    justify-content: space-between;
+    padding: 0 15px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+
 }
