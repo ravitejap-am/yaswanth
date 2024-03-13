@@ -35,9 +35,11 @@ import {
   BASE_DOC_API_URL,
   BASE_USER_IMAGE_URL,
   BASE_ORG_API_URL,
+  UserAccount,OrgAdminAccount,SuperAdminAccount
 } from '../../../constants/Constant';
 import axios from 'axios';
 import PageLoader from '../../../components/loader/loader';
+import { getUserType } from '../../../utils/SessionManager';
 
 const style = {
   py: 0,
@@ -192,7 +194,9 @@ function SuperAdminAMChatCard() {
             >
               <div style={{ display: 'flex' }}>
                 {' '}
-                <div className={Styles.superAdminMiddleCardCircle1Style}>
+                <div
+           
+                 className={Styles.superAdminMiddleCardCircle1Style}>
                   {' '}
                   <img src={circle1} alt="" />
                 </div>

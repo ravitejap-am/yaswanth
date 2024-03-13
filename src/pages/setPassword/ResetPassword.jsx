@@ -11,7 +11,7 @@ import { useParams } from 'react-router-dom';
 import * as constants from '../../constants/Constant';
 import { useMessageState } from '../../hooks/useapp-message';
 import { useNavigate, useLocation } from 'react-router-dom';
-
+import "../setPassword/ResetPassword.css"
 const ResetPassword = () => {
   let {
     buttonLoading,
@@ -199,8 +199,8 @@ const ResetPassword = () => {
           buttonProps={buttonProps}
         />
       </div>
-      <div className="main">
-        <div className="container">
+      <div className="main resetpassword-main">
+        <div className="container resetpassword-container">
           <div className="row">
             <div className="col">
               <div className="row mainContent">
