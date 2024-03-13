@@ -159,8 +159,8 @@ const RecoveryPasswor = () => {
           buttonProps={buttonProps}
         />
       </div>
-      <div className="main">
-        <div className="container">
+      <div className="main main-forgotpassword">
+        <div className="container forgotpassword-container">
           {" "}
           <div className="row">
             <div className="col">

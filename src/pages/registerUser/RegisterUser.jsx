@@ -212,8 +212,8 @@ const RegisterUser = () => {
             buttonProps={buttonProps}
           />
         </div>
-        <div className="main">
-          <div className="container">
+        <div className="main signup-main">
+          <div className="container signup-main-container">
             <div className="row">
               <div className="col">
                 <div className="row mainContent">
@@ -242,6 +242,8 @@ const RegisterUser = () => {
                         </p>
                       </div> */}
                     </div>
+                    <br />
+                  <br />
                   </div>
                 </div>
               </div>
