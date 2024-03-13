@@ -47,6 +47,18 @@ import { setUser, selectUser } from './store/authSlice.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { tokenDecodeJWT } from './utils/authUtils.js';
 
+/*  
+new flow import statements start
+
+ */
+
+import Dashboard from './pages/dashboard/Dashboard.jsx';
+
+/*  
+new flow import statements stop
+
+ */
+
 const Rout = () => {
   const userRole = localStorage.getItem('userRole');
   const user = useSelector(selectUser);
@@ -125,19 +137,7 @@ const Rout = () => {
         path="/dashboard"
         element={
           <ProtectedRoute
-            element={
-              decodedToken?.role == 'SUPER_ADMIN' ? (
-                <>
-                  <AMChatAdminHome />
-                </>
-              ) : decodedToken?.role == 'ORG_ADMIN' ? (
-                <>
-                  <OrgAdminChatSidebar />
-                </>
-              ) : (
-                <PageNotFound />
-              )
-            }
+            element={<Dashboard />}
             allowedRoles={['SUPER_ADMIN', 'ORG_ADMIN']}
           />
 
