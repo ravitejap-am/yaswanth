@@ -74,7 +74,8 @@ function OrgAddDocumentSidebar() {
                 </Link>
               </span>
             </div>
-            <div className={Styles.SuperAdminChildContainer} style={{backgroundColor:'#6366f1', borderRadius: '5px'}}>
+            <div className={Styles.SuperAdminChildContainer}
+             style={{backgroundColor:'#6366f1', borderRadius: '5px'}}>
               <span>
                 <img src={documenticon} alt="" />
                 <Link to="/documents" style={{ textDecoration: 'none' }}>

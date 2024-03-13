@@ -6,7 +6,7 @@ sessionStorage.setItem("AppUserAmChat",value);
 
 
 export const GetSetSessionToken=()=>{
-    return    sessionStorage.getItem("AppUserAmChat");
+    return    sessionStorage.getItem("AppUserAmChat")||'';
     }
 
 
@@ -40,5 +40,20 @@ export const getUserType=()=>{
 
 
     let userType="";
-    
+    try{
+        const token=GetSetSessionToken();
+        const JSONResponse=tokenDecodeJWT(token);
+        
+        if(JSONResponse?.role)
+        {
+            userType=JSONResponse?.role
+        }
+       
+    }catch(exc)
+    {
+        console.log(" token is here ",exc);
+        userType=""
+    }
+
+    return userType;
 }
