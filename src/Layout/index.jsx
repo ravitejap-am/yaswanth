@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
 import Sidebar from '../components/sidebar';
+import Header from '../components/header';
 
 function Layout({ children }) {
   return (
@@ -40,7 +41,7 @@ function Layout({ children }) {
             alignItems: 'center',
           }}
         >
-          <Typography>Header</Typography>
+          <Header />
         </Box>
         {children}
       </Box>
