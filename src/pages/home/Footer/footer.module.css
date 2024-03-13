@@ -58,17 +58,7 @@
   padding-top: 250px;
   margin-right: 40px;
 }
-@media only screen and (max-width: 767px) {
-  .footerFIrstCOntent {
-    margin-bottom: 10px;
-  }
-}
 
-@media screen and (max-width: 767px) {
-.footerMain{
-padding-bottom: 180px;
-}
-}
 .centeredText {
 display: flex;
 justify-content: center;
@@ -82,7 +72,7 @@ justify-content: center;
 
 @media screen and (max-width: 767px) {
 .footerMain{
-padding-bottom: 180px;
+padding-bottom: 70px;
 }
 .footerFIrstCOntent {
   padding: 50px;
@@ -101,6 +91,15 @@ padding-bottom: 180px;
   display: flex;
   justify-content: flex-start;
 }
+}
+
+.main-mobile-footer{
+  flex-direction: column;
+}
+.contact-mobile {
+  color: #FFF;
+  font-size: 14px;
+  display: flex;
 }
 
 

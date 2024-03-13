@@ -103,12 +103,12 @@ const Footer = () => {
       </div>
       )}
       {isMobile && (
-      <div style={{flexDirection: "column"}}>
+      <div className="main-mobile-footer">
       <div className={Style.footerFIrstCOntent}>
         <div className={Style.footerAddress}>
           <span
             className="footer_p_tag"
-            style={{ color: "#FFF", marginTop: "-15px", whiteSpace: "nowrap" }}
+            style={{ color: "#FFF", marginTop: "-15px" }}
           >
             AM-ChatBOT{" "}
             </span>
