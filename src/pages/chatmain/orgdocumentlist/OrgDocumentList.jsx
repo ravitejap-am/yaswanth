@@ -34,6 +34,7 @@ import AMChatHeader from '../../AMChatAdmin/AMChatHeader/AMChatHeader';
 import OrganizationAdminHeader from '../organizationadmin/OrganizationAdminHeader/OrganizationAdminHeader';
 import Skeleton from '@mui/material/Skeleton';
 import { Pagination, Popconfirm, message } from 'antd';
+import PageLoader from '../../../components/loader/loader';
 
 function OrgDocumentList(props) {
   const user = useSelector(selectUser);
@@ -71,10 +72,10 @@ function OrgDocumentList(props) {
   const [orderBy, setOrderBy] = useState('createdAt');
   const [loading, setLoading] = useState(false);
 
-  const [searchQuery, setSearchQuery] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const profileSrc = localStorage.getItem("profileImage");
-  const [fullName, setFullName] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const profileSrc = localStorage.getItem('profileImage');
+  const [fullName, setFullName] = useState('');
   const [tableloading, setTableLoading] = useState(false);
 
   const [pageInfo, setPageInfo] = useState({
@@ -114,18 +115,15 @@ function OrgDocumentList(props) {
     setSearchQuery(event.target.value);
   };
 
-
-  
   useEffect(() => {
-    if(searchQuery?.length>=3)
-    {   setLoading(true);
-       fetchUserList();}
-
-       else     if(searchQuery?.length===0)
-       {   setLoading(true);
-          fetchUserList();}
-     }, [searchQuery, order]);
-
+    if (searchQuery?.length >= 3) {
+      setLoading(true);
+      fetchUserList();
+    } else if (searchQuery?.length === 0) {
+      setLoading(true);
+      fetchUserList();
+    }
+  }, [searchQuery, order]);
 
   // useEffect(() => {
   //   setFilters({ ...filters, name: searchQuery,page: page  });
@@ -143,7 +141,7 @@ function OrgDocumentList(props) {
         active: true,
         name: searchQuery,
       });
-      setTableLoading(true)
+      setTableLoading(true);
       const response = await fetch(
         `${constants.BASE_API_URL}${constants.USER_LIST_ENDPOINT}?${queryParams}`,
         {
@@ -154,7 +152,7 @@ function OrgDocumentList(props) {
           },
         }
       );
-      setTableLoading(false)
+      setTableLoading(false);
       if (!response.ok) {
         if (response.status === 404) {
           console.log('400 error ');
@@ -178,7 +176,7 @@ function OrgDocumentList(props) {
       setRows(users);
       setLoading(false);
     } catch (error) {
-      setTableLoading(false)
+      setTableLoading(false);
       setLoading(false);
       navigate('/maintenance');
     }
@@ -190,17 +188,17 @@ function OrgDocumentList(props) {
 
   const handleDelete = async (userId) => {
     try {
-      setTableLoading(true)
+      setTableLoading(true);
       await axios.delete(`${constants.BASE_API_URL}/user/disable/${userId}`, {
         headers: {
           Authorization: `Bearer ${jwt}`,
         },
       });
       setRows(rows.filter((row) => row.id !== userId));
-      setTableLoading(false)
+      setTableLoading(false);
       toast.success('User deleted successfully');
     } catch (error) {
-      setTableLoading(false)
+      setTableLoading(false);
       console.error('Error deleting user:', error);
       toast.error('Error deleting user');
     }
@@ -279,10 +277,11 @@ function OrgDocumentList(props) {
   console.log('pageInfo---->', pageInfo);
   return (
     <div className={Styles.superAdminMainCardDivStyle}>
+      {tableloading && <PageLoader loadingStatus={tableloading} />}
       <div className={Styles.superAdminMiddleParentDiv}>
         <div className={Styles.superAdminProfileCardStyle}>
           <OrganizationAdminHeader
-            componentName={"Your Organisation User"}
+            componentName={'Your Organisation User'}
             name={fullName || ''}
             profileImageSrc={localStorage.getItem('userImageUrl')}
             customStyle={{
@@ -318,7 +317,7 @@ function OrgDocumentList(props) {
             </div>
           </div>
           <div className={Styles.bannerButton}>
-            <Link to="/user" style={{ textDecoration: 'none' }}>
+            <Link to="/adduser" style={{ textDecoration: 'none' }}>
               <GeneralButton
                 name={'Add User'}
                 type={'submit'}
@@ -428,66 +427,56 @@ function OrgDocumentList(props) {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {tableloading ? (
-                    <TableRow>
-                    <TableCell colSpan={7} align="center">
-                      <Skeleton variant="rectangular" width="100%" height="80vh">
-                        <div style={{ paddingTop: '21%' }} />
-                      </Skeleton>
-                      {/* <CircularProgress /> */}
-                    </TableCell>
-                  </TableRow>
-                  ) : (
-                    <>
-                      {rows.length > 0 ? (
-                        rows
-                          .slice(
-                            page * rowsPerPage,
-                            page * rowsPerPage + rowsPerPage
-                          )
-                          .map((row) => (
-                            <TableRow key={row.id}>
-                              {/* <TableCell padding="checkbox">
+                  <>
+                    {rows.length > 0 ? (
+                      rows
+                        .slice(
+                          page * rowsPerPage,
+                          page * rowsPerPage + rowsPerPage
+                        )
+                        .map((row) => (
+                          <TableRow key={row.id}>
+                            {/* <TableCell padding="checkbox">
                                 <Checkbox />
                               </TableCell> */}
-                              <TableCell component="th" scope="row">
-                                <span className={Styles.tableText}>
-                                  {' '}
-                                  {`${row.firstName} ${row.lastName}`}
+                            <TableCell component="th" scope="row">
+                              <span className={Styles.tableText}>
+                                {' '}
+                                {`${row.firstName} ${row.lastName}`}
+                              </span>
+                            </TableCell>
+                            <TableCell>
+                              <div className={Styles.emailWithCheckbox}>
+                                <span
+                                  style={{ marginTop: '10px' }}
+                                  className={Styles.tableText}
+                                >
+                                  {row.email}
                                 </span>
-                              </TableCell>
-                              <TableCell>
-                                <div className={Styles.emailWithCheckbox}>
-                                  <span
-                                    style={{ marginTop: '10px' }}
-                                    className={Styles.tableText}
-                                  >
-                                    {row.email}
-                                  </span>
-                                  <Checkbox
-                                    inputProps={{
-                                      'aria-labelledby': row.firstName,
-                                    }}
-                                    onClick={() =>
-                                      handleCheckboxClick(row.id, !row.active)
-                                    }
-                                  />
-                                </div>
-                              </TableCell>
-                              <TableCell>
-                                <span className={Styles.tableText}>
-                                  {row.createdAt}
-                                </span>
-                              </TableCell>
-                              <TableCell>
-                                <span className={Styles.tableText}>
-                                  {' '}
-                                  {row.updatedAt}
-                                </span>
-                              </TableCell>
-                              <TableCell>
-                                <span>{row.active ? 'Active' : 'Inactive'}</span>
-                                {/* <FormControl style={{ width: '110px' }}>
+                                <Checkbox
+                                  inputProps={{
+                                    'aria-labelledby': row.firstName,
+                                  }}
+                                  onClick={() =>
+                                    handleCheckboxClick(row.id, !row.active)
+                                  }
+                                />
+                              </div>
+                            </TableCell>
+                            <TableCell>
+                              <span className={Styles.tableText}>
+                                {row.createdAt}
+                              </span>
+                            </TableCell>
+                            <TableCell>
+                              <span className={Styles.tableText}>
+                                {' '}
+                                {row.updatedAt}
+                              </span>
+                            </TableCell>
+                            <TableCell>
+                              <span>{row.active ? 'Active' : 'Inactive'}</span>
+                              {/* <FormControl style={{ width: '110px' }}>
                                   <Select
                                     style={{
                                       border: 'none',
@@ -504,61 +493,58 @@ function OrgDocumentList(props) {
                                     </MenuItem>
                                   </Select>
                                 </FormControl>  */}
-                              </TableCell>
-                              <TableCell>
+                            </TableCell>
+                            <TableCell>
+                              <IconButton
+                                aria-label="edit"
+                                onClick={() => handleEdit(row.id)}
+                              >
+                                <img src={editIcon} alt="Edit" />
+                              </IconButton>
+                              <IconButton
+                                aria-label="delete"
+                                onClick={() => {
+                                  //  handleDelete(row.id)}}
+                                }}
+                              >
+                                {row?.active === true && (
+                                  <Popconfirm
+                                    key={row?.id || 'amchat'}
+                                    title="Am Chat"
+                                    description="Do you Really want to delete this user"
+                                    onConfirm={() => {
+                                      handleDelete(row.id);
+                                      // message.success('Click on Yes');
+                                    }}
+                                    onCancel={() => {
+                                      // message.error('Click on No');
+                                    }}
+                                    okText="Submit"
+                                    cancelText="Close"
+                                  >
+                                    <img src={deleteIcon} alt="Delete" />
+                                  </Popconfirm>
+                                )}
 
-                                
-                                <IconButton
-                                  aria-label="edit"
-                                  onClick={() => handleEdit(row.id)}
-                                >
-                                  <img src={editIcon} alt="Edit" />
-                                </IconButton>
-                                <IconButton
-                                  aria-label="delete"
-                                  onClick={() => {
-                                    //  handleDelete(row.id)}}
-                                  }}
-                                >
-                                  {row?.active === true && (
-                                    <Popconfirm
-                                      key={row?.id || 'amchat'}
-                                      title="Am Chat"
-                                      description="Do you Really want to delete this user"
-                                      onConfirm={() => {
-                                        handleDelete(row.id);
-                                        // message.success('Click on Yes');
-                                      }}
-                                      onCancel={() => {
-                                        // message.error('Click on No');
-                                      }}
-                                      okText="Submit"
-                                      cancelText="Close"
-                                    >
-                                      <img src={deleteIcon} alt="Delete" />
-                                    </Popconfirm>
-                                  )}
+                                {/* <img src={deleteIcon} alt="Delete" />   */}
+                              </IconButton>
+                            </TableCell>
+                          </TableRow>
+                        ))
+                    ) : (
+                      <TableRow>
+                        <TableCell colSpan={7} align="center">
+                          No data available
+                        </TableCell>
+                      </TableRow>
+                    )}
 
-                                  {/* <img src={deleteIcon} alt="Delete" />   */}
-                                </IconButton>
-                              </TableCell>
-                            </TableRow>
-                          ))
-                      ) : (
-                        <TableRow>
-                          <TableCell colSpan={7} align="center">
-                            No data available
-                          </TableCell>
-                        </TableRow>
-                      )}
-
-                      {emptyRows > 0 && (
-                        <TableRow style={{ height: 53 * emptyRows }}>
-                          <TableCell colSpan={7} />
-                        </TableRow>
-                      )}
-                    </>
-                  )}
+                    {emptyRows > 0 && (
+                      <TableRow style={{ height: 53 * emptyRows }}>
+                        <TableCell colSpan={7} />
+                      </TableRow>
+                    )}
+                  </>
                 </TableBody>
               </Table>
             </TableContainer>
@@ -569,6 +555,7 @@ function OrgDocumentList(props) {
                 alignItems: 'center',
                 marginTop: '16px',
                 gap: '20px',
+                marginRight: '5px'
               }}
             >
               <div>Total {pageInfo?.totalCount} items</div>

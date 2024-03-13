@@ -16,6 +16,8 @@ function ChatSearch({
   readOnly,
   chat,
   setChat,
+  adjustChatHeight, 
+  setAdjustChatHeight
 }) {
   const handleSearchImageClick = () => {
     if (onSearchImageClick) {
@@ -42,6 +44,7 @@ function ChatSearch({
       textAreaCont.scrollHeight < 65 ? 65 : textAreaCont.scrollHeight;
     textarea.style.height = textarea.scrollHeight + "px";
     textAreaCont.style.height = textAreaCont.scrollHeight + "px";
+    setAdjustChatHeight(textAreaCont.style.height)
   };
 
   return (
@@ -61,12 +64,10 @@ function ChatSearch({
       </div>
       <div className="icon_alignment">
       <div style={{display: 'flex'}}></div>
+      {chat !== "" && chat !== null && chat !== undefined && chat.replace(/\s+/g, '')?.length > 0 && 
       <div
-      
-        // className="chat_icon-container"
         id={`${iconId ? iconId : null}`}
         style={{marginRight: "10px"}}
-        // style={{ marginLeft: `${imageMarginLeft}px` }}
       >
         <img
           src={searchImage}
@@ -75,7 +76,7 @@ function ChatSearch({
           style={{ width: 50, height: 50, cursor: "pointer" }}
           onClick={handleSearchImageClick}
         />
-      </div>
+      </div>}
       </div>
     </div>
   );
