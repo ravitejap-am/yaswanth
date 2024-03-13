@@ -7,10 +7,6 @@
   color: #94a3b8;
 }
 
-.input_field_main_div {
-  position: relative;
-}
-
 .input_filed_style {
   padding-left: 30px;
 }
@@ -24,4 +20,11 @@
   height: 50px;
   flex-shrink: 0;
   fill: var(--Neutral-200, #e2e8f0);
+}
+
+@media (max-width: 767px) {
+  .input_filed_style{
+    padding-left: 0px;
+    padding: 0 10px;
+  }
 }
