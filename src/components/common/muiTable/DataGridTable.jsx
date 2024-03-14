@@ -2,9 +2,17 @@ import React from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { Pagination } from "antd";
 
-const DataGridTable = ({ rows, columns, showOrHide, pageInfo, setPageInfo, itemRender, fetchlist }) => {
+const DataGridTable = ({
+  rows,
+  columns,
+  showOrHide,
+  pageInfo,
+  setPageInfo,
+  itemRender,
+  fetchlist,
+}) => {
   return (
-    <div>
+
       <DataGrid
         rows={rows}
         columns={columns}
@@ -24,7 +32,7 @@ const DataGridTable = ({ rows, columns, showOrHide, pageInfo, setPageInfo, itemR
         pageSizeOptions={[10]}
         // checkboxSelection={showOrHide}
       />
-    </div>
+   
   );
 };
 

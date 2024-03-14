@@ -57,10 +57,6 @@ const style = {
 
 function OrganizationList() {
   let {
-    buttonLoading,
-    setButtonLoading,
-    isReset,
-    setIsReset,
     showNotifyMessage,
     hideNotifyMessage,
   } = useMessageState();
@@ -321,33 +317,6 @@ function OrganizationList() {
   const handleCancelVerification = () => {
     setIsOpen(false);
   };
-
-  const tableHead = [
-    {
-      label: "Organisation Name",
-      key: "name",
-    },
-    {
-      label: "Address",
-      key: "address",
-    },
-    {
-      label: "Organisation Admin",
-      key: "organisationAdmin",
-    },
-    {
-      label: "Plans",
-      key: "plans",
-    },
-    {
-      label: "Status",
-      key: "status",
-    },
-    {
-      label: "Actions",
-      key: "actions",
-    },
-  ];
 
   const handleDelete = (id) => {
     setLoadingId(id);

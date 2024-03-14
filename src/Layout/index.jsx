@@ -24,8 +24,12 @@ function Layout({ children }) {
       <Sidebar />
       <Box
         sx={{
-          width: '100%',
-          // overflowY: 'scroll'
+          width: {
+            lg:'95%',
+            xs:'90%',
+            md:'93%'
+          },
+          overflowY: 'scroll',
           backgroundColor: '#F8FAFC',
           borderRadius: 5,
           padding: 3,
@@ -35,7 +39,7 @@ function Layout({ children }) {
       >
         <Box
           sx={{
-            width: '95%',
+            width: '100%',
             display: 'flex',
             justifyContent: 'flex-end',
             alignItems: 'center',
