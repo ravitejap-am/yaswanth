@@ -103,11 +103,11 @@ const Footer = () => {
       </div>
       )}
       {isMobile && (
-      <div className="main-mobile-footer">
-      <div className={Style.footerFIrstCOntent}>
-        <div className={Style.footerAddress}>
+
+      <div style={{padding: "40px", height: "70vh"}}>
+        <div >
           <span
-            className="footer_p_tag"
+            className=""
             style={{ color: "#FFF", marginTop: "-15px" }}
           >
             AM-ChatBOT{" "}
@@ -120,8 +120,8 @@ const Footer = () => {
             />
           </span>
           <p
-            className="footer_p_tag_2"
-            style={{ color: "#FFF", fontSize: "14px", whiteSpace: "nowrap" }}
+            className=""
+            style={{ color: "#FFF", fontSize: "14px", display: ""}}
           >
             <Link
               to="/PrivacyPolicy"
@@ -137,7 +137,6 @@ const Footer = () => {
               Terms & Conditions
             </Link>
           </p>
-        </div>
         <div
           className={Style.footer_social_links}
           style={{ marginTop: "20px" }}
@@ -147,25 +146,25 @@ const Footer = () => {
           <img src={img3} alt="" />
         </div>
          <br />
-        <p className="footer_p_tag" style={{ color: "#FFF", fontSize: "14px", display: "flex"}}>
+        <p className="" style={{ color: "#FFF", fontSize: "14px", display: "flex"}}>
           {" "}
-         <span> <img src={img4} alt="" /></span> <span> 4th Cross, Ramanjaneya Layout,
+         <span> <img src={img4} alt="" /></span> <span style={{marginLeft: "10px"}}> 4th Cross, Ramanjaneya Layout,<br />
            Marathahalli, Bangalore, India.</span>
         </p>
-        <p className="footer_p_tag" style={{ color: "#FFF", fontSize: "14px", display: "flex" }}>
+        <p className="" style={{ color: "#FFF", fontSize: "14px" , display: "flex"}}>
           <span>
           <img src={img5} alt="" /></span>
           <span>
           <a
             href="mailto:sales@areteminds.com"
-            style={{ textDecoration: "none", color: "#FFF" }}
+            style={{ textDecoration: "none", color: "#FFF", marginLeft: "10px" }}
           >
             sales@areteminds.com
           </a>
           </span>
         </p>
-        <p style={{ color: "#FFF", fontSize: "14px", display: "flex" }}>
-         <span> <img src={img6} alt="" /> </span><span>+919663205304</span>
+        <p style={{ color: "#FFF", fontSize: "14px", display: "flex", }}>
+         <span> <img src={img6} alt="" /> </span><span style={{ marginLeft: "10px" }}>+919663205304</span>
         </p>
 
       <br /><br />
@@ -174,7 +173,8 @@ const Footer = () => {
        @2024. All rights reserved by Areteminds
        </p>
   </div>
-   </div>
+  </div>
+
       )}
 
     </div>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { Form } from 'antd';
+// import { Form } from 'antd';
 import GeneralForm from '../../components/common/forms/GeneralForm';
 import axios from 'axios';
 import { toast } from 'react-toastify';
@@ -12,7 +12,11 @@ import { setUser, selectUser } from '../../store/authSlice';
 import * as constants from '../../constants/Constant';
 import { useMessageState } from '../../hooks/useapp-message';
 import { SetSessionToken } from '../../utils/SessionManager';
+import { Form, Input, Select, Grid, Button } from "antd";
+import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
+
 import "./sign-in.css"
+
 const SignIn = () => {
   let {
     buttonLoading,
@@ -29,6 +33,7 @@ const SignIn = () => {
   const [filesystem, setFileSysytem] = useState([]);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [isSigningIn, setIsSigningIn] = useState(false);
+  const [isMobile, setIsMobile] = useState(false); 
 
   useEffect(() => {
     if (showSuccessMessage && user?.userToken) {
@@ -40,7 +45,7 @@ const SignIn = () => {
         localStorage.setItem('userRole', role);
         switch (role) {
           case 'ORG_ADMIN':
-            navigate('/dashboard');
+            navigate('/chat');
             break;
           case 'USER':
             navigate('/user');
@@ -152,10 +157,19 @@ const SignIn = () => {
     }
   };
 
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    handleResize(); 
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
   const cancelHandler = (errorInfo) => {
     console.log('Canceling....');
     console.log(errorInfo);
   };
+
 
   const formElements = [
     {
@@ -233,32 +247,92 @@ const SignIn = () => {
       <div className="signin-header">
         <SignHeader
           title="AM-Chat"
-          linkText="Don't have an account?"
+          linkText={!isMobile && "Don't have an account?"}
           linkTo="/registeruser"
           buttonText={buttonProps.name}
           buttonProps={buttonProps}
         />
       </div>
-      <div className="main signin-main">
-        <div className="container main-container">
-          <div className="row">
-            <div className="col">
-              <div className="row">
-                <div className="box-round">
-                  <div className="text-top">
-                    <h2>Sign In</h2>
-                    <p>Please sign in with your organization email id.</p>
-                  </div>
-
-                  <div className="form-content">
-                    <GeneralForm {...feedingVariable} />
-                  </div>
-                </div>
-              </div>
-            </div>
+      <div className="signin-main-css">
+      <div className="text-top-signup">
+        <h2>Sign In</h2>
+          <p>Please sign in with your organization <br /> email id.</p>
           </div>
+        <div className='signin-form-css'> 
+        <Form
+            name="basic"
+            initialValues={{
+              remember: true,
+            }}
+            layout="vertical"
+            autoComplete="off"
+            // style={{ width: "auto", margin: "auto" }}
+            onFinish={submitHandler}
+          >
+            <Form.Item
+              // label="Email"
+              name="email"
+              place
+              rules={[
+                {
+                  required: true,
+                  message: "Please enter your email!",
+                },
+                {
+                  type: 'email',
+                  message: 'Invalid email format',
+                },
+              ]}
+              required={false}
+            >
+              <Input className="signin_input_css"  placeholder="Email"/>
+            </Form.Item>
+            <Form.Item
+              // label="Password"
+              name="password"
+              rules={[
+                {
+                  required: true,
+                  message: "Please enter your password!",
+                },
+              ]}
+              required={false}
+            >
+                  <Input.Password
+                    className="signin_input_css"
+                    placeholder= "Password"
+                    iconRender={visible =>
+                      visible ? <EyeOutlined  style={{fontSize: "25px"}}/> : <EyeInvisibleOutlined style={{fontSize: "25px"}}/>
+                    }
+                  /> 
+                  </Form.Item>
+            <Form.Item>
+              <Button
+                type="primary"
+                htmlType="submit"
+                className="signin_submit_btn_css"
+              >
+                Submit
+              </Button>
+            </Form.Item>
+            <Link
+            to={'/recoverypassword'}
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              color: 'Black',
+            }}
+          >
+            <p>
+              Forgot your password?
+            </p>
+          </Link>
+          </Form>
+
         </div>
         <NotifyMessage />
+        <br />
+          <br />
         <Footer />
       </div>
     </>

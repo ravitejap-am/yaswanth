@@ -102,4 +102,56 @@ padding-bottom: 70px;
   display: flex;
 }
 
+.footer-container {
+  padding: 40px;
+  height: 70vh;
+}
+
+.footer-header {
+  color: #fff;
+  display: flex;
+  align-items: center;
+}
+
+.footer-logo {
+  color: #fff;
+  margin-top: -15px;
+}
+
+.footer-logo-icon {
+  margin-left: -3px;
+}
+
+.footer-links {
+  color: #fff;
+  font-size: 14px;
+}
+
+.footer-social-links {
+  margin-top: 20px;
+}
+
+.footer-address,
+.footer-email,
+.footer-phone,
+.footer-rights {
+  color: #fff;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+}
+
+.footer-address img,
+.footer-email img,
+.footer-phone img {
+  margin-right: 10px;
+}
+
+.footer-email a {
+  text-decoration: none;
+  color: #fff;
+  margin-left: 10px;
+}
+
+
 

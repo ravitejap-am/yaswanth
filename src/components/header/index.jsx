@@ -1,69 +1,48 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import Popover from '@mui/material/Popover';
-import PopupState, { bindTrigger, bindPopover } from 'material-ui-popup-state';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
-import Divider from '@mui/material/Divider';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import AssignmentIndOutlinedIcon from '@mui/icons-material/AssignmentIndOutlined';
+import PopupState, { bindPopover } from 'material-ui-popup-state';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Button from '@mui/material/Button';
+import Style from './header.module.css';
+import defaultImage from "../../../src/asset/defaultProfile.jpg";
+import PersonIcon from '@mui/icons-material/Person';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
-import './header.module.css'
 
-function OrganizationAdminHeader({
+function Header({
   componentName,
-  name,
-  profileImageSrc,
   customStyle,
   navigationRoute
 }) {
-  const style = {
-    width: 200,
-    ...customStyle,
-  };
-
   const handleLogout = () => {
     localStorage.clear();
     window.location.href = '/signin';
   };
 
-  const handleViewProfile = () => { 
+  const handleViewProfile = () => {
     window.location.href = navigationRoute
-  }
+  };
+
+  const HeaderImage = localStorage.getItem('userImageUrl') || defaultImage;
+  const storedFullName = localStorage.getItem('fullName');
+
   return (
     <PopupState variant="popover" popupId="profile-popup-popover">
       {(popupState) => (
-        <div >
-          <div >
-            {componentName}
-          </div>
-
-          <div
-            
-            onClick={popupState.open}
-          >
+        <div className={Style.headermain}>
+          <div className={Style.headertext}>{componentName}</div>
+          <div onClick={popupState.open} className={Style.popupalignment}>
             <div>
-              <div className="rounded-image">
-            <img
-           src={localStorage.getItem('userImageUrl')}
-           alt=""
-           
-           style={{ width: "100px", height: "100px" }}
-
-          />
-</div>
+              <img
+                src={HeaderImage}
+                alt=""
+                className={Style.roundedimage}
+              />
             </div>
-            <span
-              // className={Styles.SuperAdminProfileStyle}
-              // style={customStyle.textStyle}
-            >
-              {name}
-            </span>
+            <div className={Style.Usernametext}>
+              <span>{storedFullName}</span>
+            </div>
           </div>
-
-          <Popover
+          <Menu
             {...bindPopover(popupState)}
             anchorOrigin={{
               vertical: 'bottom',
@@ -74,35 +53,19 @@ function OrganizationAdminHeader({
               horizontal: 'center',
             }}
           >
-            <List sx={style}>
-              <ListItem onClick={handleViewProfile}>
-                  {/* <Link
-                    to= {navigationRoute}
-                    style={{ textDecoration: 'none' }}
-                  > */}
-                <ListItemButton>
-                  <ListItemIcon>
-                    <AssignmentIndOutlinedIcon />
-                  </ListItemIcon>
-                    <ListItemText primary="View Profile" />
-                </ListItemButton>
-                {/* </Link> */}
-              </ListItem>
-              <Divider component="li" />
-              <ListItem onClick={handleLogout}>
-                <ListItemButton>
-                  <ListItemIcon>
-                    <LogoutOutlinedIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Logout" />
-                </ListItemButton>
-              </ListItem>
-            </List>
-          </Popover>
+            <MenuItem onClick={handleViewProfile}>
+             <span className= {Style.Iconalgnment}><PersonIcon /> </span> 
+              <span>View Profile</span>
+            </MenuItem>
+            <MenuItem onClick={handleLogout}>
+             <span className= {Style.Iconalgnment}> <LogoutOutlinedIcon /></span>
+              <span>Logout</span>
+            </MenuItem>
+          </Menu>
         </div>
       )}
     </PopupState>
   );
 }
 
-export default OrganizationAdminHeader;
+export default Header;
