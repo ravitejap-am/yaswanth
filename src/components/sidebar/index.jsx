@@ -1,37 +1,17 @@
 import React from 'react';
-import { Home, Movie, Bookmark } from '@mui/icons-material';
-import { Link, useLocation } from 'react-router-dom';
+
 import { Box, Hidden, Typography } from '@mui/material';
-import Dashboard from '@mui/icons-material/Dashboard';
-import DescriptionIcon from '@mui/icons-material/Description';
-import PeopleIcon from '@mui/icons-material/People';
-import Chat from '@mui/icons-material/Chat';
 
-const navLinks = [
-  {
-    name: 'Dashboard',
-    icon: <Dashboard />,
-    link: '/dashboard',
-  },
-  {
-    name: 'Users',
-    icon: <PeopleIcon />,
-    link: '/users',
-  },
-  {
-    name: 'Documents',
-    icon: <DescriptionIcon />,
-    link: '/documents',
-  },
-  {
-    name: 'Chat',
-    icon: <Chat />,
-    link: '/chat',
-  },
-];
+import { sideBar } from './sidebar';
 
+import { selectUser } from '../../store/authSlice';
+import { Link, useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { tokenDecodeJWT } from '../../utils/authUtils';
 function Sidebar() {
+  const { userToken } = useSelector(selectUser);
   const { pathname } = useLocation();
+  const { role } = tokenDecodeJWT(userToken);
   return (
     <Box
       sx={{
@@ -85,33 +65,7 @@ function Sidebar() {
             gap: 4,
           }}
         >
-          {navLinks.map((item) => {
-            const isActive = pathname === item.link;
-            return (
-              <Link
-                key={item.name}
-                to={item.link}
-                style={{ textDecoration: 'none' }}
-              >
-                <Box
-                  sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 2,
-                    color: 'white',
-                    textDecoration: 'none',
-                  }}
-                >
-                  {React.cloneElement(item.icon, {
-                    style: { color: isActive ? '#4F46E5' : 'white' },
-                  })}
-                  <Hidden mdDown>
-                    <Typography>{item.name}</Typography>
-                  </Hidden>
-                </Box>
-              </Link>
-            );
-          })}
+          {sideBar(role, pathname)}
         </Box>
       </Box>
     </Box>
