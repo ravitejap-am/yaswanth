@@ -25,11 +25,16 @@ function Layout({ children }) {
       <Box
         sx={{
           width: {
-            lg:'95%',
-            xs:'90%',
-            md:'93%'
+            lg: '95%',
+            xs: '90%',
+            md: '93%',
+            xl: '95%',
           },
-          overflowY: 'scroll',
+          overflowY: {
+            xs: 'scroll',
+            md: 'hidden',
+            lg: 'hidden',
+          },
           backgroundColor: '#F8FAFC',
           borderRadius: 5,
           padding: 3,
