@@ -52,8 +52,12 @@ new flow import statements start
 
  */
 
-import Dashboard from './pages/dashboard/Dashboard.jsx';
-
+import Dashboard from './pages/org-admin/dashboard/Dashboard.jsx';
+import Users from './pages/org-admin/users/index.jsx';
+import Documents from './pages/org-admin/documents/index.js';
+import Chats from './pages/chats/index.jsx';
+import SupeAdminDashboard from './pages/super-admin/dasboard/index.jsx';
+import Organisations from './pages/super-admin/organisations/index.jsx';
 /*  
 new flow import statements stop
 
@@ -89,7 +93,7 @@ const Rout = () => {
             element={
               decodedToken?.role == 'USER' ? (
                 <>
-                  <AMChatMainUserSidebar />
+                  <Chats />
                 </>
               ) : decodedToken?.role == 'ORG_ADMIN' ? (
                 <>
@@ -112,7 +116,7 @@ const Rout = () => {
               decodedToken?.role == 'USER' ? (
                 <SearchUIAIChatSidebar />
               ) : decodedToken?.role == 'ORG_ADMIN' ? (
-                <OrgAdminChatSidebar />
+                <Chats />
               ) : (
                 <PageNotFound />
               )
@@ -153,7 +157,7 @@ const Rout = () => {
         path="/organisations"
         element={
           <ProtectedRoute
-            element={<OrganizationSidebar />}
+            element={<Organisations />}
             allowedRoles={['SUPER_ADMIN']}
           />
         }
@@ -199,7 +203,7 @@ const Rout = () => {
         path="/documents"
         element={
           <ProtectedRoute
-            element={<OrgUserListSidebar />}
+            element={<Documents />}
             allowedRoles={['ORG_ADMIN']}
           />
         }
@@ -207,10 +211,7 @@ const Rout = () => {
       <Route
         path="/users"
         element={
-          <ProtectedRoute
-            element={<OrgDocumentListSidebar />}
-            allowedRoles={['ORG_ADMIN']}
-          />
+          <ProtectedRoute element={<Users />} allowedRoles={['ORG_ADMIN']} />
         }
       ></Route>
       <Route

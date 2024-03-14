@@ -35,7 +35,7 @@ function Layout({ children }) {
       >
         <Box
           sx={{
-            width: '100%',
+            width: '95%',
             display: 'flex',
             justifyContent: 'flex-end',
             alignItems: 'center',
