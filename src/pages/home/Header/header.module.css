@@ -153,24 +153,6 @@
   align-items: center;
 }
 
-.drawer {
-  background: linear-gradient(
-    114deg,
-    #0f172a 51.52%,
-    #152346 73.32%,
-    #1a2e5e 92.75%
-  );
-}
-
-.ant-drawer .ant-drawer-content {
-  background: linear-gradient(
-    114deg,
-    #0f172a 51.52%,
-    #152346 73.32%,
-    #1a2e5e 92.75%
-  ) !important;
-}
-
 @media (max-width: 767px) {
   .mainHeader {
     justify-content: space-between;

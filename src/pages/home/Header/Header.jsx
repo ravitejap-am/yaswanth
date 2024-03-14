@@ -153,7 +153,7 @@ const Header = () => {
               style={{ color: "white", fontSize: "30px" }}
             />
             <Drawer
-              className={Styles.drawer}
+              // className={Styles.drawer}
               title="Menu"
               placement="top"
               closable={true}

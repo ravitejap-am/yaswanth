@@ -20,108 +20,36 @@ const ContactUp = () => {
     hideNotifyMessage,
   } = useMessageState();
   const navigate = useNavigate();
+  const { useBreakpoint } = Grid;
+  const screens = useBreakpoint();
 
   useEffect(() => {
     if (formRef.current) {
       formRef.current.scrollIntoView({ behavior: "auto" });
     }
   }, []);
-  const validateEmail = (_, value) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (value && emailRegex.test(value)) {
-      return Promise.resolve();
-    }
-    return Promise.reject("Please enter a valid email address!");
-  };
-  const { useBreakpoint } = Grid;
-  const screens = useBreakpoint();
+
   const selectOptions = [
     { value: "FREEMIUM", label: "Freemium" },
     { value: "PREMIUM", label: "Standard" },
     { value: "ENTERPRISE", label: "Enterprise" },
   ];
-  const formElements = [
-    {
-      name: "name",
-      label: "Name",
-      type: "text",
-      style: {
-        width: screens.sm ? "495px" : "auto",
-        borderRadius: "40px",
-        border: "1px solid var(--Brand-700, #4338CA)",
-        backgroundColor: "transparent",
-        color: "#FFF",
-      },
-      rules: [{ required: true, message: "Please enter your name" }],
-      labelName: true,
-    },
-    {
-      name: "email",
-      label: "Email",
-      type: "email",
-      style: {
-        width: screens.sm ? "495px" : "auto",
-        borderRadius: "40px",
-        border: "1px solid var(--Brand-700, #4338CA)",
-        backgroundColor: "transparent",
-        color: "#FFF",
-      },
-      labelName: true,
-      rules: [
-        { required: true, message: "Please enter your email" },
-        { type: "email", message: "Please enter a valid email address" },
-      ],
-    },
-    {
-      name: "plan",
-      label: "Select Plan",
-      type: "select",
-      style: {
-        width: screens.sm ? "521px" : "auto",
-        height: "50px",
-        borderRadius: "40px",
-        border: "1px solid var(--Brand-700, #4338CA)",
-        backgroundColor: "transparent",
-        paddingLeft: "10px",
-        color: "#FFF",
-        margin: "0px 5px 20px 1px",
-      },
-      labelName: true,
-      options: [
-        { value: "FREEMIUM", label: "Freemium" },
-        { value: "PREMIUM", label: "Standard" },
-        { value: "ENTERPRISE", label: "Enterprise" },
-      ],
-      rules: [{ required: true, message: "Please select a plan" }],
-    },
-    {
-      name: "comment",
-      label: "Comments",
-      type: "description",
-      style: {
-        width: screens.sm ? "525px" : "auto",
-        height: "50px",
-        borderRadius: "40px",
-        border: "1px solid var(--Brand-700, #4338CA)",
-        backgroundColor: "transparent",
-        marginBottom: "13px",
-        paddingLeft: "10px",
-        color: "#FFF",
-      },
-      labelName: "Comments",
-      // rules: [{ required: true, message: 'Please enter your comment' }],
-    },
-  ];
+
   const onFinish = (values) => {
     console.log("Success:", values);
+    submitHandler(values);
+    resetFields();
   };
+
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
+
   const messageHandler = () => {
     setIsReset(false);
     hideNotifyMessage();
   };
+  
   const submitHandler = async (values) => {
     setButtonLoading(true);
     console.log("contact up", values);
@@ -160,35 +88,6 @@ const ContactUp = () => {
     }
   };
 
-  const submitButtonProperty = {
-    name: "Submit",
-    color: "white",
-    backgroundColor: "var(--Brand-500, #6366F1)",
-    type: "primary",
-    width: screens.sm ? "525px" : "auto",
-    height: "50px",
-    borderRadius: "35px",
-    marginTop: ".6em",
-    display: screens.sm ? "undefined" : "flex",
-    justifyContent: screens.sm ? "undefined" : "center",
-  };
-
-  const feedingVariable = {
-    isCancel: false,
-    isSubmit: true,
-    cancelHandler: (errorInfo) => {
-      console.log(errorInfo);
-    },
-    submitHandler: submitHandler,
-    submitButtonProperty: submitButtonProperty,
-    formElements: formElements,
-    formType: "normal",
-    forgorPasswordHandler: () => {
-      console.log("forgot Password....");
-    },
-    validateEmail: validateEmail,
-  };
-
   return (
     <div className="Contact-us-page-main-div">
       {screens.sm || screens.lg ? (
@@ -211,11 +110,6 @@ const ContactUp = () => {
           </p>
         </div>
         <div className="Contact-Us-General-Form-Style">
-          {/* <GeneralForm
-            {...feedingVariable}
-            buttonLoading={buttonLoading}
-            isReset={isReset}
-          /> */}
           <Form
             name="basic"
             initialValues={{
@@ -248,19 +142,43 @@ const ContactUp = () => {
                   required: true,
                   message: "Please input your email!",
                 },
+                {
+                  pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                  message: "Please enter a valid email address!",
+                },
               ]}
               required={false}
             >
               <Input className="contact_input_css" />
             </Form.Item>
-            <Form.Item label="Select Plan" required={false}>
+            <Form.Item
+              label="Select Plan"
+              name="plan"
+              required={false}
+              rules={[
+                {
+                  required: true,
+                  message: "Please select any option!",
+                },
+              ]}
+            >
               <Select
                 className="contact_select_css"
                 options={selectOptions}
                 placeholder="Select an option"
               />
             </Form.Item>
-            <Form.Item label="Comments" name="comments">
+            <Form.Item
+              label="Comments"
+              name="comments"
+              rules={[
+                {
+                  required: true,
+                  message: "Please enter your comments!",
+                },
+              ]}
+              required={false}
+            >
               <TextArea className="contact_input_css" />
             </Form.Item>
             <Form.Item>

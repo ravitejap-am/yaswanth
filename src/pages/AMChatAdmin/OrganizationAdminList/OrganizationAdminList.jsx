@@ -21,6 +21,7 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import { Link } from 'react-router-dom';
+import Tables from '../../../components/common/muiTable/Tables';
 
 function OrganizationAdminList() {
   const rows = [
@@ -75,6 +76,25 @@ function OrganizationAdminList() {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
+
+  const tableHead = [
+    {
+      label: "Name",
+      key: "name",
+    },
+    {
+      label: "Email",
+      key: "email",
+    },
+    {
+      label: "Organization Name",
+      key: "organizationName",
+    },
+    {
+      label: "Actions",
+      key: "action",
+    },
+  ];
 
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
@@ -188,7 +208,6 @@ function OrganizationAdminList() {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {/* Map through the data and create rows */}
                   {rows
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row) => (
@@ -231,6 +250,7 @@ function OrganizationAdminList() {
               onRowsPerPageChange={handleChangeRowsPerPage}
             />
           </Paper>
+          {/* <Tables tableHead={tableHead} handleRequestSort={handleRequestSort} rows={rows} order={order} orderBy={orderBy} page={page} rowsPerPage={rowsPerPage} emptyRows={emptyRows} deleteIcon={deleteIcon} editIcon={editIcon} /> */}
         </div>
       </div>
     </div>

@@ -1,40 +1,46 @@
 .footerMain {
   position: relative;
-  height: auto !important;
-  width: 100%;
+  padding: 100px 40x;
   background-color: #0f172a;
   font-family: Arial, Helvetica, sans-serif;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
 }
 .footer_p_tag {
-  color: #ffffff !important;
+  color: #fff;
   font-family: Lato;
   font-size: 14px;
   font-style: normal;
   line-height: 20px;
+  margin: 0 !important;
+}
+.address_card {
   display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 5px 0;
 }
 .footer_p_tag_2 {
-  color: #ffffff;
   font-family: var(--text-base-font-family, "Lato-SemiBold", sans-serif);
   font-size: var(--text-base-font-size, 14px);
   line-height: var(--text-base-line-height, 24px);
   font-weight: var(--text-base-font-weight, 400);
+  margin: 10px 0 !important;
 }
 .footerFIrstCOntent {
-  padding: 10px;
+  padding: 50px;
   display: flex;
   flex-direction: column;
   width: 20%;
-  margin-right: 10px;
-  display: block;
 }
 .footerAddress {
   width: 100%;
 }
-
+.firstHalf {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
 .footerFIrstCOntent p {
   margin-bottom: 10px;
 }
@@ -55,52 +61,16 @@
   height: 30px;
 }
 .centeredText {
-  padding-top: 250px;
-  margin-right: 40px;
+  text-align: center;
 }
-@media only screen and (max-width: 767px) {
+@media (max-width: 767px) {
   .footerFIrstCOntent {
-    margin-bottom: 10px;
+    width: auto;
+    padding: 20px 10px;
+  }
+}  
+@media (min-width: 768px) and (max-width: 1023px) {
+  .footerFIrstCOntent {
+    width: 30%;
   }
 }
-
-@media screen and (max-width: 767px) {
-.footerMain{
-padding-bottom: 180px;
-}
-}
-.centeredText {
-display: flex;
-justify-content: center;
-
-}
-@media only screen and (max-width: 767px) {
-  .footerFIrstCOntent {
-    margin-bottom: 10px;
-  }
-}
-
-@media screen and (max-width: 767px) {
-.footerMain{
-padding-bottom: 180px;
-}
-.footerFIrstCOntent {
-  padding: 50px;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  margin-right: 10px;
-  display: block;
-}
-.footerMain {
-  position: relative;
-  height: auto !important;
-  width: 100%;
-  background-color: #0f172a;
-  font-family: Arial, Helvetica, sans-serif;
-  display: flex;
-  justify-content: flex-start;
-}
-}
-
-
