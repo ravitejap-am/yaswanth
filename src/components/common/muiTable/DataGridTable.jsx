@@ -30,7 +30,8 @@ const DataGridTable = ({
           />
         }
         pageSizeOptions={[10]}
-        // checkboxSelection={showOrHide}
+        checkboxSelection={showOrHide}
+        disableColumnMenu={true}
       />
    
   );

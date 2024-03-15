@@ -122,6 +122,11 @@ body {
   margin-right: auto;
   margin-left: auto;
 }
+
+.css-t89xny-MuiDataGrid-columnHeaderTitle {
+  font-weight: 700 !important;
+}
+
 @font-face {
   font-family: "Montserrat300";
   src: local("Montserrat300"),

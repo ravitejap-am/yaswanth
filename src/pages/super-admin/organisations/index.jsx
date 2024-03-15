@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Popconfirm } from "antd";
 import Layout from "../../../Layout";
-import { IconButton } from "@mui/material";
+import { Box, Grid, IconButton } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -11,14 +11,15 @@ import {
   setOrganisationData,
   setErrorMsg,
 } from "../../../store/authSlice";
+import styles from "./index.module.css";
 import { CircularProgress } from "@mui/material";
 import PageLoader from "../../../components/loader/loader";
-import Search from "../../../components/common/search/Search";
+import Search from "../../../components/common/common-searchInput";
 import { BASE_ORG_API_URL } from "../../../constants/Constant";
 import { useMessageState } from "../../../hooks/useapp-message";
+import frame from "../../../asset/AmChatSuperAdmin/plus-sm.png";
 import editIcon from "../../../asset/AmChatSuperAdmin/pencil-alt.png";
 import deleteIcon from "../../../asset/AmChatSuperAdmin/Frame 2302.png";
-import SearchImages from "../../../asset/AmChatSuperAdmin/Group 2307.png";
 import GeneralButton from "../../../components/common/buttons/GeneralButton";
 import DataGridTable from "../../../components/common/muiTable/DataGridTable";
 
@@ -319,16 +320,49 @@ function Organisations() {
 
   return (
     <Layout>
-      <DataGridTable
-        rows={data}
-        columns={columns}
-        showOrHide={false}
-        pageInfo={pageInfo}
-        setPageInfo={setPageInfo}
-        itemRender={itemRender}
-        fetchlist={fetchlist}
-      />
-    
+      {tableloading && <PageLoader loadingStatus={tableloading} />}
+      <Grid container spacing={2}>
+        <Grid item xs={12} md={12} lg={12}>
+          <Box className={styles.search_container}>
+            <Box>
+              <Search
+                inputLabel={"Search"}
+                handleSearchChange={handleChangeSearch}
+                inputValue={searchValue}
+              />
+            </Box>
+            <Box>
+              <Link to="/organisation" style={{ textDecoration: "none" }}>
+                <GeneralButton
+                  name={"Add Organisation"}
+                  type={"submit"}
+                  color={"#f8fafc"}
+                  borderRadius={"30px"}
+                  backgroundColor={"#6366f1"}
+                  icons={frame}
+                  width={"158px"}
+                  height={"45px"}
+                  buttonHandler={() => {
+                    console.log("getting");
+                    dispatch(setOrganisationStatus("add"));
+                  }}
+                />
+              </Link>
+            </Box>
+          </Box>
+        </Grid>
+        <Grid item xs={12} md={12} lg={12}>
+          <DataGridTable
+            rows={data}
+            columns={columns}
+            showOrHide={false}
+            pageInfo={pageInfo}
+            setPageInfo={setPageInfo}
+            itemRender={itemRender}
+            fetchlist={fetchlist}
+          />
+        </Grid>
+      </Grid>
     </Layout>
   );
 }
