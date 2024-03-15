@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./recoverpassword.module1.css";
-import { Form } from "antd";
 import GeneralForm from "../../components/common/forms/GeneralForm";
 import NotifyMessage from "../../components/common/toastMessages/NotifyMessage";
 import axios from "axios";
@@ -10,6 +9,7 @@ import Footer from "../../pages/home/Footer/Footer";
 import { toast } from "react-toastify";
 import SignHeader from "../home/SignHeader/SignHeader";
 import { useNavigate } from "react-router-dom";
+import { Form, Input, Select, Grid, Button } from "antd";
 
 const RecoveryPasswor = () => {
   let {
@@ -24,6 +24,7 @@ const RecoveryPasswor = () => {
   const [form] = Form.useForm();
   const [filesystem, setFileSysytem] = useState([]);
   const [message, setMessage] = useState("");
+  const [isMobile, setIsMobile] = useState(false); 
 
   const validatePassword = (_, value) => {
     if (value && value.length < 8) {
@@ -87,6 +88,14 @@ const RecoveryPasswor = () => {
       );
     }
   };
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    handleResize(); 
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const cancelHandler = (errorInfo) => {
     console.log("Canceling....");
@@ -153,31 +162,59 @@ const RecoveryPasswor = () => {
       <div className="recoverpassword-header">
         <SignHeader
           title="AM-Chat"
-          linkText="Don't have an account?"
+          linkText={!isMobile && "Don't have an account?"}
           linkTo="/registeruser"
           buttonText={buttonProps.name}
           buttonProps={buttonProps}
         />
       </div>
-      <div className="main main-forgotpassword">
-        <div className="container forgotpassword-container">
-          {" "}
-          <div className="row">
-            <div className="col">
-              <div className="row mainContent">
-                <div className="box-round">
-                  <div className="text-top">
+      <div className="signin-main-css">
+      <div className="text-top-signup">
                     <h2>Forgot Password</h2>
                     <p>Please use your organization email id.</p>
                   </div>
-                  <div className="form-content">
-                    <GeneralForm {...feedingVariable} />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+         <div className="signin-form-css" >
+         <Form
+            name="basic"
+            initialValues={{
+              remember: true,
+            }}
+            layout="vertical"
+            autoComplete="off"
+            // style={{ width: "auto", margin: "auto" }}
+            onFinish={submitHandler}
+          >
+            <Form.Item
+              // label="Email"
+              name="email"
+              place
+              rules={[
+                {
+                  required: true,
+                  message: "Please enter your email!",
+                },
+                {
+                  type: 'email',
+                  message: 'Invalid email format',
+                },
+              ]}
+              required={false}
+            >
+              <Input className="signin_input_css"  placeholder="Email"/>
+            </Form.Item>
+            <Form.Item>
+              <Button
+                type="primary"
+                htmlType="submit"
+                className="signin_submit_btn_css"
+              >
+                Submit
+              </Button>
+            </Form.Item>
+          </Form>
+         </div>
+         <br />
+         <br />
         <NotifyMessage />
         <Footer />
       </div>

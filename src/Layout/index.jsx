@@ -40,12 +40,12 @@ function Layout({ children }) {
         <Box
           sx={{
             width: '100%',
-            display: 'flex',
-            justifyContent: 'flex-end',
+            // display: 'flex',
+            // justifyContent: 'flex-end',
             alignItems: 'center',
           }}
         >
-          <Header />
+          <Header  componentName={`Dashboard`}/>
         </Box>
         {children}
       </Box>

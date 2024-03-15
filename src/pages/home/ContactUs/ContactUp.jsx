@@ -38,7 +38,7 @@ const ContactUp = () => {
   const onFinish = (values) => {
     console.log("Success:", values);
     submitHandler(values);
-    resetFields();
+    // resetFields();
   };
 
   const onFinishFailed = (errorInfo) => {
