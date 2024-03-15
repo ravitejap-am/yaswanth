@@ -192,17 +192,16 @@ function Information({ setFileSysytem, validateEmail }) {
       {isLoading && <PageLoader loadingStatus={isLoading} />}
 
       <div
-        className="personal-contentcard"
-        style={{ overflow: 'auto', minHeight: '40vh', maxHeight: '65vh' }}
+        // className="personal-contentcard"
+        style={{  minHeight: '110vh' }}
       >
-        <div className="user-profile-content">
+        <div className="">
           <div
             style={{
               display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              marginTop: '2em',
-              marginLeft: '2em',
+              justifyContent: '',
+              marginTop: "10px",
+              marginBottom: "10px"
             }}
           >
             <CircularFileInfo
@@ -211,7 +210,7 @@ function Information({ setFileSysytem, validateEmail }) {
             />
           </div>
         </div>
-        <div style={{ padding: '20px', width: '90%' }}>
+        <div >
           <UserProfileForm
             formData={userData}
             setFormData={setUserData}

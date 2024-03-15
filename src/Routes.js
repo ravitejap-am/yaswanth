@@ -46,7 +46,7 @@ import CustomerSupportPage from './pages/errorHandler/InternalServerError/Custom
 import { setUser, selectUser } from './store/authSlice.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { tokenDecodeJWT } from './utils/authUtils.js';
-
+import ProfileInfo from './pages/Profile/index.jsx';
 /*  
 new flow import statements start
 
@@ -272,15 +272,7 @@ const Rout = () => {
         element={
           <ProtectedRoute
             element={
-              decodedToken?.role == 'USER' ? (
-                <UserProfileSidebar />
-              ) : decodedToken?.role == 'SUPER_ADMIN' ? (
-                <SuperAdminPersonalInfoSideBar />
-              ) : decodedToken?.role == 'ORG_ADMIN' ? (
-                <OrganizationAdminProfileInfoSidebar />
-              ) : (
-                <PageNotFound />
-              )
+             <ProfileInfo/>
             }
             allowedRoles={['USER', 'SUPER_ADMIN', 'ORG_ADMIN']}
           />

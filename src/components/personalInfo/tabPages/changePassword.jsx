@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { setUser, selectUser } from '../../../store/authSlice';
 import * as constants from '../../../constants/Constant';
@@ -8,6 +8,8 @@ import GeneralForm from '../../../components/common/forms/GeneralForm';
 import NotifyMessage from '../../../components/common/toastMessages/NotifyMessage';
 import PageLoader from '../../loader/loader';
 import { useState } from 'react';
+import './userform.css'; 
+import { Form, Input, Button, Row, Col } from 'antd';
 
 function ChangePassword({ setFileSysytem, validateEmail }) {
   const navigate = useNavigate();
@@ -61,6 +63,7 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
     }
     return true;
   }
+
 
   const handleChangePassword = async (values) => {
     console.log('change values', values);
@@ -136,6 +139,7 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
       handleChangePassword(values);
     },
 
+    
     submitButtonProperty: {
       name: 'Submit',
       color: 'white',
@@ -196,9 +200,68 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
   return (
     <>
       {isLoading && <PageLoader loadingStatus={isLoading} />}
-      <div className="changepassword-main" style={{ width: '96%', height:'auto' }}>
-        <div className="changepassword-input">
-          <GeneralForm {...feedingVariable} />
+      <div className="main-change-password">
+        <div className="">
+          {/* <GeneralForm {...feedingVariable} /> */}
+
+          <Form
+            name="basic"
+            initialValues={{
+              remember: true,
+            }}
+            layout="vertical"
+            autoComplete="off"
+            style={{ width: "auto", margin: "auto" }}
+            onFinish={feedingVariable.submitHandler}
+          >
+      <Form.Item
+        name="password"
+        rules={[
+          {
+            required: true,
+            message: "Please enter your Old Password!",
+          },
+        ]}
+        required={false}
+      >
+        <Input className="inputstyle-css-changepassword" placeholder="Old Password" />
+      </Form.Item>
+      <Form.Item
+        name="newPassword"
+        rules={[
+          {
+            required: true,
+            message: "Please enter your new password!",
+          },
+        ]}
+        required={false}
+      >
+        <Input className="inputstyle-css-changepassword" placeholder="New Password" />
+      </Form.Item>
+      <Form.Item
+        name="confirmPassword"
+        rules={[
+          {
+            required: true,
+            message: "Please confirm password",
+          },
+        ]}
+        required={false}
+      >
+        <Input className="inputstyle-css-changepassword" placeholder="Confirm Password" />
+      </Form.Item>
+            <Form.Item>
+              <Button
+                type="primary"
+                htmlType="submit"
+                className="buttonStyle"
+              >
+                Submit
+              </Button>
+            </Form.Item>
+
+          </Form>
+
         </div>
         <NotifyMessage />
       </div>
