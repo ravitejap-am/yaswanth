@@ -58,6 +58,7 @@ import Documents from './pages/org-admin/documents/index.js';
 import Chats from './pages/chats/index.jsx';
 import SupeAdminDashboard from './pages/super-admin/dasboard/index.jsx';
 import Organisations from './pages/super-admin/organisations/index.jsx';
+import Organisation from "./pages/super-admin/organisations/organisation/index.jsx"
 /*  
 new flow import statements stop
 
@@ -172,7 +173,7 @@ const Rout = () => {
         path="/organisation"
         element={
           <ProtectedRoute
-            element={<AddOrganizationAdminSidebar />}
+            element={<Organisation />}
             allowedRoles={['SUPER_ADMIN']}
           />
         }
