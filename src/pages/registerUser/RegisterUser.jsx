@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './registerUser.module2.css';
 import * as constants from '../../constants/Constant';
-import { Form, message } from 'antd';
+// import { Form, message } from 'antd';
 import NotifyMessage from '../../components/common/toastMessages/NotifyMessage';
 import Spinner from '../../components/common/spinner/Spinner';
 import axios from 'axios';
@@ -13,6 +13,8 @@ import SignHeader from '../home/SignHeader/SignHeader';
 import { setUser, selectUser } from '../../store/authSlice';
 import { useMessageState } from '../../hooks/useapp-message';
 import Header from '../home/Header/Header';
+import { Form, Input, Select, Grid, Button } from "antd";
+import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
 
 const RegisterUser = () => {
   let {
@@ -33,6 +35,7 @@ const RegisterUser = () => {
   const [loader, setLoader] = useState(false);
   const [form] = Form.useForm();
   const [filesystem, setFileSysytem] = useState([]);
+  const [isMobile, setIsMobile] = useState(false); 
 
   const passwordIconStyles = {
     position: 'absolute',
@@ -113,6 +116,16 @@ const RegisterUser = () => {
     console.log('Canceling....');
     console.log(errorInfo);
   };
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    handleResize(); 
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
 
   const formElements = [
     {
@@ -206,55 +219,136 @@ const RegisterUser = () => {
         <div className="Signup-header">
           <SignHeader
             title="AM-Chat"
-            linkText="Have an account?"
+            linkText={!isMobile && "Have an account?"}
             linkTo="/signin"
             buttonText={buttonProps.name}
             buttonProps={buttonProps}
           />
-        </div>
-        <div className="main signup-main">
-          <div className="container signup-main-container">
-            <div className="row">
-              <div className="col">
-                <div className="row mainContent">
-                  <div className="box-round">
-                    <div className="text-top">
-                      <h2>Sign Up</h2>
-                      <p>
-                        Please sign up with your organization email id. If your{' '}
-                        <br />
-                        organization is not registered with us, please reach out
-                        to <br />
-                        sales@areteminds.com
-                      </p>
-                    </div>
-                  </div>
-                  <div>
-                    <div className="form-content">
-                      <GeneralForm {...feedingVariable} />
-                      {/* <div className="alreadySignIn">
-                        <p>
-                          Already have an account?{" "}
-                          <Link to={"/signin"} className="danger-text">
-                            Sign In
-                          </Link>
-                          <a href=""></a>
-                        </p>
-                      </div> */}
-                    </div>
-                    <br />
-                  <br />
-                  </div>
-                </div>
-              </div>
-            </div>
+        </div >
+        <div className='signup-main-css'>
+        <div className="text-top-signup">
+        <h2>Sign Up</h2>
+          {isMobile ? (
+          <p>
+           Please sign up with your organization email id. If your 
+          organization is not registered with us, please reach out to 
+          sales@areteminds.com
+          </p>
+          ) : (
+          <p>
+          Please sign up with your organization email id. If your <br />
+          organization is not registered with us, please reach out to <br />
+          sales@areteminds.com
+          </p>
+           )}
           </div>
-          {loader ? <Spinner /> : null}
+          <div className='signup-form-css'>
+          <Form
+            name="basic"
+            initialValues={{
+              remember: true,
+            }}
+            layout="vertical"
+            autoComplete="off"
+            style={{ width: "auto", margin: "auto" }}
+            onFinish={submitHandler} 
+          >
+            <Form.Item
+              name="firstName"
+              place
+              rules={[
+                {
+                  required: true,
+                  message: "Please enter your firstName!",
+                },
+              ]}
+              required={false}
+            >
+              <Input className="signup_input_css"  placeholder="First Name"/>
+            </Form.Item>
+            <Form.Item
+              name="lastName"
+              place
+              rules={[
+                {
+                  required: true,
+                  message: "Please enter your last name!",
+                },
+              ]}
+              required={false}
+            >
+              <Input className="signup_input_css"  placeholder="last Name"/>
+            </Form.Item>
+            <Form.Item
+              name="email"
+              place
+              rules={[
+                {
+                  required: true,
+                  message: "Please enter your email!",
+                },
+                {
+                  type: 'email',
+                  message: 'Invalid email format',
+                },
+              ]}
+              required={false}
+            >
+              <Input className="signup_input_css"  placeholder="Email"/>
+            </Form.Item>
+            <Form.Item
+              name="password"
+              rules={[
+                {
+                  required: true,
+                  message: "Please enter your password!",
+                },
+              ]}
+              required={false}
+            >
+                  <Input.Password
+                    className="signup_input_css"
+                    placeholder= "Confirm Password"
+                    iconRender={visible =>
+                      visible ? <EyeOutlined  style={{fontSize: "25px"}}/> : <EyeInvisibleOutlined style={{fontSize: "25px"}}/>
+                    }
+                  />            
+                  </Form.Item>
+            <Form.Item
+              name="confirmPassword"
+              rules={[
+                {
+                  required: true,
+                  message: "Please enter your password!",
+                },
+              ]}
+              required={false}
+            >
+                  <Input.Password
+                    className="signup_input_css"
+                    placeholder= "Confirm Password"
+                    iconRender={visible =>
+                    visible ? <EyeOutlined  style={{fontSize: "25px"}}/> : <EyeInvisibleOutlined style={{fontSize: "25px"}}/>
+                    }
+                  />
+                  </Form.Item>
+            <Form.Item>
+              <Button
+                type="primary"
+                htmlType="submit"
+                className="signin_submit_btn_css"
+              >
+                Submit
+              </Button>
+            </Form.Item>
+          </Form>
+          </div>
+        </div>
+        {loader ? <Spinner /> : null}
           <NotifyMessage
             message={signupMessage ? signupMessage : null}
             errorHandle={false}
           />
-        </div>
         <div className="signup-footer">
           <Footer />
         </div>

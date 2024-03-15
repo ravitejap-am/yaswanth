@@ -115,6 +115,7 @@ b {
 a {
   border: none;
 }
+
 .btn2 {
   border-radius: 5px;
   -webkit-box-shadow: none;
@@ -167,36 +168,116 @@ a {
   width: 500px;
 }
 
+.text-top-signup {
+  text-align: justify;
+  }
+
 @media screen and (max-width: 767px) {
   .Signup-header {
-  min-width: 645px;
   box-sizing: border-box;
   margin-bottom: -2px;
   }
 
   .signup-footer{
-    min-width: 645px;
     box-sizing: border-box;
   }
   .signup-main{
   width: 100%;
-  min-width: 645px;
+  /* padding-top: 100px;
+  padding-bottom: 100px; */
   }
 
   .signup-main-container {
     width: 100%; 
-    max-width: 100%; 
     padding: 0 20px; 
     box-sizing: border-box; 
   }
 
   .box-round {
     width: 100%; 
-    max-width: 600px; 
     margin: 0 auto; 
   }
 }
 
 .signup-footer{
   /* margin-top: 10px; */
+}
+
+
+
+.text-top-signup h2 {
+  text-align: center;
+  color: #312e81;
+  font-family: Montserrat;
+  font-weight: 700;
+  font-size: 3rem;
+  line-height: 5px;
+}
+.text-top-signup p {
+text-align: center;
+font-weight: 600;
+}
+
+
+
+.signup_input_css {
+width: 495px !important;
+height: 50px;
+border-radius: 40px;
+border: 1px solid var(--Neutral-400, #94a3b8);
+background: transparent !important;
+color: #212529;
+
+}
+.ant-input:focus {
+color: black; 
+}
+.ant-input::placeholder {
+color: #808080; 
+}
+
+.signup_submit_btn_css {
+background-color: var(--Brand-500, #6366F1);
+width: 495px;
+height: 50px;
+border-radius: 40px;
+}
+
+@media screen and (max-width: 767px) {
+
+  .text-top-signup h2 {
+    text-align: center;
+    color: #312e81;
+    font-family: Montserrat;
+    font-weight: 600;
+    font-size: 1.8rem;
+    line-height: 5px;
+  }
+  .text-top-signup p {
+  text-align: center;
+  font-weight: 600;
+  font-size: 13px;
+  }
+
+.signup_input_css{
+  width: 300px !important;
+}
+.text-top-signin
+  .signup_submit_btn_css {
+    width: 300px;
+
+}
+.signup-main-container{
+}
+
+
+}
+
+.signup-main-css{
+  padding-top: 100px;
+  background-color: #e2e8f0;
+}
+.signup-form-css{
+  display: flex;
+  justify-content: center;
 }

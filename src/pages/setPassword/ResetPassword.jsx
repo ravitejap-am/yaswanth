@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Form } from 'antd'; // Add this import
 import GeneralForm from '../../components/common/forms/GeneralForm';
 import axios from 'axios';
 import NotifyMessage from '../../components/common/toastMessages/NotifyMessage';
@@ -11,6 +10,7 @@ import { useParams } from 'react-router-dom';
 import * as constants from '../../constants/Constant';
 import { useMessageState } from '../../hooks/useapp-message';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { Form, Input, Select, Grid, Button } from "antd";
 import "../setPassword/ResetPassword.css"
 const ResetPassword = () => {
   let {
@@ -28,6 +28,8 @@ const ResetPassword = () => {
   const param = params.get('param');
   const jwtToken = false;
   const { id } = useParams();
+  const [isMobile, setIsMobile] = useState(false); 
+
 
   const passwordStyles =  {
     position: 'absolute',
@@ -58,6 +60,15 @@ const ResetPassword = () => {
       return Promise.resolve();
     }
   };
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    handleResize(); 
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const validateConfirmPassword = (_, value, password) => {
     console.log('passValue', value, 'confirm', password);
@@ -193,36 +204,65 @@ const ResetPassword = () => {
       <div className="resetpassword-header">
         <SignHeader
           title="AM-Chat"
-          linkText="Don't have an account?"
+          linkText={!isMobile && "Don't have an account?"}
           linkTo="/registeruser"
           buttonText={buttonProps.name}
           buttonProps={buttonProps}
         />
       </div>
-      <div className="main resetpassword-main">
-        <div className="container resetpassword-container">
-          <div className="row">
-            <div className="col">
-              <div className="row mainContent">
-                <div className="box-round">
-                  <div className="text-top">
+      <div className="resetpassword-main-css" >
+      <div className="text-top-signup">
                     <h2>Set Password</h2>
-                    <p>Please use your organization email id.</p>
+                    <p>Please use a new password.</p>
                   </div>
+<div className='resetpasswordform' >
+<Form
+            name="basic"
+            initialValues={{
+              remember: true,
+            }}
+            layout="vertical"
+            autoComplete="off"
+            // style={{ width: "auto", margin: "auto" }}
+            onFinish={feedingVariable.submitHandler}
+          >
+            <Form.Item
+              name="password"
+              place
+              rules={[
+                {
+                  required: true,
+                  message: "Please enter your password!",
+                },
+              ]}
+              required={false}
+            >
+              <Input className="signin_input_css"  placeholder="Password"/>
+            </Form.Item>
+            <Form.Item
+              name="confirmPassword"
+              rules={[
+                {
+                  required: true,
+                  message: "Please enter your password!",
+                },
+              ]}
+              required={false}
+            >
+              <Input className="signin_input_css" placeholder="Confirm Password" />
+            </Form.Item>
+            <Form.Item>
+              <Button
+                type="primary"
+                htmlType="submit"
+                className="signin_submit_btn_css"
+              >
+                Submit
+              </Button>
+            </Form.Item>
 
-                  <div className="form-content">
-                    <GeneralForm
-                      form={form}
-                      {...feedingVariable}
-                      buttonLoading={buttonLoading}
-                      isReset={isReset}
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+          </Form>
+</div>
         <Footer />
       </div>
     </>
