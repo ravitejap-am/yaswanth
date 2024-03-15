@@ -170,7 +170,7 @@ const Home = () => {
         <ContactUp />
       </div>
 
-      {/* <Footer /> */}
+      <Footer />
     </>
   );
 };

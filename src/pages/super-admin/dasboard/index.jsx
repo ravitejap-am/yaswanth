@@ -1,7 +1,7 @@
 import React from 'react';
-import Layout from '../../Layout';
+
 function Dashboard() {
-  return <Layout>dashboard</Layout>;
+  return <div>Super Admin Dashboard</div>;
 }
 
 export default Dashboard;

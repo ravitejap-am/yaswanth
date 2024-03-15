@@ -144,7 +144,6 @@
   width: 495px !important;
   height: 50px;
   border-radius: 40px;
-  padding-left: 10px;
   border: 1px solid var(--Brand-700, #4338CA);
   background: transparent !important;
   color: #fff;
@@ -175,6 +174,14 @@
 
 .ant-form-item .ant-form-item-control-input {
   width: 495px !important;
+}
+
+.ant-select-single .ant-select-selector {
+  color: #fff;
+}
+
+.ant-select-selector {
+  border-radius: 40px !important;
 }
 
 @media (max-width: 767px) {

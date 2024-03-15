@@ -1,64 +1,62 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import Styles from './Organization.module.css';
-import profile from '../../../asset/AmChatSuperAdmin/profile.png';
-import GeneralButton from '../../../components/common/buttons/GeneralButton';
-import frame from '../../../asset/AmChatSuperAdmin/plus-sm.png';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import TableSortLabel from '@mui/material/TableSortLabel';
-import Typography from '@mui/material/Typography';
-import Paper from '@mui/material/Paper';
-import Checkbox from '@mui/material/Checkbox';
-import editIcon from '../../../asset/AmChatSuperAdmin/pencil-alt.png';
-import deleteIcon from '../../../asset/AmChatSuperAdmin/Frame 2302.png';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import { Link, useNavigate } from 'react-router-dom';
-import Search from '../../../components/common/search/Search';
-import IconButton from '@mui/material/IconButton';
-import SerchImages from '../../../asset/AmChatSuperAdmin/Group2305.png';
-import { Pagination, Popconfirm } from 'antd';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import Styles from "./Organization.module.css";
+import profile from "../../../asset/AmChatSuperAdmin/profile.png";
+import GeneralButton from "../../../components/common/buttons/GeneralButton";
+import frame from "../../../asset/AmChatSuperAdmin/plus-sm.png";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import TableSortLabel from "@mui/material/TableSortLabel";
+import Typography from "@mui/material/Typography";
+import Paper from "@mui/material/Paper";
+import Checkbox from "@mui/material/Checkbox";
+import editIcon from "../../../asset/AmChatSuperAdmin/pencil-alt.png";
+import deleteIcon from "../../../asset/AmChatSuperAdmin/Frame 2302.png";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import { Link, useNavigate } from "react-router-dom";
+import Search from "../../../components/common/search/Search";
+import IconButton from "@mui/material/IconButton";
+import SerchImages from "../../../asset/AmChatSuperAdmin/Group2305.png";
+import { Pagination, Popconfirm } from "antd";
 // import "antd/dist/antd.css";
-import CustomerSupportPopUp from '../../errorHandler/InternalServerError/CustomerSupportPopUp';
-import { Modal } from 'antd';
+import CustomerSupportPopUp from "../../errorHandler/InternalServerError/CustomerSupportPopUp";
+import { Modal } from "antd";
 
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from "react-redux";
 import {
   selectUser,
   setOrganisationStatus,
   setOrganisationData,
   setErrorMsg,
-} from '../../../store/authSlice';
-import { BASE_API_URL, BASE_ORG_API_URL } from '../../../constants/Constant';
-import { useMessageState } from '../../../hooks/useapp-message';
-import CircularProgress from '@mui/material/CircularProgress';
-import SuperAdminHeader from '../SuperAdminHeader/SuperAdminHeader';
-import Skeleton from '@mui/material/Skeleton';
-import { EllipsisText } from 'antd';
-import PageLoader from '../../../components/loader/loader';
+} from "../../../store/authSlice";
+import { BASE_API_URL, BASE_ORG_API_URL } from "../../../constants/Constant";
+import { useMessageState } from "../../../hooks/useapp-message";
+import CircularProgress from "@mui/material/CircularProgress";
+import SuperAdminHeader from "../SuperAdminHeader/SuperAdminHeader";
+import Skeleton from "@mui/material/Skeleton";
+import { EllipsisText } from "antd";
+import PageLoader from "../../../components/loader/loader";
+import Tables from "../../../components/common/muiTable/Tables";
+import DataGridTable from "../../../components/common/muiTable/DataGridTable";
 
 const style = {
   py: 0,
-  width: '100%',
+  width: "100%",
   maxWidth: 360,
   borderRadius: 2,
-  border: '1px solid',
-  borderColor: 'divider',
-  backgroundColor: 'background.paper',
+  border: "1px solid",
+  borderColor: "divider",
+  backgroundColor: "background.paper",
 };
 
 function OrganizationList() {
   let {
-    buttonLoading,
-    setButtonLoading,
-    isReset,
-    setIsReset,
     showNotifyMessage,
     hideNotifyMessage,
   } = useMessageState();
@@ -71,7 +69,7 @@ function OrganizationList() {
   const dispatch = useDispatch();
   const [loadingId, setLoadingId] = useState(null);
 
-  const [fullName, setFullName] = useState('');
+  const [fullName, setFullName] = useState("");
   const [pageInfo, setPageInfo] = useState({
     pageSize: 10,
     page: 0,
@@ -80,15 +78,15 @@ function OrganizationList() {
   });
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const [order, setOrder] = React.useState('desc');
-  const [orderBy, setOrderBy] = React.useState('createdAt');
+  const [order, setOrder] = React.useState("desc");
+  const [orderBy, setOrderBy] = React.useState("createdAt");
   const [tableloading, setTableLoading] = useState(false);
-  const [searchValue, setSearchValue] = useState('');
+  const [searchValue, setSearchValue] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   // const [backDropLoading,setBackDropLoading] = useState(false);
 
   useEffect(() => {
-    const storedFullName = localStorage.getItem('fullName');
+    const storedFullName = localStorage.getItem("fullName");
     setFullName(storedFullName);
   }, []);
 
@@ -113,17 +111,17 @@ function OrganizationList() {
         },
         headers: {
           Authorization: `Bearer ${jwt}`,
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       });
 
       if (!response.data || !response.data.data) {
-        throw new Error('Failed to fetch documents');
+        throw new Error("Failed to fetch documents");
       }
 
-      console.log('----response', response);
+      console.log("----response", response);
       if (
-        response?.data?.message == 'list is empty' ||
+        response?.data?.message == "list is empty" ||
         response?.data?.data == null ||
         response?.data?.data.length == 0
       ) {
@@ -148,30 +146,30 @@ function OrganizationList() {
         totalCount: responseData?.totalCount,
         totalPages: responseData?.totalPages,
       });
-      console.log('-----organisationData', organisationData);
+      console.log("-----organisationData", organisationData);
       let allOrgansisation = [];
       organisationData?.map((org) => {
         let address = `${
-          org?.address?.address1 ? org.address?.address1 : ''
-        }, ${org.address?.address2 ? org.address?.address2 : ''}, ${
-          org?.address?.city ? org?.address?.city : ''
+          org?.address?.address1 ? org.address?.address1 : ""
+        }, ${org.address?.address2 ? org.address?.address2 : ""}, ${
+          org?.address?.city ? org?.address?.city : ""
         }, ${
-          org?.address?.state?.stateName ? org?.address?.state?.stateName : ''
+          org?.address?.state?.stateName ? org?.address?.state?.stateName : ""
         }, ${
           org?.address?.country?.countryName
             ? org?.address?.country?.countryName
-            : ''
-        }-${org?.address?.postCode ? org?.address?.postCode : ''}`;
+            : ""
+        }-${org?.address?.postCode ? org?.address?.postCode : ""}`;
         let individuvalOrg = {
           id: org.id,
           name: org.name,
           address: address,
           contactPerson: `${
-            org?.contact?.firstName ? org?.contact?.firstName : ''
-          }  ${org?.contact?.lastName ? org?.contact?.lastName : ''}`,
+            org?.contact?.firstName ? org?.contact?.firstName : ""
+          }  ${org?.contact?.lastName ? org?.contact?.lastName : ""}`,
 
-          plans: 'Basic',
-          status: org?.active ? 'Active' : 'Inactive',
+          plans: "Basic",
+          status: org?.active ? "Active" : "Inactive",
         };
         allOrgansisation.push(individuvalOrg);
       });
@@ -179,16 +177,16 @@ function OrganizationList() {
       setRows(allOrgansisation);
       setTableLoading(false);
     } catch (error) {
-      console.log('error---->', error);
+      console.log("error---->", error);
       if (error?.response?.status === 500) {
         const errorMsgprops = {
           message: {
-            title: 'Something went wrong',
-            content: 'Please contact our customer support team',
+            title: "Something went wrong",
+            content: "Please contact our customer support team",
           },
           handleCancelVerification: handleCancelVerification,
           handleVerification: handleVerification,
-          onOkButtonText: 'Retry',
+          onOkButtonText: "Retry",
         };
         dispatch(setErrorMsg({ ...errorMsgprops }));
       }
@@ -200,7 +198,7 @@ function OrganizationList() {
         totalPages: 0,
       });
       setRows([]);
-      console.error('Error fetching documents:', error.message);
+      console.error("Error fetching documents:", error.message);
       setTableLoading(false);
     }
   };
@@ -217,7 +215,7 @@ function OrganizationList() {
       const response = await axios.delete(`${BASE_ORG_API_URL}`, {
         headers: {
           Authorization: `Bearer ${jwt}`,
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         // data: JSON.stringify(body),
         data: JSON.stringify(body),
@@ -225,45 +223,45 @@ function OrganizationList() {
       setLoadingId(null);
 
       fetchlist();
-      showNotifyMessage('success', response?.data?.message, messageHandler);
-      console.log('API Response:', response.data);
+      showNotifyMessage("success", response?.data?.message, messageHandler);
+      console.log("API Response:", response.data);
       // navigate('/dashboardadmin/organizationlist');
       setTableLoading(false);
     } catch (error) {
-      console.error('Error occurred:', error);
-      if (error?.response?.status == 500 || error?.response?.status == '500') {
+      console.error("Error occurred:", error);
+      if (error?.response?.status == 500 || error?.response?.status == "500") {
         const errorMsgprops = {
           message: {
-            title: 'Something went wrong',
-            content: 'Please contact our customer support team',
+            title: "Something went wrong",
+            content: "Please contact our customer support team",
           },
           handleCancelVerification: handleCancelVerification,
           handleVerification: handleVerification,
-          onOkButtonText: 'Retry',
+          onOkButtonText: "Retry",
         };
         dispatch(setErrorMsg({ ...errorMsgprops }));
       }
       setLoadingId(null);
       console.log(error);
       setTableLoading(false);
-      showNotifyMessage('error', error?.message, messageHandler);
+      showNotifyMessage("error", error?.message, messageHandler);
     }
   };
 
   const searchStyles = {
-    width: '300px',
-    height: '45px',
-    borderRadius: '42px',
-    fontFamily: 'Inter, sans-serif',
-    backgroundColor: '#EEF2FF',
-    display: 'flex',
-    alignItems: 'center',
-    marginRight: '18px',
+    width: "300px",
+    height: "45px",
+    borderRadius: "42px",
+    fontFamily: "Inter, sans-serif",
+    backgroundColor: "#EEF2FF",
+    display: "flex",
+    alignItems: "center",
+    marginRight: "18px",
   };
 
   const handleRequestSort = (event, property) => {
-    const isAsc = orderBy === property && order === 'asc';
-    setOrder(isAsc ? 'desc' : 'asc');
+    const isAsc = orderBy === property && order === "asc";
+    setOrder(isAsc ? "desc" : "asc");
     setOrderBy(property);
   };
 
@@ -290,10 +288,10 @@ function OrganizationList() {
   };
 
   const itemRender = (_, type, originalElement) => {
-    if (type === 'prev') {
+    if (type === "prev") {
       return <a>Previous</a>;
     }
-    if (type === 'next') {
+    if (type === "next") {
       return <a>Next</a>;
     }
     return originalElement;
@@ -307,12 +305,12 @@ function OrganizationList() {
     const isValidJwtToken = true;
     if (isValidJwtToken) {
       // navigate("/dashboardadmin")
-      console.log('valid jwt token');
+      console.log("valid jwt token");
       // verify jwt token
-      navigate('/dashboardadmin');
+      navigate("/dashboardadmin");
     } else {
       localStorage.clear();
-      navigate('/signin');
+      navigate("/signin");
     }
   };
 
@@ -320,31 +318,118 @@ function OrganizationList() {
     setIsOpen(false);
   };
 
+  const handleDelete = (id) => {
+    setLoadingId(id);
+    deleteOrganisation(id);
+  };
+
+  const handleEdit = (id) => {
+    console.log("editing");
+    console.log(id);
+    const orgObject = responseData.find((obj) => obj.id === id);
+    navigate("/organisation");
+    dispatch(setOrganisationStatus("edit"));
+    dispatch(setOrganisationData(orgObject));
+  };
+
+  const columns = [
+    {
+      field: "organisationName",
+      headerName: "Organisation Name",
+      width: 200,
+      sortable: false,
+    },
+    { field: "address", headerName: "Address", width: 450, sortable: false },
+    {
+      field: "organisationAdmin",
+      headerName: "Organisation Admin",
+      width: 200,
+      sortable: false,
+    },
+    {
+      field: "plans",
+      headerName: "Plans",
+      width: 100,
+      sortable: false,
+    },
+    {
+      field: "status",
+      headerName: "Status",
+      width: 100,
+      sortable: false,
+    },
+    {
+      field: "actions",
+      headerName: "Actions",
+      width: 100,
+      sortable: false,
+      renderCell: (params) => (
+        <div>
+          <IconButton
+            aria-label="edit"
+            onClick={() => handleEdit(params.row.id)}
+          >
+            <img src={editIcon} alt="Edit" />
+          </IconButton>
+          <IconButton aria-label="delete">
+            {loadingId == rows.id && loadingId != null ? (
+              <CircularProgress />
+            ) : (
+              <Popconfirm
+                key={params.row.id || "amchat"}
+                title="Am Chat"
+                description={
+                  "Do you Really want to delete this organization '" +
+                  params.row.name +
+                  "'"
+                }
+                onConfirm={() => handleDelete(params.row.id)}
+                okText="Submit"
+                cancelText="Close"
+              >
+                <img src={deleteIcon} alt="Delete" />
+              </Popconfirm>
+            )}
+          </IconButton>
+        </div>
+      ),
+    },
+  ];
+
+  const data = rows.map((item) => ({
+    id: item?.id,
+    organisationName: item?.name,
+    organisationAdmin: item?.contactPerson,
+    address: item?.address,
+    plans: item?.plans,
+    status: item?.status,
+  }));
+
   return (
     <div
       className={Styles.superAdminMainCardDivStyle}
-      style={{ minHeight: '100vh' }}
+      style={{ minHeight: "100vh" }}
     >
       {tableloading && <PageLoader loadingStatus={tableloading} />}
       <div className={Styles.superAdminMiddleParentDiv}>
         <div className={Styles.superAdminProfileCardStyle}>
           <SuperAdminHeader
             componentName="Organisations"
-            name={fullName || ''}
-            profileImageSrc={localStorage.getItem('userImageUrl')}
+            name={fullName || ""}
+            profileImageSrc={localStorage.getItem("userImageUrl")}
             customStyle={{
               containerStyle: {
-                display: 'flex',
-                borderRadius: '8px',
+                display: "flex",
+                borderRadius: "8px",
               },
               imageStyle: {
-                width: '44px',
-                height: '44px',
+                width: "44px",
+                height: "44px",
               },
               textStyle: {
-                color: 'black',
-                fontWeight: '600',
-                fontSize: '18px',
+                color: "black",
+                fontWeight: "600",
+                fontSize: "18px",
               },
             }}
           />
@@ -353,59 +438,52 @@ function OrganizationList() {
         <div className={Styles.bannerBtn}>
           <div className={Styles.OrganizationListFilterSerchBox}>
             <Search
-              name={'Search name here.'}
+              name={"Search name here."}
               styles={searchStyles}
               searchImage={SerchImages}
-              imageHeight={'47px'}
+              imageHeight={"47px"}
               imageMarginLeft={20}
               searchValue={searchValue}
               handleChangeSearch={handleChangeSearch}
             />
           </div>
           <div className={Styles.bannerButton}>
-            <Link to="/organisation" style={{ textDecoration: 'none' }}>
+            <Link to="/organisation" style={{ textDecoration: "none" }}>
               <GeneralButton
-                name={'Add Organisation'}
-                type={'submit'}
-                color={'#f8fafc'}
-                borderRadius={'30px'}
-                backgroundColor={'#6366f1'}
+                name={"Add Organisation"}
+                type={"submit"}
+                color={"#f8fafc"}
+                borderRadius={"30px"}
+                backgroundColor={"#6366f1"}
                 icons={frame}
-                width={'158px'}
-                height={'45px'}
+                width={"158px"}
+                height={"45px"}
                 buttonHandler={() => {
-                  console.log('getting');
-                  dispatch(setOrganisationStatus('add'));
+                  console.log("getting");
+                  dispatch(setOrganisationStatus("add"));
                 }}
               />
             </Link>
           </div>
         </div>
-        {/* <CustomerSupportPopUp  isOpen={isOpen} setIsOpen={setIsOpen} handleVerification={handleVerification} handleCancelVerification={handleCancelVerification}/> */}
         <div className={Styles.OrganizationListTable}>
-          <Paper>
+          {/* <Paper>
             <TableContainer>
               <Table
-                sx={{ width: '100%' }}
+                sx={{ width: "100%" }}
                 aria-labelledby="tableTitle"
-                size={'medium'}
+                size={"medium"}
                 aria-label="enhanced table"
               >
-                <TableHead style={{ borderBottom: '2px solid #0F172A' }}>
+                <TableHead style={{ borderBottom: "2px solid #0F172A" }}>
                   <TableRow>
-                    {/* <TableCell padding="checkbox">
-                      <Checkbox
-                        indeterminate={false}
-                        inputProps={{ 'aria-label': 'select all desserts' }}
-                      />
-                    </TableCell> */}
                     <TableCell>
                       <TableSortLabel
-                        onClick={(e) => handleRequestSort(e, 'name')}
+                        onClick={(e) => handleRequestSort(e, "name")}
                       >
                         <Typography
                           variant="body1"
-                          style={{ fontWeight: 'bold' }}
+                          style={{ fontWeight: "bold" }}
                         >
                           Organisation Name
                         </Typography>
@@ -414,87 +492,39 @@ function OrganizationList() {
                     <TableCell>
                       <Typography
                         variant="body1"
-                        style={{ fontWeight: 'bold' }}
+                        style={{ fontWeight: "bold" }}
                       >
                         Address
                       </Typography>
-                      {/* <TableSortLabel
-                        active={orderBy === 'address'}
-                        direction={orderBy === 'address' ? order : 'asc'}
-                        onClick={(e) => handleRequestSort(e, 'address')}
-                      >
-                        <Typography
-                          variant="body1"
-                          style={{ fontWeight: 'bold' }}
-                        >
-                          Address
-                        </Typography>
-                      </TableSortLabel> */}
                     </TableCell>
                     <TableCell>
                       <Typography
                         variant="body1"
-                        style={{ fontWeight: 'bold' }}
+                        style={{ fontWeight: "bold" }}
                       >
                         Organisation Admin
                       </Typography>
-                      {/* <TableSortLabel
-                        active={orderBy === 'contactPerson'}
-                        direction={orderBy === 'contactPerson' ? order : 'asc'}
-                        onClick={(e) => handleRequestSort(e, 'contactPerson')}
-                      >
-                        <Typography
-                          variant="body1"
-                          style={{ fontWeight: 'bold' }}
-                        >
-                          Contact Person
-                        </Typography>
-                      </TableSortLabel> */}
                     </TableCell>
                     <TableCell>
                       <Typography
                         variant="body1"
-                        style={{ fontWeight: 'bold' }}
+                        style={{ fontWeight: "bold" }}
                       >
                         Plans
                       </Typography>
-                      {/* <TableSortLabel
-                        active={orderBy === 'plans'}
-                        direction={orderBy === 'plans' ? order : 'asc'}
-                        onClick={(e) => handleRequestSort(e, 'plans')}
-                      >
-                        <Typography
-                          variant="body1"
-                          style={{ fontWeight: 'bold' }}
-                        >
-                          Plans
-                        </Typography>
-                      </TableSortLabel> */}
                     </TableCell>
                     <TableCell>
                       <Typography
                         variant="body1"
-                        style={{ fontWeight: 'bold' }}
+                        style={{ fontWeight: "bold" }}
                       >
                         Status
                       </Typography>
-                      {/* <TableSortLabel
-                        active={orderBy === 'status'}
-                        direction={orderBy === 'status' ? order : 'asc'}
-                        onClick={(e) => handleRequestSort(e, 'status')}
-                      >
-                        <Typography
-                          variant="body1"
-                          style={{ fontWeight: 'bold' }}
-                        >
-                          Status
-                        </Typography>
-                      </TableSortLabel> */}
                     </TableCell>
                     <TableCell>
                       <Typography
                         variant="body1"
-                        style={{ fontWeight: 'bold' }}
+                        style={{ fontWeight: "bold" }}
                       >
                         Actions
                       </Typography>
@@ -502,7 +532,6 @@ function OrganizationList() {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {/* Map through the data and create rows */}
                   <>
                     {rows.length > 0 ? (
                       rows
@@ -512,18 +541,13 @@ function OrganizationList() {
                         )
                         .map((row) => (
                           <TableRow key={row.id}>
-                            {/* <TableCell padding="checkbox">
-                              <Checkbox
-                                inputProps={{ 'aria-labelledby': row.name }}
-                              />
-                            </TableCell> */}
                             <TableCell component="th" scope="row">
                               <span className={Styles.tableText}>
-                                {' '}
+                                {" "}
                                 {row.name}
                               </span>
                             </TableCell>
-                            <TableCell style={{ width: '250px' }}>
+                            <TableCell style={{ width: "250px" }}>
                               <span className={Styles.tableText}>
                                 {row.address}
                               </span>
@@ -543,75 +567,26 @@ function OrganizationList() {
                                 {row.status}
                               </span>
                             </TableCell>
-                            {/* <TableCell>
-                          <FormControl style={{ width: '110px' }}>
-                            <Select
-                              style={{ border: 'none', borderRadius: 'none' }}
-                              value={row.status}
-                              onChange={(e) => {
-                                console.log(e.target.value);
-                              }}
-                            >
-                              <MenuItem value="Active">Active</MenuItem>
-                              <MenuItem value="Inactive">Inactive</MenuItem>
-                            </Select>
-                          </FormControl>
-                        </TableCell> */}
                             <TableCell>
-                              {/* <IconButton aria-label="view">
-                            <img
-                              src={eyesolid}
-                              alt="View"
-                              style={{ width: 24, height: 24 }}
-                            />
-                          </IconButton> */}
-                              <Link to="/organisation">
-                                <IconButton
-                                  aria-label="edit"
-                                  onClick={() => {
-                                    console.log('editing');
-                                    console.log(row);
-                                    const orgObject = responseData.find(
-                                      (obj) => obj.id === row.id
-                                    );
-                                    dispatch(setOrganisationStatus('edit'));
-                                    dispatch(setOrganisationData(orgObject));
-                                  }}
-                                >
-                                  <img src={editIcon} alt="Edit" />
-                                </IconButton>
-                              </Link>
-
                               <IconButton
-                                aria-label="delete"
-                                onClick={() => {
-                                  // setLoadingId(row.id);
-                                  // deleteOrganisation(row.id);
-                                }}
+                                aria-label="edit"
+                                onClick={() => handleEdit(row?.id)}
                               >
+                                <img src={editIcon} alt="Edit" />
+                              </IconButton>
+                              <IconButton aria-label="delete">
                                 {loadingId == rows.id && loadingId != null ? (
                                   <CircularProgress />
                                 ) : (
-                                  // <img src={deleteIcon} alt="Delete" />
                                   <Popconfirm
-                                    key={row?.id || 'amchat'}
+                                    key={row?.id || "amchat"}
                                     title="Am Chat"
                                     description={
                                       "Do you Really want to delete this organization '" +
                                       row?.name +
                                       "'"
                                     }
-                                    onConfirm={() => {
-                                      // handleDelete(row.id)
-                                      setLoadingId(row.id);
-                                      deleteOrganisation(row.id);
-
-                                      // message.success('Click on Yes');
-                                    }}
-                                    onCancel={() => {
-                                      console.log(' row?.id ', row);
-                                      // message.error('Click on No');
-                                    }}
+                                    onConfirm={() => handleDelete(row?.id)}
                                     okText="Submit"
                                     cancelText="Close"
                                   >
@@ -627,27 +602,20 @@ function OrganizationList() {
                         <TableCell colSpan={7} align="center">
                           <h2>No data available</h2>
                         </TableCell>
-                        {/* Adjust colSpan based on the number of columns */}
                       </TableRow>
                     )}
                   </>
-
-                  {/* {emptyRows > 0 && (
-                    <TableRow style={{ height: 53 * emptyRows }}>
-                      <TableCell colSpan={7} />
-                    </TableRow>
-                  )} */}
                 </TableBody>
               </Table>
             </TableContainer>
             <div
               style={{
-                display: 'flex',
-                justifyContent: 'flex-end',
-                alignItems: 'center',
-                marginTop: '16px',
-                gap: '20px',
-                padding: '15px',
+                display: "flex",
+                justifyContent: "flex-end",
+                alignItems: "center",
+                marginTop: "16px",
+                gap: "20px",
+                padding: "15px",
               }}
             >
               <div>Total {pageInfo?.totalCount} items</div>
@@ -662,16 +630,17 @@ function OrganizationList() {
                 }}
                 showSizeChanger={false}
               />
-
-              {/* <Pagination
-                total={rows.length}
-                itemRender={itemRender}
-                pageSize={rowsPerPage}
-                current={page}
-                onChange={(newPage) => setPage(newPage)}
-              /> */}
             </div>
-          </Paper>
+          </Paper> */}
+          <DataGridTable
+            rows={data}
+            columns={columns}
+            showOrHide={false}
+            pageInfo={pageInfo}
+            setPageInfo={setPageInfo}
+            itemRender={itemRender}
+            fetchlist={fetchlist}
+          />
         </div>
       </div>
     </div>
