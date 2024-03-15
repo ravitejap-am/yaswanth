@@ -25,11 +25,16 @@ function Layout({ children }) {
       <Box
         sx={{
           width: {
-            lg:'95%',
-            xs:'90%',
-            md:'93%'
+            lg: '95%',
+            xs: '90%',
+            md: '93%',
+            xl: '95%',
           },
-          overflowY: 'scroll',
+          overflowY: {
+            xs: 'scroll',
+            md: 'hidden',
+            lg: 'hidden',
+          },
           backgroundColor: '#F8FAFC',
           borderRadius: 5,
           padding: 3,
@@ -40,12 +45,12 @@ function Layout({ children }) {
         <Box
           sx={{
             width: '100%',
-            // display: 'flex',
-            // justifyContent: 'flex-end',
+            display: 'flex',
+            justifyContent: 'flex-end',
             alignItems: 'center',
           }}
         >
-          <Header  componentName={`Dashboard`}/>
+          <Header />
         </Box>
         {children}
       </Box>
