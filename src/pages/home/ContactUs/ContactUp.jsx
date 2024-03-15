@@ -22,6 +22,7 @@ const ContactUp = () => {
   const navigate = useNavigate();
   const { useBreakpoint } = Grid;
   const screens = useBreakpoint();
+  const [form] = Form.useForm();
 
   useEffect(() => {
     if (formRef.current) {
@@ -38,7 +39,7 @@ const ContactUp = () => {
   const onFinish = (values) => {
     console.log("Success:", values);
     submitHandler(values);
-    // resetFields();
+    form.resetFields();
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -49,7 +50,7 @@ const ContactUp = () => {
     setIsReset(false);
     hideNotifyMessage();
   };
-  
+
   const submitHandler = async (values) => {
     setButtonLoading(true);
     console.log("contact up", values);
@@ -111,6 +112,7 @@ const ContactUp = () => {
         </div>
         <div className="Contact-Us-General-Form-Style">
           <Form
+            form={form}
             name="basic"
             initialValues={{
               remember: true,
