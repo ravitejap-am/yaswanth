@@ -61,6 +61,7 @@ import Organisations from "./pages/super-admin/organisations/index.jsx";
 import Organisation from "./pages/super-admin/organisations/organisation/index.jsx";
 import EditUsers from "./pages/org-admin/users/edit-users/EditUsers.jsx";
 import AddUsers from "./pages/org-admin/users/add-users/AddUsers.jsx";
+import ProfileInfo from "./pages/Profile/index.jsx";
 /*  
 new flow import statements stop
 
@@ -86,7 +87,7 @@ const Rout = () => {
       <Route exact path="/recoverypassword" element={<RecoveryPasswor />} />
       <Route exact path="/api/v1/iam/user/verify" element={<ResetPassword />} />
       <Route exact path="/resetPassword/:id" element={<ResetPassword />} />
-      <Route exact path="/pagenotfound" element={<PageNotFound />} />
+      <Route exact path="/pagenotfound" element={<PageNotFound />} /> 
       <Route exact path="/internal500" element={<Page505 />} />
       <Route exact path="/undermaintenence" element={<MaintainencePage />} />
       <Route
@@ -271,17 +272,7 @@ const Rout = () => {
         path="/Info"
         element={
           <ProtectedRoute
-            element={
-              decodedToken?.role == "USER" ? (
-                <UserProfileSidebar />
-              ) : decodedToken?.role == "SUPER_ADMIN" ? (
-                <SuperAdminPersonalInfoSideBar />
-              ) : decodedToken?.role == "ORG_ADMIN" ? (
-                <OrganizationAdminProfileInfoSidebar />
-              ) : (
-                <PageNotFound />
-              )
-            }
+            element={<ProfileInfo />}
             allowedRoles={["USER", "SUPER_ADMIN", "ORG_ADMIN"]}
           />
         }

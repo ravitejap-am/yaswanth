@@ -262,7 +262,7 @@ const ResetPassword = () => {
             </Form.Item>
 
           </Form>
-</div>
+         </div>
         <Footer />
       </div>
     </>
