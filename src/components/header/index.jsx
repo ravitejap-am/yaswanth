@@ -29,7 +29,7 @@ function Header({
     <PopupState variant="popover" popupId="profile-popup-popover">
       {(popupState) => (
         <div className={Style.headermain}>
-          <div className={Style.headertext}>{componentName}</div>
+          <div className={Style.headertext}>Dashboard</div>
           <div onClick={popupState.open} className={Style.popupalignment}>
             <div>
               <img

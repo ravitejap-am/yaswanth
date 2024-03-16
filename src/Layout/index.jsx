@@ -45,9 +45,9 @@ function Layout({ children }) {
         <Box
           sx={{
             width: '100%',
-            display: 'flex',
-            justifyContent: 'flex-end',
-            alignItems: 'center',
+            // display: 'flex',
+            // justifyContent: 'flex-end',
+            // alignItems: 'center',
           }}
         >
           <Header />

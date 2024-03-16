@@ -59,6 +59,7 @@ import Chats from './pages/chats/index.jsx';
 import SupeAdminDashboard from './pages/super-admin/dasboard/index.jsx';
 import Organisations from './pages/super-admin/organisations/index.jsx';
 import Organisation from "./pages/super-admin/organisations/organisation/index.jsx"
+import ProfileInfo from './pages/Profile/index.jsx';
 /*  
 new flow import statements stop
 
@@ -273,15 +274,7 @@ const Rout = () => {
         element={
           <ProtectedRoute
             element={
-              decodedToken?.role == 'USER' ? (
-                <UserProfileSidebar />
-              ) : decodedToken?.role == 'SUPER_ADMIN' ? (
-                <SuperAdminPersonalInfoSideBar />
-              ) : decodedToken?.role == 'ORG_ADMIN' ? (
-                <OrganizationAdminProfileInfoSidebar />
-              ) : (
-                <PageNotFound />
-              )
+              <ProfileInfo />
             }
             allowedRoles={['USER', 'SUPER_ADMIN', 'ORG_ADMIN']}
           />
