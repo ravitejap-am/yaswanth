@@ -200,7 +200,7 @@ function Information({ setFileSysytem, validateEmail }) {
             style={{
               display: 'flex',
               justifyContent: '',
-              marginTop: "10px",
+              marginTop: "20px",
               marginBottom: "10px"
             }}
           >

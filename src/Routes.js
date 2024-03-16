@@ -46,7 +46,7 @@ import CustomerSupportPage from './pages/errorHandler/InternalServerError/Custom
 import { setUser, selectUser } from './store/authSlice.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { tokenDecodeJWT } from './utils/authUtils.js';
-import ProfileInfo from './pages/Profile/index.jsx';
+
 /*  
 new flow import statements start
 
@@ -59,6 +59,7 @@ import Chats from './pages/chats/index.jsx';
 import SupeAdminDashboard from './pages/super-admin/dasboard/index.jsx';
 import Organisations from './pages/super-admin/organisations/index.jsx';
 import Organisation from "./pages/super-admin/organisations/organisation/index.jsx"
+import ProfileInfo from './pages/Profile/index.jsx';
 /*  
 new flow import statements stop
 
@@ -273,7 +274,7 @@ const Rout = () => {
         element={
           <ProtectedRoute
             element={
-             <ProfileInfo/>
+              <ProfileInfo />
             }
             allowedRoles={['USER', 'SUPER_ADMIN', 'ORG_ADMIN']}
           />

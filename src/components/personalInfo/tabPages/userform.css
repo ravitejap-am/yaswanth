@@ -76,12 +76,13 @@ label {
     padding: 0.375rem 0.75rem;
   }
   .inputstyle-css-changepassword{
-    width: 260px !important;
+    width: 280px !important;
     height: 50px;
     border-radius: 40px;
     border: 1px solid var(--Neutral-400, #94a3b8);
     background: transparent !important;
     color: #212529;
+    
   }
 }
 
@@ -92,7 +93,7 @@ label {
    }
 
    .inputstyle-css-changepassword{
-    margin-left: -24px;
+    margin-left: -38px;
    }
   }
 
@@ -108,6 +109,8 @@ label {
 .main-change-password{
 padding-top: 60px;
 }
+
+
 
 
 

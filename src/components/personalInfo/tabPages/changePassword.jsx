@@ -10,10 +10,15 @@ import PageLoader from '../../loader/loader';
 import { useState } from 'react';
 import './userform.css'; 
 import { Form, Input, Button, Row, Col } from 'antd';
+import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
 
 function ChangePassword({ setFileSysytem, validateEmail }) {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
   let {
     buttonLoading,
     setButtonLoading,
@@ -41,6 +46,25 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
     left: '320px',
   };
 
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 1035);
+    };
+
+    handleResize();
+
+    window.addEventListener('resize', handleResize);
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const togglePasswordVisibility = (type) => {
+    if (type === 'password') {
+      setShowPassword(!showPassword);
+    } else if (type === 'confirmPassword') {
+      setShowConfirmPassword(!showConfirmPassword);
+    }
+  };
   const messageHandler = () => {
     setIsReset(false);
     hideNotifyMessage();
@@ -203,7 +227,6 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
       <div className="main-change-password">
         <div className="">
           {/* <GeneralForm {...feedingVariable} /> */}
-
           <Form
             name="basic"
             initialValues={{
@@ -214,42 +237,157 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
             style={{ width: "auto", margin: "auto" }}
             onFinish={feedingVariable.submitHandler}
           >
-      <Form.Item
-        name="password"
-        rules={[
-          {
-            required: true,
-            message: "Please enter your Old Password!",
-          },
-        ]}
-        required={false}
-      >
-        <Input className="inputstyle-css-changepassword" placeholder="Old Password" />
-      </Form.Item>
-      <Form.Item
-        name="newPassword"
-        rules={[
-          {
-            required: true,
-            message: "Please enter your new password!",
-          },
-        ]}
-        required={false}
-      >
-        <Input className="inputstyle-css-changepassword" placeholder="New Password" />
-      </Form.Item>
-      <Form.Item
-        name="confirmPassword"
-        rules={[
-          {
-            required: true,
-            message: "Please confirm password",
-          },
-        ]}
-        required={false}
-      >
-        <Input className="inputstyle-css-changepassword" placeholder="Confirm Password" />
-      </Form.Item>
+             {isMobile ? (
+              <>
+            <Form.Item
+              name="password"
+              rules={[
+                {
+                  required: true,
+                  message: "Please enter your Old Password!",
+                },
+              ]}
+              required={false}
+            >
+              <Input
+                className="inputstyle-css-changepassword"
+                placeholder="Old Password"
+                type={showPassword ? 'text' : 'password'}
+                suffix={
+                  <Button
+                    type="text"
+                    onClick={() => togglePasswordVisibility('password')}
+                    icon={showPassword ? <EyeOutlined style={{fontSize: "20px"}}/> : <EyeInvisibleOutlined  style={{fontSize: "20px"}}/>}
+                  />
+                }
+              />
+            </Form.Item>
+            <Form.Item
+              name="newPassword"
+              rules={[
+                {
+                  required: true,
+                  message: "Please enter your new password!",
+                },
+              ]}
+              required={false}
+            >
+              <Input
+                className="inputstyle-css-changepassword"
+                placeholder="New Password"
+                type={showPassword ? 'text' : 'password'}
+                suffix={
+                  <Button
+                    type="text"
+                    onClick={() => togglePasswordVisibility('password')}
+                    icon={showPassword ? <EyeOutlined style={{fontSize: "20px"}}/> : <EyeInvisibleOutlined style={{fontSize: "20px"}}/>}
+                  />
+                }
+              />
+            </Form.Item>
+            <Form.Item
+              name="confirmPassword"
+              rules={[
+                {
+                  required: true,
+                  message: "Please confirm password",
+                },
+              ]}
+              required={false}
+            >
+              <Input
+                className="inputstyle-css-changepassword"
+                placeholder="Confirm Password"
+                type={showConfirmPassword ? 'text' : 'password'}
+                suffix={
+                  <Button
+                    type="text"
+                    onClick={() => togglePasswordVisibility('confirmPassword')}
+                    icon={showConfirmPassword ? <EyeOutlined style={{fontSize: "20px"}} /> : <EyeInvisibleOutlined style={{fontSize: "20px"}} />}
+                  />
+                }
+              />
+            </Form.Item>
+            </>
+            ) : (
+        <Row gutter={[16, 16]}>
+          <Col xs={24} md={12}>
+          <Form.Item
+              name="password"
+              rules={[
+                {
+                  required: true,
+                  message: "Please enter your Old Password!",
+                },
+              ]}
+              required={false}
+            >
+              <Input
+                className="inputstyle-css-changepassword"
+                placeholder="Old Password"
+                type={showPassword ? 'text' : 'password'}
+                suffix={
+                  <Button
+                    type="text"
+                    onClick={() => togglePasswordVisibility('password')}
+                    icon={showPassword ? <EyeOutlined style={{fontSize: "20px"}}/> : <EyeInvisibleOutlined  style={{fontSize: "20px"}}/>}
+                  />
+                }
+              />
+            </Form.Item>
+          </Col>
+          <Col xs={24} md={12}>
+          <Form.Item
+              name="newPassword"
+              rules={[
+                {
+                  required: true,
+                  message: "Please enter your new password!",
+                },
+              ]}
+              required={false}
+            >
+              <Input
+                className="inputstyle-css-changepassword"
+                placeholder="New Password"
+                type={showPassword ? 'text' : 'password'}
+                suffix={
+                  <Button
+                    type="text"
+                    onClick={() => togglePasswordVisibility('password')}
+                    icon={showPassword ? <EyeOutlined style={{fontSize: "20px"}}/> : <EyeInvisibleOutlined style={{fontSize: "20px"}}/>}
+                  />
+                }
+              />
+            </Form.Item>
+          </Col>
+          <Col xs={24} md={12}>
+          <Form.Item
+              name="confirmPassword"
+              rules={[
+                {
+                  required: true,
+                  message: "Please confirm password",
+                },
+              ]}
+              required={false}
+            >
+              <Input
+                className="inputstyle-css-changepassword"
+                placeholder="Confirm Password"
+                type={showConfirmPassword ? 'text' : 'password'}
+                suffix={
+                  <Button
+                    type="text"
+                    onClick={() => togglePasswordVisibility('confirmPassword')}
+                    icon={showConfirmPassword ? <EyeOutlined style={{fontSize: "20px"}} /> : <EyeInvisibleOutlined style={{fontSize: "20px"}} />}
+                  />
+                }
+              />
+            </Form.Item>
+          </Col>
+        </Row>
+      )}
             <Form.Item>
               <Button
                 type="primary"
@@ -259,9 +397,7 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
                 Submit
               </Button>
             </Form.Item>
-
           </Form>
-
         </div>
         <NotifyMessage />
       </div>
