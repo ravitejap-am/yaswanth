@@ -66,94 +66,95 @@ function UserProfileForm({ formData, setFormData, submitHandler }) {
   };
 
   return (
-    <form className="form" onSubmit={handleSubmit}>
-      <div className="form-row">
-        <div className="form-group">
-          <label htmlFor="firstName">First Name:</label>
-          <input
-            className="inputstyle"
-            type="text"
-            id="firstName"
-            name="firstName"
-            value={formData.firstName}
-            onChange={handleChange}
-          />
-          {errors.firstName && (
-            <span className="error">{errors.firstName}</span>
-          )}
-        </div>
-        <div className="form-group">
-          <label htmlFor="lastName">Last Name:</label>
-          <input
-            className="inputstyle"
-            type="text"
-            id="lastName"
-            name="lastName"
-            value={formData.lastName}
-            onChange={handleChange}
-          />
-          {errors.lastName && <span className="error">{errors.lastName}</span>}
-        </div>
-      </div>
-      <div className="form-row">
-        <div className="form-group">
-          <label htmlFor="email">Email:</label>
-          <input
-            className="inputstyle"
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            disabled
-            style={{ backgroundColor: '#CBD5E1' }}
-          />
-          {errors.email && <span className="error">{errors.email}</span>}
-        </div>
-        <div className="form-group">
-          <label htmlFor="organization">Organization:</label>
-          <input
-            className="inputstyle"
-            type="text"
-            id="organization"
-            name="organization"
-            value={formData.organization}
-            onChange={handleChange}
-            disabled
-            style={{ backgroundColor: '#CBD5E1' }}
-          />
-          {errors.organization && (
-            <span className="error">{errors.organization}</span>
-          )}
-        </div>
-      </div>
-      {/* <div className="form-row">
-        <div className="form-group">
-          <label htmlFor="status">Status:</label>
-          <input
-            className="inputstyle"
-            type="text"
-            id="status"
-            name="status"
-            value={formData.status}
-            onChange={handleChange}
-            disabled
-            style={{ backgroundColor: '#CBD5E1' }}
-          />
-          {errors.status && <span className="error">{errors.status}</span>}
-        </div>
-      </div> */}
-      <Button
-        type="primary"
-        htmlType="submit"
-        className="buttonStyle"
-        // onClick={() => {
-        //   submitHandler(formData);
-        // }}
-      >
-        Submit
-      </Button>
-    </form>
+<form className="form" onSubmit={handleSubmit}>
+  <div className="form-row">
+    <div className="form-group">
+      <label htmlFor="firstName">First Name:</label>
+      <input
+        className="inputstyle-css"
+        type="text"
+        id="firstName"
+        name="firstName"
+        value={formData.firstName}
+        onChange={handleChange}
+      />
+      {errors.firstName && (
+        <span className="error">{errors.firstName}</span>
+      )}
+    </div>
+    <div className="form-group">
+      <label htmlFor="lastName">Last Name:</label>
+      <input
+        className="inputstyle-css"
+        type="text"
+        id="lastName"
+        name="lastName"
+        value={formData.lastName}
+        onChange={handleChange}
+      />
+      {errors.lastName && <span className="error">{errors.lastName}</span>}
+    </div>
+  </div>
+  <div className="form-row">
+    <div className="form-group">
+      <label htmlFor="email">Email:</label>
+      <input
+        className="inputstyle-css"
+        type="email"
+        id="email"
+        name="email"
+        value={formData.email}
+        onChange={handleChange}
+        disabled
+        style={{ backgroundColor: '#CBD5E1' }}
+      />
+      {errors.email && <span className="error">{errors.email}</span>}
+    </div>
+    <div className="form-group">
+      <label htmlFor="organization">Organization:</label>
+      <input
+        className="inputstyle-css"
+        type="text"
+        id="organization"
+        name="organization"
+        value={formData.organization}
+        onChange={handleChange}
+        disabled
+        style={{ backgroundColor: '#CBD5E1' }}
+      />
+      {errors.organization && (
+        <span className="error">{errors.organization}</span>
+      )}
+    </div>
+  </div>
+  {/* <div className="form-row">
+    <div className="form-group">
+      <label htmlFor="status">Status:</label>
+      <input
+        className="inputstyle"
+        type="text"
+        id="status"
+        name="status"
+        value={formData.status}
+        onChange={handleChange}
+        disabled
+        style={{ backgroundColor: '#CBD5E1' }}
+      />
+      {errors.status && <span className="error">{errors.status}</span>}
+    </div>
+  </div> */}
+  <Button
+    type="primary"
+    htmlType="submit"
+    className="buttonStyle"
+    // onClick={() => {
+    //   submitHandler(formData);
+    // }}
+  >
+    Submit
+  </Button>
+</form>
+
   );
 }
 

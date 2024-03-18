@@ -34,7 +34,7 @@ function Layout({ children }) {
             xs: 'scroll',
             md: 'hidden',
             lg: 'hidden',
-          },
+        },
           backgroundColor: '#F8FAFC',
           borderRadius: 5,
           padding: 3,
@@ -45,9 +45,9 @@ function Layout({ children }) {
         <Box
           sx={{
             width: '100%',
-            display: 'flex',
-            justifyContent: 'flex-end',
-            alignItems: 'center',
+            // display: 'flex',
+            // justifyContent: 'flex-end',
+            // alignItems: 'center',
           }}
         >
           <Header />

@@ -50,8 +50,6 @@ function AddOrgUser(props) {
   const [fullName, setFullName] = useState('');
 
   useEffect(() => {
-    // Retrieve firstName from localStorage
-
     const storedFullName = localStorage.getItem('fullName');
     setFullName(storedFullName);
   }, []);
@@ -60,7 +58,6 @@ function AddOrgUser(props) {
 
   const handlePreview = async (file) => {
     if (!file.url && !file.preview) {
-      // Load preview image if not already loaded
       file.preview = await getBase64(file.originFileObj);
     }
     setPreviewImage(file.url || file.preview);
@@ -100,14 +97,6 @@ function AddOrgUser(props) {
     console.log('values---->567', values);
     if (values === undefined) {
       console.log('values are undefined');
-      // const isEmpty = inputRefs.current.some(ref => ref.current.value === '');
-
-      // if (isEmpty) {
-      //   // Focus on the first empty input field
-      //   const emptyInput = inputRefs.current.find(ref => ref.current.value === '');
-      //   emptyInput.current.focus();
-      //   return;
-      // }
     } else {
       if (isSubmitting) {
         console.log('AI USER 3');
@@ -116,24 +105,6 @@ function AddOrgUser(props) {
       setIsSubmitting(true);
       setButtonLoading(true);
       try {
-        // const formData = new FormData();
-        // formData.append("image", fileList[0].originFileObj);
-        // console.log("fileList[0].originFileObj", fileList[0].originFileObj);
-        // console.log("formData---->", formData);
-        // const responseImage = await fetch(`${constants.BASE_API_URL}/user/dp`, {
-        //   method: "POST",
-        //   headers: {
-        //     Authorization: `Bearer ${jwt}`,
-        //   },
-        //   body: formData,
-        // });
-
-        // if (!responseImage.ok) {
-        //   throw new Error(`HTTP error! status: ${responseImage.status}`);
-        // }
-
-        // const responseData = await responseImage.json();
-        // console.log("Upload response:", responseData);
         const responseUser = await fetch(`${constants.BASE_ORG_API_URL}/user`, {
           method: 'POST',
           headers: {
@@ -187,7 +158,6 @@ function AddOrgUser(props) {
         border: '1px solid var(--Brand-700, #4338CA)',
         backgroundColor: 'transparent',
       },
-      // rules: [{ required: true, message: "Please enter your name" }],
       labelName: false,
       pattern: /^([a-zA-Z]{3,30}\s*)+/,
       emptyErrorMessage: 'Please Enter the First Name',
@@ -203,17 +173,12 @@ function AddOrgUser(props) {
         border: '1px solid var(--Brand-700, #4338CA)',
         backgroundColor: 'transparent',
       },
-      // rules: [{ required: true, message: "Please enter your name" }],
       labelName: false,
     },
     {
       name: 'email',
       label: 'Email',
       type: 'text',
-      // rules: [
-      //   { required: true, message: "Please input your email" },
-      //   { type: "email", message: "Invalid email format" },
-      // ],
       style: {
         width: '405px',
         borderRadius: '40px',
@@ -290,31 +255,6 @@ function AddOrgUser(props) {
         </div>
 
         <div className={Styles.addOrganizationAdminSecondDiv}>
-          {/* <div className={Styles.imageUploadSection}>
-            <Upload
-              action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
-              listType="picture-circle"
-              fileList={fileList}
-              onPreview={handlePreview}
-              onChange={handleChange}
-            >
-              {fileList.length >= 1 ? null : uploadButton}
-            </Upload>
-            <Modal
-              open={previewOpen}
-              title={previewTitle}
-              footer={null}
-              onCancel={handleCancel}
-            >
-              <img
-                alt="example"
-                style={{
-                  width: "100%",
-                }}
-                src={previewImage}
-              />
-            </Modal>
-          </div> */}
           <GeneralForm
             {...feedingVariable}
             buttonLoading={buttonLoading}

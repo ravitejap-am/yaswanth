@@ -1,51 +1,51 @@
 // Rout.js
-import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
-import LoginPageError from './pages/errorHandler/LoginPageError';
-import Home from './pages/home/Home';
-import RegisterUser from './pages/registerUser/RegisterUser';
-import SignIn from './pages/signIn/SignIN';
-import RecoveryPasswor from './pages/recoveryPassword/RecoveryPasswor';
-import PageNotFound from './pages/errorHandler/PageNotFind/PageNotFound';
-import Page505 from './pages/errorHandler/InternalServerError/Page505';
-import MaintainencePage from './pages/errorHandler/UnderMaintainence/MaintainencePage';
-import AMChatAdminHome from './pages/AMChatAdmin/AMChatAdminHome';
-import OrganizationSidebar from './pages/AMChatAdmin/OrganizationList/OrganizationSidebar';
-import OrganizationAdminListSidebar from './pages/AMChatAdmin/OrganizationAdminList/OrganizationAdminListSidebar';
-import AddOrganizationAdminSidebar from './pages/AMChatAdmin/AddOrganizationAdmin/AddOrganizationAdminSidebar';
-import OrgAdminSidebar from './pages/chatmain/organizationadmin/OrgAdminSidebar.jsx';
-import OrgUserListSidebar from './pages/chatmain/orguserlist/OrgUserListSidebar.jsx';
-import OrgDocumentListSidebar from './pages/chatmain/orgdocumentlist/OrgDocumentListSidebar.jsx';
-import OrgAddDocumentSidebar from './pages/chatmain/orgadddocument/OrgAddDocumentSidebar.jsx';
-import OrgAdminChatSidebar from './pages/chatmain/OrgadminChatPage/OrgAdminChatSidebar.jsx';
-import EnterpriseRegister from './pages/registerUser/EnterpriseRegister.jsx';
-import EditAddOrganizationAdminSidebar from './pages/AMChatAdmin/EditOrganizationAdmin/EditAddOrganizationAdminSidebar.jsx';
-import PrivacyPolicy from './pages/Policy/PrivacyPolicy.jsx';
-import Error405 from '../src/pages/errorHandler/error405/Error405.jsx';
-import Error404 from './pages/errorHandler/error404/Error404.jsx';
-import OrgUpdateDocumentSidebar from './pages/chatmain/orgadddocument/orgUpdateDocument/OrgUpdateDocumentSidebar.jsx';
-import OrgEditDocumentSidebar from './pages/chatmain/orgadddocument/orgEditDocument/OrgEditDocumentSidebar.jsx';
-import EditOrgUserSidebar from './pages/chatmain/organizationadmin/editorguser/EditOrgUserSidebar.jsx';
-import TermAndCondition from './pages/Terms&Conditions/TermAndCondition.jsx';
-import AMChatMainUserSidebar from './pages/chatmain/userChat/AMChatMainUserSidebar.jsx';
-import SearchUIAIChatSidebar from './pages/AMChatAdmin/SearchUIAMChat/SearchUIAIChatSidebar.jsx';
-import UserProfile from './pages/chatmain/UserProfile.jsx';
-import ResetPassword from './pages/setPassword/ResetPassword.jsx';
-import UserProfileSidebar from './pages/chatmain/userProfileSidebar.jsx';
-import AMChatHeader from './pages/AMChatAdmin/AMChatHeader/AMChatHeader.jsx';
-import OrganizationAdminProfileInfoSidebar from './pages/chatmain/organizationadmin/OrganizationAdminProfileInfo/OrganizationAdminProfileInfoSidebar.jsx';
-import OrganizationAdminHeader from './pages/chatmain/organizationadmin/OrganizationAdminHeader/OrganizationAdminHeader.jsx';
-import SuperAdminPersonalInfoSideBar from './pages/AMChatAdmin/SuperAdminPersonalInfo/SuperAdminPersonalInfoSideBar.jsx';
-import SuperAdminHeader from './pages/AMChatAdmin/SuperAdminHeader/SuperAdminHeader.jsx';
+import React from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
+import LoginPageError from "./pages/errorHandler/LoginPageError";
+import Home from "./pages/home/Home";
+import RegisterUser from "./pages/registerUser/RegisterUser";
+import SignIn from "./pages/signIn/SignIN";
+import RecoveryPasswor from "./pages/recoveryPassword/RecoveryPasswor";
+import PageNotFound from "./pages/errorHandler/PageNotFind/PageNotFound";
+import Page505 from "./pages/errorHandler/InternalServerError/Page505";
+import MaintainencePage from "./pages/errorHandler/UnderMaintainence/MaintainencePage";
+import AMChatAdminHome from "./pages/AMChatAdmin/AMChatAdminHome";
+import OrganizationSidebar from "./pages/AMChatAdmin/OrganizationList/OrganizationSidebar";
+import OrganizationAdminListSidebar from "./pages/AMChatAdmin/OrganizationAdminList/OrganizationAdminListSidebar";
+import AddOrganizationAdminSidebar from "./pages/AMChatAdmin/AddOrganizationAdmin/AddOrganizationAdminSidebar";
+import OrgAdminSidebar from "./pages/chatmain/organizationadmin/OrgAdminSidebar.jsx";
+import OrgUserListSidebar from "./pages/chatmain/orguserlist/OrgUserListSidebar.jsx";
+import OrgDocumentListSidebar from "./pages/chatmain/orgdocumentlist/OrgDocumentListSidebar.jsx";
+import OrgAddDocumentSidebar from "./pages/chatmain/orgadddocument/OrgAddDocumentSidebar.jsx";
+import OrgAdminChatSidebar from "./pages/chatmain/OrgadminChatPage/OrgAdminChatSidebar.jsx";
+import EnterpriseRegister from "./pages/registerUser/EnterpriseRegister.jsx";
+import EditAddOrganizationAdminSidebar from "./pages/AMChatAdmin/EditOrganizationAdmin/EditAddOrganizationAdminSidebar.jsx";
+import PrivacyPolicy from "./pages/Policy/PrivacyPolicy.jsx";
+import Error405 from "../src/pages/errorHandler/error405/Error405.jsx";
+import Error404 from "./pages/errorHandler/error404/Error404.jsx";
+import OrgUpdateDocumentSidebar from "./pages/chatmain/orgadddocument/orgUpdateDocument/OrgUpdateDocumentSidebar.jsx";
+import OrgEditDocumentSidebar from "./pages/chatmain/orgadddocument/orgEditDocument/OrgEditDocumentSidebar.jsx";
+import EditOrgUserSidebar from "./pages/chatmain/organizationadmin/editorguser/EditOrgUserSidebar.jsx";
+import TermAndCondition from "./pages/Terms&Conditions/TermAndCondition.jsx";
+import AMChatMainUserSidebar from "./pages/chatmain/userChat/AMChatMainUserSidebar.jsx";
+import SearchUIAIChatSidebar from "./pages/AMChatAdmin/SearchUIAMChat/SearchUIAIChatSidebar.jsx";
+import UserProfile from "./pages/chatmain/UserProfile.jsx";
+import ResetPassword from "./pages/setPassword/ResetPassword.jsx";
+import UserProfileSidebar from "./pages/chatmain/userProfileSidebar.jsx";
+import AMChatHeader from "./pages/AMChatAdmin/AMChatHeader/AMChatHeader.jsx";
+import OrganizationAdminProfileInfoSidebar from "./pages/chatmain/organizationadmin/OrganizationAdminProfileInfo/OrganizationAdminProfileInfoSidebar.jsx";
+import OrganizationAdminHeader from "./pages/chatmain/organizationadmin/OrganizationAdminHeader/OrganizationAdminHeader.jsx";
+import SuperAdminPersonalInfoSideBar from "./pages/AMChatAdmin/SuperAdminPersonalInfo/SuperAdminPersonalInfoSideBar.jsx";
+import SuperAdminHeader from "./pages/AMChatAdmin/SuperAdminHeader/SuperAdminHeader.jsx";
 // import OrganizationAdminSearchUIAIChat from "./pages/chatmain/organizationadmin/OrganizationAdminSearchUIAIChat.jsx";
-import OrganizationAdminSidebarSearchUIAIChat from './pages/chatmain/organizationadmin/OrganizationAdminSidebarSearchUIAIChat.jsx';
-import ProtectedRoute from './ProtectedRoute';
+import OrganizationAdminSidebarSearchUIAIChat from "./pages/chatmain/organizationadmin/OrganizationAdminSidebarSearchUIAIChat.jsx";
+import ProtectedRoute from "./ProtectedRoute";
 
-import VerificationLink from './pages/linkverification/linkVerification.js';
-import CustomerSupportPage from './pages/errorHandler/InternalServerError/CustomerSupportPage.jsx';
-import { setUser, selectUser } from './store/authSlice.js';
-import { useDispatch, useSelector } from 'react-redux';
-import { tokenDecodeJWT } from './utils/authUtils.js';
+import VerificationLink from "./pages/linkverification/linkVerification.js";
+import CustomerSupportPage from "./pages/errorHandler/InternalServerError/CustomerSupportPage.jsx";
+import { setUser, selectUser } from "./store/authSlice.js";
+import { useDispatch, useSelector } from "react-redux";
+import { tokenDecodeJWT } from "./utils/authUtils.js";
 
 /*  
 new flow import statements start
@@ -59,13 +59,18 @@ import Chats from './pages/chats/index.jsx';
 import SupeAdminDashboard from './pages/super-admin/dasboard/index.jsx';
 import Organisations from './pages/super-admin/organisations/index.jsx';
 import Organisation from "./pages/super-admin/organisations/organisation/index.jsx"
+import ProfileInfo from './pages/Profile/index.jsx';
+import AddOrgDocuments from './components/AddOrgadminDocs/index.jsx';
+import UpdateOrgAdminDoc from './components/UpdateOrgAdminDoc/index.jsx';
+import EditUsers from "./pages/org-admin/users/edit-users/EditUsers.jsx";
+import AddUsers from "./pages/org-admin/users/add-users/AddUsers.jsx";
 /*  
 new flow import statements stop
 
  */
 
 const Rout = () => {
-  const userRole = localStorage.getItem('userRole');
+  const userRole = localStorage.getItem("userRole");
   const user = useSelector(selectUser);
   let decodedToken = {};
   if (!!user) {
@@ -73,7 +78,7 @@ const Rout = () => {
     decodedToken = tokenDecodeJWT(jwtToken);
   }
 
-  console.log('userRole--->', userRole);
+  console.log("userRole--->", userRole);
 
   return (
     <Routes>
@@ -84,7 +89,7 @@ const Rout = () => {
       <Route exact path="/recoverypassword" element={<RecoveryPasswor />} />
       <Route exact path="/api/v1/iam/user/verify" element={<ResetPassword />} />
       <Route exact path="/resetPassword/:id" element={<ResetPassword />} />
-      <Route exact path="/pagenotfound" element={<PageNotFound />} />
+      <Route exact path="/pagenotfound" element={<PageNotFound />} /> 
       <Route exact path="/internal500" element={<Page505 />} />
       <Route exact path="/undermaintenence" element={<MaintainencePage />} />
       <Route
@@ -92,11 +97,11 @@ const Rout = () => {
         element={
           <ProtectedRoute
             element={
-              decodedToken?.role == 'USER' ? (
+              decodedToken?.role == "USER" ? (
                 <>
                   <Chats />
                 </>
-              ) : decodedToken?.role == 'ORG_ADMIN' ? (
+              ) : decodedToken?.role == "ORG_ADMIN" ? (
                 <>
                   <OrgAdminSidebar />
                 </>
@@ -104,7 +109,7 @@ const Rout = () => {
                 <PageNotFound />
               )
             }
-            allowedRoles={['USER', 'ORG_ADMIN']}
+            allowedRoles={["USER", "ORG_ADMIN"]}
           />
         }
       ></Route>
@@ -113,16 +118,16 @@ const Rout = () => {
         element={
           <ProtectedRoute
             element={
-              decodedToken?.role == 'SUPER_ADMIN' ||
-              decodedToken?.role == 'USER' ? (
+              decodedToken?.role == "SUPER_ADMIN" ||
+              decodedToken?.role == "USER" ? (
                 <SearchUIAIChatSidebar />
-              ) : decodedToken?.role == 'ORG_ADMIN' ? (
+              ) : decodedToken?.role == "ORG_ADMIN" ? (
                 <Chats />
               ) : (
                 <PageNotFound />
               )
             }
-            allowedRoles={['SUPER_ADMIN', 'USER', 'ORG_ADMIN']}
+            allowedRoles={["SUPER_ADMIN", "USER", "ORG_ADMIN"]}
           />
         }
       ></Route>
@@ -131,7 +136,7 @@ const Rout = () => {
         element={
           <ProtectedRoute
             element={<OrganizationAdminSidebarSearchUIAIChat />}
-            allowedRoles={['ORG_ADMIN']}
+            allowedRoles={["ORG_ADMIN"]}
           />
         }
       ></Route>
@@ -143,7 +148,7 @@ const Rout = () => {
         element={
           <ProtectedRoute
             element={<Dashboard />}
-            allowedRoles={['SUPER_ADMIN', 'ORG_ADMIN']}
+            allowedRoles={["SUPER_ADMIN", "ORG_ADMIN"]}
           />
 
           // <ProtectedRoute
@@ -159,7 +164,7 @@ const Rout = () => {
         element={
           <ProtectedRoute
             element={<Organisations />}
-            allowedRoles={['SUPER_ADMIN']}
+            allowedRoles={["SUPER_ADMIN"]}
           />
         }
       ></Route>
@@ -174,7 +179,7 @@ const Rout = () => {
         element={
           <ProtectedRoute
             element={<Organisation />}
-            allowedRoles={['SUPER_ADMIN']}
+            allowedRoles={["SUPER_ADMIN"]}
           />
         }
       ></Route>
@@ -194,10 +199,7 @@ const Rout = () => {
       <Route
         path="/adduser"
         element={
-          <ProtectedRoute
-            element={<OrgAdminSidebar />}
-            allowedRoles={['ORG_ADMIN']}
-          />
+          <ProtectedRoute element={<AddUsers />} allowedRoles={["ORG_ADMIN"]} />
         }
       ></Route>
       <Route
@@ -205,21 +207,21 @@ const Rout = () => {
         element={
           <ProtectedRoute
             element={<Documents />}
-            allowedRoles={['ORG_ADMIN']}
+            allowedRoles={["ORG_ADMIN"]}
           />
         }
       ></Route>
       <Route
         path="/users"
         element={
-          <ProtectedRoute element={<Users />} allowedRoles={['ORG_ADMIN']} />
+          <ProtectedRoute element={<Users />} allowedRoles={["ORG_ADMIN"]} />
         }
       ></Route>
       <Route
         path="/document"
         element={
           <ProtectedRoute
-            element={<OrgAddDocumentSidebar />}
+            element={<AddOrgDocuments />}
             allowedRoles={['ORG_ADMIN']}
           />
         }
@@ -229,7 +231,7 @@ const Rout = () => {
         element={
           <ProtectedRoute
             element={<OrgAdminChatSidebar />}
-            allowedRoles={['ORG_ADMIN']}
+            allowedRoles={["ORG_ADMIN"]}
           />
         }
       ></Route>
@@ -245,7 +247,7 @@ const Rout = () => {
         path="/document/:documentId"
         element={
           <ProtectedRoute
-            element={<OrgUpdateDocumentSidebar />}
+            element={<UpdateOrgAdminDoc />}
             allowedRoles={['ORG_ADMIN']}
           />
         }
@@ -255,7 +257,7 @@ const Rout = () => {
         element={
           <ProtectedRoute
             element={<OrgEditDocumentSidebar />}
-            allowedRoles={['ORG_ADMIN']}
+            allowedRoles={["ORG_ADMIN"]}
           />
         }
       ></Route>
@@ -263,8 +265,8 @@ const Rout = () => {
         path="/user/:userId"
         element={
           <ProtectedRoute
-            element={<EditOrgUserSidebar />}
-            allowedRoles={['ORG_ADMIN']}
+            element={<EditUsers />}
+            allowedRoles={["ORG_ADMIN"]}
           />
         }
       ></Route>
@@ -272,18 +274,8 @@ const Rout = () => {
         path="/Info"
         element={
           <ProtectedRoute
-            element={
-              decodedToken?.role == 'USER' ? (
-                <UserProfileSidebar />
-              ) : decodedToken?.role == 'SUPER_ADMIN' ? (
-                <SuperAdminPersonalInfoSideBar />
-              ) : decodedToken?.role == 'ORG_ADMIN' ? (
-                <OrganizationAdminProfileInfoSidebar />
-              ) : (
-                <PageNotFound />
-              )
-            }
-            allowedRoles={['USER', 'SUPER_ADMIN', 'ORG_ADMIN']}
+            element={<ProfileInfo />}
+            allowedRoles={["USER", "SUPER_ADMIN", "ORG_ADMIN"]}
           />
         }
       ></Route>
