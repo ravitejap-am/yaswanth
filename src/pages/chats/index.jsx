@@ -7,13 +7,24 @@ import FormControl from '@mui/material/FormControl';
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-
+import IconButton from '@mui/material/IconButton';
+import SendIcon from '@mui/icons-material/Send';
+import ChatIcon from '@mui/icons-material/Chat';
+import { Button, Skeleton } from 'antd';
 import styles from './Chats.module.css'; 
+import { SendOutlined } from '@ant-design/icons';
+import TextArea from 'antd/es/input/TextArea';
 
 function Chats() {
-  const [searchOption, setSearchOption] = useState('');
-  const [selectedFile, setSelectedFile] = useState('');
+  const [searchOption, setSearchOption] = useState('specificFileText'); 
+  const [selectedFile, setSelectedFile] = useState('file1'); 
   const [inputValue, setInputValue] = useState('');
+  const [messageSent, setMessageSent] = useState(false);
+  const [response, setResponse] = useState('');
+  const [askedQuestion, setAskedQuestion] = useState('');
+  const [questions, setQuestions] = useState([]);
+  const [loading, setLoading] = useState(false);
+
 
   const handleSearchOptionChange = (option) => {
     setSearchOption(option);
@@ -25,16 +36,58 @@ function Chats() {
 
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
+    if (!messageSent) {
+      setMessageSent(false);
+    }
+  };
+  
+
+  const handleSend = () => {
+    console.log('Sending message:', inputValue);
+    setLoading(true); 
+    setTimeout(() => {
+      const newQuestion = inputValue;
+      const response = generateResponse(newQuestion);
+      setQuestions([...questions, { question: newQuestion, response }]);
+      setInputValue('');
+      setMessageSent(true);
+      setLoading(false); 
+    }, 1000); 
   };
 
-  const handleSuggestionClick = (suggestionText) => {
-    setInputValue(suggestionText);
+  const generateResponse = (question) => {
+    switch (question) {
+      case "Could you help me with the maternity policy of my organization?":
+        return "Sure, here is the link to the maternity policy document: [link]";
+      case "Can you tell me about GDPR compliance.  Which I should follow in my organization?":
+        return "GDPR compliance is crucial for protecting user data. Here are the key aspects you should focus on: [list of key aspects]";
+      case "Can you explain me the Pythagoras theorem based on. ":
+        return "The Pythagorean theorem states that in a right-angled triangle, the square of the length of the hypotenuse is equal to the sum of the squares of the lengths of the other two sides.";
+      case "Can you tell me what's wrong in my lab reports? ":
+        return "Sure, please upload your lab reports, and I'll take a look.";
+      case "Can you explain me the quantum? ":
+        return "Quantum mechanics is the branch of physics that studies the behavior of particles at the quantum level, where classical physics principles no longer apply.";
+      default:
+        return "I'm sorry, I didn't understand your question. Can you please provide more details?";
+    }
+  };
+
+  const handleSuggestionClick = (question) => {
+    setInputValue(question);
+  };
+
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      handleSend();
+    }
   };
 
   return (
     <Layout>
       <div className={styles.chatContainer}>
-        <Grid container spacing={2} alignItems="center" justifyContent="center">
+        <Grid container spacing={2} alignItems="left" justifyContent="left">
+
           <Grid item xs={12} sm={6} md={4}>
             <label className={styles.chatLabel}>
               <input
@@ -68,8 +121,9 @@ function Chats() {
                   onChange={handleFileChange}
                   label="Select files"
                   className={styles.chatSelect}
+                  style={{textAlign: "left"}}
                 >
-                  <MenuItem value="">
+                  <MenuItem value="" >
                     <em>Select file</em>
                   </MenuItem>
                   <MenuItem value="file1">File 1</MenuItem>
@@ -82,60 +136,99 @@ function Chats() {
         </Grid>
       </div>
       <div className={styles.chatCardContainer}>
-      <div className={styles.chatScroll}>
-        <Card className={styles.chatCardNew}>
-          <div className={styles.chatCard}>
-          <CardContent className={styles.chatCardContent}>
-            <h1 className={styles.chatHeading}>AM-Chat</h1>
-            <p className={styles.chatParagraph}>Hello, I’m AM-Chat</p>
-            <p className={styles.chatParagraphText}>How can I help you today?</p>
-
-          </CardContent>
+        <div className={styles.chatScroll}>
+          <Card className={styles.chatCardNew}>
+            <div className={styles.chatCard}>
+              {!messageSent && (
+                <CardContent className={styles.chatCardContent}>
+                  <h1 className={styles.chatHeading}>AM-Chat</h1>
+                  <p className={styles.chatParagraph}>Hello, I’m AM-Chat</p>
+                  <p className={styles.chatParagraphText}>How can I help you today?</p>
+                  <br />
+                  <br />
+                  <Grid container spacing={2}>
+                    <Grid item>
+                      <p className={styles.chatParagraphSuggestion} onClick={() => handleSuggestionClick("Could you help me with the maternity policy of my organization?")}>
+                        Could you help me with the maternity policy of my organization?
+                      </p>
+                    </Grid>
+                    <Grid item >
+                      <p className={styles.chatParagraphSuggestion} onClick={() => handleSuggestionClick("Can you tell me about GDPR compliance.  Which I should follow in my organization?")}>
+                      Can you tell me about GDPR compliance.  Which I should follow in my organization?
+                      </p>
+                    </Grid>
+                  </Grid>
+                  <Grid container spacing={2}>
+                    <Grid item>
+                      <p className={styles.chatParagraphSuggestion} onClick={() => handleSuggestionClick("Can you explain me the Pythagoras theorem based on. ")}>
+                        Can you explain me the Pythagoras theorem based on. 
+                      </p>
+                    </Grid>
+                    <Grid item >
+                      <p className={styles.chatParagraphSuggestion} onClick={() => handleSuggestionClick("Can you tell me what's wrong in my lab reports? ")}>
+                        Can you tell me what's wrong in my lab reports?  
+                      </p>
+                    </Grid>
+                    <Grid item >
+                      <p className={styles.chatParagraphSuggestion} onClick={() => handleSuggestionClick("Can you explain me the quantum? ")}>
+                        Can you explain me the quantum? 
+                      </p>
+                    </Grid>
+                  </Grid>
+                </CardContent>
+              )}
+            </div>
+            {messageSent && (
+            <CardContent className={styles.chatCardContent}>
+              {questions.map((item, index) => (
+              <div key={index}>
+          <div className={styles.responseContent}>
+         <div className={styles.askedQuestion}>
+         <img src="https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg" alt="User" className={styles.userImage} />
+            <p className={styles.askedQuestionText}> {item.question}</p>
           </div>
-          <CardContent>
-          <Grid container spacing={2}>
-                <Grid item>
-                  <p className={styles.chatParagraphSuggestion} onClick={() => handleSuggestionClick("Could you help me with the maternity policy of my organization?")}>
-                    Could you help me with the maternity policy of my organization?
-                  </p>
-                </Grid>
-                <Grid item >
-                  <p className={styles.chatParagraphSuggestion} onClick={() => handleSuggestionClick("Can you tell me about GDPR compliance.  Which I should follow in my organization?")}>
-                  Can you tell me about GDPR compliance.  Which I should follow in my organization?
-                  </p>
-                </Grid>
-              </Grid>
-              <Grid container spacing={2}>
-                <Grid item>
-                  <p className={styles.chatParagraphSuggestion} onClick={() => handleSuggestionClick("Can you explain me the Pythagoras theorem based on. ")}>
-                  Can you explain me the Pythagoras theorem based on. 
-                  </p>
-                </Grid>
-                <Grid item >
-                  <p className={styles.chatParagraphSuggestion} onClick={() => handleSuggestionClick("Can you tell me what's wrong in my lab reports? ")}>
-                  Can you tell me what's wrong in my lab reports?  
-                  </p>
-                </Grid>
-                <Grid item >
-                  <p className={styles.chatParagraphSuggestion} onClick={() => handleSuggestionClick("Can you explain me the quantum? ")}>
-                  Can you explain me the quantum? 
-                  </p>
-                </Grid>
-              </Grid>
-          </CardContent>
-          <CardContent>
-          <textarea
-              className={styles.bigInput}
-              value={inputValue}
-              onChange={handleInputChange}
-              placeholder="Ask anything..."
-            />
-          </CardContent>
+          {loading && index === questions.length - 1 ? ( 
+            <Skeleton active />
+          ) : (
+         <div className={styles.response}>
+         <img src="https://t4.ftcdn.net/jpg/04/89/49/99/360_F_489499957_3Kiig2eXI5mTY28G3QdUeppgxH1HZ5ry.jpg" alt="Response" className={styles.responseImage} />
+         <p>{item.response}</p>
+          </div>
+            )}
+          </div>
+              </div>
+              ))}
+              <br />
+              <br />
+            </CardContent>
+            )}
+            <CardContent>
+              <div className={styles.inputContainer}>
+                <div className={styles.textarea}>
+                  <textarea
+                    className={styles.bigInput}
+                    value={inputValue}
+                    onChange={handleInputChange}
+                    placeholder="Ask Anything..."
+                    autoSize={{ minRows: 3, maxRows: 5 }}
+                    onKeyPress={handleKeyPress} 
+                  />
+                   {inputValue && (
+                  <Button
+                    type="primary"
+                    shape="circle"
+                    icon={<SendOutlined />}
+                    className={styles.SendButton}
+                    onClick={handleSend}
+                  />
+                  )}
+                </div>
+              </div>
+            </CardContent>
 
-        </Card>
+          </Card>
+        </div>
       </div>
-      </div>
-
     </Layout>
   );
 }
