@@ -8,6 +8,8 @@ import CorporateFareIcon from '@mui/icons-material/CorporateFare';
 import { Link } from 'react-router-dom';
 import ChatMenuItems from './ChatMenuItems';
 import Tooltip from '@mui/material/Tooltip';
+import AddIcon from '@mui/icons-material/Add';
+import './sidebarIndex.css';
 
 const ORG_ADMIN = [
   {
@@ -58,23 +60,48 @@ const navLinks = {
   USER: USER,
 };
 
-const data = [
-  {
-    title: 'chat one title for chat adress',
-    data: [],
-    id: 1,
-  },
-  {
-    title: 'chat two title for chat adress ',
-    data: [],
-    id: 2,
-  },
-];
-
-export const sideBar = (role, pathname) => {
+export const sideBar = (role, pathname, chatHistory, setChatHistory) => {
+  const handleAddChat = () => {
+    setChatHistory([
+      ...chatHistory,
+      {
+        title: 'chat one title for chat adress',
+        data: [],
+        id: chatHistory.length + 1,
+      },
+    ]);
+    // setChatHistory((prevhistory) => {
+    //   prevhistory.push({
+    //     title: 'chat one title for chat adress',
+    //     data: [],
+    //     id: prevhistory.length + 1,
+    //   });
+    //   console.log(prevhistory);
+    //   return prevhistory;
+    // });
+  };
   return (
     <>
-      {role == 'ORG_ADMIN' && pathname == '/chat' && <></>}
+      {role == 'ORG_ADMIN' && pathname == '/chat' && (
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 2,
+            color: 'white',
+            textDecoration: 'none',
+            cursor: 'pointer',
+            padding: '4px',
+          }}
+          className="hoverDiv"
+          onClick={handleAddChat}
+        >
+          <AddIcon style={{ color: 'white' }} />
+          <Hidden mdDown>
+            <Typography>New Chat</Typography>
+          </Hidden>
+        </Box>
+      )}
       <></>
       {navLinks[role]?.map((item) => {
         const isActive = pathname === item.link;
@@ -83,6 +110,7 @@ export const sideBar = (role, pathname) => {
             key={item.name}
             to={item.link}
             style={{ textDecoration: 'none' }}
+            className="hoverDiv"
           >
             <Box
               sx={{
@@ -91,6 +119,7 @@ export const sideBar = (role, pathname) => {
                 gap: 2,
                 color: 'white',
                 textDecoration: 'none',
+                padding: '4px',
               }}
             >
               {React.cloneElement(item.icon, {
@@ -107,17 +136,23 @@ export const sideBar = (role, pathname) => {
       {role == 'ORG_ADMIN' && pathname == '/chat' && (
         <Hidden mdDown>
           <Typography variant="h6">Chats</Typography>
-
-          {data.map((item) => (
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-              }}
-              className="hoverDiv"
-            >
-              <Tooltip title={item?.title}>
+          <Box
+            sx={{
+              height: '46%',
+              overflowY: 'auto',
+            }}
+          >
+            {chatHistory.map((item) => (
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  padding: '4px',
+                }}
+                className="hoverDiv"
+              >
+                {/* <Tooltip title={item?.title}> */}
                 <p
                   style={{
                     margin: 0,
@@ -130,11 +165,12 @@ export const sideBar = (role, pathname) => {
                 >
                   {item?.title}
                 </p>
-              </Tooltip>
+                {/* </Tooltip> */}
 
-              <ChatMenuItems />
-            </div>
-          ))}
+                <ChatMenuItems />
+              </div>
+            ))}
+          </Box>
         </Hidden>
       )}
     </>

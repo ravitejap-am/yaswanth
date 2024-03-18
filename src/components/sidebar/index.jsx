@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Box, Hidden, Typography } from '@mui/material';
 
@@ -8,11 +8,18 @@ import { selectUser } from '../../store/authSlice';
 import { Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { tokenDecodeJWT } from '../../utils/authUtils';
-import './sidebarIndex.css';
 function Sidebar() {
   const { userToken } = useSelector(selectUser);
   const { pathname } = useLocation();
   const { role } = tokenDecodeJWT(userToken);
+  const [chatHistory, setChatHistory] = useState([
+    {
+      title: 'chat one title for chat adress',
+      data: [],
+      id: 1,
+    },
+  ]);
+  useEffect(() => {}, [chatHistory]);
   return (
     <Box
       sx={{
@@ -66,7 +73,7 @@ function Sidebar() {
             gap: 4,
           }}
         >
-          {sideBar(role, pathname)}
+          {sideBar(role, pathname, chatHistory, setChatHistory)}
         </Box>
       </Box>
     </Box>

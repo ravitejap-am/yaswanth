@@ -5,7 +5,7 @@
 }
 
 .hoverDiv:hover {
-  background-color: #ccc; 
+  background-color: #4F46E5; 
   border-radius: 10px;
   filter: brightness(90%);
 }

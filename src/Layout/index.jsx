@@ -34,7 +34,7 @@ function Layout({ children }) {
             xs: 'auto',
             md: 'auto',
             lg: 'auto',
-        },
+          },
           backgroundColor: '#F8FAFC',
           borderRadius: 5,
           padding: 3,
