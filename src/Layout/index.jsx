@@ -31,9 +31,9 @@ function Layout({ children }) {
             xl: '95%',
           },
           overflowY: {
-            xs: 'scroll',
-            md: 'hidden',
-            lg: 'hidden',
+            xs: 'auto',
+            md: 'auto',
+            lg: 'auto',
         },
           backgroundColor: '#F8FAFC',
           borderRadius: 5,
