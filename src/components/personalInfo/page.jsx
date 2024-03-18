@@ -12,7 +12,7 @@ import ChangePassword from './tabPages/changePassword';
 const PersonalInfo = () => {
   const [selectedTab, setSelectedTab] = useState('1');
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  // const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const handleTabChange = (event, newValue) => {
     setSelectedTab(newValue);
@@ -25,7 +25,7 @@ const PersonalInfo = () => {
   return (
     <Box sx={{ width: '100%', typography: 'body1', paddingTop: "10px " }}>
       <TabContext value={selectedTab}>
-        {isMobile ? (
+        {/* {isMobile ? (
           <Box sx={{ marginBottom: 2 }}>
             <Select
               value={selectedTab}
@@ -44,19 +44,22 @@ const PersonalInfo = () => {
               </MenuItem>
             </Select>
           </Box>
-        ) : (
+        ) : ( */}
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <TabList
               onChange={handleTabChange}
               aria-label="Personal Info Tabs"
+              variant="scrollable"
+              scrollButtons="auto"
               sx={{ backgroundColor: 'white', borderRadius: 4 }}
             >
               <Tab label={<Typography fontWeight="bold">Personal Information</Typography>} value="1" />
               <Tab label={<Typography fontWeight="bold">Change Password</Typography>} value="2" />
               <Tab label={<Typography fontWeight="bold">Plans</Typography>} value="3" />
+
             </TabList>
           </Box>
-        )}
+        {/* )} */}
         <TabPanel value="1" style={{padding: "0px"}}>
           <Information />
         </TabPanel>

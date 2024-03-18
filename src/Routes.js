@@ -60,6 +60,8 @@ import SupeAdminDashboard from './pages/super-admin/dasboard/index.jsx';
 import Organisations from './pages/super-admin/organisations/index.jsx';
 import Organisation from "./pages/super-admin/organisations/organisation/index.jsx"
 import ProfileInfo from './pages/Profile/index.jsx';
+import AddOrgDocuments from './components/AddOrgadminDocs/index.jsx';
+import UpdateOrgAdminDoc from './components/UpdateOrgAdminDoc/index.jsx';
 /*  
 new flow import statements stop
 
@@ -220,7 +222,7 @@ const Rout = () => {
         path="/document"
         element={
           <ProtectedRoute
-            element={<OrgAddDocumentSidebar />}
+            element={<AddOrgDocuments />}
             allowedRoles={['ORG_ADMIN']}
           />
         }
@@ -246,7 +248,7 @@ const Rout = () => {
         path="/document/:documentId"
         element={
           <ProtectedRoute
-            element={<OrgUpdateDocumentSidebar />}
+            element={<UpdateOrgAdminDoc />}
             allowedRoles={['ORG_ADMIN']}
           />
         }
