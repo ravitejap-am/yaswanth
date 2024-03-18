@@ -230,8 +230,8 @@ const RegisterUser = () => {
         <h2>Sign Up</h2>
           {isMobile ? (
           <p>
-           Please sign up with your organization email id. If your 
-          organization is not registered with us, please reach out to 
+           Please sign up with your organization email id. If <br />your 
+          organization is not registered with us, please <br /> reach out to 
           sales@areteminds.com
           </p>
           ) : (

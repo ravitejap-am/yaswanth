@@ -1,21 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import Styles from './OrgUpdateDocument.module.css';
-import profile from '../../../../asset/AmChatSuperAdmin/profile.png';
-import GeneralForm from '../../../../components/common/forms/GeneralForm';
+import Styles from './OrgAddDocument.module.css';
+import { selectUser } from '../../store/authSlice';
 import axios from 'axios';
-import Document from '../../../../components/common/upload/file/Document';
 import { useSelector } from 'react-redux';
-import * as constants from '../../../../constants/Constant';
-import { selectUser } from '../../../../store/authSlice';
-import { Upload, Button, Spin } from 'antd';
+import * as constants from '../../../src/constants/Constant';
+import { Upload, Button, Input, Form, Spin } from 'antd';
 import { LoadingOutlined, UploadOutlined } from '@ant-design/icons';
-import { useMessageState } from '../../../../hooks/useapp-message';
-import { useParams, useNavigate } from 'react-router-dom';
-import AMChatHeader from '../../../AMChatAdmin/AMChatHeader/AMChatHeader';
-import OrganizationAdminHeader from '../../organizationadmin/OrganizationAdminHeader/OrganizationAdminHeader';
+import { useNavigate } from 'react-router-dom';
+import { useMessageState } from '../../../src/hooks/useapp-message';
+import Layout from '../../Layout';
+import GeneralForm from '../common/forms/GeneralForm';
 
-function OrgUpdateDocument(props) {
-  const { documentId } = useParams();
+
+function AddOrgDocuments(props) {
   let {
     buttonLoading,
     setButtonLoading,
@@ -24,45 +21,40 @@ function OrgUpdateDocument(props) {
     showNotifyMessage,
     hideNotifyMessage,
   } = useMessageState();
-
   const [file, setFile] = useState(null);
   const navigate = useNavigate();
   const [firstName, setFirstName] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const navigationRoute = props?.navigationRoute;
-  const fullName = localStorage.getItem('fullName') || '';
-  const [errors, setErrors] = useState('');
-
   useEffect(() => {
-    // Retrieve firstName from localStorage
     const storedFirstName = localStorage.getItem('firstNameOrganisation');
     setFirstName(storedFirstName);
   }, []);
 
   const user = useSelector(selectUser);
   const jwt = user.userToken;
+  const profileSrc = localStorage.getItem('profileImage');
+  const navigationRoute = props?.navigationRoute;
+  const fullName = localStorage.getItem('fullName') || '';
+  const [errors, setErrors] = useState('');
+
   const messageHandler = () => {
     setIsReset(false);
     hideNotifyMessage();
   };
-  const profileSrc = localStorage.getItem('profileImage');
+  const submitHandler = async (values) => {
+    console.log('upload values', values);
 
-  const submitHandler = async () => {
-    if (isSubmitting) {
-      return;
-    }
     if (!file) {
       setErrors('Please upload the document');
       return;
     }
-    setIsSubmitting(true);
-    setButtonLoading(true);
     try {
+      setButtonLoading(true);
       const formData = new FormData();
       formData.append('file', file);
-
-      const response = await axios.put(
-        `${constants.BASE_DOC_API_URL}/${documentId}`,
+      formData.append('name', values.name);
+      console.log('formData', formData);
+      const response = await axios.post(
+        `${constants.BASE_DOC_API_URL}`,
         formData,
         {
           headers: {
@@ -73,30 +65,28 @@ function OrgUpdateDocument(props) {
       );
       setButtonLoading(false);
       setIsReset(true);
-      showNotifyMessage('success', response?.data?.message, messageHandler);
       setErrors('');
-      console.log('API Response:', response.data);
+      showNotifyMessage('success', response?.data?.message, messageHandler);
       navigate('/documents');
+      console.log('API Response:', response.data);
     } catch (error) {
       setErrors('');
-      if (error?.response?.status == 500 || error?.response?.status == '500') {
-        navigate('/customerSupport');
-      }
-
-      setButtonLoading(false);
+      console.error('Error occurred:', error);
       showNotifyMessage(
         'error',
         error?.response?.data?.message,
         messageHandler
       );
-    } finally {
-      setIsSubmitting(false);
+      if (error?.response?.status == 500 || error?.response?.status == '500') {
+        navigate('/customerSupport');
+      }
+      setButtonLoading(false);
     }
   };
 
-  const cancelHandler = () => {
+  const cancelHandler = (values) => {
+    console.log('Form values:', values);
     navigate('/documents');
-    // console.log(navigate('/document'));
   };
 
   const documentProps = {
@@ -130,6 +120,7 @@ function OrgUpdateDocument(props) {
     height: '50px',
     borderRadius: '28px',
   };
+
   const feedingVariable = {
     isCancel: true,
     cancelHandler: cancelHandler,
@@ -137,7 +128,24 @@ function OrgUpdateDocument(props) {
     submitHandler: submitHandler,
     submitButtonProperty: submitButtonProperty,
     cancelButtonProperty: cancelButtonProperty,
-    formElements: [],
+    formElements: [
+      {
+        name: 'Document Name',
+        label: 'Document Name',
+        type: 'text',
+        style: {
+          width: '405px',
+          borderRadius: '40px',
+          border: '1px solid var(--Brand-700, #4338CA)',
+          backgroundColor: 'transparent',
+          marginBottom: '10px',
+        },
+        // rules: [{ required: true, message: 'Please enter your Document Name' }],
+        labelName: 'Document Name',
+        pattern: /^.+$/,
+        emptyErrorMessage: 'Please Enter the document name',
+      },
+    ],
     formType: 'normal',
     forgorPasswordHandler: () => {
       console.log('forgot Password....');
@@ -150,13 +158,21 @@ function OrgUpdateDocument(props) {
   };
 
   return (
-    <div style={{paddingTop: "30px"}}>
-      {/* <div className={Styles.superAdminMiddleParentDiv}> */}
-
+    <Layout>
+    <div className={Styles.superAdminMainCardDivStyle} >
+      <div className={Styles.superAdminMiddleParentDiv}>
       <Spin spinning={buttonLoading} indicator={<LoadingOutlined style={{ fontSize: 40 , color: '#808080' }} spin />}>      
-
+      <Form
+            name="basic"
+            initialValues={{
+              remember: true,
+            }}
+            layout="vertical"
+            autoComplete="off"
+            // style={{ width: "auto", margin: "auto" }}
+            onFinish={submitHandler}
+          >
         <div className={Styles.addOrganizationAdminSecondDiv} >
-          <div className={Styles.Spacing_Form}>
           <div className={Styles.uploadDocumentContainer}>
             {' '}
             <Upload {...documentProps}>
@@ -164,24 +180,43 @@ function OrgUpdateDocument(props) {
             </Upload>
             <ErrorMsg />
           </div>
-          {/* <GeneralForm
-            {...feedingVariable}
-            buttonLoading={buttonLoading}
-            isReset={isReset}
-          /> */}
-                <div className={Styles.buttonContainer}>
-                <Button type="primary" htmlType="submit" className={Styles.addButtonStyle} onClick={submitHandler}>Add</Button>
+          <div>
+            <br />
+            <Form.Item
+              name="name"
+              place
+              rules={[
+                {
+                  required: true,
+                  message: "Please enter document name",
+                },
+              ]}
+              required={false}
+            >
+             <Input
+               className={Styles.Adddoc_input_css}
+                placeholder="Enter Document Name"
+                style={{ marginTop: '10px' }}
+              />
+            </Form.Item>
+
+              <div className={Styles.buttonContainer}>
+                <Button type="primary" htmlType="submit" className={Styles.addButtonStyle} >Add</Button>
                 <Button onClick={cancelHandler} className={Styles.cancelButton}>Cancel</Button>
               </div>
+
+            </div>
           <div>
 
           </div>
+          
         </div>
+        </Form>
+        </Spin>
       </div>
-      </Spin>
-
     </div>
+    </Layout>
   );
 }
 
-export default OrgUpdateDocument;
+export default AddOrgDocuments;

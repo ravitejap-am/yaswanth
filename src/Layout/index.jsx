@@ -34,7 +34,7 @@ function Layout({ children }) {
             xs: 'scroll',
             md: 'hidden',
             lg: 'hidden',
-          },
+        },
           backgroundColor: '#F8FAFC',
           borderRadius: 5,
           padding: 3,

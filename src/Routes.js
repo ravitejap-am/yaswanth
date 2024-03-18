@@ -52,16 +52,18 @@ new flow import statements start
 
  */
 
-import Dashboard from "./pages/org-admin/dashboard/Dashboard.jsx";
-import Users from "./pages/org-admin/users/index.jsx";
-import Documents from "./pages/org-admin/documents/index.jsx";
-import Chats from "./pages/chats/index.jsx";
-import SupeAdminDashboard from "./pages/super-admin/dasboard/index.jsx";
-import Organisations from "./pages/super-admin/organisations/index.jsx";
-import Organisation from "./pages/super-admin/organisations/organisation/index.jsx";
+import Dashboard from './pages/org-admin/dashboard/Dashboard.jsx';
+import Users from './pages/org-admin/users/index.jsx';
+import Documents from './pages/org-admin/documents/index.jsx';
+import Chats from './pages/chats/index.jsx';
+import SupeAdminDashboard from './pages/super-admin/dasboard/index.jsx';
+import Organisations from './pages/super-admin/organisations/index.jsx';
+import Organisation from "./pages/super-admin/organisations/organisation/index.jsx"
+import ProfileInfo from './pages/Profile/index.jsx';
+import AddOrgDocuments from './components/AddOrgadminDocs/index.jsx';
+import UpdateOrgAdminDoc from './components/UpdateOrgAdminDoc/index.jsx';
 import EditUsers from "./pages/org-admin/users/edit-users/EditUsers.jsx";
 import AddUsers from "./pages/org-admin/users/add-users/AddUsers.jsx";
-import ProfileInfo from "./pages/Profile/index.jsx";
 /*  
 new flow import statements stop
 
@@ -219,8 +221,8 @@ const Rout = () => {
         path="/document"
         element={
           <ProtectedRoute
-            element={<OrgAddDocumentSidebar />}
-            allowedRoles={["ORG_ADMIN"]}
+            element={<AddOrgDocuments />}
+            allowedRoles={['ORG_ADMIN']}
           />
         }
       ></Route>
@@ -245,8 +247,8 @@ const Rout = () => {
         path="/document/:documentId"
         element={
           <ProtectedRoute
-            element={<OrgUpdateDocumentSidebar />}
-            allowedRoles={["ORG_ADMIN"]}
+            element={<UpdateOrgAdminDoc />}
+            allowedRoles={['ORG_ADMIN']}
           />
         }
       ></Route>

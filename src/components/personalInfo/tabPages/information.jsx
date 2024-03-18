@@ -89,6 +89,14 @@ function Information({ setFileSysytem, validateEmail }) {
         status:
           userData?.data?.organisation?.active == true ? 'ACTIVE' : 'INACTIVE',
       });
+      
+      const profileImagePath = userData?.data?.user?.profileImagePath;
+      if (profileImagePath) {
+        localStorage.setItem(
+          'userImageUrl',
+          `https://medicalpublic.s3.amazonaws.com/${profileImagePath}`
+        );
+      }
       // setUserData(userData?.data?.user);
       setIsLoading(false);
     } catch (error) {
@@ -186,6 +194,7 @@ function Information({ setFileSysytem, validateEmail }) {
       setIsLoading(false);
     }
   };
+  
 
   return (
     <>
