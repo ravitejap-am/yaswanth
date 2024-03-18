@@ -1,28 +1,59 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../../../Layout";
-import styles from "./dashboard.module.css";
-import { useSelector, useDispatch } from "react-redux";
-import documentIcon1 from "../../../asset/AmChatSuperAdmin/Group23.png";
-import documentIcon2 from "../../../asset/AmChatSuperAdmin/Group24.png";
-import DashboardCard from "../../../components/common/dashboard-card/DashboardCard";
+import axios from "axios";
 import {
   BASE_DOC_API_URL,
   BASE_ORG_API_URL,
 } from "../../../constants/Constant";
-import { setErrorMsg } from "../../../store/authSlice";
-import { selectUser } from "../../../store/authSlice";
-import axios from "axios";
-import PageLoader from "../../../components/loader/loader";
 import { Grid } from "@mui/material";
+import styles from "./dashboard.module.css";
+import { useNavigate } from "react-router-dom";
+import { selectUser } from "../../../store/authSlice";
+import { setErrorMsg } from "../../../store/authSlice";
+import { useSelector, useDispatch } from "react-redux";
+import * as constants from "../../../constants/Constant";
+import PageLoader from "../../../components/loader/loader";
+import { getActiveUserList } from "../../../apiCalls/ApiCalls";
+import documentIcon1 from "../../../asset/AmChatSuperAdmin/Group23.png";
+import documentIcon2 from "../../../asset/AmChatSuperAdmin/Group24.png";
+import DashboardCard from "../../../components/common/dashboard-card/DashboardCard";
+import OrgChatSession from "../../../components/common/org-chat-session/OrgChatSession";
 
 function Dashboard() {
   const user = useSelector(selectUser);
   const jwt = user.userToken;
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [isLoading, setIsLoading] = useState(true);
   const [orgCount, setOrgCount] = useState(0);
   const [docCount, setDocCount] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+  const [documentCount, setDocumentCount] = useState(0);
+  const [activeUsersCount, setActiveUsersCount] = useState(0);
+  const [orgChatSessionList, setOrgChatSessionList] = useState([]);
   const userRole = localStorage.getItem("userRole");
+
+  const decodeJWT = (token) => {
+    try {
+      const base64Url = token.split(".")[1];
+      const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+      const jsonPayload = decodeURIComponent(
+        atob(base64)
+          .split("")
+          .map((char) => {
+            return "%" + ("00" + char.charCodeAt(0).toString(16)).slice(-2);
+          })
+          .join("")
+      );
+      return JSON.parse(jsonPayload);
+    } catch (error) {
+      console.error("Error decoding JWT:", error);
+      return null;
+    }
+  };
+
+  const decodedToken = decodeJWT(jwt);
+  const organisationId = decodedToken ? decodedToken.organisationId : null;
+  const userId = decodedToken ? decodedToken.userId : null;
 
   const getDocumentsCount = async () => {
     try {
@@ -66,10 +97,108 @@ function Dashboard() {
     }
   };
 
+  const fetchActiveUserCount = async () => {
+    try {
+      const response = await fetch(
+        `${constants.BASE_ORG_API_URL}/totalUsers/?active=true`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${jwt}`,
+          },
+        }
+      );
+      if (!response.ok) {
+        if (response.status === 404) {
+          console.log("400 error ");
+          setIsLoading(false);
+        } else if (response.status === 405) {
+          console.log("response 405");
+          setIsLoading(false);
+        } else {
+          console.log("response 405");
+          setIsLoading(false);
+        }
+        return;
+      }
+      const responseData = await response.json();
+      console.log("fetchActiveUserCount ::", responseData);
+      setActiveUsersCount(responseData.totalElements); // Set active users count from the API response
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+      navigate("/maintenance");
+    }
+  };
+
+  const fetchOrgChatSession = async () => {
+    try {
+      const headers = { Authorization: `Bearer ${jwt}` };
+      const response = await getActiveUserList(headers);
+      console.log("response of active users---->", response);
+      if (response.data?.data) {
+        setOrgChatSessionList(response.data?.data);
+        console.log("fetchOrgChatSession ::", response.data?.data);
+      } else {
+        setOrgChatSessionList([]);
+      }
+    } catch (error) {
+      setOrgChatSessionList([]);
+      console.log("Failed to get active users.", error);
+    }
+  };
+
+  const fetchDocumentCount = () => {
+    fetch(`${constants.BASE_DOC_API_URL}/${organisationId}`, {
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("fetchDocumentCount ::", data);
+        setDocumentCount(data?.totalElements);
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        if (
+          error?.response?.status == 500 ||
+          error?.response?.status == "500"
+        ) {
+          const errorMsgprops = {
+            message: {
+              title: "Something went wrong",
+              content: "Please contact our customer support team",
+            },
+            handleVerification: handleVerification,
+            onOkButtonText: "Retry",
+          };
+          dispatch(setErrorMsg({ ...errorMsgprops }));
+        }
+        console.error("Error fetching document count:", error);
+      });
+  };
+
+  const handleVerification = () => {
+    const isValidJwtToken = true;
+    if (isValidJwtToken) {
+      console.log("valid jwt token");
+      navigate("/dashboardadmin");
+    } else {
+      localStorage.clear();
+      navigate("/signin");
+    }
+  };
+
   useEffect(() => {
     if (userRole === "SUPER_ADMIN") {
       getOrganisationCount();
       getDocumentsCount();
+    } else if (userRole === "ORG_ADMIN") {
+      fetchActiveUserCount();
+      fetchOrgChatSession();
+      fetchDocumentCount();
     } else {
       setIsLoading(false);
     }
@@ -95,6 +224,29 @@ function Dashboard() {
               contentName={"Documents Uploaded"}
               contentNumber={docCount}
             />
+          </Grid>
+        </Grid>
+      )}
+      {userRole === "ORG_ADMIN" && (
+        <Grid container spacing={2} className={styles.container}>
+          <Grid item sm={12} md={6} lg={6}>
+            <DashboardCard
+              mainClass={styles.sub}
+              icon={documentIcon1}
+              contentName={"Documents"}
+              contentNumber={documentCount}
+            />
+          </Grid>
+          <Grid item sm={12} md={6} lg={6}>
+            <DashboardCard
+              mainClass={styles.sub}
+              icon={documentIcon2}
+              contentName={"Active Users"}
+              contentNumber={activeUsersCount}
+            />
+          </Grid>
+          <Grid item sm={12} md={6} lg={4}>
+            <OrgChatSession activeUserList={orgChatSessionList} />
           </Grid>
         </Grid>
       )}
