@@ -8,6 +8,7 @@ import { selectUser } from '../../store/authSlice';
 import { Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { tokenDecodeJWT } from '../../utils/authUtils';
+import './sidebarIndex.css';
 function Sidebar() {
   const { userToken } = useSelector(selectUser);
   const { pathname } = useLocation();

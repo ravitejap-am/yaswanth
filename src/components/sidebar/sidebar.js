@@ -6,6 +6,8 @@ import PeopleIcon from '@mui/icons-material/People';
 import Chat from '@mui/icons-material/Chat';
 import CorporateFareIcon from '@mui/icons-material/CorporateFare';
 import { Link } from 'react-router-dom';
+import ChatMenuItems from './ChatMenuItems';
+import Tooltip from '@mui/material/Tooltip';
 
 const ORG_ADMIN = [
   {
@@ -55,9 +57,25 @@ const navLinks = {
   SUPER_ADMIN: SUPER_ADMIN,
   USER: USER,
 };
+
+const data = [
+  {
+    title: 'chat one title for chat adress',
+    data: [],
+    id: 1,
+  },
+  {
+    title: 'chat two title for chat adress ',
+    data: [],
+    id: 2,
+  },
+];
+
 export const sideBar = (role, pathname) => {
   return (
     <>
+      {role == 'ORG_ADMIN' && pathname == '/chat' && <></>}
+      <></>
       {navLinks[role]?.map((item) => {
         const isActive = pathname === item.link;
         return (
@@ -85,6 +103,40 @@ export const sideBar = (role, pathname) => {
           </Link>
         );
       })}
+
+      {role == 'ORG_ADMIN' && pathname == '/chat' && (
+        <Hidden mdDown>
+          <Typography variant="h6">Chats</Typography>
+
+          {data.map((item) => (
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}
+              className="hoverDiv"
+            >
+              <Tooltip title={item?.title}>
+                <p
+                  style={{
+                    margin: 0,
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap',
+                    width: '10em',
+                    cursor: 'pointer',
+                  }}
+                >
+                  {item?.title}
+                </p>
+              </Tooltip>
+
+              <ChatMenuItems />
+            </div>
+          ))}
+        </Hidden>
+      )}
     </>
   );
 };

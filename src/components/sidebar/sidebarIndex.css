@@ -1,0 +1,11 @@
+.hoverDiv {
+ 
+  transition: background-color 0.3s ease; 
+  border-radius: 10px;
+}
+
+.hoverDiv:hover {
+  background-color: #ccc; 
+  border-radius: 10px;
+  filter: brightness(90%);
+}
