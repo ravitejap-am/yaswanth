@@ -1,17 +1,21 @@
-import React, { useState } from 'react';
-import { Button } from 'antd';
-import './editForm.css'; // Import CSS file for styling
+import React, { useState, useEffect } from "react";
+import { Button } from "antd";
+import "./editForm.css";
+import { Box, Grid } from "@mui/material";
 
-function EditForm({ formData, setFormData, submitHandler }) {
-  // const [formData, setFormData] = useState({
-  //   firstName: '',
-  //   lastName: '',
-  //   email: '',
-  //   organization: '',
-  //   status: '',
-  // });
-
+function EditForm({
+  formData: initialFormData,
+  setFormsData,
+  submitHandler,
+  isEdit,
+  cancelHandler,
+}) {
+  const [formData, setFormData] = useState(initialFormData);
   const [errors, setErrors] = useState({});
+
+  useEffect(() => {
+    setFormData(initialFormData);
+  }, [initialFormData]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -23,89 +27,100 @@ function EditForm({ formData, setFormData, submitHandler }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("validateForm---->",validateForm);
     if (validateForm()) {
-      // Submit the form
-      submitHandler(formData)
-      console.log(formData);
+      submitHandler(formData);
     }
   };
 
   const validateForm = () => {
-    const errors = {};
+    const newErrors = {};
     let isValid = true;
 
     if (!formData.firstName.trim()) {
-      errors.firstName = 'First name is required';
+      newErrors.firstName = "First name is required";
       isValid = false;
     }
 
-    // if (!formData.lastName.trim()) {
-    //   errors.lastName = 'Last name is required';
-    //   isValid = false;
-    // }
+    if (!formData.lastName.trim()) {
+      newErrors.lastName = "Last name is required";
+      isValid = false;
+    }
 
-    setErrors(errors);
+    if (!formData.email.trim()) {
+      newErrors.email = "Email is required";
+      isValid = false;
+    }
+
+    setErrors(newErrors);
     return isValid;
   };
 
   return (
     <form className="form" onSubmit={handleSubmit}>
-      <div className="form-row">
-        <div className="form-group">
+      <Grid container spacing={1}>
+        <Grid item xs={12} md={6} lg={6} className="form-group">
           <label htmlFor="firstName">First Name:</label>
           <input
             className="inputstyle"
             type="text"
             id="firstName"
             name="firstName"
+            placeholder="First Name"
             value={formData.firstName}
             onChange={handleChange}
           />
           {errors.firstName && (
             <span className="error">{errors.firstName}</span>
           )}
-        </div>
-        <div className="form-group">
+        </Grid>
+        <Grid item xs={12} md={6} lg={6} className="form-group">
           <label htmlFor="lastName">Last Name:</label>
           <input
             className="inputstyle"
             type="text"
             id="lastName"
             name="lastName"
+            placeholder="Last Name"
             value={formData.lastName}
             onChange={handleChange}
           />
           {errors.lastName && <span className="error">{errors.lastName}</span>}
-        </div>
-      </div>
-      <div className="form-row">
-        <div className="form-group">
+        </Grid>
+        <Grid item xs={12} md={6} lg={6} className="form-group">
           <label htmlFor="email">Email:</label>
           <input
             className="inputstyle"
             type="email"
             id="email"
             name="email"
+            placeholder="Email"
             value={formData.email}
             onChange={handleChange}
-            style={{ backgroundColor: '#CBD5E1' }}
-            disabled
+            disabled={isEdit}
           />
           {errors.email && <span className="error">{errors.email}</span>}
-        </div>
-      </div>
+        </Grid>
+      </Grid>
+      <Box className="button-container">
+        <Button type="primary" htmlType="submit" className="buttonStyle">
+          Submit
+        </Button>
 
-      <Button
-        type="primary"
-        htmlType="submit"
-        className="buttonStyle"
-        // onClick={() => {
-        //   submitHandler(formData);
-        // }}
-      >
-        Submit
-      </Button>
+        {!isEdit && (
+          <Button
+            type="secondary"
+            className="buttonStyle"
+            style={{
+              backgroundColor: "white",
+              color: "black",
+              border: "1px solid #6366f1",
+            }}
+            onClick={cancelHandler}
+          >
+            Cancel
+          </Button>
+        )}
+      </Box>
     </form>
   );
 }

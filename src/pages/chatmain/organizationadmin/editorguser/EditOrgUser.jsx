@@ -153,11 +153,6 @@ function EditOrgUser(props) {
         }
 
         setButtonLoading(false);
-        // showNotifyMessage(
-        //   "error",
-        //   error?.response?.data?.message || "An error occurred",
-        //   messageHandler
-        // );
       } finally {
         console.log('SBH 17');
         setIsSubmitting(false);
