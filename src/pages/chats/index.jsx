@@ -7,21 +7,15 @@ import FormControl from '@mui/material/FormControl';
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import IconButton from '@mui/material/IconButton';
-import SendIcon from '@mui/icons-material/Send';
-import ChatIcon from '@mui/icons-material/Chat';
 import { Button, Skeleton } from 'antd';
 import styles from './Chats.module.css'; 
 import { SendOutlined } from '@ant-design/icons';
-import TextArea from 'antd/es/input/TextArea';
 
 function Chats() {
   const [searchOption, setSearchOption] = useState('specificFileText'); 
   const [selectedFile, setSelectedFile] = useState('file1'); 
   const [inputValue, setInputValue] = useState('');
   const [messageSent, setMessageSent] = useState(false);
-  const [response, setResponse] = useState('');
-  const [askedQuestion, setAskedQuestion] = useState('');
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -43,18 +37,20 @@ function Chats() {
   
 
   const handleSend = () => {
-    console.log('Sending message:', inputValue);
-    setLoading(true); 
-    setTimeout(() => {
-      const newQuestion = inputValue;
-      const response = generateResponse(newQuestion);
-      setQuestions([...questions, { question: newQuestion, response }]);
-      setInputValue('');
-      setMessageSent(true);
-      setLoading(false); 
-    }, 1000); 
+    if (inputValue.trim() !== '') { 
+      console.log('Sending message:', inputValue);
+      setLoading(true); 
+      setTimeout(() => {
+        const newQuestion = inputValue;
+        const response = generateResponse(newQuestion);
+        setQuestions([...questions, { question: newQuestion, response }]);
+        setInputValue('');
+        setMessageSent(true);
+        setLoading(false); 
+      }, 1000); 
+    }
   };
-
+  
   const generateResponse = (question) => {
     switch (question) {
       case "Could you help me with the maternity policy of my organization?":
