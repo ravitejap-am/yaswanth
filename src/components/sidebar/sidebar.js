@@ -119,7 +119,7 @@ export const sideBar = (role, pathname, chatHistory, setChatHistory) => {
                 gap: 2,
                 color: 'white',
                 textDecoration: 'none',
-                padding: '4px',
+                padding: '8px',
               }}
             >
               {React.cloneElement(item.icon, {
@@ -138,9 +138,10 @@ export const sideBar = (role, pathname, chatHistory, setChatHistory) => {
           <Typography variant="h6">Chats</Typography>
           <Box
             sx={{
-              height: '46%',
+              height: '45%',
               overflowY: 'auto',
             }}
+            className="chat_history"
           >
             {chatHistory.map((item) => (
               <div
