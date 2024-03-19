@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Button } from 'antd';
-import './userForm.css'; // Import CSS file for styling
+import './userForm.css'; 
+import {Box, Grid } from "@mui/material"
+import { yellow } from '@mui/material/colors';
 
 function UserInfoForm({
   formData,
@@ -42,30 +44,29 @@ function UserInfoForm({
   };
 
   return (
-    <form
-      className="form"
-      onSubmit={handleSubmit}
-      style={{ padding: '10px', marginTop: '2em' }}
-    >
-      <div className="form-row">
-        <div className="form-group">
-          <label htmlFor="firstName">First Name:</label>
-          <input
-            className="inputstyle"
-            type="text"
-            id="firstName"
-            name="firstName"
-            value={formData.firstName}
-            onChange={handleChange}
-          />
-          {errors.firstName && (
-            <span className="error">{errors.firstName}</span>
-          )}
+    <Box>
+      <Grid container spacing={2}>
+        <Grid item xs={8} md={5}>
+            <div className="form-group">
+              <label htmlFor="firstName">First Name:</label>
+              <input
+                className="orgInputstyle"
+                type="text"
+                id="firstName"
+                name="firstName"
+                value={formData.firstName}
+                onChange={handleChange}
+              />
+              {errors.firstName && (
+                <span className="error">{errors.firstName}</span>
+              )}
         </div>
-        <div className="form-group">
-          <label htmlFor="lastName">Last Name:</label>
-          <input
-            className="inputstyle"
+        </Grid>
+        <Grid item xs={8} md={5}>
+         <div className="form-group">
+           <label htmlFor="lastName">Last Name:</label>
+           <input
+            className="orgInputstyle"
             type="text"
             id="lastName"
             name="lastName"
@@ -74,12 +75,12 @@ function UserInfoForm({
           />
           {errors.lastName && <span className="error">{errors.lastName}</span>}
         </div>
-      </div>
-      <div className="form-row">
-        <div className="form-group">
-          <label htmlFor="email">Email:</label>
-          <input
-            className="inputstyle"
+        </Grid>
+        <Grid item xs={8} md={5}>
+          <div className="form-group">
+           <label htmlFor="email">Email:</label>
+           <input
+            className="orgInputstyle"
             type="email"
             id="email"
             name="email"
@@ -88,17 +89,23 @@ function UserInfoForm({
           />
           {errors.email && <span className="error">{errors.email}</span>}
         </div>
-      </div>
-      <div
-        className="center"
-        style={{
-          paddingLeft: '10px',
-          marginTop: '1em',
-          gap: '2em',
-          justifyContent: 'flex-start',
-        }}
-      >
-        <Button
+        </Grid>
+        <Grid container spacing={1}>
+        <Grid item xs={6} sm={3} md={2} lg={1}
+           
+          // sx={{'@media (max-width: 500px)': {
+          //   width: '100%',
+          // }, 
+          // '@media (min-width: 501px)': {
+          //   width: '50%',
+          // }, 
+          // backgroundColor: 'yellow' }}
+          // container
+          // direction="row"
+          // justifyContent="space-around"
+          // alignItems="flex-start"
+        >
+       <Button
           style={{ marginTop: '1em', width: '8em' }}
           onClick={() => {
             personalInformationHandler('personalinformation');
@@ -106,17 +113,97 @@ function UserInfoForm({
         >
           Back
         </Button>
+        </Grid>
+        <Grid item xs={6} sm={3} md={2} lg={1}>
         <Button
           type="primary"
-          style={{ marginTop: '1em', width: '8em' }}
+          style={{ marginTop: '1em', width: '8em'}}
           onClick={() => {
             personalInformationHandler('organizationdomains');
           }}
         >
           Next
         </Button>
-      </div>
-    </form>
+          
+        </Grid>
+      </Grid>
+      </Grid>
+    </Box>
+    // <form
+    //   className="form"
+    //   onSubmit={handleSubmit}
+    //   style={{ padding: '10px', marginTop: '2em' }}
+    // >
+    //   <div className="form-row">
+    //     <div className="form-group">
+    //       <label htmlFor="firstName">First Name:</label>
+    //       <input
+    //         className="inputstyle"
+    //         type="text"
+    //         id="firstName"
+    //         name="firstName"
+    //         value={formData.firstName}
+    //         onChange={handleChange}
+    //       />
+    //       {errors.firstName && (
+    //         <span className="error">{errors.firstName}</span>
+    //       )}
+    //     </div>
+    //     <div className="form-group">
+    //       <label htmlFor="lastName">Last Name:</label>
+    //       <input
+    //         className="inputstyle"
+    //         type="text"
+    //         id="lastName"
+    //         name="lastName"
+    //         value={formData.lastName}
+    //         onChange={handleChange}
+    //       />
+    //       {errors.lastName && <span className="error">{errors.lastName}</span>}
+    //     </div>
+    //   </div>
+    //   <div className="form-row">
+    //     <div className="form-group">
+    //       <label htmlFor="email">Email:</label>
+    //       <input
+    //         className="inputstyle"
+    //         type="email"
+    //         id="email"
+    //         name="email"
+    //         value={formData.email}
+    //         onChange={handleChange}
+    //       />
+    //       {errors.email && <span className="error">{errors.email}</span>}
+    //     </div>
+    //   </div>
+    //   <div
+    //     className="center"
+    //     style={{
+    //       paddingLeft: '10px',
+    //       marginTop: '1em',
+    //       gap: '2em',
+    //       justifyContent: 'flex-start',
+    //     }}
+    //   >
+    //     <Button
+    //       style={{ marginTop: '1em', width: '8em' }}
+    //       onClick={() => {
+    //         personalInformationHandler('personalinformation');
+    //       }}
+    //     >
+    //       Back
+    //     </Button>
+    //     <Button
+    //       type="primary"
+    //       style={{ marginTop: '1em', width: '8em' }}
+    //       onClick={() => {
+    //         personalInformationHandler('organizationdomains');
+    //       }}
+    //     >
+    //       Next
+    //     </Button>
+    //   </div>
+    // </form>
   );
 }
 

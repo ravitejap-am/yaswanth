@@ -1,18 +1,14 @@
-import React, {useState} from 'react'
+import React, {useState , useEffect} from 'react'
 import Layout from '../../../../Layout'
-import { AppBar, Toolbar, Button, Box } from '@mui/material';
+import { AppBar, Toolbar, Button, Box, Tab, Grid } from '@mui/material';
 import './Index.css'
 import AddOrganisationheaders from './AddOrganisationheaders'
-import OrganizationInfoForm from '../../../../components/super-admin/organisation-info'
-import { useMessageState } from '../../../hooks/useapp-message';
-import { Link, useNavigate } from 'react-router-dom';
 
 
 import { Tabs} from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import GeneralForm from '../../../../components/common/forms/GeneralForm';
 import OrganizationInfo from '../../../AMChatAdmin/AddOrganizationAdmin/AddOrganizationTabNavigation/OrganizationInfo';
-import TabNavigation from '../../../AMChatAdmin/AddOrganizationAdmin/AddOrganizationTabNavigation/MainTabNavigationAddOrg';
 import OrganizationAdmin from '../../../AMChatAdmin/AddOrganizationAdmin/AddOrganizationTabNavigation/OrganizationAdmin';
 import OrganizationDomains from '../../../AMChatAdmin/EditOrganizationAdmin/AddOrganizationTabNavigation/OrganizationDomains';
 import SubscriptionPlan from '../../../AMChatAdmin/AddOrganizationAdmin/AddOrganizationTabNavigation/SubscriptionPlan';
@@ -28,8 +24,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import * as constants from '../../../../constants/Constant';
 import { useMessageState } from '../../../../hooks/useapp-message';
 import { tokenDecodeJWT } from '../../../../utils/authUtils';
-import AMChatHeader from '../../AMChatHeader/AMChatHeader';
-import SuperAdminHeader from '../../SuperAdminHeader/SuperAdminHeader';
+import AMChatHeader from '../../../AMChatAdmin/AMChatHeader/AMChatHeader';
+import SuperAdminHeader from '../../../AMChatAdmin/SuperAdminHeader/SuperAdminHeader';
 import PageLoader from '../../../../components/loader/loader';
 import OrganizationInfoForm from '../../../../components/super-admin/organisation-info';
 import UserInfoForm from '../../../../components/super-admin/userInfo';
@@ -37,7 +33,12 @@ import {
   validatePersonalInfoForm,
   validateUserInfoForm,
 } from '../../../../components/super-admin/validation';
-import { extractDomain } from '../../../utils/generalUtils';
+import { extractDomain } from '../../../../utils/generalUtils';
+// import TabNavigation from './TabNavigation'; 
+// import TabNavigationMui from './TabNavigationmui';
+import TabContext from '@mui/lab/TabContext';
+import TabList from '@mui/lab/TabList';
+import TabPanel from '@mui/lab/TabPanel';
 
 
 function Organisation() {
@@ -135,6 +136,12 @@ function Organisation() {
   const [fullName, setFullName] = useState('');
   const [orgInfoErrors, setOrgInfoErrors] = useState({});
   const [userInfoErrors, setUserInfoErrors] = useState({});
+
+  const [value, setValue] = useState('1');
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
 
   useEffect(() => {
     const storedFirstName = localStorage.getItem('firstName');
@@ -261,9 +268,11 @@ function Organisation() {
     }
   };
 
-  const handleTabChange = (tab) => {
+  const handleTabChange = (event, newValue) => {
     console.log('form change');
-    const normalizedTab = tab.toLowerCase(); // Normalize to lowercase
+    console.log("tab value--->", newValue);
+    const normalizedTab = newValue
+    // const normalizedTab = tab.toLowerCase(); // Normalize to lowercase
     if (normalizedTab !== selectedTab) {
       setSelectedTab(normalizedTab);
     }
@@ -362,53 +371,185 @@ function Organisation() {
   }
 
 
-
-  const renderSection = () => {
-    switch (selectedTab) {
-      case 'organisationInfo':
-        return 
-        (<OrganizationInfoForm
-        orgData={orgData}
-        setSelectedTab={setSelectedTab}
-        selectedTab={selectedTab}
-        selectOrgData={selectOrgData}
-        buttonLoading={buttonLoading}
-        setButtonLoading={setButtonLoading}
-        countries={countries}
-        states={states}
-        localState={localState}
-        setLocalState={setLocalState}
-        cities={cities}
-        setCities={setCities}
-        setCountries={setCountries}
-        setStates={setStates}
-        organisation={organisation}
-        editOrganisation={editOrganisation}
-        setBackDropLoading={setBackDropLoading}
-        errors={orgInfoErrors}
-        setErrors={setOrgInfoErrors}
-        personalInformationHandler={personalInformationHandler}
-      />)
-      case 'organisationAdmin':
-        return <UserInfoForm/>;
-      case 'organisationDomains':
-        return <SubscriptionPlan />;
-      case 'subscriptionPlans':
-        return <OrganizationDomains/>;
-      default:
-        return null;
-    }
-  };
-
   return (
     <Layout>
-      <AddOrganisationheaders
-        selectedTab = {selectedTab}
-        setSelectedTab = {setSelectedTab}
-      />
-      <Box sx={{ flexGrow: 1 }}>
-        {renderSection()}
-      </Box>
+
+        <Box 
+        // sx={{backgroundColor: 'cyan'}}
+        >
+          <TabContext value={selectedTab}>
+            <Box sx={{ borderBottom: 1, borderColor: 'divider',  boxShadow: '0px 2.789px 6.972px 3.486px rgba(0, 0, 0, 0.09)',borderRadius: 3,marginBottom: '1rem'}}>
+              <TabList 
+                onChange={handleTabChange} 
+                aria-label="organisation tabs"
+                // sx={{
+                //   display: 'flex',
+                //   overflowX: 'auto',
+                // }}
+                // sx={{
+                //   display: 'flex',
+                //   overflowX: 'auto',
+                //   '@media (min-width: 600px)': { // Change the breakpoint as needed
+                //     overflowX: 'visible', // or 'auto' if you still want scrolling
+                //   },
+                // }}
+                variant="scrollable"
+                scrollButtons = {false}
+                allowScrollButtonsMobile
+                sx={{
+                  display: 'flex',
+                  flexWrap: 'nowrap', // Prevent tabs from wrapping to next line
+                  '& .MuiTab-root': {
+                    minWidth: 'auto', // Ensure tabs take minimum width
+                  },
+                }}
+              >
+                <Tab label={("Organisation Info").toLowerCase().replace(/\s/g, '')} value="personalinformation">Organisation Info</Tab>
+                <Tab label="Organisation Admin" value="organizationadmin">Organisation Admin</Tab>
+                <Tab label="Organisation Domains" value="organizationdomains">Organisation Domains</Tab>
+                <Tab label="Subscription Plan" value="subscriptionplan">Subscription Plan</Tab>
+              </TabList>
+            </Box>
+            <Box  sx={{borderWidth: '1px',  boxShadow: '0px 2.789px 6.972px 3.486px rgba(0, 0, 0, 0.09)',borderRadius: 3}}>
+            <TabPanel value="personalinformation">
+              <OrganizationInfoForm
+                  orgData={orgData}
+                  setSelectedTab={setSelectedTab}
+                  selectedTab={selectedTab}
+                  selectOrgData={selectOrgData}
+                  buttonLoading={buttonLoading}
+                  setButtonLoading={setButtonLoading}
+                  countries={countries}
+                  states={states}
+                  localState={localState}
+                  setLocalState={setLocalState}
+                  cities={cities}
+                  setCities={setCities}
+                  setCountries={setCountries}
+                  setStates={setStates}
+                  organisation={organisation}
+                  editOrganisation={editOrganisation}
+                  setBackDropLoading={setBackDropLoading}
+                  errors={orgInfoErrors}
+                  setErrors={setOrgInfoErrors}
+                  personalInformationHandler={personalInformationHandler}
+                />
+            </TabPanel>
+            <TabPanel value="organizationadmin">
+            <UserInfoForm
+                orgData={orgData}
+                setSelectedTab={setSelectedTab}
+                selectedTab={selectedTab}
+                selectOrgData={selectOrgData}
+                organisation={organisation}
+                editOrganisation={editOrganisation}
+                buttonLoading={buttonLoading}
+                showNotifyMessage={showNotifyMessage}
+                messageHandler={messageHandler}
+                jwt={jwt}
+                formData={orgData.contact}
+                setFormData={selectOrgData}
+                errors={userInfoErrors}
+                setErrors={setUserInfoErrors}
+                personalInformationHandler={personalInformationHandler}
+              />
+            </TabPanel>
+            <TabPanel value="organizationdomains">
+              <OrganizationDomains
+                  orgData={orgData}
+                  setSelectedTab={setSelectedTab}
+                  selectedTab={selectedTab}
+                  selectOrgData={selectOrgData}
+                  organisation={organisation}
+                  editOrganisation={editOrganisation}
+                  buttonLoading={buttonLoading}
+                  showNotifyMessage={showNotifyMessage}
+                  messageHandler={messageHandler}
+                  jwt={jwt}
+                  setButtonLoading={setButtonLoading}
+                  setBackDropLoading={setBackDropLoading}
+                  personalInformationHandler={personalInformationHandler}
+              />
+            </TabPanel>
+            <TabPanel value="subscriptionplan">
+            <SubscriptionPlan
+                  orgData={orgData}
+                  setSelectedTab={setSelectedTab}
+                  selectedTab={selectedTab}
+                  selectOrgData={selectOrgData}
+                  addOrganisation={addOrganisation}
+                  buttonLoading={buttonLoading}
+                  organisation={organisation}
+                  editOrganisation={editOrganisation}
+                  personalInformationHandler={personalInformationHandler}
+              />
+            </TabPanel>
+            </Box>
+          </TabContext>
+        </Box>
+        <Grid container>
+          <Grid item>
+          {/* <div className={Styles.generalButtonStyle}> */}
+            {/* <div> */}
+              <Button
+                onClick={() => {
+                  if (organisation?.organisationStatus == 'edit') {
+                    editOrganisation(orgData);
+                    return;
+                  }
+                  addOrganisation();
+                }}
+                style={{
+                  display: 'flex',
+                  width: '130px',
+                  height: '50px',
+                  padding: '10px 16px',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  gap: '8px',
+                  flexShrink: '0',
+                  borderRadius: '30px',
+                  backgroundColor: 'var(--Brand-500, #6366F1)',
+                  color: '#FFFFFF',
+                  fontFamily: 'Into Lato',
+                  fontSize: '16px',
+                  fontStyle: 'normal',
+                  fontWeight: '700',
+                  lineHeight: '24px',
+                }}
+                loading={buttonLoading}
+              >
+                Save
+              </Button>
+            {/* </div> */}
+          {/* </div> */}
+          </Grid>
+          <Grid item>
+            <Link to="/organisations" style={{ textDecoration: 'none' }}>
+              <div>
+                <GeneralButton
+                  name="Cancel"
+                  buttonProps={{}}
+                  type="default"
+                  color="#334155"
+                  backgroundColor="transparent"
+                  width="130px"
+                  height="50px"
+                  borderRadius="30px"
+                  buttonHandler={handleCancel}
+                />
+              </div>
+            </Link>
+          </Grid>
+        </Grid>
+          {/* <TabNavigation
+            selectedTab={selectedTab}
+            handleTabChange={handleTabChange}
+            setOrgInfoErrors={setOrgInfoErrors}
+            orgData={orgData}
+            setUserInfoErrors={setUserInfoErrors}
+            personalInformationHandler={personalInformationHandler}
+          /> */}
     </Layout>
   )
 }

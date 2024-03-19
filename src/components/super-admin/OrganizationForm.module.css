@@ -11,17 +11,19 @@
 
 
 .inputstyle{
-  width: 445px;
-  height: 35px;
+  /* width: 445px;
+  height: 35px; */
   border-radius: 40px;
   border: 1px solid var(--Brand-700, #4338CA);
   background-color:transparent;
   margin-bottom: 1em;
   padding: 0.375rem 0.75rem;
 }
+
 .selectContainer{
  
-  width: 445px;
+  /* width: 445px; */
+  /* width: 100%; */
   height: 46px;
   border-radius: 40px;
   border: 1px solid var(--Brand-700, #4338CA);
@@ -50,3 +52,122 @@
 .error{
   color: red;
 }
+
+@media (max-width: 290px) {
+  .inputstyle {
+    min-width: 12rem;
+    max-width: 30rem; 
+    height: 30px; 
+    margin-right: 1rem;
+  }
+  .selectContainer{
+    width: 100%;
+    min-width: 14rem;
+    max-width: 22rem;
+  }
+}
+
+@media (min-width: 291px) and (max-width: 390px) {
+  .inputstyle {
+    min-width: 13rem;
+    max-width: 20rem; 
+    height: 1.8rem; 
+    /* background-color: yellow; */
+  }
+  .selectContainer{
+    min-width: 14.5rem;
+    max-width: 22rem;
+    /* background-color: bisque; */
+    /* background-color: red; */
+  }
+}
+
+
+@media (min-width: 391px) and (max-width: 480px) {
+  .inputstyle {
+    min-width: 15rem;
+    max-width: 20rem; 
+    height: 30px; 
+    /* background-color: yellow; */
+  }
+  .selectContainer{
+    min-width: 16.5rem;
+    max-width: 22rem;
+    /* background-color: bisque; */
+    /* background-color: red; */
+  }
+}
+
+@media (min-width: 481px) and (max-width: 600px) {
+  .inputstyle {
+    min-width: 23rem;
+    max-width: 31rem; 
+    height: 35px; 
+  }
+  .selectContainer{
+    width: 100%;
+    min-width: 25rem;
+    max-width: 30rem;
+    /* background-color: bisque; */
+    /* background-color: red; */
+  }
+  
+}
+
+@media (min-width: 601px) and (max-width: 900px) {
+  .inputstyle {
+    min-width: 33rem;
+    max-width: 60rem; 
+    height: 35px;
+    /* background-color: yellow;  */
+  }
+
+  .selectContainer{
+    min-width: 35rem;
+    max-width: 55rem;
+    /* background-color: red; */
+  }
+}
+
+@media (min-width: 901px) and (max-width: 1024px) {
+  .inputstyle {
+    min-width: 20rem;
+    height: 35px;
+  }
+
+  .selectContainer{
+    min-width: 24rem;
+    max-width: 32rem;
+    /* background-color: red; */
+  }
+}
+
+@media (min-width: 1025px) {
+  .inputstyle {
+    min-width: 22rem;
+    height: 35px;
+    /* background-color: aqua; */
+  }
+  .selectContainer{
+    min-width: 24rem;
+    max-width: 24rem;
+    height: 48px;
+    /* background-color: red; */
+  }
+}
+
+.labels{
+  display: flex;
+  width: 280%;
+  font-size: 1rem;
+}
+
+
+@media (min-width: 900px) {
+  .labels{
+    width: auto;
+  }
+}
+
+
+
