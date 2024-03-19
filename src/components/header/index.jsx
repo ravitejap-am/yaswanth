@@ -18,10 +18,7 @@ function Header({ componentName, customStyle, navigationRoute }) {
     window.location.href = "/Info";
   };
 
-  const HeaderImage =
-    localStorage.getItem("userImageUrl") !== undefined
-      ? localStorage.getItem("userImageUrl")
-      : defaultImage;
+  const HeaderImage = localStorage.getItem("userImageUrl") ?? defaultImage;
   const storedFullName = localStorage.getItem("fullName");
 
   return (
