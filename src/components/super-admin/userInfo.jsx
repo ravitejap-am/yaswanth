@@ -92,18 +92,6 @@ function UserInfoForm({
         </Grid>
         <Grid container spacing={1}>
         <Grid item xs={6} sm={3} md={2} lg={1}
-           
-          // sx={{'@media (max-width: 500px)': {
-          //   width: '100%',
-          // }, 
-          // '@media (min-width: 501px)': {
-          //   width: '50%',
-          // }, 
-          // backgroundColor: 'yellow' }}
-          // container
-          // direction="row"
-          // justifyContent="space-around"
-          // alignItems="flex-start"
         >
        <Button
           style={{ marginTop: '1em', width: '8em' }}

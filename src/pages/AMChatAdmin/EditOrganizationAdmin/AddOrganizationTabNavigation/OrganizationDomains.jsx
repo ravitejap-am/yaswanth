@@ -6,7 +6,7 @@ import { ReactComponent as PlusSign } from "../../../../asset/AmChatSuperAdmin/p
 import { ReactComponent as DeleteIcon } from "../../../../asset/AmChatSuperAdmin/trash-solid.svg";
 import Style from "./OrganizationDomain.module.css";
 
-function OrganizationDomains() {
+function  OrganizationDomains() {
   const [newDomains, setNewDomains] = useState([""]);
 
   useEffect(() => {

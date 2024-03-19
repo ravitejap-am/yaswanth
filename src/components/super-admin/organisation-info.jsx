@@ -175,7 +175,7 @@ function OrganizationForm({
     //  style={{width: 1000}}
       >
       <Grid container spacing={2}> 
-        <Grid item xs={12} md={6} lg={5}>
+        <Grid item xs={8} md={6} lg={5}>
         {/* <div> */}
           <label className={styles.labels}>Organisation Name:</label>
           <input

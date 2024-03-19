@@ -487,8 +487,15 @@ function Organisation() {
             </Box>
           </TabContext>
         </Box>
-        <Grid container>
-          <Grid item>
+        <Grid  
+          container 
+          spacing={2}   
+          direction="row"
+          justifyContent="center"
+          alignItems="center"
+          marginTop={'0.3rem'}
+          >
+          <Grid item >
           {/* <div className={Styles.generalButtonStyle}> */}
             {/* <div> */}
               <Button
