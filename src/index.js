@@ -9,6 +9,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 
 import { persistor, store } from '../src/store/config';
 import { MessageProvider } from './contexts/provider/MessageProvider';
+import { ChatProvider } from './contexts/provider/ChatContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -16,7 +17,9 @@ root.render(
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <MessageProvider>
-          <App />
+          <ChatProvider>
+            <App />
+          </ChatProvider>
         </MessageProvider>
       </PersistGate>
     </Provider>
