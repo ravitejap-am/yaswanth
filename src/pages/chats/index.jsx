@@ -10,6 +10,8 @@ import CardContent from '@mui/material/CardContent';
 import { Button, Skeleton } from 'antd';
 import styles from './Chats.module.css'; 
 import { SendOutlined } from '@ant-design/icons';
+import uesrImg from '../../asset/userimg.avif'
+import responseImg from '../../asset/responseimg.jpg'
 
 function Chats() {
   const [searchOption, setSearchOption] = useState('specificFileText'); 
@@ -77,6 +79,10 @@ function Chats() {
       event.preventDefault();
       handleSend();
     }
+  };
+  const resizeTextarea = (element) => {
+    element.style.height = 'auto';
+    element.style.height = (element.scrollHeight) + 'px';
   };
 
   return (
@@ -180,14 +186,14 @@ function Chats() {
               <div key={index}>
           <div className={styles.responseContent}>
          <div className={styles.askedQuestion}>
-         <img src="https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg" alt="User" className={styles.userImage} />
+         <img src={uesrImg} alt="User" className={styles.userImage} />
             <p className={styles.askedQuestionText}> {item.question}</p>
           </div>
           {loading && index === questions.length - 1 ? ( 
             <Skeleton active />
           ) : (
          <div className={styles.response}>
-         <img src="https://t4.ftcdn.net/jpg/04/89/49/99/360_F_489499957_3Kiig2eXI5mTY28G3QdUeppgxH1HZ5ry.jpg" alt="Response" className={styles.responseImage} />
+         <img src={responseImg} alt="Response" className={styles.responseImage} />
          <p>{item.response}</p>
           </div>
             )}
@@ -208,6 +214,7 @@ function Chats() {
                     placeholder="Ask Anything..."
                     autoSize={{ minRows: 3, maxRows: 5 }}
                     onKeyPress={handleKeyPress} 
+                    ref={(textarea) => { if (textarea) resizeTextarea(textarea); }}
                   />
                    {inputValue && (
                   <Button
