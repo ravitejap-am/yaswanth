@@ -65,6 +65,7 @@
   
   .chatCardContent {
     text-align: center;
+    min-height: 300px;
   }
   
   .bigInputContainer {
@@ -78,7 +79,7 @@
     padding: 10px;
     font-size: 16px;
     border: 1px solid var(--Neutral-400, #94a3b8);
-    border-radius: 35px;
+    border-radius: 10px;
     /* resize: vertical; */
     box-sizing: border-box;
     padding-bottom: 50px;
@@ -174,7 +175,7 @@
 
 .SendButton {
   position: absolute;
-  right: 8px;
+  right: 20px;
   bottom: 40px;
   z-index: 999;
 }

@@ -7,21 +7,17 @@ import FormControl from '@mui/material/FormControl';
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import IconButton from '@mui/material/IconButton';
-import SendIcon from '@mui/icons-material/Send';
-import ChatIcon from '@mui/icons-material/Chat';
 import { Button, Skeleton } from 'antd';
 import styles from './Chats.module.css'; 
 import { SendOutlined } from '@ant-design/icons';
-import TextArea from 'antd/es/input/TextArea';
+import uesrImg from '../../asset/userimg.avif'
+import responseImg from '../../asset/responseimg.jpg'
 
 function Chats() {
   const [searchOption, setSearchOption] = useState('specificFileText'); 
   const [selectedFile, setSelectedFile] = useState('file1'); 
   const [inputValue, setInputValue] = useState('');
   const [messageSent, setMessageSent] = useState(false);
-  const [response, setResponse] = useState('');
-  const [askedQuestion, setAskedQuestion] = useState('');
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -43,18 +39,20 @@ function Chats() {
   
 
   const handleSend = () => {
-    console.log('Sending message:', inputValue);
-    setLoading(true); 
-    setTimeout(() => {
-      const newQuestion = inputValue;
-      const response = generateResponse(newQuestion);
-      setQuestions([...questions, { question: newQuestion, response }]);
-      setInputValue('');
-      setMessageSent(true);
-      setLoading(false); 
-    }, 1000); 
+    if (inputValue.trim() !== '') { 
+      console.log('Sending message:', inputValue);
+      setLoading(true); 
+      setTimeout(() => {
+        const newQuestion = inputValue;
+        const response = generateResponse(newQuestion);
+        setQuestions([...questions, { question: newQuestion, response }]);
+        setInputValue('');
+        setMessageSent(true);
+        setLoading(false); 
+      }, 1000); 
+    }
   };
-
+  
   const generateResponse = (question) => {
     switch (question) {
       case "Could you help me with the maternity policy of my organization?":
@@ -81,6 +79,10 @@ function Chats() {
       event.preventDefault();
       handleSend();
     }
+  };
+  const resizeTextarea = (element) => {
+    element.style.height = 'auto';
+    element.style.height = (element.scrollHeight) + 'px';
   };
 
   return (
@@ -184,14 +186,14 @@ function Chats() {
               <div key={index}>
           <div className={styles.responseContent}>
          <div className={styles.askedQuestion}>
-         <img src="https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg" alt="User" className={styles.userImage} />
+         <img src={uesrImg} alt="User" className={styles.userImage} />
             <p className={styles.askedQuestionText}> {item.question}</p>
           </div>
           {loading && index === questions.length - 1 ? ( 
             <Skeleton active />
           ) : (
          <div className={styles.response}>
-         <img src="https://t4.ftcdn.net/jpg/04/89/49/99/360_F_489499957_3Kiig2eXI5mTY28G3QdUeppgxH1HZ5ry.jpg" alt="Response" className={styles.responseImage} />
+         <img src={responseImg} alt="Response" className={styles.responseImage} />
          <p>{item.response}</p>
           </div>
             )}
@@ -212,6 +214,7 @@ function Chats() {
                     placeholder="Ask Anything..."
                     autoSize={{ minRows: 3, maxRows: 5 }}
                     onKeyPress={handleKeyPress} 
+                    ref={(textarea) => { if (textarea) resizeTextarea(textarea); }}
                   />
                    {inputValue && (
                   <Button
