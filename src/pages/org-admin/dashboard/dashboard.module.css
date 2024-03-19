@@ -1,6 +1,6 @@
 .container {
   display: flex;
-  justify-content: center;
+  justify-content: start;
   /* align-items: center; */
 }
 
@@ -13,6 +13,9 @@
 @media (max-width: 767px) {
   .sub {
     height: 90%;
+  }
+  .container {
+    justify-content: center;
   }
 }
 
