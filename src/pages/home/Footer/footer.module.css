@@ -5,6 +5,7 @@
   font-family: Arial, Helvetica, sans-serif;
   display: flex;
   flex-direction: column;
+  height: 70vh;
 }
 .footer_p_tag {
   color: #fff;

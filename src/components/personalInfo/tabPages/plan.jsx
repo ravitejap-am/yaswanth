@@ -1,11 +1,11 @@
 import React from 'react';
+import { Card } from 'antd'; 
 import righticon from '../../../asset/primiumrighticon.png';
 
 function PersonalPlans() {
   return (
-    <div className="plans-main" style={{ width: '96%' }}>
-      <div className="active-plan">
-        <p>Your active plan </p>
+    <Card style={{ width: '%' }}>
+      <div className="">
         <h2>Premium</h2>
         <p>
           <img className="right-icon" src={righticon} alt="" /> Max 2 users.
@@ -26,7 +26,7 @@ function PersonalPlans() {
           <p>Note: Your plan is due on 3rd Feb, 2024</p>
         </div>
       </div>
-    </div>
+    </Card>
   );
 }
 

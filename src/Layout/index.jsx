@@ -31,9 +31,9 @@ function Layout({ children }) {
             xl: '95%',
           },
           overflowY: {
-            xs: 'scroll',
-            md: 'hidden',
-            lg: 'hidden',
+            xs: 'auto',
+            md: 'auto',
+            lg: 'auto',
           },
           backgroundColor: '#F8FAFC',
           borderRadius: 5,
@@ -45,9 +45,9 @@ function Layout({ children }) {
         <Box
           sx={{
             width: '100%',
-            display: 'flex',
-            justifyContent: 'flex-end',
-            alignItems: 'center',
+            // display: 'flex',
+            // justifyContent: 'flex-end',
+            // alignItems: 'center',
           }}
         >
           <Header />

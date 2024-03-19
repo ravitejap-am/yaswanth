@@ -279,5 +279,6 @@ border-radius: 40px;
 }
 .signup-form-css{
   display: flex;
+  height: 100vh;
   justify-content: center;
 }

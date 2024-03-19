@@ -1,24 +1,37 @@
 import React from "react";
-import documentIcon from "../../../asset/Group 23 (1).png";
 import vector from "../../../asset/vectoricon.png";
-import { Card, CardMedia, Grid, Box } from "@mui/material";
+import { Card, CardMedia, Grid, Box, Typography } from "@mui/material";
 
-const DashboardCard = () => {
+const DashboardCard = ({ mainClass, icon, contentName, contentNumber }) => {
   return (
-    <Card style={{ height: "100px", width: "250px", padding:"20px" }}>
-      <Box sx={{ display: "flex", gap: "1rem" }}>
-        <CardMedia
-          component="img"
-          image={documentIcon}
-          style={{ width: "auto", height: "auto" }}
-        />
-        11
+    <Card className={mainClass}>
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          gap: "1rem",
+          padding: "20px 20px 0 20px",
+        }}
+      >
+        <Box>
+          <CardMedia
+            component="img"
+            image={icon}
+            style={{ width: "auto", height: "auto" }}
+          />
+        </Box>
+        <Box sx={{ display: "flex", flexDirection: "column" }}>
+          <Typography variant="body2">{contentName}</Typography>{" "}
+          <Typography variant="h5" display="block" fontWeight={700}>
+            {contentNumber}
+          </Typography>
+        </Box>
       </Box>
       <Grid container xs={12} md={12} lg={12}>
         <CardMedia
           component="img"
           image={vector}
-          style={{ width: "auto", height: "auto" }}
+          style={{ width: "100%", height: "10%" }}
         />
       </Grid>
     </Card>
