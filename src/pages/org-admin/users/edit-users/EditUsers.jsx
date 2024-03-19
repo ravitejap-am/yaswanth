@@ -117,7 +117,7 @@ const EditUsers = () => {
   }, []);
 
   return (
-    <Layout>
+    <Layout componentName="Edit user">
       <EditForm
         formData={userData}
         setFormsData={setUserData}

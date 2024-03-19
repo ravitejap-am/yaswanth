@@ -155,6 +155,12 @@
   margin-right: 15px;
 }
 
+.chatimg{
+  height: 28px;
+  margin-left: -7px;
+  margin-bottom: 4px;
+}
+
 .response {
   display: flex;
   align-items: center;

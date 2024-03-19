@@ -12,7 +12,7 @@ import styles from './Chats.module.css';
 import { SendOutlined } from '@ant-design/icons';
 import uesrImg from '../../asset/userimg.avif'
 import responseImg from '../../asset/responseimg.jpg'
-
+import amchatImg from '../../asset/Vector (1).png'
 function Chats() {
   const [searchOption, setSearchOption] = useState('specificFileText'); 
   const [selectedFile, setSelectedFile] = useState('file1'); 
@@ -86,7 +86,7 @@ function Chats() {
   };
 
   return (
-    <Layout>
+    <Layout componentName="Chat">
       <div className={styles.chatContainer}>
         <Grid container spacing={2} alignItems="left" justifyContent="left">
 
@@ -143,7 +143,7 @@ function Chats() {
             <div className={styles.chatCard}>
               {!messageSent && (
                 <CardContent className={styles.chatCardContent}>
-                  <h1 className={styles.chatHeading}>AM-Chat</h1>
+                  <h1 className={styles.chatHeading}>AM-Chat <img src={amchatImg} alt="" className={styles.chatimg} /></h1>
                   <p className={styles.chatParagraph}>Hello, I’m AM-Chat</p>
                   <p className={styles.chatParagraphText}>How can I help you today?</p>
                   <br />
