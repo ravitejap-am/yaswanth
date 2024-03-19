@@ -273,9 +273,10 @@ function Organisation() {
     console.log("tab value--->", newValue);
     const normalizedTab = newValue
     // const normalizedTab = tab.toLowerCase(); // Normalize to lowercase
-    if (normalizedTab !== selectedTab) {
-      setSelectedTab(normalizedTab);
-    }
+    personalInformationHandler(newValue)
+    // if (normalizedTab !== selectedTab) {
+    //   setSelectedTab(normalizedTab);
+    // }
   };
 
   const handleSubmit = () => {
@@ -294,7 +295,8 @@ function Organisation() {
       const errors = validatePersonalInfoForm(orgData);
       if (Object.keys(errors).length === 0) {
         setOrgInfoErrors({});
-        handleTabChange(tab);
+        // handleTabChange(tab);
+        setSelectedTab(tab)
         return;
       } else {
         setOrgInfoErrors(errors);
@@ -310,7 +312,8 @@ function Organisation() {
       const usererrors = validateUserInfoForm(orgData);
       if (Object.keys(usererrors).length === 0) {
         setUserInfoErrors({});
-        handleTabChange(tab);
+        // handleTabChange(tab);
+        setSelectedTab(tab)
       } else {
         setUserInfoErrors(usererrors);
         // showNotifyMessage(
@@ -340,11 +343,13 @@ function Organisation() {
         return;
       }
       if (domainNameValidation(orgData?.metaData)) {
-        handleTabChange(tab);
+        // handleTabChange(tab);
+        setSelectedTab(tab)
       }
     }
     if (selectedTab == 'subscriptionplan') {
-      handleTabChange(tab);
+      // handleTabChange(tab);
+      setSelectedTab(tab)
     }
 
     // handleTabChange(tab);
@@ -373,41 +378,34 @@ function Organisation() {
 
   return (
     <Layout>
-
-        <Box 
-        // sx={{backgroundColor: 'cyan'}}
-        >
+        <Box >
           <TabContext value={selectedTab}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider',  boxShadow: '0px 2.789px 6.972px 3.486px rgba(0, 0, 0, 0.09)',borderRadius: 3,marginBottom: '1rem'}}>
               <TabList 
                 onChange={handleTabChange} 
                 aria-label="organisation tabs"
-                // sx={{
-                //   display: 'flex',
-                //   overflowX: 'auto',
-                // }}
-                // sx={{
-                //   display: 'flex',
-                //   overflowX: 'auto',
-                //   '@media (min-width: 600px)': { // Change the breakpoint as needed
-                //     overflowX: 'visible', // or 'auto' if you still want scrolling
-                //   },
-                // }}
                 variant="scrollable"
                 scrollButtons = {false}
                 allowScrollButtonsMobile
                 sx={{
                   display: 'flex',
-                  flexWrap: 'nowrap', // Prevent tabs from wrapping to next line
+                  flexWrap: 'nowrap', 
                   '& .MuiTab-root': {
-                    minWidth: 'auto', // Ensure tabs take minimum width
+                    minWidth: 'auto',
                   },
                 }}
               >
-                <Tab label={("Organisation Info").toLowerCase().replace(/\s/g, '')} value="personalinformation">Organisation Info</Tab>
-                <Tab label="Organisation Admin" value="organizationadmin">Organisation Admin</Tab>
-                <Tab label="Organisation Domains" value="organizationdomains">Organisation Domains</Tab>
-                <Tab label="Subscription Plan" value="subscriptionplan">Subscription Plan</Tab>
+                <Tab label={"Organisation Info"}  value="personalinformation">Organisation Info</Tab>
+                <Tab label="Organisation Admin" value="organizationadmin" 
+                
+                // disabled = {Object.keys(orgInfoErrors).length === 0 ? false : true}
+
+                >Organisation Admin</Tab>
+                <Tab label="Organisation Domains" 
+                // disabled = { Object.keys(userInfoErrors)?.length === 0 ? false : true}
+                
+                value="organizationdomains">Organisation Domains</Tab>
+                <Tab label="Subscription Plan"  value="subscriptionplan">Subscription Plan</Tab>
               </TabList>
             </Box>
             <Box  sx={{borderWidth: '1px',  boxShadow: '0px 2.789px 6.972px 3.486px rgba(0, 0, 0, 0.09)',borderRadius: 3}}>

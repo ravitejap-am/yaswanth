@@ -8,9 +8,6 @@ import { selectUser } from '../../store/authSlice';
 import CircularProgress from '@mui/material/CircularProgress';
 import { extractDomain } from '../../utils/generalUtils';
 import { PlusCircleFilled } from '@ant-design/icons';
-import { Grid, FormHelperText } from '@mui/material';
-import  './dynamicTextcomponent.css'
-
 
 function DynamicTextComponent({
   textFields,
@@ -257,31 +254,18 @@ function DynamicTextComponent({
   };
 
   return (
-    <Grid container
-    // style={{ padding: '10px', marginTop: '2em' }}
-    >
+    <div style={{ padding: '10px', marginTop: '2em' }}>
       {textFields.map(({ typeDetails, id }, index) => (
-        <Grid item 
-            container
-            direction="row"
-            justifyContent="flex-start"
-            alignItems="flex-start"
-            key={index}
-          // div
-          // key={index}
-          // style={{
-          //   display: 'flex',
-          //   justifyContent: 'flex-start',
-          //   alignItems: 'center',
-          //   gap: '2em',
-          // }}
+        <div
+          key={index}
+          style={{
+            display: 'flex',
+            justifyContent: 'flex-start',
+            alignItems: 'center',
+            gap: '2em',
+          }}
         >
-          <Grid item container
-          // style={{ display: 'flex', flexDirection: 'column' }}
-          direction="column"
-          justifyContent="flex-start"
-          xs={10} sm={6} md={4} lg={5} xl={3}
-          >
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
             <input
               type="text"
               value={typeDetails}
@@ -289,77 +273,51 @@ function DynamicTextComponent({
               onBlur={(event) => handleCheckDomain(index, event.target.value)}
               // onfocus={onfocus()}
               // onfocus={onFocusFunction(index)}
-              // style={{
-              //   width: '445px',
-              //   height: '35px',
-              //   borderRadius: '40px',
-              //   border: '1px solid var(--Brand-700, #4338CA)',
-              //   backgroundColor: 'transparent',
-              //   marginBottom: '2em',
-              //   padding: '0.375rem 0.75rem',
-              // }}
-              // style={styles.domain-text-input}
-              className='domain-text-input'
+              style={{
+                width: '445px',
+                height: '35px',
+                borderRadius: '40px',
+                border: '1px solid var(--Brand-700, #4338CA)',
+                backgroundColor: 'transparent',
+                marginBottom: '2em',
+                padding: '0.375rem 0.75rem',
+              }}
               disabled={id ? true : false}
             />
             {typeDetails && !isValidDomain(typeDetails) && (
-              <FormHelperText 
-              // style={{ color: 'red' }}
-              sx={{ fontSize: '14px' }}
-              error
-              >Invalid domain name format</FormHelperText>
+              <span style={{ color: 'red' }}>Invalid domain name format</span>
             )}
-          </Grid>
-          
-          <Grid item xs={2} sm={1} md={1} lg={1} xl={1}
-           container
-           direction="column"
-           justifyContent="center"
-           alignItems="center"
-           height={'100%'}
-          >
-            
-              <DeleteIcon
-                style={{
-                  height: '20px',
-                  width: '20px',
-                  cursor: 'pointer',
-                  fill: '#4338ca',
-                }}
-                onClick={() => handleDeleteDomain(index)}
-              />
-            
-          </Grid>
-          
+          </div>
+
+          <DeleteIcon
+            style={{
+              height: '20px',
+              width: '20px',
+              cursor: 'pointer',
+              fill: '#4338ca',
+            }}
+            onClick={() => handleDeleteDomain(index)}
+          />
 
           {!!loadingIndex && loadingIndex == index ? <CircularProgress /> : ''}
           {usedDomainIndexCollection.includes(index) && (
-            <FormHelperText 
-            sx={{ fontSize: '14px' }}
-            error
-            >
+            <span style={{ color: 'red' }}>
               {' '}
               {`The domain ${typeDetails} already exists, please change it to the new domain`}
-            </FormHelperText>
+            </span>
           )}
-        </Grid>
+        </div>
       ))}
 
-      <Grid 
-        item
-        container
-        direction="row"
-        justifyContent="flex-start"
-        alignItems="flex-start" 
-        // style={{
-        //   display: 'flex',
-        //   justifyContent: 'flex-start',
-        //   // alignItems: 'center',
-        //   gap: '2em',
-        //   marginTop: '1em',
-        //   flexDirection: 'column',
-        // }}
-        
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'flex-start',
+          // alignItems: 'center',
+          gap: '2em',
+          marginTop: '1em',
+          flexDirection: 'column',
+        }}
       >
         {!(
           isSubmitDisabled() ||
@@ -397,37 +355,7 @@ function DynamicTextComponent({
               >
               </Button>
             </Tooltip>
-
-            <Grid container spacing={1}>
-              <Grid item xs={6} sm={3} md={2} lg={1}
-              >
-                <Button
-                  style={{ marginTop: '1em', width: '8em' }}
-                  onClick={() => {
-                    personalInformationHandler('organizationadmin');
-                  }}
-                  loading={buttonLoading}
-                >
-                  Back
-                </Button>
-              </Grid>
-              <Grid item xs={6} sm={3} md={2} lg={1}>
-                <Button
-                  type="primary"
-                  style={{ marginTop: '1em', width: '8em'}}
-                  // onClick={() => {
-                  //   personalInformationHandler('organizationdomains');
-                  // }}
-                  onClick={() => {
-                    personalInformationHandler('subscriptionplan');
-                  }}
-                  loading={buttonLoading}
-                >
-                  Next
-                </Button>
-              </Grid>
-      </Grid>
-            {/* <div
+            <div
               className="center"
               style={{
                 gap: '2em',
@@ -453,13 +381,13 @@ function DynamicTextComponent({
               >
                 Next
               </Button>
-            </div> */}
+            </div>
           </>
         ) : (
           ''
         )}
-      </Grid>
-    </Grid>
+      </div>
+    </div>
   );
 }
 

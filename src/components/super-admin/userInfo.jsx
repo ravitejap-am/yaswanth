@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button } from 'antd';
 import './userForm.css'; 
-import {Box, Grid } from "@mui/material"
+import {Box, Grid, FormHelperText } from "@mui/material"
 import { yellow } from '@mui/material/colors';
 
 function UserInfoForm({
@@ -58,7 +58,7 @@ function UserInfoForm({
                 onChange={handleChange}
               />
               {errors.firstName && (
-                <span className="error">{errors.firstName}</span>
+                <FormHelperText error sx={{ fontSize: '14px' }}>{errors.firstName}</FormHelperText>
               )}
         </div>
         </Grid>
@@ -73,7 +73,7 @@ function UserInfoForm({
             value={formData.lastName}
             onChange={handleChange}
           />
-          {errors.lastName && <span className="error">{errors.lastName}</span>}
+          {errors.lastName && <FormHelperText error sx={{ fontSize: '14px' }}>{errors.lastName}</FormHelperText>}
         </div>
         </Grid>
         <Grid item xs={8} md={5}>
@@ -87,7 +87,7 @@ function UserInfoForm({
             value={formData.email}
             onChange={handleChange}
           />
-          {errors.email && <span className="error">{errors.email}</span>}
+          {errors.email && <FormHelperText error sx={{ fontSize: '14px' }}>{errors.email}</FormHelperText>}
         </div>
         </Grid>
         <Grid container spacing={1}>

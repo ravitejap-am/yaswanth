@@ -186,7 +186,6 @@ function OrganizationForm({
             onChange={handleChange}
             className={styles.inputstyle}
           />
-
           {errors.name && <FormHelperText error sx={{ fontSize: '14px' }}>{errors.name}</FormHelperText>}
         {/* </div> */}
         </Grid>
