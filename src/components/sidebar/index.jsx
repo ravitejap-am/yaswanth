@@ -8,10 +8,12 @@ import { selectUser } from '../../store/authSlice';
 import { Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { tokenDecodeJWT } from '../../utils/authUtils';
+import { useChat } from '../../contexts/provider/ChatContext';
 function Sidebar() {
   const { userToken } = useSelector(selectUser);
   const { pathname } = useLocation();
   const { role } = tokenDecodeJWT(userToken);
+  const { isChatOpen, setIsChatOpen } = useChat();
   const [chatHistory, setChatHistory] = useState([
     {
       title: 'chat one title for chat adress',
@@ -73,7 +75,14 @@ function Sidebar() {
             gap: 4,
           }}
         >
-          {sideBar(role, pathname, chatHistory, setChatHistory)}
+          {sideBar(
+            role,
+            pathname,
+            chatHistory,
+            setChatHistory,
+            setIsChatOpen,
+            isChatOpen
+          )}
         </Box>
       </Box>
     </Box>
