@@ -56,10 +56,7 @@ const style = {
 };
 
 function OrganizationList() {
-  let {
-    showNotifyMessage,
-    hideNotifyMessage,
-  } = useMessageState();
+  let { showNotifyMessage, hideNotifyMessage } = useMessageState();
 
   const user = useSelector(selectUser);
   const navigate = useNavigate();
@@ -336,32 +333,49 @@ function OrganizationList() {
     {
       field: "organisationName",
       headerName: "Organisation Name",
-      width: 200,
+      flex: 1,
+      minWidth: 200,
+      maxWidth: 400,
       sortable: false,
     },
-    { field: "address", headerName: "Address", width: 450, sortable: false },
+    {
+      field: "address",
+      headerName: "Address",
+      flex: 1,
+      minWidth: 450,
+      maxWidth: 900,
+      sortable: false,
+    },
     {
       field: "organisationAdmin",
       headerName: "Organisation Admin",
-      width: 200,
+      flex: 1,
+      minWidth: 200,
+      maxWidth: 400,
       sortable: false,
     },
     {
       field: "plans",
       headerName: "Plans",
-      width: 100,
+      flex: 1,
+      minWidth: 100,
+      maxWidth: 200,
       sortable: false,
     },
     {
       field: "status",
       headerName: "Status",
-      width: 100,
+      flex: 1,
+      minWidth: 100,
+      maxWidth: 200,
       sortable: false,
     },
     {
       field: "actions",
       headerName: "Actions",
-      width: 100,
+      flex: 1,
+      minWidth: 100,
+      maxWidth: 200,
       sortable: false,
       renderCell: (params) => (
         <div>

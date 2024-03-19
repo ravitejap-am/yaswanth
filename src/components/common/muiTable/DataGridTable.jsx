@@ -12,7 +12,7 @@ const DataGridTable = ({
   fetchlist,
 }) => {
   return (
-
+    <div style={{ maxWidth: "1800px" }}>
       <DataGrid
         rows={rows}
         columns={columns}
@@ -33,7 +33,7 @@ const DataGridTable = ({
         checkboxSelection={showOrHide}
         disableColumnMenu={true}
       />
-   
+    </div>
   );
 };
 
