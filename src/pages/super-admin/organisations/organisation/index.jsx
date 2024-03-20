@@ -372,7 +372,7 @@ function Organisation() {
   }
 
   return (
-    <Layout>
+    <Layout componentName="Add Organistaion">
       <Box>
         <TabContext value={selectedTab}>
           <Box
