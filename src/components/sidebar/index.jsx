@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Box, Hidden, Typography } from '@mui/material';
 
 import { sideBar } from './sidebar';
-import sidebarImg from '../../asset/images/logo.png'
+import sidebarImg from '../../asset/images/logo.png';
 import { selectUser } from '../../store/authSlice';
 import { Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -57,9 +57,9 @@ function Sidebar() {
         }}
       >
         <Hidden smDown>
-          {/* <Typography variant="h3" my={2} fontWeight={600} fontSize={18}> */}
+          <Link to={role == 'USER' ? '/user' : '/dashboard'}>
             <img src={sidebarImg} alt="" height={40} />
-          {/* </Typography> */}
+          </Link>
         </Hidden>
         <Box
           sx={{
