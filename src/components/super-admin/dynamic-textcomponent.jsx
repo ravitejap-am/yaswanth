@@ -10,7 +10,7 @@ import { extractDomain } from '../../utils/generalUtils';
 import { PlusCircleFilled } from '@ant-design/icons';
 import { Grid, FormHelperText } from '@mui/material';
 import  './dynamicTextcomponent.css'
-
+import { Popconfirm } from 'antd';
 
 function DynamicTextComponent({
   textFields,
@@ -318,17 +318,41 @@ function DynamicTextComponent({
            alignItems="center"
            height={'100%'}
           >
-            
-              <DeleteIcon
-                style={{
-                  height: '20px',
-                  width: '20px',
-                  cursor: 'pointer',
-                  fill: '#4338ca',
-                }}
-                onClick={() => handleDeleteDomain(index)}
-              />
-            
+          {typeDetails && typeDetails !== null && typeDetails !== "" ? <Popconfirm
+            key={'amchat'}
+            title="Am Chat"
+            description={
+              "Do you really want to delete this domain" +
+              ` '${typeDetails}'` 
+            }
+            onConfirm={() => {
+              handleDeleteDomain(index)
+            }}
+            onCancel={() => {
+              console.log(' row?.id ');
+            }}
+            okText="Submit"
+            cancelText="Close"
+          >
+          <DeleteIcon
+            style={{
+              height: '20px',
+              width: '20px',
+              cursor: 'pointer',
+              fill: '#4338ca',
+            }}
+          />
+          </Popconfirm>
+          :
+          <DeleteIcon
+            style={{
+              height: '20px',
+              width: '20px',
+              cursor: 'pointer',
+              fill: '#4338ca',
+            }}
+           onClick={() => handleDeleteDomain(index)}
+          />}
           </Grid>
           
 
