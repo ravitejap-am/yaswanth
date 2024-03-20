@@ -80,37 +80,16 @@ const Rout = () => {
 
   console.log("userRole--->", userRole);
 
-  const wrongUrlRedirection = () => {
-    if(decodedToken?.role) {
-      switch(decodedToken?.role){
-        case 'USER':
-          return <Chats />
-        case 'ORG_ADMIN':
-          return <Dashboard />
-        case 'SUPER_ADMIN':
-          return <Dashboard />
-        default:
-          return <Home />
-      }
-    }
-  }
-
   return (
     <Routes>
-      <Route exact path="/" element={
-        !!decodedToken ? <>
-        { decodedToken?.role == 'USER' ?<Chats />:
-        decodedToken?.role == 'ORG_ADMIN' || decodedToken?.role == 'SUPER_ADMIN' &&<Dashboard />
-         }
-        </>:
-      <Home />} />
+      <Route exact path="/" element={<Home />} />
       <Route exact path="/registerUser" element={<RegisterUser />} />
       <Route exact path="/signin" element={<SignIn />} />
       <Route exact path="/user/verify/:id" element={<SignIn />} />
       <Route exact path="/recoverypassword" element={<RecoveryPasswor />} />
       <Route exact path="/api/v1/iam/user/verify" element={<ResetPassword />} />
       <Route exact path="/resetPassword/:id" element={<ResetPassword />} />
-      <Route exact path="/pagenotfound" element={wrongUrlRedirection()} />
+      <Route exact path="/pagenotfound" element={<PageNotFound />} /> 
       <Route exact path="/internal500" element={<Page505 />} />
       <Route exact path="/undermaintenence" element={<MaintainencePage />} />
       <Route
@@ -127,8 +106,7 @@ const Rout = () => {
                   <OrgAdminSidebar />
                 </>
               ) : (
-                // <PageNotFound />
-                wrongUrlRedirection()
+                <PageNotFound />
               )
             }
             allowedRoles={["USER", "ORG_ADMIN"]}
@@ -146,8 +124,7 @@ const Rout = () => {
               ) : decodedToken?.role == "ORG_ADMIN" ? (
                 <Chats />
               ) : (
-                // <PageNotFound />
-                wrongUrlRedirection()
+                <PageNotFound />
               )
             }
             allowedRoles={["SUPER_ADMIN", "USER", "ORG_ADMIN"]}
@@ -304,7 +281,7 @@ const Rout = () => {
       ></Route>
       <Route exact path="/termsandconditions" element={<TermAndCondition />} />
       {/* Fallback route for any other URL */}
-      <Route path="*" element={wrongUrlRedirection()} />
+      <Route path="*" element={<PageNotFound />} />
       {/* <Route
         path="/Info"
         element={
