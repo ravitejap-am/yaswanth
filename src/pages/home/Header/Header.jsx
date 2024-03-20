@@ -1,11 +1,12 @@
 // Header.jsx
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import Styles from "./header.module.css";
-import Logo from "../../../asset/images/logo.png";
-import GeneralButton from "../../../components/common/buttons/GeneralButton";
-import { Layout, Menu, Grid, Drawer } from "antd";
-import { AppstoreOutlined } from "@ant-design/icons";
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import Styles from './header.module.css';
+import Logo from '../../../asset/images/logo.png';
+import GeneralButton from '../../../components/common/buttons/GeneralButton';
+import { Layout, Menu, Grid, Drawer } from 'antd';
+import { AppstoreOutlined } from '@ant-design/icons';
+import './header.css';
 
 const Header = () => {
   const [scroll, setScroll] = useState(false);
@@ -19,45 +20,45 @@ const Header = () => {
       setScroll(window.scrollY > 0);
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
   const scrollToElement = (elementId) => {
     const element = document.getElementById(elementId);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+      element.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
   const items = [
     {
-      key: "Home_page",
-      label: "Home",
-      onClick: () => scrollToElement("Home_page"),
+      key: 'Home_page',
+      label: 'Home',
+      onClick: () => scrollToElement('Home_page'),
     },
     {
-      key: "ai_page",
-      label: "Solutions",
-      onClick: () => scrollToElement("ai_page"),
+      key: 'ai_page',
+      label: 'Solutions',
+      onClick: () => scrollToElement('ai_page'),
     },
     {
-      key: "How_it_works",
-      label: "How it Works",
-      onClick: () => scrollToElement("How_it_works"),
+      key: 'How_it_works',
+      label: 'How it Works',
+      onClick: () => scrollToElement('How_it_works'),
     },
     {
-      key: "Plan_Page",
-      label: "Plans",
-      onClick: () => scrollToElement("Plan_Page"),
+      key: 'Plan_Page',
+      label: 'Plans',
+      onClick: () => scrollToElement('Plan_Page'),
     },
     {
-      key: "Contact_Up",
-      label: "Contact Us",
-      onClick: () => scrollToElement("Contact_Up"),
+      key: 'Contact_Up',
+      label: 'Contact Us',
+      onClick: () => scrollToElement('Contact_Up'),
     },
   ];
 
@@ -79,12 +80,12 @@ const Header = () => {
           <Menu
             theme="dark"
             mode="horizontal"
-            defaultSelectedKeys={["Home_page"]}
+            defaultSelectedKeys={['Home_page']}
             items={items}
             style={{
-              display: "flex",
+              display: 'flex',
               flex: 1,
-              justifyContent: "center",
+              justifyContent: 'center',
             }}
           >
             {items?.map((item) => (
@@ -97,20 +98,24 @@ const Header = () => {
           <>
             <AppstoreOutlined
               onClick={showDrawer}
-              style={{ color: "white", fontSize: "30px" }}
+              style={{ color: 'white', fontSize: '30px' }}
             />
             <Drawer
-              title="Menu"
-              placement="top"
+              title={<p style={{ color: 'white' }}>Menu</p>}
+              placement="left"
               closable={true}
               onClose={onClose}
               open={visible}
               mask
+              style={{
+                background:
+                  'linear-gradient(114deg,#0f172a 51.52%,#152346 73.32%,#1a2e5e 92.75%)',
+              }}
             >
               <Menu
                 theme="dark"
                 mode="inline"
-                defaultSelectedKeys={["Home_page"]}
+                defaultSelectedKeys={['Home_page']}
               >
                 {items.map((item) => (
                   <Menu.Item
@@ -130,26 +135,26 @@ const Header = () => {
         {screens.sm || screens.md || screens.lg ? (
           <div className={Styles.navigationButton}>
             <div className="btn-color">
-              <Link to={"/signIn"} style={{ textDecoration: "none" }}>
+              <Link to={'/signIn'} style={{ textDecoration: 'none' }}>
                 <GeneralButton
-                  name={"Sign In"}
-                  type={"submit"}
-                  color={"#F8FAFC"}
+                  name={'Sign In'}
+                  type={'submit'}
+                  color={'#F8FAFC'}
                 />
               </Link>
             </div>
             <div className="btn-color-signup">
-              <Link to={"/registerUser"} style={{ textDecoration: "none" }}>
+              <Link to={'/registerUser'} style={{ textDecoration: 'none' }}>
                 <GeneralButton
-                  name={"Sign Up"}
-                  type={"submit"}
-                  color={"#F8FAFC"}
+                  name={'Sign Up'}
+                  type={'submit'}
+                  color={'#F8FAFC'}
                 />
               </Link>
             </div>
           </div>
         ) : (
-          ""
+          ''
         )}
       </Header>
     </Layout>
