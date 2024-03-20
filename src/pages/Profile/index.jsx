@@ -3,7 +3,7 @@ import Layout from '../../Layout'
 import PersonalInfo from '../../components/personalInfo/page'
 function ProfileInfo() {
   return (
-<Layout>
+<Layout componentName="Personal Info">
 <PersonalInfo/>
 
 </Layout>

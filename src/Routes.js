@@ -26,7 +26,6 @@ import Error404 from "./pages/errorHandler/error404/Error404.jsx";
 import OrgUpdateDocumentSidebar from "./pages/chatmain/orgadddocument/orgUpdateDocument/OrgUpdateDocumentSidebar.jsx";
 import OrgEditDocumentSidebar from "./pages/chatmain/orgadddocument/orgEditDocument/OrgEditDocumentSidebar.jsx";
 import EditOrgUserSidebar from "./pages/chatmain/organizationadmin/editorguser/EditOrgUserSidebar.jsx";
-import TermAndCondition from "./pages/Terms&Conditions/TermAndCondition.jsx";
 import AMChatMainUserSidebar from "./pages/chatmain/userChat/AMChatMainUserSidebar.jsx";
 import SearchUIAIChatSidebar from "./pages/AMChatAdmin/SearchUIAMChat/SearchUIAIChatSidebar.jsx";
 import UserProfile from "./pages/chatmain/UserProfile.jsx";
@@ -64,6 +63,7 @@ import AddOrgDocuments from './components/AddOrgadminDocs/index.jsx';
 import UpdateOrgAdminDoc from './components/UpdateOrgAdminDoc/index.jsx';
 import EditUsers from "./pages/org-admin/users/edit-users/EditUsers.jsx";
 import AddUsers from "./pages/org-admin/users/add-users/AddUsers.jsx";
+import TermsAndConditions from "./components/TermsAndConditions/index.jsx";
 /*  
 new flow import statements stop
 
@@ -279,7 +279,7 @@ const Rout = () => {
           />
         }
       ></Route>
-      <Route exact path="/termsandconditions" element={<TermAndCondition />} />
+      <Route exact path="/termsandconditions" element={<TermsAndConditions />} />
       {/* Fallback route for any other URL */}
       <Route path="*" element={<PageNotFound />} />
       {/* <Route

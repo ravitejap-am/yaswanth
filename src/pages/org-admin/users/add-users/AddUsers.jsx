@@ -82,7 +82,7 @@ const AddUsers = () => {
   };
 
   return (
-    <Layout>
+    <Layout componentName="Add user">
       <EditForm
         formData={{ firstName: "", lastName: "", email: "" }}
         submitHandler={submitHandler}
