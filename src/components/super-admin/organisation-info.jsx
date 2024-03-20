@@ -164,83 +164,40 @@ function OrganizationForm({
   return (
     <>
 
-    <Box        
-    //  sx={{ width:  {
-    //       xs:100,
-    //       sm:300,
-    //       md:700,
-    //       lg:800,
-    //       xl:1000
-    //     }, typography: 'body1' }}
-    //  style={{width: 1000}}
-      >
+
+<Box>
       <Grid container spacing={2}> 
-        <Grid item xs={8} md={6} lg={5}>
-        {/* <div> */}
-          <label className={styles.labels}>Organisation Name:</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={orgData?.name}
-            onChange={handleChange}
-            className={styles.inputstyle}
-          />
-          {errors.name && <FormHelperText error sx={{ fontSize: '14px' }}>{errors.name}</FormHelperText>}
-        {/* </div> */}
+        <Grid item xs={12} md={6} lg={6}   
+            container
+            direction="column"
+            justifyContent="flex-start"
+            alignItems="flex-start"
+          >
+          <Grid>
+            <label className={styles.labels}>Organisation Name:</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value={orgData?.name}
+              onChange={handleChange}
+              className={styles.inputstyle}
+            />
+            {errors.name && <FormHelperText error sx={{ fontSize: '14px' }}>{errors.name}</FormHelperText>}
+          </Grid>
+          <Grid>
+            <label className={styles.labels}>Address One:</label>
+            <input
+              type="text"
+              id="address1"
+              name="address1"
+              value={orgData?.address?.address1}
+              onChange={handleChange}
+              className={styles.inputstyle}
+            />
+            {errors.address1 && <FormHelperText error sx={{ fontSize: '14px' }}>{errors.address1}</FormHelperText>}
         </Grid>
-        <Grid item xs={8} md={6} lg={5}>
-        <div>
-          <label className={styles.labels}>Country:</label>
-          <Select
-            showSearch
-            onChange={handleSelectCountryChange}
-            placeholder="Select country"
-            className={styles.selectContainer}
-            optionFilterProp="children"
-            filterOption={filterOption}
-            filterSort={filterSort}
-            options={countries}
-            value={orgData?.address?.country}
-          />
-
-          {errors.country && <FormHelperText error sx={{ fontSize: '14px' }}>{errors.country}</FormHelperText>}
-        </div>
-        </Grid>
-        <Grid item xs={8} md={6} lg={5}>
-        <div>
-          <label className={styles.labels}>Address One:</label>
-          <input
-            type="text"
-            id="address1"
-            name="address1"
-            value={orgData?.address?.address1}
-            onChange={handleChange}
-            className={styles.inputstyle}
-          />
-          {errors.address1 && <FormHelperText error sx={{ fontSize: '14px' }}>{errors.address1}</FormHelperText>}
-        </div>
-        </Grid>
-        <Grid item xs={8} md={6} lg={5}>
-        <div>
-          <label className={styles.labels}>State:</label>
-          <Select
-            showSearch
-            onChange={handleSelectStateChange}
-            placeholder="Select state"
-            className={styles.selectContainer}
-            optionFilterProp="children"
-            filterOption={filterOption}
-            filterSort={filterSort}
-            options={states}
-            value={orgData?.address?.state}
-          />
-
-          {errors.state && <FormHelperText error sx={{ fontSize: '14px' }}>{errors.state}</FormHelperText>}
-        </div>
-        </Grid>
-        <Grid item md={6} xs={8} lg={5}>
-        <div>
+        <Grid>
           <label className={styles.labels}>Address Two:</label>
           <input
             type="text"
@@ -251,158 +208,78 @@ function OrganizationForm({
             className={styles.inputstyle}
           />
           {errors.address2 && <FormHelperText error sx={{ fontSize: '14px' }}>{errors.address2}</FormHelperText>}
-        </div>
         </Grid>
-        <Grid item md={6} xs={8} lg={5}>
-            <div>
-          <label className={styles.labels}>City:</label>
-          <Select
-            showSearch
-            onChange={handleCityChange}
-            placeholder="Select city"
-            className={styles.selectContainer}
-            optionFilterProp="children"
-            filterOption={filterOption}
-            filterSort={filterSort}
-            options={cities}
-            value={orgData?.address?.city}
-          />
+        </Grid>
+        <Grid item xs={12} md={6} lg={6}   
+            container
+            direction="column"
+            justifyContent="flex-start"
+            alignItems="flex-start"
+          >
+            <Grid>
+              <label className={styles.labels}>Country:</label>
+              <Select
+                showSearch
+                onChange={handleSelectCountryChange}
+                placeholder="Select country"
+                className={styles.selectContainer}
+                optionFilterProp="children"
+                filterOption={filterOption}
+                filterSort={filterSort}
+                options={countries}
+                value={orgData?.address?.country}
+              />
 
-          {errors.city && <FormHelperText error sx={{ fontSize: '14px' }}>{errors.city}</FormHelperText>}
-        </div>
+              {errors.country && <FormHelperText error sx={{ fontSize: '14px' }}>{errors.country}</FormHelperText>}  
+            </Grid>   
+            <Grid>
+              <label className={styles.labels}>State:</label>
+              <Select
+                showSearch
+                onChange={handleSelectStateChange}
+                placeholder="Select state"
+                className={styles.selectContainer}
+                optionFilterProp="children"
+                filterOption={filterOption}
+                filterSort={filterSort}
+                options={states}
+                value={orgData?.address?.state}
+              />
+
+              {errors.state && <FormHelperText error sx={{ fontSize: '14px' }}>{errors.state}</FormHelperText>}
+            </Grid>
+            <Grid>
+              <label className={styles.labels}>City:</label>
+              <Select
+                showSearch
+                onChange={handleCityChange}
+                placeholder="Select city"
+                className={styles.selectContainer}
+                optionFilterProp="children"
+                filterOption={filterOption}
+                filterSort={filterSort}
+                options={cities}
+                value={orgData?.address?.city}
+              />
+
+              {errors.city && <FormHelperText error sx={{ fontSize: '14px' }}>{errors.city}</FormHelperText>}              
+            </Grid>                     
         </Grid>
-        <Grid item md={6} xs={8} lg={5}>
-        <div>
+        <Grid item xs={12} md={12} lg={12}>
           <label className={styles.labels}>Zip Code:</label>
-          <input
-            type="number"
-            id="postCode"
-            name="postCode"
-            value={orgData?.address?.postCode}
-            onChange={handleChange}
-            className={styles.inputstyle}
-          />
-          {errors.postCode && <FormHelperText error sx={{ fontSize: '14px' }}>{errors.postCode}</FormHelperText>}
-        </div>
+            <input
+              type="number"
+              id="postCode"
+              name="postCode"
+              value={orgData?.address?.postCode}
+              onChange={handleChange}
+              className={styles.pincodeStyle}
+            />
+            {errors.postCode && <FormHelperText error sx={{ fontSize: '14px' }}>{errors.postCode}</FormHelperText>}
         </Grid>
       </Grid>
     </Box>
 
-
-
-
-
-
-
-
-
-
-
-
-
-      {/* <form
-        className={styles.formContainer}
-        style={{ padding: '10px', marginTop: '2em' }}
-      >
-        <div>
-          <label htmlFor="org-name">Organisation Name:</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={orgData?.name}
-            onChange={handleChange}
-            className={styles.inputstyle}
-          />
-
-          {errors.name && <p className={styles.error}>{errors.name}</p>}
-        </div>
-        <div>
-          <label htmlFor="country">Country:</label>
-          <Select
-            showSearch
-            onChange={handleSelectCountryChange}
-            placeholder="Select country"
-            className={styles.selectContainer}
-            optionFilterProp="children"
-            filterOption={filterOption}
-            filterSort={filterSort}
-            options={countries}
-            value={orgData?.address?.country}
-          />
-
-          {errors.country && <p className={styles.error}>{errors.country}</p>}
-        </div>
-        <div>
-          <label htmlFor="address-one">Address One:</label>
-          <input
-            type="text"
-            id="address1"
-            name="address1"
-            value={orgData?.address?.address1}
-            onChange={handleChange}
-            className={styles.inputstyle}
-          />
-          {errors.address1 && <p className={styles.error}>{errors.address1}</p>}
-        </div>
-        <div>
-          <label htmlFor="state">State:</label>
-          <Select
-            showSearch
-            onChange={handleSelectStateChange}
-            placeholder="Select state"
-            className={styles.selectContainer}
-            optionFilterProp="children"
-            filterOption={filterOption}
-            filterSort={filterSort}
-            options={states}
-            value={orgData?.address?.state}
-          />
-
-          {errors.state && <p className={styles.error}>{errors.state}</p>}
-        </div>
-        <div>
-          <label htmlFor="address-two">Address Two:</label>
-          <input
-            type="text"
-            id="address-two"
-            name="address2"
-            value={orgData?.address?.address2}
-            onChange={handleChange}
-            className={styles.inputstyle}
-          />
-          {errors.address2 && <p className={styles.error}>{errors.address2}</p>}
-        </div>
-
-        <div>
-          <label htmlFor="city">City:</label>
-          <Select
-            showSearch
-            onChange={handleCityChange}
-            placeholder="Select city"
-            className={styles.selectContainer}
-            optionFilterProp="children"
-            filterOption={filterOption}
-            filterSort={filterSort}
-            options={cities}
-            value={orgData?.address?.city}
-          />
-
-          {errors.city && <p className={styles.error}>{errors.city}</p>}
-        </div>
-        <div>
-          <label htmlFor="zip-code">Zip Code:</label>
-          <input
-            type="number"
-            id="postCode"
-            name="postCode"
-            value={orgData?.address?.postCode}
-            onChange={handleChange}
-            className={styles.inputstyle}
-          />
-          {errors.postCode && <p className={styles.error}>{errors.postCode}</p>}
-        </div>
-      </form> */}
       <div style={{ paddingLeft: '10px' }}>
         <Button
           type="primary"

@@ -60,8 +60,8 @@
 
   @media (min-width: 291px) and (max-width: 480px) {
     .orgInputstyle {
-      min-width: 15rem;
-      max-width: 20rem; 
+      width: 13rem;
+      /* max-width: 20rem;  */
       height: 30px; 
       /* background-color: yellow; */
     }

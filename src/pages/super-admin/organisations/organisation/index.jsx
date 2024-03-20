@@ -494,8 +494,7 @@ function Organisation() {
           marginTop={'0.3rem'}
           >
           <Grid item >
-          {/* <div className={Styles.generalButtonStyle}> */}
-            {/* <div> */}
+
               <Button
                 onClick={() => {
                   if (organisation?.organisationStatus == 'edit') {
@@ -524,10 +523,8 @@ function Organisation() {
                 }}
                 loading={buttonLoading}
               >
-                Save
+              {"Save"}
               </Button>
-            {/* </div> */}
-          {/* </div> */}
           </Grid>
           <Grid item>
             <Link to="/organisations" style={{ textDecoration: 'none' }}>

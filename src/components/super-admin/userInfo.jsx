@@ -90,8 +90,8 @@ function UserInfoForm({
           {errors.email && <FormHelperText error sx={{ fontSize: '14px' }}>{errors.email}</FormHelperText>}
         </div>
         </Grid>
-        <Grid container spacing={1}>
-        <Grid item xs={6} sm={3} md={2} lg={1}
+        <Grid item container spacing={1} >
+        <Grid item xs={6} sm={4} md={2} lg={1.5}
         >
        <Button
           style={{ marginTop: '1em', width: '8em' }}
@@ -102,7 +102,7 @@ function UserInfoForm({
           Back
         </Button>
         </Grid>
-        <Grid item xs={6} sm={3} md={2} lg={1}>
+        <Grid item xs={6} sm={4} md={2} lg={1.5}>
         <Button
           type="primary"
           style={{ marginTop: '1em', width: '8em'}}
