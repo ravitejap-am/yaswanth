@@ -15,9 +15,12 @@ const Footer = () => {
       <div className={Style.firstHalf}>
         <div className={Style.footerFIrstCOntent}>
           <div className={Style.footerAddress}>
-            <p className={Style.footer_p_tag}>
-              AM-ChatBOT <img src={Vector} alt="" />
-            </p>
+            <Link to="/" style={{ textDecoration: 'none' }}>
+              <p className={Style.footer_p_tag}>
+                AM-ChatBOT <img src={Vector} alt="" />
+              </p>
+            </Link>
+
             <p className={Style.footer_p_tag_2}>
               <Link
                 to="/PrivacyPolicy"
