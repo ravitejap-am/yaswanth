@@ -137,7 +137,7 @@
   border-radius: 40px;
   border: 1px solid var(--Brand-700, #4338CA);
   background: transparent !important;
-  color: #fff;
+  color: #fff !important;
 }
 
 .contact_select_css {
