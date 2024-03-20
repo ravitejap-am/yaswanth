@@ -1,11 +1,9 @@
-import React, {useState , useEffect} from 'react'
-import Layout from '../../../../Layout'
+import React, { useState, useEffect } from 'react';
+import Layout from '../../../../Layout';
 import { AppBar, Toolbar, Button, Box, Tab, Grid } from '@mui/material';
 import './Index.css'
 
-
-
-import { Tabs} from 'antd';
+import { Tabs } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import GeneralForm from '../../../../components/common/forms/GeneralForm';
 import OrganizationInfo from '../../../AMChatAdmin/AddOrganizationAdmin/AddOrganizationTabNavigation/OrganizationInfo';
@@ -18,7 +16,7 @@ import {
   selectUser,
   selectOrganisation,
   setOrganisationData,
-  setErrorMsg
+  setErrorMsg,
 } from '../../../../store/authSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import * as constants from '../../../../constants/Constant';
@@ -34,12 +32,11 @@ import {
   validateUserInfoForm,
 } from '../../../../components/super-admin/validation';
 import { extractDomain } from '../../../../utils/generalUtils';
-// import TabNavigation from './TabNavigation'; 
+// import TabNavigation from './TabNavigation';
 // import TabNavigationMui from './TabNavigationmui';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
-
 
 function Organisation() {
   let {
@@ -138,7 +135,7 @@ function Organisation() {
   const [userInfoErrors, setUserInfoErrors] = useState({});
 
   const [value, setValue] = useState('1');
-  const orgStatus = organisation?.organisationStatus || null
+  const orgStatus = organisation?.organisationStatus || null;
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -150,7 +147,6 @@ function Organisation() {
     const storedfullName = localStorage.getItem('fullName');
     setFullName(storedfullName);
   }, [organisation]);
-
 
   useEffect(() => {
     const storedFirstName = localStorage.getItem('firstName');
@@ -164,17 +160,17 @@ function Organisation() {
   };
 
   const handleVerification = () => {
-    const isValidJwtToken = true
-    if(isValidJwtToken){
+    const isValidJwtToken = true;
+    if (isValidJwtToken) {
       // navigate("/dashboardadmin")
-      console.log("valid jwt token");
+      console.log('valid jwt token');
       // verify jwt token
-      navigate("/dashboardadmin")
-    }else{
-      localStorage.clear()
-      navigate("/signin")
+      navigate('/dashboardadmin');
+    } else {
+      localStorage.clear();
+      navigate('/signin');
     }
-  }
+  };
 
   const addOrganisation = async () => {
     let body = orgData;
@@ -201,16 +197,15 @@ function Organisation() {
     } catch (error) {
       console.error('Error occurred:', error);
       if (error?.response?.status == 500 || error?.response?.status == '500') {
-          const errorMsgprops = {
-            message : {
-              title : "Something went wrong",
-              content: "Please contact our customer support team"
-            },
-            handleVerification: handleVerification,
-            onOkButtonText:"Retry"
-          }
-          dispatch(setErrorMsg({...errorMsgprops}))
-        
+        const errorMsgprops = {
+          message: {
+            title: 'Something went wrong',
+            content: 'Please contact our customer support team',
+          },
+          handleVerification: handleVerification,
+          onOkButtonText: 'Retry',
+        };
+        dispatch(setErrorMsg({ ...errorMsgprops }));
       }
       setBackDropLoading(false);
       console.log(error);
@@ -248,16 +243,16 @@ function Organisation() {
       console.error('Error occurred:', error);
       if (error?.response?.status == 500 || error?.response?.status == '500') {
         // navigate('/customerSupport');
-          const errorMsgprops = {
-            message : {
-              title : "Something went wrong",
-              content: "Please contact our customer support team"
-            },
-            // handleCancelVerification: handleCancelVerification,
-            handleVerification: handleVerification,
-            onOkButtonText:"Retry"
-          }
-          dispatch(setErrorMsg({...errorMsgprops}))
+        const errorMsgprops = {
+          message: {
+            title: 'Something went wrong',
+            content: 'Please contact our customer support team',
+          },
+          // handleCancelVerification: handleCancelVerification,
+          handleVerification: handleVerification,
+          onOkButtonText: 'Retry',
+        };
+        dispatch(setErrorMsg({ ...errorMsgprops }));
       }
       setButtonLoading(false);
       console.log(error);
@@ -271,10 +266,10 @@ function Organisation() {
 
   const handleTabChange = (event, newValue) => {
     console.log('form change');
-    console.log("tab value--->", newValue);
-    const normalizedTab = newValue
+    console.log('tab value--->', newValue);
+    const normalizedTab = newValue;
     // const normalizedTab = tab.toLowerCase(); // Normalize to lowercase
-    personalInformationHandler(newValue)
+    personalInformationHandler(newValue);
     // if (normalizedTab !== selectedTab) {
     //   setSelectedTab(normalizedTab);
     // }
@@ -297,7 +292,7 @@ function Organisation() {
       if (Object.keys(errors).length === 0) {
         setOrgInfoErrors({});
         // handleTabChange(tab);
-        setSelectedTab(tab)
+        setSelectedTab(tab);
         return;
       } else {
         setOrgInfoErrors(errors);
@@ -314,7 +309,7 @@ function Organisation() {
       if (Object.keys(usererrors).length === 0) {
         setUserInfoErrors({});
         // handleTabChange(tab);
-        setSelectedTab(tab)
+        setSelectedTab(tab);
       } else {
         setUserInfoErrors(usererrors);
         // showNotifyMessage(
@@ -345,12 +340,12 @@ function Organisation() {
       }
       if (domainNameValidation(orgData?.metaData)) {
         // handleTabChange(tab);
-        setSelectedTab(tab)
+        setSelectedTab(tab);
       }
     }
     if (selectedTab == 'subscriptionplan') {
       // handleTabChange(tab);
-      setSelectedTab(tab)
+      setSelectedTab(tab);
     }
 
     // handleTabChange(tab);
@@ -375,7 +370,6 @@ function Organisation() {
 
     return uniqueValues.size !== arr.length;
   }
-
 
   return (
     <Layout componentName="Add Organisation">
@@ -407,30 +401,30 @@ function Organisation() {
             <Box  sx={{borderWidth: '1px',  boxShadow: '0px 2.789px 6.972px 3.486px rgba(0, 0, 0, 0.09)',borderRadius: 3}}>
             <TabPanel value="personalinformation">
               <OrganizationInfoForm
-                  orgData={orgData}
-                  setSelectedTab={setSelectedTab}
-                  selectedTab={selectedTab}
-                  selectOrgData={selectOrgData}
-                  buttonLoading={buttonLoading}
-                  setButtonLoading={setButtonLoading}
-                  countries={countries}
-                  states={states}
-                  localState={localState}
-                  setLocalState={setLocalState}
-                  cities={cities}
-                  setCities={setCities}
-                  setCountries={setCountries}
-                  setStates={setStates}
-                  organisation={organisation}
-                  editOrganisation={editOrganisation}
-                  setBackDropLoading={setBackDropLoading}
-                  errors={orgInfoErrors}
-                  setErrors={setOrgInfoErrors}
-                  personalInformationHandler={personalInformationHandler}
-                />
+                orgData={orgData}
+                setSelectedTab={setSelectedTab}
+                selectedTab={selectedTab}
+                selectOrgData={selectOrgData}
+                buttonLoading={buttonLoading}
+                setButtonLoading={setButtonLoading}
+                countries={countries}
+                states={states}
+                localState={localState}
+                setLocalState={setLocalState}
+                cities={cities}
+                setCities={setCities}
+                setCountries={setCountries}
+                setStates={setStates}
+                organisation={organisation}
+                editOrganisation={editOrganisation}
+                setBackDropLoading={setBackDropLoading}
+                errors={orgInfoErrors}
+                setErrors={setOrgInfoErrors}
+                personalInformationHandler={personalInformationHandler}
+              />
             </TabPanel>
             <TabPanel value="organizationadmin">
-            <UserInfoForm
+              <UserInfoForm
                 orgData={orgData}
                 setSelectedTab={setSelectedTab}
                 selectedTab={selectedTab}
@@ -451,97 +445,96 @@ function Organisation() {
             </TabPanel>
             <TabPanel value="organizationdomains">
               <OrganizationDomains
-                  orgData={orgData}
-                  setSelectedTab={setSelectedTab}
-                  selectedTab={selectedTab}
-                  selectOrgData={selectOrgData}
-                  organisation={organisation}
-                  editOrganisation={editOrganisation}
-                  buttonLoading={buttonLoading}
-                  showNotifyMessage={showNotifyMessage}
-                  messageHandler={messageHandler}
-                  jwt={jwt}
-                  setButtonLoading={setButtonLoading}
-                  setBackDropLoading={setBackDropLoading}
-                  personalInformationHandler={personalInformationHandler}
+                orgData={orgData}
+                setSelectedTab={setSelectedTab}
+                selectedTab={selectedTab}
+                selectOrgData={selectOrgData}
+                organisation={organisation}
+                editOrganisation={editOrganisation}
+                buttonLoading={buttonLoading}
+                showNotifyMessage={showNotifyMessage}
+                messageHandler={messageHandler}
+                jwt={jwt}
+                setButtonLoading={setButtonLoading}
+                setBackDropLoading={setBackDropLoading}
+                personalInformationHandler={personalInformationHandler}
               />
             </TabPanel>
             <TabPanel value="subscriptionplan">
-            <SubscriptionPlan
-                  orgData={orgData}
-                  setSelectedTab={setSelectedTab}
-                  selectedTab={selectedTab}
-                  selectOrgData={selectOrgData}
-                  addOrganisation={addOrganisation}
-                  buttonLoading={buttonLoading}
-                  organisation={organisation}
-                  editOrganisation={editOrganisation}
-                  personalInformationHandler={personalInformationHandler}
+              <SubscriptionPlan
+                orgData={orgData}
+                setSelectedTab={setSelectedTab}
+                selectedTab={selectedTab}
+                selectOrgData={selectOrgData}
+                addOrganisation={addOrganisation}
+                buttonLoading={buttonLoading}
+                organisation={organisation}
+                editOrganisation={editOrganisation}
+                personalInformationHandler={personalInformationHandler}
               />
             </TabPanel>
-            </Box>
-          </TabContext>
-        </Box>
-        <Grid  
-          container 
-          spacing={2}   
-          direction="row"
-          justifyContent="center"
-          alignItems="center"
-          marginTop={'0.3rem'}
+          </Box>
+        </TabContext>
+      </Box>
+      <Grid
+        container
+        spacing={2}
+        direction="row"
+        justifyContent="center"
+        alignItems="center"
+        marginTop={'0.3rem'}
+      >
+        <Grid item>
+          <Button
+            onClick={() => {
+              if (organisation?.organisationStatus == 'edit') {
+                editOrganisation(orgData);
+                return;
+              }
+              addOrganisation();
+            }}
+            style={{
+              display: 'flex',
+              width: '130px',
+              height: '50px',
+              padding: '10px 16px',
+              justifyContent: 'center',
+              alignItems: 'center',
+              gap: '8px',
+              flexShrink: '0',
+              borderRadius: '30px',
+              backgroundColor: 'var(--Brand-500, #6366F1)',
+              color: '#FFFFFF',
+              fontFamily: 'Into Lato',
+              fontSize: '16px',
+              fontStyle: 'normal',
+              fontWeight: '700',
+              lineHeight: '24px',
+            }}
+            loading={buttonLoading}
           >
-          <Grid item >
-
-              <Button
-                onClick={() => {
-                  if (organisation?.organisationStatus == 'edit') {
-                    editOrganisation(orgData);
-                    return;
-                  }
-                  addOrganisation();
-                }}
-                style={{
-                  display: 'flex',
-                  width: '130px',
-                  height: '50px',
-                  padding: '10px 16px',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  gap: '8px',
-                  flexShrink: '0',
-                  borderRadius: '30px',
-                  backgroundColor: 'var(--Brand-500, #6366F1)',
-                  color: '#FFFFFF',
-                  fontFamily: 'Into Lato',
-                  fontSize: '16px',
-                  fontStyle: 'normal',
-                  fontWeight: '700',
-                  lineHeight: '24px',
-                }}
-                loading={buttonLoading}
-              >
-              {"Submit"}
-              </Button>
-          </Grid>
-          <Grid item>
-            <Link to="/organisations" style={{ textDecoration: 'none' }}>
-              <div>
-                <GeneralButton
-                  name="Cancel"
-                  buttonProps={{}}
-                  type="default"
-                  color="#334155"
-                  backgroundColor="transparent"
-                  width="130px"
-                  height="50px"
-                  borderRadius="30px"
-                  buttonHandler={handleCancel}
-                />
-              </div>
-            </Link>
-          </Grid>
+            {'Submit'}
+          </Button>
         </Grid>
-          {/* <TabNavigation
+        <Grid item>
+          <Link to="/organisations" style={{ textDecoration: 'none' }}>
+            <div>
+              <GeneralButton
+                name="Cancel"
+                buttonProps={{}}
+                type="default"
+                color="#334155"
+                backgroundColor="transparent"
+                width="130px"
+                height="50px"
+                borderRadius="30px"
+                buttonHandler={handleCancel}
+              />
+            </div>
+          </Link>
+        </Grid>
+      </Grid>
+      {/* <TabNavigation
             selectedTab={selectedTab}
             handleTabChange={handleTabChange}
             setOrgInfoErrors={setOrgInfoErrors}
@@ -550,7 +543,7 @@ function Organisation() {
             personalInformationHandler={personalInformationHandler}
           /> */}
     </Layout>
-  )
+  );
 }
 
-export default Organisation
+export default Organisation;

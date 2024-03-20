@@ -4,7 +4,13 @@ import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
-import { useMediaQuery, useTheme, Select, MenuItem, Typography } from '@mui/material';
+import {
+  useMediaQuery,
+  useTheme,
+  Select,
+  MenuItem,
+  Typography,
+} from '@mui/material';
 import Information from './tabPages/information';
 import PersonalPlans from './tabPages/plan';
 import ChangePassword from './tabPages/changePassword';
@@ -23,7 +29,7 @@ const PersonalInfo = () => {
   };
 
   return (
-    <Box sx={{ width: '100%', typography: 'body1', paddingTop: "10px " }}>
+    <Box sx={{ width: '100%', typography: 'body1', paddingTop: '10px ' }}>
       <TabContext value={selectedTab}>
         {/* {isMobile ? (
           <Box sx={{ marginBottom: 2 }}>
@@ -45,22 +51,29 @@ const PersonalInfo = () => {
             </Select>
           </Box>
         ) : ( */}
-          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-            <TabList
-              onChange={handleTabChange}
-              aria-label="Personal Info Tabs"
-              variant="scrollable"
-              scrollButtons="auto"
-              sx={{ backgroundColor: 'white', borderRadius: 4 }}
-            >
-              <Tab label={<Typography fontWeight="bold">Personal Information</Typography>} value="1" />
-              <Tab label={<Typography fontWeight="bold">Change Password</Typography>} value="2" />
-              <Tab label={<Typography fontWeight="bold">Plans</Typography>} value="3" />
-
-            </TabList>
-          </Box>
+        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+          <TabList
+            onChange={handleTabChange}
+            aria-label="Personal Info Tabs"
+            variant="scrollable"
+            scrollButtons="auto"
+            sx={{ backgroundColor: 'white', borderRadius: 4 }}
+          >
+            <Tab
+              label={
+                <Typography fontWeight="bold">Personal Information</Typography>
+              }
+              value="1"
+            />
+            <Tab
+              label={<Typography fontWeight="bold">Change Password</Typography>}
+              value="2"
+            />
+            {/* <Tab label={<Typography fontWeight="bold">Plans</Typography>} value="3" /> */}
+          </TabList>
+        </Box>
         {/* )} */}
-        <TabPanel value="1" style={{padding: "0px"}}>
+        <TabPanel value="1" style={{ padding: '0px' }}>
           <Information />
         </TabPanel>
         <TabPanel value="2">

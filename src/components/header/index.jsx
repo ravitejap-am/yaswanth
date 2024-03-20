@@ -18,8 +18,6 @@ function Header({ componentName, customStyle, navigationRoute }) {
   const decodedToken = tokenDecodeJWT(jwt);
   const userId = decodedToken ? decodedToken?.userId : null;
   const [headerImage, setHeaderImage] = useState(localStorage.getItem("userImageUrl") ?? defaultImage)
-
-  // const HeaderImage = localStorage.getItem("userImageUrl") ?? defaultImage;
   const storedFullName = localStorage.getItem("fullName");
 
   useEffect(() => {
@@ -31,7 +29,6 @@ function Header({ componentName, customStyle, navigationRoute }) {
   }, [userId]);
 
   const fetchUserProfile = async () => {
-    // setIsLoading(true);
     try {
       const response = await fetch(
         `${constants.BASE_API_URL}/user/${userId}/getUserProfile`,
@@ -42,19 +39,10 @@ function Header({ componentName, customStyle, navigationRoute }) {
         }
       );
       if (!response.ok) {
-        setIsLoading(false);
         throw new Error('Failed to fetch user profile.');
       }
 
       const userData = await response.json();
-      // setUserData({
-      //   firstName: userData?.data?.user?.firstName,
-      //   lastName: userData?.data?.user?.lastName,
-      //   email: userData?.data?.user?.email,
-      //   organization: userData?.data?.organisation?.name,
-      //   status:
-      //     userData?.data?.organisation?.active == true ? 'ACTIVE' : 'INACTIVE',
-      // });
       
       const profileImagePath = userData?.data?.user?.profileImagePath;
       if (profileImagePath) {
@@ -65,12 +53,8 @@ function Header({ componentName, customStyle, navigationRoute }) {
         const fullImagePath = `https://medicalpublic.s3.amazonaws.com/${profileImagePath}`
         setHeaderImage(fullImagePath)
       }
-      // setUserData(userData?.data?.user);
-      // setIsLoading(false);
     } catch (error) {
       console.error('Error fetching user profile:', error);
-      // setError('Failed to fetch user profile.');
-      // setIsLoading(false);
     }
   };
 

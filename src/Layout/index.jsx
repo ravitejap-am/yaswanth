@@ -3,7 +3,7 @@ import { Box, Typography } from '@mui/material';
 import Sidebar from '../components/sidebar';
 import Header from '../components/header';
 
-function Layout({ children , componentName}) {
+function Layout({ children, componentName }) {
   return (
     <Box
       sx={{
@@ -51,6 +51,7 @@ function Layout({ children , componentName}) {
           }}
         >
           <Header componentName={componentName} />
+          <br />
         </Box>
         {children}
       </Box>
