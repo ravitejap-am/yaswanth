@@ -263,9 +263,8 @@ function Documents() {
                 key={params.row.id || "amchat"}
                 title="Am Chat"
                 description={
-                  "Do you really want to delete this document '" +
-                  params.row.documentName +
-                  "'"
+                  <span style={{ whiteSpace: 'nowrap' }}>{"Do you really want to delete this document '" +
+                  params.row.documentName +"'"}</span>
                 }
                 onConfirm={() => handleDelete(params.row.id)}
                 okText="Submit"

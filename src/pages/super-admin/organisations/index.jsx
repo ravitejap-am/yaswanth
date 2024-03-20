@@ -311,9 +311,8 @@ function Organisations() {
                 key={params.row.id || "amchat"}
                 title="Am Chat"
                 description={
-                  "Do you really want to delete this organization '" +
-                  params?.row?.organisationName +
-                  "'"
+                  <span style={{ whiteSpace: 'nowrap' }}>{"Do you really want to delete this organization '" +params?.row?.organisationName +
+                  "'"}</span>
                 }
                 onConfirm={() => handleDelete(params.row.id)}
                 okText="Submit"
