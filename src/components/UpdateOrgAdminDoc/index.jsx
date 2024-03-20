@@ -4,7 +4,7 @@ import OrgUpdateDocument from '../../pages/chatmain/orgadddocument/orgUpdateDocu
 
 function UpdateOrgAdminDoc() {
   return (
-     <Layout>
+     <Layout componentName="Update document">
         <OrgUpdateDocument/>
      </Layout>
   )

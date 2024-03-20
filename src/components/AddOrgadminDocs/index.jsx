@@ -158,7 +158,7 @@ function AddOrgDocuments(props) {
   };
 
   return (
-    <Layout>
+    <Layout componentName="Add document">
     <div className={Styles.superAdminMainCardDivStyle} >
       <div className={Styles.superAdminMiddleParentDiv}>
       <Spin spinning={buttonLoading} indicator={<LoadingOutlined style={{ fontSize: 40 , color: '#808080' }} spin />}>      

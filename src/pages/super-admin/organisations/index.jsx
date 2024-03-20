@@ -336,7 +336,7 @@ function Organisations() {
   }));
 
   return (
-    <Layout>
+    <Layout componentName="Organisations">
       {tableloading && <PageLoader loadingStatus={tableloading} />}
       <Grid container spacing={2}>
         <Grid item xs={12} md={12} lg={12}>

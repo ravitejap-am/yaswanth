@@ -205,7 +205,7 @@ function Dashboard() {
   }, [userRole]);
 
   return (
-    <Layout>
+    <Layout componentName="Dashboard">
       {isLoading && <PageLoader loadingStatus={isLoading} />}
       {userRole === "SUPER_ADMIN" && (
         <Grid container spacing={2} className={styles.container}>
