@@ -2,7 +2,6 @@ import React, {useState , useEffect} from 'react'
 import Layout from '../../../../Layout'
 import { AppBar, Toolbar, Button, Box, Tab, Grid } from '@mui/material';
 import './Index.css'
-import AddOrganisationheaders from './AddOrganisationheaders'
 
 
 import { Tabs} from 'antd';

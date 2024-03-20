@@ -61,7 +61,9 @@ function Organisations() {
   }, []);
 
   useEffect(() => {
-    fetchlist();
+    if(searchValue?.length >= 3 || searchValue?.length === 0){
+      fetchlist();
+    }
   }, [jwt, order, searchValue]);
 
   const fetchlist = async (page = 0) => {
@@ -95,7 +97,7 @@ function Organisations() {
       ) {
         setPageInfo({
           ...pageInfo,
-          pageSize: 5,
+          pageSize: pageInfo.pageSize,
           page: 0,
           totalCount: 0,
           totalPages: 0,
@@ -158,7 +160,7 @@ function Organisations() {
       }
       setPageInfo({
         ...pageInfo,
-        pageSize: 0,
+        pageSize: pageInfo.pageSize,
         page: 0,
         totalCount: 0,
         totalPages: 0,
@@ -309,8 +311,8 @@ function Organisations() {
                 key={params.row.id || "amchat"}
                 title="Am Chat"
                 description={
-                  "Do you Really want to delete this organization '" +
-                  params.row.name +
+                  "Do you really want to delete this organization '" +
+                  params?.row?.organisationName +
                   "'"
                 }
                 onConfirm={() => handleDelete(params.row.id)}

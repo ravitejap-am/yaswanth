@@ -284,7 +284,7 @@ function Users() {
                 key={params.row.id || "amchat"}
                 title="Am Chat"
                 description={
-                  "Do you Really want to delete this organization '" +
+                  "Do you really want to delete this user '" +
                   params.row.name +
                   "'"
                 }

@@ -263,8 +263,8 @@ function Documents() {
                 key={params.row.id || "amchat"}
                 title="Am Chat"
                 description={
-                  "Do you Really want to delete this organization '" +
-                  params.row.name +
+                  "Do you really want to delete this document '" +
+                  params.row.documentName +
                   "'"
                 }
                 onConfirm={() => handleDelete(params.row.id)}
