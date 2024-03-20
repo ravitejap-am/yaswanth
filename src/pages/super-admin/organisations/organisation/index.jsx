@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Layout from '../../../../Layout';
 import { AppBar, Toolbar, Button, Box, Tab, Grid } from '@mui/material';
-import './Index.css';
+import './Index.css'
 
 import { Tabs } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
