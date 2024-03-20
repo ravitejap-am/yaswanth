@@ -56,7 +56,7 @@ function Sidebar() {
           width: '100%',
         }}
       >
-        <Hidden smDown>
+        <Hidden lgDown>
           <Link to={role == 'USER' ? '/user' : '/dashboard'}>
             <img src={sidebarImg} alt="" height={40} />
           </Link>

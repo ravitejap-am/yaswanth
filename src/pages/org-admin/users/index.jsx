@@ -284,9 +284,8 @@ function Users() {
                 key={params.row.id || "amchat"}
                 title="Am Chat"
                 description={
-                  "Do you Really want to delete this organization '" +
-                  params.row.name +
-                  "'"
+                  <span style={{ whiteSpace: 'nowrap' }}>{"Do you really want to delete this user '" +
+                  params.row.name +"'"}</span>
                 }
                 onConfirm={() => handleDelete(params.row.id)}
                 okText="Submit"
