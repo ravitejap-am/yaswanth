@@ -138,6 +138,7 @@ function Organisation() {
   const [userInfoErrors, setUserInfoErrors] = useState({});
 
   const [value, setValue] = useState('1');
+  const orgStatus = organisation?.organisationStatus || null
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -450,6 +451,7 @@ function Organisation() {
                 errors={userInfoErrors}
                 setErrors={setUserInfoErrors}
                 personalInformationHandler={personalInformationHandler}
+                orgStatus={orgStatus}
               />
             </TabPanel>
             <TabPanel value="organizationdomains">

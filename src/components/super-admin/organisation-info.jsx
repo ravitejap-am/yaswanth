@@ -167,13 +167,7 @@ function OrganizationForm({
 
 <Box>
       <Grid container spacing={2}> 
-        <Grid item xs={12} md={6} lg={6}   
-            container
-            direction="column"
-            justifyContent="flex-start"
-            alignItems="flex-start"
-          >
-          <Grid>
+          <Grid item xs={12} md={6} lg={6}>
             <label className={styles.labels}>Organisation Name:</label>
             <input
               type="text"
@@ -185,7 +179,7 @@ function OrganizationForm({
             />
             {errors.name && <FormHelperText error sx={{ fontSize: '14px' }}>{errors.name}</FormHelperText>}
           </Grid>
-          <Grid>
+          <Grid item xs={12} md={6} lg={6}>
             <label className={styles.labels}>Address One:</label>
             <input
               type="text"
@@ -197,7 +191,7 @@ function OrganizationForm({
             />
             {errors.address1 && <FormHelperText error sx={{ fontSize: '14px' }}>{errors.address1}</FormHelperText>}
         </Grid>
-        <Grid>
+        <Grid item xs={12} md={6} lg={6}>
           <label className={styles.labels}>Address Two:</label>
           <input
             type="text"
@@ -207,16 +201,9 @@ function OrganizationForm({
             onChange={handleChange}
             className={styles.inputstyle}
           />
-          {errors.address2 && <FormHelperText error sx={{ fontSize: '14px' }}>{errors.address2}</FormHelperText>}
+          {/* {errors.address2 && <FormHelperText error sx={{ fontSize: '14px' }}>{errors.address2}</FormHelperText>} */}
         </Grid>
-        </Grid>
-        <Grid item xs={12} md={6} lg={6}   
-            container
-            direction="column"
-            justifyContent="flex-start"
-            alignItems="flex-start"
-          >
-            <Grid>
+            <Grid item xs={12} md={6} lg={6}>
               <label className={styles.labels}>Country:</label>
               <Select
                 showSearch
@@ -232,7 +219,7 @@ function OrganizationForm({
 
               {errors.country && <FormHelperText error sx={{ fontSize: '14px' }}>{errors.country}</FormHelperText>}  
             </Grid>   
-            <Grid>
+            <Grid item xs={12} md={6} lg={6}>
               <label className={styles.labels}>State:</label>
               <Select
                 showSearch
@@ -248,7 +235,7 @@ function OrganizationForm({
 
               {errors.state && <FormHelperText error sx={{ fontSize: '14px' }}>{errors.state}</FormHelperText>}
             </Grid>
-            <Grid>
+            <Grid item xs={12} md={6} lg={6}>
               <label className={styles.labels}>City:</label>
               <Select
                 showSearch
@@ -264,8 +251,7 @@ function OrganizationForm({
 
               {errors.city && <FormHelperText error sx={{ fontSize: '14px' }}>{errors.city}</FormHelperText>}              
             </Grid>                     
-        </Grid>
-        <Grid item xs={12} md={12} lg={12}>
+        <Grid item xs={12} md={6} lg={6}>
           <label className={styles.labels}>Zip Code:</label>
             <input
               type="number"

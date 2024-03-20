@@ -11,6 +11,7 @@ function UserInfoForm({
   errors,
   setErrors,
   personalInformationHandler,
+  orgStatus
 }) {
   const handleChange = (e) => {
     let myContact = orgData.contact;
@@ -86,6 +87,8 @@ function UserInfoForm({
             name="email"
             value={formData.email}
             onChange={handleChange}
+            disabled = {orgStatus === "edit" ? true : false}
+            style={{ backgroundColor: orgStatus === "edit" ? '#CBD5E1' : "" }}
           />
           {errors.email && <FormHelperText error sx={{ fontSize: '14px' }}>{errors.email}</FormHelperText>}
         </div>
