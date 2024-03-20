@@ -10,9 +10,11 @@ import CardContent from '@mui/material/CardContent';
 import { Button, Skeleton } from 'antd';
 import styles from './Chats.module.css';
 import { SendOutlined } from '@ant-design/icons';
-import uesrImg from '../../asset/userimg.avif';
-import responseImg from '../../asset/responseimg.jpg';
+import uesrImg from '../../asset/userimg.avif'
+import responseImg from '../../asset/responseimg.jpg'
+import amchatImg from '../../asset/Vector (1).png'
 import { useChat } from '../../contexts/provider/ChatContext';
+import { Box } from '@mui/material';
 
 function Chats() {
   const { isChatOpen, setIsChatOpen } = useChat();
@@ -91,7 +93,8 @@ function Chats() {
   };
 
   return (
-    <Layout>
+    <Layout componentName="Chat" >
+      <div  >
       <div className={styles.chatContainer}>
         <Grid container spacing={2} alignItems="left" justifyContent="left">
           <Grid item xs={12} sm={6} md={4}>
@@ -132,7 +135,7 @@ function Chats() {
                   onChange={handleFileChange}
                   label="Select files"
                   className={styles.chatSelect}
-                  style={{ textAlign: 'left' }}
+                  style={{ textAlign: 'left', height: "30px" }}
                 >
                   <MenuItem value="">
                     <em>Select file</em>
@@ -146,13 +149,12 @@ function Chats() {
           )}
         </Grid>
       </div>
-      <div className={styles.chatCardContainer}>
-        <div className={styles.chatScroll}>
-          <Card className={styles.chatCardNew}>
+        <div className={styles.chatCardContainer}>
+          <Card variant="" className={styles.chatCardNew}>
             <div className={styles.chatCard}>
               {!messageSent && (
                 <CardContent className={styles.chatCardContent}>
-                  <h1 className={styles.chatHeading}>AM-Chat</h1>
+                  <h1 className={styles.chatHeading}>AM-Chat <img src={amchatImg} alt="" className={styles.chatimg} /></h1>
                   <p className={styles.chatParagraph}>Hello, I’m AM-Chat</p>
                   <p className={styles.chatParagraphText}>
                     How can I help you today?
@@ -259,8 +261,6 @@ function Chats() {
                     </div>
                   </div>
                 ))}
-                <br />
-                <br />
               </CardContent>
             )}
             <CardContent>

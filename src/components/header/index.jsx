@@ -25,7 +25,7 @@ function Header({ componentName, customStyle, navigationRoute }) {
     <PopupState variant="popover" popupId="profile-popup-popover">
       {(popupState) => (
         <div className={Style.headermain}>
-          <div className={Style.headertext}>Dashboard</div>
+          <div className={Style.headertext}>{componentName}</div>
           <div onClick={popupState.open} className={Style.popupalignment}>
             <div>
               <img src={HeaderImage} alt="" className={Style.roundedimage} />
