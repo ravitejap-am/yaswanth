@@ -60,7 +60,14 @@ const navLinks = {
   USER: USER,
 };
 
-export const sideBar = (role, pathname, chatHistory, setChatHistory) => {
+export const sideBar = (
+  role,
+  pathname,
+  chatHistory,
+  setChatHistory,
+  setIsChatOpen,
+  isChatOpen
+) => {
   const handleAddChat = () => {
     setChatHistory([
       ...chatHistory,
@@ -70,38 +77,32 @@ export const sideBar = (role, pathname, chatHistory, setChatHistory) => {
         id: chatHistory.length + 1,
       },
     ]);
-    // setChatHistory((prevhistory) => {
-    //   prevhistory.push({
-    //     title: 'chat one title for chat adress',
-    //     data: [],
-    //     id: prevhistory.length + 1,
-    //   });
-    //   console.log(prevhistory);
-    //   return prevhistory;
-    // });
+    setIsChatOpen(!isChatOpen);
   };
   return (
     <>
-      {role == 'ORG_ADMIN' && pathname == '/chat' && (
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 2,
-            color: 'white',
-            textDecoration: 'none',
-            cursor: 'pointer',
-            padding: '4px',
-          }}
-          className="hoverDiv"
-          onClick={handleAddChat}
-        >
-          <AddIcon style={{ color: 'white' }} />
-          <Hidden mdDown>
-            <Typography>New Chat</Typography>
-          </Hidden>
-        </Box>
-      )}
+      {(role == 'ORG_ADMIN' || role == 'USER') &&
+        (pathname == '/chat' || pathname == '/user') && (
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 2,
+              color: 'white',
+              textDecoration: 'none',
+              cursor: 'pointer',
+              padding: '4px',
+            }}
+            className="hoverDiv"
+            onClick={handleAddChat}
+          >
+            <AddIcon style={{ color: 'white' }} />
+            <Hidden mdDown>
+              <Link to="/chat"></Link>
+              <Typography>New Chat</Typography>
+            </Hidden>
+          </Box>
+        )}
       <></>
       {navLinks[role]?.map((item) => {
         const isActive = pathname === item.link;
@@ -133,47 +134,48 @@ export const sideBar = (role, pathname, chatHistory, setChatHistory) => {
         );
       })}
 
-      {role == 'ORG_ADMIN' && pathname == '/chat' && (
-        <Hidden mdDown>
-          <Typography variant="h6">Chats</Typography>
-          <Box
-            sx={{
-              height: '45%',
-              overflowY: 'auto',
-            }}
-            className="chat_history"
-          >
-            {chatHistory.map((item) => (
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  padding: '4px',
-                }}
-                className="hoverDiv"
-              >
-                {/* <Tooltip title={item?.title}> */}
-                <p
+      {(role == 'ORG_ADMIN' || role == 'USER') &&
+        (pathname == '/chat' || pathname == '/user') && (
+          <Hidden mdDown>
+            <Typography variant="h6">Chats</Typography>
+            <Box
+              sx={{
+                height: '45%',
+                overflowY: 'auto',
+              }}
+              className="chat_history"
+            >
+              {chatHistory.map((item) => (
+                <div
                   style={{
-                    margin: 0,
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    whiteSpace: 'nowrap',
-                    width: '10em',
-                    cursor: 'pointer',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    padding: '4px',
                   }}
+                  className="hoverDiv"
                 >
-                  {item?.title}
-                </p>
-                {/* </Tooltip> */}
+                  {/* <Tooltip title={item?.title}> */}
+                  <p
+                    style={{
+                      margin: 0,
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                      whiteSpace: 'nowrap',
+                      width: '10em',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    {item?.title}
+                  </p>
+                  {/* </Tooltip> */}
 
-                <ChatMenuItems />
-              </div>
-            ))}
-          </Box>
-        </Hidden>
-      )}
+                  <ChatMenuItems />
+                </div>
+              ))}
+            </Box>
+          </Hidden>
+        )}
     </>
   );
 };
