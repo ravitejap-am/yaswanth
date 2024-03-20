@@ -35,7 +35,7 @@
     align-items: center;
     justify-content: center;
     /* height: 100vh; */
-    padding-bottom: 50px;
+    padding-bottom: 1px;
   }
   .chatCard {
     display: flex;
@@ -69,6 +69,7 @@
     font-style: normal;
     font-weight: 600;
     line-height: 24px;
+    
   }
 
   .chatCard {
@@ -99,7 +100,7 @@
     border-radius: 10px;
     /* resize: vertical; */
     box-sizing: border-box;
-    padding-bottom: 50px;
+    padding-bottom: 10px;
     
   }
 
