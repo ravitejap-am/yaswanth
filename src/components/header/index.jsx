@@ -29,7 +29,6 @@ function Header({ componentName, customStyle, navigationRoute }) {
   }, [userId]);
 
   const fetchUserProfile = async () => {
-    // setIsLoading(true);
     try {
       const response = await fetch(
         `${constants.BASE_API_URL}/user/${userId}/getUserProfile`,
@@ -40,7 +39,6 @@ function Header({ componentName, customStyle, navigationRoute }) {
         }
       );
       if (!response.ok) {
-        setIsLoading(false);
         throw new Error('Failed to fetch user profile.');
       }
 
