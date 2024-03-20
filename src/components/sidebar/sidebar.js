@@ -83,25 +83,29 @@ export const sideBar = (
     <>
       {(role == 'ORG_ADMIN' || role == 'USER') &&
         (pathname == '/chat' || pathname == '/user') && (
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 2,
-              color: 'white',
-              textDecoration: 'none',
-              cursor: 'pointer',
-              padding: '4px',
-            }}
+          <Link
+            to="/chat"
+            style={{ textDecoration: 'none' }}
             className="hoverDiv"
-            onClick={handleAddChat}
           >
-            <AddIcon style={{ color: 'white' }} />
-            <Hidden mdDown>
-              <Link to="/chat"></Link>
-              <Typography>New Chat</Typography>
-            </Hidden>
-          </Box>
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 2,
+                color: 'white',
+                textDecoration: 'none',
+                cursor: 'pointer',
+                padding: '4px',
+              }}
+              onClick={handleAddChat}
+            >
+              <AddIcon style={{ color: 'white' }} />
+              <Hidden mdDown>
+                <Typography>New Chat</Typography>
+              </Hidden>
+            </Box>
+          </Link>
         )}
       <></>
       {navLinks[role]?.map((item) => {
@@ -162,7 +166,7 @@ export const sideBar = (
                       overflow: 'hidden',
                       textOverflow: 'ellipsis',
                       whiteSpace: 'nowrap',
-                      width: '10em',
+                      width: '8em',
                       cursor: 'pointer',
                     }}
                   >
@@ -170,7 +174,7 @@ export const sideBar = (
                   </p>
                   {/* </Tooltip> */}
 
-                  <ChatMenuItems />
+                  {/* <ChatMenuItems /> */}
                 </div>
               ))}
             </Box>
