@@ -168,7 +168,7 @@ const RecoveryPasswor = () => {
           buttonProps={buttonProps}
         />
       </div>
-      <div className="signin-main-css">
+      <div className="recover-main-css">
       <div className="text-top-signup">
                     <h2>Forgot Password</h2>
                     <p>Please use your organization email id.</p>
@@ -215,9 +215,14 @@ const RecoveryPasswor = () => {
          </div>
          <br />
          <br />
+
         <NotifyMessage />
-        <Footer />
+
+
       </div>
+      <div className="forgotpass-footer">
+          <Footer />
+        </div>
     </>
   );
 };

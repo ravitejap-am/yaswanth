@@ -349,8 +349,12 @@ const SignIn = () => {
         <NotifyMessage />
         <br />
           <br />
-        <Footer />
-      </div>
+
+
+        </div>
+        <div className="signin-footer">
+          <Footer />
+        </div>
     </>
   );
 };
