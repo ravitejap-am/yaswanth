@@ -2,7 +2,7 @@ import React, {useState , useEffect} from 'react'
 import Layout from '../../../../Layout'
 import { AppBar, Toolbar, Button, Box, Tab, Grid } from '@mui/material';
 import './Index.css'
-import AddOrganisationheaders from './AddOrganisationheaders'
+
 
 
 import { Tabs} from 'antd';
@@ -378,7 +378,7 @@ function Organisation() {
 
 
   return (
-    <Layout>
+    <Layout componentName="Add Organisation">
         <Box >
           <TabContext value={selectedTab}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider',  boxShadow: '0px 2.789px 6.972px 3.486px rgba(0, 0, 0, 0.09)',borderRadius: 3,marginBottom: '1rem'}}>
@@ -398,13 +398,8 @@ function Organisation() {
               >
                 <Tab label={"Organisation Info"}  value="personalinformation">Organisation Info</Tab>
                 <Tab label="Organisation Admin" value="organizationadmin" 
-                
-                // disabled = {Object.keys(orgInfoErrors).length === 0 ? false : true}
-
                 >Organisation Admin</Tab>
-                <Tab label="Organisation Domains" 
-                // disabled = { Object.keys(userInfoErrors)?.length === 0 ? false : true}
-                
+                <Tab label="Organisation Domains"     
                 value="organizationdomains">Organisation Domains</Tab>
                 <Tab label="Subscription Plan"  value="subscriptionplan">Subscription Plan</Tab>
               </TabList>
@@ -525,7 +520,7 @@ function Organisation() {
                 }}
                 loading={buttonLoading}
               >
-              {"Save"}
+              {"Submit"}
               </Button>
           </Grid>
           <Grid item>

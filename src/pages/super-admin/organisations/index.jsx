@@ -158,7 +158,7 @@ function Organisations() {
       }
       setPageInfo({
         ...pageInfo,
-        pageSize: 0,
+        pageSize: pageInfo.pageSize,
         page: 0,
         totalCount: 0,
         totalPages: 0,
@@ -294,7 +294,9 @@ function Organisations() {
       maxWidth: 200,
       sortable: false,
       renderCell: (params) => (
-        <div>
+
+        <div key={params.id}>
+          {console.log("params---->",params)}
           <IconButton
             aria-label="edit"
             onClick={() => handleEdit(params.row.id)}
@@ -309,8 +311,8 @@ function Organisations() {
                 key={params.row.id || "amchat"}
                 title="Am Chat"
                 description={
-                  "Do you Really want to delete this organization '" +
-                  params.row.name +
+                  "Do you really want to delete this organization '" +
+                  params?.row?.organisationName +
                   "'"
                 }
                 onConfirm={() => handleDelete(params.row.id)}

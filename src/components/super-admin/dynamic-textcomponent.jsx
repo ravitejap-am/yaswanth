@@ -422,7 +422,12 @@ function DynamicTextComponent({
               </Button>
             </Tooltip>
 
-            <Grid container spacing={1}>
+            <Grid 
+              container 
+              spacing={1}
+              direction="row"
+              justifyContent="flex-end"
+              alignItems="flex-end">
               <Grid item xs={6} sm={3} md={2} lg={1}
               >
                 <Button
@@ -439,9 +444,6 @@ function DynamicTextComponent({
                 <Button
                   type="primary"
                   style={{ marginTop: '1em', width: '8em'}}
-                  // onClick={() => {
-                  //   personalInformationHandler('organizationdomains');
-                  // }}
                   onClick={() => {
                     personalInformationHandler('subscriptionplan');
                   }}
