@@ -136,7 +136,7 @@ export const sideBar = (
 
       {(role == 'ORG_ADMIN' || role == 'USER') &&
         (pathname == '/chat' || pathname == '/user') && (
-          <Hidden mdDown>
+          <Hidden lgDown>
             <Typography variant="h6">Chats</Typography>
             <Box
               sx={{
