@@ -413,25 +413,6 @@ function AddOrganizationAdmin() {
                 setErrors={setOrgInfoErrors}
                 personalInformationHandler={personalInformationHandler}
               />
-              // <OrganizationInfo
-              //   orgData={orgData}
-              //   setSelectedTab={setSelectedTab}
-              //   selectedTab={selectedTab}
-              //   selectOrgData={selectOrgData}
-              //   buttonLoading={buttonLoading}
-              //   setButtonLoading={setButtonLoading}
-              //   countries={countries}
-              //   states={states}
-              //   localState={localState}
-              //   setLocalState={setLocalState}
-              //   cities={cities}
-              //   setCities={setCities}
-              //   setCountries={setCountries}
-              //   setStates={setStates}
-              //   organisation={organisation}
-              //   editOrganisation={editOrganisation}
-              //   setBackDropLoading={setBackDropLoading}
-              // />
             )}
             {selectedTab === 'organizationadmin' && (
               <UserInfoForm
