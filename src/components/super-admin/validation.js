@@ -12,9 +12,9 @@ export const validatePersonalInfoForm = (data) => {
   if (!data?.address?.address1.trim()) {
     errors.address1 = 'Address one is required';
   }
-  if (!data?.address?.address2.trim()) {
-    errors.address2 = 'Address two is required';
-  }
+  // if (!data?.address?.address2.trim()) {
+  //   errors.address2 = 'Address two is required';
+  // }
   if (!data?.address?.state) {
     errors.state = 'State is required';
   }

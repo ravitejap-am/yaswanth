@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import SubscriptionPlanStyle from './SubscriptionPlan.module.css';
-import { Button } from 'antd';
+import { Button} from 'antd';
+import { Box, Grid } from '@mui/material';
+// import { Typography } from '@mui/material/styles/createTypography'
+import Typography from '@mui/material/Typography';
 
 function SubscriptionPlan({ personalInformationHandler }) {
   const [selectedPlan, setSelectedPlan] = useState('freemium');
@@ -10,12 +13,12 @@ function SubscriptionPlan({ personalInformationHandler }) {
   };
 
   return (
-    <div>
-      <label>
-        <p>Choose Your Plan</p>
-        <div>
+    <Box>
+      <Grid container>
+        <Grid item xs={12}>
+          <Typography variant="h6">Choose Your Plan</Typography>
           <label>
-            <input
+             <input
               type="radio"
               name="subscriptionPlan"
               value="freemium"
@@ -24,11 +27,8 @@ function SubscriptionPlan({ personalInformationHandler }) {
             />
             Freemium
           </label>
-        </div>
-
-        <div>
           <label>
-            <input
+           <input
               type="radio"
               name="subscriptionPlan"
               value="standard"
@@ -36,24 +36,64 @@ function SubscriptionPlan({ personalInformationHandler }) {
               onChange={() => handlePlanSelection('standard')}
             />
             Standard
-          </label>
-        </div>
-      </label>
+          </label>          
+        </Grid>
+        <Grid item xs={12} >
+          <Button
+              style={{ marginTop: '1em', width: '8em' }}
+              onClick={() => {
+                personalInformationHandler('personalinformation');
+              }}
+            >
+              Back
+            </Button>
+        </Grid>
+      </Grid>
+    </Box>
+    // <div>
+    //   <label>
+    //     <p>Choose Your Plan</p>
+    //     <div>
+    //       <label>
+    //         <input
+    //           type="radio"
+    //           name="subscriptionPlan"
+    //           value="freemium"
+    //           checked={selectedPlan === 'freemium'}
+    //           onChange={() => handlePlanSelection('freemium')}
+    //         />
+    //         Freemium
+    //       </label>
+    //     </div>
 
-      <div
-        className="center"
-        style={{ marginTop: '1em', gap: '2em', justifyContent: 'flex-start' }}
-      >
-        <Button
-          style={{ marginTop: '1em', width: '8em' }}
-          onClick={() => {
-            personalInformationHandler('organizationdomains');
-          }}
-        >
-          Back
-        </Button>
-      </div>
-    </div>
+    //     <div>
+    //       <label>
+    //         <input
+    //           type="radio"
+    //           name="subscriptionPlan"
+    //           value="standard"
+    //           checked={selectedPlan === 'standard'}
+    //           onChange={() => handlePlanSelection('standard')}
+    //         />
+    //         Standard
+    //       </label>
+    //     </div>
+    //   </label>
+
+    //   <div
+    //     className="center"
+    //     style={{ marginTop: '1em', gap: '2em', justifyContent: 'flex-start' }}
+    //   >
+    //     <Button
+    //       style={{ marginTop: '1em', width: '8em' }}
+    //       onClick={() => {
+    //         personalInformationHandler('organizationdomains');
+    //       }}
+    //     >
+    //       Back
+    //     </Button>
+    //   </div>
+    // </div>
   );
 }
 
