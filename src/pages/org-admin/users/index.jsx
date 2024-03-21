@@ -61,6 +61,10 @@ function Users() {
     name: "",
   });
 
+  const messageHandler = () => {
+    hideNotifyMessage();
+  };
+
   useEffect(() => {
     const storedFullName = localStorage.getItem("fullName");
     setFullName(storedFullName);
@@ -152,7 +156,8 @@ function Users() {
     } catch (error) {
       setTableLoading(false);
       console.error("Error deleting user:", error);
-      toast.error("Error deleting user");
+      // toast.error("Error deleting user");
+      showNotifyMessage("error", "Error deleting user", messageHandler);
     }
   };
 
@@ -214,13 +219,16 @@ function Users() {
       );
       // Show different messages based on the roleId
       if (roleId === "17") {
-        toast.success("Admin role assigned successfully");
+        // toast.success("Admin role assigned successfully");
+        showNotifyMessage("success", "Admin role assigned successfully", messageHandler);
       } else if (roleId === "19") {
-        toast.success("User role assigned successfully");
+        // toast.success("User role assigned successfully");
+        showNotifyMessage("success", "User role assigned successfully", messageHandler);
       }
     } catch (error) {
       console.error("Error updating role:", error);
-      toast.error("Error updating role");
+      // toast.error("Error updating role");
+      showNotifyMessage("error", "Error updating role", messageHandler);
     }
   };
 

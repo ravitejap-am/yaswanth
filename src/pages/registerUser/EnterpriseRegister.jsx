@@ -11,19 +11,26 @@ import { toast } from "react-toastify";
 import Footer from "../home/Footer/Footer";
 import './EnterpriseRegister.css'
 import SignHeader from "../home/SignHeader/SignHeader";
+import { useMessageState } from "../../hooks/useapp-message";
 
 
 
 const EnterpriseRegister = () => {
+  let { showNotifyMessage, hideNotifyMessage } = useMessageState();
   const [signupMessage, setSignupMessage] = useState();
   const [loader, setLoader] = useState(false);
   const [form] = Form.useForm();
   const [filesystem, setFileSysytem] = useState([]);
 
+  const messageHandler = () => {
+    hideNotifyMessage();
+  };
+
   useEffect(() => {
     // Show toast when signupMessage changes
     if (signupMessage) {
-      toast.success(signupMessage);
+      // toast.success(signupMessage);
+      showNotifyMessage("success", signupMessage, messageHandler);
     }
   }, [signupMessage]);
 
@@ -56,18 +63,21 @@ const EnterpriseRegister = () => {
       });
 
       console.log("Registration successful:", response.data);
-      toast.success("Congratulations!! You are successfully signed up with your organization email id.");
+      showNotifyMessage("success", "Congratulations!! You are successfully signed up with your organization email id.", messageHandler);
+      // toast.success("Congratulations!! You are successfully signed up with your organization email id.");
     } catch (error) {
       console.error("Registration failed:", error.response?.data);
 
       if (error.response && error.response.status === 400) {
-        toast.error("Please sign up with your organization email id. If your organization is not registered with us, please reach out to sales@areteminds.com");
+        // toast.error("Please sign up with your organization email id. If your organization is not registered with us, please reach out to sales@areteminds.com");
+        showNotifyMessage("error", "Please sign up with your organization email id. If your organization is not registered with us, please reach out to sales@areteminds.com", messageHandler);
       }
       // else if (error.response && error.response.status === 403) {
       //   toast.warn("Please sign up with your organization email id. If your organization is not registered with us, please reach out to sales@areteminds.com");
       // } 
       else {
-        toast.error("An error occurred. Please try again.");
+        // toast.error("An error occurred. Please try again.");
+        showNotifyMessage("error", "An error occurred. Please try again.", messageHandler);
       }
     } finally {
       setLoader(false);

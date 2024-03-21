@@ -69,6 +69,10 @@ function OrgDocumentList(props) {
     name: "",
   });
 
+  const messageHandler = () => {
+    hideNotifyMessage();
+  };
+
   useEffect(() => {
     const storedFullName = localStorage.getItem("fullName");
     setFullName(storedFullName);
