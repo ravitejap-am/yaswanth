@@ -13,6 +13,7 @@ import { useMessageState } from '../../../../hooks/useapp-message';
 import { useParams, useNavigate } from 'react-router-dom';
 import AMChatHeader from '../../../AMChatAdmin/AMChatHeader/AMChatHeader';
 import OrganizationAdminHeader from '../../organizationadmin/OrganizationAdminHeader/OrganizationAdminHeader';
+import { trimFileNameBeforeExtension } from '../../../../utils/fileNameExtraction';
 
 function OrgUpdateDocument(props) {
   const { documentId } = useParams();
@@ -48,6 +49,18 @@ function OrgUpdateDocument(props) {
   const profileSrc = localStorage.getItem('profileImage');
 
   const submitHandler = async () => {
+    if (!!file) {
+      if (
+        trimFileNameBeforeExtension(file?.name) !=
+        localStorage.getItem('documentName')
+      ) {
+        setErrors(
+          'Uploading file with different name is not allowed. Please try to the file with same name'
+        );
+        return;
+      }
+    }
+
     if (isSubmitting) {
       return;
     }
@@ -57,6 +70,7 @@ function OrgUpdateDocument(props) {
     }
     setIsSubmitting(true);
     setButtonLoading(true);
+    setErrors('');
     try {
       const formData = new FormData();
       formData.append('file', file);
@@ -96,7 +110,6 @@ function OrgUpdateDocument(props) {
 
   const cancelHandler = () => {
     navigate('/documents');
-    // console.log(navigate('/document'));
   };
 
   const documentProps = {
@@ -113,73 +126,52 @@ function OrgUpdateDocument(props) {
     accept: '.pdf',
   };
 
-  const submitButtonProperty = {
-    name: 'Add',
-    color: '#ffffff',
-    backgroundColor: 'var(--Brand-500, #6366F1)',
-    width: '150px',
-    height: '50px',
-    borderRadius: '28px',
-  };
-
-  const cancelButtonProperty = {
-    name: 'Cancel',
-    color: 'black',
-    backgroundColor: '#fff',
-    width: '150px',
-    height: '50px',
-    borderRadius: '28px',
-  };
-  const feedingVariable = {
-    isCancel: true,
-    cancelHandler: cancelHandler,
-    isSubmit: true,
-    submitHandler: submitHandler,
-    submitButtonProperty: submitButtonProperty,
-    cancelButtonProperty: cancelButtonProperty,
-    formElements: [],
-    formType: 'normal',
-    forgorPasswordHandler: () => {
-      console.log('forgot Password....');
-    },
-    grid: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' },
-  };
-
   const ErrorMsg = () => {
     return <span style={{ color: 'red', fontSize: '14px' }}>{errors}</span>;
   };
 
   return (
-    <div style={{paddingTop: "30px"}}>
+    <div style={{ paddingTop: '30px' }}>
       {/* <div className={Styles.superAdminMiddleParentDiv}> */}
 
-      <Spin spinning={buttonLoading} indicator={<LoadingOutlined style={{ fontSize: 40 , color: '#808080' }} spin />}>      
-
-        <div className={Styles.addOrganizationAdminSecondDiv} >
+      <Spin
+        spinning={buttonLoading}
+        indicator={
+          <LoadingOutlined style={{ fontSize: 40, color: '#808080' }} spin />
+        }
+      >
+        <div className={Styles.addOrganizationAdminSecondDiv}>
           <div className={Styles.Spacing_Form}>
-          <div className={Styles.uploadDocumentContainer}>
-            {' '}
-            <Upload {...documentProps}>
-              <Button icon={<UploadOutlined />}>Upload Document</Button>
-            </Upload>
-            <ErrorMsg />
-          </div>
-          {/* <GeneralForm
+            <div className={Styles.uploadDocumentContainer}>
+              {' '}
+              <Upload {...documentProps}>
+                <Button icon={<UploadOutlined />}></Button>
+              </Upload>
+              <h4>Document Name : {localStorage.getItem('documentName')}</h4>
+              {!!errors && <ErrorMsg />}
+            </div>
+            {/* <GeneralForm
             {...feedingVariable}
             buttonLoading={buttonLoading}
             isReset={isReset}
           /> */}
-                <div className={Styles.buttonContainer}>
-                <Button type="primary" htmlType="submit" className={Styles.addButtonStyle} onClick={submitHandler}>Update</Button>
-                <Button onClick={cancelHandler} className={Styles.cancelButton}>Cancel</Button>
-              </div>
-          <div>
-
+            <div className={Styles.buttonContainer}>
+              <Button onClick={cancelHandler} className={Styles.cancelButton}>
+                Cancel
+              </Button>
+              <Button
+                type="primary"
+                htmlType="submit"
+                className={Styles.addButtonStyle}
+                onClick={submitHandler}
+              >
+                Update
+              </Button>
+            </div>
+            <div></div>
           </div>
         </div>
-      </div>
       </Spin>
-
     </div>
   );
 }
