@@ -22,8 +22,7 @@ import editIcon from "../../../asset/AmChatSuperAdmin/pencil-alt.png";
 import deleteIcon from "../../../asset/AmChatSuperAdmin/Frame 2302.png";
 import GeneralButton from "../../../components/common/buttons/GeneralButton";
 import DataGridTable from "../../../components/common/muiTable/DataGridTable";
-import { DeleteConfirmationPopUp } from "../../../components/DeleteConfirmPopUp/DeleteConfirmationPopUp";
-import { Modal } from 'antd';
+import { AM_CHAT } from "../../../constants/Constant";
 
 function Organisations() {
   let { showNotifyMessage, hideNotifyMessage } = useMessageState();
@@ -322,7 +321,7 @@ function Organisations() {
             ) : (
               <Popconfirm
                 key={params.row.id || "amchat"}
-                title="Am Chat"
+                title={AM_CHAT}
                 description={
                   <span style={{ whiteSpace: 'nowrap' }}>{"Do you really want to delete this organisation '" +params?.row?.organisationName +
                   "'"}</span>

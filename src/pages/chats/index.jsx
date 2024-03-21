@@ -7,15 +7,15 @@ import FormControl from '@mui/material/FormControl';
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import { Button, Skeleton } from 'antd';
+import { Button, Modal, Skeleton } from 'antd';
 import styles from './Chats.module.css';
-import { SendOutlined } from '@ant-design/icons';
+import { SendOutlined, WarningOutlined } from '@ant-design/icons';
 import uesrImg from '../../asset/userimg.avif'
 import responseImg from '../../asset/responseimg.jpg'
 import amchatImg from '../../asset/Vector (1).png'
 import { useChat } from '../../contexts/provider/ChatContext';
-import { Box } from '@mui/material';
-
+import { Dialog, DialogTitle, DialogContent, DialogActions, Typography } from '@mui/material';
+import { AM_CHAT } from "../../constants/Constant";
 function Chats() {
   const { isChatOpen, setIsChatOpen } = useChat();
   const [searchOption, setSearchOption] = useState('specificFileText');
@@ -24,14 +24,20 @@ function Chats() {
   const [messageSent, setMessageSent] = useState(false);
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [showWarning, setShowWarning] = useState(false); 
 
   useEffect(() => {
     setQuestions([]);
     setMessageSent(false);
   }, [isChatOpen]);
 
+  
   const handleSearchOptionChange = (option) => {
-    setSearchOption(option);
+    if (option === 'acrossFiles') {
+      setShowWarning(true);
+    } else {
+      setSearchOption(option);
+    }
   };
 
   const handleFileChange = (event) => {
@@ -92,12 +98,24 @@ function Chats() {
     element.style.height = element.scrollHeight + 'px';
   };
 
+
+  const handleOkWarning = () => {
+    setShowWarning(false);
+    setSearchOption('acrossFiles');
+  };
+
+  const handleCancelWarning = () => {
+    setShowWarning(false);
+  };
+
   return (
     <Layout componentName="Chat" >
       <div  >
       <div className={styles.chatContainer}>
+      <div className={styles.textContext}>Context</div>
+      <div style={{ padding: "10px"}}>
         <Grid container spacing={2} alignItems="left" justifyContent="left">
-          <Grid item xs={12} sm={6} md={4}>
+          <Grid item xs={12} sm={2} md={2}>
             <label className={styles.chatLabel}>
               <input
                 type="radio"
@@ -105,10 +123,10 @@ function Chats() {
                 checked={searchOption === 'acrossFiles'}
                 onChange={() => handleSearchOptionChange('acrossFiles')}
               />
-              Search across files
+              Across
             </label>
           </Grid>
-          <Grid item xs={12} sm={6} md={4}>
+          <Grid item xs={12} sm={6} md={2}>
             <label className={styles.chatLabel}>
               <input
                 type="radio"
@@ -116,7 +134,7 @@ function Chats() {
                 checked={searchOption === 'specificFileText'}
                 onChange={() => handleSearchOptionChange('specificFileText')}
               />
-              Search specific file
+              Specific 
             </label>
           </Grid>
           {searchOption === 'specificFileText' && (
@@ -127,13 +145,13 @@ function Chats() {
                 variant="outlined"
                 fullWidth
               >
-                <InputLabel id="file-select-label">Select files</InputLabel>
+                <InputLabel id="file-select-label">Select document</InputLabel>
                 <Select
                   labelId="file-select-label"
                   id="file-select"
                   value={selectedFile}
                   onChange={handleFileChange}
-                  label="Select files"
+                  label="Select document"
                   className={styles.chatSelect}
                   style={{ textAlign: 'left', height: "30px" }}
                 >
@@ -147,14 +165,34 @@ function Chats() {
               </FormControl>
             </Grid>
           )}
+      <Dialog open={showWarning} onClose={handleCancelWarning}>
+        <DialogTitle>
+          <WarningOutlined style={{ color: '#faad14', marginRight: '8px' }} />
+          Warning
+        </DialogTitle>
+        <DialogContent>
+          <Typography>
+            Searching across files is a costly, time-consuming process and may result in inefficient results. Would you like to continue?
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleOkWarning} type="primary">
+            Ok
+          </Button>
+          <Button onClick={handleCancelWarning}>
+            Cancel
+          </Button>
+        </DialogActions>
+      </Dialog>
         </Grid>
+        </div>
       </div>
         <div className={styles.chatCardContainer}>
           <Card variant="" className={styles.chatCardNew}>
             <div className={styles.chatCard}>
               {!messageSent && (
                 <CardContent className={styles.chatCardContent}>
-                  <h1 className={styles.chatHeading}>AM-Chat <img src={amchatImg} alt="" className={styles.chatimg} /></h1>
+                  <h1 className={styles.chatHeading}>{AM_CHAT} <img src={amchatImg} alt="" className={styles.chatimg} /></h1>
                   <p className={styles.chatParagraph}>Hello, I’m AM-Chat</p>
                   <p className={styles.chatParagraphText}>
                     How can I help you today?

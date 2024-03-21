@@ -25,3 +25,5 @@ export const PROFILE_URL = "https://medicalpublic.s3.amazonaws.com/"
 export const UserAccount="";
 export const OrgAdminAccount="ORG_ADMIN";
 export const SuperAdminAccount="SUPER_ADMIN";
+
+export const AM_CHAT = 'AM-Chat';

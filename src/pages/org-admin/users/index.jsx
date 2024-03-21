@@ -26,6 +26,7 @@ import GeneralButton from "../../../components/common/buttons/GeneralButton";
 import DataGridTable from "../../../components/common/muiTable/DataGridTable";
 import * as constants from "../../../constants/Constant";
 import NotifyMessage from "../../../components/common/toastMessages/NotifyMessage";
+import { AM_CHAT } from "../../../constants/Constant";
 
 function Users() {
   let { showNotifyMessage, hideNotifyMessage } = useMessageState();
@@ -292,7 +293,7 @@ function Users() {
             {params?.row?.status === "Active" && (
               <Popconfirm
                 key={params.row.id || "amchat"}
-                title="Am Chat"
+                title={AM_CHAT}
                 description={
                   <span style={{ whiteSpace: 'nowrap' }}>{"Do you really want to delete this user '" +
                   params.row.name +"'"}</span>

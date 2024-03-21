@@ -10,19 +10,20 @@ import {
   setOrganisationStatus,
   setOrganisationData,
   setErrorMsg,
-} from '../../../store/authSlice';
-import styles from './index.module.css';
-import { CircularProgress } from '@mui/material';
-import PageLoader from '../../../components/loader/loader';
-import Search from '../../../components/common/common-searchInput';
-import { BASE_DOC_API_URL } from '../../../constants/Constant';
-import * as constants from '../../../constants/Constant';
-import { useMessageState } from '../../../hooks/useapp-message';
-import frame from '../../../asset/AmChatSuperAdmin/plus-sm.png';
-import editIcon from '../../../asset/AmChatSuperAdmin/pencil-alt.png';
-import deleteIcon from '../../../asset/AmChatSuperAdmin/Frame 2302.png';
-import GeneralButton from '../../../components/common/buttons/GeneralButton';
-import DataGridTable from '../../../components/common/muiTable/DataGridTable';
+} from "../../../store/authSlice";
+import styles from "./index.module.css";
+import { CircularProgress } from "@mui/material";
+import PageLoader from "../../../components/loader/loader";
+import Search from "../../../components/common/common-searchInput";
+import { BASE_DOC_API_URL } from "../../../constants/Constant";
+import * as constants from "../../../constants/Constant";
+import { useMessageState } from "../../../hooks/useapp-message";
+import frame from "../../../asset/AmChatSuperAdmin/plus-sm.png";
+import editIcon from "../../../asset/AmChatSuperAdmin/pencil-alt.png";
+import deleteIcon from "../../../asset/AmChatSuperAdmin/Frame 2302.png";
+import GeneralButton from "../../../components/common/buttons/GeneralButton";
+import DataGridTable from "../../../components/common/muiTable/DataGridTable";
+import { AM_CHAT } from "../../../constants/Constant";
 
 function Documents() {
   let {
@@ -262,8 +263,8 @@ function Documents() {
           <IconButton aria-label="delete">
             {params?.row?.status === 'Active' && (
               <Popconfirm
-                key={params.row.id || 'amchat'}
-                title="Am Chat"
+                key={params.row.id || "amchat"}
+                title={AM_CHAT}
                 description={
                   <span style={{ whiteSpace: 'nowrap' }}>
                     {"Do you really want to delete this document '" +

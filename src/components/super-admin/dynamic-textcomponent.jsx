@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ReactComponent as DeleteIcon } from '../../asset/AmChatSuperAdmin/trash-solid.svg';
 import { Button, Tooltip } from 'antd';
 import axios from 'axios';
-import { BASE_ORG_API_URL } from '../../constants/Constant';
+import { BASE_ORG_API_URL, AM_CHAT } from '../../constants/Constant';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../../store/authSlice';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -296,7 +296,7 @@ function DynamicTextComponent({
           >
           {typeDetails && typeDetails !== null && typeDetails !== "" ? <Popconfirm
             key={'amchat'}
-            title="Am Chat"
+            title={AM_CHAT}
             description={
               "Do you really want to delete this domain" +
               ` '${typeDetails}'` 

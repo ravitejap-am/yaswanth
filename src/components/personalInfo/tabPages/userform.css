@@ -95,6 +95,9 @@ label {
    .inputstyle-css-changepassword{
     margin-left: -38px;
    }
+   .input-label-changepassword{
+    margin-left: -38px;
+   }
   }
 
 
@@ -109,6 +112,8 @@ label {
 .main-change-password{
 padding-top: 60px;
 }
+
+
 
 
 
