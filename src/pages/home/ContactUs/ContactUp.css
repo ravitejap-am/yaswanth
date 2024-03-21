@@ -176,8 +176,8 @@
   width: 495px !important;
 }
 
-.ant-select-single .ant-select-selector {
-  /* color: #fff; */
+.contact_select_css.ant-select-single .ant-select-selector {
+  color: #fff;
 }
 
 .ant-select-selector {

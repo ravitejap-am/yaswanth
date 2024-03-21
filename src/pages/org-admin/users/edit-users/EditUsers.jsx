@@ -117,12 +117,13 @@ const EditUsers = () => {
   }, []);
 
   return (
-    <Layout componentName="Edit user">
+    <Layout componentName="Update user">
       <EditForm
         formData={userData}
         setFormsData={setUserData}
         submitHandler={submitHandler}
         isEdit={true}
+        buttonLoading={buttonLoading}
       />
     </Layout>
   );

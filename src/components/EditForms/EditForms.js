@@ -9,6 +9,7 @@ function EditForm({
   submitHandler,
   isEdit,
   cancelHandler,
+  buttonLoading
 }) {
   const [formData, setFormData] = useState(initialFormData);
   const [errors, setErrors] = useState({});
@@ -97,13 +98,14 @@ function EditForm({
             value={formData.email}
             onChange={handleChange}
             disabled={isEdit}
+            style={{ backgroundColor: isEdit ? '#CBD5E1' : "" }}
           />
           {errors.email && <span className="error">{errors.email}</span>}
         </Grid>
       </Grid>
       <Box className="button-container">
-        <Button type="primary" htmlType="submit" className="buttonStyle">
-          Submit
+        <Button type="primary" htmlType="submit" className="buttonStyle" loading={buttonLoading}>
+          {isEdit ? "Update" : "Submit"}
         </Button>
 
         {!isEdit && (

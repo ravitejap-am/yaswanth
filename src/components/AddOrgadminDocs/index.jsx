@@ -201,7 +201,7 @@ function AddOrgDocuments(props) {
             </Form.Item>
 
               <div className={Styles.buttonContainer}>
-                <Button type="primary" htmlType="submit" className={Styles.addButtonStyle} >Add</Button>
+                <Button type="primary" htmlType="submit" className={Styles.addButtonStyle} loading={buttonLoading} >Add</Button>
                 <Button onClick={cancelHandler} className={Styles.cancelButton}>Cancel</Button>
               </div>
 

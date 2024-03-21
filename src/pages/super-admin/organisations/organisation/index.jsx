@@ -50,6 +50,7 @@ function Organisation() {
   const user = useSelector(selectUser);
   const organisation = useSelector(selectOrganisation);
   const dispatch = useDispatch();
+  const pageTitle = organisation?.organisationStatus === "edit" ? "Update Organisation" : "Add Organisation"
   console.log('organisation', organisation);
   const jwt = user.userToken;
   const navigate = useNavigate();
@@ -372,7 +373,7 @@ function Organisation() {
   }
 
   return (
-    <Layout componentName="Add Organisation">
+    <Layout componentName={pageTitle}>
         <Box >
           <TabContext value={selectedTab}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider',  boxShadow: '0px 2.789px 6.972px 3.486px rgba(0, 0, 0, 0.09)',borderRadius: 3,marginBottom: '1rem'}}>
@@ -485,6 +486,23 @@ function Organisation() {
         marginTop={'0.3rem'}
       >
         <Grid item>
+          <Link to="/organisations" style={{ textDecoration: 'none' }}>
+            <div>
+              <GeneralButton
+                name="Cancel"
+                buttonProps={{}}
+                type="default"
+                color="#334155"
+                backgroundColor="transparent"
+                width="130px"
+                height="50px"
+                borderRadius="30px"
+                buttonHandler={handleCancel}
+              />
+            </div>
+          </Link>
+        </Grid>
+        <Grid item>
           <Button
             onClick={() => {
               if (organisation?.organisationStatus == 'edit') {
@@ -516,23 +534,7 @@ function Organisation() {
             {'Submit'}
           </Button>
         </Grid>
-        <Grid item>
-          <Link to="/organisations" style={{ textDecoration: 'none' }}>
-            <div>
-              <GeneralButton
-                name="Cancel"
-                buttonProps={{}}
-                type="default"
-                color="#334155"
-                backgroundColor="transparent"
-                width="130px"
-                height="50px"
-                borderRadius="30px"
-                buttonHandler={handleCancel}
-              />
-            </div>
-          </Link>
-        </Grid>
+ 
       </Grid>
       {/* <TabNavigation
             selectedTab={selectedTab}

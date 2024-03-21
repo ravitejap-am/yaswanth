@@ -108,7 +108,7 @@ function UserInfoForm({
             personalInformationHandler('personalinformation');
           }}
         >
-          Back
+          Previous
         </Button>
         </Grid>
         <Grid item xs={6} sm={2.8} md={3} lg={1.6}

@@ -22,6 +22,9 @@ import editIcon from "../../../asset/AmChatSuperAdmin/pencil-alt.png";
 import deleteIcon from "../../../asset/AmChatSuperAdmin/Frame 2302.png";
 import GeneralButton from "../../../components/common/buttons/GeneralButton";
 import DataGridTable from "../../../components/common/muiTable/DataGridTable";
+import DeleteConfirmPopUp from "../../../components/DeleteConfirmPopUp/DeleteConfirmPopUp";
+import { DeleteConfirmationPopUp } from "../../../components/DeleteConfirmPopUp/DeleteConfirmationPopUp";
+import { Modal } from 'antd';
 
 function Organisations() {
   let { showNotifyMessage, hideNotifyMessage } = useMessageState();
@@ -44,6 +47,7 @@ function Organisations() {
   const [tableloading, setTableLoading] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+  const [openDeletePopUp, setOpenDeletePopUp] = useState(false)
 
   const itemRender = (_, type, originalElement) => {
     if (type === "prev") {
@@ -233,8 +237,8 @@ function Organisations() {
     setIsOpen(false);
   };
 
-  const handleDelete = (id) => {
-    setLoadingId(id);
+  const handleYes = (id) => {
+    // setLoadingId(id);
     deleteOrganisation(id);
   };
 
@@ -246,6 +250,15 @@ function Organisations() {
     dispatch(setOrganisationStatus("edit"));
     dispatch(setOrganisationData(orgObject));
   };
+
+  const handleDeleteOrganisation = () => {
+    setOpenDeletePopUp(true)
+  }
+
+  const handleNo = () => {
+    setOpenDeletePopUp(false)
+  }
+
 
   const columns = [
     {
@@ -305,7 +318,48 @@ function Organisations() {
           >
             <img src={editIcon} alt="Edit" />
           </IconButton>
-          <IconButton aria-label="delete">
+          <Modal
+    // key={key}
+    title={"Confirmation"}
+    centered
+    open={openDeletePopUp}
+    onOk={() => {handleYes()}}
+    okText={"Yes"}
+    cancelText = {"No"}
+    // className="transparent-modal"
+    // colorBgMask={"#ffffff"}
+    // cancelButtonProps={{ style: { display: 'none' } }} 
+    onCancel={() =>{ handleNo()}}
+    // maskStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
+    // mask={true}
+
+  >
+    <p>{`Are you sure you want to delete ""?`}</p>
+  </Modal>
+          {/* <DeleteConfirmationPopUp
+            key={params.row.id} 
+            setOpenDeletePopUp={setOpenDeletePopUp}
+            openDeletePopUp={openDeletePopUp}
+            handleYes={()=> handleYes(params.id)}
+            handleNo={handleNo}
+            name = {params?.row?.organisationName}
+            deleteType= {"organisation"}
+          /> */}
+          <IconButton
+            aria-label="delete"
+            onClick={() => handleDeleteOrganisation()}
+          >
+            <img src={deleteIcon} alt="Delete" />
+          </IconButton>
+          {/* < DeleteConfirmPopUp 
+            key={params.row.id}   
+            name={params?.row?.organisationName} 
+            handleYes={handleYes}
+            handleNo={handleNo}
+            setOpenDeletePopUp={setOpenDeletePopUp}
+            openDeletePopUp={openDeletePopUp}
+            /> */}
+          {/* <IconButton aria-label="delete">
             {loadingId == rows.id && loadingId != null ? (
               <CircularProgress />
             ) : (
@@ -323,7 +377,7 @@ function Organisations() {
                 <img src={deleteIcon} alt="Delete" />
               </Popconfirm>
             )}
-          </IconButton>
+          </IconButton> */}
         </div>
       ),
     },

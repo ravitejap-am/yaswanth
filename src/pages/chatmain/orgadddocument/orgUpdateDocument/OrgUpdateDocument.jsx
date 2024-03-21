@@ -170,7 +170,7 @@ function OrgUpdateDocument(props) {
             isReset={isReset}
           /> */}
                 <div className={Styles.buttonContainer}>
-                <Button type="primary" htmlType="submit" className={Styles.addButtonStyle} onClick={submitHandler}>Add</Button>
+                <Button type="primary" htmlType="submit" className={Styles.addButtonStyle} onClick={submitHandler}>Update</Button>
                 <Button onClick={cancelHandler} className={Styles.cancelButton}>Cancel</Button>
               </div>
           <div>

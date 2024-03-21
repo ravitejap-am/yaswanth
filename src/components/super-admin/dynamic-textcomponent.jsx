@@ -257,9 +257,7 @@ function DynamicTextComponent({
   };
 
   return (
-    <Grid container
-    // style={{ padding: '10px', marginTop: '2em' }}
-    >
+    <Grid container >
       {textFields.map(({ typeDetails, id }, index) => (
         <Grid item 
             container
@@ -267,17 +265,8 @@ function DynamicTextComponent({
             justifyContent="flex-start"
             alignItems="flex-start"
             key={index}
-          // div
-          // key={index}
-          // style={{
-          //   display: 'flex',
-          //   justifyContent: 'flex-start',
-          //   alignItems: 'center',
-          //   gap: '2em',
-          // }}
         >
           <Grid item container
-          // style={{ display: 'flex', flexDirection: 'column' }}
           direction="column"
           justifyContent="flex-start"
           xs={10} sm={6} md={4} lg={5} xl={3}
@@ -287,24 +276,11 @@ function DynamicTextComponent({
               value={typeDetails}
               onChange={(event) => handleTextChange(index, event.target.value)}
               onBlur={(event) => handleCheckDomain(index, event.target.value)}
-              // onfocus={onfocus()}
-              // onfocus={onFocusFunction(index)}
-              // style={{
-              //   width: '445px',
-              //   height: '35px',
-              //   borderRadius: '40px',
-              //   border: '1px solid var(--Brand-700, #4338CA)',
-              //   backgroundColor: 'transparent',
-              //   marginBottom: '2em',
-              //   padding: '0.375rem 0.75rem',
-              // }}
-              // style={styles.domain-text-input}
               className='domain-text-input'
               disabled={id ? true : false}
             />
             {typeDetails && !isValidDomain(typeDetails) && (
               <FormHelperText 
-              // style={{ color: 'red' }}
               sx={{ fontSize: '14px' }}
               error
               >Invalid domain name format</FormHelperText>
@@ -369,29 +345,14 @@ function DynamicTextComponent({
         </Grid>
       ))}
 
-      <Grid 
-        item
-        container
-        direction="row"
-        justifyContent="flex-start"
-        alignItems="flex-start" 
-        // style={{
-        //   display: 'flex',
-        //   justifyContent: 'flex-start',
-        //   // alignItems: 'center',
-        //   gap: '2em',
-        //   marginTop: '1em',
-        //   flexDirection: 'column',
-        // }}
-        
+      <Grid item 
+      xs={12} sm={7} md={4.9} lg={5.8} xl={3.7}
+      container
+      direction="row"
+      justifyContent="flex-end"
+      alignItems="flex-end"
       >
-        {!(
-          isSubmitDisabled() ||
-          usedDomainIndexCollection.length > 0 ||
-          isNewDomain
-        ) ? (
-          <>
-            <Tooltip placement="rightTop" title="Add Domain">
+      <Tooltip placement="rightTop" title="Add Domain">
               <Button
                 onClick={handleAddText}
                 style={{
@@ -421,6 +382,51 @@ function DynamicTextComponent({
               >
               </Button>
             </Tooltip>
+      </Grid>
+
+      <Grid 
+        item
+        container
+        direction="row"
+        justifyContent="flex-start"
+        alignItems="flex-start"         
+      >
+        {!(
+          isSubmitDisabled() ||
+          usedDomainIndexCollection.length > 0 ||
+          isNewDomain
+        ) ? (
+          <>
+            {/* <Tooltip placement="rightTop" title="Add Domain">
+              <Button
+                onClick={handleAddText}
+                style={{
+                  display: 'flex',
+                  width: '50px',
+                  height: '50px',
+                  padding: '10px 16px',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  gap: '8px',
+                  flexShrink: '0',
+                  borderRadius: '30px',
+                  backgroundColor: 'var(--Brand-500, #6366F1)',
+                  color: '#FFFFFF',
+                  fontFamily: 'Into Lato',
+                  fontSize: '16px',
+                  fontStyle: 'normal',
+                  fontWeight: '700',
+                  lineHeight: '24px',
+                }}
+                disabled={
+                  isSubmitDisabled() ||
+                  usedDomainIndexCollection.length > 0 ||
+                  isNewDomain
+                }
+                icon={<PlusCircleFilled />}
+              >
+              </Button>
+            </Tooltip> */}
 
             <Grid 
               container 
@@ -437,7 +443,7 @@ function DynamicTextComponent({
                   }}
                   loading={buttonLoading}
                 >
-                  Back
+                  Previous
                 </Button>
               </Grid>
               <Grid item xs={6} sm={3} md={2} lg={1}>
@@ -453,33 +459,6 @@ function DynamicTextComponent({
                 </Button>
               </Grid>
       </Grid>
-            {/* <div
-              className="center"
-              style={{
-                gap: '2em',
-                justifyContent: 'flex-start',
-              }}
-            >
-              <Button
-                style={{ marginTop: '1em', width: '8em' }}
-                onClick={() => {
-                  personalInformationHandler('organizationadmin');
-                }}
-                loading={buttonLoading}
-              >
-                Back
-              </Button>
-              <Button
-                type="primary"
-                style={{ marginTop: '1em', width: '8em' }}
-                onClick={() => {
-                  personalInformationHandler('subscriptionplan');
-                }}
-                loading={buttonLoading}
-              >
-                Next
-              </Button>
-            </div> */}
           </>
         ) : (
           ''
