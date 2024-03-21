@@ -236,8 +236,8 @@ function Organisations() {
     setIsOpen(false);
   };
 
-  const handleYes = (id) => {
-    // setLoadingId(id);
+  const handleDelete = (id) => {
+    setLoadingId(id);
     deleteOrganisation(id);
   };
 
@@ -324,7 +324,7 @@ function Organisations() {
                 key={params.row.id || "amchat"}
                 title="Am Chat"
                 description={
-                  <span style={{ whiteSpace: 'nowrap' }}>{"Do you really want to delete this organization '" +params?.row?.organisationName +
+                  <span style={{ whiteSpace: 'nowrap' }}>{"Do you really want to delete this organisation '" +params?.row?.organisationName +
                   "'"}</span>
                 }
                 onConfirm={() => handleDelete(params.row.id)}

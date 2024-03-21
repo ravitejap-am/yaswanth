@@ -28,6 +28,7 @@ import * as constants from "../../../constants/Constant";
 import NotifyMessage from "../../../components/common/toastMessages/NotifyMessage";
 
 function Users() {
+  let { showNotifyMessage, hideNotifyMessage } = useMessageState();
   const user = useSelector(selectUser);
   const jwt = user.userToken;
   const navigate = useNavigate();
@@ -146,7 +147,8 @@ function Users() {
       });
       setRows(rows.filter((row) => row.id !== userId));
       setTableLoading(false);
-      toast.success("User deleted successfully");
+      // toast.success("User deleted successfully");
+      showNotifyMessage("success", "User deleted successfully", messageHandler);
     } catch (error) {
       setTableLoading(false);
       console.error("Error deleting user:", error);
