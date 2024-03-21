@@ -231,7 +231,9 @@ function Chats() {
               )}
             </div>
             {messageSent && (
+              
               <CardContent className={styles.chatCardContent}>
+                <div className={styles.chatScroll}>
                 {questions.map((item, index) => (
                   <div key={index}>
                     <div className={styles.responseContent}>
@@ -261,6 +263,7 @@ function Chats() {
                     </div>
                   </div>
                 ))}
+                </div>
               </CardContent>
             )}
             <CardContent>

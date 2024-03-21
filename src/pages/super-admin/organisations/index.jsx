@@ -390,6 +390,7 @@ function Organisations() {
     plans: item?.plans,
     status: item?.status,
   }));
+  
 
   return (
     <Layout componentName="Organisations">
@@ -399,7 +400,7 @@ function Organisations() {
           <Box className={styles.search_container}>
             <Box>
               <Search
-                inputLabel={"Search"}
+                inputLabel={"Search organisations name"}
                 handleSearchChange={handleChangeSearch}
                 inputValue={searchValue}
               />

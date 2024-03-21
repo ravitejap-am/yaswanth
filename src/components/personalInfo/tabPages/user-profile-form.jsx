@@ -52,7 +52,7 @@ function UserProfileForm({ formData, setFormData, submitHandler }) {
     }
 
     if (!formData.organization.trim()) {
-      errors.organization = 'Organization is required';
+      errors.organization = 'Organisation is required';
       isValid = false;
     }
 

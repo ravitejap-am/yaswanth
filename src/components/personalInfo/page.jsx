@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
@@ -17,8 +17,19 @@ import ChangePassword from './tabPages/changePassword';
 
 const PersonalInfo = () => {
   const [selectedTab, setSelectedTab] = useState('1');
-  const theme = useTheme();
-  // const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const [userRoles, setUserRoles] = useState([]);
+
+
+  useEffect(() => {
+    const rolesString = localStorage.getItem('userRole');
+    if (rolesString) {
+      const roles = rolesString.split(',').map(role => role.trim());
+      setUserRoles(roles);
+    }
+  }, []);
+  
+
+  const isAllowedToSeePlans = userRoles.includes('USER') || userRoles.includes('ORG_ADMIN');
 
   const handleTabChange = (event, newValue) => {
     setSelectedTab(newValue);
@@ -69,7 +80,9 @@ const PersonalInfo = () => {
               label={<Typography fontWeight="bold">Change Password</Typography>}
               value="2"
             />
-            {/* <Tab label={<Typography fontWeight="bold">Plans</Typography>} value="3" /> */}
+            {isAllowedToSeePlans && (
+              <Tab label={<Typography fontWeight="bold">Plans</Typography>} value="3" />
+            )}
           </TabList>
         </Box>
         {/* )} */}
