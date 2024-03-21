@@ -88,6 +88,7 @@ const AddUsers = () => {
         submitHandler={submitHandler}
         cancelHandler={cancelHandler}
         isEdit={false}
+        buttonLoading={buttonLoading}
       />
     </Layout>
   );

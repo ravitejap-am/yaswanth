@@ -22,6 +22,8 @@ import editIcon from "../../../asset/AmChatSuperAdmin/pencil-alt.png";
 import deleteIcon from "../../../asset/AmChatSuperAdmin/Frame 2302.png";
 import GeneralButton from "../../../components/common/buttons/GeneralButton";
 import DataGridTable from "../../../components/common/muiTable/DataGridTable";
+import { DeleteConfirmationPopUp } from "../../../components/DeleteConfirmPopUp/DeleteConfirmationPopUp";
+import { Modal } from 'antd';
 
 function Organisations() {
   let { showNotifyMessage, hideNotifyMessage } = useMessageState();
@@ -44,6 +46,7 @@ function Organisations() {
   const [tableloading, setTableLoading] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+  const [openDeletePopUp, setOpenDeletePopUp] = useState(false)
 
   const itemRender = (_, type, originalElement) => {
     if (type === "prev") {
@@ -247,6 +250,15 @@ function Organisations() {
     dispatch(setOrganisationData(orgObject));
   };
 
+  const handleDeleteOrganisation = () => {
+    setOpenDeletePopUp(true)
+  }
+
+  const handleNo = () => {
+    setOpenDeletePopUp(false)
+  }
+
+
   const columns = [
     {
       field: "organisationName",
@@ -296,6 +308,7 @@ function Organisations() {
       maxWidth: 200,
       sortable: false,
       renderCell: (params) => (
+
         <div>
           <IconButton
             aria-label="edit"
@@ -311,7 +324,7 @@ function Organisations() {
                 key={params.row.id || "amchat"}
                 title="Am Chat"
                 description={
-                  <span style={{ whiteSpace: 'nowrap' }}>{"Do you really want to delete this organization '" +params?.row?.organisationName +
+                  <span style={{ whiteSpace: 'nowrap' }}>{"Do you really want to delete this organisation '" +params?.row?.organisationName +
                   "'"}</span>
                 }
                 onConfirm={() => handleDelete(params.row.id)}

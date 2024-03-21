@@ -165,7 +165,7 @@ function OrgUpdateDocument(props) {
                 className={Styles.addButtonStyle}
                 onClick={submitHandler}
               >
-                Add
+                Update
               </Button>
             </div>
             <div></div>

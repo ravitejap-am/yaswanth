@@ -45,7 +45,7 @@ function SubscriptionPlan({ personalInformationHandler }) {
                 personalInformationHandler('personalinformation');
               }}
             >
-              Back
+              Previous
             </Button>
         </Grid>
       </Grid>
