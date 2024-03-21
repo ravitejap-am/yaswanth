@@ -4,7 +4,7 @@ const emailregex =
 export const validatePersonalInfoForm = (data) => {
   let errors = {};
   if (!data.name.trim()) {
-    errors.name = 'Organization name is required';
+    errors.name = 'Organisation name is required';
   }
   if (!data?.address.country) {
     errors.country = 'Country is required';

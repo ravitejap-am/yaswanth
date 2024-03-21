@@ -273,7 +273,7 @@ const SignIn = () => {
       <div className="signin-main-css">
       <div className="text-top-signup">
         <h2>Sign In</h2>
-          <p>Please sign in with your organization <br /> email id.</p>
+          <p>Please sign in with your organisation <br /> email id.</p>
           </div>
         <div className='signin-form-css'> 
         <Form

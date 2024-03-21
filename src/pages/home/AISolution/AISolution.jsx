@@ -10,13 +10,13 @@ function AISolution() {
     {
       img: img4,
       title: "Analytics",
-      subTitle: "Find about the usage of your organizational knowledge base.",
+      subTitle: "Find about the usage of your organisational knowledge base.",
     },
     {
       img: img3,
       title: "Insights",
       subTitle:
-        "Learn & Explore what’s hidden knowledge in your organizational document.",
+        "Learn & Explore what’s hidden knowledge in your organsational document.",
     },
     {
       img: img2,

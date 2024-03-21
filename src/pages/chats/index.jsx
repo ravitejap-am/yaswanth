@@ -68,9 +68,9 @@ function Chats() {
 
   const generateResponse = (question) => {
     switch (question) {
-      case 'Could you help me with the maternity policy of my organization?':
+      case 'Could you help me with the maternity policy of my organisation?':
         return 'Sure, here is the link to the maternity policy document: [link]';
-      case 'Can you tell me about GDPR compliance.  Which I should follow in my organization?':
+      case 'Can you tell me about GDPR compliance.  Which I should follow in my organisation?':
         return 'GDPR compliance is crucial for protecting user data. Here are the key aspects you should focus on: [list of key aspects]';
       case 'Can you explain me the Pythagoras theorem based on. ':
         return 'The Pythagorean theorem states that in a right-angled triangle, the square of the length of the hypotenuse is equal to the sum of the squares of the lengths of the other two sides.';
@@ -205,12 +205,12 @@ function Chats() {
                         className={styles.chatParagraphSuggestion}
                         onClick={() =>
                           handleSuggestionClick(
-                            'Could you help me with the maternity policy of my organization?'
+                            'Could you help me with the maternity policy of my organisation?'
                           )
                         }
                       >
                         Could you help me with the maternity policy of my
-                        organization?
+                        organisation?
                       </p>
                     </Grid>
                     <Grid item>
@@ -218,12 +218,12 @@ function Chats() {
                         className={styles.chatParagraphSuggestion}
                         onClick={() =>
                           handleSuggestionClick(
-                            'Can you tell me about GDPR compliance.  Which I should follow in my organization?'
+                            'Can you tell me about GDPR compliance.  Which I should follow in my organisation?'
                           )
                         }
                       >
                         Can you tell me about GDPR compliance. Which I should
-                        follow in my organization?
+                        follow in my organisation?
                       </p>
                     </Grid>
                   </Grid>
