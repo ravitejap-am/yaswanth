@@ -22,7 +22,6 @@ import editIcon from "../../../asset/AmChatSuperAdmin/pencil-alt.png";
 import deleteIcon from "../../../asset/AmChatSuperAdmin/Frame 2302.png";
 import GeneralButton from "../../../components/common/buttons/GeneralButton";
 import DataGridTable from "../../../components/common/muiTable/DataGridTable";
-import DeleteConfirmPopUp from "../../../components/DeleteConfirmPopUp/DeleteConfirmPopUp";
 import { DeleteConfirmationPopUp } from "../../../components/DeleteConfirmPopUp/DeleteConfirmationPopUp";
 import { Modal } from 'antd';
 
