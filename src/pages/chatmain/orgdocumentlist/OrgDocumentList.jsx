@@ -161,7 +161,6 @@ function OrgDocumentList(props) {
       setTableLoading(false);
       // toast.success("User deleted successfully");
       showNotifyMessage("success", "User deleted successfully",messageHandler)
-      setShow
     } catch (error) {
       setTableLoading(false);
       console.error("Error deleting user:", error);
