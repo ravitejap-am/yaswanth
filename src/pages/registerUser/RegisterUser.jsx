@@ -214,6 +214,21 @@ const RegisterUser = () => {
     setFileSysytem: setFileSysytem,
   };
 
+  useEffect(() => {
+    const scrollToTop = () => {
+      window.scrollTo({ top: 0, behavior: 'auto' });
+    };
+  
+    scrollToTop();
+  
+    const handleScroll = () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  
+    window.addEventListener('scroll', handleScroll);
+  
+  }, []); 
+
   return (
     <>
       <div>
@@ -391,7 +406,7 @@ const RegisterUser = () => {
                     marginLeft: "3px",
                   }}
                 >
-                  Log in
+                  Sign in
                 </Link>
               </p>
               <br />

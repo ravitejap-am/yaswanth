@@ -40,6 +40,7 @@ import { Pagination } from 'antd';
 import OrganizationAdminHeader from '../organizationadmin/OrganizationAdminHeader/OrganizationAdminHeader';
 import Skeleton from '@mui/material/Skeleton';
 import PageLoader from '../../../components/loader/loader';
+import { AM_CHAT } from "../../../constants/Constant";
 
 function OrgUserList(props) {
   let {
@@ -462,7 +463,7 @@ function OrgUserList(props) {
                                   {row?.active === true && (
                                     <Popconfirm
                                       key={row?.id || 'amchat'}
-                                      title="Am Chat"
+                                      title={AM_CHAT}
                                       description="Do you Really want to delete this document file?"
                                       onConfirm={() => {
                                         handleDelete(row.id);

@@ -35,7 +35,7 @@ import {
   setOrganisationData,
   setErrorMsg,
 } from "../../../store/authSlice";
-import { BASE_API_URL, BASE_ORG_API_URL } from "../../../constants/Constant";
+import { BASE_API_URL, BASE_ORG_API_URL, AM_CHAT } from "../../../constants/Constant";
 import { useMessageState } from "../../../hooks/useapp-message";
 import CircularProgress from "@mui/material/CircularProgress";
 import SuperAdminHeader from "../SuperAdminHeader/SuperAdminHeader";
@@ -391,7 +391,7 @@ function OrganizationList() {
             ) : (
               <Popconfirm
                 key={params.row.id || "amchat"}
-                title="Am Chat"
+                title={AM_CHAT}
                 description={
                   "Do you Really want to delete this organization '" +
                   params.row.name +

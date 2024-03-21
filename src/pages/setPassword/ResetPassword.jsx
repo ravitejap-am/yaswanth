@@ -11,6 +11,8 @@ import * as constants from '../../constants/Constant';
 import { useMessageState } from '../../hooks/useapp-message';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Form, Input, Select, Grid, Button } from "antd";
+import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
+
 import "../setPassword/ResetPassword.css"
 const ResetPassword = () => {
   let {
@@ -29,7 +31,8 @@ const ResetPassword = () => {
   const jwtToken = false;
   const { id } = useParams();
   const [isMobile, setIsMobile] = useState(false); 
-
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const passwordStyles =  {
     position: 'absolute',
@@ -139,6 +142,14 @@ const ResetPassword = () => {
     icons: '',
   };
 
+  const togglePasswordVisibility = (type) => {
+    if (type === 'password') {
+      setShowPassword(!showPassword);
+    } else if (type === 'confirmPassword') {
+      setShowConfirmPassword(!showConfirmPassword);
+    }
+  };
+
   const verifyPassword = (values) => {
     if(values?.password?.length === values?.confirmPassword?.length &&  values.password !== values.confirmPassword){
       showNotifyMessage('error', 'Password and confirm password should be same', messageHandler);
@@ -215,8 +226,8 @@ const ResetPassword = () => {
                     <h2>Set Password</h2>
                     <p>Please use a new password.</p>
                   </div>
-<div className='resetpasswordform' >
-<Form
+        <div className='resetpasswordform' >
+         <Form
             name="basic"
             initialValues={{
               remember: true,
@@ -237,7 +248,18 @@ const ResetPassword = () => {
               ]}
               required={false}
             >
-              <Input className="signin_input_css"  placeholder="Password"/>
+              <Input 
+              className="signin_input_css" 
+               placeholder="Password"
+               type={showPassword ? 'text' : 'password'}
+               suffix={
+                <Button
+                  type="text"
+                  onClick={() => togglePasswordVisibility('password')}
+                  icon={showPassword ? <EyeOutlined style={{fontSize: "25px"}}/> : <EyeInvisibleOutlined  style={{fontSize: "25px"}}/>}
+                />
+              }
+               />
             </Form.Item>
             <Form.Item
               name="confirmPassword"
@@ -249,7 +271,18 @@ const ResetPassword = () => {
               ]}
               required={false}
             >
-              <Input className="signin_input_css" placeholder="Confirm Password" />
+              <Input 
+              className="signin_input_css" 
+              placeholder="Confirm Password"
+              type={showConfirmPassword ? 'text' : 'password'}
+              suffix={
+                <Button
+                  type="text"
+                  onClick={() => togglePasswordVisibility('confirmPassword')}
+                  icon={showConfirmPassword ? <EyeOutlined style={{fontSize: "25px"}} /> : <EyeInvisibleOutlined style={{fontSize: "25px"}} />}
+                />
+              }
+               />
             </Form.Item>
             <Form.Item>
               <Button
@@ -263,8 +296,10 @@ const ResetPassword = () => {
 
           </Form>
          </div>
-        <Footer />
       </div>
+      <div className="signin-footer">
+          <Footer />
+        </div>
     </>
   );
 };

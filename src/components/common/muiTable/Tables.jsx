@@ -139,7 +139,7 @@ const Tables = ({
                           {row?.active === true && (
                             <Popconfirm
                               key={row?.id || "amchat"}
-                              title="Am Chat"
+                              title="AM-Chat"
                               description="Do you Really want to delete this user"
                               onConfirm={() => {
                                 handleDelete(row.id);

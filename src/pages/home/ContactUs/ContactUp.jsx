@@ -106,7 +106,7 @@ const ContactUp = () => {
         <div>
           <p className="Contact-us-form-title">Contact Us</p>
           <p className="Contact-us-form-sub-title">
-            To get in touch with AM Chat team, simply fill out the contact form
+            To get in touch with AM-Chat team, simply fill out the contact form
             below
           </p>
         </div>

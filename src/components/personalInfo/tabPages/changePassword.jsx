@@ -239,6 +239,8 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
           >
              {isMobile ? (
               <>
+              <label htmlFor="password" className='input-label-changepassword'>Old Password:</label>
+
             <Form.Item
               name="password"
               rules={[
@@ -262,6 +264,8 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
                 }
               />
             </Form.Item>
+            <label htmlFor="newPassword" className='input-label-changepassword'>New Password:</label>
+
             <Form.Item
               name="newPassword"
               rules={[
@@ -285,6 +289,8 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
                 }
               />
             </Form.Item>
+            <label htmlFor="confirmPasswor" className='input-label-changepassword'>Confirm Password:</label>
+
             <Form.Item
               name="confirmPassword"
               rules={[
@@ -312,6 +318,7 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
             ) : (
         <Row gutter={[16, 16]}>
           <Col xs={24} md={12}>
+          <label htmlFor="password">Old Password:</label>
           <Form.Item
               name="password"
               rules={[
@@ -337,6 +344,7 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
             </Form.Item>
           </Col>
           <Col xs={24} md={12}>
+          <label htmlFor="password">New Password:</label>
           <Form.Item
               name="newPassword"
               rules={[
@@ -362,6 +370,7 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
             </Form.Item>
           </Col>
           <Col xs={24} md={12}>
+          <label htmlFor="password">Confirm Password:</label>
           <Form.Item
               name="confirmPassword"
               rules={[

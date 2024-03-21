@@ -16,7 +16,11 @@ const Header = () => {
   const screens = useBreakpoint();
   const location = useLocation();
 
-
+useEffect(() => {
+  if (location.state && location.state.fromRegisterPage) {
+    scrollToElement('Contact_Up');
+  }
+}, [location.state]);
 
   useEffect(() => {
     const handleScroll = () => {
