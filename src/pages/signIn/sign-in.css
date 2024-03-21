@@ -55,7 +55,9 @@
   .signin_input_css{
     width: 300px !important;
   }
-
+.signin-main-css{
+  height: 70vh;
+   }
     .signin_submit_btn_css {
       width: 300px;
 
@@ -72,7 +74,20 @@
 
 .signin-main-css{
   padding-top: 100px;
-  height: 75vh;
+  height: 82vh;
   background-color: #e2e8f0;
 }
+
+.linktextsignin {
+  display: flex;
+  justify-content: center;
+  color: black;
+  text-align: center;
+}
+@media screen and (max-width: 768px) {
+  .linktextsignin {
+    font-size: 12px; 
+  }
+}
+
 

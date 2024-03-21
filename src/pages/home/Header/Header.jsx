@@ -1,6 +1,6 @@
 // Header.jsx
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Styles from './header.module.css';
 import Logo from '../../../asset/images/logo.png';
 import GeneralButton from '../../../components/common/buttons/GeneralButton';
@@ -14,6 +14,9 @@ const Header = () => {
   const { Header } = Layout;
   const { useBreakpoint } = Grid;
   const screens = useBreakpoint();
+  const location = useLocation();
+
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -33,6 +36,8 @@ const Header = () => {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
+  
 
   const items = [
     {
@@ -70,6 +75,8 @@ const Header = () => {
     setVisible(false);
   };
 
+  const selectedKey = location.state?.fromRegisterPage ? 'Contact_Up' : 'Home_page';
+
   return (
     <Layout>
       <Header className={Styles.mainHeader}>
@@ -80,7 +87,7 @@ const Header = () => {
           <Menu
             theme="dark"
             mode="horizontal"
-            defaultSelectedKeys={['Home_page']}
+            defaultSelectedKeys={[selectedKey]}
             items={items}
             style={{
               display: 'flex',
