@@ -309,56 +309,14 @@ function Organisations() {
       sortable: false,
       renderCell: (params) => (
 
-        <div key={params.id}>
-          {console.log("params---->",params)}
+        <div>
           <IconButton
             aria-label="edit"
             onClick={() => handleEdit(params.row.id)}
           >
             <img src={editIcon} alt="Edit" />
           </IconButton>
-          <Modal
-    // key={key}
-    title={"Confirmation"}
-    centered
-    open={openDeletePopUp}
-    onOk={() => {handleYes()}}
-    okText={"Yes"}
-    cancelText = {"No"}
-    // className="transparent-modal"
-    // colorBgMask={"#ffffff"}
-    // cancelButtonProps={{ style: { display: 'none' } }} 
-    onCancel={() =>{ handleNo()}}
-    // maskStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
-    // mask={true}
-
-  >
-    <p>{`Are you sure you want to delete ""?`}</p>
-  </Modal>
-          {/* <DeleteConfirmationPopUp
-            key={params.row.id} 
-            setOpenDeletePopUp={setOpenDeletePopUp}
-            openDeletePopUp={openDeletePopUp}
-            handleYes={()=> handleYes(params.id)}
-            handleNo={handleNo}
-            name = {params?.row?.organisationName}
-            deleteType= {"organisation"}
-          /> */}
-          <IconButton
-            aria-label="delete"
-            onClick={() => handleDeleteOrganisation()}
-          >
-            <img src={deleteIcon} alt="Delete" />
-          </IconButton>
-          {/* < DeleteConfirmPopUp 
-            key={params.row.id}   
-            name={params?.row?.organisationName} 
-            handleYes={handleYes}
-            handleNo={handleNo}
-            setOpenDeletePopUp={setOpenDeletePopUp}
-            openDeletePopUp={openDeletePopUp}
-            /> */}
-          {/* <IconButton aria-label="delete">
+          <IconButton aria-label="delete">
             {loadingId == rows.id && loadingId != null ? (
               <CircularProgress />
             ) : (
@@ -376,7 +334,7 @@ function Organisations() {
                 <img src={deleteIcon} alt="Delete" />
               </Popconfirm>
             )}
-          </IconButton> */}
+          </IconButton>
         </div>
       ),
     },
