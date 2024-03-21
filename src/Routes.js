@@ -64,6 +64,7 @@ import UpdateOrgAdminDoc from './components/UpdateOrgAdminDoc/index.jsx';
 import EditUsers from './pages/org-admin/users/edit-users/EditUsers.jsx';
 import AddUsers from './pages/org-admin/users/add-users/AddUsers.jsx';
 import TermsAndConditions from './components/TermsAndConditions/index.jsx';
+import PrivacyPolicies from './components/PrivacyPolicy/index.jsx';
 // import PrivacyPolicies from "./components/PrivacyPolicy/index.jsx";
 /*  
 new flow import statements stop
@@ -196,7 +197,7 @@ const Rout = () => {
         element={<VerificationLink />}
       />
 
-      {/* <Route exact path="/PrivacyPolicy" element={<PrivacyPolicies />} /> */}
+      <Route exact path="/PrivacyPolicy" element={<PrivacyPolicies />} />
       <Route
         path="/adduser"
         element={

@@ -331,21 +331,26 @@ const SignIn = () => {
                 Submit
               </Button>
             </Form.Item>
-            <Link
-            to={'/recoverypassword'}
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              color: 'Black',
-            }}
-          >
-            <p>
-              Forgot your password?
-            </p>
-          </Link>
+
+
           </Form>
 
         </div>
+          <p className='linktextsignin'>
+            New user? <Link to={'/registeruser'} style={{textDecoration: "underline", color: "black", marginLeft: "3px"}}> Sign up!</Link>
+            </p>
+          <p className='linktextsignin'>
+            <p >
+            Have you forgotten your password?  
+            </p>
+            <p>
+            <Link
+            to={'/recoverypassword'}
+            style={{textDecoration: "underline", color: "black", marginLeft: "3px"}}
+          > Forgot Password! 
+          </Link>           
+           </p>
+           </p>
         <NotifyMessage />
         <br />
           <br />
