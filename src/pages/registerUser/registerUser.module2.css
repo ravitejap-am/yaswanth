@@ -204,7 +204,18 @@ a {
 }
 
 
+.sign-up-mail{
+  text-decoration: none;
+  margin-left: 3px;
+  color: #475f7b;
 
+}
+
+.contactus-text{
+  text-decoration: none;
+  color: #475f7b;
+  cursor: pointer;
+}
 .text-top-signup h2 {
   text-align: center;
   color: #312e81;
@@ -258,6 +269,9 @@ border-radius: 40px;
   font-weight: 600;
   font-size: 13px;
   }
+  .linktextsigup{
+    font-size: 12px;
+  }
 
 .signup_input_css{
   width: 300px !important;
@@ -279,6 +293,20 @@ border-radius: 40px;
 }
 .signup-form-css{
   display: flex;
-  height: 80vh;
+  /* height: 87vh; */
   justify-content: center;
+}
+.linktextsigup{
+  display: flex;
+  justify-content: center;
+  color: black;
+  font-size: 16px;
+}
+.signup-main-css{
+  /* height: 87vh; */
+}
+@media screen and (min-width: 1655px) {
+  .signup-form-css {
+  height: 75vh;
+  }
 }
