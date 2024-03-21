@@ -29,6 +29,7 @@ import NotifyMessage from "../../../components/common/toastMessages/NotifyMessag
 import { AM_CHAT } from "../../../constants/Constant";
 
 function Users() {
+  let { showNotifyMessage, hideNotifyMessage } = useMessageState();
   const user = useSelector(selectUser);
   const jwt = user.userToken;
   const navigate = useNavigate();
@@ -60,6 +61,10 @@ function Users() {
     active: true,
     name: "",
   });
+
+  const messageHandler = () => {
+    hideNotifyMessage();
+  };
 
   useEffect(() => {
     const storedFullName = localStorage.getItem("fullName");
@@ -147,11 +152,13 @@ function Users() {
       });
       setRows(rows.filter((row) => row.id !== userId));
       setTableLoading(false);
-      toast.success("User deleted successfully");
+      // toast.success("User deleted successfully");
+      showNotifyMessage("success", "User deleted successfully", messageHandler);
     } catch (error) {
       setTableLoading(false);
       console.error("Error deleting user:", error);
-      toast.error("Error deleting user");
+      // toast.error("Error deleting user");
+      showNotifyMessage("error", "Error deleting user", messageHandler);
     }
   };
 
@@ -213,13 +220,16 @@ function Users() {
       );
       // Show different messages based on the roleId
       if (roleId === "17") {
-        toast.success("Admin role assigned successfully");
+        // toast.success("Admin role assigned successfully");
+        showNotifyMessage("success", "Admin role assigned successfully", messageHandler);
       } else if (roleId === "19") {
-        toast.success("User role assigned successfully");
+        // toast.success("User role assigned successfully");
+        showNotifyMessage("success", "User role assigned successfully", messageHandler);
       }
     } catch (error) {
       console.error("Error updating role:", error);
-      toast.error("Error updating role");
+      // toast.error("Error updating role");
+      showNotifyMessage("error", "Error updating role", messageHandler);
     }
   };
 

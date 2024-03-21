@@ -111,7 +111,7 @@ function UserProfileForm({ formData, setFormData, submitHandler }) {
       {errors.email && <span className="error">{errors.email}</span>}
     </div>
     <div className="form-group">
-      <label htmlFor="organization">Organization:</label>
+      <label htmlFor="organization">Organisation:</label>
       <input
         className="inputstyle-css"
         type="text"

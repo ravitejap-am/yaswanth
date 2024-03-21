@@ -9,10 +9,10 @@ import { LoadingOutlined, UploadOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import { useMessageState } from '../../../src/hooks/useapp-message';
 import Layout from '../../Layout';
-import GeneralForm from '../common/forms/GeneralForm';
-
-
-function AddOrgDocuments(props) {
+import { Box } from '@mui/material';
+import PageLoader from '../loader/loader';
+import { trimFileNameBeforeExtension } from '../../utils/fileNameExtraction';
+function AddOrgDocuments() {
   let {
     buttonLoading,
     setButtonLoading,
@@ -24,6 +24,7 @@ function AddOrgDocuments(props) {
   const [file, setFile] = useState(null);
   const navigate = useNavigate();
   const [firstName, setFirstName] = useState('');
+
   useEffect(() => {
     const storedFirstName = localStorage.getItem('firstNameOrganisation');
     setFirstName(storedFirstName);
@@ -31,27 +32,26 @@ function AddOrgDocuments(props) {
 
   const user = useSelector(selectUser);
   const jwt = user.userToken;
-  const profileSrc = localStorage.getItem('profileImage');
-  const navigationRoute = props?.navigationRoute;
-  const fullName = localStorage.getItem('fullName') || '';
   const [errors, setErrors] = useState('');
+  const [fileName, setFileName] = useState('');
 
   const messageHandler = () => {
     setIsReset(false);
     hideNotifyMessage();
   };
-  const submitHandler = async (values) => {
-    console.log('upload values', values);
+  const submitHandler = async () => {
+    // console.log('upload values', values);
 
     if (!file) {
       setErrors('Please upload the document');
       return;
     }
+    setErrors('');
     try {
       setButtonLoading(true);
       const formData = new FormData();
       formData.append('file', file);
-      formData.append('name', values.name);
+      formData.append('name', trimFileNameBeforeExtension(file?.name));
       console.log('formData', formData);
       const response = await axios.post(
         `${constants.BASE_DOC_API_URL}`,
@@ -94,6 +94,7 @@ function AddOrgDocuments(props) {
     fileList: file ? [file] : [],
     beforeUpload: (file) => {
       setFile(file);
+
       return false;
     },
     onRemove: (file) => {
@@ -103,118 +104,84 @@ function AddOrgDocuments(props) {
     accept: '.pdf',
   };
 
-  const submitButtonProperty = {
-    name: 'Add',
-    color: '#ffffff',
-    backgroundColor: 'var(--Brand-500, #6366F1)',
-    width: '150px',
-    height: '50px',
-    borderRadius: '28px',
-  };
-
-  const cancelButtonProperty = {
-    name: 'Cancel',
-    color: 'black',
-    backgroundColor: '#fff',
-    width: '150px',
-    height: '50px',
-    borderRadius: '28px',
-  };
-
-  const feedingVariable = {
-    isCancel: true,
-    cancelHandler: cancelHandler,
-    isSubmit: true,
-    submitHandler: submitHandler,
-    submitButtonProperty: submitButtonProperty,
-    cancelButtonProperty: cancelButtonProperty,
-    formElements: [
-      {
-        name: 'Document Name',
-        label: 'Document Name',
-        type: 'text',
-        style: {
-          width: '405px',
-          borderRadius: '40px',
-          border: '1px solid var(--Brand-700, #4338CA)',
-          backgroundColor: 'transparent',
-          marginBottom: '10px',
-        },
-        // rules: [{ required: true, message: 'Please enter your Document Name' }],
-        labelName: 'Document Name',
-        pattern: /^.+$/,
-        emptyErrorMessage: 'Please Enter the document name',
-      },
-    ],
-    formType: 'normal',
-    forgorPasswordHandler: () => {
-      console.log('forgot Password....');
-    },
-    grid: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' },
-  };
-
   const ErrorMsg = () => {
-    return <span style={{ color: 'red', fontSize: '14px' }}>{errors}</span>;
+    return (
+      <span style={{ color: 'red', fontSize: '14px', padding: '10px' }}>
+        {errors}
+      </span>
+    );
   };
 
   return (
     <Layout componentName="Add document">
-    <div className={Styles.superAdminMainCardDivStyle} >
-      <div className={Styles.superAdminMiddleParentDiv}>
-      <Spin spinning={buttonLoading} indicator={<LoadingOutlined style={{ fontSize: 40 , color: '#808080' }} spin />}>      
-      <Form
-            name="basic"
-            initialValues={{
-              remember: true,
+      <PageLoader loadingStatus={buttonLoading} />
+      <Box
+        sx={{
+          background: 'var(--White, #fff)',
+          boxShadow: '0px 2.789px 6.972px 3.486px rgba(0, 0, 0, 0.09)',
+          width: '100%',
+          height: '85%',
+          borderRadius: '10px',
+        }}
+      >
+        <br />
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: {
+              md: 'row',
+              lg: 'row',
+              xl: 'row',
+              xs: 'column',
+            },
+            padding: '10px',
+            gap: '1em',
+            alignItems: 'baseline',
+            height: '4em',
+          }}
+        >
+          <Input
+            value={!!file?.name ? trimFileNameBeforeExtension(file?.name) : ''}
+            placeholder="Upload Document"
+            className="Adddoc_input_css"
+            style={{
+              height: '50px',
+              borderRadius: '40px',
+              maxWidth: '495px',
+              color: '#212529',
+              background: 'transperent',
             }}
-            layout="vertical"
-            autoComplete="off"
-            // style={{ width: "auto", margin: "auto" }}
-            onFinish={submitHandler}
+            disabled
+          />
+          <Upload {...documentProps}>
+            <Button icon={<UploadOutlined />}></Button>
+          </Upload>
+        </Box>
+        {!!!file?.name ? <ErrorMsg /> : ''}
+
+        <Box
+          sx={{
+            display: 'flex',
+            gap: '1em',
+            padding: '10px',
+            marginTop: {
+              xs: file?.name ? '2em' : '0px',
+            },
+          }}
+        >
+          <Button onClick={cancelHandler} className={Styles.cancelButton}>
+            Cancel
+          </Button>
+          <Button
+            type="primary"
+            htmlType="submit"
+            className={Styles.addButtonStyle}
+            onClick={() => submitHandler()}
           >
-        <div className={Styles.addOrganizationAdminSecondDiv} >
-          <div className={Styles.uploadDocumentContainer}>
-            {' '}
-            <Upload {...documentProps}>
-              <Button icon={<UploadOutlined />}>Upload Document</Button>
-            </Upload>
-            <ErrorMsg />
-          </div>
-          <div>
-            <br />
-            <Form.Item
-              name="name"
-              place
-              rules={[
-                {
-                  required: true,
-                  message: "Please enter document name",
-                },
-              ]}
-              required={false}
-            >
-             <Input
-               className={Styles.Adddoc_input_css}
-                placeholder="Enter Document Name"
-                style={{ marginTop: '10px' }}
-              />
-            </Form.Item>
-
-              <div className={Styles.buttonContainer}>
-                <Button type="primary" htmlType="submit" className={Styles.addButtonStyle} >Add</Button>
-                <Button onClick={cancelHandler} className={Styles.cancelButton}>Cancel</Button>
-              </div>
-
-            </div>
-          <div>
-
-          </div>
-          
-        </div>
-        </Form>
-        </Spin>
-      </div>
-    </div>
+            Add
+          </Button>
+        </Box>
+      </Box>
     </Layout>
   );
 }

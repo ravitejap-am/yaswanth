@@ -136,9 +136,10 @@ const SignIn = () => {
           setIsReset(true);
           showNotifyMessage('success', response?.data?.message, messageHandler);
         } else {
-          toast.error(
-            response.data.message || 'An error occurred. Please try again.'
-          );
+          showNotifyMessage('error', response?.data?.message || "An error occurred. Please try again.", messageHandler);
+          // toast.error(
+          //   response.data.message || 'An error occurred. Please try again.'
+          // );
           setButtonLoading(false);
           setIsReset(false);
           hideNotifyMessage();

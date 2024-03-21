@@ -93,8 +93,14 @@ function UserInfoForm({
           {errors.email && <FormHelperText error sx={{ fontSize: '14px' }}>{errors.email}</FormHelperText>}
         </div>
         </Grid>
-        <Grid item container spacing={1} >
-        <Grid item xs={6} sm={4} md={2} lg={1.5}
+        <Grid item 
+          container 
+          direction="row"
+          justifyContent="flex-end"
+          alignItems="flex-end"
+          spacing={1} 
+        >
+        <Grid item xs={6} sm={2.8} md={3} lg={1.6} 
         >
        <Button
           style={{ marginTop: '1em', width: '8em' }}
@@ -102,10 +108,11 @@ function UserInfoForm({
             personalInformationHandler('personalinformation');
           }}
         >
-          Back
+          Previous
         </Button>
         </Grid>
-        <Grid item xs={6} sm={4} md={2} lg={1.5}>
+        <Grid item xs={6} sm={2.8} md={3} lg={1.6}
+        >
         <Button
           type="primary"
           style={{ marginTop: '1em', width: '8em'}}

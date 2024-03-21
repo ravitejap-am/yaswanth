@@ -47,7 +47,8 @@ const RegisterUser = () => {
 
   useEffect(() => {
     if (signupMessage) {
-      toast.success(signupMessage);
+      // toast.success(signupMessage);
+      showNotifyMessage("success", signupMessage, messageHandler);
     }
   }, [signupMessage]);
 

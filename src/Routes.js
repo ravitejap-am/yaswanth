@@ -122,7 +122,8 @@ const Rout = () => {
             element={
               decodedToken?.role == 'SUPER_ADMIN' ||
               decodedToken?.role == 'USER' ? (
-                <SearchUIAIChatSidebar />
+                // <SearchUIAIChatSidebar />
+                <Chats />
               ) : decodedToken?.role == 'ORG_ADMIN' ? (
                 <Chats />
               ) : (
@@ -254,7 +255,7 @@ const Rout = () => {
           />
         }
       ></Route>
-      <Route
+      {/* <Route
         path="/document/:documentId"
         element={
           <ProtectedRoute
@@ -262,7 +263,7 @@ const Rout = () => {
             allowedRoles={['ORG_ADMIN']}
           />
         }
-      ></Route>
+      ></Route> */}
       <Route
         path="/user/:userId"
         element={

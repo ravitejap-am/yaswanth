@@ -45,6 +45,7 @@ function Organisations() {
   const [tableloading, setTableLoading] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+  const [openDeletePopUp, setOpenDeletePopUp] = useState(false)
 
   const itemRender = (_, type, originalElement) => {
     if (type === "prev") {
@@ -248,6 +249,15 @@ function Organisations() {
     dispatch(setOrganisationData(orgObject));
   };
 
+  const handleDeleteOrganisation = () => {
+    setOpenDeletePopUp(true)
+  }
+
+  const handleNo = () => {
+    setOpenDeletePopUp(false)
+  }
+
+
   const columns = [
     {
       field: "organisationName",
@@ -297,6 +307,7 @@ function Organisations() {
       maxWidth: 200,
       sortable: false,
       renderCell: (params) => (
+
         <div>
           <IconButton
             aria-label="edit"
@@ -312,7 +323,7 @@ function Organisations() {
                 key={params.row.id || "amchat"}
                 title={AM_CHAT}
                 description={
-                  <span style={{ whiteSpace: 'nowrap' }}>{"Do you really want to delete this organization '" +params?.row?.organisationName +
+                  <span style={{ whiteSpace: 'nowrap' }}>{"Do you really want to delete this organisation '" +params?.row?.organisationName +
                   "'"}</span>
                 }
                 onConfirm={() => handleDelete(params.row.id)}

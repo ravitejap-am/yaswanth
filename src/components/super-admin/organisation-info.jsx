@@ -266,7 +266,7 @@ function OrganizationForm({
       </Grid>
     </Box>
 
-      <div style={{ paddingLeft: '10px' }}>
+      <div style={{ display:'flex', flexDirection:'row', justifyContent: 'flex-end', alignItems:'flex-end'}}>
         <Button
           type="primary"
           style={{ marginTop: '1em', width: '8em' }}

@@ -50,6 +50,7 @@ function Organisation() {
   const user = useSelector(selectUser);
   const organisation = useSelector(selectOrganisation);
   const dispatch = useDispatch();
+  const pageTitle = organisation?.organisationStatus === "edit" ? "Update Organisation" : "Add Organisation"
   console.log('organisation', organisation);
   const jwt = user.userToken;
   const navigate = useNavigate();
@@ -372,63 +373,45 @@ function Organisation() {
   }
 
   return (
-    <Layout componentName="Add Organistaion">
-      <Box>
-        <TabContext value={selectedTab}>
-          <Box
-            sx={{
-              borderBottom: 1,
-              borderColor: 'divider',
-              boxShadow: '0px 2.789px 6.972px 3.486px rgba(0, 0, 0, 0.09)',
-              borderRadius: 3,
-              marginBottom: '1rem',
-            }}
-          >
-            <TabList
-              onChange={handleTabChange}
-              aria-label="organisation tabs"
-              variant="scrollable"
-              scrollButtons={false}
-              allowScrollButtonsMobile
-              sx={{
-                display: 'flex',
-                flexWrap: 'nowrap',
-                '& .MuiTab-root': {
-                  minWidth: 'auto',
-                },
-              }}
-            >
-              <Tab label={'Organisation Info'} value="personalinformation">
-                Organisation Info
-              </Tab>
-              <Tab
-                label="Organisation Admin"
-                value="organizationadmin"
-
-                // disabled = {Object.keys(orgInfoErrors).length === 0 ? false : true}
+    <Layout componentName={pageTitle}>
+        <Box >
+          <TabContext value={selectedTab}>
+            <Box sx={{ borderBottom: 1, borderColor: 'divider',  boxShadow: '0px 2.789px 6.972px 3.486px rgba(0, 0, 0, 0.09)',borderRadius: 3,marginBottom: '1rem'}}>
+              <TabList 
+                onChange={handleTabChange} 
+                aria-label="organisation tabs"
+                variant="scrollable"
+                scrollButtons = {false}
+                allowScrollButtonsMobile
+                sx={{
+                  display: 'flex',
+                  flexWrap: 'nowrap', 
+                  '& .MuiTab-root': {
+                    minWidth: 'auto',
+                  },
+                }}
               >
-                Organisation Admin
-              </Tab>
-              <Tab
-                label="Organisation Domains"
-                // disabled = { Object.keys(userInfoErrors)?.length === 0 ? false : true}
-
-                value="organizationdomains"
-              >
-                Organisation Domains
-              </Tab>
-              <Tab label="Subscription Plan" value="subscriptionplan">
-                Subscription Plan
-              </Tab>
-            </TabList>
-          </Box>
-          <Box
-            sx={{
-              borderWidth: '1px',
-              boxShadow: '0px 2.789px 6.972px 3.486px rgba(0, 0, 0, 0.09)',
-              borderRadius: 3,
-            }}
-          >
+                <Tab label={"Organisation Info"}  value="personalinformation">Organisation Info</Tab>
+                <Tab label="Organisation Admin" value="organizationadmin" 
+                >Organisation Admin</Tab>
+                <Tab label="Organisation Domains"     
+                value="organizationdomains">Organisation Domains</Tab>
+                <Tab label="Subscription Plan"  value="subscriptionplan">Subscription Plan</Tab>
+              </TabList>
+            </Box>
+            <Box  sx={{borderWidth: '1px',  boxShadow: '0px 2.789px 6.972px 3.486px rgba(0, 0, 0, 0.09)',borderRadius: 3, height:'60vh', overflowY:'scroll',
+                  '&::-webkit-scrollbar': {
+                    width: '2px',
+                    height: '2px' 
+                  },
+                  '&::-webkit-scrollbar-track': {
+                    background: 'transparent', 
+                  },
+                  '&::-webkit-scrollbar-thumb': {
+                    background: '#888', 
+                    borderRadius: '6px', 
+                  },
+          }}>
             <TabPanel value="personalinformation">
               <OrganizationInfoForm
                 orgData={orgData}
@@ -515,6 +498,23 @@ function Organisation() {
         marginTop={'0.3rem'}
       >
         <Grid item>
+          <Link to="/organisations" style={{ textDecoration: 'none' }}>
+            <div>
+              <GeneralButton
+                name="Cancel"
+                buttonProps={{}}
+                type="default"
+                color="#334155"
+                backgroundColor="transparent"
+                width="130px"
+                height="50px"
+                borderRadius="30px"
+                buttonHandler={handleCancel}
+              />
+            </div>
+          </Link>
+        </Grid>
+        <Grid item>
           <Button
             onClick={() => {
               if (organisation?.organisationStatus == 'edit') {
@@ -543,26 +543,10 @@ function Organisation() {
             }}
             loading={buttonLoading}
           >
-            {'Save'}
+            {'Submit'}
           </Button>
         </Grid>
-        <Grid item>
-          <Link to="/organisations" style={{ textDecoration: 'none' }}>
-            <div>
-              <GeneralButton
-                name="Cancel"
-                buttonProps={{}}
-                type="default"
-                color="#334155"
-                backgroundColor="transparent"
-                width="130px"
-                height="50px"
-                borderRadius="30px"
-                buttonHandler={handleCancel}
-              />
-            </div>
-          </Link>
-        </Grid>
+ 
       </Grid>
       {/* <TabNavigation
             selectedTab={selectedTab}
