@@ -399,7 +399,19 @@ function Organisation() {
                 <Tab label="Subscription Plan"  value="subscriptionplan">Subscription Plan</Tab>
               </TabList>
             </Box>
-            <Box  sx={{borderWidth: '1px',  boxShadow: '0px 2.789px 6.972px 3.486px rgba(0, 0, 0, 0.09)',borderRadius: 3}}>
+            <Box  sx={{borderWidth: '1px',  boxShadow: '0px 2.789px 6.972px 3.486px rgba(0, 0, 0, 0.09)',borderRadius: 3, height:'60vh', overflowY:'scroll',
+                  '&::-webkit-scrollbar': {
+                    width: '2px',
+                    height: '2px' 
+                  },
+                  '&::-webkit-scrollbar-track': {
+                    background: 'transparent', 
+                  },
+                  '&::-webkit-scrollbar-thumb': {
+                    background: '#888', 
+                    borderRadius: '6px', 
+                  },
+          }}>
             <TabPanel value="personalinformation">
               <OrganizationInfoForm
                 orgData={orgData}
