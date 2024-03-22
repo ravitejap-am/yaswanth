@@ -9,7 +9,10 @@ import { Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { tokenDecodeJWT } from '../../utils/authUtils';
 import { useChat } from '../../contexts/provider/ChatContext';
+import { Layout, Menu, Grid, Drawer } from 'antd';
 function Sidebar() {
+  const { useBreakpoint } = Grid;
+  const screens = useBreakpoint();
   const { userToken } = useSelector(selectUser);
   const { pathname } = useLocation();
   const { role } = tokenDecodeJWT(userToken);
@@ -21,6 +24,7 @@ function Sidebar() {
       id: 1,
     },
   ]);
+  const [visible, setVisible] = useState(false);
   useEffect(() => {}, [chatHistory]);
   return (
     <Box
@@ -81,7 +85,10 @@ function Sidebar() {
             chatHistory,
             setChatHistory,
             setIsChatOpen,
-            isChatOpen
+            isChatOpen,
+            screens,
+            visible,
+            setVisible
           )}
         </Box>
       </Box>
