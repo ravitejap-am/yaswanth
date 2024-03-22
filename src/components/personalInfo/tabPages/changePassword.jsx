@@ -239,8 +239,7 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
           >
              {isMobile ? (
               <>
-              <label htmlFor="password" className='input-label-changepassword'>Old Password:</label>
-
+        <label htmlFor="password" className='input-label-changepassword'>Old Password:</label>
             <Form.Item
               name="password"
               rules={[
@@ -264,8 +263,8 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
                 }
               />
             </Form.Item>
-            <label htmlFor="newPassword" className='input-label-changepassword'>New Password:</label>
 
+            <label htmlFor="newPassword" className='input-label-changepassword'>New Password:</label>
             <Form.Item
               name="newPassword"
               rules={[
@@ -304,6 +303,7 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
               <Input
                 className="inputstyle-css-changepassword"
                 placeholder="Confirm Password"
+
                 type={showConfirmPassword ? 'text' : 'password'}
                 suffix={
                   <Button

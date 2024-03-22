@@ -124,6 +124,7 @@
   .chatParagraphSuggestion {
     text-align: center;
     padding: 10px;
+    cursor: pointer;
   border: 1px solid var(--Neutral-300, #cbd5e1);
   border-radius: 30px;
   color: #475569;
@@ -132,7 +133,6 @@
   font-size: 12px;
   font-style: normal;
   font-weight: 400;
-  cursor: pointer;
 }
 
 .sendButton {

@@ -145,13 +145,13 @@ function Chats() {
                 variant="outlined"
                 fullWidth
               >
-                <InputLabel id="file-select-label">Select document</InputLabel>
+                <InputLabel id="file-select-label">Document</InputLabel>
                 <Select
                   labelId="file-select-label"
                   id="file-select"
                   value={selectedFile}
                   onChange={handleFileChange}
-                  label="Select document"
+                  label="Document"
                   className={styles.chatSelect}
                   style={{ textAlign: 'left', height: "30px" }}
                 >
