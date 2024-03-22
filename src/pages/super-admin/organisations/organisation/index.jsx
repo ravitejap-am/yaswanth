@@ -30,6 +30,7 @@ import UserInfoForm from '../../../../components/super-admin/userInfo';
 import {
   validatePersonalInfoForm,
   validateUserInfoForm,
+  validationOrgData
 } from '../../../../components/super-admin/validation';
 import { extractDomain } from '../../../../utils/generalUtils';
 // import TabNavigation from './TabNavigation';
@@ -193,93 +194,103 @@ function Organisation() {
 
   const addOrganisation = async () => {
     let body = orgData;
+    if (!validationOrgData(orgData)) {
+      showNotifyMessage('error', 'Please add the valid data', messageHandler);
+    }
     if (body.hasOwnProperty('plan')) {
       delete body['plan'];
     }
-    setBackDropLoading(true);
-    try {
-      const response = await axios.post(
-        `${constants.BASE_ORG_API_URL}`,
-        JSON.stringify(body),
-        {
-          headers: {
-            Authorization: `Bearer ${jwt}`,
-            'Content-Type': 'application/json',
-          },
+    if(validationOrgData(orgData)){
+      setBackDropLoading(true);
+      try {
+        const response = await axios.post(
+          `${constants.BASE_ORG_API_URL}`,
+          JSON.stringify(body),
+          {
+            headers: {
+              Authorization: `Bearer ${jwt}`,
+              'Content-Type': 'application/json',
+            },
+          }
+        );
+        setBackDropLoading(false);
+        // setIsReset(true);
+        showNotifyMessage('success', response?.data?.message, messageHandler);
+        console.log('API Response:', response.data);
+        navigate('/organisations');
+      } catch (error) {
+        console.error('Error occurred:', error);
+        if (error?.response?.status == 500 || error?.response?.status == '500') {
+          const errorMsgprops = {
+            message: {
+              title: 'Something went wrong',
+              content: 'Please contact our customer support team',
+            },
+            handleVerification: handleVerification,
+            onOkButtonText: 'Retry',
+          };
+          dispatch(setErrorMsg({ ...errorMsgprops }));
         }
-      );
-      setBackDropLoading(false);
-      // setIsReset(true);
-      showNotifyMessage('success', response?.data?.message, messageHandler);
-      console.log('API Response:', response.data);
-      navigate('/organisations');
-    } catch (error) {
-      console.error('Error occurred:', error);
-      if (error?.response?.status == 500 || error?.response?.status == '500') {
-        const errorMsgprops = {
-          message: {
-            title: 'Something went wrong',
-            content: 'Please contact our customer support team',
-          },
-          handleVerification: handleVerification,
-          onOkButtonText: 'Retry',
-        };
-        dispatch(setErrorMsg({ ...errorMsgprops }));
+        setBackDropLoading(false);
+        console.log(error);
+        showNotifyMessage(
+          'error',
+          error?.response?.data?.message,
+          messageHandler
+        );
       }
-      setBackDropLoading(false);
-      console.log(error);
-      showNotifyMessage(
-        'error',
-        error?.response?.data?.message,
-        messageHandler
-      );
     }
   };
   const editOrganisation = async (editedData) => {
     let body = editedData;
+    if (!validationOrgData(orgData)) {
+      showNotifyMessage('error', 'Please add the valid data', messageHandler);
+    }
     if (body.hasOwnProperty('plan')) {
       delete body['plan'];
     }
-    setButtonLoading(true);
-    try {
-      const response = await axios.put(
-        `${constants.BASE_ORG_API_URL}`,
-        JSON.stringify(body),
-        {
-          headers: {
-            Authorization: `Bearer ${jwt}`,
-            'Content-Type': 'application/json',
-          },
+    if (validationOrgData(orgData)) {
+      setButtonLoading(true);
+      try {
+        const response = await axios.put(
+          `${constants.BASE_ORG_API_URL}`,
+          JSON.stringify(body),
+          {
+            headers: {
+              Authorization: `Bearer ${jwt}`,
+              'Content-Type': 'application/json',
+            },
+          }
+        );
+        setButtonLoading(false);
+        // setIsReset(true);
+        showNotifyMessage('success', response?.data?.message, messageHandler);
+        console.log('API Response:', response.data);
+        dispatch(setOrganisationData(response.data?.data));
+        // navigate('/dashboardadmin/organizationlist');
+      } catch (error) {
+        console.error('Error occurred:', error);
+        if (error?.response?.status == 500 || error?.response?.status == '500') {
+          // navigate('/customerSupport');
+          const errorMsgprops = {
+            message: {
+              title: 'Something went wrong',
+              content: 'Please contact our customer support team',
+            },
+            // handleCancelVerification: handleCancelVerification,
+            handleVerification: handleVerification,
+            onOkButtonText: 'Retry',
+          };
+          dispatch(setErrorMsg({ ...errorMsgprops }));
         }
-      );
-      setButtonLoading(false);
-      // setIsReset(true);
-      showNotifyMessage('success', response?.data?.message, messageHandler);
-      console.log('API Response:', response.data);
-      dispatch(setOrganisationData(response.data?.data));
-      // navigate('/dashboardadmin/organizationlist');
-    } catch (error) {
-      console.error('Error occurred:', error);
-      if (error?.response?.status == 500 || error?.response?.status == '500') {
-        // navigate('/customerSupport');
-        const errorMsgprops = {
-          message: {
-            title: 'Something went wrong',
-            content: 'Please contact our customer support team',
-          },
-          // handleCancelVerification: handleCancelVerification,
-          handleVerification: handleVerification,
-          onOkButtonText: 'Retry',
-        };
-        dispatch(setErrorMsg({ ...errorMsgprops }));
+        setButtonLoading(false);
+        console.log(error);
+        showNotifyMessage(
+          'error',
+          error?.response?.data?.message,
+          messageHandler
+        );
       }
-      setButtonLoading(false);
-      console.log(error);
-      showNotifyMessage(
-        'error',
-        error?.response?.data?.message,
-        messageHandler
-      );
     }
   };
 

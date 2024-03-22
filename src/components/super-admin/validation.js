@@ -53,3 +53,40 @@ export const validateUserInfoForm = (data) => {
 
   return errors;
 };
+
+
+export const validationOrgData = (jsonData) => {
+  if (!jsonData || typeof jsonData !== 'object') {
+    return false;
+  }
+
+  const { address } = jsonData;
+  if (
+    !address ||
+    address.address1 === '' ||
+    address.country === '' ||
+    address.state === '' ||
+    address.city === '' ||
+    address.postCode === ''
+  ) {
+    return false;
+  }
+  if (address?.postCode?.length < 4) {
+    return false;
+  }
+  const { contact } = jsonData;
+  if (!contact || Object.values(contact).some((value) => value === '')) {
+    return false;
+  }
+
+  const { metaData } = jsonData;
+  if (
+    !metaData ||
+    metaData.length === 0 ||
+    !metaData.every((meta) => meta.typeDetails)
+  ) {
+    return false;
+  }
+
+  return true;
+};

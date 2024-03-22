@@ -314,30 +314,41 @@ function DynamicTextComponent({
                 </FormHelperText>
               )}
             </Box>
-            <Popconfirm
-              key={"amchat"}
-              title={AM_CHAT}
-              description={
-                "Do you really want to delete this domain" + ` '${typeDetails}'`
-              }
-              onConfirm={() => {
-                handleDeleteDomain(index);
-              }}
-              onCancel={() => {
-                console.log(" row?.id ");
-              }}
-              okText="Submit"
-              cancelText="Close"
-            >
-              <DeleteIcon
-                style={{
-                  height: "20px",
-                  width: "20px",
-                  cursor: "pointer",
-                  fill: "#4338ca",
-                }}
-              />
-            </Popconfirm>
+            {typeDetails && typeDetails !== null && typeDetails !== "" ? <Popconfirm
+            key={'amchat'}
+            title="Am Chat"
+            description={
+              "Do you really want to delete this domain" +
+              ` '${typeDetails}'` 
+            }
+            onConfirm={() => {
+              handleDeleteDomain(index)
+            }}
+            onCancel={() => {
+              console.log(' row?.id ');
+            }}
+            okText="Submit"
+            cancelText="Close"
+          >
+          <DeleteIcon
+            style={{
+              height: '20px',
+              width: '20px',
+              cursor: 'pointer',
+              fill: '#4338ca',
+            }}
+          />
+          </Popconfirm>
+          :
+          <DeleteIcon
+            style={{
+              height: '20px',
+              width: '20px',
+              cursor: 'pointer',
+              fill: '#4338ca',
+            }}
+           onClick={() => handleDeleteDomain(index)}
+          />}
           </Box>
         ))}
         <Box
@@ -400,6 +411,11 @@ function DynamicTextComponent({
             personalInformationHandler("organizationadmin");
           }}
           loading={buttonLoading}
+          disabled={
+            isSubmitDisabled() ||
+            usedDomainIndexCollection.length > 0 ||
+            isNewDomain
+          }
         >
           Next
         </Button>
