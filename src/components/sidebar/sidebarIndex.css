@@ -6,7 +6,7 @@
 }
 
 .hoverDiv:hover {
-  background-color: #4F46E5; 
+  background-color: rgb(205, 205, 205); 
   border-radius: 10px;
   filter: brightness(90%);
  
