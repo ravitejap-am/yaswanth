@@ -68,14 +68,14 @@ function Organisations() {
     }
   }, [jwt, order, searchValue]);
 
-  const fetchlist = async (page = 0) => {
+  const fetchlist = async (page = 0, pageSize) => {
     setTableLoading(true);
     try {
       const documentUrl = `${BASE_ORG_API_URL}`;
       const response = await axios.get(documentUrl, {
         params: {
           page: page,
-          size: pageInfo.pageSize,
+          size: pageSize || pageInfo.pageSize,
           sortField: orderBy,
           sortDirection: order,
           organisationName: searchValue,
@@ -347,7 +347,9 @@ function Organisations() {
     plans: item?.plans,
     status: item?.status,
   }));
-  
+
+
+
 
   return (
     <Layout componentName="Organisations">
