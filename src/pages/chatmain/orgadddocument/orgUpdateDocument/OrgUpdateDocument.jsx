@@ -60,6 +60,10 @@ function OrgUpdateDocument(props) {
         );
         return;
       }
+      if (trimFileNameBeforeExtension(file?.name).length > 50) {
+        setErrors('File name should be less than 50 characters');
+        return;
+      }
     }
 
     if (isSubmitting) {
