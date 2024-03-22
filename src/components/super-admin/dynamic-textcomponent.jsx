@@ -349,6 +349,13 @@ function DynamicTextComponent({
             }}
            onClick={() => handleDeleteDomain(index)}
           />}
+        {!!loadingIndex && loadingIndex == index ? <CircularProgress /> : ''}
+          {usedDomainIndexCollection.includes(index) && (
+            <span style={{ color: 'red' }}>
+              {' '}
+              {`The domain ${typeDetails} already exists, please change it to the new domain`}
+            </span>
+        )}
           </Box>
         ))}
         <Box
