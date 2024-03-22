@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Layout from '../../../../Layout';
-import { AppBar, Toolbar, Button, Box, Tab, Grid } from '@mui/material';
+import { AppBar, Toolbar, Button, Box, Tab, Grid, useMediaQuery} from '@mui/material';
 import './Index.css'
 
 import { Tabs } from 'antd';
@@ -37,6 +37,7 @@ import { extractDomain } from '../../../../utils/generalUtils';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
+import { Country, State, City } from 'country-state-city';
 
 function Organisation() {
   let {
@@ -88,10 +89,11 @@ function Organisation() {
           address: {
             address1: '',
             address2: '',
-            country: '',
+            country: 'India',
             state: '',
             city: '',
             postCode: '',
+
           },
           name: '',
           contact: {
@@ -110,6 +112,10 @@ function Organisation() {
   );
   const [isEdit, setIsEdit] = useState(false);
   const [countries, setCountries] = useState([]);
+  
+  const getAllStates = State.getAllStates();
+
+
   const [states, setStates] = useState([]);
   const [localState, setLocalState] = useState(
     organisation?.organisationStatus == 'edit'
@@ -123,9 +129,10 @@ function Organisation() {
           stateCode: organisation?.organisationData?.address?.state?.stateCode,
         }
       : {
-          country: '',
+          country: 'India',
           state: '',
           city: '',
+          // countryCode:'IN'
         }
   );
   const [cities, setCities] = useState([]);
@@ -137,24 +144,35 @@ function Organisation() {
 
   const [value, setValue] = useState('1');
   const orgStatus = organisation?.organisationStatus || null;
+  const isMobile = useMediaQuery('(max-width:600px)');
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
-  useEffect(() => {
-    const storedFirstName = localStorage.getItem('firstName');
-    setFirstName(storedFirstName);
-    const storedfullName = localStorage.getItem('fullName');
-    setFullName(storedfullName);
-  }, [organisation]);
+  const initializeStates = () => {
+    const filterStates = getAllStates.filter((state) => {
+      return state.countryCode === "IN";
+    });
+    const stateArray = filterStates.map((state) => ({
+      label: state.name,
+      value: state.name,
+      code: state.isoCode,
+      countryCode: "IN",
+    }));
+
+    setStates(stateArray)
+  }
 
   useEffect(() => {
     const storedFirstName = localStorage.getItem('firstName');
     setFirstName(storedFirstName);
     const storedfullName = localStorage.getItem('fullName');
     setFullName(storedfullName);
+
+    initializeStates()
   }, [organisation]);
+
 
   const messageHandler = () => {
     hideNotifyMessage();
@@ -285,6 +303,14 @@ function Organisation() {
     // Add logic for handling form cancellation
     console.log('Cancelling form');
   };
+
+
+    const extractDomain = (email) => {
+      const parts = email.split('@');
+      return parts[1];
+    };
+
+
   const personalInformationHandler = (tab) => {
     console.log('orgData', orgData, 'tabData', selectedTab, 'tab', tab);
 
@@ -306,31 +332,36 @@ function Organisation() {
       }
     }
     if (selectedTab == 'organizationadmin') {
+      const domain = extractDomain(orgData?.contact?.email);
+      const isEmailPresent = (orgData?.metaData).some((obj) => obj.typeDetails === domain)
       const usererrors = validateUserInfoForm(orgData);
-      if (Object.keys(usererrors).length === 0) {
+      if(Object.keys(usererrors).length === 0 && isEmailPresent === true){
         setUserInfoErrors({});
-        // handleTabChange(tab);
         setSelectedTab(tab);
+      }
+      else if (Object.keys(usererrors).length === 0 && isEmailPresent === false) {
+        showNotifyMessage(
+           'error',
+           `Email Id domain should match with the existing domain ID's `,
+           messageHandler
+        );
+        return
       } else {
         setUserInfoErrors(usererrors);
-        // showNotifyMessage(
-        //   'error',
-        //   'Please add the required fields with valid data',
-        //   messageHandler
-        // );
         return;
       }
       return;
     }
     if (selectedTab == 'organizationdomains') {
-      if (!domainNameValidation(orgData?.metaData)) {
-        showNotifyMessage(
-          'warn',
-          'At least one domain name should match the organisation domain',
-          messageHandler
-        );
-        return;
-      }
+      // if (!domainNameValidation(orgData?.metaData)) {
+      //   showNotifyMessage(
+      //     'warn',
+      //     'At least one domain name should match the organisation domain',
+      //     messageHandler
+      //   );
+      //   return;
+      // }
+
       if (hasRepeatingValues(orgData?.metaData, 'typeDetails')) {
         showNotifyMessage(
           'warn',
@@ -339,13 +370,12 @@ function Organisation() {
         );
         return;
       }
-      if (domainNameValidation(orgData?.metaData)) {
-        // handleTabChange(tab);
+      
+      if(orgData?.metaData?.length >= 1){
         setSelectedTab(tab);
       }
     }
     if (selectedTab == 'subscriptionplan') {
-      // handleTabChange(tab);
       setSelectedTab(tab);
     }
 
@@ -392,25 +422,15 @@ function Organisation() {
                 }}
               >
                 <Tab label={"Organisation Info"}  value="personalinformation">Organisation Info</Tab>
-                <Tab label="Organisation Admin" value="organizationadmin" 
-                >Organisation Admin</Tab>
                 <Tab label="Organisation Domains"     
                 value="organizationdomains">Organisation Domains</Tab>
+                <Tab label="Organisation Admin" value="organizationadmin" 
+                >Organisation Admin</Tab>
                 <Tab label="Subscription Plan"  value="subscriptionplan">Subscription Plan</Tab>
               </TabList>
             </Box>
-            <Box  sx={{borderWidth: '1px',  boxShadow: '0px 2.789px 6.972px 3.486px rgba(0, 0, 0, 0.09)',borderRadius: 3, height:'60vh', overflowY:'scroll',
-                  '&::-webkit-scrollbar': {
-                    width: '2px',
-                    height: '2px' 
-                  },
-                  '&::-webkit-scrollbar-track': {
-                    background: 'transparent', 
-                  },
-                  '&::-webkit-scrollbar-thumb': {
-                    background: '#888', 
-                    borderRadius: '6px', 
-                  },
+            <Box  sx={{borderWidth: '1px',  boxShadow: '0px 2.789px 6.972px 3.486px rgba(0, 0, 0, 0.09)',borderRadius: 3,
+
           }}>
             <TabPanel value="personalinformation">
               <OrganizationInfoForm
@@ -493,9 +513,10 @@ function Organisation() {
         container
         spacing={2}
         direction="row"
-        justifyContent="center"
-        alignItems="center"
+        justifyContent={isMobile ? 'center' : 'flex-end'}
+        alignItems={isMobile ? 'center' : 'flex-end'}
         marginTop={'0.3rem'}
+
       >
         <Grid item>
           <Link to="/organisations" style={{ textDecoration: 'none' }}>
