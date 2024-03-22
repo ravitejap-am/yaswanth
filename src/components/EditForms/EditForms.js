@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { Button } from "antd";
-import "./editForm.css";
-import { Box, Grid } from "@mui/material";
+import React, { useState, useEffect } from 'react';
+import { Button } from 'antd';
+import './editForm.css';
+import { Box, Grid, Typography } from '@mui/material';
 
 function EditForm({
   formData: initialFormData,
@@ -9,7 +9,7 @@ function EditForm({
   submitHandler,
   isEdit,
   cancelHandler,
-  buttonLoading
+  buttonLoading,
 }) {
   const [formData, setFormData] = useState(initialFormData);
   const [errors, setErrors] = useState({});
@@ -38,17 +38,17 @@ function EditForm({
     let isValid = true;
 
     if (!formData.firstName.trim()) {
-      newErrors.firstName = "First name is required";
+      newErrors.firstName = 'First name is required';
       isValid = false;
     }
 
     if (!formData.lastName.trim()) {
-      newErrors.lastName = "Last name is required";
+      newErrors.lastName = 'Last name is required';
       isValid = false;
     }
 
     if (!formData.email.trim()) {
-      newErrors.email = "Email is required";
+      newErrors.email = 'Email is required';
       isValid = false;
     }
 
@@ -60,7 +60,7 @@ function EditForm({
     <form className="form" onSubmit={handleSubmit}>
       <Grid container spacing={1}>
         <Grid item xs={12} md={6} lg={6} className="form-group">
-          <label htmlFor="firstName">First Name:</label>
+         <Typography> <label htmlFor="firstName">First Name:</label></Typography>
           <input
             className="inputstyle"
             type="text"
@@ -75,7 +75,7 @@ function EditForm({
           )}
         </Grid>
         <Grid item xs={12} md={6} lg={6} className="form-group">
-          <label htmlFor="lastName">Last Name:</label>
+        <Typography> <label htmlFor="lastName">Last Name:</label></Typography>
           <input
             className="inputstyle"
             type="text"
@@ -88,7 +88,7 @@ function EditForm({
           {errors.lastName && <span className="error">{errors.lastName}</span>}
         </Grid>
         <Grid item xs={12} md={6} lg={6} className="form-group">
-          <label htmlFor="email">Email:</label>
+          <Typography><label htmlFor="email">Email:</label></Typography>
           <input
             className="inputstyle"
             type="email"
@@ -98,30 +98,35 @@ function EditForm({
             value={formData.email}
             onChange={handleChange}
             disabled={isEdit}
-            style={{ backgroundColor: isEdit ? '#CBD5E1' : "" }}
+            style={{ backgroundColor: isEdit ? '#CBD5E1' : '' }}
           />
           {errors.email && <span className="error">{errors.email}</span>}
         </Grid>
       </Grid>
       <Box className="button-container">
-        <Button type="primary" htmlType="submit" className="buttonStyle" loading={buttonLoading}>
-          {isEdit ? "Update" : "Submit"}
-        </Button>
-
         {!isEdit && (
           <Button
             type="secondary"
             className="buttonStyle"
             style={{
-              backgroundColor: "white",
-              color: "black",
-              border: "1px solid #6366f1",
+              backgroundColor: 'white',
+              color: 'black',
+              border: '1px solid #6366f1',
             }}
             onClick={cancelHandler}
           >
-            Cancel
+            <Typography variant="button"> Cancel</Typography>
           </Button>
         )}
+
+        <Button
+          type="primary"
+          htmlType="submit"
+          className="buttonStyle"
+          loading={buttonLoading}
+        >
+         <Typography variant="button"> {isEdit ? 'Update' : 'Submit'}</Typography>
+        </Button>
       </Box>
     </form>
   );

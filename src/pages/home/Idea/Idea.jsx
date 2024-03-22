@@ -15,13 +15,13 @@ function Idea() {
       <div className="text-content">
         <div className="bannerHeading">
           We provide a Secure, Personalized and Scalable Gen AI Chatbot for your
-          organization
+          organisation
         </div>
         <div className="bannerPara">
           <span>
-            Use the knowledge of your organizational documents at your
+            Use the knowledge of your organisational documents at your
             fingertips.
-            <br /> Upload your organizational documents to a completely secure
+            <br /> Upload your organisational documents to a completely secure
             Gen AI solution and start interacting with your documents.
           </span>
         </div>
@@ -30,7 +30,7 @@ function Idea() {
             <img src={tickSign} alt="" style={{ marginRight: "10px" }} />
             <span className="">
               {" "}
-              Your organizational documents are completely secure
+              Your organisational documents are completely secure
             </span>
           </div>
           <div className="bannerPareInnerTextStyle">

@@ -124,6 +124,7 @@
   .chatParagraphSuggestion {
     text-align: center;
     padding: 10px;
+    cursor: pointer;
   border: 1px solid var(--Neutral-300, #cbd5e1);
   border-radius: 30px;
   color: #475569;
@@ -132,7 +133,6 @@
   font-size: 12px;
   font-style: normal;
   font-weight: 400;
-  cursor: pointer;
 }
 
 .sendButton {
@@ -189,7 +189,7 @@
 .response {
   display: flex;
   align-items: center;
-  text-align: justify;
+  text-align: left;
 }
 
 .responseImage {
@@ -200,8 +200,8 @@
 }
 
 .askedQuestionText{
-  font-weight: 600;
-  text-align: justify;
+  font-weight: bold;
+  text-align: left;
 }
 
 .SendButton {
@@ -235,6 +235,17 @@
   }
   .chatCardContent{
     height: 80vh;
+  }
+}
+
+@media (max-width: 1200px) {
+  .chatCardContent {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: auto;
+    gap: 0px
   }
 }
 

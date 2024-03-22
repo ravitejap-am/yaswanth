@@ -15,7 +15,7 @@ function HowItWorks() {
     {
       title: (
         <span className="Sub_Title_of_how_it_Works">
-          Organization onboarding
+          Organisation onboarding
         </span>
       ),
       description: (
@@ -42,7 +42,7 @@ function HowItWorks() {
       title: <span className="Sub_Title_of_how_it_Works">Sign In</span>,
       description: (
         <span className="how_to_works_span_text">
-          Use your organizational email and your password. <br /> <br />
+          Use your organisational email and your password. <br /> <br />
         </span>
       ),
       icon: <img src={Stepper} style={{ width: "1.5em" }} />,
@@ -53,7 +53,7 @@ function HowItWorks() {
       ),
       description: (
         <span className="how_to_works_span_text">
-          Start interacting with the documents uploaded by your organization and
+          Start interacting with the documents uploaded by your organisation and
           let the data talk. <br /> <br />
         </span>
       ),
@@ -67,7 +67,7 @@ function HowItWorks() {
       <div className="How_It_Works">
         <span className="Main_Title_of_HowItWorks">How It works</span>
         <span className="How_it_works_Your_Org">
-          Your organization may have enormous amount of documents lying in some
+          Your organisation may have enormous amount of documents lying in some
           repository or archival. Upload them and create the knowledge base and
           start interacting with your documents.
         </span>

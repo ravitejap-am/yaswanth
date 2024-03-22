@@ -16,6 +16,7 @@ import { Form, Input, Select, Grid, Button } from "antd";
 import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
 
 import "./sign-in.css"
+import { Box, Typography } from '@mui/material';
 
 const SignIn = () => {
   let {
@@ -271,10 +272,12 @@ const SignIn = () => {
         />
       </div>
       <div className="signin-main-css">
-      <div className="text-top-signup">
-        <h2>Sign In</h2>
-          <p>Please sign in with your organization <br /> email id.</p>
-          </div>
+      <Box className="text-top-signup" mb={3} >
+        <Typography variant="h2" gutterBottom >Sign In</Typography>
+       <Typography variant="body1" mt={4}gutterBottom color={'#1e293b'}> Please sign in with your organisation <br /> email id. </Typography>
+        </Box>
+
+
         <div className='signin-form-css'> 
         <Form
             name="basic"
@@ -329,7 +332,9 @@ const SignIn = () => {
                 htmlType="submit"
                 className="signin_submit_btn_css"
               >
-                Submit
+              <Typography variant="button" display="block" >
+             Sign In
+            </Typography> 
               </Button>
             </Form.Item>
 
@@ -337,25 +342,21 @@ const SignIn = () => {
           </Form>
 
         </div>
-          <p className='linktextsignin'>
+          <Typography className='linktextsignin' variant="body2" gutterBottom>
             New user? <Link to={'/registeruser'} style={{textDecoration: "underline", color: "black", marginLeft: "3px"}}> Sign up!</Link>
-            </p>
-          <p className='linktextsignin'>
-            <p >
+            </Typography>
+          <Box className='linktextsignin' mt={2}>
+            <Typography variant="body2" gutterBottom>
             Have you forgotten your password?  
-            </p>
-            <p>
             <Link
             to={'/recoverypassword'}
             style={{textDecoration: "underline", color: "black", marginLeft: "3px"}}
           > Forgot Password! 
           </Link>           
-           </p>
-           </p>
+           </Typography>
+           </Box>
         <NotifyMessage />
         <br />
-          <br />
-
 
         </div>
         <div className="signin-footer">

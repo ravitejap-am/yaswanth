@@ -9,7 +9,7 @@ import { LoadingOutlined, UploadOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import { useMessageState } from '../../../src/hooks/useapp-message';
 import Layout from '../../Layout';
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import PageLoader from '../loader/loader';
 import { trimFileNameBeforeExtension } from '../../utils/fileNameExtraction';
 function AddOrgDocuments() {
@@ -45,6 +45,9 @@ function AddOrgDocuments() {
     if (!file) {
       setErrors('Please upload the document');
       return;
+    }
+    if (trimFileNameBeforeExtension(file?.name).lenght > 50) {
+      setErrors('File name should be less than 50 characters');
     }
     setErrors('');
     try {
@@ -102,6 +105,9 @@ function AddOrgDocuments() {
       return false;
     },
     accept: '.pdf',
+    onchange: () => {
+      alert('hi');
+    },
   };
 
   const ErrorMsg = () => {
@@ -150,12 +156,24 @@ function AddOrgDocuments() {
               maxWidth: '495px',
               color: '#212529',
               background: 'transperent',
+              minWidth: {
+                md: '495px',
+                lg: '495px',
+                xl: '495px',
+                xs: '50%',
+              },
             }}
             disabled
           />
-          <Upload {...documentProps}>
-            <Button icon={<UploadOutlined />}></Button>
-          </Upload>
+          <Box
+            sx={{
+              maxWidth: '10em',
+            }}
+          >
+            <Upload {...documentProps}>
+              <Button icon={<UploadOutlined />}></Button>
+            </Upload>
+          </Box>
         </Box>
         {!!!file?.name ? <ErrorMsg /> : ''}
 
@@ -170,7 +188,7 @@ function AddOrgDocuments() {
           }}
         >
           <Button onClick={cancelHandler} className={Styles.cancelButton}>
-            Cancel
+           <Typography variant='button'> Cancel</Typography>
           </Button>
           <Button
             type="primary"
@@ -178,7 +196,7 @@ function AddOrgDocuments() {
             className={Styles.addButtonStyle}
             onClick={() => submitHandler()}
           >
-            Add
+           <Typography variant='button'> Add</Typography>
           </Button>
         </Box>
       </Box>

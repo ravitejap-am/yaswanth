@@ -11,6 +11,7 @@ import { useState } from 'react';
 import './userform.css'; 
 import { Form, Input, Button, Row, Col } from 'antd';
 import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
+import { Typography } from '@mui/material';
 
 function ChangePassword({ setFileSysytem, validateEmail }) {
   const navigate = useNavigate();
@@ -239,8 +240,7 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
           >
              {isMobile ? (
               <>
-              <label htmlFor="password" className='input-label-changepassword'>Old Password:</label>
-
+       <Typography> <label htmlFor="password" className='input-label-changepassword'>Old Password:</label></Typography>
             <Form.Item
               name="password"
               rules={[
@@ -264,8 +264,8 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
                 }
               />
             </Form.Item>
-            <label htmlFor="newPassword" className='input-label-changepassword'>New Password:</label>
 
+           <Typography> <label htmlFor="newPassword" className='input-label-changepassword'>New Password:</label></Typography>
             <Form.Item
               name="newPassword"
               rules={[
@@ -289,7 +289,7 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
                 }
               />
             </Form.Item>
-            <label htmlFor="confirmPasswor" className='input-label-changepassword'>Confirm Password:</label>
+           <Typography>  <label htmlFor="confirmPassword" className='input-label-changepassword'>Confirm Password:</label></Typography>
 
             <Form.Item
               name="confirmPassword"
@@ -304,6 +304,7 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
               <Input
                 className="inputstyle-css-changepassword"
                 placeholder="Confirm Password"
+
                 type={showConfirmPassword ? 'text' : 'password'}
                 suffix={
                   <Button
@@ -318,7 +319,7 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
             ) : (
         <Row gutter={[16, 16]}>
           <Col xs={24} md={12}>
-          <label htmlFor="password">Old Password:</label>
+        <Typography>  <label htmlFor="password">Old Password:</label></Typography>
           <Form.Item
               name="password"
               rules={[
@@ -344,7 +345,7 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
             </Form.Item>
           </Col>
           <Col xs={24} md={12}>
-          <label htmlFor="password">New Password:</label>
+         <Typography><label htmlFor="password">New Password:</label></Typography> 
           <Form.Item
               name="newPassword"
               rules={[
@@ -370,7 +371,7 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
             </Form.Item>
           </Col>
           <Col xs={24} md={12}>
-          <label htmlFor="password">Confirm Password:</label>
+          <Typography><label htmlFor="password">Confirm Password:</label> </Typography>
           <Form.Item
               name="confirmPassword"
               rules={[
@@ -403,7 +404,9 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
                 htmlType="submit"
                 className="buttonStyle"
               >
-                Submit
+             <Typography variant="button" display="block">
+             Submit
+            </Typography>
               </Button>
             </Form.Item>
           </Form>

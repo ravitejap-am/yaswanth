@@ -14,6 +14,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import AMChatHeader from '../../../AMChatAdmin/AMChatHeader/AMChatHeader';
 import OrganizationAdminHeader from '../../organizationadmin/OrganizationAdminHeader/OrganizationAdminHeader';
 import { trimFileNameBeforeExtension } from '../../../../utils/fileNameExtraction';
+import { Typography } from '@mui/material';
 
 function OrgUpdateDocument(props) {
   const { documentId } = useParams();
@@ -57,6 +58,10 @@ function OrgUpdateDocument(props) {
         setErrors(
           'Uploading file with different name is not allowed. Please try to the file with same name'
         );
+        return;
+      }
+      if (trimFileNameBeforeExtension(file?.name).length > 50) {
+        setErrors('File name should be less than 50 characters');
         return;
       }
     }
@@ -147,7 +152,9 @@ function OrgUpdateDocument(props) {
               <Upload {...documentProps}>
                 <Button icon={<UploadOutlined />}></Button>
               </Upload>
-              <h4>Document Name : {localStorage.getItem('documentName')}</h4>
+              <Typography sx={{ wordWrap: 'break-word' }}>
+                Document Name : {localStorage.getItem('documentName')}
+              </Typography>
               {!!errors && <ErrorMsg />}
             </div>
             {/* <GeneralForm
@@ -157,7 +164,7 @@ function OrgUpdateDocument(props) {
           /> */}
             <div className={Styles.buttonContainer}>
               <Button onClick={cancelHandler} className={Styles.cancelButton}>
-                Cancel
+               <Typography variant='button'> Cancel </Typography>
               </Button>
               <Button
                 type="primary"
@@ -165,7 +172,7 @@ function OrgUpdateDocument(props) {
                 className={Styles.addButtonStyle}
                 onClick={submitHandler}
               >
-                Update
+               <Typography variant='button'>Update </Typography> 
               </Button>
             </div>
             <div></div>
