@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from 'antd';
 import './editForm.css';
-import { Box, Grid } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 
 function EditForm({
   formData: initialFormData,
@@ -125,7 +125,7 @@ function EditForm({
           className="buttonStyle"
           loading={buttonLoading}
         >
-          {isEdit ? 'Update' : 'Submit'}
+         <Typography variant="button"> {isEdit ? 'Update' : 'Submit'}</Typography>
         </Button>
       </Box>
     </form>
