@@ -164,7 +164,7 @@ function OrgUpdateDocument(props) {
           /> */}
             <div className={Styles.buttonContainer}>
               <Button onClick={cancelHandler} className={Styles.cancelButton}>
-                Cancel
+               <Typography variant='button'> Cancel </Typography>
               </Button>
               <Button
                 type="primary"
@@ -172,7 +172,7 @@ function OrgUpdateDocument(props) {
                 className={Styles.addButtonStyle}
                 onClick={submitHandler}
               >
-                Update
+               <Typography variant='button'>Update </Typography> 
               </Button>
             </div>
             <div></div>

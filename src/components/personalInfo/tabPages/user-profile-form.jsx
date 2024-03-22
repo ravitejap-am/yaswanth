@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button } from 'antd';
 import './userform.css'; // Import CSS file for styling
+import { Typography } from '@mui/material';
 
 function UserProfileForm({ formData, setFormData, submitHandler }) {
   // const [formData, setFormData] = useState({
@@ -151,7 +152,10 @@ function UserProfileForm({ formData, setFormData, submitHandler }) {
     //   submitHandler(formData);
     // }}
   >
-    Submit
+    
+    <Typography variant="button" display="block">
+     Submit
+      </Typography>
   </Button>
 </form>
 
