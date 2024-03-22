@@ -14,6 +14,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import AMChatHeader from '../../../AMChatAdmin/AMChatHeader/AMChatHeader';
 import OrganizationAdminHeader from '../../organizationadmin/OrganizationAdminHeader/OrganizationAdminHeader';
 import { trimFileNameBeforeExtension } from '../../../../utils/fileNameExtraction';
+import { Typography } from '@mui/material';
 
 function OrgUpdateDocument(props) {
   const { documentId } = useParams();
@@ -147,7 +148,9 @@ function OrgUpdateDocument(props) {
               <Upload {...documentProps}>
                 <Button icon={<UploadOutlined />}></Button>
               </Upload>
-              <h4>Document Name : {localStorage.getItem('documentName')}</h4>
+              <Typography sx={{ wordWrap: 'break-word' }}>
+                Document Name : {localStorage.getItem('documentName')}
+              </Typography>
               {!!errors && <ErrorMsg />}
             </div>
             {/* <GeneralForm

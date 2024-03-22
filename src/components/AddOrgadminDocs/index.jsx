@@ -46,6 +46,9 @@ function AddOrgDocuments() {
       setErrors('Please upload the document');
       return;
     }
+    if (trimFileNameBeforeExtension(file?.name).lenght > 50) {
+      setErrors('File name should be less than 50 characters');
+    }
     setErrors('');
     try {
       setButtonLoading(true);
@@ -102,6 +105,9 @@ function AddOrgDocuments() {
       return false;
     },
     accept: '.pdf',
+    onchange: () => {
+      alert('hi');
+    },
   };
 
   const ErrorMsg = () => {
@@ -150,12 +156,24 @@ function AddOrgDocuments() {
               maxWidth: '495px',
               color: '#212529',
               background: 'transperent',
+              minWidth: {
+                md: '495px',
+                lg: '495px',
+                xl: '495px',
+                xs: '50%',
+              },
             }}
             disabled
           />
-          <Upload {...documentProps}>
-            <Button icon={<UploadOutlined />}></Button>
-          </Upload>
+          <Box
+            sx={{
+              maxWidth: '10em',
+            }}
+          >
+            <Upload {...documentProps}>
+              <Button icon={<UploadOutlined />}></Button>
+            </Upload>
+          </Box>
         </Box>
         {!!!file?.name ? <ErrorMsg /> : ''}
 
