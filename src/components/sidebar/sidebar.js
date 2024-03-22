@@ -16,21 +16,25 @@ const ORG_ADMIN = [
     name: 'Dashboard',
     icon: <Dashboard />,
     link: '/dashboard',
+    activeLinks: ['dashboard'],
   },
   {
     name: 'Users',
     icon: <PeopleIcon />,
     link: '/users',
+    activeLinks: ['users', 'adduser', 'user'],
   },
   {
     name: 'Documents',
     icon: <DescriptionIcon />,
     link: '/documents',
+    activeLinks: ['documents', 'document'],
   },
   {
     name: 'Chat',
     icon: <Chat />,
     link: '/chat',
+    activeLinks: ['chat'],
   },
 ];
 
@@ -39,11 +43,13 @@ const SUPER_ADMIN = [
     name: 'Dashboard',
     icon: <Dashboard />,
     link: '/dashboard',
+    activeLinks: ['dashboard'],
   },
   {
     name: 'Organisations',
     icon: <CorporateFareIcon />,
     link: '/organisations',
+    activeLinks: ['organisations', 'organisation'],
   },
 ];
 const USER = [
@@ -51,6 +57,7 @@ const USER = [
     name: 'Chat',
     icon: <Chat />,
     link: '/user',
+    activeLinks: ['user'],
   },
 ];
 
@@ -81,6 +88,7 @@ export const sideBar = (
   };
   return (
     <>
+      {console.log('pathname', pathname)}
       {(role == 'ORG_ADMIN' || role == 'USER') &&
         (pathname == '/chat' || pathname == '/user') && (
           <Link
@@ -128,7 +136,11 @@ export const sideBar = (
               }}
             >
               {React.cloneElement(item.icon, {
-                style: { color: isActive ? '#4F46E5' : 'white' },
+                style: {
+                  color: item?.activeLinks.includes(pathname.split('/')[1])
+                    ? '#4F46E5'
+                    : 'white',
+                },
               })}
               <Hidden mdDown>
                 <Typography>{item.name}</Typography>

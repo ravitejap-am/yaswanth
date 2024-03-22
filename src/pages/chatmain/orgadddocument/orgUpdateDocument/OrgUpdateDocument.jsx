@@ -60,6 +60,10 @@ function OrgUpdateDocument(props) {
         );
         return;
       }
+      if (trimFileNameBeforeExtension(file?.name).length > 50) {
+        setErrors('File name should be less than 50 characters');
+        return;
+      }
     }
 
     if (isSubmitting) {
@@ -148,7 +152,9 @@ function OrgUpdateDocument(props) {
               <Upload {...documentProps}>
                 <Button icon={<UploadOutlined />}></Button>
               </Upload>
-              <Typography variant='body1' mt={2} > Document Name : {localStorage.getItem('documentName')}</Typography>
+              <Typography sx={{ wordWrap: 'break-word' }}>
+                Document Name : {localStorage.getItem('documentName')}
+              </Typography>
               {!!errors && <ErrorMsg />}
             </div>
             {/* <GeneralForm
