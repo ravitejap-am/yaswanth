@@ -116,6 +116,7 @@ function Chats() {
       <div style={{ padding: "10px"}}>
         <Grid container spacing={2} alignItems="left" justifyContent="left">
           <Grid item xs={12} sm={2} md={2}>
+            <Typography variant='body1'>
             <label className={styles.chatLabel}>
               <input
                 type="radio"
@@ -125,8 +126,11 @@ function Chats() {
               />
               Across
             </label>
+            </Typography>
           </Grid>
+          
           <Grid item xs={12} sm={6} md={2}>
+          <Typography>
             <label className={styles.chatLabel}>
               <input
                 type="radio"
@@ -136,6 +140,7 @@ function Chats() {
               />
               Specific 
             </label>
+            </Typography>
           </Grid>
           {searchOption === 'specificFileText' && (
             <Grid item xs={12} sm={6} md={4}>
@@ -192,16 +197,16 @@ function Chats() {
             <div className={styles.chatCard}>
               {!messageSent && (
                 <CardContent className={styles.chatCardContent}>
-                  <h1 className={styles.chatHeading}>{AM_CHAT} <img src={amchatImg} alt="" className={styles.chatimg} /></h1>
-                  <p className={styles.chatParagraph}>Hello, I’m AM-Chat</p>
-                  <p className={styles.chatParagraphText}>
+                  <Typography variant='h4' mb={3}> {AM_CHAT} <img src={amchatImg} alt="" className={styles.chatimg} /></Typography>
+                  <Typography variant='h6' className={styles.chatParagraph}>Hello, I’m AM-Chat</Typography>
+                  <Typography variant='subtitle2' mt={2} className={styles.chatParagraphText}>
                     How can I help you today?
-                  </p>
+                  </Typography>
                   <br />
                   <br />
                   <Grid container spacing={2}>
                     <Grid item>
-                      <p
+                      <Typography variant="caption" display="block" gutterBottom mt={2}
                         className={styles.chatParagraphSuggestion}
                         onClick={() =>
                           handleSuggestionClick(
@@ -211,10 +216,10 @@ function Chats() {
                       >
                         Could you help me with the maternity policy of my
                         organisation?
-                      </p>
+                      </Typography>
                     </Grid>
                     <Grid item>
-                      <p
+                    <Typography variant="caption" display="block" gutterBottom mt={2}
                         className={styles.chatParagraphSuggestion}
                         onClick={() =>
                           handleSuggestionClick(
@@ -224,12 +229,12 @@ function Chats() {
                       >
                         Can you tell me about GDPR compliance. Which I should
                         follow in my organisation?
-                      </p>
+                      </Typography>
                     </Grid>
                   </Grid>
                   <Grid container spacing={2}>
                     <Grid item>
-                      <p
+                    <Typography variant="caption" display="block" gutterBottom mt={2}
                         className={styles.chatParagraphSuggestion}
                         onClick={() =>
                           handleSuggestionClick(
@@ -238,10 +243,10 @@ function Chats() {
                         }
                       >
                         Can you explain me the Pythagoras theorem based on. 
-                      </p>
+                      </Typography>
                     </Grid>
                     <Grid item>
-                      <p
+                    <Typography variant="caption" display="block" gutterBottom mt={2}
                         className={styles.chatParagraphSuggestion}
                         onClick={() =>
                           handleSuggestionClick(
@@ -250,10 +255,10 @@ function Chats() {
                         }
                       >
                         Can you tell me what's wrong in my lab reports? 
-                      </p>
+                      </Typography>
                     </Grid>
                     <Grid item>
-                      <p
+                    <Typography variant="caption" display="block" gutterBottom mt={2}
                         className={styles.chatParagraphSuggestion}
                         onClick={() =>
                           handleSuggestionClick(
@@ -262,7 +267,7 @@ function Chats() {
                         }
                       >
                         Can you explain me the quantum? 
-                      </p>
+                      </Typography>
                     </Grid>
                   </Grid>
                 </CardContent>
@@ -281,10 +286,10 @@ function Chats() {
                           alt="User"
                           className={styles.userImage}
                         />
-                        <p className={styles.askedQuestionText}>
+                        <Typography variant='body1' gutterBottom className={styles.askedQuestionText} style={{fontWeight: "bold"}}>
                           {' '}
                           {item.question}
-                        </p>
+                        </Typography>
                       </div>
                       {loading && index === questions.length - 1 ? (
                         <Skeleton active />
@@ -295,7 +300,7 @@ function Chats() {
                             alt="Response"
                             className={styles.responseImage}
                           />
-                          <p>{item.response}</p>
+                          <Typography variant='subtitle1' mt={1}>{item.response}</Typography>
                         </div>
                       )}
                     </div>

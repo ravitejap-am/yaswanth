@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "antd";
 import "./editForm.css";
-import { Box, Grid } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 
 function EditForm({
   formData: initialFormData,
@@ -60,7 +60,7 @@ function EditForm({
     <form className="form" onSubmit={handleSubmit}>
       <Grid container spacing={1}>
         <Grid item xs={12} md={6} lg={6} className="form-group">
-          <label htmlFor="firstName">First Name:</label>
+         <Typography> <label htmlFor="firstName">First Name:</label></Typography>
           <input
             className="inputstyle"
             type="text"
@@ -75,7 +75,7 @@ function EditForm({
           )}
         </Grid>
         <Grid item xs={12} md={6} lg={6} className="form-group">
-          <label htmlFor="lastName">Last Name:</label>
+        <Typography> <label htmlFor="lastName">Last Name:</label></Typography>
           <input
             className="inputstyle"
             type="text"
@@ -88,7 +88,7 @@ function EditForm({
           {errors.lastName && <span className="error">{errors.lastName}</span>}
         </Grid>
         <Grid item xs={12} md={6} lg={6} className="form-group">
-          <label htmlFor="email">Email:</label>
+          <Typography><label htmlFor="email">Email:</label></Typography>
           <input
             className="inputstyle"
             type="email"
@@ -105,7 +105,7 @@ function EditForm({
       </Grid>
       <Box className="button-container">
         <Button type="primary" htmlType="submit" className="buttonStyle" loading={buttonLoading}>
-          {isEdit ? "Update" : "Submit"}
+         <Typography variant="button"> {isEdit ? "Update" : "Submit"}</Typography>
         </Button>
 
         {!isEdit && (
@@ -119,7 +119,7 @@ function EditForm({
             }}
             onClick={cancelHandler}
           >
-            Cancel
+            <Typography variant="button"> Cancel</Typography>
           </Button>
         )}
       </Box>

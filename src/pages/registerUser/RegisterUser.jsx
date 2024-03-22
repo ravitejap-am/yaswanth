@@ -15,6 +15,7 @@ import { useMessageState } from "../../hooks/useapp-message";
 import Header from "../home/Header/Header";
 import { Form, Input, Select, Grid, Button } from "antd";
 import { EyeInvisibleOutlined, EyeOutlined } from "@ant-design/icons";
+import { Box, Typography } from "@mui/material";
 
 const RegisterUser = () => {
   let {
@@ -243,38 +244,39 @@ const RegisterUser = () => {
           />
         </div>
         <div className="signup-main-css">
-          <div className="text-top-signup">
-            <h2>Sign Up</h2>
-            {isMobile ? (
-              <p style={{ padding: "5px" }}>
-                Please sign up with your organisation email ID. If your
-                organisation is not registered with us, please reach out to us
-                at
-                <a
-                  href="mailto:sales@areteminds.com"
-                  target="_blank"
-                  className="sign-up-mail"
-                >
-                  "sales@areteminds.com"
-                </a>
-                or fill up{" "}
-                <a
-                  onClick={() => handleRegister()}
-                  className="contactus-text"
-                >
-                  contact us{" "}
-                </a>
-                form
-              </p>
+          <Box className="text-top-signup" mb={1}>
+        <Typography variant="h2" gutterBottom >Sign Up</Typography>
+        {isMobile ? (
+       <Typography variant="body1" mt={4}gutterBottom color={'#1e293b'}> Please sign up with your organisation email ID. If your
+       organisation is not registered with us, please reach out to us
+       at
+       <a
+         href="mailto:sales@areteminds.com"
+         target="_blank"
+         className="sign-up-mail"
+         style={{color: "#1e293b", textDecoration: "underline"}}
+       >
+         "sales@areteminds.com"
+       </a>
+       or fill up{" "}
+       <a
+         onClick={() => handleRegister()}
+         className="contactus-text"
+         style={{color: "#1e293b", textDecoration: "underline", paddingRight: "5px"}}
+       >
+         contact us{" "}
+       </a>
+       form
+      </Typography>
             ) : (
-              <p>
-                Please sign up with your organisation email ID. If your <br />
+           <Typography variant="body1" mt={4}gutterBottom color={'#1e293b'}> Please sign up with your organisation email ID. If your <br />
                 organisation is not registered with us, please reach out <br />{" "}
                 to us at
                 <a
                   href="mailto:sales@areteminds.com"
                   target="_blank"
                   className="sign-up-mail"
+                  style={{color: "#1e293b", textDecoration: "underline", paddingRight: "5px"}}
                 >
                   "sales@areteminds.com"
                 </a>
@@ -282,13 +284,15 @@ const RegisterUser = () => {
                 <a
                   onClick={() => handleRegister()}
                   className="contactus-text"
+                  style={{color: "#1e293b", textDecoration: "underline"}}
                 >
                   Contact Us
                 </a>{" "}
                 form
-              </p>
-            )}
-          </div>
+               </Typography>
+                )}
+
+          </Box>
           <div className="signup-form-css">
             <Form
               name="basic"
@@ -393,11 +397,13 @@ const RegisterUser = () => {
                   htmlType="submit"
                   className="signin_submit_btn_css"
                 >
-                  Submit
-                </Button>
+            <Typography variant="button" display="block" >
+             Sign Up
+            </Typography>               
+             </Button>
               </Form.Item>
 
-              <p className="linktextsigup">
+              <Typography className="linktextsigup" variant="body2" gutterBottom>
                 Already have an account?{" "}
                 <Link
                   to={"/signin"}
@@ -409,7 +415,7 @@ const RegisterUser = () => {
                 >
                   Sign in
                 </Link>
-              </p>
+              </Typography>
               <br />
             </Form>
           </div>
