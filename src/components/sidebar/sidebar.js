@@ -157,23 +157,27 @@ export const sideBar = (
           </Link>
         );
       })}
-      <Hidden lgUp>
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 2,
-            color: 'white',
-            textDecoration: 'none',
-            padding: '8px',
-          }}
-          onClick={() => {
-            setVisible(true);
-          }}
-        >
-          <WorkHistoryIcon color="white" />
-        </Box>
-      </Hidden>
+
+      {(role == 'ORG_ADMIN' || role == 'USER') &&
+        (pathname == '/chat' || pathname == '/user') && (
+          <Hidden lgUp>
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 2,
+                color: 'white',
+                textDecoration: 'none',
+                padding: '8px',
+              }}
+              onClick={() => {
+                setVisible(true);
+              }}
+            >
+              <WorkHistoryIcon color="white" />
+            </Box>
+          </Hidden>
+        )}
 
       {(role == 'ORG_ADMIN' || role == 'USER') &&
         (pathname == '/chat' || pathname == '/user') && (
