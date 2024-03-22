@@ -85,12 +85,12 @@ function Users() {
     }
   }, [searchQuery, order]);
 
-  const fetchUserList = async (page = 0) => {
+  const fetchUserList = async (page = 0, pageSize) => {
     try {
       console.log("filters", filters);
       const queryParams = new URLSearchParams({
         page: page,
-        size: pageInfo?.pageSize,
+        size: pageSize || pageInfo.pageSize,
         sortField: orderBy,
         sortDirection: order,
         email: "",

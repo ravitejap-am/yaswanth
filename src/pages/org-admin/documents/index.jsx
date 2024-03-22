@@ -88,7 +88,7 @@ function Documents() {
     }
   };
 
-  const fetchDocuments = async (page = 0) => {
+  const fetchDocuments = async (page = 0, pageSize) => {
     setLoading(true);
     try {
       console.log('api called');
@@ -98,7 +98,7 @@ function Documents() {
       const response = await axios.get(documentUrl, {
         params: {
           page: page,
-          size: pageInfo?.pageSize,
+          size: pageSize || pageInfo.pageSize,
           sortField: orderBy,
           sortDirection: order,
           name: searchQuery,
