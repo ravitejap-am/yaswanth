@@ -1,30 +1,33 @@
-import React, { useState, useEffect } from "react";
-import PopupState, { bindPopover } from "material-ui-popup-state";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import Button from "@mui/material/Button";
-import Style from "./header.module.css";
-import defaultImage from "../../../src/asset/defaultProfile.jpg";
-import PersonIcon from "@mui/icons-material/Person";
-import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
+import React, { useState, useEffect } from 'react';
+import PopupState, { bindPopover } from 'material-ui-popup-state';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Button from '@mui/material/Button';
+import Style from './header.module.css';
+import defaultImage from '../../../src/asset/defaultProfile.jpg';
+import PersonIcon from '@mui/icons-material/Person';
+import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../../store/authSlice';
-import { tokenDecodeJWT } from "../../utils/authUtils"; 
-import * as constants from '../../constants/Constant'
+import { tokenDecodeJWT } from '../../utils/authUtils';
+import * as constants from '../../constants/Constant';
+import { Typography } from '@mui/material';
 
 function Header({ componentName, customStyle, navigationRoute }) {
   const user = useSelector(selectUser);
   const jwt = user?.userToken;
   const decodedToken = tokenDecodeJWT(jwt);
   const userId = decodedToken ? decodedToken?.userId : null;
-  const [headerImage, setHeaderImage] = useState(localStorage.getItem("userImageUrl") ?? defaultImage)
-  const storedFullName = localStorage.getItem("fullName");
+  const [headerImage, setHeaderImage] = useState(
+    localStorage.getItem('userImageUrl') ?? defaultImage
+  );
+  const storedFullName = localStorage.getItem('fullName');
 
   useEffect(() => {
     if (userId) {
       fetchUserProfile();
     } else {
-      console.log("User ID is missing or invalid")
+      console.log('User ID is missing or invalid');
     }
   }, [userId]);
 
@@ -43,15 +46,15 @@ function Header({ componentName, customStyle, navigationRoute }) {
       }
 
       const userData = await response.json();
-      
+
       const profileImagePath = userData?.data?.user?.profileImagePath;
       if (profileImagePath) {
         localStorage.setItem(
           'userImageUrl',
           `https://medicalpublic.s3.amazonaws.com/${profileImagePath}`
         );
-        const fullImagePath = `https://medicalpublic.s3.amazonaws.com/${profileImagePath}`
-        setHeaderImage(fullImagePath)
+        const fullImagePath = `https://medicalpublic.s3.amazonaws.com/${profileImagePath}`;
+        setHeaderImage(fullImagePath);
       }
     } catch (error) {
       console.error('Error fetching user profile:', error);
@@ -60,20 +63,21 @@ function Header({ componentName, customStyle, navigationRoute }) {
 
   const handleLogout = () => {
     localStorage.clear();
-    window.location.href = "/signin";
+    window.location.href = '/signin';
   };
 
   const handleViewProfile = () => {
-    window.location.href = "/Info";
+    window.location.href = '/Info';
   };
-
-
 
   return (
     <PopupState variant="popover" popupId="profile-popup-popover">
       {(popupState) => (
         <div className={Style.headermain}>
-          <div className={Style.headertext}>{componentName}</div>
+          <Typography variant="h5" color={'#312e81'}>
+            {componentName}
+          </Typography>
+          {/* <div className={Style.headertext}>{componentName}</div> */}
           <div onClick={popupState.open} className={Style.popupalignment}>
             <div>
               <img src={headerImage} alt="" className={Style.roundedimage} />
@@ -85,23 +89,23 @@ function Header({ componentName, customStyle, navigationRoute }) {
           <Menu
             {...bindPopover(popupState)}
             anchorOrigin={{
-              vertical: "bottom",
-              horizontal: "center",
+              vertical: 'bottom',
+              horizontal: 'center',
             }}
             transformOrigin={{
-              vertical: "top",
-              horizontal: "center",
+              vertical: 'top',
+              horizontal: 'center',
             }}
           >
             <MenuItem onClick={handleViewProfile}>
               <span className={Style.Iconalgnment}>
-                <PersonIcon />{" "}
+                <PersonIcon />{' '}
               </span>
               <span>View Profile</span>
             </MenuItem>
             <MenuItem onClick={handleLogout}>
               <span className={Style.Iconalgnment}>
-                {" "}
+                {' '}
                 <LogoutOutlinedIcon />
               </span>
               <span>Logout</span>
