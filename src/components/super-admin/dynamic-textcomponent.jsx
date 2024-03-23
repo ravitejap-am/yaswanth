@@ -8,7 +8,7 @@ import { selectUser } from '../../store/authSlice';
 import CircularProgress from '@mui/material/CircularProgress';
 import { extractDomain } from '../../utils/generalUtils';
 import { PlusCircleFilled } from '@ant-design/icons';
-import { Grid, FormHelperText } from '@mui/material';
+import { Grid, FormHelperText, Box , useMediaQuery} from '@mui/material';
 import  './dynamicTextcomponent.css'
 import { Popconfirm } from 'antd';
 
@@ -32,6 +32,7 @@ function DynamicTextComponent({
     []
   );
   const [isNewDomain, setIsNewDomain] = useState(false);
+  const isMobile = useMediaQuery('(max-width:600px)');
 
   const handleAddText = () => {
     if (orgStatus == 'edit') {
@@ -257,46 +258,65 @@ function DynamicTextComponent({
   };
 
   return (
-    <Grid container >
-      {textFields.map(({ typeDetails, id }, index) => (
-        <Grid item 
-            container
-            direction="row"
-            justifyContent="flex-start"
-            alignItems="flex-start"
-            key={index}
-        >
-          <Grid item container
-          direction="column"
-          justifyContent="flex-start"
-          xs={10} sm={6} md={4} lg={5} xl={3}
+    <Box
+      sx={{
+        display: "flex",
+        height: "60vh",
+        flexDirection: "column",
+        width: "100%",
+        "&::-webkit-scrollbar": {
+          width: "2px",
+          height: "2px",
+        },
+        "&::-webkit-scrollbar-track": {
+          background: "transparent",
+        },
+        "&::-webkit-scrollbar-thumb": {
+          background: "#888",
+          borderRadius: "6px",
+        },
+      }}
+    >
+      <Box
+        sx={{
+          height: "90%",
+          padding: "10px",
+          display: "flex",
+          flexDirection: "column",
+          gap: "1em",
+          overflowY: "scroll",
+        }}
+      >
+        {textFields.map(({ typeDetails, id }, index) => (
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              gap: "3em",
+            }}
           >
-            <input
-              type="text"
-              value={typeDetails}
-              onChange={(event) => handleTextChange(index, event.target.value)}
-              onBlur={(event) => handleCheckDomain(index, event.target.value)}
-              className='domain-text-input'
-              disabled={id ? true : false}
-            />
-            {typeDetails && !isValidDomain(typeDetails) && (
-              <FormHelperText 
-              sx={{ fontSize: '14px' }}
-              error
-              >Invalid domain name format</FormHelperText>
-            )}
-          </Grid>
-          
-          <Grid item xs={2} sm={1} md={1} lg={1} xl={1}
-           container
-           direction="column"
-           justifyContent="center"
-           alignItems="center"
-           height={'100%'}
-          >
-          {typeDetails && typeDetails !== null && typeDetails !== "" ? <Popconfirm
+            <Box sx={{ display: "flex", flexDirection: "column" }}>
+              <input
+                type="text"
+                value={typeDetails}
+                onChange={(event) =>
+                  handleTextChange(index, event.target.value)
+                }
+                onBlur={(event) => handleCheckDomain(index, event.target.value)}
+                className="domain-text-input"
+                disabled={id ? true : false}
+                style={{ height: "3em", margin: "0px" }}
+              />
+              {typeDetails && !isValidDomain(typeDetails) && (
+                <FormHelperText sx={{ fontSize: "14px" }} error>
+                  Invalid domain name format
+                </FormHelperText>
+              )}
+            </Box>
+            {typeDetails && typeDetails !== null && typeDetails !== "" ? <Popconfirm
             key={'amchat'}
-            title={AM_CHAT}
+            title="Am Chat"
             description={
               "Do you really want to delete this domain" +
               ` '${typeDetails}'` 
@@ -329,142 +349,85 @@ function DynamicTextComponent({
             }}
            onClick={() => handleDeleteDomain(index)}
           />}
-          </Grid>
-          
-
-          {!!loadingIndex && loadingIndex == index ? <CircularProgress /> : ''}
+        {!!loadingIndex && loadingIndex == index ? <CircularProgress /> : ''}
           {usedDomainIndexCollection.includes(index) && (
-            <FormHelperText 
-            sx={{ fontSize: '14px' }}
-            error
-            >
+            <span style={{ color: 'red' }}>
               {' '}
               {`The domain ${typeDetails} already exists, please change it to the new domain`}
-            </FormHelperText>
-          )}
-        </Grid>
-      ))}
-
-      <Grid item 
-      xs={12} sm={7} md={4.9} lg={5.8} xl={3.7}
-      container
-      direction="row"
-      justifyContent="flex-end"
-      alignItems="flex-end"
-      >
-      <Tooltip placement="rightTop" title="Add Domain">
-              <Button
-                onClick={handleAddText}
-                style={{
-                  display: 'flex',
-                  width: '50px',
-                  height: '50px',
-                  padding: '10px 16px',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  gap: '8px',
-                  flexShrink: '0',
-                  borderRadius: '30px',
-                  backgroundColor: 'var(--Brand-500, #6366F1)',
-                  color: '#FFFFFF',
-                  fontFamily: 'Into Lato',
-                  fontSize: '16px',
-                  fontStyle: 'normal',
-                  fontWeight: '700',
-                  lineHeight: '24px',
-                }}
-                disabled={
-                  isSubmitDisabled() ||
-                  usedDomainIndexCollection.length > 0 ||
-                  isNewDomain
-                }
-                icon={<PlusCircleFilled />}
-              >
-              </Button>
-            </Tooltip>
-      </Grid>
-
-      <Grid 
-        item
-        container
-        direction="row"
-        justifyContent="flex-start"
-        alignItems="flex-start"         
-      >
-        {!(
-          isSubmitDisabled() ||
-          usedDomainIndexCollection.length > 0 ||
-          isNewDomain
-        ) ? (
-          <>
-            {/* <Tooltip placement="rightTop" title="Add Domain">
-              <Button
-                onClick={handleAddText}
-                style={{
-                  display: 'flex',
-                  width: '50px',
-                  height: '50px',
-                  padding: '10px 16px',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  gap: '8px',
-                  flexShrink: '0',
-                  borderRadius: '30px',
-                  backgroundColor: 'var(--Brand-500, #6366F1)',
-                  color: '#FFFFFF',
-                  fontFamily: 'Into Lato',
-                  fontSize: '16px',
-                  fontStyle: 'normal',
-                  fontWeight: '700',
-                  lineHeight: '24px',
-                }}
-                disabled={
-                  isSubmitDisabled() ||
-                  usedDomainIndexCollection.length > 0 ||
-                  isNewDomain
-                }
-                icon={<PlusCircleFilled />}
-              >
-              </Button>
-            </Tooltip> */}
-
-            <Grid 
-              container 
-              spacing={1}
-              direction="row"
-              justifyContent="flex-end"
-              alignItems="flex-end">
-              <Grid item xs={6} sm={3} md={2} lg={1}
-              >
-                <Button
-                  style={{ marginTop: '1em', width: '8em' }}
-                  onClick={() => {
-                    personalInformationHandler('organizationadmin');
-                  }}
-                  loading={buttonLoading}
-                >
-                  Previous
-                </Button>
-              </Grid>
-              <Grid item xs={6} sm={3} md={2} lg={1}>
-                <Button
-                  type="primary"
-                  style={{ marginTop: '1em', width: '8em'}}
-                  onClick={() => {
-                    personalInformationHandler('subscriptionplan');
-                  }}
-                  loading={buttonLoading}
-                >
-                  Next
-                </Button>
-              </Grid>
-      </Grid>
-          </>
-        ) : (
-          ''
+            </span>
         )}
-      </Grid>
-    </Grid>
+          </Box>
+        ))}
+        <Box
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "flex-end",
+            width: "15vw",
+            // backgroundColor:'red'
+          }}
+        >
+          {/* <div style={{flex: 1}}></div> */}
+          <Tooltip placement="rightTop" title="Add Domain">
+            <Button
+              onClick={handleAddText}
+              style={{
+                display: "flex",
+                width: "50px",
+                height: "50px",
+                padding: "10px 16px",
+                justifyContent: "center",
+                alignItems: "center",
+                gap: "8px",
+                flexShrink: "0",
+                borderRadius: "30px",
+                backgroundColor: "var(--Brand-500, #6366F1)",
+                color: "#FFFFFF",
+                fontFamily: "Into Lato",
+                fontSize: "16px",
+                fontStyle: "normal",
+                fontWeight: "700",
+                lineHeight: "24px",
+              }}
+              disabled={
+                isSubmitDisabled() ||
+                usedDomainIndexCollection.length > 0 ||
+                isNewDomain
+              }
+              icon={<PlusCircleFilled />}
+            ></Button>
+          </Tooltip>
+        </Box>
+      </Box>
+      {/* <Box sx={{ flex: 1 }}></Box> */}
+      <Box style={{ display: "flex" ,gap: "1em", flexDirection:'row', justifyContent: isMobile ? 'center' : 'flex-end', alignItems: isMobile ? 'center' : 'flex-end'}}>
+        {/* <Box style={{ flex: 1 }}></Box> */}
+        <Button
+          style={{ marginTop: "1em", width: "8em" }}
+          onClick={() => {
+            personalInformationHandler("personalinformation");
+          }}
+          loading={buttonLoading}
+        >
+          Previous
+        </Button>
+        <Button
+          type="primary"
+          style={{ marginTop: "1em", width: "8em" }}
+          onClick={() => {
+            personalInformationHandler("organizationadmin");
+          }}
+          loading={buttonLoading}
+          disabled={
+            isSubmitDisabled() ||
+            usedDomainIndexCollection.length > 0 ||
+            isNewDomain
+          }
+        >
+          Next
+        </Button>
+      </Box>
+    </Box>
   );
 }
 

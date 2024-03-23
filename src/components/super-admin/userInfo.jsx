@@ -46,162 +46,114 @@ function UserInfoForm({
 
   return (
     <Box>
-      <Grid container spacing={2}>
-        <Grid item xs={8} md={5}>
-            <div className="form-group">
-              <label htmlFor="firstName">First Name:</label>
-              <input
-                className="orgInputstyle"
-                type="text"
-                id="firstName"
-                name="firstName"
-                value={formData.firstName}
-                onChange={handleChange}
-              />
-              {errors.firstName && (
-                <FormHelperText error sx={{ fontSize: '14px' }}>{errors.firstName}</FormHelperText>
-              )}
-        </div>
-        </Grid>
-        <Grid item xs={8} md={5}>
-         <div className="form-group">
-           <label htmlFor="lastName">Last Name:</label>
-           <input
-            className="orgInputstyle"
-            type="text"
-            id="lastName"
-            name="lastName"
-            value={formData.lastName}
-            onChange={handleChange}
-          />
-          {errors.lastName && <FormHelperText error sx={{ fontSize: '14px' }}>{errors.lastName}</FormHelperText>}
-        </div>
-        </Grid>
-        <Grid item xs={8} md={5}>
+      <Grid 
+        container 
+        spacing={2}
+        direction="column"
+        justifyContent="space-between"
+        alignItems="flex-start"
+        sx={{
+          height:'60vh',
+           overflowY:'scroll',
+          '&::-webkit-scrollbar': {
+            width: '2px',
+            height: '2px' 
+          },
+          '&::-webkit-scrollbar-track': {
+            background: 'transparent', 
+          },
+          '&::-webkit-scrollbar-thumb': {
+            background: '#888', 
+            borderRadius: '6px', 
+          },
+         }}
+        >
+        <Grid item         
+        container 
+        spacing={2}>
+          <Grid item xs={8} md={5}>
+              <div className="form-group">
+                <label htmlFor="firstName">First Name:</label>
+                <input
+                  className="orgInputstyle"
+                  type="text"
+                  id="firstName"
+                  name="firstName"
+                  value={formData.firstName}
+                  onChange={handleChange}
+                />
+                {errors.firstName && (
+                  <FormHelperText error sx={{ fontSize: '14px' }}>{errors.firstName}</FormHelperText>
+                )}
+          </div>
+          </Grid>
+          <Grid item xs={8} md={5}>
           <div className="form-group">
-           <label htmlFor="email">Email:</label>
-           <input
-            className="orgInputstyle"
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            disabled = {orgStatus === "edit" ? true : false}
-            style={{ backgroundColor: orgStatus === "edit" ? '#CBD5E1' : "" }}
-          />
-          {errors.email && <FormHelperText error sx={{ fontSize: '14px' }}>{errors.email}</FormHelperText>}
-        </div>
+            <label htmlFor="lastName">Last Name:</label>
+            <input
+              className="orgInputstyle"
+              type="text"
+              id="lastName"
+              name="lastName"
+              value={formData.lastName}
+              onChange={handleChange}
+            />
+            {errors.lastName && <FormHelperText error sx={{ fontSize: '14px' }}>{errors.lastName}</FormHelperText>}
+          </div>
+          </Grid>
+          <Grid item xs={8} md={5}>
+            <div className="form-group">
+            <label htmlFor="email">Email:</label>
+            <input
+              className="orgInputstyle"
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              disabled = {orgStatus === "edit" ? true : false}
+              style={{ backgroundColor: orgStatus === "edit" ? '#CBD5E1' : "" }}
+            />
+            {errors.email && <FormHelperText error sx={{ fontSize: '14px' }}>{errors.email}</FormHelperText>}
+          </div>
+          </Grid>
         </Grid>
         <Grid item 
           container 
           direction="row"
           justifyContent="flex-end"
           alignItems="flex-end"
-          spacing={1} 
+          spacing={0.5} 
         >
-        <Grid item xs={6} sm={2.8} md={3} lg={1.6} 
+        <Grid item xs={6} sm={2.8} md={3} lg={1.6} xl={1} 
         >
        <Button
           style={{ marginTop: '1em', width: '8em' }}
           onClick={() => {
-            personalInformationHandler('personalinformation');
+            // personalInformationHandler('personalinformation');
+
+            personalInformationHandler('organizationdomains');
           }}
         >
           Previous
         </Button>
         </Grid>
-        <Grid item xs={6} sm={2.8} md={3} lg={1.6}
+        <Grid item xs={6} sm={2.8} md={3} lg={1.6} xl={1}
         >
         <Button
           type="primary"
           style={{ marginTop: '1em', width: '8em'}}
           onClick={() => {
-            personalInformationHandler('organizationdomains');
+            personalInformationHandler('subscriptionplan')
           }}
         >
           Next
         </Button>
-          
         </Grid>
       </Grid>
       </Grid>
     </Box>
-    // <form
-    //   className="form"
-    //   onSubmit={handleSubmit}
-    //   style={{ padding: '10px', marginTop: '2em' }}
-    // >
-    //   <div className="form-row">
-    //     <div className="form-group">
-    //       <label htmlFor="firstName">First Name:</label>
-    //       <input
-    //         className="inputstyle"
-    //         type="text"
-    //         id="firstName"
-    //         name="firstName"
-    //         value={formData.firstName}
-    //         onChange={handleChange}
-    //       />
-    //       {errors.firstName && (
-    //         <span className="error">{errors.firstName}</span>
-    //       )}
-    //     </div>
-    //     <div className="form-group">
-    //       <label htmlFor="lastName">Last Name:</label>
-    //       <input
-    //         className="inputstyle"
-    //         type="text"
-    //         id="lastName"
-    //         name="lastName"
-    //         value={formData.lastName}
-    //         onChange={handleChange}
-    //       />
-    //       {errors.lastName && <span className="error">{errors.lastName}</span>}
-    //     </div>
-    //   </div>
-    //   <div className="form-row">
-    //     <div className="form-group">
-    //       <label htmlFor="email">Email:</label>
-    //       <input
-    //         className="inputstyle"
-    //         type="email"
-    //         id="email"
-    //         name="email"
-    //         value={formData.email}
-    //         onChange={handleChange}
-    //       />
-    //       {errors.email && <span className="error">{errors.email}</span>}
-    //     </div>
-    //   </div>
-    //   <div
-    //     className="center"
-    //     style={{
-    //       paddingLeft: '10px',
-    //       marginTop: '1em',
-    //       gap: '2em',
-    //       justifyContent: 'flex-start',
-    //     }}
-    //   >
-    //     <Button
-    //       style={{ marginTop: '1em', width: '8em' }}
-    //       onClick={() => {
-    //         personalInformationHandler('personalinformation');
-    //       }}
-    //     >
-    //       Back
-    //     </Button>
-    //     <Button
-    //       type="primary"
-    //       style={{ marginTop: '1em', width: '8em' }}
-    //       onClick={() => {
-    //         personalInformationHandler('organizationdomains');
-    //       }}
-    //     >
-    //       Next
-    //     </Button>
-    //   </div>
-    // </form>
+
   );
 }
 

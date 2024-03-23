@@ -158,18 +158,34 @@
   }
 }
 
-@media (min-width: 1025px) {
+@media (min-width: 1025px) and (max-width: 1400px) {
   .inputstyle {
-    width: 22rem;
+    width: 24rem;
     height: 35px;
   }
   .selectContainer{
-    width: 24rem;
+    width: 26rem;
     height: 48px;
   }
 
   .pincodeStyle{
-    width: 22rem;
+    width: 24rem;
+    height:2.1rem;
+  }
+}
+
+@media (min-width: 1401px) {
+  .inputstyle {
+    width: 33rem;
+    height: 35px;
+  }
+  .selectContainer{
+    width: 35rem;
+    height: 48px;
+  }
+
+  .pincodeStyle{
+    width: 33rem;
     height:2.1rem;
   }
 }

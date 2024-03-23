@@ -13,9 +13,27 @@ function SubscriptionPlan({ personalInformationHandler }) {
   };
 
   return (
-    <Box>
-      <Grid container>
-        <Grid item xs={12}>
+    
+      <Grid 
+       container
+       sx={{
+         height:'60vh',
+         overflowY:'scroll',
+         '&::-webkit-scrollbar': {
+           width: '2px',
+           height: '2px' 
+         },
+         '&::-webkit-scrollbar-track': {
+           background: 'transparent', 
+         },
+         '&::-webkit-scrollbar-thumb': {
+           background: '#888', 
+           borderRadius: '6px', 
+         },
+       }}      
+      >
+      <Grid item container  >
+        <Grid item >
           <Typography variant="h6">Choose Your Plan</Typography>
           <label>
              <input
@@ -38,62 +56,25 @@ function SubscriptionPlan({ personalInformationHandler }) {
             Standard
           </label>          
         </Grid>
-        <Grid item xs={12} >
+      </Grid>
+        <Grid item
+          container 
+          direction="row"
+          justifyContent="flex-end"
+          alignItems="flex-end"
+        xs={12} 
+        >
           <Button
               style={{ marginTop: '1em', width: '8em' }}
               onClick={() => {
-                personalInformationHandler('personalinformation');
+                personalInformationHandler('organizationadmin');
               }}
             >
               Previous
             </Button>
         </Grid>
       </Grid>
-    </Box>
-    // <div>
-    //   <label>
-    //     <p>Choose Your Plan</p>
-    //     <div>
-    //       <label>
-    //         <input
-    //           type="radio"
-    //           name="subscriptionPlan"
-    //           value="freemium"
-    //           checked={selectedPlan === 'freemium'}
-    //           onChange={() => handlePlanSelection('freemium')}
-    //         />
-    //         Freemium
-    //       </label>
-    //     </div>
-
-    //     <div>
-    //       <label>
-    //         <input
-    //           type="radio"
-    //           name="subscriptionPlan"
-    //           value="standard"
-    //           checked={selectedPlan === 'standard'}
-    //           onChange={() => handlePlanSelection('standard')}
-    //         />
-    //         Standard
-    //       </label>
-    //     </div>
-    //   </label>
-
-    //   <div
-    //     className="center"
-    //     style={{ marginTop: '1em', gap: '2em', justifyContent: 'flex-start' }}
-    //   >
-    //     <Button
-    //       style={{ marginTop: '1em', width: '8em' }}
-    //       onClick={() => {
-    //         personalInformationHandler('organizationdomains');
-    //       }}
-    //     >
-    //       Back
-    //     </Button>
-    //   </div>
-    // </div>
+    
   );
 }
 
