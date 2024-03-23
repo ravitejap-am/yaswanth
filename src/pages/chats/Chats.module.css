@@ -189,7 +189,7 @@
 .response {
   display: flex;
   align-items: center;
-  text-align: justify;
+  text-align: left;
 }
 
 .responseImage {
@@ -200,8 +200,8 @@
 }
 
 .askedQuestionText{
-  font-weight: 600;
-  text-align: justify;
+  font-weight: bold;
+  text-align: left;
 }
 
 .SendButton {
@@ -225,16 +225,36 @@
     font-size: 14px;
   }
   .chatHeading{
-    font-size: 25px;
+    font-size: 24px;
   }
   .chatParagraph{
-    font-size: 18px;
+    font-size: 17px;
   }
   .chatParagraphText{
-    font-size: 15px;
+    font-size: 13px;
   }
   .chatCardContent{
     height: 80vh;
+  }
+  .amchattext{
+    font-size: 25px;
+  }
+  .chatimg{
+    height: 20px;
+  }
+  .chatParagraph{
+    font-size: 17px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .chatCardContent {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: auto;
+    gap: 0px
   }
 }
 

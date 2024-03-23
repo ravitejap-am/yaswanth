@@ -3,8 +3,16 @@ import "./RightPlan.css";
 import Tick1 from "../../../asset/tick.png";
 import GeneralButton from "../../../components/common/buttons/GeneralButton";
 import frame from "../../../asset/Frame 1.png";
+import { Typography, useMediaQuery } from "@mui/material";
 function RightPlan() {
   const [scroll, setScroll] = useState(false);
+  const isMobile = useMediaQuery('(max-width:600px)');
+
+  const smallTextStyles = isMobile ? {
+    fontSize: "25px", 
+    lineHeight: "1.5",
+    // fontWeight: "bold"
+  } : {};
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,27 +31,29 @@ function RightPlan() {
       element.scrollIntoView({ behavior: "smooth" });
     }
   };
+
+
   return (
     <div className="Right_Plan_Main_Card">
       <div className="Right_Plan_Top_Content">
-        <span className="Right_Plan_Top_Content_Title">Find Your Right Plan </span>
-        <span className="Right_Plan_Top_Content_SubTitle">
+        <Typography variant="h4" gutterBottom className="Right_Plan_Top_Content_Title" sx={smallTextStyles}>Find Your Right Plan </Typography>
+        <Typography variant="caption" mt={2} className="Right_Plan_Top_Content_SubTitle">
           Use one of the plan from below based on your need.
-        </span>
+        </Typography >
       </div>
       <div className="Right_Plan_Three_Container">
         <div className="Right_Plan_Content">
           <div>
-            <p className="Right_Plan_Content_Title">Freemium</p>
-            <p className="Right_Plan_Content_Sub_Div">
+            <Typography variant="h5" fontWeight="600" className="Right_Plan_Content_Title">Freemium</Typography>
+            <Typography variant="body1" mt={2} className="Right_Plan_Content_Sub_Div">
               Revolutionize keywords search into your document with our free
               plan.
-            </p>
+            </Typography>
           </div>
           <div>
             <p className="Right_Plan_Content_Price">
               <span className="price">$ 9.99</span>
-              <span className="per-month">/Month</span>
+              <Typography variant="caption" className="per-month">/Month</Typography>
             </p>
           </div>
           <div
@@ -64,38 +74,38 @@ function RightPlan() {
           <div className="Right_Plan_Below_Content">
             <div className="Right_Plan_below_Content_Sub_Div">
               <img src={Tick1} alt="" />
-              <p className="Right_Plan_below_Content_P_Tag">Max 2 users</p>
+              <Typography variant="body2" className="Right_Plan_below_Content_P_Tag">Max 2 users</Typography>
             </div>
             <div className="Right_Plan_below_Content_Sub_Div">
               <img src={Tick1} alt="" />
-              <p className="Right_Plan_below_Content_P_Tag">Max 5 Documents</p>
+              <Typography variant="body2"  className="Right_Plan_below_Content_P_Tag">Max 5 Documents</Typography>
             </div>
             <div className="Right_Plan_below_Content_Sub_Div">
               <img src={Tick1} alt="" />
-              <p className="Right_Plan_below_Content_P_Tag">Upload size 2 MB</p>
+              <Typography variant="body2"  className="Right_Plan_below_Content_P_Tag">Upload size 2 MB</Typography>
             </div>
             <div className="Right_Plan_below_Content_Sub_Div">
               <img src={Tick1} alt="" />
-              <p className="Right_Plan_below_Content_P_Tag">
+              <Typography variant="body2"  className="Right_Plan_below_Content_P_Tag">
                 Max 10 chats free
-              </p>
+              </Typography>
             </div>
           </div>
         </div>
         <div className="Right_Plan_Content">
           <div>
-            <p className="Right_Plan_Content_Title">Standard </p>
-            <p className="Right_Plan_Content_Sub_Div">
+            <Typography variant="h5" fontWeight="600"  className="Right_Plan_Content_Title">Standard </Typography>
+            <Typography variant="body1" mt={2} className="Right_Plan_Content_Sub_Div">
               {" "}
               Best fit for organization with 50 to 100 users or ten to 50
               users. 
-            </p>
+            </Typography>
           </div>
           <div>
             <p class="Right_Plan_Content_Price">
               <span class="price">$ 9.99</span>
-              <span class="per-month">/Month</span>
-            </p>
+              <Typography variant="caption" className="per-month">/Month</Typography>            
+              </p>
           </div>
           <div
             className="Right_Plan_Gernal_Button"
@@ -115,39 +125,39 @@ function RightPlan() {
           <div className="Right_Plan_Below_Content">
             <div className="Right_Plan_below_Content_Sub_Div">
               <img src={Tick1} alt="" />
-              <p className="Right_Plan_below_Content_P_Tag">Max 50 users</p>
+              <Typography variant="body2"  className="Right_Plan_below_Content_P_Tag">Max 50 users</Typography>
             </div>
             <div className="Right_Plan_below_Content_Sub_Div">
               <img src={Tick1} alt="" />
-              <p className="Right_Plan_below_Content_P_Tag">Max 5 Documents</p>
+              <Typography variant="body2"  className="Right_Plan_below_Content_P_Tag">Max 5 Documents</Typography>
             </div>
             <div className="Right_Plan_below_Content_Sub_Div">
               <img src={Tick1} alt="" />
-              <p className="Right_Plan_below_Content_P_Tag">Upload size 5 MB</p>
+              <Typography variant="body2"  className="Right_Plan_below_Content_P_Tag">Upload size 5 MB</Typography>
             </div>
             <div className="Right_Plan_below_Content_Sub_Div">
               <img src={Tick1} alt="" />
-              <p className="Right_Plan_below_Content_P_Tag">
+              <Typography variant="body2"  className="Right_Plan_below_Content_P_Tag">
                 Max 100 chats per user per day
-              </p>
+              </Typography>
             </div>
           </div>
         </div>
         <div className="Right_Plan_Content">
           <div>
             <div>
-              <p className="Right_Plan_Content_Title">Enterprise</p>
-              <p className="Right_Plan_Content_Sub_Div">
+              <Typography variant="h5" fontWeight="600"  className="Right_Plan_Content_Title">Enterprise</Typography>
+              <Typography variant="body1" mt={2} className="Right_Plan_Content_Sub_Div">
                 {" "}
                 For details about this plan, please press the button below.
-              </p>
+              </Typography>
             </div>
 
             <div>
               <p class="Right_Plan_Content_Price">
                 <span class="price">$ 9.99</span>
-                <span class="per-month">/Month</span>
-              </p>
+                <Typography variant="caption" className="per-month">/Month</Typography>              
+                </p>
             </div>
 
             <div

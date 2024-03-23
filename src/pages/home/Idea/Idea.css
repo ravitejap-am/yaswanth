@@ -37,7 +37,7 @@
 .bannerHeading {
   width: 70%;
   color: var(--White, #fff);
-  font-family: Montserrat;
+  /* font-family: Montserrat; */
   font-size: 36px;
   font-style: normal;
   font-weight: 500;

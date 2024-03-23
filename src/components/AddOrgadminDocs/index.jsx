@@ -9,7 +9,7 @@ import { LoadingOutlined, UploadOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import { useMessageState } from '../../../src/hooks/useapp-message';
 import Layout from '../../Layout';
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import PageLoader from '../loader/loader';
 import { trimFileNameBeforeExtension } from '../../utils/fileNameExtraction';
 function AddOrgDocuments() {
@@ -188,7 +188,7 @@ function AddOrgDocuments() {
           }}
         >
           <Button onClick={cancelHandler} className={Styles.cancelButton}>
-            Cancel
+           <Typography variant='button'> Cancel</Typography>
           </Button>
           <Button
             type="primary"
@@ -196,7 +196,7 @@ function AddOrgDocuments() {
             className={Styles.addButtonStyle}
             onClick={() => submitHandler()}
           >
-            Add
+           <Typography variant='button'> Add</Typography>
           </Button>
         </Box>
       </Box>

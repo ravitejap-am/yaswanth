@@ -7,37 +7,45 @@ import ideaImage from "../../../asset/about.png";
 import BannerImage3 from "../../../asset/banner-box-2.png";
 import { Link } from "react-router-dom";
 import { Grid } from "antd";
+import { Typography, useMediaQuery } from "@mui/material";
 function Idea() {
   const { useBreakpoint } = Grid;
   const screens = useBreakpoint();
+  const isMobile = useMediaQuery('(max-width:600px)');
+
+  const smallTextStyles = isMobile ? {
+    fontSize: "23px", 
+    lineHeight: "1.5",
+    // fontWeight: "bold"
+  } : {};
   return (
     <div className="idea_page_main">
       <div className="text-content">
-        <div className="bannerHeading">
+        <Typography variant="h4" gutterBottom className="bannerHeading" sx={smallTextStyles}>
           We provide a Secure, Personalized and Scalable Gen AI Chatbot for your
           organisation
-        </div>
+        </Typography>
         <div className="bannerPara">
-          <span>
+          <Typography variant="caption" gutterBottom>
             Use the knowledge of your organisational documents at your
             fingertips.
             <br /> Upload your organisational documents to a completely secure
             Gen AI solution and start interacting with your documents.
-          </span>
+          </Typography>
         </div>
         <div className="bannerParaUnorderList">
           <div className="bannerPareInnerTextStyle">
             <img src={tickSign} alt="" style={{ marginRight: "10px" }} />
-            <span className="">
+            <Typography variant="caption" gutterBottom className="">
               {" "}
               Your organisational documents are completely secure
-            </span>
+            </Typography >
           </div>
           <div className="bannerPareInnerTextStyle">
             <img src={tickSign} alt="" style={{ marginRight: "10px" }} />
-            <span>
+            <Typography variant="caption">
               Your documents are loaded in a private instance of Gen AI modal
-            </span>
+            </Typography >
           </div>
         </div>
         <div className="bannerButton">

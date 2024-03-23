@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import SignHeader from "../home/SignHeader/SignHeader";
 import { useNavigate } from "react-router-dom";
 import { Form, Input, Select, Grid, Button } from "antd";
+import { Box, Typography } from "@mui/material";
 
 const RecoveryPasswor = () => {
   let {
@@ -169,10 +170,10 @@ const RecoveryPasswor = () => {
         />
       </div>
       <div className="recover-main-css">
-      <div className="text-top-signup">
-                    <h2>Forgot Password</h2>
-                    <p>Please use your organization email id.</p>
-                  </div>
+        <Box className="text-top-signup" mb={3} >
+        <Typography variant="h2" gutterBottom >Forgot Password</Typography>
+       <Typography variant="body1" mt={4}gutterBottom color={'#1e293b'}> Please use your organization email id.</Typography>
+        </Box>
          <div className="signin-form-css" >
          <Form
             name="basic"
@@ -208,12 +209,14 @@ const RecoveryPasswor = () => {
                 htmlType="submit"
                 className="signin_submit_btn_css"
               >
-                Submit
+            <Typography variant="button" display="block" >
+             Submit
+            </Typography> 
               </Button>
             </Form.Item>
           </Form>
          </div>
-         <br />
+         {/* <br /> */}
          <br />
 
         <NotifyMessage />

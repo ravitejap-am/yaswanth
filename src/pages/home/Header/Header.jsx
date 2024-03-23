@@ -7,6 +7,7 @@ import GeneralButton from '../../../components/common/buttons/GeneralButton';
 import { Layout, Menu, Grid, Drawer } from 'antd';
 import { AppstoreOutlined } from '@ant-design/icons';
 import './header.css';
+import { Typography } from '@mui/material';
 
 const Header = () => {
   const [scroll, setScroll] = useState(false);
@@ -97,6 +98,7 @@ useEffect(() => {
               display: 'flex',
               flex: 1,
               justifyContent: 'center',
+              fontFamily: "Montserrat, Arial, sans-serif" 
             }}
           >
             {items?.map((item) => (
@@ -112,7 +114,7 @@ useEffect(() => {
               style={{ color: 'white', fontSize: '30px' }}
             />
             <Drawer
-              title={<p style={{ color: 'white' }}>Menu</p>}
+              title={<Typography variant='body2' style={{ color: 'white', fontWeight: "500" }}>Menu</Typography>}
               placement="left"
               closable={true}
               onClose={onClose}
@@ -127,6 +129,7 @@ useEffect(() => {
                 theme="dark"
                 mode="inline"
                 defaultSelectedKeys={['Home_page']}
+                style={{fontFamily: "Montserrat, Arial, sans-serif"}}
               >
                 {items.map((item) => (
                   <Menu.Item

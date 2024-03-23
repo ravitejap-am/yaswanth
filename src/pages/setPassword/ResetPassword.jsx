@@ -14,6 +14,7 @@ import { Form, Input, Select, Grid, Button } from "antd";
 import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
 
 import "../setPassword/ResetPassword.css"
+import { Box, Typography } from '@mui/material';
 const ResetPassword = () => {
   let {
     buttonLoading,
@@ -222,10 +223,10 @@ const ResetPassword = () => {
         />
       </div>
       <div className="resetpassword-main-css" >
-      <div className="text-top-signup">
-                    <h2>Set Password</h2>
-                    <p>Please use a new password.</p>
-                  </div>
+          <Box className="text-top-signup" mb={3} >
+        <Typography variant="h2" gutterBottom >Set Password</Typography>
+       <Typography variant="body1" mt={4}gutterBottom color={'#1e293b'}> Please use a new password.</Typography>
+        </Box>
         <div className='resetpasswordform' >
          <Form
             name="basic"
@@ -290,7 +291,9 @@ const ResetPassword = () => {
                 htmlType="submit"
                 className="signin_submit_btn_css"
               >
-                Submit
+            <Typography variant="button" display="block" >
+             Submit
+            </Typography> 
               </Button>
             </Form.Item>
 

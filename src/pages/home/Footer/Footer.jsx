@@ -8,6 +8,7 @@ import img5 from '../../../asset/footer/Frame23.png';
 import img6 from '../../../asset/footer/phone.png';
 import Vector from '../../../asset/Vector.png';
 import { Link } from 'react-router-dom';
+import { Typography } from '@mui/material';
 
 const Footer = () => {
   return (
@@ -16,12 +17,12 @@ const Footer = () => {
         <div className={Style.footerFIrstCOntent}>
           <div className={Style.footerAddress}>
             <Link to="/" style={{ textDecoration: 'none' }}>
-              <p className={Style.footer_p_tag}>
+              <Typography variant='h6' className={Style.footer_p_tag}>
                 AM-ChatBOT <img src={Vector} alt="" />
-              </p>
+              </Typography>
             </Link>
 
-            <p className={Style.footer_p_tag_2}>
+            <Typography variant='subtitle2' className={Style.footer_p_tag_2}>
               <Link
                 to="/PrivacyPolicy"
                 style={{ color: '#FFF', textDecoration: 'underline' }}
@@ -35,7 +36,7 @@ const Footer = () => {
               >
                 Terms & Conditions
               </Link>
-            </p>
+            </Typography>
           </div>
           <div className={Style.footer_social_links}>
             {/* <img src={img1} alt="" /> */}
@@ -56,17 +57,17 @@ const Footer = () => {
           >
             <div className={Style.address_card}>
               <img src={img4} alt="" />
-              <span className={Style.footer_p_tag}>
+              <Typography variant='caption' className={Style.footer_p_tag}>
                 4th Cross, Ramanjaneya Layout,
                 <br />
                 Marathahalli, Bangalore, India.
-              </span>
+              </Typography>
             </div>
           </a>
 
           <div className={Style.address_card}>
             <img src={img5} alt="" />
-            <span className={Style.footer_p_tag} style={{ marginTop: 0 }}>
+            <Typography variant='caption' className={Style.footer_p_tag} style={{ marginTop: 0 }}>
               <a
                 href="mailto:sales@areteminds.com"
                 target="_blank"
@@ -74,7 +75,7 @@ const Footer = () => {
               >
                 sales@areteminds.com
               </a>
-            </span>
+            </Typography >
           </div>
 
           <a
@@ -84,17 +85,17 @@ const Footer = () => {
           >
             <div className={Style.address_card}>
               <img src={img6} alt="" />
-              <span className={Style.footer_p_tag} style={{ marginTop: 0 }}>
+              <Typography variant='caption' className={Style.footer_p_tag} style={{ marginTop: 0 }}>
                 +91 9663205304
-              </span>
+              </Typography >
             </div>
           </a>
         </div>
       </div>
       <div className={Style.centeredText}>
-        <p style={{ color: '#FFF', fontSize: '14px' }}>
+        <Typography variant='caption' style={{ color: '#FFF', fontSize: '14px' }}>
           @2024. All rights reserved by Areteminds
-        </p>
+        </Typography>
       </div>
     </div>
   );
