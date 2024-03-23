@@ -7,6 +7,7 @@ import * as constants from '../../../constants/Constant';
 import { useMessageState } from '../../../hooks/useapp-message';
 import './ContactUp.css';
 import { Link, useNavigate } from 'react-router-dom';
+import { Typography, useMediaQuery } from '@mui/material';
 const { TextArea } = Input;
 
 const ContactUp = () => {
@@ -21,6 +22,13 @@ const ContactUp = () => {
   } = useMessageState();
   const navigate = useNavigate();
   const { useBreakpoint } = Grid;
+  const isMobile = useMediaQuery('(max-width:600px)');
+
+  const smallTextStyles = isMobile ? {
+    fontSize: "27px", 
+    lineHeight: "1.5",
+    // fontWeight: "bold"
+  } : {};
   const screens = useBreakpoint();
   const [form] = Form.useForm();
 
@@ -104,11 +112,11 @@ const ContactUp = () => {
       )}
       <div className="Contact-us-page-ant-form">
         <div>
-          <p className="Contact-us-form-title">Contact Us</p>
-          <p className="Contact-us-form-sub-title">
+          <Typography variant='h4' className="Contact-us-form-title" sx={smallTextStyles}>Contact Us</Typography>
+          <Typography variant='body2' mt={2} mb={2} className="Contact-us-form-sub-title">
             To get in touch with AM-Chat team, simply fill out the contact form
             below
-          </p>
+          </Typography>
         </div>
         <div className="Contact-Us-General-Form-Style">
           <Form
@@ -189,7 +197,7 @@ const ContactUp = () => {
                 htmlType="submit"
                 className="contact_submit_btn_css"
               >
-                Submit
+               <Typography variant='button'> Submit </Typography> 
               </Button>
             </Form.Item>
           </Form>

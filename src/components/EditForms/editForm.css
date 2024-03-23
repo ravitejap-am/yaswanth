@@ -30,6 +30,7 @@ label {
   background-color: transparent;
   margin-bottom: 2em;
   padding: 0.375rem 0.75rem;
+  font-family: Montserrat, Arial, sans-serif;
 }
 .buttonStyle {
   display: flex;

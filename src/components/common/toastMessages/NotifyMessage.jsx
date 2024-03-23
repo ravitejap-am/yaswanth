@@ -56,6 +56,9 @@ const NotifyMessage = ({
 
 
   const customToastStyles = `
+  .Toastify__toast {
+    font-family: Montserrat, Arial, sans-serif;
+  }
     .Toastify__toast--error {
       background:  var(--Red-rose-50, #FFF1F2);
       color: rgba(225, 29, 72, 1);

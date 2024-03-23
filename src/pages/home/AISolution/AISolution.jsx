@@ -4,8 +4,19 @@ import img1 from "../../../asset/img1.png";
 import img2 from "../../../asset/img2.png";
 import img3 from "../../../asset/img3.png";
 import img4 from "../../../asset/img4.png";
+import { Typography, useMediaQuery } from "@mui/material";
+
 
 function AISolution() {
+
+  const isMobile = useMediaQuery('(max-width:600px)');
+
+  const smallTextStyles = isMobile ? {
+    fontSize: "23px", 
+    lineHeight: "1.5",
+    // fontWeight: "bold"
+  } : {};
+
   const columns = [
     {
       img: img4,
@@ -21,7 +32,7 @@ function AISolution() {
     {
       img: img2,
       title: "Multilingual Support",
-      subTitle: "Use the Gen AI based chat in your language. ",
+      subTitle: "Use the Gen AI based chat in your language, say goodbye to language barriers. ",
     },
     {
       img: img1,
@@ -34,11 +45,11 @@ function AISolution() {
   return (
     <div className="AI_Solution_Main_div">
       <div className="AI_Solution_title_style">
-        <span>Explore a Gen AI Chatbot Solution for your Business</span>
+        <Typography variant="h4" sx={smallTextStyles}>Explore a Gen AI Chatbot Solution for your Business</Typography >
       </div>
       <br />
       <div className="AI_Solution_title_style2">
-        <span>It's completely secured, personalized and scalable.</span>
+        <Typography variant="body2" >It's completely secured, personalized and scalable.</Typography >
       </div>
       <div className="AI_Solution_Content_Main_Style">
         <div className="AI_Solution_Content_Style">
@@ -47,12 +58,12 @@ function AISolution() {
               <div className="AI_Solution_Content_Image_Style">
                 <img src={column.img} alt={`Image ${index + 1}`} />
               </div>
-              <span className="AI_Solution_Content_Title_Style">
+              <Typography variant="h6" gutterBottom  className="AI_Solution_Content_Title_Style">
                 {column.title}
-              </span>
-              <span className="AI_Solution_Content_SubTitle_Style">
+              </Typography >
+              <Typography variant="subtitle1" className="AI_Solution_Content_SubTitle_Style">
                 {column.subTitle}
-              </span>
+              </Typography >
             </div>
           ))}
         </div>
