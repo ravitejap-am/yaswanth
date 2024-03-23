@@ -112,7 +112,7 @@ function Chats() {
     <Layout componentName="Chat" >
       <div  >
       <div className={styles.chatContainer}>
-      <div className={styles.textContext}>Context</div>
+      <div className={styles.textContext}> <Typography variant='subtitle2' fontWeight="bold"> Context </Typography></div>
       <div style={{ padding: "10px"}}>
         <Grid container spacing={2} alignItems="left" justifyContent="left">
           <Grid item xs={12} sm={2} md={2}>
@@ -182,10 +182,10 @@ function Chats() {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleOkWarning} type="primary">
-            Ok
+          <Typography variant='button'>  Ok </Typography>
           </Button>
           <Button onClick={handleCancelWarning}>
-            Cancel
+           <Typography variant='button'> Cancel </Typography>
           </Button>
         </DialogActions>
       </Dialog>
@@ -197,9 +197,9 @@ function Chats() {
             <div className={styles.chatCard}>
               {!messageSent && (
                 <CardContent className={styles.chatCardContent}>
-                  <Typography variant='h4' mb={3}> {AM_CHAT} <img src={amchatImg} alt="" className={styles.chatimg} /></Typography>
-                  <Typography variant='h6' className={styles.chatParagraph}>Hello, I’m AM-Chat</Typography>
-                  <Typography variant='subtitle2' mt={2} className={styles.chatParagraphText}>
+                  <Typography variant='h4' mb={2} className={styles.amchattext}> {AM_CHAT} <img src={amchatImg} alt="" className={styles.chatimg} /></Typography>
+                  <Typography variant='h6' className={styles.chatParagraph} fontWeight="bold">Hello, I’m AM-Chat</Typography>
+                  <Typography variant='subtitle2' fontWeight="bold"  mt={3} className={styles.chatParagraphText}>
                     How can I help you today?
                   </Typography>
                   <br />

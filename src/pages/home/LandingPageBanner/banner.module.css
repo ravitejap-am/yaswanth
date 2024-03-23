@@ -96,9 +96,9 @@
     padding: 50px 10px;
   }
   .bannerHeading{
-    font-size: 28px;
+    font-size: 20px;
     text-align: center;
-    line-height: 40px;
+    /* line-height: 40px; */
   }
   .bannerPara{
     text-align: center;
@@ -117,7 +117,7 @@
     margin-left: 40px;
   }
   .bannerHeading{
-    font-size: 30px;
+    font-size: 20px;
     line-height: 40px;
   }
   .bannerPara{

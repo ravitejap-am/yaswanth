@@ -9,6 +9,7 @@ import AISolution from "./AISolution/AISolution";
 import HowItWorks from "./HowItWorks/HowItWorks";
 import RightPlan from "./RightPlan/RightPlan";
 import ContactUp from "./ContactUs/ContactUp";
+import { Typography } from "@mui/material";
 
 const Home = () => {
   return (
@@ -143,10 +144,10 @@ const Home = () => {
       </div>
       <div className={Style.divider}>
         <div className={Style.dividerMainUlStyle}>
-          <span>Secured</span>
-          <span>Personalized</span>
-          <span>Knowledge Based</span>
-          <span>Scalable</span>
+          <Typography variant="h6">Secured</Typography>
+          <Typography variant="h6">Personalized</Typography>
+          <Typography variant="h6">Knowledge Based</Typography>
+          <Typography variant="h6">Scalable</Typography>
         </div>
       </div>
       <div className={Style.LandingPageCard}>

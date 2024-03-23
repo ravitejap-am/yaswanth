@@ -91,9 +91,9 @@
 }
 .Right_Plan_Top_Content_Title {
   color: var(--White, #fff);
-  font-family: Montserrat;
+  /* font-family: Montserrat; */
   font-size: 2.25rem;
-  font-style: normal;
+  /* font-style: normal; */
   font-weight: 300;
 }
 .Right_Plan_Top_Content_SubTitle {

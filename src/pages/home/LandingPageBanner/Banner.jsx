@@ -9,9 +9,18 @@ import GeneralButton from "../../../components/common/buttons/GeneralButton";
 import { Link } from "react-router-dom";
 import GroupImage from "../../../asset/groupImageOne.png";
 import { Grid } from "antd";
+import { Typography, useMediaQuery } from "@mui/material";
 const Banner = () => {
   const { useBreakpoint } = Grid;
   const screens = useBreakpoint();
+  const isMobile = useMediaQuery('(max-width:600px)');
+
+  const smallTextStyles = isMobile ? {
+    fontSize: "26px", 
+    lineHeight: "1.5",
+    fontWeight: "bold"
+  } : {};
+
   return (
     <div
       className={Style.banner}
@@ -24,7 +33,7 @@ const Banner = () => {
     >
       <div className={Style.bannerContentClass}>
         <div>
-          <p className={Style.bannerHeading}>
+          <Typography variant="h3" gutterBottom mt={3}  className={Style.bannerHeading} sx={smallTextStyles}>
             Unleash the
             <br />
             Power of your
@@ -34,13 +43,13 @@ const Banner = () => {
             Documents with
             <br />
             Gen AI
-          </p>
+          </Typography>
         </div>
         <div className={Style.bannerPara}>
-          <p>
+          <Typography variant="body2" gutterBottom mt={3} >
             Explore, learn and chat with the knowledge base created from <br />
             your enterprise documents.
-          </p>
+          </Typography>
         </div>
         <div className={Style.bannerButton}>
           <Link to="/signIn" style={{ textDecoration: "none" }}>

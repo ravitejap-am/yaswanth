@@ -59,10 +59,10 @@
 .AI_Solution_title_style {
   text-align: center;
   color: var(--White, #fff);
-  font-family: Montserrat;
+  /* font-family: Montserrat; */
   font-size: 36px;
-  font-style: normal;
-  font-weight: 500;
+  /* font-style: normal; */
+  /* font-weight: 500; */
   line-height: 40px;
   color: #ffffff;
 }
