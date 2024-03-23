@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Layout from '../../../../Layout';
-import { AppBar, Toolbar, Button, Box, Tab, Grid } from '@mui/material';
+import { AppBar, Toolbar, Box, Tab, Grid, useMediaQuery} from '@mui/material';
 import './Index.css'
 
-import { Tabs } from 'antd';
+
+import { Tabs, Button } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import GeneralForm from '../../../../components/common/forms/GeneralForm';
 import OrganizationInfo from '../../../AMChatAdmin/AddOrganizationAdmin/AddOrganizationTabNavigation/OrganizationInfo';
@@ -30,6 +31,7 @@ import UserInfoForm from '../../../../components/super-admin/userInfo';
 import {
   validatePersonalInfoForm,
   validateUserInfoForm,
+  validationOrgData
 } from '../../../../components/super-admin/validation';
 import { extractDomain } from '../../../../utils/generalUtils';
 // import TabNavigation from './TabNavigation';
@@ -37,6 +39,7 @@ import { extractDomain } from '../../../../utils/generalUtils';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
+import { Country, State, City } from 'country-state-city';
 
 function Organisation() {
   let {
@@ -88,10 +91,11 @@ function Organisation() {
           address: {
             address1: '',
             address2: '',
-            country: '',
+            country: 'India',
             state: '',
             city: '',
             postCode: '',
+
           },
           name: '',
           contact: {
@@ -110,6 +114,10 @@ function Organisation() {
   );
   const [isEdit, setIsEdit] = useState(false);
   const [countries, setCountries] = useState([]);
+  
+  const getAllStates = State.getAllStates();
+
+
   const [states, setStates] = useState([]);
   const [localState, setLocalState] = useState(
     organisation?.organisationStatus == 'edit'
@@ -123,9 +131,10 @@ function Organisation() {
           stateCode: organisation?.organisationData?.address?.state?.stateCode,
         }
       : {
-          country: '',
+          country: 'India',
           state: '',
           city: '',
+          // countryCode:'IN'
         }
   );
   const [cities, setCities] = useState([]);
@@ -137,24 +146,35 @@ function Organisation() {
 
   const [value, setValue] = useState('1');
   const orgStatus = organisation?.organisationStatus || null;
+  const isMobile = useMediaQuery('(max-width:600px)');
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
-  useEffect(() => {
-    const storedFirstName = localStorage.getItem('firstName');
-    setFirstName(storedFirstName);
-    const storedfullName = localStorage.getItem('fullName');
-    setFullName(storedfullName);
-  }, [organisation]);
+  const initializeStates = () => {
+    const filterStates = getAllStates.filter((state) => {
+      return state.countryCode === "IN";
+    });
+    const stateArray = filterStates.map((state) => ({
+      label: state.name,
+      value: state.name,
+      code: state.isoCode,
+      countryCode: "IN",
+    }));
+
+    setStates(stateArray)
+  }
 
   useEffect(() => {
     const storedFirstName = localStorage.getItem('firstName');
     setFirstName(storedFirstName);
     const storedfullName = localStorage.getItem('fullName');
     setFullName(storedfullName);
+
+    initializeStates()
   }, [organisation]);
+
 
   const messageHandler = () => {
     hideNotifyMessage();
@@ -175,93 +195,103 @@ function Organisation() {
 
   const addOrganisation = async () => {
     let body = orgData;
+    if (!validationOrgData(orgData)) {
+      showNotifyMessage('error', 'Please add the valid data', messageHandler);
+    }
     if (body.hasOwnProperty('plan')) {
       delete body['plan'];
     }
-    setBackDropLoading(true);
-    try {
-      const response = await axios.post(
-        `${constants.BASE_ORG_API_URL}`,
-        JSON.stringify(body),
-        {
-          headers: {
-            Authorization: `Bearer ${jwt}`,
-            'Content-Type': 'application/json',
-          },
+    if(validationOrgData(orgData)){
+      setBackDropLoading(true);
+      try {
+        const response = await axios.post(
+          `${constants.BASE_ORG_API_URL}`,
+          JSON.stringify(body),
+          {
+            headers: {
+              Authorization: `Bearer ${jwt}`,
+              'Content-Type': 'application/json',
+            },
+          }
+        );
+        setBackDropLoading(false);
+        // setIsReset(true);
+        showNotifyMessage('success', response?.data?.message, messageHandler);
+        console.log('API Response:', response.data);
+        navigate('/organisations');
+      } catch (error) {
+        console.error('Error occurred:', error);
+        if (error?.response?.status == 500 || error?.response?.status == '500') {
+          const errorMsgprops = {
+            message: {
+              title: 'Something went wrong',
+              content: 'Please contact our customer support team',
+            },
+            handleVerification: handleVerification,
+            onOkButtonText: 'Retry',
+          };
+          dispatch(setErrorMsg({ ...errorMsgprops }));
         }
-      );
-      setBackDropLoading(false);
-      // setIsReset(true);
-      showNotifyMessage('success', response?.data?.message, messageHandler);
-      console.log('API Response:', response.data);
-      navigate('/organisations');
-    } catch (error) {
-      console.error('Error occurred:', error);
-      if (error?.response?.status == 500 || error?.response?.status == '500') {
-        const errorMsgprops = {
-          message: {
-            title: 'Something went wrong',
-            content: 'Please contact our customer support team',
-          },
-          handleVerification: handleVerification,
-          onOkButtonText: 'Retry',
-        };
-        dispatch(setErrorMsg({ ...errorMsgprops }));
+        setBackDropLoading(false);
+        console.log(error);
+        showNotifyMessage(
+          'error',
+          error?.response?.data?.message,
+          messageHandler
+        );
       }
-      setBackDropLoading(false);
-      console.log(error);
-      showNotifyMessage(
-        'error',
-        error?.response?.data?.message,
-        messageHandler
-      );
     }
   };
   const editOrganisation = async (editedData) => {
     let body = editedData;
+    if (!validationOrgData(orgData)) {
+      showNotifyMessage('error', 'Please add the valid data', messageHandler);
+    }
     if (body.hasOwnProperty('plan')) {
       delete body['plan'];
     }
-    setButtonLoading(true);
-    try {
-      const response = await axios.put(
-        `${constants.BASE_ORG_API_URL}`,
-        JSON.stringify(body),
-        {
-          headers: {
-            Authorization: `Bearer ${jwt}`,
-            'Content-Type': 'application/json',
-          },
+    if (validationOrgData(orgData)) {
+      setButtonLoading(true);
+      try {
+        const response = await axios.put(
+          `${constants.BASE_ORG_API_URL}`,
+          JSON.stringify(body),
+          {
+            headers: {
+              Authorization: `Bearer ${jwt}`,
+              'Content-Type': 'application/json',
+            },
+          }
+        );
+        setButtonLoading(false);
+        // setIsReset(true);
+        showNotifyMessage('success', response?.data?.message, messageHandler);
+        console.log('API Response:', response.data);
+        dispatch(setOrganisationData(response.data?.data));
+        // navigate('/dashboardadmin/organizationlist');
+      } catch (error) {
+        console.error('Error occurred:', error);
+        if (error?.response?.status == 500 || error?.response?.status == '500') {
+          // navigate('/customerSupport');
+          const errorMsgprops = {
+            message: {
+              title: 'Something went wrong',
+              content: 'Please contact our customer support team',
+            },
+            // handleCancelVerification: handleCancelVerification,
+            handleVerification: handleVerification,
+            onOkButtonText: 'Retry',
+          };
+          dispatch(setErrorMsg({ ...errorMsgprops }));
         }
-      );
-      setButtonLoading(false);
-      // setIsReset(true);
-      showNotifyMessage('success', response?.data?.message, messageHandler);
-      console.log('API Response:', response.data);
-      dispatch(setOrganisationData(response.data?.data));
-      // navigate('/dashboardadmin/organizationlist');
-    } catch (error) {
-      console.error('Error occurred:', error);
-      if (error?.response?.status == 500 || error?.response?.status == '500') {
-        // navigate('/customerSupport');
-        const errorMsgprops = {
-          message: {
-            title: 'Something went wrong',
-            content: 'Please contact our customer support team',
-          },
-          // handleCancelVerification: handleCancelVerification,
-          handleVerification: handleVerification,
-          onOkButtonText: 'Retry',
-        };
-        dispatch(setErrorMsg({ ...errorMsgprops }));
+        setButtonLoading(false);
+        console.log(error);
+        showNotifyMessage(
+          'error',
+          error?.response?.data?.message,
+          messageHandler
+        );
       }
-      setButtonLoading(false);
-      console.log(error);
-      showNotifyMessage(
-        'error',
-        error?.response?.data?.message,
-        messageHandler
-      );
     }
   };
 
@@ -285,6 +315,14 @@ function Organisation() {
     // Add logic for handling form cancellation
     console.log('Cancelling form');
   };
+
+
+    const extractDomain = (email) => {
+      const parts = email.split('@');
+      return parts[1];
+    };
+
+
   const personalInformationHandler = (tab) => {
     console.log('orgData', orgData, 'tabData', selectedTab, 'tab', tab);
 
@@ -306,31 +344,36 @@ function Organisation() {
       }
     }
     if (selectedTab == 'organizationadmin') {
+      const domain = extractDomain(orgData?.contact?.email);
+      const isEmailPresent = (orgData?.metaData).some((obj) => obj.typeDetails === domain)
       const usererrors = validateUserInfoForm(orgData);
-      if (Object.keys(usererrors).length === 0) {
+      if(Object.keys(usererrors).length === 0 && isEmailPresent === true){
         setUserInfoErrors({});
-        // handleTabChange(tab);
         setSelectedTab(tab);
+      }
+      else if (Object.keys(usererrors).length === 0 && isEmailPresent === false) {
+        showNotifyMessage(
+           'error',
+           `Email Id domain should match with the existing domain ID's `,
+           messageHandler
+        );
+        return
       } else {
         setUserInfoErrors(usererrors);
-        // showNotifyMessage(
-        //   'error',
-        //   'Please add the required fields with valid data',
-        //   messageHandler
-        // );
         return;
       }
       return;
     }
     if (selectedTab == 'organizationdomains') {
-      if (!domainNameValidation(orgData?.metaData)) {
-        showNotifyMessage(
-          'warn',
-          'At least one domain name should match the organisation domain',
-          messageHandler
-        );
-        return;
-      }
+      // if (!domainNameValidation(orgData?.metaData)) {
+      //   showNotifyMessage(
+      //     'warn',
+      //     'At least one domain name should match the organisation domain',
+      //     messageHandler
+      //   );
+      //   return;
+      // }
+
       if (hasRepeatingValues(orgData?.metaData, 'typeDetails')) {
         showNotifyMessage(
           'warn',
@@ -339,13 +382,12 @@ function Organisation() {
         );
         return;
       }
-      if (domainNameValidation(orgData?.metaData)) {
-        // handleTabChange(tab);
+      
+      if(orgData?.metaData?.length >= 1){
         setSelectedTab(tab);
       }
     }
     if (selectedTab == 'subscriptionplan') {
-      // handleTabChange(tab);
       setSelectedTab(tab);
     }
 
@@ -374,6 +416,7 @@ function Organisation() {
 
   return (
     <Layout componentName={pageTitle}>
+       {backDropLoading &&  <PageLoader loadingStatus={backDropLoading} />}
         <Box >
           <TabContext value={selectedTab}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider',  boxShadow: '0px 2.789px 6.972px 3.486px rgba(0, 0, 0, 0.09)',borderRadius: 3,marginBottom: '1rem'}}>
@@ -392,25 +435,15 @@ function Organisation() {
                 }}
               >
                 <Tab label={"Organisation Info"}  value="personalinformation">Organisation Info</Tab>
-                <Tab label="Organisation Admin" value="organizationadmin" 
-                >Organisation Admin</Tab>
                 <Tab label="Organisation Domains"     
                 value="organizationdomains">Organisation Domains</Tab>
+                <Tab label="Organisation Admin" value="organizationadmin" 
+                >Organisation Admin</Tab>
                 <Tab label="Subscription Plan"  value="subscriptionplan">Subscription Plan</Tab>
               </TabList>
             </Box>
-            <Box  sx={{borderWidth: '1px',  boxShadow: '0px 2.789px 6.972px 3.486px rgba(0, 0, 0, 0.09)',borderRadius: 3, height:'60vh', overflowY:'scroll',
-                  '&::-webkit-scrollbar': {
-                    width: '2px',
-                    height: '2px' 
-                  },
-                  '&::-webkit-scrollbar-track': {
-                    background: 'transparent', 
-                  },
-                  '&::-webkit-scrollbar-thumb': {
-                    background: '#888', 
-                    borderRadius: '6px', 
-                  },
+            <Box  sx={{borderWidth: '1px',  boxShadow: '0px 2.789px 6.972px 3.486px rgba(0, 0, 0, 0.09)',borderRadius: 3,
+
           }}>
             <TabPanel value="personalinformation">
               <OrganizationInfoForm
@@ -493,9 +526,10 @@ function Organisation() {
         container
         spacing={2}
         direction="row"
-        justifyContent="center"
-        alignItems="center"
+        justifyContent={isMobile ? 'center' : 'flex-end'}
+        alignItems={isMobile ? 'center' : 'flex-end'}
         marginTop={'0.3rem'}
+
       >
         <Grid item>
           <Link to="/organisations" style={{ textDecoration: 'none' }}>

@@ -4,7 +4,7 @@ import { Country, State, City } from 'country-state-city';
 import { Button, Select } from 'antd';
 import './orginfo.css';
 import { ArrowRightOutlined } from '@mui/icons-material';
-import {Box, Grid, FormHelperText  } from "@mui/material"
+import {Box, Grid, FormHelperText, useMediaQuery  } from "@mui/material"
 
 const getAllCountries = Country.getAllCountries();
 const getAllStates = State.getAllStates();
@@ -26,6 +26,8 @@ function OrganizationForm({
   setErrors,
   personalInformationHandler,
 }) {
+
+  const isMobile = useMediaQuery('(max-width:600px)');
   useEffect(() => {
     const fetchCountries = async () => {
       const countryArray = getAllCountries?.map((country) => ({
@@ -166,7 +168,27 @@ function OrganizationForm({
 
 
 <Box>
-      <Grid container spacing={2}> 
+      <Grid 
+      container 
+      sx={{
+        height:'60vh',
+         overflowY:'scroll',
+        '&::-webkit-scrollbar': {
+          width: '2px',
+          height: '2px' 
+        },
+        '&::-webkit-scrollbar-track': {
+          background: 'transparent', 
+        },
+        '&::-webkit-scrollbar-thumb': {
+          background: '#888', 
+          borderRadius: '6px', 
+        },
+       }}
+      > 
+        <Grid item         
+        container 
+        >
           <Grid item xs={12} md={6} lg={6}>
             <label className={styles.labels}>Organisation Name:</label>
             <input
@@ -201,7 +223,6 @@ function OrganizationForm({
             onChange={handleChange}
             className={styles.inputstyle}
           />
-          {/* {errors.address2 && <FormHelperText error sx={{ fontSize: '14px' }}>{errors.address2}</FormHelperText>} */}
         </Grid>
             <Grid item xs={12} md={6} lg={6}>
               <label className={styles.labels}>Country:</label>
@@ -263,20 +284,25 @@ function OrganizationForm({
             />
             {errors.postCode && <FormHelperText error sx={{ fontSize: '14px' }}>{errors.postCode}</FormHelperText>}
         </Grid>
-      </Grid>
-    </Box>
-
-      <div style={{ display:'flex', flexDirection:'row', justifyContent: 'flex-end', alignItems:'flex-end'}}>
+        </Grid>
+        <Grid item xs={12} 
+          container
+          direction="row"
+          justifyContent={isMobile ? "center" : "flex-end" }
+          alignItems={isMobile ? "center" : "flex-end" }
+        >
         <Button
           type="primary"
           style={{ marginTop: '1em', width: '8em' }}
           onClick={() => {
-            personalInformationHandler('organizationadmin');
+            personalInformationHandler('organizationdomains');
           }}
         >
           Next
         </Button>
-      </div>
+        </Grid>
+      </Grid>
+    </Box>
     </>
   );
 }
