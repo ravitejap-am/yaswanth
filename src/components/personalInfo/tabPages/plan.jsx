@@ -1,30 +1,31 @@
 import React from 'react';
 import { Card } from 'antd'; 
 import righticon from '../../../asset/primiumrighticon.png';
+import { Box, Typography } from '@mui/material';
 
 function PersonalPlans() {
   return (
     <Card style={{ width: '%' }}>
       <div className="">
-        <h2>Premium</h2>
-        <p>
+        <Typography variant='h5' mb={2} style={{fontWeight: "bold"}}>Premium</Typography>
+        <Typography variant='subtitle2' gutterBottom>
           <img className="right-icon" src={righticon} alt="" /> Max 2 users.
-        </p>
-        <p>
+        </Typography >
+        <Typography variant='subtitle2' gutterBottom whiteSpace='nowrap'> 
           <img className="right-icon" src={righticon} alt="" />
           Max 5 Documents.
-        </p>
-        <p>
+        </Typography >
+        <Typography variant='subtitle2' gutterBottom whiteSpace='nowrap'>
           <img className="right-icon" src={righticon} alt="" />
           Upload size 2 MB.
-        </p>
-        <p>
+        </Typography>
+        <Typography variant='subtitle2' gutterBottom>
           <img className="right-icon" src={righticon} alt="" />
           Max 10 chats free
-        </p>
-        <div className="note-p-text">
-          <p>Note: Your plan is due on 3rd Feb, 2024</p>
-        </div>
+        </Typography>
+        <Box className="note-p-text" mt={3}>
+          <Typography variant='body1'>Note: Your plan is due on 3rd Feb, 2024</Typography>
+        </Box>
       </div>
     </Card>
   );

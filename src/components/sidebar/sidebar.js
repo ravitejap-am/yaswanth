@@ -10,6 +10,8 @@ import ChatMenuItems from './ChatMenuItems';
 import Tooltip from '@mui/material/Tooltip';
 import AddIcon from '@mui/icons-material/Add';
 import './sidebarIndex.css';
+import { Layout, Menu, Grid, Drawer } from 'antd';
+import WorkHistoryIcon from '@mui/icons-material/WorkHistory';
 
 const ORG_ADMIN = [
   {
@@ -73,7 +75,10 @@ export const sideBar = (
   chatHistory,
   setChatHistory,
   setIsChatOpen,
-  isChatOpen
+  isChatOpen,
+  screens,
+  visible,
+  setVisible
 ) => {
   const handleAddChat = () => {
     setChatHistory([
@@ -85,6 +90,9 @@ export const sideBar = (
       },
     ]);
     setIsChatOpen(!isChatOpen);
+  };
+  const onClose = () => {
+    setVisible(false);
   };
   return (
     <>
@@ -152,45 +160,100 @@ export const sideBar = (
 
       {(role == 'ORG_ADMIN' || role == 'USER') &&
         (pathname == '/chat' || pathname == '/user') && (
-          <Hidden lgDown>
-            <Typography variant="h6">Chats</Typography>
+          <Hidden lgUp>
             <Box
               sx={{
-                height: '45%',
-                overflowY: 'auto',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 2,
+                color: 'white',
+                textDecoration: 'none',
+                padding: '8px',
               }}
-              className="chat_history"
+              onClick={() => {
+                setVisible(true);
+              }}
             >
-              {chatHistory.map((item) => (
-                <div
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    padding: '4px',
-                  }}
-                  className="hoverDiv"
-                >
-                  {/* <Tooltip title={item?.title}> */}
-                  <p
-                    style={{
-                      margin: 0,
-                      overflow: 'hidden',
-                      textOverflow: 'ellipsis',
-                      whiteSpace: 'nowrap',
-                      width: '8em',
-                      cursor: 'pointer',
-                    }}
-                  >
-                    {item?.title}
-                  </p>
-                  {/* </Tooltip> */}
-
-                  {/* <ChatMenuItems /> */}
-                </div>
-              ))}
+              <WorkHistoryIcon color="white" />
             </Box>
           </Hidden>
+        )}
+
+      {(role == 'ORG_ADMIN' || role == 'USER') &&
+        (pathname == '/chat' || pathname == '/user') && (
+          <>
+            <Hidden lgDown>
+              <Typography variant="h6">Chats</Typography>
+              <Box
+                sx={{
+                  height: '45%',
+                  overflowY: 'auto',
+                }}
+                className="chat_history"
+              >
+                {chatHistory.map((item) => (
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      padding: '4px',
+                    }}
+                    className="hoverDiv"
+                  >
+                    {/* <Tooltip title={item?.title}> */}
+                    <p
+                      style={{
+                        margin: 0,
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        whiteSpace: 'nowrap',
+                        width: '8em',
+                        cursor: 'pointer',
+                      }}
+                    >
+                      {item?.title}
+                    </p>
+                    {/* </Tooltip> */}
+
+                    {/* <ChatMenuItems /> */}
+                  </div>
+                ))}
+              </Box>
+            </Hidden>
+            <Hidden lgUp>
+              <Drawer
+                title={<p style={{ color: 'white' }}>Menu</p>}
+                placement="left"
+                closable={true}
+                onClose={onClose}
+                open={visible}
+                mask
+                style={{
+                  background:
+                    'linear-gradient(114deg,#0f172a 51.52%,#152346 73.32%,#1a2e5e 92.75%)',
+                }}
+              >
+                <Menu
+                  theme="dark"
+                  mode="inline"
+                  defaultSelectedKeys={['Home_page']}
+                >
+                  {chatHistory.map((item, index) => (
+                    <Menu.Item
+                      key={index}
+                      onClick={() => {
+                        // item.onClick();
+                        // onClose();
+                      }}
+                    >
+                      {item.title}
+                    </Menu.Item>
+                  ))}
+                </Menu>
+              </Drawer>
+            </Hidden>
+          </>
         )}
     </>
   );

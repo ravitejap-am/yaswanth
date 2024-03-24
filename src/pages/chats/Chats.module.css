@@ -225,16 +225,25 @@
     font-size: 14px;
   }
   .chatHeading{
-    font-size: 25px;
+    font-size: 24px;
   }
   .chatParagraph{
-    font-size: 18px;
+    font-size: 17px;
   }
   .chatParagraphText{
-    font-size: 15px;
+    font-size: 13px;
   }
   .chatCardContent{
     height: 80vh;
+  }
+  .amchattext{
+    font-size: 25px;
+  }
+  .chatimg{
+    height: 20px;
+  }
+  .chatParagraph{
+    font-size: 17px;
   }
 }
 

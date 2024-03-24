@@ -158,7 +158,13 @@
 
 .ant-form-item .ant-form-item-label >label {
   color: #fff ;
+  font-family: Montserrat, Arial, sans-serif;
 }
+
+.ant-input::placeholder {
+  font-family: Montserrat, Arial, sans-serif;
+}
+
 
 .ant-select-selector {
   background: transparent !important;
@@ -166,6 +172,7 @@
 
 .ant-select-selection-placeholder {
   color: #fff !important;
+  font-family: Montserrat, Arial, sans-serif;
 }
 
 .ant-select-arrow {
