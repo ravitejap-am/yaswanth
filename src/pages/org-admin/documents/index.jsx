@@ -370,7 +370,7 @@ function Documents() {
               handleNo();
             }}
           >
-            <p>{`Are you sure you want to delete organisation "${deleteProps.name}" ?`}</p>
+            <p>{`Are you sure you want to delete "${deleteProps.name}" ?`}</p>
           </Modal>
         )}
         <Grid item xs={12} md={12} lg={12}>
