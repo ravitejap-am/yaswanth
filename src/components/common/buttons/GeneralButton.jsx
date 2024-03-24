@@ -1,4 +1,5 @@
 import { Button } from "antd";
+import { Typography } from "@mui/material";
 
 const GeneralButton = (props) => {
   const {
@@ -49,7 +50,7 @@ const GeneralButton = (props) => {
         marginTop: marginTop,
       }}
     >
-      {name}
+      <Typography variant="body1">{name}</Typography>
       {icons && <img src={icons} style={{ marginLeft: "8px" }} alt="" />}
     </Button>
   );

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Layout from '../../../../Layout';
-import { AppBar, Toolbar, Box, Tab, Grid, useMediaQuery} from '@mui/material';
+import { AppBar, Toolbar, Box, Tab, Grid, useMediaQuery, Typography} from '@mui/material';
 import './Index.css'
 
 
@@ -434,12 +434,12 @@ function Organisation() {
                   },
                 }}
               >
-                <Tab label={"Organisation Info"}  value="personalinformation">Organisation Info</Tab>
-                <Tab label="Organisation Domains"     
-                value="organizationdomains">Organisation Domains</Tab>
-                <Tab label="Organisation Admin" value="organizationadmin" 
-                >Organisation Admin</Tab>
-                <Tab label="Subscription Plan"  value="subscriptionplan">Subscription Plan</Tab>
+                <Tab label={<Typography fontWeight="bold">Organisation Info</Typography>}  value="personalinformation"/>
+                <Tab label={<Typography fontWeight="bold">Organisation Domains</Typography>}     
+                value="organizationdomains" />
+                <Tab label={<Typography fontWeight="bold">Organisation Admin</Typography>} value="organizationadmin" 
+                />
+                <Tab label={<Typography fontWeight="bold">Subscription Plan</Typography>}  value="subscriptionplan" />
               </TabList>
             </Box>
             <Box  sx={{borderWidth: '1px',  boxShadow: '0px 2.789px 6.972px 3.486px rgba(0, 0, 0, 0.09)',borderRadius: 3,
@@ -577,7 +577,7 @@ function Organisation() {
             }}
             loading={buttonLoading}
           >
-            {'Submit'}
+            <Typography variant="body1">{'Submit'}</Typography>
           </Button>
         </Grid>
  

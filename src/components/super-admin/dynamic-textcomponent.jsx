@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { ReactComponent as DeleteIcon } from '../../asset/AmChatSuperAdmin/trash-solid.svg';
-import { Button, Tooltip } from 'antd';
-import axios from 'axios';
-import { BASE_ORG_API_URL, AM_CHAT } from '../../constants/Constant';
-import { useSelector } from 'react-redux';
-import { selectUser } from '../../store/authSlice';
-import CircularProgress from '@mui/material/CircularProgress';
-import { extractDomain } from '../../utils/generalUtils';
-import { PlusCircleFilled } from '@ant-design/icons';
-import { Grid, FormHelperText, Box , useMediaQuery} from '@mui/material';
-import  './dynamicTextcomponent.css'
-import { Popconfirm } from 'antd';
+import React, { useState, useEffect } from "react";
+import { ReactComponent as DeleteIcon } from "../../asset/AmChatSuperAdmin/trash-solid.svg";
+import { Button, Tooltip } from "antd";
+import axios from "axios";
+import { BASE_ORG_API_URL, AM_CHAT } from "../../constants/Constant";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../store/authSlice";
+import CircularProgress from "@mui/material/CircularProgress";
+import { extractDomain } from "../../utils/generalUtils";
+import { PlusCircleFilled } from "@ant-design/icons";
+import { Grid, FormHelperText, Box, useMediaQuery ,Typography} from "@mui/material";
+import "./dynamicTextcomponent.css";
+import { Popconfirm } from "antd";
+import { DeleteConfirmationPopUp } from "../DeleteConfirmPopUp/DeleteConfirmationPopUp";
+import { Modal } from "antd";
 
 function DynamicTextComponent({
   textFields,
@@ -26,13 +28,14 @@ function DynamicTextComponent({
 }) {
   const user = useSelector(selectUser);
   const jwt = user.userToken;
-  console.log('token', jwt);
+  console.log("token", jwt);
   const [loadingIndex, setLoadingIndex] = useState(null);
   const [usedDomainIndexCollection, setUsedDomainIndexCollection] = useState(
     []
   );
   const [isNewDomain, setIsNewDomain] = useState(false);
-  const isMobile = useMediaQuery('(max-width:600px)');
+  const isMobile = useMediaQuery("(max-width:600px)");
+  const [openDeletePopUp, setOpenDeletePopUp] = useState(false);
 
   const handleAddText = () => {
     if (orgStatus == 'edit') {
@@ -198,7 +201,7 @@ function DynamicTextComponent({
     }
 
     if (
-      orgStatus == 'edit' &&
+      orgStatus == "edit" &&
       (!!textFields[index].typeDetails.trim() ||
         textFields[index].id == undefined)
     ) {
@@ -237,13 +240,13 @@ function DynamicTextComponent({
       );
       setButtonLoading(false);
       handleRemoveIndDomain(index);
-      showNotifyMessage('success', response?.data?.message, messageHandler);
+      showNotifyMessage("success", response?.data?.message, messageHandler);
     } catch (error) {
       setButtonLoading(false);
-      if (error?.response?.status == 500 || error?.response?.status == '500') {
+      if (error?.response?.status == 500 || error?.response?.status == "500") {
         showNotifyMessage(
-          'error',
-          'Somthing went wrong,Tryagain',
+          "error",
+          "Somthing went wrong,Tryagain",
           messageHandler
         );
         return;
@@ -255,6 +258,23 @@ function DynamicTextComponent({
       );
       return;
     }
+  };
+
+  const handleDelete = (index, name) => {
+    if (name === "" || name === undefined || name === null) {
+      handleDeleteDomain(index);
+    } else {
+      setOpenDeletePopUp(true);
+    }
+  };
+
+  const handleYes = (index) => {
+    handleDeleteDomain(index)
+    setOpenDeletePopUp(false);
+  };
+
+  const handleNo = () => {
+    setOpenDeletePopUp(false);
   };
 
   return (
@@ -314,73 +334,70 @@ function DynamicTextComponent({
                 </FormHelperText>
               )}
             </Box>
-            {typeDetails && typeDetails !== null && typeDetails !== "" ? <Popconfirm
-            key={'amchat'}
-            title="Am Chat"
-            description={
-              "Do you really want to delete this domain" +
-              ` '${typeDetails}'` 
+            {
+              <DeleteIcon
+                style={{
+                  height: "20px",
+                  width: "20px",
+                  cursor: "pointer",
+                  fill: "#4338ca",
+                }}
+                onClick={() => handleDelete(index, typeDetails)}
+              />
             }
-            onConfirm={() => {
-              handleDeleteDomain(index)
-            }}
-            onCancel={() => {
-              console.log(' row?.id ');
-            }}
-            okText="Submit"
-            cancelText="Close"
-          >
-          <DeleteIcon
-            style={{
-              height: '20px',
-              width: '20px',
-              cursor: 'pointer',
-              fill: '#4338ca',
-            }}
-          />
-          </Popconfirm>
-          :
-          <DeleteIcon
-            style={{
-              height: '20px',
-              width: '20px',
-              cursor: 'pointer',
-              fill: '#4338ca',
-            }}
-           onClick={() => handleDeleteDomain(index)}
-          />}
-        {!!loadingIndex && loadingIndex == index ? <CircularProgress /> : ''}
-          {usedDomainIndexCollection.includes(index) && (
-            <span style={{ color: 'red' }}>
-              {' '}
-              {`The domain ${typeDetails} already exists, please change it to the new domain`}
-            </span>
-        )}
+            {openDeletePopUp && (
+              <Modal
+                title={"Confirmation"}
+                centered
+                open={openDeletePopUp}
+                onOk={() => {
+                  console.log("delete key-->", index);
+                  handleYes(index);
+                }}
+                okText={"Yes"}
+                cancelText={"No"}
+                onCancel={() => {
+                  handleNo();
+                }}
+              >
+                <p>{`Are you sure you want to delete "${typeDetails}" ?`}</p>
+              </Modal>
+            )}
+            {!!loadingIndex && loadingIndex == index ? (
+              <CircularProgress />
+            ) : (
+              ""
+            )}
+            {usedDomainIndexCollection.includes(index) && (
+              <span style={{ color: "red" }}>
+                {" "}
+                {`The domain ${typeDetails} already exists, please change it to the new domain`}
+              </span>
+            )}
           </Box>
         ))}
         <Box
+        container
           style={{
             display: "flex",
             flexDirection: "row",
             justifyContent: "flex-end",
-            width: "15vw",
-            // backgroundColor:'red'
           }}
+          className= "plus-alignment"
         >
-          {/* <div style={{flex: 1}}></div> */}
           <Tooltip placement="rightTop" title="Add Domain">
             <Button
               onClick={handleAddText}
               style={{
                 display: "flex",
-                width: "50px",
-                height: "50px",
+                width: "44px",
+                height: "44px",
                 padding: "10px 16px",
                 justifyContent: "center",
                 alignItems: "center",
                 gap: "8px",
                 flexShrink: "0",
-                borderRadius: "30px",
+                borderRadius: "28px",
                 backgroundColor: "var(--Brand-500, #6366F1)",
                 color: "#FFFFFF",
                 fontFamily: "Into Lato",
@@ -400,7 +417,15 @@ function DynamicTextComponent({
         </Box>
       </Box>
       {/* <Box sx={{ flex: 1 }}></Box> */}
-      <Box style={{ display: "flex" ,gap: "1em", flexDirection:'row', justifyContent: isMobile ? 'center' : 'flex-end', alignItems: isMobile ? 'center' : 'flex-end'}}>
+      <Box
+        style={{
+          display: "flex",
+          gap: "1em",
+          flexDirection: "row",
+          justifyContent: isMobile ? "center" : "flex-end",
+          alignItems: isMobile ? "center" : "flex-end",
+        }}
+      >
         {/* <Box style={{ flex: 1 }}></Box> */}
         <Button
           style={{ marginTop: "1em", width: "8em" }}
@@ -409,7 +434,7 @@ function DynamicTextComponent({
           }}
           loading={buttonLoading}
         >
-          Previous
+          <Typography variant="body1">Previous</Typography>
         </Button>
         <Button
           type="primary"
@@ -424,7 +449,7 @@ function DynamicTextComponent({
             isNewDomain
           }
         >
-          Next
+         <Typography variant="body1">Next</Typography>
         </Button>
       </Box>
     </Box>
