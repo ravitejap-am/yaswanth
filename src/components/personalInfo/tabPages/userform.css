@@ -113,6 +113,20 @@ label {
 padding-top: 60px;
 }
 
+.info-cotnainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 52vh;
+  /* background-color: cyan; */
+}
+
+.button-container {
+  display: flex;
+  flex-direction: row;
+  /* justify-content: flex-end; */
+}
+
 
 
 

@@ -172,7 +172,7 @@ const RecoveryPasswor = () => {
       <div className="recover-main-css">
         <Box className="text-top-signup" mb={3} >
         <Typography variant="h2" gutterBottom >Forgot Password</Typography>
-       <Typography variant="body1" mt={4}gutterBottom color={'#1e293b'}> Please use your organization email id.</Typography>
+       <Typography variant="body1" mt={4}gutterBottom color={'#1e293b'}> Please use your organisation email id.</Typography>
         </Box>
          <div className="signin-form-css" >
          <Form

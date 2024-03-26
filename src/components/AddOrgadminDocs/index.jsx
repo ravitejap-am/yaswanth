@@ -9,7 +9,7 @@ import { LoadingOutlined, UploadOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import { useMessageState } from '../../../src/hooks/useapp-message';
 import Layout from '../../Layout';
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, useMediaQuery } from '@mui/material';
 import PageLoader from '../loader/loader';
 import { trimFileNameBeforeExtension } from '../../utils/fileNameExtraction';
 function AddOrgDocuments() {
@@ -34,6 +34,7 @@ function AddOrgDocuments() {
   const jwt = user.userToken;
   const [errors, setErrors] = useState('');
   const [fileName, setFileName] = useState('');
+  const isMobile = useMediaQuery("(max-width:600px)");
 
   const messageHandler = () => {
     setIsReset(false);
@@ -128,9 +129,9 @@ function AddOrgDocuments() {
           width: '100%',
           height: '85%',
           borderRadius: '10px',
+          display: 'flex', flexDirection: 'column', justifyContent:'space-between'
         }}
       >
-        <br />
         <Box
           sx={{
             display: 'flex',
@@ -180,6 +181,7 @@ function AddOrgDocuments() {
         <Box
           sx={{
             display: 'flex',
+            justifyContent: isMobile ? 'center' : 'flex-end',
             gap: '1em',
             padding: '10px',
             marginTop: {

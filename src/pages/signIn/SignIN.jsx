@@ -236,7 +236,7 @@ const SignIn = () => {
     name: 'Sign Up',
     type: 'primary',
     color: 'white',
-    backgroundColor: '#6366F1',
+    // backgroundColor: '#6366F1',
     width: '120px',
     padding: '10px 16px',
     height: '40px',

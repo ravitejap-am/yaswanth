@@ -14,7 +14,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import AMChatHeader from '../../../AMChatAdmin/AMChatHeader/AMChatHeader';
 import OrganizationAdminHeader from '../../organizationadmin/OrganizationAdminHeader/OrganizationAdminHeader';
 import { trimFileNameBeforeExtension } from '../../../../utils/fileNameExtraction';
-import { Typography } from '@mui/material';
+import { Typography, useMediaQuery } from '@mui/material';
 
 function OrgUpdateDocument(props) {
   const { documentId } = useParams();
@@ -34,6 +34,7 @@ function OrgUpdateDocument(props) {
   const navigationRoute = props?.navigationRoute;
   const fullName = localStorage.getItem('fullName') || '';
   const [errors, setErrors] = useState('');
+  const isMobile = useMediaQuery("(max-width:600px)");
 
   useEffect(() => {
     // Retrieve firstName from localStorage
@@ -145,7 +146,9 @@ function OrgUpdateDocument(props) {
           <LoadingOutlined style={{ fontSize: 40, color: '#808080' }} spin />
         }
       >
-        <div className={Styles.addOrganizationAdminSecondDiv}>
+        <div 
+        className={Styles.addOrganizationAdminSecondDiv}
+        >
           <div className={Styles.Spacing_Form}>
             <div className={Styles.uploadDocumentContainer}>
               {' '}
@@ -162,7 +165,11 @@ function OrgUpdateDocument(props) {
             buttonLoading={buttonLoading}
             isReset={isReset}
           /> */}
-            <div className={Styles.buttonContainer}>
+
+            <div></div>
+          </div>
+
+          <div className={Styles.buttonContainer} style={{justifyContent: isMobile ? 'center' : 'flex-end'}}>
               <Button onClick={cancelHandler} className={Styles.cancelButton}>
                <Typography variant='button'> Cancel </Typography>
               </Button>
@@ -175,8 +182,6 @@ function OrgUpdateDocument(props) {
                <Typography variant='button'>Update </Typography> 
               </Button>
             </div>
-            <div></div>
-          </div>
         </div>
       </Spin>
     </div>

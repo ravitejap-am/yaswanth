@@ -202,7 +202,7 @@ function Information({ setFileSysytem, validateEmail }) {
 
       <div
         // className="personal-contentcard"
-        style={{  minHeight: '110vh' }}
+        style={{  minHeight: '72%' }}
       >
         <div className="">
           <div
