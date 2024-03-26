@@ -4,7 +4,7 @@ import { Country, State, City } from 'country-state-city';
 import { Button, Select } from 'antd';
 import './orginfo.css';
 import { ArrowRightOutlined } from '@mui/icons-material';
-import {Box, Grid, FormHelperText, useMediaQuery  } from "@mui/material"
+import {Box, Grid, FormHelperText, useMediaQuery, Typography, FormLabel } from "@mui/material"
 
 const getAllCountries = Country.getAllCountries();
 const getAllStates = State.getAllStates();
@@ -190,7 +190,7 @@ function OrganizationForm({
         container 
         >
           <Grid item xs={12} md={6} lg={6}>
-            <label className={styles.labels}>Organisation Name:</label>
+          <Typography variant="body1">Organisation Name :</Typography>
             <input
               type="text"
               id="name"
@@ -202,7 +202,7 @@ function OrganizationForm({
             {errors.name && <FormHelperText error sx={{ fontSize: '14px' }}>{errors.name}</FormHelperText>}
           </Grid>
           <Grid item xs={12} md={6} lg={6}>
-            <label className={styles.labels}>Address One:</label>
+          <Typography variant="body1">Address One :</Typography>
             <input
               type="text"
               id="address1"
@@ -214,7 +214,7 @@ function OrganizationForm({
             {errors.address1 && <FormHelperText error sx={{ fontSize: '14px' }}>{errors.address1}</FormHelperText>}
         </Grid>
         <Grid item xs={12} md={6} lg={6}>
-          <label className={styles.labels}>Address Two:</label>
+        <Typography variant="body1">Address Two :</Typography>
           <input
             type="text"
             id="address-two"
@@ -225,7 +225,7 @@ function OrganizationForm({
           />
         </Grid>
             <Grid item xs={12} md={6} lg={6}>
-              <label className={styles.labels}>Country:</label>
+              <Typography variant="body1">Country :</Typography>
               <Select
                 showSearch
                 onChange={handleSelectCountryChange}
@@ -241,7 +241,7 @@ function OrganizationForm({
               {errors.country && <FormHelperText error sx={{ fontSize: '14px' }}>{errors.country}</FormHelperText>}  
             </Grid>   
             <Grid item xs={12} md={6} lg={6}>
-              <label className={styles.labels}>State:</label>
+            <Typography variant="body1">State :</Typography>
               <Select
                 showSearch
                 onChange={handleSelectStateChange}
@@ -257,7 +257,7 @@ function OrganizationForm({
               {errors.state && <FormHelperText error sx={{ fontSize: '14px' }}>{errors.state}</FormHelperText>}
             </Grid>
             <Grid item xs={12} md={6} lg={6}>
-              <label className={styles.labels}>City:</label>
+            <Typography variant="body1">City :</Typography>
               <Select
                 showSearch
                 onChange={handleCityChange}
@@ -273,7 +273,7 @@ function OrganizationForm({
               {errors.city && <FormHelperText error sx={{ fontSize: '14px' }}>{errors.city}</FormHelperText>}              
             </Grid>                     
         <Grid item xs={12} md={6} lg={6}>
-          <label className={styles.labels}>Zip Code:</label>
+        <Typography variant="body1">Zip Code :</Typography>
             <input
               type="number"
               id="postCode"
@@ -298,7 +298,7 @@ function OrganizationForm({
             personalInformationHandler('organizationdomains');
           }}
         >
-          Next
+          <Typography variant="body1">Next</Typography>
         </Button>
         </Grid>
       </Grid>

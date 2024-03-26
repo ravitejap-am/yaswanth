@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button } from 'antd';
 import './userForm.css'; 
-import {Box, Grid, FormHelperText } from "@mui/material"
+import {Box, Grid, FormHelperText, Typography } from "@mui/material"
 import { yellow } from '@mui/material/colors';
 
 function UserInfoForm({
@@ -73,7 +73,7 @@ function UserInfoForm({
         spacing={2}>
           <Grid item xs={8} md={5}>
               <div className="form-group">
-                <label htmlFor="firstName">First Name:</label>
+              <Typography variant="body1">First Name:</Typography>
                 <input
                   className="orgInputstyle"
                   type="text"
@@ -89,7 +89,7 @@ function UserInfoForm({
           </Grid>
           <Grid item xs={8} md={5}>
           <div className="form-group">
-            <label htmlFor="lastName">Last Name:</label>
+          <Typography variant="body1">Last Name:</Typography>
             <input
               className="orgInputstyle"
               type="text"
@@ -103,7 +103,7 @@ function UserInfoForm({
           </Grid>
           <Grid item xs={8} md={5}>
             <div className="form-group">
-            <label htmlFor="email">Email:</label>
+            <Typography variant="body1">Email:</Typography>
             <input
               className="orgInputstyle"
               type="email"
@@ -135,7 +135,7 @@ function UserInfoForm({
             personalInformationHandler('organizationdomains');
           }}
         >
-          Previous
+          <Typography variant="body1">Previous</Typography>
         </Button>
         </Grid>
         <Grid item xs={6} sm={2.8} md={3} lg={1.6} xl={1}
@@ -147,7 +147,7 @@ function UserInfoForm({
             personalInformationHandler('subscriptionplan')
           }}
         >
-          Next
+          <Typography variant="body1">Next</Typography>
         </Button>
         </Grid>
       </Grid>

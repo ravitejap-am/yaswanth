@@ -27,6 +27,7 @@ import DataGridTable from "../../../components/common/muiTable/DataGridTable";
 import * as constants from "../../../constants/Constant";
 import NotifyMessage from "../../../components/common/toastMessages/NotifyMessage";
 import { AM_CHAT } from "../../../constants/Constant";
+import { Modal } from "antd";
 
 function Users() {
   let { showNotifyMessage, hideNotifyMessage } = useMessageState();
@@ -61,6 +62,9 @@ function Users() {
     active: true,
     name: "",
   });
+
+  const [openDeletePopUp, setOpenDeletePopUp] = useState(false);
+  const [deleteProps, setDeleteProps] = useState({});
 
   const messageHandler = () => {
     hideNotifyMessage();
@@ -233,6 +237,11 @@ function Users() {
     }
   };
 
+  const handleConfirmationPopUp = (props) => {
+    setDeleteProps({ ...props });
+    setOpenDeletePopUp(true);
+  };
+
   const columns = [
     {
       field: "name",
@@ -289,22 +298,16 @@ function Users() {
           >
             <img src={editIcon} alt="Edit" />
           </IconButton>
-          <IconButton aria-label="delete">
-            {params?.row?.status === "Active" && (
-              <Popconfirm
-                key={params.row.id || "amchat"}
-                title={AM_CHAT}
-                description={
-                  <span style={{ whiteSpace: 'nowrap' }}>{"Do you really want to delete this user '" +
-                  params.row.name +"'"}</span>
-                }
-                onConfirm={() => handleDelete(params.row.id)}
-                okText="Submit"
-                cancelText="Close"
-              >
-                <img src={deleteIcon} alt="Delete" />
-              </Popconfirm>
-            )}
+          <IconButton aria-label="delete"
+           onClick= {() => {
+            const props = {
+              id: params.row.id,
+              name: params.row.name,
+            };
+            handleConfirmationPopUp(props)  
+          }}
+          >
+            <img src={deleteIcon} alt="Delete" />
           </IconButton>
         </div>
       ),
@@ -319,6 +322,17 @@ function Users() {
     totalChat: item?.updatedAt,
     status: item?.active ? "Active" : "Inactive",
   }));
+
+  const handleYes = (id) => {
+    handleDelete(id);
+    setOpenDeletePopUp(false);
+    setDeleteProps({});
+  };
+
+  const handleNo = () => {
+    setOpenDeletePopUp(false);
+    setDeleteProps({});
+  };
 
   return (
     <Layout componentName="Users">
@@ -349,6 +363,23 @@ function Users() {
             </Box>
           </Box>
         </Grid>
+        {openDeletePopUp && (
+          <Modal
+            title={"Confirmation"}
+            centered
+            open={openDeletePopUp}
+            onOk={() => {
+              handleYes(deleteProps?.id);
+            }}
+            okText={"Yes"}
+            cancelText={"No"}
+            onCancel={() => {
+              handleNo();
+            }}
+          >
+            <p>{`Are you sure you want to delete "${deleteProps.name}" ?`}</p>
+          </Modal>
+        )}
         <Grid item xs={12} md={12} lg={12}>
           <DataGridTable
             rows={data}
