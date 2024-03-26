@@ -57,7 +57,9 @@ function EditForm({
   };
 
   return (
-    <form className="form" onSubmit={handleSubmit}>
+    <form className="form" onSubmit={handleSubmit} style={{ height:'84%'}}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent:'space-between', height: '100%' }}>
+      <Box>  
       <Grid container spacing={1}>
         <Grid item xs={12} md={6} lg={6} className="form-group">
          <Typography> <label htmlFor="firstName">First Name:</label></Typography>
@@ -103,7 +105,9 @@ function EditForm({
           {errors.email && <span className="error">{errors.email}</span>}
         </Grid>
       </Grid>
-      <Box className="button-container">
+      </Box>
+      <Box className="button-container"
+      >
         {!isEdit && (
           <Button
             type="secondary"
@@ -127,6 +131,7 @@ function EditForm({
         >
          <Typography variant="button"> {isEdit ? 'Update' : 'Submit'}</Typography>
         </Button>
+      </Box>
       </Box>
     </form>
   );

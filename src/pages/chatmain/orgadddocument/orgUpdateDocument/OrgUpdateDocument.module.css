@@ -13,13 +13,17 @@
   }
   .addOrganizationAdminSecondDiv {
     width: 98%;
-    height: 80%;
+    height: 65vh;
     flex-shrink: 0;
     border-radius: 10.457px;
     background: var(--White, #fff);
     box-shadow: 0px 2.789px 6.972px 3.486px rgba(0, 0, 0, 0.09);
     padding-top: 50px;
     padding-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1rem;
   }
   .superAdminCardStyle {
     width: 100%;
@@ -48,6 +52,8 @@
   .buttonContainer {
     padding-top: 20px;
     display: flex;
+    flex-direction: row;
+    /* justify-content: flex-end; */
     gap: 10px; 
   }
   .superAdminMiddleParentDiv {

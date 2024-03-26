@@ -118,6 +118,8 @@ function OrganizationForm({
     );
     let myAdress = { ...orgData.address };
     myAdress['country'] = value;
+    myAdress['state'] = "";
+    myAdress['city'] = "";
     const updatedOrgData = {
       ...orgData,
       address: myAdress,
@@ -132,6 +134,7 @@ function OrganizationForm({
     );
     let myAdress = { ...orgData.address };
     myAdress['state'] = value;
+    myAdress['city'] = "";
     const updatedOrgData = {
       ...orgData,
       address: myAdress,

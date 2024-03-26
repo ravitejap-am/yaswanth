@@ -53,8 +53,9 @@ label {
 
 .button-container {
   display: flex;
-  justify-content: start;
+  justify-content: flex-end;
   gap: 1rem;
+  margin-top: auto;
 }
 
 @media (max-width: 767px) {

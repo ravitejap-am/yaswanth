@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Button } from 'antd';
 import './userform.css'; // Import CSS file for styling
-import { Typography } from '@mui/material';
+import { Typography, useMediaQuery } from '@mui/material';
 
 function UserProfileForm({ formData, setFormData, submitHandler }) {
+  const isMobile = useMediaQuery("(max-width:600px)");
   // const [formData, setFormData] = useState({
   //   firstName: '',
   //   lastName: '',
@@ -68,6 +69,8 @@ function UserProfileForm({ formData, setFormData, submitHandler }) {
 
   return (
 <form className="form" onSubmit={handleSubmit}>
+  <div className='info-cotnainer'>
+  <div>
   <div className="form-row">
     <div className="form-group">
       <label htmlFor="firstName">First Name:</label>
@@ -128,6 +131,7 @@ function UserProfileForm({ formData, setFormData, submitHandler }) {
       )}
     </div>
   </div>
+  </div>
   {/* <div className="form-row">
     <div className="form-group">
       <label htmlFor="status">Status:</label>
@@ -144,6 +148,7 @@ function UserProfileForm({ formData, setFormData, submitHandler }) {
       {errors.status && <span className="error">{errors.status}</span>}
     </div>
   </div> */}
+  <div className='button-container' style={{justifyContent: isMobile ? 'center' : 'flex-end' }}>
   <Button
     type="primary"
     htmlType="submit"
@@ -157,6 +162,8 @@ function UserProfileForm({ formData, setFormData, submitHandler }) {
      Submit
       </Typography>
   </Button>
+  </div>
+  </div>
 </form>
 
   );
