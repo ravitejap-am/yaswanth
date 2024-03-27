@@ -1,0 +1,13 @@
+.card {
+  cursor: pointer;
+  background-color: white;
+  transition: background-color 0.3s ease;
+}
+
+.card:hover {
+  background-color: #f0f0f0;
+}
+
+.selected {
+  background-color: #e0e0e0 !important;
+}

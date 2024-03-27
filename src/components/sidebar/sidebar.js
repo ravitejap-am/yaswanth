@@ -78,25 +78,32 @@ export const sideBar = (
   isChatOpen,
   screens,
   visible,
-  setVisible
+  setVisible,
+  isNewChat,
+  setIsNewChat,
+  setSessionHandler
 ) => {
   const handleAddChat = () => {
-    setChatHistory([
-      ...chatHistory,
-      {
-        title: 'chat one title for chat adress',
-        data: [],
-        id: chatHistory.length + 1,
-      },
-    ]);
-    setIsChatOpen(!isChatOpen);
+    if (isNewChat) {
+      setChatHistory([
+        ...chatHistory,
+        {
+          session_title: 'chat one title for chat adress',
+          data: [],
+          id: chatHistory.length + 1,
+        },
+      ]);
+      setIsChatOpen(!isChatOpen);
+      setIsNewChat(false);
+    }
+    console.error('please add the chat');
   };
   const onClose = () => {
     setVisible(false);
   };
   return (
     <>
-      {console.log('pathname', pathname)}
+      {console.log('pathname', pathname, 'chat history', chatHistory)}
       {(role == 'ORG_ADMIN' || role == 'USER') &&
         (pathname == '/chat' || pathname == '/user') && (
           <Link
@@ -191,34 +198,39 @@ export const sideBar = (
                 }}
                 className="chat_history"
               >
-                {chatHistory.map((item) => (
-                  <div
-                    style={{
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      padding: '4px',
-                    }}
-                    className="hoverDiv"
-                  >
-                    {/* <Tooltip title={item?.title}> */}
-                    <p
+                {console.log('chat history', chatHistory)}
+                {chatHistory.length > 0 &&
+                  chatHistory?.map((item) => (
+                    <div
                       style={{
-                        margin: 0,
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis',
-                        whiteSpace: 'nowrap',
-                        width: '8em',
-                        cursor: 'pointer',
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        padding: '4px',
                       }}
+                      className="hoverDiv"
                     >
-                      {item?.title}
-                    </p>
-                    {/* </Tooltip> */}
+                      {/* <Tooltip title={item?.title}> */}
+                      <p
+                        style={{
+                          margin: 0,
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                          whiteSpace: 'nowrap',
+                          width: '8em',
+                          cursor: 'pointer',
+                        }}
+                        onClick={() => {
+                          setSessionHandler(item.id);
+                        }}
+                      >
+                        {item?.session_title}
+                      </p>
+                      {/* </Tooltip> */}
 
-                    {/* <ChatMenuItems /> */}
-                  </div>
-                ))}
+                      {/* <ChatMenuItems /> */}
+                    </div>
+                  ))}
               </Box>
             </Hidden>
             <Hidden lgUp>
@@ -239,17 +251,17 @@ export const sideBar = (
                   mode="inline"
                   defaultSelectedKeys={['Home_page']}
                 >
-                  {chatHistory.map((item, index) => (
-                    <Menu.Item
-                      key={index}
-                      onClick={() => {
-                        // item.onClick();
-                        // onClose();
-                      }}
-                    >
-                      {item.title}
-                    </Menu.Item>
-                  ))}
+                  {chatHistory.length > 0 &&
+                    chatHistory.map((item, index) => (
+                      <Menu.Item
+                        key={index}
+                        onClick={() => {
+                          setSessionHandler(item.id);
+                        }}
+                      >
+                        {item.session_title}
+                      </Menu.Item>
+                    ))}
                 </Menu>
               </Drawer>
             </Hidden>

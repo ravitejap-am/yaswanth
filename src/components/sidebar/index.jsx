@@ -4,28 +4,50 @@ import { Box, Hidden, Typography } from '@mui/material';
 
 import { sideBar } from './sidebar';
 import sidebarImg from '../../asset/images/logo.png';
-import { selectUser } from '../../store/authSlice';
+import {
+  selectUser,
+  selectSessionId,
+  setChatSessionId,
+} from '../../store/authSlice';
 import { Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { tokenDecodeJWT } from '../../utils/authUtils';
 import { useChat } from '../../contexts/provider/ChatContext';
 import { Layout, Menu, Grid, Drawer } from 'antd';
+import { UseDispatch } from 'react-redux';
 function Sidebar() {
   const { useBreakpoint } = Grid;
+  const dispatch = useDispatch();
   const screens = useBreakpoint();
   const { userToken } = useSelector(selectUser);
   const { pathname } = useLocation();
   const { role } = tokenDecodeJWT(userToken);
-  const { isChatOpen, setIsChatOpen } = useChat();
-  const [chatHistory, setChatHistory] = useState([
-    {
-      title: 'chat one title for chat adress',
-      data: [],
-      id: 1,
-    },
-  ]);
+  const {
+    isChatOpen,
+    setIsChatOpen,
+    chatHistory,
+    setChatHistory,
+    isNewChat,
+    setIsNewChat,
+  } = useChat();
+
   const [visible, setVisible] = useState(false);
-  useEffect(() => {}, [chatHistory]);
+  useEffect(() => {
+    // console.log('comming to useEffect', chatHistory);
+    // setChatHistory((prev) => [
+    //   ...prev,
+    //   {
+    //     title: 'chat one title for chat adress',
+    //     data: [],
+    //     id: 1,
+    //   },
+    // ]);
+  }, [chatHistory]);
+
+  const setSessionHandler = (id) => {
+    dispatch(setChatSessionId(id));
+  };
+
   return (
     <Box
       sx={{
@@ -88,7 +110,10 @@ function Sidebar() {
             isChatOpen,
             screens,
             visible,
-            setVisible
+            setVisible,
+            isNewChat,
+            setIsNewChat,
+            setSessionHandler
           )}
         </Box>
       </Box>
