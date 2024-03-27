@@ -5,7 +5,14 @@ import {
   BASE_DOC_API_URL,
   BASE_ORG_API_URL,
 } from "../../../constants/Constant";
-import { Grid } from "@mui/material";
+import {
+  Box,
+  FormControl,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Select,
+} from "@mui/material";
 import styles from "./dashboard.module.css";
 import { useNavigate } from "react-router-dom";
 import { selectUser } from "../../../store/authSlice";
@@ -18,6 +25,8 @@ import documentIcon1 from "../../../asset/AmChatSuperAdmin/Group23.png";
 import documentIcon2 from "../../../asset/AmChatSuperAdmin/Group24.png";
 import DashboardCard from "../../../components/common/dashboard-card/DashboardCard";
 import OrgChatSession from "../../../components/common/org-chat-session/OrgChatSession";
+import Bar from "../../../components/common/barChart/Bar";
+import Pie from "../../../components/common/pieChart/Pie";
 
 function Dashboard() {
   const user = useSelector(selectUser);
@@ -244,6 +253,29 @@ function Dashboard() {
               contentName={"Active Users"}
               contentNumber={activeUsersCount}
             />
+          </Grid>
+          <Grid item sm={12} md={6} lg={6}>
+            <Bar />
+          </Grid>
+          <Grid item sm={12} md={6} lg={6}>
+            <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+              <InputLabel id="demo-select-small-label">Choose</InputLabel>
+              <Select
+                labelId="demo-select-small-label"
+                id="demo-select-small"
+                // value={age}
+                label="Age"
+                // onChange={handleChange}
+              >
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+                <MenuItem value={10}>Ten</MenuItem>
+                <MenuItem value={20}>Twenty</MenuItem>
+                <MenuItem value={30}>Thirty</MenuItem>
+              </Select>
+            </FormControl>
+            {/* <Pie /> */}
           </Grid>
           <Grid item sm={12} md={6} lg={4}>
             <OrgChatSession activeUserList={orgChatSessionList} />
