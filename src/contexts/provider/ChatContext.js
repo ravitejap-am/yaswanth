@@ -13,12 +13,8 @@ export const ChatProvider = ({ children }) => {
   const jwt = user?.userToken;
 
   const [isChatOpen, setIsChatOpen] = useState(false);
-
-  useEffect(() => {
-    // if (!!jwt) {
-    //   getSessions();
-    // }
-  }, []);
+  const [chatHistory, setChatHistory] = useState([]);
+  const [isNewChat, setIsNewChat] = useState(false);
 
   const getSessions = () => {
     axios
@@ -34,7 +30,16 @@ export const ChatProvider = ({ children }) => {
   };
 
   return (
-    <ChatContext.Provider value={{ isChatOpen, setIsChatOpen }}>
+    <ChatContext.Provider
+      value={{
+        isChatOpen,
+        setIsChatOpen,
+        chatHistory,
+        setChatHistory,
+        isNewChat,
+        setIsNewChat,
+      }}
+    >
       {children}
     </ChatContext.Provider>
   );
