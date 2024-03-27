@@ -97,7 +97,7 @@ function RightPlan() {
             <Typography variant="h5" fontWeight="600"  className="Right_Plan_Content_Title">Standard </Typography>
             <Typography variant="body1" mt={2} className="Right_Plan_Content_Sub_Div">
               {" "}
-              Best fit for organization with 50 to 100 users or ten to 50
+              Best fit for organisation with 50 to 100 users or ten to 50
               users. 
             </Typography>
           </div>
