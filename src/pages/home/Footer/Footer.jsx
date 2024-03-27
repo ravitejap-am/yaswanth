@@ -94,7 +94,7 @@ const Footer = () => {
       </div>
       <div className={Style.centeredText}>
         <Typography variant='caption' style={{ color: '#FFF', fontSize: '14px' }}>
-          @2024. All rights reserved by Areteminds
+          @2020. All rights reserved by Areteminds
         </Typography>
       </div>
     </div>

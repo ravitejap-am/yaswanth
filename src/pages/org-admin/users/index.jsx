@@ -342,7 +342,7 @@ function Users() {
           <Box className={styles.search_container}>
             <Box>
               <Search
-                inputLabel={"Search"}
+                inputLabel={"Search by user name"}
                 handleSearchChange={handleSearchChange}
                 inputValue={searchQuery}
               />

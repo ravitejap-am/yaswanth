@@ -12,7 +12,7 @@
 @media (max-width: 1100px) {
   .Right_Plan_Main_Card {
     height: auto;
-    padding: 20px;
+    padding:100px 20px;
     margin: 0;
   }
 
