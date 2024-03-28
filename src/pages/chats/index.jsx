@@ -164,7 +164,7 @@ function Chats() {
 
   return (
     <Layout componentName="Chat">
-      <div style={{height:'100%'}}>
+      <div style={{height:'90%'}}>
         <div className={styles.chatContainer}>
           <div className={styles.textContext}>
             {" "}
