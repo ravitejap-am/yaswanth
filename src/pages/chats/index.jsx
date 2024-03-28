@@ -25,7 +25,7 @@ import amchatImg from "../../asset/Vector (1).png";
 import { useChat } from "../../contexts/provider/ChatContext";
 import { AM_CHAT } from "../../constants/Constant";
 function Chats() {
-  const { isChatOpen, setIsChatOpen } = useChat();
+  const { isChatOpen, setIsChatOpen, isNewChat, setIsNewChat } = useChat();
   const [searchOption, setSearchOption] = useState("specificFileText");
   const [selectedFile, setSelectedFile] = useState("file1");
   const [inputValue, setInputValue] = useState("");
@@ -61,8 +61,9 @@ function Chats() {
   };
 
   const handleSend = () => {
-    if (inputValue.trim() !== "") {
-      console.log("Sending message:", inputValue);
+    if (inputValue.trim() !== '') {
+      setIsNewChat(true);
+      console.log('Sending message:', inputValue);
       setLoading(true);
       setTimeout(() => {
         const newQuestion = inputValue;
@@ -111,12 +112,7 @@ function Chats() {
       handleSend();
     }
   };
-  // const resizeTextarea = (element) => {
-  //   element.style.height = 'auto';
-  //   console.log("element.style.height---->1", element.style.height);
-  //   element.style.height = element.scrollHeight + "px";
-  //   console.log("element.style.height---->2", element.style.height);
-  // };
+
 
   const resizeTextarea = (element) => {
     console.log("is mobile--->",isMobile);
@@ -197,7 +193,7 @@ function Chats() {
                   </label>
                 </Typography>
               </Grid>
-              {searchOption === "specificFileText" && (
+              {searchOption === 'specificFileText' && (
                 <Grid item xs={12} sm={6} md={4}>
                   <FormControl
                     className={styles.chatFormControl}
@@ -213,7 +209,7 @@ function Chats() {
                       onChange={handleFileChange}
                       label="Document"
                       className={styles.chatSelect}
-                      style={{ textAlign: "left", height: "30px" }}
+                      style={{ textAlign: 'left', height: '30px' }}
                     >
                       <MenuItem value="">
                         <em>Select file</em>
@@ -377,15 +373,16 @@ function Chats() {
                       ) : (
                         <div className={styles.response}>
                           <img
-                            src={responseImg}
-                            alt="Response"
-                            className={styles.responseImage}
+                            src={uesrImg}
+                            alt="User"
+                            className={styles.userImage}
                           />
                           <Typography variant='subtitle1' mt={1} style={{fontSize: '14px'}}>{item.response}</Typography>
-                        </div>
-                      )}
+                        </div>)}
+
+                      </div>
                     </div>
-                  </div>
+                  
                 ))}
               </Box>
             )}

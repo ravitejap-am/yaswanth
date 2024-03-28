@@ -352,7 +352,7 @@ function Organisations() {
           <Box className={styles.search_container}>
             <Box>
               <Search
-                inputLabel={"Search organisations name"}
+                inputLabel={"Search organisations by name"}
                 handleSearchChange={handleChangeSearch}
                 inputValue={searchValue}
               />

@@ -17,11 +17,11 @@ const Header = () => {
   const screens = useBreakpoint();
   const location = useLocation();
 
-useEffect(() => {
-  if (location.state && location.state.fromRegisterPage) {
-    scrollToElement('Contact_Up');
-  }
-}, [location.state]);
+  useEffect(() => {
+    if (location.state && location.state.fromRegisterPage) {
+      scrollToElement('Contact_Up');
+    }
+  }, [location.state]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -41,8 +41,6 @@ useEffect(() => {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
-
-  
 
   const items = [
     {
@@ -80,7 +78,9 @@ useEffect(() => {
     setVisible(false);
   };
 
-  const selectedKey = location.state?.fromRegisterPage ? 'Contact_Up' : 'Home_page';
+  const selectedKey = location.state?.fromRegisterPage
+    ? 'Contact_Up'
+    : 'Home_page';
 
   return (
     <Layout>
@@ -98,7 +98,7 @@ useEffect(() => {
               display: 'flex',
               flex: 1,
               justifyContent: 'center',
-              fontFamily: "Montserrat, Arial, sans-serif" 
+              fontFamily: 'Montserrat, Arial, sans-serif',
             }}
           >
             {items?.map((item) => (
@@ -114,7 +114,14 @@ useEffect(() => {
               style={{ color: 'white', fontSize: '30px' }}
             />
             <Drawer
-              title={<Typography variant='body2' style={{ color: 'white', fontWeight: "500" }}>Menu</Typography>}
+              title={
+                <Typography
+                  variant="body2"
+                  style={{ color: 'white', fontWeight: '500' }}
+                >
+                  Menu
+                </Typography>
+              }
               placement="left"
               closable={true}
               onClose={onClose}
@@ -129,7 +136,7 @@ useEffect(() => {
                 theme="dark"
                 mode="inline"
                 defaultSelectedKeys={['Home_page']}
-                style={{fontFamily: "Montserrat, Arial, sans-serif"}}
+                style={{ fontFamily: 'Montserrat, Arial, sans-serif' }}
               >
                 {items.map((item) => (
                   <Menu.Item
@@ -148,7 +155,10 @@ useEffect(() => {
         )}
         {screens.sm || screens.md || screens.lg ? (
           <div className={Styles.navigationButton}>
-            <div className="btn-color">
+            <div
+              className="btn-color"
+              style={{ height: '40px', width: '90px' }}
+            >
               <Link to={'/signIn'} style={{ textDecoration: 'none' }}>
                 <GeneralButton
                   name={'Sign In'}
@@ -157,7 +167,10 @@ useEffect(() => {
                 />
               </Link>
             </div>
-            <div className="btn-color-signup">
+            <div
+              className="btn-color-signup"
+              style={{ height: '40px', width: '90px' }}
+            >
               <Link to={'/registerUser'} style={{ textDecoration: 'none' }}>
                 <GeneralButton
                   name={'Sign Up'}

@@ -335,7 +335,7 @@ function Documents() {
           <Box className={styles.search_container}>
             <Box>
               <Search
-                inputLabel={"Search"}
+                inputLabel={"Search by document name"}
                 handleSearchChange={handleSearch}
                 inputValue={searchQuery}
               />
