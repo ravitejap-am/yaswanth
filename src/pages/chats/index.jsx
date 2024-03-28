@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Layout from "../../Layout";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
@@ -35,11 +35,22 @@ function Chats() {
   const [showWarning, setShowWarning] = useState(false);
   const [containerHeight, setContainerHight] = useState(0)
   const isMobile = useMediaQuery("(max-width:600px)");
+  const scrollContainerRef = useRef(null);
 
   useEffect(() => {
     setQuestions([]);
     setMessageSent(false);
   }, [isChatOpen]);
+
+  const scrollToBottom = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollTop = scrollContainerRef.current.scrollHeight;
+    }
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [questions, loading]);
 
   const handleSearchOptionChange = (option) => {
     if (option === "acrossFiles") {
@@ -130,7 +141,7 @@ function Chats() {
       element.style.height = '34px'; 
       element.style.height = Math.min(element.scrollHeight, 34 * 7) + "px";
       const number = parseInt(element.style.height.match(/\d+/)[0]);
-      if(number > 33 && number < 239){
+      if(number > 30 && number < 239){
         setContainerHight(element.style.height)
       }
     }
@@ -258,7 +269,6 @@ function Chats() {
             justifyContent: 'center',
             backgroundColor: 'white',
             boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)',
-            // backgroundColor:'red'
           }}
         >
           <Box 
@@ -289,7 +299,7 @@ function Chats() {
                 justifyContent: isMobile ? "" : "space-between",
                 alignItems: isMobile ? "" : "center",
                 flexWrap: isMobile ?  "wrap" : "",
-                height:  `calc(102% - ${containerHeight})` ,
+                height:   `calc(96% - ${containerHeight})` ,
                 overflowY: 'auto',
                 scrollbarWidth: 'thin',
                 scrollbarColor: 'lightgrey #f5f5f5',
@@ -343,8 +353,9 @@ function Chats() {
             </Box>}
             {messageSent && (
               <Box 
+                ref={scrollContainerRef}
                 sx={{
-                  height: `calc(102% - ${containerHeight})`,
+                  height: `calc(96% - ${containerHeight})`,
                   overflowY: 'auto',
                   scrollbarWidth: 'thin',
                   scrollbarColor: 'lightgrey #f5f5f5',
@@ -373,7 +384,7 @@ function Chats() {
                       ) : (
                         <div className={styles.response}>
                           <img
-                            src={uesrImg}
+                            src={responseImg}
                             alt="User"
                             className={styles.userImage}
                           />

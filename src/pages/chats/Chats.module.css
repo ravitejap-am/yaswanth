@@ -169,10 +169,11 @@
 }
 
 .userImage {
-  width: 25px;
-  height: 25px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   margin-right: 15px;
+  margin-top: 0.3rem;
 }
 
 .chatimg{
@@ -206,7 +207,7 @@
   .SendButton {
     position: absolute;
     right:15.5%;
-    bottom: 0.6rem;
+    bottom: 0.5rem;
     z-index: 999;
     height: 1.7rem
   } 
