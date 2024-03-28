@@ -164,7 +164,7 @@ function Chats() {
 
   return (
     <Layout componentName="Chat">
-      <div>
+      <div style={{height:'100%'}}>
         <div className={styles.chatContainer}>
           <div className={styles.textContext}>
             {" "}
@@ -260,10 +260,9 @@ function Chats() {
         </div>
         <Box 
           style={{
-            height: '63vh',
+            height: '88%',
             marginTop: '1rem',
             borderRadius: '0.5rem',
-            // padding: '0.8rem',
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'center',
@@ -299,7 +298,7 @@ function Chats() {
                 justifyContent: isMobile ? "" : "space-between",
                 alignItems: isMobile ? "" : "center",
                 flexWrap: isMobile ?  "wrap" : "",
-                height:   `calc(96% - ${containerHeight})` ,
+                height:   `calc(98% - ${containerHeight})` ,
                 overflowY: 'auto',
                 scrollbarWidth: 'thin',
                 scrollbarColor: 'lightgrey #f5f5f5',
@@ -355,7 +354,7 @@ function Chats() {
               <Box 
                 ref={scrollContainerRef}
                 sx={{
-                  height: `calc(96% - ${containerHeight})`,
+                  height: `calc(98% - ${containerHeight})`,
                   overflowY: 'auto',
                   scrollbarWidth: 'thin',
                   scrollbarColor: 'lightgrey #f5f5f5',
