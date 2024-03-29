@@ -15,6 +15,16 @@ export const ChatProvider = ({ children }) => {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [chatHistory, setChatHistory] = useState([]);
   const [isNewChat, setIsNewChat] = useState(false);
+  const [questionIndex, setQuestionIndex] = useState(0)
+  const [questions, setQuestions] = useState([]);
+  const [messageSent, setMessageSent] = useState(false);
+
+
+  // useEffect(() => {
+  //   console.log("use effect is called");
+  //   setQuestionIndex(0)
+  //   setQuestions([])
+  // },[])
 
   const getSessions = () => {
     axios
@@ -38,6 +48,14 @@ export const ChatProvider = ({ children }) => {
         setChatHistory,
         isNewChat,
         setIsNewChat,
+        questionIndex,
+        setQuestionIndex,
+        questions,
+        setQuestions,
+        messageSent,
+        setIsNewChat, 
+        setMessageSent,
+        messageSent
       }}
     >
       {children}

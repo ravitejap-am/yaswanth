@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useState } from 'react';
 
 // import {   GET_ACTIVE_USERS } from './Constants';
-import { UPDATE_ADMIN_USER, USER_PROFILE,GET_ACTIVE_USERS } from '../constants/Constant';
+import { UPDATE_ADMIN_USER, USER_PROFILE,GET_ACTIVE_USERS, CHAT, CHAT_OF_SESSION } from '../constants/Constant';
 
 export const getUserProfileDetails = async (userId, headers) => {
   try {
@@ -47,5 +47,34 @@ export const getActiveUserList = async ( headers) => {
   } catch (error) {
     console.log('Failed to get users.', error);
     throw new Error('Failed to get users');
+  }
+};
+
+export const getChatResponse = async (body, headers) => {
+  try {
+    console.log('headers---->', headers);
+    const data = await axios.post(
+      `${CHAT}`,
+      headers, body
+    );
+    return data;
+  } catch (error) {
+    console.log('Failed to get amchat response.', error);
+    throw new Error('Failed to amchat response');
+  }
+};
+
+
+export const getChatSessions = async (id, headers) => {
+  try {
+    console.log('headers---->', headers);
+    const data = await axios.post(
+      `${CHAT_OF_SESSION}${id}`,
+      headers, body
+    );
+    return data;
+  } catch (error) {
+    console.log('Failed to get chat session response.', error);
+    throw new Error('Failed to get chat session');
   }
 };
