@@ -124,7 +124,7 @@ export const sideBar = (
         'Content-Type': 'multipart/form-data',
       }
   
-      const response = await getChatSessions(headers, body);
+      const response = await getChatSessions(headers, id);
       console.log("response--->",response);
       setSessionHandler(id)
     }catch(error){
@@ -326,7 +326,8 @@ export const sideBar = (
                       <Menu.Item
                         key={index}
                         onClick={() => {
-                          setSessionHandler(item.id);
+                          showPreviousChats(item.id)
+                          // setSessionHandler(item.id);
                         }}
                       >
                         {item.session_title}
