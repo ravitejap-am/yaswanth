@@ -377,7 +377,7 @@ function Organisations() {
             </Box>
           </Box>
         </Grid>
-        {openDeletePopUp &&
+        {openDeletePopUp && (
           <Modal
             title={"Confirmation"}
             centered
@@ -393,7 +393,7 @@ function Organisations() {
           >
             <p>{`Are you sure you want to delete organisation "${deleteProps.name}" ?`}</p>
           </Modal>
-        }
+        )}
         <Grid item xs={12} md={12} lg={12}>
           <DataGridTable
             rows={data}

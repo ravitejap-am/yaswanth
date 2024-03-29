@@ -5,7 +5,14 @@ import {
   BASE_DOC_API_URL,
   BASE_ORG_API_URL,
 } from "../../../constants/Constant";
-import { Grid } from "@mui/material";
+import {
+  Box,
+  FormControl,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Select,
+} from "@mui/material";
 import styles from "./dashboard.module.css";
 import { useNavigate } from "react-router-dom";
 import { selectUser } from "../../../store/authSlice";
@@ -18,6 +25,8 @@ import documentIcon1 from "../../../asset/AmChatSuperAdmin/Group23.png";
 import documentIcon2 from "../../../asset/AmChatSuperAdmin/Group24.png";
 import DashboardCard from "../../../components/common/dashboard-card/DashboardCard";
 import OrgChatSession from "../../../components/common/org-chat-session/OrgChatSession";
+import Bar from "../../../components/common/barChart/Bar";
+import Pie from "../../../components/common/pieChart/Pie";
 
 function Dashboard() {
   const user = useSelector(selectUser);
@@ -26,6 +35,8 @@ function Dashboard() {
   const dispatch = useDispatch();
   const [orgCount, setOrgCount] = useState(0);
   const [docCount, setDocCount] = useState(0);
+  const [toShow, setToShow] = useState([]);
+  const [selectedValue, setSelectedValue] = useState("chat");
   const [isLoading, setIsLoading] = useState(true);
   const [documentCount, setDocumentCount] = useState(0);
   const [activeUsersCount, setActiveUsersCount] = useState(0);
@@ -49,6 +60,25 @@ function Dashboard() {
       console.error("Error decoding JWT:", error);
       return null;
     }
+  };
+
+  const raw_data = {
+    chat: [
+      { value: 1048, name: "Remaining" },
+      { value: 735, name: "Used" },
+    ],
+    users: [
+      { value: 1148, name: "Remaining" },
+      { value: 635, name: "Used" },
+    ],
+    documents: [
+      { value: 1248, name: "Remaining" },
+      { value: 535, name: "Used" },
+    ],
+    documents_size: [
+      { value: 1348, name: "Remaining" },
+      { value: 435, name: "Used" },
+    ],
   };
 
   const decodedToken = decodeJWT(jwt);
@@ -191,6 +221,10 @@ function Dashboard() {
     }
   };
 
+  const handleChange = (e) => {
+    setSelectedValue(e.target.value);
+  };
+
   useEffect(() => {
     if (userRole === "SUPER_ADMIN") {
       getOrganisationCount();
@@ -199,10 +233,11 @@ function Dashboard() {
       fetchActiveUserCount();
       fetchOrgChatSession();
       fetchDocumentCount();
+      setToShow(raw_data[selectedValue]);
     } else {
       setIsLoading(false);
     }
-  }, [userRole]);
+  }, [userRole, selectedValue]);
 
   return (
     <Layout componentName="Dashboard">
@@ -244,6 +279,30 @@ function Dashboard() {
               contentName={"Active Users"}
               contentNumber={activeUsersCount}
             />
+          </Grid>
+          <Grid item sm={12} md={6} lg={6}>
+            <Bar />
+          </Grid>
+          <Grid item sm={12} md={6} lg={6}>
+            <FormControl
+              sx={{
+                width: "200px",
+              }}
+              size="small"
+            >
+              <Select
+                id="demo-select-small"
+                value={selectedValue}
+                // label="Filter"
+                onChange={(e) => handleChange(e)}
+              >
+                <MenuItem value="chat">Chat</MenuItem>
+                <MenuItem value="users">Users</MenuItem>
+                <MenuItem value="documents">Documents</MenuItem>
+                <MenuItem value="documents_size">Documents Size</MenuItem>
+              </Select>
+            </FormControl>
+            <Pie selectedTypeValue={toShow} />
           </Grid>
           <Grid item sm={12} md={6} lg={4}>
             <OrgChatSession activeUserList={orgChatSessionList} />

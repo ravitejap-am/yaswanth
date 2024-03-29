@@ -6,6 +6,14 @@ const index = ({ inputLabel, inputValue, inputClass, handleSearchChange }) => {
     <TextField
       id="outlined-basic"
       variant="outlined"
+      sx={{
+        width: {
+          xs: "250px",
+          sm: "280px",
+          md: "280px",
+          lg: "280px",
+        },
+      }}
       label={inputLabel}
       value={inputValue}
       className={inputClass}
