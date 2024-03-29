@@ -161,13 +161,15 @@
 
 .responseContent {
   display: block;
-  flex-direction: column
+  flex-direction: column;
+  margin-bottom: 0.4rem;
   /* margin-bottom: 0.4rem; */
 }
 
 
 @media (min-width: 601px){
   .responseContent {
+    margin-bottom: 0.4rem;
     /* width: 192%; */
     /* background-color: red; */
     /* padding-left: 20%;

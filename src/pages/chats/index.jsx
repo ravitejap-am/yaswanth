@@ -369,18 +369,20 @@ function Chats() {
               ref={scrollContainerRef}
               sx={{
                 display: "flex",
-                height: isMobile? "100%": "80%",
+                height: isMobile? "100%": "90%",
                 overflowY: "auto",
-                scrollbarWidth: "6px",
+                scrollbarWidth: "3px",
                 scrollbarColor: "lightgrey #f5f5f5",
                 scrollHeight: "3px",
                 scrollPaddingRight: "3px",
                 padding: "0.8rem",
-                flexWrap: 'wrap',
+                // flexWrap: 'wrap',
+                flexDirection:'column',
+                justifyContent: 'flex-start'
               }}
             >
               {questions.map((item, index) => (
-                <div key={index}>
+                <div key={index} style={{display: 'flex'}}>
                   <div className={styles.responseContent}>
                     <div className={styles.askedQuestion}>
                       <img
@@ -399,7 +401,9 @@ function Chats() {
                       </Typography>
                     </div>
                     {loading && index === questions.length - 1 ? (
-                      <Skeleton active />
+                      <div className={styles.response}>
+                        <Skeleton active />
+                      </div>
                     ) : (
                       <div className={styles.response}>
                         <img
