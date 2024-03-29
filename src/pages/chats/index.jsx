@@ -235,6 +235,8 @@ function Chats() {
 
   console.log("container height--->",containerHeight);
 
+  // console.log("cont--->", parseInt(containerHeight.match(/\d+/)[0]));
+
 
   return (
     <Layout componentName="Chat">
@@ -512,12 +514,13 @@ function Chats() {
             }}
             style={{
               minHeight: "34px",
-              overflowY: "auto",
+              overflowY:  containerHeight &&  parseInt(containerHeight.match(/\d+/)[0]) > 34 ?  "auto" :"hidden" ,
               paddingRight: "4rem",
               scrollbarWidth: "thin",
               scrollbarColor: "lightgrey #f5f5f5",
               scrollHeight: "3px",
-              scrollPaddingRight: "3px",
+              scrollPaddingRight: "6px",
+              resize: "none",
             }}
           />
           {inputValue && (
