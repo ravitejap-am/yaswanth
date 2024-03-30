@@ -15,6 +15,8 @@ import { tokenDecodeJWT } from '../../utils/authUtils';
 import { useChat } from '../../contexts/provider/ChatContext';
 import { Layout, Menu, Grid, Drawer } from 'antd';
 import { UseDispatch } from 'react-redux';
+
+
 function Sidebar() {
   const { useBreakpoint } = Grid;
   const dispatch = useDispatch();
@@ -29,20 +31,18 @@ function Sidebar() {
     setChatHistory,
     isNewChat,
     setIsNewChat,
+    questionIndex, 
+    setQuestionIndex, 
+    questions, 
+    setQuestions ,
+    messageSent,
+    setMessageSent
   } = useChat();
 
   const [visible, setVisible] = useState(false);
-  useEffect(() => {
-    // console.log('comming to useEffect', chatHistory);
-    // setChatHistory((prev) => [
-    //   ...prev,
-    //   {
-    //     title: 'chat one title for chat adress',
-    //     data: [],
-    //     id: 1,
-    //   },
-    // ]);
-  }, [chatHistory]);
+  const user = useSelector(selectUser);
+  const jwt = user.userToken;
+
 
   const setSessionHandler = (id) => {
     dispatch(setChatSessionId(id));
@@ -113,7 +113,15 @@ function Sidebar() {
             setVisible,
             isNewChat,
             setIsNewChat,
-            setSessionHandler
+            setSessionHandler,
+            questionIndex, 
+            setQuestionIndex, 
+            questions, 
+            setQuestions, 
+            user,
+            jwt , 
+            messageSent, 
+            setMessageSent
           )}
         </Box>
       </Box>

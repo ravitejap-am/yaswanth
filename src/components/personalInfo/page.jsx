@@ -40,7 +40,7 @@ const PersonalInfo = () => {
   };
 
   return (
-    <Box sx={{ width: '100%', typography: 'body1', paddingTop: '10px', padding: '1rem' }}>
+    <Box sx={{ width: '100%', typography: 'body1', paddingTop: '10px', padding: '1rem', height: '100%'}}>
       <TabContext value={selectedTab}>
         {/* {isMobile ? (
           <Box sx={{ marginBottom: 2 }}>
@@ -62,7 +62,7 @@ const PersonalInfo = () => {
             </Select>
           </Box>
         ) : ( */}
-        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+        <Box sx={{ borderBottom: 1, borderColor: 'divider'}}>
           <TabList
             onChange={handleTabChange}
             aria-label="Personal Info Tabs"
@@ -86,15 +86,17 @@ const PersonalInfo = () => {
           </TabList>
         </Box>
         {/* )} */}
+        <Box sx={{height: '70%'}}>
         <TabPanel value="1" style={{ padding: '0px' }}>
           <Information />
         </TabPanel>
-        <TabPanel value="2">
+        <TabPanel value="2" style={{height: '70%'}}>
           <ChangePassword />
         </TabPanel>
         <TabPanel value="3">
           <PersonalPlans />
         </TabPanel>
+        </Box>
       </TabContext>
     </Box>
   );

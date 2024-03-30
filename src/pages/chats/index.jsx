@@ -24,18 +24,24 @@ import responseImg from "../../asset/responseimg.jpg";
 import amchatImg from "../../asset/Vector (1).png";
 import { useChat } from "../../contexts/provider/ChatContext";
 import { AM_CHAT } from "../../constants/Constant";
+import { getChatResponse } from "../../apiCalls/ApiCalls"
+import { useSelector } from 'react-redux';
+import { selectUser } from "../../store/authSlice"; 
+
 function Chats() {
-  const { isChatOpen, setIsChatOpen, isNewChat, setIsNewChat } = useChat();
+  const { isChatOpen, setIsChatOpen, isNewChat, setIsNewChat, questionIndex, setQuestionIndex, questions, setQuestions, messageSent, setMessageSent } = useChat();
+
   const [searchOption, setSearchOption] = useState("specificFileText");
   const [selectedFile, setSelectedFile] = useState("file1");
   const [inputValue, setInputValue] = useState("");
-  const [messageSent, setMessageSent] = useState(false);
-  const [questions, setQuestions] = useState([]);
+
   const [loading, setLoading] = useState(false);
   const [showWarning, setShowWarning] = useState(false);
   const [containerHeight, setContainerHight] = useState(0);
   const isMobile = useMediaQuery("(max-width:600px)");
   const scrollContainerRef = useRef(null);
+  const user = useSelector(selectUser);
+  const jwt = user.userToken;
 
   useEffect(() => {
     setQuestions([]);
@@ -72,21 +78,77 @@ function Chats() {
     }
   };
 
-  const handleSend = () => {
-    if (inputValue.trim() !== "") {
-      setIsNewChat(true);
-      console.log("Sending message:", inputValue);
+  const handleSend = async () => {
+    try{
       setLoading(true);
-      setContainerHight(0)
-      setTimeout(() => {
-        const newQuestion = inputValue;
-        const response = generateResponse(newQuestion);
-        setQuestions([...questions, { question: newQuestion, response }]);
-        setInputValue("");
+      if (inputValue.trim() !== '') {
+        setIsNewChat(true);
+        console.log('Sending message:', inputValue);
+
+        let modifyData = {
+          questionId: questionIndex,
+          question: inputValue, 
+          answer: "",
+          answerData: false
+        }  
+        const body = {
+          doc_name: "Invoice-899B3FD6-0001.pdf",
+          query: inputValue,
+          session_id: "10003"
+        }
+        const headers = {
+          Authorization: `Bearer ${jwt}`,
+          'Content-Type': 'multipart/form-data',
+        }
+        const updatedQuestionAndAnswer = [...questions, modifyData];
+        const response = await getChatResponse(headers, body);
+        console.log("response--->",response);
+        // const response = {
+        //   doc_name: "Invoice-899B3FD6-0001.pdf",
+        //   query: "When is it due?",
+        //   response: "It is due on March 7, 2023.",
+        //   session_id: 10003,
+        //   session_title: ""
+        // }
+
+        updatedQuestionAndAnswer[questionIndex].answer = response?.response;
+        updatedQuestionAndAnswer[questionIndex].answerData = true;
+        setQuestions(updatedQuestionAndAnswer)
+        // setQuestionIndex(questionIndex + 1)
+
         setMessageSent(true);
         setLoading(false);
-        setContainerHight(0)
-      }, 1000);
+
+      }
+    }catch(error){
+
+      setLoading(true);
+      let modifyData = {
+        questionId: questionIndex,
+        question: inputValue, 
+        answer: "",
+        answerData: false
+      }  
+      const updatedQuestionAndAnswer = [...questions, modifyData];
+      setQuestions(updatedQuestionAndAnswer)
+      console.log("showing error");
+      const response = {
+        doc_name: "Invoice-899B3FD6-0001.pdf",
+        query: "When is it due?",
+        response: "It is due on March 7, 2023.",
+        session_id: 10003,
+        session_title: ""
+      }
+
+      console.log("question index--->",questionIndex);
+      setInputValue("");
+      setLoading(false);
+      updatedQuestionAndAnswer[questionIndex].answer = response?.response;
+      updatedQuestionAndAnswer[questionIndex].answerData = true;
+      setQuestions(updatedQuestionAndAnswer)
+      setQuestionIndex(questionIndex + 1)
+      setMessageSent(true);
+      console.error('Error fetching data:', error);
     }
   };
 
@@ -172,6 +234,9 @@ function Chats() {
   // console.log("textarea---->",textarea.style.height);
 
   console.log("container height--->",containerHeight);
+
+  // console.log("cont--->", parseInt(containerHeight.match(/\d+/)[0]));
+
 
   return (
     <Layout componentName="Chat">
@@ -400,25 +465,29 @@ function Chats() {
                         {item.question}
                       </Typography>
                     </div>
-                    {loading && index === questions.length - 1 ? (
-                      <div className={styles.response}>
-                        <Skeleton active />
-                      </div>
+                    {loading 
+                    && 
+                    ( item?.answer == null || item?.answer == "") 
+                    ? (
+                     <div className={styles.response}>
+                     <Skeleton active />
+                   </div>
                     ) : (
                       <div className={styles.response}>
-                        <img
-                          src={responseImg}
-                          alt="User"
-                          className={styles.userImage}
-                        />
-                        <Typography
-                          variant="subtitle1"
-                          mt={1}
-                          style={{ fontSize: "14px" }}
-                        >
-                          {item.response}
-                        </Typography>
-                      </div>
+                      <img
+                        src={responseImg}
+                        alt="User"
+                        className={styles.userImage}
+                      />
+                      <Typography
+                        variant="subtitle1"
+                        mt={1}
+                        style={{ fontSize: "14px" }}
+                      >
+                        {item.answer}
+                      </Typography>
+                    </div>
+ 
                     )}
                   </div>
                 </div>
@@ -445,12 +514,13 @@ function Chats() {
             }}
             style={{
               minHeight: "34px",
-              overflowY: "auto",
+              overflowY:  containerHeight &&  parseInt(containerHeight.match(/\d+/)[0]) > 34 ?  "auto" :"hidden" ,
               paddingRight: "4rem",
               scrollbarWidth: "thin",
               scrollbarColor: "lightgrey #f5f5f5",
               scrollHeight: "3px",
-              scrollPaddingRight: "3px",
+              scrollPaddingRight: "6px",
+              resize: "none",
             }}
           />
           {inputValue && (

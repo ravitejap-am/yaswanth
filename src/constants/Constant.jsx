@@ -25,3 +25,6 @@ export const OrgAdminAccount = 'ORG_ADMIN';
 export const SuperAdminAccount = 'SUPER_ADMIN';
 
 export const AM_CHAT = 'AM-Chat';
+export const CHAT = 'http://127.0.0.1:5000/api/v1/query';
+
+export const CHAT_OF_SESSION = 'http://127.0.0.1:5000/api/v1/sessions/query?session=';

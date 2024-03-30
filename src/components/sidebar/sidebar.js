@@ -12,6 +12,7 @@ import AddIcon from '@mui/icons-material/Add';
 import './sidebarIndex.css';
 import { Layout, Menu, Grid, Drawer } from 'antd';
 import WorkHistoryIcon from '@mui/icons-material/WorkHistory';
+import { getChatSessions } from "../../apiCalls/ApiCalls"
 
 const ORG_ADMIN = [
   {
@@ -81,8 +82,18 @@ export const sideBar = (
   setVisible,
   isNewChat,
   setIsNewChat,
-  setSessionHandler
+  setSessionHandler,
+  questionIndex, 
+  setQuestionIndex, 
+  questions, 
+  setQuestions,
+  user,
+  jwt,
+  messageSent, 
+  setMessageSent  
 ) => {
+
+
   const handleAddChat = () => {
     if (isNewChat) {
       setChatHistory([
@@ -94,13 +105,72 @@ export const sideBar = (
         },
       ]);
       setIsChatOpen(!isChatOpen);
+      setMessageSent(false)
       setIsNewChat(false);
+      setQuestionIndex(0)
+      setQuestions([])
     }
     console.error('please add the chat');
   };
   const onClose = () => {
     setVisible(false);
   };
+
+  const showPreviousChats =async(id) => {
+    try{
+      console.log("previous chats id---->",id);
+      const headers = {
+        Authorization: `Bearer ${jwt}`,
+        'Content-Type': 'multipart/form-data',
+      }
+  
+      const response = await getChatSessions(headers, id);
+      console.log("response--->",response);
+      setSessionHandler(id)
+    }catch(error){
+      console.log("throwing error in chat");
+      const response = {
+        data: [
+            {
+                created_at: "Mon, 25 Mar 2024 10:54:30 GMT",
+                doc_name: "Invoice-899B3FD6-0001.pdf",
+                id: 3,
+                query: "When is it due?",
+                response: "It is due on March 7, 2023."
+            },
+            {
+                created_at: "Mon, 25 Mar 2024 10:54:12 GMT",
+                doc_name: "Invoice-899B3FD6-0001.pdf",
+                id: 2,
+                query: "When is it due?",
+                response: "The amount is due on March 7, 2023."
+            }
+        ],
+        pagination: {
+            page: 1,
+            per_page: 10,
+            total_count: 2,
+            total_pages: 1.2
+        }
+    }
+    
+      const modifiedData = response?.data
+      const changedData = modifiedData.map((data, index) =>{
+        return {
+          questionId: index,
+          question: data?.query, 
+          answer: data?.response ,
+          answerData: true
+        }
+      })
+      console.log("changed data--->",changedData);
+      setQuestionIndex(changedData?.length)
+      setQuestions(changedData)
+      setMessageSent(true)
+      setSessionHandler(id)
+    }
+  }
+
   return (
     <>
       {console.log('pathname', pathname, 'chat history', chatHistory)}
@@ -221,7 +291,7 @@ export const sideBar = (
                           cursor: 'pointer',
                         }}
                         onClick={() => {
-                          setSessionHandler(item.id);
+                          showPreviousChats(item.id)
                         }}
                       >
                         {item?.session_title}
@@ -256,7 +326,8 @@ export const sideBar = (
                       <Menu.Item
                         key={index}
                         onClick={() => {
-                          setSessionHandler(item.id);
+                          showPreviousChats(item.id)
+                          // setSessionHandler(item.id);
                         }}
                       >
                         {item.session_title}
