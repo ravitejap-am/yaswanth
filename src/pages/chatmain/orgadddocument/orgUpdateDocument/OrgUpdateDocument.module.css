@@ -84,6 +84,11 @@
     font-weight: 600;
     line-height: 28px;
   }
+  .uploadDocumentContainer {
+    display: flex;
+    justify-content: flex-start;
+    gap: 1rem;
+  }
   .superAdminProfileCardStyle {
     display: flex;
     flex-direction: row;
