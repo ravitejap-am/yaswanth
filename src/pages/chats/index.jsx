@@ -222,6 +222,7 @@ function Chats() {
 
   const handleOkWarning = () => {
     setShowWarning(false);
+    setSelectedFile("")
     setSearchOption("acrossFiles");
   };
 
@@ -514,7 +515,7 @@ function Chats() {
             }}
             style={{
               minHeight: "34px",
-              overflowY:  containerHeight &&  parseInt(containerHeight.match(/\d+/)[0]) > 34 ?  "auto" :"hidden" ,
+              overflowY:  "auto"  ,
               paddingRight: "4rem",
               scrollbarWidth: "thin",
               scrollbarColor: "lightgrey #f5f5f5",

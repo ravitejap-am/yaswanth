@@ -70,7 +70,7 @@ export const getChatSessions = async (id, headers) => {
     console.log('headers---->', headers);
     const data = await axios.post(
       `${CHAT_OF_SESSION}${id}`,
-      headers, body
+      headers
     );
     return data;
   } catch (error) {
