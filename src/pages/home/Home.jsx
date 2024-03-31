@@ -12,10 +12,15 @@ import ContactUp from "./ContactUs/ContactUp";
 import { Typography } from "@mui/material";
 
 const Home = () => {
+
+  const handleLogoClick = () => {
+    window.location.href = "/"; 
+  };
+
   return (
     <>
       <div>
-        <Header />
+        <Header  handleLogoClick= {handleLogoClick}/>
       </div>
       <div className={Style.banner} id="Home_page">
         <Banner />

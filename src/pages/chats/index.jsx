@@ -24,12 +24,23 @@ import responseImg from "../../asset/responseimg.jpg";
 import amchatImg from "../../asset/Vector (1).png";
 import { useChat } from "../../contexts/provider/ChatContext";
 import { AM_CHAT } from "../../constants/Constant";
-import { getChatResponse } from "../../apiCalls/ApiCalls"
-import { useSelector } from 'react-redux';
-import { selectUser } from "../../store/authSlice"; 
+import { getChatResponse } from "../../apiCalls/ApiCalls";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../store/authSlice";
 
 function Chats() {
-  const { isChatOpen, setIsChatOpen, isNewChat, setIsNewChat, questionIndex, setQuestionIndex, questions, setQuestions, messageSent, setMessageSent } = useChat();
+  const {
+    isChatOpen,
+    setIsChatOpen,
+    isNewChat,
+    setIsNewChat,
+    questionIndex,
+    setQuestionIndex,
+    questions,
+    setQuestions,
+    messageSent,
+    setMessageSent,
+  } = useChat();
 
   const [searchOption, setSearchOption] = useState("specificFileText");
   const [selectedFile, setSelectedFile] = useState("file1");
@@ -42,6 +53,7 @@ function Chats() {
   const scrollContainerRef = useRef(null);
   const user = useSelector(selectUser);
   const jwt = user.userToken;
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     setQuestions([]);
@@ -72,37 +84,42 @@ function Chats() {
   };
 
   const handleInputChange = (event) => {
-    setInputValue(event.target.value);
+    if (event.target.value.replace(/\s/g, "").length <= 1000) {
+      setInputValue(event.target.value);
+      setErrorMessage('');  
+    } else {
+      setErrorMessage("Maximum characters reached");
+    }
     if (!messageSent) {
       setMessageSent(false);
     }
   };
 
   const handleSend = async () => {
-    try{
+    try {
       setLoading(true);
-      if (inputValue.trim() !== '') {
+      if (inputValue.trim() !== "") {
         setIsNewChat(true);
-        console.log('Sending message:', inputValue);
+        console.log("Sending message:", inputValue);
 
         let modifyData = {
           questionId: questionIndex,
-          question: inputValue, 
+          question: inputValue,
           answer: "",
-          answerData: false
-        }  
+          answerData: false,
+        };
         const body = {
           doc_name: "Invoice-899B3FD6-0001.pdf",
           query: inputValue,
-          session_id: "10003"
-        }
+          session_id: "10003",
+        };
         const headers = {
           Authorization: `Bearer ${jwt}`,
-          'Content-Type': 'multipart/form-data',
-        }
+          "Content-Type": "multipart/form-data",
+        };
         const updatedQuestionAndAnswer = [...questions, modifyData];
         const response = await getChatResponse(headers, body);
-        console.log("response--->",response);
+        console.log("response--->", response);
         // const response = {
         //   doc_name: "Invoice-899B3FD6-0001.pdf",
         //   query: "When is it due?",
@@ -113,42 +130,40 @@ function Chats() {
 
         updatedQuestionAndAnswer[questionIndex].answer = response?.response;
         updatedQuestionAndAnswer[questionIndex].answerData = true;
-        setQuestions(updatedQuestionAndAnswer)
+        setQuestions(updatedQuestionAndAnswer);
         // setQuestionIndex(questionIndex + 1)
 
         setMessageSent(true);
         setLoading(false);
-
       }
-    }catch(error){
-
+    } catch (error) {
       setLoading(true);
       let modifyData = {
         questionId: questionIndex,
-        question: inputValue, 
+        question: inputValue,
         answer: "",
-        answerData: false
-      }  
+        answerData: false,
+      };
       const updatedQuestionAndAnswer = [...questions, modifyData];
-      setQuestions(updatedQuestionAndAnswer)
+      setQuestions(updatedQuestionAndAnswer);
       console.log("showing error");
       const response = {
         doc_name: "Invoice-899B3FD6-0001.pdf",
         query: "When is it due?",
         response: "It is due on March 7, 2023.",
         session_id: 10003,
-        session_title: ""
-      }
-
-      console.log("question index--->",questionIndex);
+        session_title: "",
+      };
+      setErrorMessage("");
+      console.log("question index--->", questionIndex);
       setInputValue("");
       setLoading(false);
       updatedQuestionAndAnswer[questionIndex].answer = response?.response;
       updatedQuestionAndAnswer[questionIndex].answerData = true;
-      setQuestions(updatedQuestionAndAnswer)
-      setQuestionIndex(questionIndex + 1)
+      setQuestions(updatedQuestionAndAnswer);
+      setQuestionIndex(questionIndex + 1);
       setMessageSent(true);
-      console.error('Error fetching data:', error);
+      console.error("Error fetching data:", error);
     }
   };
 
@@ -161,22 +176,6 @@ function Chats() {
     "Can you explain me the quantum?",
   ];
 
-  const generateResponse = (question) => {
-    switch (question) {
-      case "Could you help me with the maternity policy of my organisation?":
-        return "Sure, here is the link to the maternity policy document: [link]";
-      case "Can you tell me about GDPR compliance.  Which I should follow in my organisation?":
-        return "GDPR compliance is crucial for protecting user data. Here are the key aspects you should focus on: [list of key aspects]";
-      case "Can you explain me the Pythagoras theorem based on. ":
-        return "The Pythagorean theorem states that in a right-angled triangle, the square of the length of the hypotenuse is equal to the sum of the squares of the lengths of the other two sides.";
-      case "Can you tell me what's wrong in my lab reports? ":
-        return "Sure, please upload your lab reports, and I'll take a look.";
-      case "Can you explain me the quantum? ":
-        return "Quantum mechanics is the branch of physics that studies the behavior of particles at the quantum level, where classical physics principles no longer apply.";
-      default:
-        return "I'm sorry, I didn't understand your question. Can you please provide more details?";
-    }
-  };
 
   const handleSuggestionClick = (question) => {
     setInputValue(question);
@@ -203,16 +202,15 @@ function Chats() {
       }
     } else {
       element.style.height = "34px";
-      console.log("element.scrollHeight------->",element.scrollHeight);
-      if(element.scrollHeight >= 0 && element.scrollHeight < 188){
+      console.log("element.scrollHeight------->", element.scrollHeight);
+      if (element.scrollHeight >= 0 && element.scrollHeight < 188) {
         element.style.height = Math.min(element.scrollHeight, 34 * 7) + "px";
         const number = parseInt(element.style.height.match(/\d+/)[0]);
         if (number > 30 && number < 65) {
           setContainerHight(element.style.height);
         }
-      }
-      else{
-        element.style.height = "188px"
+      } else {
+        element.style.height = "188px";
         setContainerHight(0);
       }
     }
@@ -222,22 +220,29 @@ function Chats() {
 
   const handleOkWarning = () => {
     setShowWarning(false);
-    setSelectedFile("")
     setSearchOption("acrossFiles");
+    setSelectedFile("  ");
   };
 
   const handleCancelWarning = () => {
     setShowWarning(false);
   };
 
-  console.log("is mobile b--->", isMobile);
-
-  // console.log("textarea---->",textarea.style.height);
-
-  console.log("container height--->",containerHeight);
-
-  // console.log("cont--->", parseInt(containerHeight.match(/\d+/)[0]));
-
+  const handlePaste = (event) => {
+    const pastedText = event.clipboardData.getData('text');
+    const remainingCharacters = 1000 - inputValue.replace(/\s/g, '').length;
+    const allowedContent = pastedText.substring(0, remainingCharacters);
+    const newInputValue = inputValue + allowedContent;
+  
+    if (newInputValue.replace(/\s/g, '').length > 1000) {
+      event.preventDefault();
+      setErrorMessage('Maximum 1000 characters allowed');
+    } else {
+      setInputValue(newInputValue);
+    }
+  };
+  
+  
 
   return (
     <Layout componentName="Chat">
@@ -254,21 +259,21 @@ function Chats() {
       >
         <Box
           sx={{
-            height: {sm:"8em", md:"3em"} ,
+            height: { sm: "8em", md: "3em" },
             borderBottom: "1px solid lightGrey",
             width: "100%",
             display: "flex",
             alignItems: "center",
             justifyContent: "space-around",
             flexDirection: {
-              xs:"column",
+              xs: "column",
               sm: "column",
               md: "row",
               xl: "row",
-              lg: "row"
+              lg: "row",
             },
             gap: "1rem",
-            paddingBottom: "5px"
+            paddingBottom: "5px",
           }}
         >
           <Box>
@@ -297,14 +302,16 @@ function Chats() {
               </label>
             </Typography>
           </Box>
-          <Box sx={{ width: '140px' }}>
+          <Box sx={{ width: "140px" }}>
             <FormControl
               className={styles.chatFormControl}
-              size="medium"
+              size="large"
               variant="outlined"
               fullWidth
+              
+              // style={{ marginTop: "1rem", border: `1px solid ${selectedFile ? '#a9a9a9' : ''}` }}
             >
-              <InputLabel id="file-select-label">Document</InputLabel>
+              <InputLabel id="file-select-label" shrink={true}>Document</InputLabel>
               <Select
                 labelId="file-select-label"
                 id="file-select"
@@ -314,7 +321,7 @@ function Chats() {
                 className={styles.chatSelect}
                 style={{ textAlign: "left", height: "30px" }}
               >
-                <MenuItem value="">
+                <MenuItem value="  ">
                   <em>Select file</em>
                 </MenuItem>
                 <MenuItem value="file1">File 1</MenuItem>
@@ -347,7 +354,7 @@ function Chats() {
           </Box>
         </Box>
 
-        <Box sx={{ flex: 1, overflowY:  'auto'}}>
+        <Box sx={{ flex: 1, overflowY: "auto" }}>
           {!messageSent && (
             <Box
               sx={{
@@ -356,7 +363,9 @@ function Chats() {
                 justifyContent: isMobile ? "flex-start" : "space-between",
                 alignItems: isMobile ? "center" : "center",
                 flexWrap: isMobile ? "" : "",
-                height: isMobile ? `calc(120% - ${containerHeight})` :  `calc(100% - ${containerHeight})`,
+                height: isMobile
+                  ? `calc(120% - ${containerHeight})`
+                  : `calc(100% - ${containerHeight})`,
                 overflowY: "auto",
                 scrollbarWidth: "thin",
                 scrollbarColor: "lightgrey #f5f5f5",
@@ -435,7 +444,7 @@ function Chats() {
               ref={scrollContainerRef}
               sx={{
                 display: "flex",
-                height: isMobile? "100%": "90%",
+                height: isMobile ? "100%" : "90%",
                 overflowY: "auto",
                 scrollbarWidth: "3px",
                 scrollbarColor: "lightgrey #f5f5f5",
@@ -443,12 +452,12 @@ function Chats() {
                 scrollPaddingRight: "3px",
                 padding: "0.8rem",
                 // flexWrap: 'wrap',
-                flexDirection:'column',
-                justifyContent: 'flex-start'
+                flexDirection: "column",
+                justifyContent: "flex-start",
               }}
             >
               {questions.map((item, index) => (
-                <div key={index} style={{display: 'flex'}}>
+                <div key={index} style={{ display: "flex" }}>
                   <div className={styles.responseContent}>
                     <div className={styles.askedQuestion}>
                       <img
@@ -466,29 +475,25 @@ function Chats() {
                         {item.question}
                       </Typography>
                     </div>
-                    {loading 
-                    && 
-                    ( item?.answer == null || item?.answer == "") 
-                    ? (
-                     <div className={styles.response}>
-                     <Skeleton active />
-                   </div>
+                    {loading && (item?.answer == null || item?.answer == "") ? (
+                      <div className={styles.response}>
+                        <Skeleton active />
+                      </div>
                     ) : (
                       <div className={styles.response}>
-                      <img
-                        src={responseImg}
-                        alt="User"
-                        className={styles.userImage}
-                      />
-                      <Typography
-                        variant="subtitle1"
-                        mt={1}
-                        style={{ fontSize: "14px" }}
-                      >
-                        {item.answer}
-                      </Typography>
-                    </div>
- 
+                        <img
+                          src={responseImg}
+                          alt="User"
+                          className={styles.userImage}
+                        />
+                        <Typography
+                          variant="subtitle1"
+                          mt={1}
+                          style={{ fontSize: "14px" }}
+                        >
+                          {item.answer}
+                        </Typography>
+                      </div>
                     )}
                   </div>
                 </div>
@@ -515,27 +520,38 @@ function Chats() {
             }}
             style={{
               minHeight: "34px",
-              overflowY:  "auto"  ,
+              overflowY: "auto",
               paddingRight: "4rem",
               scrollbarWidth: "thin",
               scrollbarColor: "lightgrey #f5f5f5",
               scrollHeight: "3px",
-              scrollPaddingRight: "6px",
+              scrollPaddingRight:"6px",
+              WebkitScrollbarCorner: {
+                background: "transparent", // Adjust as needed
+                paddingRight: "16px", // Add padding to the right of the scrollbar
+              },
               resize: "none",
             }}
+            onPaste={handlePaste}
           />
           {inputValue && (
-            <Box sx={{position: 'relative'}}>
-            <Button
-              type="primary"
-              icon={<SendOutlined />}
-              className={styles.SendButton}
-              onClick={handleSend}
-            />
+            <Box sx={{ position: "relative" }}>
+              <Button
+                type="primary"
+                icon={<SendOutlined />}
+                className={styles.SendButton}
+                onClick={handleSend}
+              />
             </Box>
           )}
-          
         </Box>
+        {/* <Box style={{width: '100%', height:'1rem'}}>
+        {errorMessage && (
+            <Typography variant="body2"  style={{color: "red", textAlign: 'center', marginTop: '0.4rem'}}>
+              {errorMessage}
+            </Typography>
+          )}
+        </Box> */}
       </Box>
     </Layout>
   );

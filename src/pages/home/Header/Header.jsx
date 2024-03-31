@@ -9,13 +9,14 @@ import { AppstoreOutlined } from '@ant-design/icons';
 import './header.css';
 import { Typography } from '@mui/material';
 
-const Header = () => {
+const Header = (props) => {
   const [scroll, setScroll] = useState(false);
   const [visible, setVisible] = useState(false);
   const { Header } = Layout;
   const { useBreakpoint } = Grid;
   const screens = useBreakpoint();
   const location = useLocation();
+  const { handleLogoClick } = props
 
   useEffect(() => {
     if (location.state && location.state.fromRegisterPage) {
@@ -85,7 +86,7 @@ const Header = () => {
   return (
     <Layout>
       <Header className={Styles.mainHeader}>
-        <div className={Styles.appLogo}>
+        <div className={Styles.appLogo} onClick={handleLogoClick} style={{cursor: 'pointer' }}>
           <img src={Logo} alt="" width={120} />
         </div>
         {screens.sm || screens.md || screens.lg ? (

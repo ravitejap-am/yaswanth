@@ -28,7 +28,7 @@ const subscription = [
   {
     title: 'Standard',
     description:
-      'Best fit for organization with 50 to 100 users or 10 to 50 users. ',
+      'Best fit for organisation with 50 to 100 users or 10 to 50 users. ',
     price: '99.99',
     features: [
       'Max 50 users',

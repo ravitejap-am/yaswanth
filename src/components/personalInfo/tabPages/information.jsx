@@ -164,7 +164,8 @@ function Information({ setFileSysytem, validateEmail }) {
       );
       console.log(response);
       showNotifyMessage('success', response?.data?.message, messageHandler);
-      setIsLoading(false);
+      await fetchUserProfile()
+      window.location.href = "/Info";
     } catch (error) {
       console.log(error);
       showNotifyMessage('error', error?.message, messageHandler);
@@ -188,7 +189,8 @@ function Information({ setFileSysytem, validateEmail }) {
         }
       );
       showNotifyMessage('success', response?.data?.message, messageHandler);
-      setIsLoading(false);
+      fetchUserProfile()
+      window.location.href = "/Info";
     } catch (error) {
       showNotifyMessage('error', error?.message, messageHandler);
       setIsLoading(false);
