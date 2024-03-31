@@ -34,7 +34,7 @@ function AddOrgDocuments() {
   const jwt = user.userToken;
   const [errors, setErrors] = useState('');
   const [fileName, setFileName] = useState('');
-  const isMobile = useMediaQuery("(max-width:600px)");
+  const isMobile = useMediaQuery('(max-width:600px)');
 
   const messageHandler = () => {
     setIsReset(false);
@@ -106,9 +106,7 @@ function AddOrgDocuments() {
       return false;
     },
     accept: '.pdf',
-    onchange: () => {
-      alert('hi');
-    },
+    onchange: () => {},
   };
 
   const ErrorMsg = () => {
@@ -129,7 +127,9 @@ function AddOrgDocuments() {
           width: '100%',
           height: '85%',
           borderRadius: '10px',
-          display: 'flex', flexDirection: 'column', justifyContent:'space-between'
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
         }}
       >
         <Box
@@ -190,7 +190,7 @@ function AddOrgDocuments() {
           }}
         >
           <Button onClick={cancelHandler} className={Styles.cancelButton}>
-           <Typography variant='button'> Cancel</Typography>
+            <Typography variant="button"> Cancel</Typography>
           </Button>
           <Button
             type="primary"
@@ -198,7 +198,7 @@ function AddOrgDocuments() {
             className={Styles.addButtonStyle}
             onClick={() => submitHandler()}
           >
-           <Typography variant='button'> Add</Typography>
+            <Typography variant="button"> Add</Typography>
           </Button>
         </Box>
       </Box>
