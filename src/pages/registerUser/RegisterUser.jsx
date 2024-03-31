@@ -218,18 +218,17 @@ const RegisterUser = () => {
 
   useEffect(() => {
     const scrollToTop = () => {
-      window.scrollTo({ top: 0, behavior: 'auto' });
+      window.scrollTo({ top: 0, behavior: "auto" });
     };
-  
+
     scrollToTop();
-  
+
     const handleScroll = () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
-  
-    window.addEventListener('scroll', handleScroll);
-  
-  }, []); 
+
+    window.addEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <>
@@ -245,38 +244,20 @@ const RegisterUser = () => {
         </div>
         <div className="signup-main-css">
           <Box className="text-top-signup" mb={1}>
-        <Typography variant="h2" gutterBottom >Sign Up</Typography>
-        {isMobile ? (
-       <Typography variant="body1" mt={4}gutterBottom color={'#1e293b'}> Please sign up with your organisation email ID. If your
-       organisation is not registered with us, please reach out to us
-       at
-       <a
-         href="mailto:sales@areteminds.com"
-         target="_blank"
-         className="sign-up-mail"
-         style={{color: "#1e293b", textDecoration: "underline"}}
-       >
-         "sales@areteminds.com"
-       </a>
-       or fill up{" "}
-       <a
-         onClick={() => handleRegister()}
-         className="contactus-text"
-         style={{color: "#1e293b", textDecoration: "underline", paddingRight: "5px"}}
-       >
-         contact us{" "}
-       </a>
-       form
-      </Typography>
-            ) : (
-           <Typography variant="body1" mt={4}gutterBottom color={'#1e293b'}> Please sign up with your organisation email ID. If your <br />
-                organisation is not registered with us, please reach out <br />{" "}
-                to us at
+            <Typography variant="h2" gutterBottom>
+              Sign Up
+            </Typography>
+            {isMobile ? (
+              <Typography variant="body1" mt={4} gutterBottom color={"#1e293b"}>
+                {" "}
+                Please sign up with your organisation email ID. If your
+                organisation is not registered with us, please reach out to us
+                at
                 <a
                   href="mailto:sales@areteminds.com"
                   target="_blank"
                   className="sign-up-mail"
-                  style={{color: "#1e293b", textDecoration: "underline", paddingRight: "5px"}}
+                  style={{ color: "#1e293b", textDecoration: "underline" }}
                 >
                   "sales@areteminds.com"
                 </a>
@@ -284,14 +265,45 @@ const RegisterUser = () => {
                 <a
                   onClick={() => handleRegister()}
                   className="contactus-text"
-                  style={{color: "#1e293b", textDecoration: "underline"}}
+                  style={{
+                    color: "#1e293b",
+                    textDecoration: "underline",
+                    paddingRight: "5px",
+                  }}
+                >
+                  contact us{" "}
+                </a>
+                form
+              </Typography>
+            ) : (
+              <Typography variant="body1" mt={4} gutterBottom color={"#1e293b"}>
+                {" "}
+                Please sign up with your organisation email ID. If your <br />
+                organisation is not registered with us, please reach out <br />{" "}
+                to us at
+                <a
+                  href="mailto:sales@areteminds.com"
+                  target="_blank"
+                  className="sign-up-mail"
+                  style={{
+                    color: "#1e293b",
+                    textDecoration: "underline",
+                    paddingRight: "5px",
+                  }}
+                >
+                  "sales@areteminds.com"
+                </a>
+                or fill up{" "}
+                <a
+                  onClick={() => handleRegister()}
+                  className="contactus-text"
+                  style={{ color: "#1e293b", textDecoration: "underline" }}
                 >
                   Contact Us
                 </a>{" "}
                 form
-               </Typography>
-                )}
-
+              </Typography>
+            )}
           </Box>
           <div className="signup-form-css">
             <Form
@@ -397,13 +409,17 @@ const RegisterUser = () => {
                   htmlType="submit"
                   className="signin_submit_btn_css"
                 >
-            <Typography variant="button" display="block" >
-             Sign Up
-            </Typography>               
-             </Button>
+                  <Typography variant="button" display="block">
+                    Sign Up
+                  </Typography>
+                </Button>
               </Form.Item>
 
-              <Typography className="linktextsigup" variant="body2" gutterBottom>
+              <Typography
+                className="linktextsigup"
+                variant="body2"
+                gutterBottom
+              >
                 Already have an account?{" "}
                 <Link
                   to={"/signin"}
@@ -416,6 +432,22 @@ const RegisterUser = () => {
                   Sign in
                 </Link>
               </Typography>
+              <Box className="linktextsignin" mt={2}>
+                <Typography variant="body2" gutterBottom>
+                  Have you forgotten your password?
+                  <Link
+                    to={"/recoverypassword"}
+                    style={{
+                      textDecoration: "underline",
+                      color: "black",
+                      marginLeft: "3px",
+                    }}
+                  >
+                    {" "}
+                    Forgot Password!
+                  </Link>
+                </Typography>
+              </Box>
               <br />
             </Form>
           </div>

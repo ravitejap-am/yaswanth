@@ -12,6 +12,7 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  Typography,
 } from "@mui/material";
 import styles from "./dashboard.module.css";
 import { useNavigate } from "react-router-dom";
@@ -27,6 +28,8 @@ import DashboardCard from "../../../components/common/dashboard-card/DashboardCa
 import OrgChatSession from "../../../components/common/org-chat-session/OrgChatSession";
 import Bar from "../../../components/common/barChart/Bar";
 import Pie from "../../../components/common/pieChart/Pie";
+import CommonDatePicker from "../../../components/common/date-picker/CommonDatePicker";
+import { pieRaw_data, barRaw_data } from "../../../constants/RawData";
 
 function Dashboard() {
   const user = useSelector(selectUser);
@@ -35,7 +38,14 @@ function Dashboard() {
   const dispatch = useDispatch();
   const [orgCount, setOrgCount] = useState(0);
   const [docCount, setDocCount] = useState(0);
-  const [toShow, setToShow] = useState([]);
+  const [startDate, setStartDate] = useState(() => {
+    const currentDate = new Date();
+    currentDate.setDate(currentDate.getDate() - 6);
+    return currentDate;
+  });
+  const [endDate, setEndDate] = useState(new Date());
+  const [toShowPie, setToShowPie] = useState([]);
+  const [toShowBar, setToShowBar] = useState([]);
   const [selectedValue, setSelectedValue] = useState("chat");
   const [isLoading, setIsLoading] = useState(true);
   const [documentCount, setDocumentCount] = useState(0);
@@ -60,25 +70,6 @@ function Dashboard() {
       console.error("Error decoding JWT:", error);
       return null;
     }
-  };
-
-  const raw_data = {
-    chat: [
-      { value: 1048, name: "Remaining" },
-      { value: 735, name: "Used" },
-    ],
-    users: [
-      { value: 1148, name: "Remaining" },
-      { value: 635, name: "Used" },
-    ],
-    documents: [
-      { value: 1248, name: "Remaining" },
-      { value: 535, name: "Used" },
-    ],
-    documents_size: [
-      { value: 1348, name: "Remaining" },
-      { value: 435, name: "Used" },
-    ],
   };
 
   const decodedToken = decodeJWT(jwt);
@@ -225,6 +216,28 @@ function Dashboard() {
     setSelectedValue(e.target.value);
   };
 
+  const handleSelectedDate = (selectedDate) => {
+    const endDate = selectedDate ? new Date(selectedDate) : new Date();
+    const startDate = selectedDate ? new Date(selectedDate) : new Date();
+    startDate.setDate(endDate?.getDate() - 6);
+    setStartDate(startDate);
+    setEndDate(endDate);
+  };
+
+  const filteredData = (startDate, endDate, data) => {
+    const filter = {};
+    const days = Object.keys(data);
+    const filteredDays = days?.filter((day) => {
+      const date = parseInt(day, 10);
+      console.log("parseInt", date);
+      return date >= startDate?.getDate() && date <= endDate?.getDate();
+    });
+    filteredDays?.forEach((day) => {
+      filter[day] = data[day];
+    });
+    return filter;
+  };
+
   useEffect(() => {
     if (userRole === "SUPER_ADMIN") {
       getOrganisationCount();
@@ -233,11 +246,12 @@ function Dashboard() {
       fetchActiveUserCount();
       fetchOrgChatSession();
       fetchDocumentCount();
-      setToShow(raw_data[selectedValue]);
+      setToShowPie(pieRaw_data[selectedValue]);
+      setToShowBar(filteredData(startDate, endDate, barRaw_data));
     } else {
       setIsLoading(false);
     }
-  }, [userRole, selectedValue]);
+  }, [userRole, selectedValue, endDate]);
 
   return (
     <Layout componentName="Dashboard">
@@ -264,7 +278,7 @@ function Dashboard() {
       )}
       {userRole === "ORG_ADMIN" && (
         <Grid container spacing={2} className={styles.container}>
-          <Grid item sm={12} md={6} lg={6}>
+          {/* <Grid item sm={12} md={6} lg={6}>
             <DashboardCard
               mainClass={styles.sub}
               icon={documentIcon1}
@@ -279,34 +293,72 @@ function Dashboard() {
               contentName={"Active Users"}
               contentNumber={activeUsersCount}
             />
-          </Grid>
+          </Grid> */}
           <Grid item sm={12} md={6} lg={6}>
-            <Bar />
-          </Grid>
-          <Grid item sm={12} md={6} lg={6}>
-            <FormControl
+            <Box
               sx={{
-                width: "200px",
+                display: "flex",
+                flexWrap: "wrap",
+                gap: "1rem",
+                justifyContent: {
+                  xs: "center",
+                  sm: "space-between",
+                  lg: "space-between",
+                  md: "space-between",
+                },
               }}
-              size="small"
             >
-              <Select
-                id="demo-select-small"
-                value={selectedValue}
-                // label="Filter"
-                onChange={(e) => handleChange(e)}
+              <Typography variant="h6" fontWeight="bold">
+                Chats and Sessions
+              </Typography>
+              <CommonDatePicker
+                selectedDate={endDate ?? new Date()}
+                handleSelectedDate={handleSelectedDate}
+              />
+            </Box>
+            <Bar dateList={toShowBar} />
+          </Grid>
+          <Grid item sm={12} md={6} lg={6}>
+            <Box
+              sx={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: "1rem",
+                justifyContent: {
+                  xs: "center",
+                  sm: "space-between",
+                  lg: "space-between",
+                  md: "space-between",
+                },
+              }}
+            >
+              <Typography variant="h6" fontWeight="bold">
+                Subscription Details
+              </Typography>
+              <FormControl
+                sx={{
+                  width: "200px",
+                }}
+                size="small"
               >
-                <MenuItem value="chat">Chat</MenuItem>
-                <MenuItem value="users">Users</MenuItem>
-                <MenuItem value="documents">Documents</MenuItem>
-                <MenuItem value="documents_size">Documents Size</MenuItem>
-              </Select>
-            </FormControl>
-            <Pie selectedTypeValue={toShow} />
+                <Select
+                  id="demo-select-small"
+                  value={selectedValue}
+                  // label="Filter"
+                  onChange={(e) => handleChange(e)}
+                >
+                  <MenuItem value="chat">Chat</MenuItem>
+                  <MenuItem value="users">Users</MenuItem>
+                  <MenuItem value="documents">Documents</MenuItem>
+                  <MenuItem value="documents_size">Documents Size</MenuItem>
+                </Select>
+              </FormControl>
+            </Box>
+            <Pie selectedTypeValue={toShowPie} />
           </Grid>
-          <Grid item sm={12} md={6} lg={4}>
+          {/* <Grid item sm={12} md={6} lg={4}>
             <OrgChatSession activeUserList={orgChatSessionList} />
-          </Grid>
+          </Grid> */}
         </Grid>
       )}
     </Layout>
