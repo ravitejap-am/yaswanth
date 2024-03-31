@@ -235,13 +235,20 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
           height: "150%",
           flexDirection: "column",
           justifyContent: "space-between",
+          width: {
+            xs: 300 ,
+            sm: 600 ,
+            md: 900 ,
+            lg: 1200 ,
+            xl: 1500
+          }
         }}
       >
         {isLoading && <PageLoader loadingStatus={isLoading} />}
 
         <Box style={{ height: "100%" }}>
-          <Grid container>
-            <Grid item sm={12} md={6} lg={6}>
+          <Grid container spacing={2} >
+            <Grid item >
               <Typography>
                 {" "}
                 <label htmlFor="password">Old Password:</label>
@@ -278,7 +285,7 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
                 />
               </Form.Item>
             </Grid>
-            <Grid item sm={12} md={6} lg={6}>
+            <Grid item >
               <Typography>
                 {" "}
                 <label
@@ -300,6 +307,7 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
               >
                 <Input
                   className="inputstyle-css-changepassword"
+                  style={{width: {md:'50%'}, backgroundColor: 'red'}}
                   placeholder="New Password"
                   type={showPassword.newPassword ? "text" : "password"}
                   suffix={
@@ -320,7 +328,7 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
                 />
               </Form.Item>
             </Grid>
-            <Grid item sm={12} md={6} lg={6}>
+            <Grid item >
               <Typography>
                 <label htmlFor="password">Confirm Password:</label>{" "}
               </Typography>
@@ -336,6 +344,7 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
               >
                 <Input
                   className="inputstyle-css-changepassword"
+                  style={{width: {md:'80%'}}}
                   placeholder="Confirm Password"
                   type={showPassword.confirmPassword ? "text" : "password"}
                   suffix={
@@ -365,6 +374,7 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
             flexDirection: "row",
             justifyContent: isMobile ? "center" : "flex-end",
             alignItems: isMobile ? "center" : "flex-end",
+            padding: "1rem"
           }}
         >
             <Button type="primary" htmlType="submit" className="buttonStyle">
