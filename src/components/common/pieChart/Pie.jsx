@@ -8,11 +8,11 @@ const Pie = ({ selectedTypeValue }) => {
     const myChart = echarts.init(chartDom);
 
     const option = {
-      title: {
-        text: "Subscription Details",
-        // subtext: "Fake Data",
-        left: "left",
-      },
+      // title: {
+      //   text: "Subscription Details",
+      //   subtext: "Fake Data",
+      //   left: "left",
+      // },
       tooltip: {
         trigger: "item",
       },

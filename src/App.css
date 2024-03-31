@@ -141,6 +141,10 @@ body {
   font-weight: 700 !important;
 }
 
+.css-nxo287-MuiInputBase-input-MuiOutlinedInput-input {
+  padding: 9.5px 12px !important;
+}
+
 @font-face {
   font-family: "Montserrat300";
   src: local("Montserrat300"),
