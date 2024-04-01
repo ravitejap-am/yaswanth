@@ -24,7 +24,7 @@ function PersonalPlans() {
           Max 10 chats free
         </Typography>
         <Box className="note-p-text" mt={3}>
-          <Typography variant='body1'>Note: Your plan is due on 3rd Feb, 2024</Typography>
+          <Typography variant='body1'>Note: Your plan is due on 31st December 2024</Typography>
         </Box>
       </div>
     </Card>
