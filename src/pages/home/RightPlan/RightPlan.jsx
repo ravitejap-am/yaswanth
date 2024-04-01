@@ -75,9 +75,9 @@ function RightPlan() {
           <div>
             <p className="Right_Plan_Content_Price">
               <span className="price">Free</span>
-              {/* <Typography variant="caption" className="per-month">
-                /Month
-              </Typography> */}
+              <Typography variant="caption" className="per-month">
+                {""}
+              </Typography>
             </p>
           </div>
           <div
