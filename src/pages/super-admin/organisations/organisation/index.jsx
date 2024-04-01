@@ -1,45 +1,52 @@
-import React, { useState, useEffect } from 'react';
-import Layout from '../../../../Layout';
-import { AppBar, Toolbar, Box, Tab, Grid, useMediaQuery, Typography} from '@mui/material';
-import './Index.css'
+import React, { useState, useEffect } from "react";
+import Layout from "../../../../Layout";
+import {
+  AppBar,
+  Toolbar,
+  Box,
+  Tab,
+  Grid,
+  useMediaQuery,
+  Typography,
+} from "@mui/material";
+import "./Index.css";
 
-
-import { Tabs, Button } from 'antd';
-import { Link, useNavigate } from 'react-router-dom';
-import GeneralForm from '../../../../components/common/forms/GeneralForm';
-import OrganizationInfo from '../../../AMChatAdmin/AddOrganizationAdmin/AddOrganizationTabNavigation/OrganizationInfo';
-import OrganizationAdmin from '../../../AMChatAdmin/AddOrganizationAdmin/AddOrganizationTabNavigation/OrganizationAdmin';
-import OrganizationDomains from '../../../AMChatAdmin/EditOrganizationAdmin/AddOrganizationTabNavigation/OrganizationDomains';
-import SubscriptionPlan from '../../../AMChatAdmin/AddOrganizationAdmin/AddOrganizationTabNavigation/SubscriptionPlan';
-import GeneralButton from '../../../../components/common/buttons/GeneralButton';
-import axios from 'axios';
+import { Tabs, Button } from "antd";
+import { Link, useNavigate } from "react-router-dom";
+import GeneralForm from "../../../../components/common/forms/GeneralForm";
+import OrganizationInfo from "../../../AMChatAdmin/AddOrganizationAdmin/AddOrganizationTabNavigation/OrganizationInfo";
+import OrganizationAdmin from "../../../AMChatAdmin/AddOrganizationAdmin/AddOrganizationTabNavigation/OrganizationAdmin";
+import OrganizationDomains from "../../../AMChatAdmin/EditOrganizationAdmin/AddOrganizationTabNavigation/OrganizationDomains";
+import SubscriptionPlan from "../../../AMChatAdmin/AddOrganizationAdmin/AddOrganizationTabNavigation/SubscriptionPlan";
+import GeneralButton from "../../../../components/common/buttons/GeneralButton";
+import axios from "axios";
 import {
   selectUser,
   selectOrganisation,
   setOrganisationData,
   setErrorMsg,
-} from '../../../../store/authSlice';
-import { useSelector, useDispatch } from 'react-redux';
-import * as constants from '../../../../constants/Constant';
-import { useMessageState } from '../../../../hooks/useapp-message';
-import { tokenDecodeJWT } from '../../../../utils/authUtils';
-import AMChatHeader from '../../../AMChatAdmin/AMChatHeader/AMChatHeader';
-import SuperAdminHeader from '../../../AMChatAdmin/SuperAdminHeader/SuperAdminHeader';
-import PageLoader from '../../../../components/loader/loader';
-import OrganizationInfoForm from '../../../../components/super-admin/organisation-info';
-import UserInfoForm from '../../../../components/super-admin/userInfo';
+} from "../../../../store/authSlice";
+import { useSelector, useDispatch } from "react-redux";
+import * as constants from "../../../../constants/Constant";
+import { useMessageState } from "../../../../hooks/useapp-message";
+import { tokenDecodeJWT } from "../../../../utils/authUtils";
+import AMChatHeader from "../../../AMChatAdmin/AMChatHeader/AMChatHeader";
+import SuperAdminHeader from "../../../AMChatAdmin/SuperAdminHeader/SuperAdminHeader";
+import PageLoader from "../../../../components/loader/loader";
+import OrganizationInfoForm from "../../../../components/super-admin/organisation-info";
+import UserInfoForm from "../../../../components/super-admin/userInfo";
 import {
   validatePersonalInfoForm,
   validateUserInfoForm,
-  validationOrgData
-} from '../../../../components/super-admin/validation';
-import { extractDomain } from '../../../../utils/generalUtils';
+  validationOrgData,
+} from "../../../../components/super-admin/validation";
+import { extractDomain } from "../../../../utils/generalUtils";
 // import TabNavigation from './TabNavigation';
 // import TabNavigationMui from './TabNavigationmui';
-import TabContext from '@mui/lab/TabContext';
-import TabList from '@mui/lab/TabList';
-import TabPanel from '@mui/lab/TabPanel';
-import { Country, State, City } from 'country-state-city';
+import TabContext from "@mui/lab/TabContext";
+import TabList from "@mui/lab/TabList";
+import TabPanel from "@mui/lab/TabPanel";
+import { Country, State, City } from "country-state-city";
 
 function Organisation() {
   let {
@@ -53,15 +60,18 @@ function Organisation() {
   const user = useSelector(selectUser);
   const organisation = useSelector(selectOrganisation);
   const dispatch = useDispatch();
-  const pageTitle = organisation?.organisationStatus === "edit" ? "Update Organisation" : "Add Organisation"
-  console.log('organisation', organisation);
+  const pageTitle =
+    organisation?.organisationStatus === "edit"
+      ? "Update Organisation"
+      : "Add Organisation";
+  console.log("organisation", organisation);
   const jwt = user.userToken;
   const navigate = useNavigate();
   const decodedToken = tokenDecodeJWT(jwt);
-  console.log('decoded token', decodedToken);
-  const [selectedTab, setSelectedTab] = useState('personalinformation');
+  console.log("decoded token", decodedToken);
+  const [selectedTab, setSelectedTab] = useState("personalinformation");
   const [orgData, selectOrgData] = useState(
-    organisation?.organisationStatus == 'edit'
+    organisation?.organisationStatus == "edit"
       ? {
           orgId: organisation?.organisationData?.id,
           address: {
@@ -73,7 +83,7 @@ function Organisation() {
             state: organisation?.organisationData?.address?.state?.stateName,
             city: organisation?.organisationData?.address?.city,
             postCode: organisation?.organisationData?.address?.postCode,
-            landmark: '',
+            landmark: "",
             countryCode:
               organisation?.organisationData?.address?.country?.countryCode,
             stateCode:
@@ -89,38 +99,58 @@ function Organisation() {
         }
       : {
           address: {
-            address1: '',
-            address2: '',
-            country: 'India',
-            state: '',
-            city: '',
-            postCode: '',
-
+            address1: "",
+            address2: "",
+            country: "India",
+            state: "",
+            city: "",
+            postCode: "",
           },
-          name: '',
+          name: "",
           contact: {
-            firstName: '',
-            lastName: '',
-            email: '',
+            firstName: "",
+            lastName: "",
+            email: "",
           },
           metaData: [
             {
-              typeDetails: '',
-              typeId: '20',
-              status: 'ACTIVE',
+              typeDetails: "",
+              typeId: "20",
+              status: "ACTIVE",
             },
           ],
         }
   );
+  const prevData = {
+    orgId: organisation?.organisationData?.id,
+    address: {
+      name: organisation?.organisationData?.name,
+      address1: organisation?.organisationData?.address?.address1,
+      address2: organisation?.organisationData?.address?.address2,
+      country: organisation?.organisationData?.address?.country?.countryName,
+      state: organisation?.organisationData?.address?.state?.stateName,
+      city: organisation?.organisationData?.address?.city,
+      postCode: organisation?.organisationData?.address?.postCode,
+      landmark: "",
+      countryCode:
+        organisation?.organisationData?.address?.country?.countryCode,
+      stateCode: organisation?.organisationData?.address?.state?.stateCode,
+    },
+    name: organisation?.organisationData?.name,
+    contact: {
+      firstName: organisation?.organisationData?.contact?.firstName,
+      lastName: organisation?.organisationData?.contact?.lastName,
+      email: organisation?.organisationData?.contact?.email,
+    },
+    metaData: organisation?.organisationData?.metadata,
+  };
+
   const [isEdit, setIsEdit] = useState(false);
   const [countries, setCountries] = useState([]);
-  
   const getAllStates = State.getAllStates();
-
-
   const [states, setStates] = useState([]);
   const [localState, setLocalState] = useState(
-    organisation?.organisationStatus == 'edit'
+    organisation?.organisationStatus == "edit"
       ? {
           country:
             organisation?.organisationData?.address?.country?.countryName,
@@ -131,22 +161,22 @@ function Organisation() {
           stateCode: organisation?.organisationData?.address?.state?.stateCode,
         }
       : {
-          country: 'India',
-          state: '',
-          city: '',
+          country: "India",
+          state: "",
+          city: "",
           // countryCode:'IN'
         }
   );
   const [cities, setCities] = useState([]);
-  const [firstNamelocal, setFirstName] = useState('');
+  const [firstNamelocal, setFirstName] = useState("");
   const [backDropLoading, setBackDropLoading] = useState(false);
-  const [fullName, setFullName] = useState('');
+  const [fullName, setFullName] = useState("");
   const [orgInfoErrors, setOrgInfoErrors] = useState({});
   const [userInfoErrors, setUserInfoErrors] = useState({});
 
-  const [value, setValue] = useState('1');
+  const [value, setValue] = useState("1");
   const orgStatus = organisation?.organisationStatus || null;
-  const isMobile = useMediaQuery('(max-width:600px)');
+  const isMobile = useMediaQuery("(max-width:600px)");
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -163,18 +193,17 @@ function Organisation() {
       countryCode: "IN",
     }));
 
-    setStates(stateArray)
-  }
+    setStates(stateArray);
+  };
 
   useEffect(() => {
-    const storedFirstName = localStorage.getItem('firstName');
+    const storedFirstName = localStorage.getItem("firstName");
     setFirstName(storedFirstName);
-    const storedfullName = localStorage.getItem('fullName');
+    const storedfullName = localStorage.getItem("fullName");
     setFullName(storedfullName);
 
-    initializeStates()
+    initializeStates();
   }, [organisation]);
-
 
   const messageHandler = () => {
     hideNotifyMessage();
@@ -184,24 +213,24 @@ function Organisation() {
     const isValidJwtToken = true;
     if (isValidJwtToken) {
       // navigate("/dashboardadmin")
-      console.log('valid jwt token');
+      console.log("valid jwt token");
       // verify jwt token
-      navigate('/dashboardadmin');
+      navigate("/dashboardadmin");
     } else {
       localStorage.clear();
-      navigate('/signin');
+      navigate("/signin");
     }
   };
 
   const addOrganisation = async () => {
     let body = orgData;
     if (!validationOrgData(orgData)) {
-      showNotifyMessage('error', 'Please add the valid data', messageHandler);
+      showNotifyMessage("error", "Please add the valid data", messageHandler);
     }
-    if (body.hasOwnProperty('plan')) {
-      delete body['plan'];
+    if (body.hasOwnProperty("plan")) {
+      delete body["plan"];
     }
-    if(validationOrgData(orgData)){
+    if (validationOrgData(orgData)) {
       setBackDropLoading(true);
       try {
         const response = await axios.post(
@@ -210,84 +239,35 @@ function Organisation() {
           {
             headers: {
               Authorization: `Bearer ${jwt}`,
-              'Content-Type': 'application/json',
+              "Content-Type": "application/json",
             },
           }
         );
         setBackDropLoading(false);
         // setIsReset(true);
-        showNotifyMessage('success', response?.data?.message, messageHandler);
-        console.log('API Response:', response.data);
-        navigate('/organisations');
+        showNotifyMessage("success", response?.data?.message, messageHandler);
+        console.log("API Response:", response.data);
+        navigate("/organisations");
       } catch (error) {
-        console.error('Error occurred:', error);
-        if (error?.response?.status == 500 || error?.response?.status == '500') {
+        console.error("Error occurred:", error);
+        if (
+          error?.response?.status == 500 ||
+          error?.response?.status == "500"
+        ) {
           const errorMsgprops = {
             message: {
-              title: 'Something went wrong',
-              content: 'Please contact our customer support team',
+              title: "Something went wrong",
+              content: "Please contact our customer support team",
             },
             handleVerification: handleVerification,
-            onOkButtonText: 'Retry',
+            onOkButtonText: "Retry",
           };
           dispatch(setErrorMsg({ ...errorMsgprops }));
         }
         setBackDropLoading(false);
         console.log(error);
         showNotifyMessage(
-          'error',
-          error?.response?.data?.message,
-          messageHandler
-        );
-      }
-    }
-  };
-  const editOrganisation = async (editedData) => {
-    let body = editedData;
-    if (!validationOrgData(orgData)) {
-      showNotifyMessage('error', 'Please add the valid data', messageHandler);
-    }
-    if (body.hasOwnProperty('plan')) {
-      delete body['plan'];
-    }
-    if (validationOrgData(orgData)) {
-      setButtonLoading(true);
-      try {
-        const response = await axios.put(
-          `${constants.BASE_ORG_API_URL}`,
-          JSON.stringify(body),
-          {
-            headers: {
-              Authorization: `Bearer ${jwt}`,
-              'Content-Type': 'application/json',
-            },
-          }
-        );
-        setButtonLoading(false);
-        // setIsReset(true);
-        showNotifyMessage('success', response?.data?.message, messageHandler);
-        console.log('API Response:', response.data);
-        dispatch(setOrganisationData(response.data?.data));
-        // navigate('/dashboardadmin/organizationlist');
-      } catch (error) {
-        console.error('Error occurred:', error);
-        if (error?.response?.status == 500 || error?.response?.status == '500') {
-          // navigate('/customerSupport');
-          const errorMsgprops = {
-            message: {
-              title: 'Something went wrong',
-              content: 'Please contact our customer support team',
-            },
-            // handleCancelVerification: handleCancelVerification,
-            handleVerification: handleVerification,
-            onOkButtonText: 'Retry',
-          };
-          dispatch(setErrorMsg({ ...errorMsgprops }));
-        }
-        setButtonLoading(false);
-        console.log(error);
-        showNotifyMessage(
-          'error',
+          "error",
           error?.response?.data?.message,
           messageHandler
         );
@@ -295,9 +275,88 @@ function Organisation() {
     }
   };
 
+  const compareObjects = (obj1, obj2) => {
+    if (obj1 && obj2 && Object.keys(obj1).length === Object.keys(obj2).length) {
+      for (let key in obj1) {
+        if (typeof obj1[key] === "object" && obj1[key] !== null) {
+          if (!compareObjects(obj1[key], obj2[key])) {
+            return false;
+          }
+        } else {
+          if (obj1[key] !== obj2[key]) {
+            return false;
+          }
+        }
+      }
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  const editOrganisation = async (editedData) => {
+    let body = editedData;
+    if (!validationOrgData(orgData)) {
+      showNotifyMessage("error", "Please add the valid data", messageHandler);
+    }
+    if (body.hasOwnProperty("plan")) {
+      delete body["plan"];
+    }
+    if (validationOrgData(orgData)) {
+      if (compareObjects(prevData, orgData)) {
+        showNotifyMessage("success", "Already Updated!", messageHandler);
+      } else {
+        setButtonLoading(true);
+        try {
+          const response = await axios.put(
+            `${constants.BASE_ORG_API_URL}`,
+            JSON.stringify(body),
+            {
+              headers: {
+                Authorization: `Bearer ${jwt}`,
+                "Content-Type": "application/json",
+              },
+            }
+          );
+          setButtonLoading(false);
+          // setIsReset(true);
+          showNotifyMessage("success", response?.data?.message, messageHandler);
+          console.log("API Response:", response.data);
+          dispatch(setOrganisationData(response.data?.data));
+          // navigate('/dashboardadmin/organizationlist');
+        } catch (error) {
+          console.error("Error occurred:", error);
+          if (
+            error?.response?.status == 500 ||
+            error?.response?.status == "500"
+          ) {
+            // navigate('/customerSupport');
+            const errorMsgprops = {
+              message: {
+                title: "Something went wrong",
+                content: "Please contact our customer support team",
+              },
+              // handleCancelVerification: handleCancelVerification,
+              handleVerification: handleVerification,
+              onOkButtonText: "Retry",
+            };
+            dispatch(setErrorMsg({ ...errorMsgprops }));
+          }
+          setButtonLoading(false);
+          console.log(error);
+          showNotifyMessage(
+            "error",
+            error?.response?.data?.message,
+            messageHandler
+          );
+        }
+      }
+    }
+  };
+
   const handleTabChange = (event, newValue) => {
-    console.log('form change');
-    console.log('tab value--->', newValue);
+    console.log("form change");
+    console.log("tab value--->", newValue);
     const normalizedTab = newValue;
     // const normalizedTab = tab.toLowerCase(); // Normalize to lowercase
     personalInformationHandler(newValue);
@@ -308,25 +367,23 @@ function Organisation() {
 
   const handleSubmit = () => {
     // Add logic for handling form submission
-    console.log('Submitting form');
+    console.log("Submitting form");
   };
 
   const handleCancel = () => {
     // Add logic for handling form cancellation
-    console.log('Cancelling form');
+    console.log("Cancelling form");
   };
 
-
-    const extractDomain = (email) => {
-      const parts = email.split('@');
-      return parts[1];
-    };
-
+  const extractDomain = (email) => {
+    const parts = email.split("@");
+    return parts[1];
+  };
 
   const personalInformationHandler = (tab) => {
-    console.log('orgData', orgData, 'tabData', selectedTab, 'tab', tab);
+    console.log("orgData", orgData, "tabData", selectedTab, "tab", tab);
 
-    if (selectedTab == 'personalinformation') {
+    if (selectedTab == "personalinformation") {
       const errors = validatePersonalInfoForm(orgData);
       if (Object.keys(errors).length === 0) {
         setOrgInfoErrors({});
@@ -343,28 +400,32 @@ function Organisation() {
         return;
       }
     }
-    if (selectedTab == 'organizationadmin') {
+    if (selectedTab == "organizationadmin") {
       const domain = extractDomain(orgData?.contact?.email);
-      const isEmailPresent = (orgData?.metaData).some((obj) => obj.typeDetails === domain)
+      const isEmailPresent = (orgData?.metaData).some(
+        (obj) => obj.typeDetails === domain
+      );
       const usererrors = validateUserInfoForm(orgData);
-      if(Object.keys(usererrors).length === 0 && isEmailPresent === true){
+      if (Object.keys(usererrors).length === 0 && isEmailPresent === true) {
         setUserInfoErrors({});
         setSelectedTab(tab);
-      }
-      else if (Object.keys(usererrors).length === 0 && isEmailPresent === false) {
+      } else if (
+        Object.keys(usererrors).length === 0 &&
+        isEmailPresent === false
+      ) {
         showNotifyMessage(
-           'error',
-           `Email Id domain should match with the existing domain ID's `,
-           messageHandler
+          "error",
+          `Email Id domain should match with the existing domain ID's `,
+          messageHandler
         );
-        return
+        return;
       } else {
         setUserInfoErrors(usererrors);
         return;
       }
       return;
     }
-    if (selectedTab == 'organizationdomains') {
+    if (selectedTab == "organizationdomains") {
       // if (!domainNameValidation(orgData?.metaData)) {
       //   showNotifyMessage(
       //     'warn',
@@ -374,20 +435,20 @@ function Organisation() {
       //   return;
       // }
 
-      if (hasRepeatingValues(orgData?.metaData, 'typeDetails')) {
+      if (hasRepeatingValues(orgData?.metaData, "typeDetails")) {
         showNotifyMessage(
-          'warn',
-          'Duplicate domains are not allowed',
+          "warn",
+          "Duplicate domains are not allowed",
           messageHandler
         );
         return;
       }
-      
-      if(orgData?.metaData?.length >= 1){
+
+      if (orgData?.metaData?.length >= 1) {
         setSelectedTab(tab);
       }
     }
-    if (selectedTab == 'subscriptionplan') {
+    if (selectedTab == "subscriptionplan") {
       setSelectedTab(tab);
     }
 
@@ -397,9 +458,9 @@ function Organisation() {
   const domainNameValidation = (domainArray) => {
     if (orgData?.contact?.email.length > 0) {
       let isDomainValid = domainArray.find(
-        (obj) => obj['typeDetails'] == extractDomain(orgData?.contact?.email)
+        (obj) => obj["typeDetails"] == extractDomain(orgData?.contact?.email)
       );
-      console.log('isDomainValid', !!isDomainValid);
+      console.log("isDomainValid", !!isDomainValid);
       return !!isDomainValid;
     }
   };
@@ -416,35 +477,67 @@ function Organisation() {
 
   return (
     <Layout componentName={pageTitle}>
-       {backDropLoading &&  <PageLoader loadingStatus={backDropLoading} />}
-        <Box >
-          <TabContext value={selectedTab}>
-            <Box sx={{ borderBottom: 1, borderColor: 'divider',  boxShadow: '0px 2.789px 6.972px 3.486px rgba(0, 0, 0, 0.09)',borderRadius: 3,marginBottom: '1rem'}}>
-              <TabList 
-                onChange={handleTabChange} 
-                aria-label="organisation tabs"
-                variant="scrollable"
-                scrollButtons = {false}
-                allowScrollButtonsMobile
-                sx={{
-                  display: 'flex',
-                  flexWrap: 'nowrap', 
-                  '& .MuiTab-root': {
-                    minWidth: 'auto',
-                  },
-                }}
-              >
-                <Tab label={<Typography fontWeight="bold">Organisation Info</Typography>}  value="personalinformation"/>
-                <Tab label={<Typography fontWeight="bold">Organisation Domains</Typography>}     
-                value="organizationdomains" />
-                <Tab label={<Typography fontWeight="bold">Organisation Admin</Typography>} value="organizationadmin" 
-                />
-                <Tab label={<Typography fontWeight="bold">Subscription Plan</Typography>}  value="subscriptionplan" />
-              </TabList>
-            </Box>
-            <Box  sx={{borderWidth: '1px',  boxShadow: '0px 2.789px 6.972px 3.486px rgba(0, 0, 0, 0.09)',borderRadius: 3,
-
-          }}>
+      {backDropLoading && <PageLoader loadingStatus={backDropLoading} />}
+      <Box>
+        <TabContext value={selectedTab}>
+          <Box
+            sx={{
+              borderBottom: 1,
+              borderColor: "divider",
+              boxShadow: "0px 2.789px 6.972px 3.486px rgba(0, 0, 0, 0.09)",
+              borderRadius: 3,
+              marginBottom: "1rem",
+            }}
+          >
+            <TabList
+              onChange={handleTabChange}
+              aria-label="organisation tabs"
+              variant="scrollable"
+              scrollButtons={false}
+              allowScrollButtonsMobile
+              sx={{
+                display: "flex",
+                flexWrap: "nowrap",
+                "& .MuiTab-root": {
+                  minWidth: "auto",
+                },
+              }}
+            >
+              <Tab
+                label={
+                  <Typography fontWeight="bold">Organisation Info</Typography>
+                }
+                value="personalinformation"
+              />
+              <Tab
+                label={
+                  <Typography fontWeight="bold">
+                    Organisation Domains
+                  </Typography>
+                }
+                value="organizationdomains"
+              />
+              <Tab
+                label={
+                  <Typography fontWeight="bold">Organisation Admin</Typography>
+                }
+                value="organizationadmin"
+              />
+              <Tab
+                label={
+                  <Typography fontWeight="bold">Subscription Plan</Typography>
+                }
+                value="subscriptionplan"
+              />
+            </TabList>
+          </Box>
+          <Box
+            sx={{
+              borderWidth: "1px",
+              boxShadow: "0px 2.789px 6.972px 3.486px rgba(0, 0, 0, 0.09)",
+              borderRadius: 3,
+            }}
+          >
             <TabPanel value="personalinformation">
               <OrganizationInfoForm
                 orgData={orgData}
@@ -526,13 +619,12 @@ function Organisation() {
         container
         spacing={2}
         direction="row"
-        justifyContent={isMobile ? 'center' : 'flex-end'}
-        alignItems={isMobile ? 'center' : 'flex-end'}
-        marginTop={'0.3rem'}
-
+        justifyContent={isMobile ? "center" : "flex-end"}
+        alignItems={isMobile ? "center" : "flex-end"}
+        marginTop={"0.3rem"}
       >
         <Grid item>
-          <Link to="/organisations" style={{ textDecoration: 'none' }}>
+          <Link to="/organisations" style={{ textDecoration: "none" }}>
             <div>
               <GeneralButton
                 name="Cancel"
@@ -551,36 +643,35 @@ function Organisation() {
         <Grid item>
           <Button
             onClick={() => {
-              if (organisation?.organisationStatus == 'edit') {
+              if (organisation?.organisationStatus == "edit") {
                 editOrganisation(orgData);
                 return;
               }
               addOrganisation();
             }}
             style={{
-              display: 'flex',
-              width: '130px',
-              height: '50px',
-              padding: '10px 16px',
-              justifyContent: 'center',
-              alignItems: 'center',
-              gap: '8px',
-              flexShrink: '0',
-              borderRadius: '30px',
-              backgroundColor: 'var(--Brand-500, #6366F1)',
-              color: '#FFFFFF',
-              fontFamily: 'Into Lato',
-              fontSize: '16px',
-              fontStyle: 'normal',
-              fontWeight: '700',
-              lineHeight: '24px',
+              display: "flex",
+              width: "130px",
+              height: "50px",
+              padding: "10px 16px",
+              justifyContent: "center",
+              alignItems: "center",
+              gap: "8px",
+              flexShrink: "0",
+              borderRadius: "30px",
+              backgroundColor: "var(--Brand-500, #6366F1)",
+              color: "#FFFFFF",
+              fontFamily: "Into Lato",
+              fontSize: "16px",
+              fontStyle: "normal",
+              fontWeight: "700",
+              lineHeight: "24px",
             }}
             loading={buttonLoading}
           >
-            <Typography variant="body1">{'Submit'}</Typography>
+            <Typography variant="body1">{"Submit"}</Typography>
           </Button>
         </Grid>
- 
       </Grid>
       {/* <TabNavigation
             selectedTab={selectedTab}

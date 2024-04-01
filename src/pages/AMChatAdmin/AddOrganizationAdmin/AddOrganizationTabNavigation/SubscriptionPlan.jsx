@@ -17,7 +17,7 @@ const subscription = [
     title: 'Freemium',
     description:
       'Revolutionize keywords search into your document with our free plan.',
-    price: '9.99',
+    price: 'Free',
     features: [
       'Max 2 users',
       'Max 5 Documents',
