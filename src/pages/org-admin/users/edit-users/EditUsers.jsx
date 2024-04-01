@@ -70,6 +70,13 @@ const EditUsers = () => {
     }
     setIsSubmitting(true);
     if (values === undefined) {
+    } else if (
+      userData?.firstName === values?.firstName &&
+      userData?.lastName === values?.lastName
+    ) {
+      setButtonLoading(false);
+      setIsSubmitting(false);
+      showNotifyMessage("success", "Already updated!", messageHandler);
     } else {
       try {
         const updateUserResponse = await fetch(
@@ -89,7 +96,6 @@ const EditUsers = () => {
         if (!updateUserResponse.ok) {
           throw new Error(`HTTP error! status: ${updateUserResponse.status}`);
         }
-
         setIsReset(true);
         const updateUserData = await updateUserResponse.json();
         setButtonLoading(false);
@@ -103,11 +109,11 @@ const EditUsers = () => {
         ) {
           navigate("/customerSupport");
         }
-
         setButtonLoading(false);
       } finally {
         console.log("SBH 17");
         setIsSubmitting(false);
+        fetchUserData();
       }
     }
   };

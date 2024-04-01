@@ -17,93 +17,205 @@ export const pieRaw_data = {
   ],
 };
 
-export const barRaw_data = {
-  14: {
-    chat_count: 2.0,
-    session_count: 2.6,
-  },
-  15: {
+export const barRaw_data = [
+  {
     chat_count: 4.9,
     session_count: 5.9,
+    date: "22/03/2024",
   },
-  16: {
+  {
     chat_count: 7.0,
     session_count: 9.0,
+    date: "23/03/2024",
   },
-  17: {
+  {
     chat_count: 23.2,
     session_count: 26.4,
+    date: "24/03/2024",
   },
-  18: {
+  {
     chat_count: 25.6,
     session_count: 28.7,
+    date: "25/03/2024",
   },
-  19: {
+  {
     chat_count: 76.7,
     session_count: 70.7,
+    date: "26/03/2024",
   },
-  20: {
+  {
     chat_count: 135.6,
     session_count: 175.6,
+    date: "27/03/2024",
   },
-  21: {
+  {
     chat_count: 2.0,
     session_count: 2.6,
+    date: "28/03/2024",
   },
-  22: {
+  {
     chat_count: 4.9,
     session_count: 5.9,
+    date: "29/03/2024",
   },
-  23: {
+  {
     chat_count: 7.0,
     session_count: 9.0,
+    date: "30/03/2024",
   },
-  24: {
+  {
     chat_count: 23.2,
     session_count: 26.4,
+    date: "31/03/2024",
   },
-  25: {
+  {
+    chat_count: 2.0,
+    session_count: 2.6,
+    date: "01/04/2024",
+  },
+  {
+    chat_count: 4.9,
+    session_count: 5.9,
+    date: "02/04/2024",
+  },
+  {
+    chat_count: 7.0,
+    session_count: 9.0,
+    date: "03/04/2024",
+  },
+  {
+    chat_count: 23.2,
+    session_count: 26.4,
+    date: "04/04/2024",
+  },
+  {
     chat_count: 25.6,
     session_count: 28.7,
+    date: "05/04/2024",
   },
-  26: {
+  {
     chat_count: 76.7,
     session_count: 70.7,
+    date: "06/04/2024",
   },
-  27: {
+  {
     chat_count: 135.6,
     session_count: 175.6,
+    date: "07/04/2024",
   },
-  28: {
+  {
     chat_count: 2.0,
     session_count: 2.6,
+    date: "08/04/2024",
   },
-  29: {
+  {
     chat_count: 4.9,
     session_count: 5.9,
+    date: "09/04/2024",
   },
-  30: {
+  {
     chat_count: 7.0,
     session_count: 9.0,
+    date: "10/04/2024",
   },
-  31: {
+  {
     chat_count: 23.2,
     session_count: 26.4,
+    date: "11/04/2024",
   },
-  1: {
+  {
     chat_count: 25.6,
     session_count: 28.7,
+    date: "12/04/2024",
   },
-  2: {
+  {
     chat_count: 76.7,
     session_count: 70.7,
+    date: "13/04/2024",
   },
-  3: {
+  {
     chat_count: 135.6,
-    session_count: 28.7,
+    session_count: 175.6,
+    date: "14/04/2024",
   },
-  4: {
+  {
     chat_count: 2.0,
     session_count: 2.6,
+    date: "15/04/2024",
   },
-};
+  {
+    chat_count: 4.9,
+    session_count: 5.9,
+    date: "16/04/2024",
+  },
+  {
+    chat_count: 7.0,
+    session_count: 9.0,
+    date: "17/04/2024",
+  },
+  {
+    chat_count: 23.2,
+    session_count: 26.4,
+    date: "18/04/2024",
+  },
+  {
+    chat_count: 25.6,
+    session_count: 28.7,
+    date: "19/04/2024",
+  },
+  {
+    chat_count: 76.7,
+    session_count: 70.7,
+    date: "20/04/2024",
+  },
+  {
+    chat_count: 135.6,
+    session_count: 28.7,
+    date: "21/04/2024",
+  },
+  {
+    chat_count: 2.0,
+    session_count: 2.6,
+    date: "22/04/2024",
+  },
+  {
+    chat_count: 2.0,
+    session_count: 2.6,
+    date: "23/04/2024",
+  },
+  {
+    chat_count: 4.9,
+    session_count: 5.9,
+    date: "24/04/2024",
+  },
+  {
+    chat_count: 7.0,
+    session_count: 9.0,
+    date: "25/04/2024",
+  },
+  {
+    chat_count: 23.2,
+    session_count: 26.4,
+    date: "26/04/2024",
+  },
+  {
+    chat_count: 25.6,
+    session_count: 28.7,
+    date: "27/04/2024",
+  },
+  {
+    chat_count: 76.7,
+    session_count: 70.7,
+    date: "28/04/2024",
+  },
+  {
+    chat_count: 135.6,
+    session_count: 175.6,
+    date: "29/04/2024",
+  },
+  {
+    chat_count: 2.0,
+    session_count: 2.6,
+    date: "30/04/2024",
+  },
+];

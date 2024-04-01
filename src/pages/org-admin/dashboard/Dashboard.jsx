@@ -40,7 +40,7 @@ function Dashboard() {
   const [docCount, setDocCount] = useState(0);
   const [startDate, setStartDate] = useState(() => {
     const currentDate = new Date();
-    currentDate.setDate(currentDate.getDate() - 6);
+    currentDate.setDate(currentDate.getDate() - 7);
     return currentDate;
   });
   const [endDate, setEndDate] = useState(new Date());
@@ -219,22 +219,32 @@ function Dashboard() {
   const handleSelectedDate = (selectedDate) => {
     const endDate = selectedDate ? new Date(selectedDate) : new Date();
     const startDate = selectedDate ? new Date(selectedDate) : new Date();
-    startDate.setDate(endDate?.getDate() - 6);
+    startDate.setDate(endDate?.getDate() - 7);
     setStartDate(startDate);
     setEndDate(endDate);
   };
 
+  const parseDate = (dateStr) => {
+    const parts = dateStr.split("/");
+    return new Date(parts[2], parts[1] - 1, parts[0]);
+  };
+
   const filteredData = (startDate, endDate, data) => {
     const filter = {};
-    const days = Object.keys(data);
-    const filteredDays = days?.filter((day) => {
-      const date = parseInt(day, 10);
-      console.log("parseInt", date);
-      return date >= startDate?.getDate() && date <= endDate?.getDate();
+    const filteredItems = data.filter((item) => {
+      const itemDate = parseDate(item.date);
+      return itemDate >= startDate && itemDate <= endDate;
     });
-    filteredDays?.forEach((day) => {
-      filter[day] = data[day];
+
+    filteredItems.forEach((item) => {
+      const itemDateParts = item.date.split("/");
+      const formattedDate = itemDateParts[0];
+      filter[formattedDate] = {
+        chat_count: item.chat_count,
+        session_count: item.session_count,
+      };
     });
+
     return filter;
   };
 

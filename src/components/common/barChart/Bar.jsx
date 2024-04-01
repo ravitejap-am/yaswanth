@@ -6,12 +6,7 @@ const Bar = ({ dateList }) => {
   useEffect(() => {
     const chartDom = document.getElementById("bar");
     const myChart = echarts.init(chartDom);
-    console.log("dateList ===> ", dateList);
     const xAxisData = Object.keys(dateList);
-    console.log(
-      "dateList ===> ",
-      xAxisData.map((date) => dateList[date].chat_count)
-    );
     const option = {
       // title: {
       //   text: "Chats and Sessions",

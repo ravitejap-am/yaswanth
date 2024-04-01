@@ -74,10 +74,10 @@ function RightPlan() {
           </div>
           <div>
             <p className="Right_Plan_Content_Price">
-              <span className="price">$ 9.99</span>
-              <Typography variant="caption" className="per-month">
+              <span className="price">Free</span>
+              {/* <Typography variant="caption" className="per-month">
                 /Month
-              </Typography>
+              </Typography> */}
             </p>
           </div>
           <div

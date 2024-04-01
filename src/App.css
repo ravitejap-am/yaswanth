@@ -145,6 +145,10 @@ body {
   padding: 9.5px 12px !important;
 }
 
+/* .anticon {
+  color: white !important;
+} */
+
 @font-face {
   font-family: "Montserrat300";
   src: local("Montserrat300"),
@@ -160,8 +164,10 @@ body {
 @media (max-width: 600px) {
   #bar {
     width: 15em;
+    margin: 0 auto;
   }
   #pie {
     width: 15em;
+    margin: 0 auto;
   }
 }
