@@ -214,6 +214,11 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
     setFileSysytem: setFileSysytem,
     grid: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px" },
   };
+
+  const cancelHandler = () => {
+    navigate("/dashboard");
+  };
+
   return (
     <Form
       name="basic"
@@ -235,20 +240,24 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
           height: "150%",
           flexDirection: "column",
           justifyContent: "space-between",
-          width: {
-            xs: 300 ,
-            sm: 600 ,
-            md: 900 ,
-            lg: 1200 ,
-            xl: 1500
-          }
+          // width: {
+          //   xs: 300 ,
+          //   sm: 600 ,
+          //   md: 900 ,
+          //   lg: 1200,
+          //   xl: 1350 
+          // },
         }}
       >
         {isLoading && <PageLoader loadingStatus={isLoading} />}
 
+
         <Box style={{ height: "100%" }}>
-          <Grid container spacing={2} >
-            <Grid item >
+          <Grid container 
+            // spacing={2}  
+            // columnGap={{md:2}}
+            >
+            <Grid item sm={12} md={5} lg={6}>
               <Typography>
                 {" "}
                 <label htmlFor="password">Old Password:</label>
@@ -285,7 +294,7 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
                 />
               </Form.Item>
             </Grid>
-            <Grid item >
+            <Grid item sm={12} md={5} lg={6}>
               <Typography>
                 {" "}
                 <label
@@ -307,7 +316,7 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
               >
                 <Input
                   className="inputstyle-css-changepassword"
-                  style={{width: {md:'50%'}, backgroundColor: 'red'}}
+                  // style={{width: {lg:'50%'}, backgroundColor: 'red'}}
                   placeholder="New Password"
                   type={showPassword.newPassword ? "text" : "password"}
                   suffix={
@@ -328,7 +337,7 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
                 />
               </Form.Item>
             </Grid>
-            <Grid item >
+            <Grid item sm={12} md={5} lg={6}>
               <Typography>
                 <label htmlFor="password">Confirm Password:</label>{" "}
               </Typography>
@@ -374,10 +383,13 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
             flexDirection: "row",
             justifyContent: isMobile ? "center" : "flex-end",
             alignItems: isMobile ? "center" : "flex-end",
-            padding: "1rem"
+            padding: "1rem",
           }}
         >
-            <Button type="primary" htmlType="submit" className="buttonStyle">
+            <Button type="primary" onClick={cancelHandler} className="buttonStyle" style={{marginRight: "0.5rem"}}>
+              <Typography variant="button"> Cancel </Typography>
+            </Button>
+            <Button type="primary" htmlType="submit" className="buttonStyle" style={{marginLeft: "0.5rem"}}>
               <Typography variant="button" display="block">
                 Submit
               </Typography>

@@ -1,12 +1,23 @@
 import React, { useEffect } from "react";
 import { Box } from "@mui/material";
+import Header from "../../pages/home/Header/Header";
+import Footer from "../../pages/home/Footer/Footer";
 
 function TermsAndConditions() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  const handleLogoClick = () => {
+    window.location.href = "/"; 
+  };
+
   return (
-    <Box style={{ padding: "20px" }}>
+    <>
+      <div>
+        <Header handleLogoClick={handleLogoClick} />
+      </div>
+    <Box style={{ padding: "20px", marginTop: "1.5rem" }}>
       <Box>
         <p style={{ fontWeight: "bold", fontSize: "24px" }}>
           Terms & Conditions for AM-Chat
@@ -167,6 +178,10 @@ function TermsAndConditions() {
         </Box>
       </Box>
     </Box>
+    <div>
+        <Footer />
+      </div>
+    </>
   );
 }
 
