@@ -319,7 +319,6 @@ function Chats() {
     }
   }, []);
 
-  console.log("chatRef----->", chatRef);
   return (
     <Layout componentName="Chat">
       <Box
@@ -639,8 +638,7 @@ function Chats() {
               scrollbarWidth: "thin",
               scrollbarColor: "lightgrey #f5f5f5",
               scrollHeight: "3px",
-              scrollPaddingRight: "6px",
-              scrollMarginRight: "6px",
+              scrollPaddingRight:"6px",
               WebkitScrollbarCorner: {
                 background: "transparent",
                 paddingRight: "16px",
