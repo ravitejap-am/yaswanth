@@ -40,7 +40,7 @@ const PersonalInfo = () => {
   };
 
   return (
-    <Box sx={{ width: '100%', typography: 'body1', paddingTop: '10px', padding: '1rem', height: '100%'}}>
+    <Box sx={{ width: '97%', typography: 'body1', paddingTop: '10px', padding: '1rem', height: '100%'}}>
       <TabContext value={selectedTab}>
         {/* {isMobile ? (
           <Box sx={{ marginBottom: 2 }}>

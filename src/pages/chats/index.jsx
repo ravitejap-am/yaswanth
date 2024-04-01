@@ -27,6 +27,7 @@ import { AM_CHAT } from "../../constants/Constant";
 import { getChatResponse } from "../../apiCalls/ApiCalls";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../store/authSlice";
+import { useLocation } from "react-router-dom";
 
 function Chats() {
   const {
@@ -54,6 +55,10 @@ function Chats() {
   const user = useSelector(selectUser);
   const jwt = user.userToken;
   const [errorMessage, setErrorMessage] = useState("");
+  const defaultScroll = useRef(null);
+  const location = useLocation();
+  const pathName = location.pathname;
+  console.log("pathname---->", pathName);
 
   useEffect(() => {
     setQuestions([]);
@@ -67,9 +72,22 @@ function Chats() {
     }
   };
 
+  const scrollToBottomForQuestions = () => {
+    if (defaultScroll.current) {
+      defaultScroll.current.scrollTop = defaultScroll.current.scrollHeight;
+      console.log("scroll top---->", defaultScroll.current.scrollTop);
+    }
+  };
+
   useEffect(() => {
     scrollToBottom();
   }, [questions, loading]);
+
+  useEffect(() => {
+    if (pathName === "/chat") {
+      scrollToBottomForQuestions();
+    }
+  }, [pathName]);
 
   const handleSearchOptionChange = (option) => {
     if (option === "acrossFiles") {
@@ -86,14 +104,86 @@ function Chats() {
   const handleInputChange = (event) => {
     if (event.target.value.replace(/\s/g, "").length <= 1000) {
       setInputValue(event.target.value);
-      setErrorMessage('');  
+      setErrorMessage("");
     } else {
-      setErrorMessage("Maximum characters reached");
+      setErrorMessage("Maximum 1000 characters allowed");
     }
     if (!messageSent) {
       setMessageSent(false);
     }
   };
+
+  const calculateLastIndexOfText = (fullText, allowedLength) => {
+    let i = 0;
+    let k = 0
+    while (k <=allowedLength + 1) {
+      if (fullText[i] !== " ") {
+        k = k + 1;
+      }
+      i++; 
+    }
+    return i;
+  };
+
+  const handlePaste = (event) => {
+    const pastedText = event.clipboardData.getData("text");
+    const existingInputLength = inputValue.replace(/\s/g, "").length;
+    const pastedCharLength = pastedText.replace(/\s/g, "").length;
+
+    let allowedLength = 0;
+    if (pastedCharLength + existingInputLength > 1000) {
+      const subLength =
+        (pastedText + inputValue).replace(/\s/g, "").length - 1000;
+      allowedLength =
+        (pastedText + inputValue).replace(/\s/g, "").length - subLength;
+    } else {
+      allowedLength = pastedCharLength + existingInputLength;
+    }
+    let fullText = pastedText + inputValue
+
+    const number =  calculateLastIndexOfText(fullText, 1000 )
+    const allowedContent = fullText.substring(0, number)
+
+    if (allowedContent.replace(/\s/g, "").length > 1000) {
+      event.preventDefault();
+      setErrorMessage("Maximum 1000 characters allowed");
+    } else {
+      const newValue = allowedContent;
+      setInputValue(newValue);
+    }
+  };
+
+
+  //   const pastedText = event.clipboardData.getData("text");
+  //   const existingInputLength = inputValue.replace(/\s/g, "").length;
+  //   const pastedCharLength = pastedText.replace(/\s/g, "").length;
+  //   const textarea = event.target;
+
+  //   let allowedLength = 0;
+  //   if (pastedCharLength + existingInputLength > 1000) {
+  //     const subLength = (pastedText + inputValue).replace(/\s/g, "").length - 1000;
+  //     allowedLength = pastedText.length - subLength;
+  //   } else {
+  //     allowedLength = pastedCharLength + existingInputLength;
+  //   }
+
+  //   const allowedContent = pastedText.substring(0, allowedLength);
+
+  //   console.log("allowed length content--->",allowedContent.replace(/\s/g, "").length);
+  //   if (allowedContent.replace(/\s/g, "").length > 1000) {
+  //     event.preventDefault();
+  //     setErrorMessage("Maximum 1000 characters allowed");
+  //   } else{
+  //     setErrorMessage("");
+  //   }
+  //   // else {
+  //     // Update input value with spaces preserved
+
+  //     const newValue = allowedContent ;
+  //     console.log("newValue length--->", newValue.replace(/\s/g, "").length);
+  //     setInputValue(newValue);
+  //   // }
+  // };
 
   const handleSend = async () => {
     try {
@@ -176,7 +266,6 @@ function Chats() {
     "Can you explain me the quantum?",
   ];
 
-
   const handleSuggestionClick = (question) => {
     setInputValue(question);
   };
@@ -189,20 +278,16 @@ function Chats() {
   };
 
   const resizeTextarea = (element) => {
-    console.log("is mobile--->", isMobile);
-    console.log("element height-->", element.style.height);
     if (isMobile) {
       element.style.height = "20px";
       element.style.height = Math.min(element.scrollHeight, 20 * 7) + "px";
 
       const number = parseInt(element.style.height.match(/\d+/)[0]);
-      console.log("number---->", number);
       if (number > 20 && number < 239) {
         setContainerHight(element.style.height);
       }
     } else {
       element.style.height = "34px";
-      console.log("element.scrollHeight------->", element.scrollHeight);
       if (element.scrollHeight >= 0 && element.scrollHeight < 188) {
         element.style.height = Math.min(element.scrollHeight, 34 * 7) + "px";
         const number = parseInt(element.style.height.match(/\d+/)[0]);
@@ -214,8 +299,6 @@ function Chats() {
         setContainerHight(0);
       }
     }
-
-    console.log("element.style.height---->", element.style.height);
   };
 
   const handleOkWarning = () => {
@@ -228,28 +311,21 @@ function Chats() {
     setShowWarning(false);
   };
 
-  const handlePaste = (event) => {
-    const pastedText = event.clipboardData.getData('text');
-    const remainingCharacters = 1000 - inputValue.replace(/\s/g, '').length;
-    const allowedContent = pastedText.substring(0, remainingCharacters);
-    const newInputValue = inputValue + allowedContent;
-  
-    if (newInputValue.replace(/\s/g, '').length > 1000) {
-      event.preventDefault();
-      setErrorMessage('Maximum 1000 characters allowed');
-    } else {
-      setInputValue(newInputValue);
-    }
-  };
-  
-  
+  const chatRef = useRef(null);
 
+  useEffect(() => {
+    if (pathName) {
+      chatRef.current.scrollIntoView({ behavior: "smooth", block: "end" });
+    }
+  }, []);
+
+  console.log("chatRef----->", chatRef);
   return (
     <Layout componentName="Chat">
       <Box
         sx={{
-          height: "85%",
-          width: "100%",
+          height: isMobile ? "83%" : "85%",
+          width: isMobile ? "94%" : "98%",
           backgroundColor: "white",
           borderRadius: "10px",
           display: "flex",
@@ -264,42 +340,61 @@ function Chats() {
             width: "100%",
             display: "flex",
             alignItems: "center",
-            justifyContent: "space-around",
-            flexDirection: {
-              xs: "column",
-              sm: "column",
-              md: "row",
-              xl: "row",
-              lg: "row",
-            },
+            justifyContent: isMobile ? "space-between" : "space-around",
+            flexDirection: "row",
+            // flexDirection: {
+            //   xs: "row",
+            //   sm: "row",
+            //   md: "row",
+            //   xl: "row",
+            //   lg: "row",
+            // },
             gap: "1rem",
             paddingBottom: "5px",
           }}
         >
-          <Box>
-            <Typography variant="body1">
-              <label className={styles.chatLabel}>
-                <input
-                  type="radio"
-                  value="acrossFiles"
-                  checked={searchOption === "acrossFiles"}
-                  onChange={() => handleSearchOptionChange("acrossFiles")}
-                />
-                Across
-              </label>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+            }}
+          >
+            <input
+              type="radio"
+              value="acrossFiles"
+              checked={searchOption === "acrossFiles"}
+              onChange={() => handleSearchOptionChange("acrossFiles")}
+            />
+            <Typography
+              variant="body1"
+              sx={{
+                fontSize: isMobile ? "0.9rem" : "1rem",
+                paddingTop: "0.19rem",
+              }}
+            >
+              Across
             </Typography>
           </Box>
-          <Box>
-            <Typography>
-              <label className={styles.chatLabel}>
-                <input
-                  type="radio"
-                  value="specificFileText"
-                  checked={searchOption === "specificFileText"}
-                  onChange={() => handleSearchOptionChange("specificFileText")}
-                />
-                Specific
-              </label>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+            }}
+          >
+            <input
+              type="radio"
+              value="specificFileText"
+              checked={searchOption === "specificFileText"}
+              onChange={() => handleSearchOptionChange("specificFileText")}
+            />
+            <Typography
+              variant="body1"
+              sx={{
+                fontSize: isMobile ? "0.9rem" : "1rem",
+                paddingTop: "0.19rem",
+              }}
+            >
+              Specific
             </Typography>
           </Box>
           <Box sx={{ width: "140px" }}>
@@ -308,10 +403,12 @@ function Chats() {
               size="large"
               variant="outlined"
               fullWidth
-              
+
               // style={{ marginTop: "1rem", border: `1px solid ${selectedFile ? '#a9a9a9' : ''}` }}
             >
-              <InputLabel id="file-select-label" shrink={true}>Document</InputLabel>
+              <InputLabel id="file-select-label" shrink={true}>
+                Document
+              </InputLabel>
               <Select
                 labelId="file-select-label"
                 id="file-select"
@@ -357,6 +454,7 @@ function Chats() {
         <Box sx={{ flex: 1, overflowY: "auto" }}>
           {!messageSent && (
             <Box
+              ref={chatRef}
               sx={{
                 display: "flex",
                 flexDirection: isMobile ? "column" : "column",
@@ -374,40 +472,56 @@ function Chats() {
                 padding: "0.8rem",
                 paddingLeft: isMobile ? "" : "20%",
                 paddingRight: isMobile ? "" : "20%",
-                // backgroundColor: "yellow"
               }}
             >
               <Box
                 sx={{
                   display: "flex",
-                  paddingLeft: isMobile ? "15%" : "",
-                  paddingRight: isMobile ? "15%" : "",
+                  justifyContent: "center",
+                  // paddingLeft: isMobile ? "15%" : "",
+                  // paddingRight: isMobile ? "15%" : "",
                 }}
               >
-                <Typography variant="h4" textAlign={"center"}>
-                  {" "}
-                  {AM_CHAT}{" "}
-                  <img src={amchatImg} alt="" className={styles.chatimg} />
-                </Typography>
+                {!isMobile ? (
+                  <Typography variant="h4" textAlign={"center"}>
+                    {" "}
+                    {AM_CHAT}{" "}
+                    <img src={amchatImg} alt="" className={styles.chatimg} />
+                  </Typography>
+                ) : (
+                  ""
+                )}
               </Box>
               <Box
                 sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  paddingLeft: isMobile ? "15%" : "",
-                  paddingRight: isMobile ? "15%" : "",
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  alignItems: "center",
                 }}
               >
-                <Typography variant="h6" fontWeight="bold" textAlign={"center"}>
-                  Hello, I’m AM-Chat
-                </Typography>
-                <Typography
-                  variant="subtitle2"
-                  fontWeight="bold"
-                  textAlign={"center"}
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    // paddingLeft: isMobile ? "15%" : "",
+                    // paddingRight: isMobile ? "15%" : "",
+                  }}
                 >
-                  How can I help you today?
-                </Typography>
+                  <Typography
+                    variant="h6"
+                    fontWeight="bold"
+                    textAlign={"center"}
+                  >
+                    Hello, I’m AM-Chat
+                  </Typography>
+                  <Typography
+                    variant="subtitle2"
+                    fontWeight="bold"
+                    textAlign={"center"}
+                  >
+                    How can I help you today?
+                  </Typography>
+                </Box>
               </Box>
               <Box
               // sx={{display:'flex'}}
@@ -525,10 +639,11 @@ function Chats() {
               scrollbarWidth: "thin",
               scrollbarColor: "lightgrey #f5f5f5",
               scrollHeight: "3px",
-              scrollPaddingRight:"6px",
+              scrollPaddingRight: "6px",
+              scrollMarginRight: "6px",
               WebkitScrollbarCorner: {
-                background: "transparent", // Adjust as needed
-                paddingRight: "16px", // Add padding to the right of the scrollbar
+                background: "transparent",
+                paddingRight: "16px",
               },
               resize: "none",
             }}
@@ -545,13 +660,16 @@ function Chats() {
             </Box>
           )}
         </Box>
-        {/* <Box style={{width: '100%', height:'1rem'}}>
-        {errorMessage && (
-            <Typography variant="body2"  style={{color: "red", textAlign: 'center', marginTop: '0.4rem'}}>
+        <Box style={{ width: "100%", height: "1rem" }}>
+          {errorMessage && (
+            <Typography
+              variant="body2"
+              style={{ color: "red", textAlign: "center", marginTop: "0.4rem" }}
+            >
               {errorMessage}
             </Typography>
           )}
-        </Box> */}
+        </Box>
       </Box>
     </Layout>
   );
