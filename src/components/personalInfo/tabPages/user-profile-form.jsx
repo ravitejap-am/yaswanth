@@ -76,7 +76,7 @@ function UserProfileForm({ formData, setFormData, submitHandler }) {
     <form className="form" onSubmit={handleSubmit}>
       <div className="info-cotnainer">
         <div>
-          <div className="form-row">
+          <div className="profile-form-row">
             <div className="form-group">
               <label htmlFor="firstName">First Name:</label>
               <input
@@ -106,7 +106,7 @@ function UserProfileForm({ formData, setFormData, submitHandler }) {
               )}
             </div>
           </div>
-          <div className="form-row">
+          <div className="profile-form-row">
             <div className="form-group">
               <label htmlFor="email">Email:</label>
               <input
@@ -170,9 +170,6 @@ function UserProfileForm({ formData, setFormData, submitHandler }) {
             type="primary"
             htmlType="submit"
             className="buttonStyle"
-            // onClick={() => {
-            //   submitHandler(formData);
-            // }}
           >
             <Typography variant="button" display="block">
               Submit
