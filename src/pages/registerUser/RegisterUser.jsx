@@ -128,7 +128,7 @@ const RegisterUser = () => {
   }, []);
 
   const handleRegister = async () => {
-    navigate("/", { state: { fromRegisterPage: true } });
+    navigate("/", { state: { fromRegisterPage: true, tabName: "Contact_Up", showDefaultTab: false } });
   };
   const formElements = [
     {

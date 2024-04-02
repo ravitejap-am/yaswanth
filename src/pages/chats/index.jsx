@@ -260,8 +260,6 @@ function Chats() {
   const defaultQuestions = [
     "Could you help me with the maternity policy of my organisation?",
     "Can you tell me about GDPR compliance.  Which I should follow in my organisation?",
-    "Can you tell me about GDPR compliance.  Which I should follow in my organisation?,",
-    "Can you explain me the Pythagoras theorem based on. , ",
     "Can you tell me what's wrong in my lab reports?",
     "Can you explain me the quantum?",
   ];
