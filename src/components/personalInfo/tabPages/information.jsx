@@ -114,7 +114,11 @@ function Information({ setFileSysytem, validateEmail }) {
       if (values === undefined) {
         console.log('Values are undefined');
         return;
-      } else {
+      } else if (userData?.firstName === values.firstName && userData?.lastName === values?.lastName) {
+        setIsLoading(false);
+        showNotifyMessage('success', "Already updated!", messageHandler);
+      }
+       else {
         const headers = {
           Authorization: `Bearer ${jwt}`,
           'Content-Type': 'application/json',

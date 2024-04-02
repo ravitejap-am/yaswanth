@@ -6,18 +6,8 @@ const Bar = ({ dateList }) => {
   useEffect(() => {
     const chartDom = document.getElementById("bar");
     const myChart = echarts.init(chartDom);
-    console.log("dateList ===> ", dateList);
     const xAxisData = Object.keys(dateList);
-    console.log(
-      "dateList ===> ",
-      xAxisData.map((date) => dateList[date].chat_count)
-    );
     const option = {
-      // title: {
-      //   text: "Chats and Sessions",
-      //   subtext: "Fake Data",
-      //   left: "left",
-      // },
       tooltip: {
         trigger: "axis",
       },
@@ -51,29 +41,25 @@ const Bar = ({ dateList }) => {
           name: "Chat Counts",
           type: "bar",
           data: xAxisData.map((date) => dateList[date].chat_count),
-          // markPoint: {
-          //   data: [
-          //     { type: "max", name: "Max" },
-          //     { type: "min", name: "Min" },
-          //   ],
-          // },
-          // markLine: {
-          //   data: [{ type: "average", name: "Avg" }],
-          // },
         },
         {
           name: "Session Counts",
           type: "bar",
           data: xAxisData.map((date) => dateList[date].session_count),
-          // markPoint: {
-          //   data: [
-          //     { name: "Max", value: 182.2, xAxis: 7, yAxis: 183 },
-          //     { name: "Min", value: 2.3, xAxis: 11, yAxis: 3 },
-          //   ],
-          // },
-          // markLine: {
-          //   data: [{ type: "average", name: "Avg" }],
-          // },
+        },
+      ],
+      graphic: [
+        {
+          type: "text",
+          left: "center",
+          top: "center",
+          style: {
+            text:
+              !dateList ||
+              (Object.keys(dateList).length === 0 ? "No data available" : ""),
+            font: "24px Arial",
+            fill: "#999",
+          },
         },
       ],
     };

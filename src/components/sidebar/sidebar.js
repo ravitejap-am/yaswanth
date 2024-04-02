@@ -12,7 +12,7 @@ import AddIcon from '@mui/icons-material/Add';
 import './sidebarIndex.css';
 import { Layout, Menu, Grid, Drawer } from 'antd';
 import WorkHistoryIcon from '@mui/icons-material/WorkHistory';
-import { getChatSessions } from "../../apiCalls/ApiCalls"
+import { getChatSessions } from '../../apiCalls/ApiCalls';
 
 const ORG_ADMIN = [
   {
@@ -83,17 +83,15 @@ export const sideBar = (
   isNewChat,
   setIsNewChat,
   setSessionHandler,
-  questionIndex, 
-  setQuestionIndex, 
-  questions, 
+  questionIndex,
+  setQuestionIndex,
+  questions,
   setQuestions,
   user,
   jwt,
-  messageSent, 
-  setMessageSent  
+  messageSent,
+  setMessageSent
 ) => {
-
-
   const handleAddChat = () => {
     if (isNewChat) {
       setChatHistory([
@@ -105,10 +103,10 @@ export const sideBar = (
         },
       ]);
       setIsChatOpen(!isChatOpen);
-      setMessageSent(false)
+      setMessageSent(false);
       setIsNewChat(false);
-      setQuestionIndex(0)
-      setQuestions([])
+      setQuestionIndex(0);
+      setQuestions([]);
     }
     console.error('please add the chat');
   };
@@ -116,91 +114,63 @@ export const sideBar = (
     setVisible(false);
   };
 
-  const showPreviousChats =async(id) => {
-    try{
-      console.log("previous chats id---->",id);
+  const showPreviousChats = async (id) => {
+    try {
+      console.log('previous chats id---->', id);
       const headers = {
         Authorization: `Bearer ${jwt}`,
         'Content-Type': 'multipart/form-data',
-      }
-  
+      };
+
       const response = await getChatSessions(headers, id);
-      console.log("response--->",response);
-      setSessionHandler(id)
-    }catch(error){
-      console.log("throwing error in chat");
+      console.log('response--->', response);
+      setSessionHandler(id);
+    } catch (error) {
+      console.log('throwing error in chat');
       const response = {
         data: [
-            {
-                created_at: "Mon, 25 Mar 2024 10:54:30 GMT",
-                doc_name: "Invoice-899B3FD6-0001.pdf",
-                id: 3,
-                query: "When is it due?",
-                response: "It is due on March 7, 2023."
-            },
-            {
-                created_at: "Mon, 25 Mar 2024 10:54:12 GMT",
-                doc_name: "Invoice-899B3FD6-0001.pdf",
-                id: 2,
-                query: "When is it due?",
-                response: "The amount is due on March 7, 2023."
-            }
+          {
+            created_at: 'Mon, 25 Mar 2024 10:54:30 GMT',
+            doc_name: 'Invoice-899B3FD6-0001.pdf',
+            id: 3,
+            query: 'When is it due?',
+            response: 'It is due on March 7, 2023.',
+          },
+          {
+            created_at: 'Mon, 25 Mar 2024 10:54:12 GMT',
+            doc_name: 'Invoice-899B3FD6-0001.pdf',
+            id: 2,
+            query: 'When is it due?',
+            response: 'The amount is due on March 7, 2023.',
+          },
         ],
         pagination: {
-            page: 1,
-            per_page: 10,
-            total_count: 2,
-            total_pages: 1.2
-        }
-    }
-    
-      const modifiedData = response?.data
-      const changedData = modifiedData.map((data, index) =>{
+          page: 1,
+          per_page: 10,
+          total_count: 2,
+          total_pages: 1.2,
+        },
+      };
+
+      const modifiedData = response?.data;
+      const changedData = modifiedData.map((data, index) => {
         return {
           questionId: index,
-          question: data?.query, 
-          answer: data?.response ,
-          answerData: true
-        }
-      })
-      console.log("changed data--->",changedData);
-      setQuestionIndex(changedData?.length)
-      setQuestions(changedData)
-      setMessageSent(true)
-      setSessionHandler(id)
+          question: data?.query,
+          answer: data?.response,
+          answerData: true,
+        };
+      });
+      console.log('changed data--->', changedData);
+      setQuestionIndex(changedData?.length);
+      setQuestions(changedData);
+      setMessageSent(true);
+      setSessionHandler(id);
     }
-  }
+  };
 
   return (
     <>
-      {console.log('pathname', pathname, 'chat history', chatHistory)}
-      {(role == 'ORG_ADMIN' || role == 'USER') &&
-        (pathname == '/chat' || pathname == '/user') && (
-          <Link
-            to="/chat"
-            style={{ textDecoration: 'none' }}
-            className="hoverDiv"
-          >
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 2,
-                color: 'white',
-                textDecoration: 'none',
-                cursor: 'pointer',
-                padding: '4px',
-              }}
-              onClick={handleAddChat}
-            >
-              <AddIcon style={{ color: 'white' }} />
-              <Hidden mdDown>
-                <Typography>New Chat</Typography>
-              </Hidden>
-            </Box>
-          </Link>
-        )}
-      <></>
       {navLinks[role]?.map((item) => {
         const isActive = pathname === item.link;
         return (
@@ -234,7 +204,32 @@ export const sideBar = (
           </Link>
         );
       })}
-
+      {(role == 'ORG_ADMIN' || role == 'USER') &&
+        (pathname == '/chat' || pathname == '/user') && (
+          <Link
+            to="/chat"
+            style={{ textDecoration: 'none' }}
+            className="hoverDiv"
+          >
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 2,
+                color: 'white',
+                textDecoration: 'none',
+                cursor: 'pointer',
+                padding: '4px',
+              }}
+              onClick={handleAddChat}
+            >
+              <AddIcon style={{ color: 'white' }} />
+              <Hidden mdDown>
+                <Typography>New Chat</Typography>
+              </Hidden>
+            </Box>
+          </Link>
+        )}
       {(role == 'ORG_ADMIN' || role == 'USER') &&
         (pathname == '/chat' || pathname == '/user') && (
           <Hidden lgUp>
@@ -260,7 +255,7 @@ export const sideBar = (
         (pathname == '/chat' || pathname == '/user') && (
           <>
             <Hidden lgDown>
-              <Typography variant="h6">Chats</Typography>
+              <Typography variant="h6">Sessions</Typography>
               <Box
                 sx={{
                   height: '45%',
@@ -291,7 +286,7 @@ export const sideBar = (
                           cursor: 'pointer',
                         }}
                         onClick={() => {
-                          showPreviousChats(item.id)
+                          showPreviousChats(item.id);
                         }}
                       >
                         {item?.session_title}
@@ -326,7 +321,7 @@ export const sideBar = (
                       <Menu.Item
                         key={index}
                         onClick={() => {
-                          showPreviousChats(item.id)
+                          showPreviousChats(item.id);
                           // setSessionHandler(item.id);
                         }}
                       >

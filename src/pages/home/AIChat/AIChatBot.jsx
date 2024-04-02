@@ -53,7 +53,7 @@ function AIChatBot() {
             <div className="AI_chat_input_box">
               <Search
                 name={
-                  "Explore your organizational knowledge base using the power of GenAI."
+                  "Explore your organisational knowledge base using the power of GenAI."
                 }
                 searchImage={SerchImages}
                 onClick={handleSearchClick}

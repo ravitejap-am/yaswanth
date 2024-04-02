@@ -24,17 +24,17 @@ const Footer = () => {
               </Typography>
             </Link>
 
-            <Typography variant='subtitle2' className={Style.footer_p_tag_2}>
+            <Typography variant="subtitle2" className={Style.footer_p_tag_2}>
               <Link
                 to="/PrivacyPolicy"
-                style={{ color: '#FFF', textDecoration: 'underline' }}
+                style={{ color: "#FFF", textDecoration: "underline" }}
               >
                 Privacy Policy
-              </Link>{' '}
-              |{' '}
+              </Link>{" "}
+              |{" "}
               <Link
                 to="/termsandconditions"
-                style={{ color: '#FFF', textDecoration: 'underline' }}
+                style={{ color: "#FFF", textDecoration: "underline" }}
               >
                 Terms & Conditions
               </Link>
@@ -55,11 +55,11 @@ const Footer = () => {
           <a
             href="https://www.google.com/maps/place/4th+Cross+Rd,+Aswath+Nagar,+Marathahalli,+Bengaluru,+Karnataka+560037/@12.9585016,77.7021339,17z/data=!3m1!4b1!4m6!3m5!1s0x3bae1232e354bd33:0xb08f8e3b10c63ea3!8m2!3d12.9585016!4d77.7021339!16s%2Fg%2F11thlg9ny9?entry=ttu"
             target="_blank"
-            style={{ textDecoration: 'none' }}
+            style={{ textDecoration: "none" }}
           >
             <div className={Style.address_card}>
               <img src={img4} alt="" />
-              <Typography variant='caption' className={Style.footer_p_tag}>
+              <Typography variant="caption" className={Style.footer_p_tag}>
                 4th Cross, Ramanjaneya Layout,
                 <br />
                 Marathahalli, Bangalore, India.
@@ -69,34 +69,45 @@ const Footer = () => {
 
           <div className={Style.address_card}>
             <img src={img5} alt="" />
-            <Typography variant='caption' className={Style.footer_p_tag} style={{ marginTop: 0 }}>
+            <Typography
+              variant="caption"
+              className={Style.footer_p_tag}
+              style={{ marginTop: 0 }}
+            >
               <a
                 href="mailto:sales@areteminds.com"
                 target="_blank"
-                style={{ textDecoration: 'none', color: '#FFF' }}
+                style={{ textDecoration: "none", color: "#FFF" }}
               >
                 sales@areteminds.com
               </a>
-            </Typography >
+            </Typography>
           </div>
 
           <a
             href="tel:9663205304"
-            style={{ textDecoration: 'none' }}
+            style={{ textDecoration: "none" }}
             target="_blank"
           >
             <div className={Style.address_card}>
               <img src={img6} alt="" />
-              <Typography variant='caption' className={Style.footer_p_tag} style={{ marginTop: 0 }}>
+              <Typography
+                variant="caption"
+                className={Style.footer_p_tag}
+                style={{ marginTop: 0 }}
+              >
                 +91 9663205304
-              </Typography >
+              </Typography>
             </div>
           </a>
         </div>
       </div>
       <div className={Style.centeredText}>
-        <Typography variant='caption' style={{ color: '#FFF', fontSize: '14px' }}>
-          @2024. All rights reserved by Areteminds
+        <Typography
+          variant="caption"
+          style={{ color: "#FFF", fontSize: "14px" }}
+        >
+          Copyright © 2020 | Powered by AreteMinds{" "}
         </Typography>
       </div>
     </div>

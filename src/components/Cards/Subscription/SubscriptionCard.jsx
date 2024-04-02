@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   Box,
   Grid,
@@ -6,9 +6,9 @@ import {
   CardContent,
   Typography,
   Button,
-} from '@mui/material';
-import SubscriptionPlanStyle from './subscriptioncard.module.css';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+} from "@mui/material";
+import SubscriptionPlanStyle from "./subscriptioncard.module.css";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 function SubscriptionCard({ item, selectedPlan, setSelectedPlan }) {
   const handleCardClick = (subscription) => {
     setSelectedPlan(subscription);
@@ -19,30 +19,35 @@ function SubscriptionCard({ item, selectedPlan, setSelectedPlan }) {
         selectedPlan === item.title && SubscriptionPlanStyle.selected
       }`}
       onClick={() => handleCardClick(item.title)}
-      sx={{ borderRadius: '10px', pb: '10px' }}
+      sx={{ borderRadius: "10px", pb: "10px" }}
     >
       <CardContent>
         <Typography variant="h5">{item.title}</Typography>
-        <Box sx={{ height: '2.5em' }}>
+        <Box sx={{ height: "2.5em" }}>
           <Typography variant="body2">{item.description}</Typography>
         </Box>
 
         <Box>
           <p className="Right_Plan_Content_Price">
-            <span className="price" style={{ color: 'black' }}>
+            <span className="price" style={{ color: "black" }}>
               {item.price}
             </span>
-            <Typography variant="caption" sx={{ color: 'gray' }}>
-              /Month
+            <Typography
+              variant="caption"
+              sx={{
+                color: "gray",
+              }}
+            >
+              {item.price === "Free" ? "" : "/Month"}
             </Typography>
           </p>
         </Box>
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '1em' }}>
+        <Box sx={{ display: "flex", flexDirection: "column", gap: "1em" }}>
           {item?.features?.map((feature, index) => {
             return (
-              <Box sx={{ display: 'flex', gap: '1em' }}>
+              <Box sx={{ display: "flex", gap: "1em" }}>
                 <CheckCircleIcon />
-                <Typography sx={{ color: 'black' }}>{feature}</Typography>
+                <Typography sx={{ color: "black" }}>{feature}</Typography>
               </Box>
             );
           })}
