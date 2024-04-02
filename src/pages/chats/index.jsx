@@ -451,7 +451,7 @@ function Chats() {
                 alignItems: isMobile ? "center" : "center",
                 flexWrap: isMobile ? "" : "",
                 height: isMobile
-                  ? `calc(120% - ${containerHeight})`
+                  ? `calc(105% - ${containerHeight})`
                   : `calc(100% - ${containerHeight})`,
                 overflowY: "auto",
                 scrollbarWidth: "thin",
@@ -463,22 +463,22 @@ function Chats() {
                 paddingRight: isMobile ? "" : "20%",
               }}
             >
+              {!isMobile ? (
               <Box
                 sx={{
                   display: "flex",
                   justifyContent: "center",
                 }}
               >
-                {!isMobile ? (
                   <Typography variant="h4" textAlign={"center"}>
                     {" "}
                     {AM_CHAT}{" "}
                     <img src={amchatImg} alt="" className={styles.chatimg} />
                   </Typography>
+              </Box>
                 ) : (
                   ""
                 )}
-              </Box>
               <Box
                 sx={{
                   flexDirection: "row",

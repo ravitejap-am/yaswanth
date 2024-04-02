@@ -111,7 +111,7 @@ padding-top: 60px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 52vh;
+  height: 143%;
   /* background-color: cyan; */
 }
 
@@ -128,6 +128,24 @@ padding-top: 60px;
   z-index: 999;
   /* bottom: 0.1rem ; */
   right: 3rem;
+}
+
+.cancelButtonStyle{
+  display: flex;
+  width: 130px;
+  height: 50px;
+  padding: 10px 16px;
+  justify-content:center;
+  align-items:center;
+  gap: 8px;
+  flex-shrink: 0;
+  border-radius:30px;
+  font-family: Into Lato;
+  font-size : 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 24px;
+  border: 1px solid #212529;
 }
 
 

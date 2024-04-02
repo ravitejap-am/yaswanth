@@ -125,7 +125,7 @@ function UserInfoForm({
           alignItems="flex-end"
           spacing={0.5} 
         >
-        <Grid item xs={6} sm={2.8} md={3} lg={1.6} xl={1} 
+        <Grid item xs={6} sm={2.8} md={3} lg={1.6} xl={1.2} 
         >
        <Button
           style={{ marginTop: '1em', width: '8em' }}
@@ -138,7 +138,7 @@ function UserInfoForm({
           <Typography variant="body1">Previous</Typography>
         </Button>
         </Grid>
-        <Grid item xs={6} sm={2.8} md={3} lg={1.6} xl={1}
+        <Grid item xs={6} sm={2.8} md={3} lg={1.6} xl={1.2}
         >
         <Button
           type="primary"

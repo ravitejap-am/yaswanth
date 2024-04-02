@@ -204,7 +204,7 @@ function Information({ setFileSysytem, validateEmail }) {
 
       <div
         // className="personal-contentcard"
-        style={{  height: "70%" }}
+        style={{  height: "100%" }}
       >
         <div className="">
           <div
@@ -221,7 +221,7 @@ function Information({ setFileSysytem, validateEmail }) {
             />
           </div>
         </div>
-        <div >
+        <div style={{height: "100%"}}>
           <UserProfileForm
             formData={userData}
             setFormData={setUserData}

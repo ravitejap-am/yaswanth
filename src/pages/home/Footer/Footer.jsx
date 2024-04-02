@@ -9,6 +9,7 @@ import img6 from '../../../asset/footer/phone.png';
 import Vector from '../../../asset/Vector.png';
 import { Link } from 'react-router-dom';
 import { Typography } from '@mui/material';
+import Logo from '../../../asset/images/logo.png'
 
 const Footer = () => {
   return (
@@ -18,7 +19,8 @@ const Footer = () => {
           <div className={Style.footerAddress}>
             <Link to="/" style={{ textDecoration: 'none' }}>
               <Typography variant='h6' className={Style.footer_p_tag}>
-                AM-ChatBOT <img src={Vector} alt="" />
+                {/* AM-ChatBOT <img src={Vector} alt="" /> */}
+                <img src={Logo} alt="am-chat" width={120}/>
               </Typography>
             </Link>
 

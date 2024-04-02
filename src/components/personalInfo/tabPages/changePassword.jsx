@@ -261,7 +261,7 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
       style={{
         width: "auto",
         margin: "auto",
-        height: "100%",
+        height: "110%",
       }}
       onFinish={feedingVariable.submitHandler}
     >
@@ -438,12 +438,12 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
             justifyContent: isMobile ? "center" : "flex-end",
             alignItems: isMobile ? "center" : "flex-end",
             padding: "1rem",
+            paddingRight: isMobile ? "" : "0px"
           }}
         >
           <Button
-            type="primary"
             onClick={cancelHandler}
-            className="buttonStyle"
+            className="cancelButtonStyle"
             style={{ marginRight: "0.5rem" }}
           >
             <Typography variant="button"> Cancel </Typography>
