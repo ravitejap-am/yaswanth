@@ -11,6 +11,7 @@ import RightPlan from "./RightPlan/RightPlan";
 import ContactUp from "./ContactUs/ContactUp";
 import { Typography } from "@mui/material";
 
+
 const Home = () => {
 
   const handleLogoClick = () => {

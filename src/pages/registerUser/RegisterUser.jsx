@@ -16,6 +16,7 @@ import Header from "../home/Header/Header";
 import { Form, Input, Select, Grid, Button } from "antd";
 import { EyeInvisibleOutlined, EyeOutlined } from "@ant-design/icons";
 import { Box, Typography } from "@mui/material";
+import Logo from "../../asset/images/logo.png"
 
 const RegisterUser = () => {
   let {
@@ -128,7 +129,7 @@ const RegisterUser = () => {
   }, []);
 
   const handleRegister = async () => {
-    navigate("/", { state: { fromRegisterPage: true } });
+    navigate("/", { state: { fromRegisterPage: true, tabName: "Contact_Up", showDefaultTab: false } });
   };
   const formElements = [
     {
@@ -235,7 +236,7 @@ const RegisterUser = () => {
       <div>
         <div className="Signup-header">
           <SignHeader
-            title="AM-Chat"
+            title={<img src={Logo} alt="" width={120} />}
             linkText={!isMobile && "Have an account?"}
             linkTo="/signin"
             buttonText={buttonProps.name}

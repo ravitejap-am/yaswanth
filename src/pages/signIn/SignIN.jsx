@@ -14,6 +14,7 @@ import { useMessageState } from "../../hooks/useapp-message";
 import { SetSessionToken } from "../../utils/SessionManager";
 import { Form, Input, Select, Grid, Button } from "antd";
 import { EyeInvisibleOutlined, EyeOutlined } from "@ant-design/icons";
+import Logo from '../../asset/images/logo.png'
 
 import "./sign-in.css";
 import { Box, Typography } from "@mui/material";
@@ -237,7 +238,7 @@ const SignIn = () => {
     name: "Sign Up",
     type: "primary",
     color: "white",
-    // backgroundColor: '#6366F1',
+    backgroundColor: '#6366F1',
     width: "120px",
     padding: "10px 16px",
     height: "40px",
@@ -265,7 +266,7 @@ const SignIn = () => {
     <>
       <div className="signin-header">
         <SignHeader
-          title="AM-Chat"
+          title={<img src={Logo} alt="" width={120} />}
           linkText={!isMobile && "Don't have an account?"}
           linkTo="/registeruser"
           buttonText={buttonProps.name}

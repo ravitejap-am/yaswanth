@@ -12,6 +12,7 @@ import { useMessageState } from '../../hooks/useapp-message';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Form, Input, Select, Grid, Button } from "antd";
 import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
+import Logo from '../../asset/images/logo.png'
 
 import "../setPassword/ResetPassword.css"
 import { Box, Typography } from '@mui/material';
@@ -215,7 +216,7 @@ const ResetPassword = () => {
     <>
       <div className="resetpassword-header">
         <SignHeader
-          title="AM-Chat"
+          title={<img src={Logo} alt="" width={120} />}
           linkText={!isMobile && "Don't have an account?"}
           linkTo="/registeruser"
           buttonText={buttonProps.name}
