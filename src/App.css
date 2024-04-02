@@ -145,9 +145,13 @@ body {
   padding: 9.5px 12px !important;
 }
 
-/* .anticon {
+.ant-select-selector {
+  border: none !important;
+}
+
+.anticon-close {
   color: white !important;
-} */
+}
 
 @font-face {
   font-family: "Montserrat300";

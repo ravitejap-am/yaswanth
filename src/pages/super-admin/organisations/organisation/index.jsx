@@ -145,7 +145,7 @@ function Organisation() {
     metaData: organisation?.organisationData?.metadata,
   };
 
-  const [isEdit, setIsEdit] = useState(false);
+  const [isDirty, setIsDirty] = useState(true);
   const [countries, setCountries] = useState([]);
   const getAllStates = State.getAllStates();
   const [states, setStates] = useState([]);
@@ -204,6 +204,11 @@ function Organisation() {
 
     initializeStates();
   }, [organisation]);
+
+  useEffect(() => {
+    const dirty = compareObjects(prevData, orgData);
+    setIsDirty(dirty);
+  }, [orgData]);
 
   const messageHandler = () => {
     hideNotifyMessage();
@@ -363,11 +368,6 @@ function Organisation() {
     // if (normalizedTab !== selectedTab) {
     //   setSelectedTab(normalizedTab);
     // }
-  };
-
-  const handleSubmit = () => {
-    // Add logic for handling form submission
-    console.log("Submitting form");
   };
 
   const handleCancel = () => {
@@ -666,8 +666,10 @@ function Organisation() {
               fontStyle: "normal",
               fontWeight: "700",
               lineHeight: "24px",
+              opacity: isDirty ? "0.5" : "1",
             }}
             loading={buttonLoading}
+            disabled={isDirty}
           >
             <Typography variant="body1">{"Submit"}</Typography>
           </Button>

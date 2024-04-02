@@ -8,11 +8,6 @@ const Pie = ({ selectedTypeValue }) => {
     const myChart = echarts.init(chartDom);
 
     const option = {
-      // title: {
-      //   text: "Subscription Details",
-      //   subtext: "Fake Data",
-      //   left: "left",
-      // },
       tooltip: {
         trigger: "item",
       },
@@ -25,6 +20,14 @@ const Pie = ({ selectedTypeValue }) => {
           name: "Access From",
           type: "pie",
           radius: "50%",
+          avoidLabelOverlap: false,
+          label: {
+            show: false,
+            position: "center",
+          },
+          labelLine: {
+            show: false,
+          },
           data: selectedTypeValue,
           emphasis: {
             itemStyle: {
