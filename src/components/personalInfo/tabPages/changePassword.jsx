@@ -4,24 +4,36 @@ import { setUser, selectUser } from "../../../store/authSlice";
 import * as constants from "../../../constants/Constant";
 import { useMessageState } from "../../../hooks/useapp-message";
 import { useNavigate } from "react-router-dom";
+import { Form, Button, Input } from "antd";
 import GeneralForm from "../../../components/common/forms/GeneralForm";
 import NotifyMessage from "../../../components/common/toastMessages/NotifyMessage";
 import PageLoader from "../../loader/loader";
 import { useState } from "react";
 import "./userform.css";
-import { Form, Input, Button, Row, Col } from "antd";
-import { EyeOutlined, EyeInvisibleOutlined } from "@ant-design/icons";
-import { Typography, Box, Grid, useMediaQuery } from "@mui/material";
+import {
+  Typography,
+  Box,
+  Grid,
+  useMediaQuery,
+  IconButton,
+} from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 function ChangePassword({ setFileSysytem, validateEmail }) {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState({
-    oldPassword: false ,
-    newPassword: false ,
-    confirmPassword: false
+    oldPassword: false,
+    newPassword: false,
+    confirmPassword: false,
   });
-  const isMobile = useMediaQuery('(max-width:600px)');
+  const [formData, setFormData] = useState({
+    password: "",
+    newPassword: "",
+    confirmPassword: "",
+  });
+  const [errors, setErrors] = useState({});
+  const isMobile = useMediaQuery("(max-width:600px)");
 
   let {
     buttonLoading,
@@ -48,15 +60,6 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
     left: "320px",
   };
 
-
-  const togglePasswordVisibility = (type) => {
-    setShowPassword(type)
-    // if (type === "password") {
-    //   setShowPassword(!showPassword);
-    // } else if (type === "confirmPassword") {
-    //   setShowConfirmPassword(!showConfirmPassword);
-    // }
-  };
   const messageHandler = () => {
     setIsReset(false);
     hideNotifyMessage();
@@ -88,70 +91,98 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
     return true;
   };
 
-  const handleChangePassword = async (values) => {
-    console.log("change values", values);
-    if (values !== undefined && values !== null) {
-      if (verifyPassword(values)) {
-        try {
-          setButtonLoading(true);
-          setIsLoading(true);
-          const response = await fetch(
-            `${constants.BASE_API_URL}/user/verification/reset`,
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${jwt}`,
-              },
-              body: JSON.stringify({
-                oldPassword: values.password,
-                newPassword: values.newPassword,
-                confirmPassword: values.confirmPassword,
-              }),
-            }
-          );
-          console.log("$$$33333334444556789", response);
-          if (response?.ok) {
-            if (response.status === 200) {
-              setButtonLoading(false);
-              setIsLoading(false);
-              setIsReset(true);
-              showNotifyMessage(
-                "success",
-                "Password Changed Successfully",
-                messageHandler
-              );
-            }
-          } else {
-            const errorMsg = await response.json();
-            console.log("Error changing password:", errorMsg);
+  const handleChangePassword = async () => {
+    if (validateForm() && verifyPassword(formData)) {
+      try {
+        setButtonLoading(true);
+        setIsLoading(true);
+        const response = await fetch(
+          `${constants.BASE_API_URL}/user/verification/reset`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${jwt}`,
+            },
+            body: JSON.stringify({
+              oldPassword: formData.password,
+              newPassword: formData.newPassword,
+              confirmPassword: formData.confirmPassword,
+            }),
+          }
+        );
+        console.log("Response:", response);
+        if (response?.ok) {
+          if (response.status === 200) {
+            setButtonLoading(false);
+            setIsLoading(false);
+            setIsReset(true);
             showNotifyMessage(
-              "error",
-              errorMsg?.message
-                ? errorMsg.message
-                : "Failed to change password",
+              "success",
+              "Password Changed Successfully",
               messageHandler
             );
           }
-          setIsLoading(false);
-        } catch (error) {
-          if (
-            error?.response?.status == 500 ||
-            error?.response?.status == "500"
-          ) {
-            navigate("/customerSupport");
-          }
-
-          setButtonLoading(false);
-          setIsLoading(false);
+        } else {
+          const errorMsg = await response.json();
+          console.log("Error changing password:", errorMsg);
           showNotifyMessage(
             "error",
-            error?.response?.data?.message,
+            errorMsg?.message ? errorMsg.message : "Failed to change password",
             messageHandler
           );
         }
+        setIsLoading(false);
+      } catch (error) {
+        if (
+          error?.response?.status == 500 ||
+          error?.response?.status == "500"
+        ) {
+          navigate("/customerSupport");
+        }
+
+        setButtonLoading(false);
+        setIsLoading(false);
+        showNotifyMessage(
+          "error",
+          error?.response?.data?.message,
+          messageHandler
+        );
       }
     }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const validateForm = () => {
+    const errors = {};
+    let isValid = true;
+
+    if (!formData.password.trim()) {
+      errors.password = "Old password is required";
+      isValid = false;
+    }
+    if (!formData.newPassword.trim()) {
+      errors.newPassword = "New password is required";
+      isValid = false;
+    } else if (formData.newPassword.length < 8) {
+      errors.newPassword = "Password must be at least 8 characters";
+      isValid = false;
+    }
+
+    if (!formData.confirmPassword.trim()) {
+      errors.confirmPassword = "Confirm password is required";
+      isValid = false;
+    }
+
+    setErrors(errors);
+    return isValid;
   };
 
   const feedingVariable = {
@@ -160,9 +191,9 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
       console.log("Canceling....");
     },
     isSubmit: true,
-    submitHandler: (values) => {
+    submitHandler: () => {
       console.log("Submitting ChangePassword form....");
-      handleChangePassword(values);
+      handleChangePassword(formData);
     },
 
     submitButtonProperty: {
@@ -237,7 +268,7 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
       <Box
         sx={{
           display: "flex",
-          height: "150%",
+          height: "140%",
           flexDirection: "column",
           justifyContent: "space-between",
           // width: {
@@ -245,58 +276,68 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
           //   sm: 600 ,
           //   md: 900 ,
           //   lg: 1200,
-          //   xl: 1350 
+          //   xl: 1350
           // },
         }}
       >
         {isLoading && <PageLoader loadingStatus={isLoading} />}
-
-
-        <Box style={{ height: "100%" }}>
-          <Grid container 
-            // spacing={2}  
-            // columnGap={{md:2}}
+        <Grid container spacing={2} style={{marginLeft: "0px"}}>
+          <Grid item xs={12} md={6}  style={{paddingLeft: "0px"}}>
+            <Box
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                position: "relative",
+              }}
             >
-            <Grid item sm={12} md={5} lg={6}>
               <Typography>
-                {" "}
-                <label htmlFor="password">Old Password:</label>
+                <label
+                  htmlFor="password"
+                  className="input-label-changepassword"
+                >
+                  Old Password:
+                </label>
               </Typography>
-              <Form.Item
-                name="password"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please enter your Old Password!",
-                  },
-                ]}
-                required={false}
+              <Box
+                style={{
+                  position: "relative",
+                  display: "flex",
+                  alignItems: "center",
+                }}
               >
-                <Input
+                <input
+                  id="password"
+                  name="password"
+                  type={showPassword.oldPassword ? "text" : "password"}
+                  value={formData.password}
+                  onChange={handleChange}
                   className="inputstyle-css-changepassword"
-                  placeholder="Old Password"
-                  type={showPassword.oldPassword  ? "text" : "password"}
-                  suffix={
-                    <Button
-                      type="text"
-                      onClick={() => 
-                        setShowPassword({...showPassword, oldPassword: !showPassword.oldPassword })
-                      }
-                      icon={
-                        showPassword.oldPassword ? (
-                          <EyeOutlined style={{ fontSize: "20px" }} />
-                        ) : (
-                          <EyeInvisibleOutlined style={{ fontSize: "20px" }} />
-                        )
-                      }
-                    />
-                  }
                 />
-              </Form.Item>
-            </Grid>
-            <Grid item sm={12} md={5} lg={6}>
+                <IconButton
+                  className="EyeButton"
+                  onClick={() =>
+                    setShowPassword({
+                      ...showPassword,
+                      oldPassword: !showPassword.oldPassword,
+                    })
+                  }
+                >
+                  {showPassword.oldPassword ? (
+                    <Visibility />
+                  ) : (
+                    <VisibilityOff />
+                  )}
+                </IconButton>
+              </Box>
+              {errors.password && (
+                <span className="error-password">{errors.password}</span>
+              )}
+            </Box>
+          </Grid>
+
+          <Grid item xs={12} md={6} style={{paddingLeft: "0px"}}>
+            <Box style={{ display: "flex", flexDirection: "column" }}>
               <Typography>
-                {" "}
                 <label
                   htmlFor="newPassword"
                   className="input-label-changepassword"
@@ -304,79 +345,92 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
                   New Password:
                 </label>
               </Typography>
-              <Form.Item
-                name="newPassword"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please enter your new password!",
-                  },
-                ]}
-                required={false}
+              <Box
+                style={{
+                  position: "relative",
+                  display: "flex",
+                  alignItems: "center",
+                }}
               >
-                <Input
-                  className="inputstyle-css-changepassword"
-                  // style={{width: {lg:'50%'}, backgroundColor: 'red'}}
-                  placeholder="New Password"
+                <input
                   type={showPassword.newPassword ? "text" : "password"}
-                  suffix={
-                    <Button
-                      type="text"
-                      onClick={() => 
-                        setShowPassword({...showPassword, newPassword: !showPassword.newPassword })
-                    }
-                      icon={
-                        showPassword.newPassword ? (
-                          <EyeOutlined style={{ fontSize: "20px" }} />
-                        ) : (
-                          <EyeInvisibleOutlined style={{ fontSize: "20px" }} />
-                        )
-                      }
-                    />
-                  }
-                />
-              </Form.Item>
-            </Grid>
-            <Grid item sm={12} md={5} lg={6}>
-              <Typography>
-                <label htmlFor="password">Confirm Password:</label>{" "}
-              </Typography>
-              <Form.Item
-                name="confirmPassword"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please confirm password",
-                  },
-                ]}
-                required={false}
-              >
-                <Input
+                  id="newPassword"
+                  name="newPassword"
+                  value={formData.newPassword}
+                  onChange={handleChange}
                   className="inputstyle-css-changepassword"
-                  style={{width: {md:'80%'}}}
-                  placeholder="Confirm Password"
-                  type={showPassword.confirmPassword ? "text" : "password"}
-                  suffix={
-                    <Button
-                      type="text"
-                      onClick={() =>
-                        setShowPassword({...showPassword, confirmPassword: !showPassword.confirmPassword })
-                      }
-                      icon={
-                        showPassword.confirmPassword ? (
-                          <EyeOutlined style={{ fontSize: "20px" }} />
-                        ) : (
-                          <EyeInvisibleOutlined style={{ fontSize: "20px" }} />
-                        )
-                      }
-                    />
-                  }
                 />
-              </Form.Item>
-            </Grid>
+                <IconButton
+                  className="EyeButton"
+                  onClick={() =>
+                    setShowPassword({
+                      ...showPassword,
+                      newPassword: !showPassword.newPassword,
+                    })
+                  }
+                >
+                  {showPassword.newPassword ? (
+                    <Visibility />
+                  ) : (
+                    <VisibilityOff />
+                  )}
+                </IconButton>
+              </Box>
+              {errors.newPassword && (
+                <span className="error-password">{errors.newPassword}</span>
+              )}
+            </Box>
           </Grid>
-        </Box>
+          <Grid item xs={12} md={6} style={{paddingLeft: "0px"}}>
+            <Box style={{ display: "flex", flexDirection: "column" }}>
+              <Typography>
+                <label
+                  htmlFor="confirmPassword"
+                  className="input-label-changepassword"
+                >
+                  Confirm Password:
+                </label>
+              </Typography>
+              <Box
+                style={{
+                  position: "relative",
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <input
+                  type={showPassword.confirmPassword ? "text" : "password"}
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                  className="inputstyle-css-changepassword"
+                />
+                <IconButton
+                  className="EyeButton"
+                  onClick={() =>
+                    setShowPassword({
+                      ...showPassword,
+                      confirmPassword: !showPassword.confirmPassword,
+                    })
+                  }
+                >
+                  {showPassword.confirmPassword ? (
+                    <Visibility />
+                  ) : (
+                    <VisibilityOff />
+                  )}
+                </IconButton>
+              </Box>
+              {errors.confirmPassword && (
+                <span className="error-password">{errors.confirmPassword}</span>
+              )}
+            </Box>
+          </Grid>
+          <Grid item xs={12}></Grid>
+        </Grid>
 
+        <NotifyMessage />
         <Box
           sx={{
             display: "flex",
@@ -386,14 +440,24 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
             padding: "1rem",
           }}
         >
-            <Button type="primary" onClick={cancelHandler} className="buttonStyle" style={{marginRight: "0.5rem"}}>
-              <Typography variant="button"> Cancel </Typography>
-            </Button>
-            <Button type="primary" htmlType="submit" className="buttonStyle" style={{marginLeft: "0.5rem"}}>
-              <Typography variant="button" display="block">
-                Submit
-              </Typography>
-            </Button>
+          <Button
+            type="primary"
+            onClick={cancelHandler}
+            className="buttonStyle"
+            style={{ marginRight: "0.5rem" }}
+          >
+            <Typography variant="button"> Cancel </Typography>
+          </Button>
+          <Button
+            type="primary"
+            htmlType="submit"
+            className="buttonStyle"
+            style={{ marginLeft: "0.5rem" }}
+          >
+            <Typography variant="button" display="block">
+              Submit
+            </Typography>
+          </Button>
         </Box>
       </Box>
     </Form>
