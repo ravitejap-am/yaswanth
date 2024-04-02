@@ -176,17 +176,17 @@
 
 @media (min-width: 1401px) {
   .inputstyle {
-    width: 33rem;
+    width: 88%;
     height: 35px;
   }
   .selectContainer{
-    width: 35rem;
+    width: 93%;
     height: 48px;
   }
 
   .pincodeStyle{
-    width: 33rem;
-    height:2.1rem;
+    width: 88%;
+    height:35px;
   }
 }
 

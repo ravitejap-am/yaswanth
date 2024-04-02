@@ -180,13 +180,6 @@ function OrganizationForm({
           width: '2px',
           height: '2px' 
         },
-        '&::-webkit-scrollbar-track': {
-          background: 'transparent', 
-        },
-        '&::-webkit-scrollbar-thumb': {
-          background: '#888', 
-          borderRadius: '6px', 
-        },
        }}
       > 
         <Grid item         

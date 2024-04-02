@@ -260,8 +260,6 @@ function Chats() {
   const defaultQuestions = [
     "Could you help me with the maternity policy of my organisation?",
     "Can you tell me about GDPR compliance.  Which I should follow in my organisation?",
-    "Can you tell me about GDPR compliance.  Which I should follow in my organisation?,",
-    "Can you explain me the Pythagoras theorem based on. , ",
     "Can you tell me what's wrong in my lab reports?",
     "Can you explain me the quantum?",
   ];
@@ -339,17 +337,11 @@ function Chats() {
             width: "100%",
             display: "flex",
             alignItems: "center",
-            justifyContent: isMobile ? "space-between" : "space-around",
+            justifyContent: isMobile ? "space-around" : "flex-start",
             flexDirection: "row",
-            // flexDirection: {
-            //   xs: "row",
-            //   sm: "row",
-            //   md: "row",
-            //   xl: "row",
-            //   lg: "row",
-            // },
-            gap: "1rem",
+            gap: isMobile ? "0.6rem" : "2rem",
             paddingBottom: "5px",
+            flexWrap: "wrap"
           }}
         >
           <Box
@@ -396,14 +388,12 @@ function Chats() {
               Specific
             </Typography>
           </Box>
-          <Box sx={{ width: "140px" }}>
+          {searchOption === "specificFileText" && <Box sx={{ width: isMobile ? "125px": "140px" }}>
             <FormControl
               className={styles.chatFormControl}
               size="large"
               variant="outlined"
               fullWidth
-
-              // style={{ marginTop: "1rem", border: `1px solid ${selectedFile ? '#a9a9a9' : ''}` }}
             >
               <InputLabel id="file-select-label" shrink={true}>
                 Document
@@ -447,21 +437,21 @@ function Chats() {
                 </Button>
               </DialogActions>
             </Dialog>
-          </Box>
+          </Box>}
         </Box>
 
-        <Box sx={{ flex: 1, overflowY: "auto" }}>
+        <Box sx={{ flex: 1, overflowY: "auto" }} >
           {!messageSent && (
             <Box
-              ref={chatRef}
+            ref={chatRef}
               sx={{
                 display: "flex",
                 flexDirection: isMobile ? "column" : "column",
-                justifyContent: isMobile ? "flex-start" : "space-between",
+                justifyContent: isMobile ? "space-between" : "space-between",
                 alignItems: isMobile ? "center" : "center",
                 flexWrap: isMobile ? "" : "",
                 height: isMobile
-                  ? `calc(120% - ${containerHeight})`
+                  ? `calc(105% - ${containerHeight})`
                   : `calc(100% - ${containerHeight})`,
                 overflowY: "auto",
                 scrollbarWidth: "thin",
@@ -473,24 +463,22 @@ function Chats() {
                 paddingRight: isMobile ? "" : "20%",
               }}
             >
+              {!isMobile ? (
               <Box
                 sx={{
                   display: "flex",
                   justifyContent: "center",
-                  // paddingLeft: isMobile ? "15%" : "",
-                  // paddingRight: isMobile ? "15%" : "",
                 }}
               >
-                {!isMobile ? (
                   <Typography variant="h4" textAlign={"center"}>
                     {" "}
                     {AM_CHAT}{" "}
                     <img src={amchatImg} alt="" className={styles.chatimg} />
                   </Typography>
+              </Box>
                 ) : (
                   ""
                 )}
-              </Box>
               <Box
                 sx={{
                   flexDirection: "row",
@@ -502,8 +490,6 @@ function Chats() {
                   sx={{
                     display: "flex",
                     flexDirection: "column",
-                    // paddingLeft: isMobile ? "15%" : "",
-                    // paddingRight: isMobile ? "15%" : "",
                   }}
                 >
                   <Typography
@@ -635,14 +621,31 @@ function Chats() {
               minHeight: "34px",
               overflowY: "auto",
               paddingRight: "4rem",
-              scrollbarWidth: "thin",
-              scrollbarColor: "lightgrey #f5f5f5",
+              // scrollbarWidth: "thin",
+              // scrollbarColor: "#ffffff",
               scrollHeight: "3px",
               scrollPaddingRight:"6px",
               WebkitScrollbarCorner: {
                 background: "transparent",
                 paddingRight: "16px",
               },
+              // webkitScrollbarThumb :{
+              //   backgroundColor: "#c4c4c4",
+              //   borderRadius: "4px",
+              //   border: "2px solid transparent"
+              // },
+              // WebkitScrollbar: {
+              //   width: "3px",
+              // },
+              // WebkitScrollbarTrack: {
+              //   background: "transparent",
+              // },
+              // WebkitScrollbarThumb: {
+              //   backgroundColor: "#c4c4c4",
+              //   borderRadius: "2px",
+              //   border: "2px solid transparent",
+              // },
+              
               resize: "none",
             }}
             onPaste={handlePaste}

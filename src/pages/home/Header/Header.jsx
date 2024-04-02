@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import Styles from './header.module.css';
-import Logo from '../../../asset/images/logo.png';
-import GeneralButton from '../../../components/common/buttons/GeneralButton';
-import { Layout, Menu, Grid, Drawer } from 'antd';
-import { AppstoreOutlined } from '@ant-design/icons';
-import './header.css';
-import { Typography } from '@mui/material';
+import React, { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate ,} from "react-router-dom";
+import Styles from "./header.module.css";
+import Logo from "../../../asset/images/logo.png";
+import GeneralButton from "../../../components/common/buttons/GeneralButton";
+import { Layout, Menu, Grid, Drawer } from "antd";
+import { AppstoreOutlined } from "@ant-design/icons";
+import "./header.css";
+import { Typography } from "@mui/material";
 
 const Header = (props) => {
   const [scroll, setScroll] = useState(false);
@@ -15,11 +15,17 @@ const Header = (props) => {
   const { useBreakpoint } = Grid;
   const screens = useBreakpoint();
   const location = useLocation();
-  const { handleLogoClick } = props
+  const { handleLogoClick } = props;
+  const navigate = useNavigate();
+  const [selectedTab, setSelectedTab] = useState("")
+
+  const [defaultSelectedTab, setDefaultSelectedTab] = useState(location.pathname === "/" ? location.state?.tabName && !location.state?.showDefaultTab  ?  location.state?.tabName : "Home_page" : "")
+
 
   useEffect(() => {
     if (location.state && location.state.fromRegisterPage) {
-      scrollToElement('Contact_Up');
+      setSelectedTab("Contact_Up")
+      scrollToElement("Contact_Up");
     }
   }, [location.state]);
 
@@ -28,45 +34,68 @@ const Header = (props) => {
       setScroll(window.scrollY > 0);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
   const scrollToElement = (elementId) => {
     const element = document.getElementById(elementId);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({ behavior: "smooth" });
     }
   };
 
+  const screenCheck = (tabName) => {
+    if(location.pathname !== "/"){
+      navigate("/", { state: {  tabName: tabName , showDefaultTab: false } });
+    }else{
+      navigate(location.pathname, { state: null });
+    }
+  }
+
   const items = [
     {
-      key: 'Home_page',
-      label: 'Home',
-      onClick: () => scrollToElement('Home_page'),
+      key: "Home_page",
+      label: "Home",
+      onClick: async() => {
+        await screenCheck("Home_page");
+        await scrollToElement("Home_page");
+      },
     },
     {
-      key: 'ai_page',
-      label: 'Solutions',
-      onClick: () => scrollToElement('ai_page'),
+      key: "ai_page",
+      label: "Solutions",
+      onClick: async() => {
+        await screenCheck("ai_page");
+        await scrollToElement("ai_page");
+      },
     },
     {
-      key: 'How_it_works',
-      label: 'How it Works',
-      onClick: () => scrollToElement('How_it_works'),
+      key: "How_it_works",
+      label: "How it Works",
+      onClick:async () => {
+        await screenCheck("How_it_works");
+        await scrollToElement("How_it_works");
+      },
     },
     {
-      key: 'Plan_Page',
-      label: 'Plans',
-      onClick: () => scrollToElement('Plan_Page'),
+      key: "Plan_Page",
+      label: "Plans",
+      onClick:async () => {
+        await screenCheck("Plan_Page");
+        await scrollToElement("Plan_Page");
+      },
     },
     {
-      key: 'Contact_Up',
-      label: 'Contact Us',
-      onClick: () => scrollToElement('Contact_Up'),
+      key: "Contact_Up",
+      label: "Contact Us",
+      onClick: async() => {
+        await screenCheck("Contact_Up");
+        await scrollToElement("Contact_Up");
+      },
     },
   ];
 
@@ -78,31 +107,36 @@ const Header = (props) => {
     setVisible(false);
   };
 
-  const selectedKey = location.state?.fromRegisterPage
-    ? 'Contact_Up'
-    : 'Home_page';
 
   return (
     <Layout>
       <Header className={Styles.mainHeader}>
-        <div className={Styles.appLogo} onClick={handleLogoClick} style={{cursor: 'pointer' }}>
+        <div
+          className={Styles.appLogo}
+          onClick={handleLogoClick}
+          style={{ cursor: "pointer" }}
+        >
           <img src={Logo} alt="" width={120} />
         </div>
         {screens.sm || screens.md || screens.lg ? (
           <Menu
             theme="dark"
             mode="horizontal"
-            defaultSelectedKeys={[selectedKey]}
+            // selectedKeys={[selectedTab]} 
+            defaultSelectedKeys={[defaultSelectedTab]}
             items={items}
             style={{
-              display: 'flex',
+              display: "flex",
               flex: 1,
-              justifyContent: 'center',
-              fontFamily: 'Montserrat, Arial, sans-serif',
+              justifyContent: "center",
+              fontFamily: "Montserrat, Arial, sans-serif",
             }}
           >
             {items?.map((item) => (
-              <Menu.Item key={item?.key} onClick={item.onClick}>
+              <Menu.Item
+                key={item?.key}
+                onClick={item.onClick}
+              >
                 {item?.label}
               </Menu.Item>
             ))}
@@ -111,13 +145,13 @@ const Header = (props) => {
           <>
             <AppstoreOutlined
               onClick={showDrawer}
-              style={{ color: 'white', fontSize: '30px' }}
+              style={{ color: "white", fontSize: "30px" }}
             />
             <Drawer
               title={
                 <Typography
                   variant="body2"
-                  style={{ color: 'white', fontWeight: '500' }}
+                  style={{ color: "white", fontWeight: "500" }}
                 >
                   Menu
                 </Typography>
@@ -129,14 +163,14 @@ const Header = (props) => {
               mask
               style={{
                 background:
-                  'linear-gradient(114deg,#0f172a 51.52%,#152346 73.32%,#1a2e5e 92.75%)',
+                  "linear-gradient(114deg,#0f172a 51.52%,#152346 73.32%,#1a2e5e 92.75%)",
               }}
             >
               <Menu
                 theme="dark"
                 mode="inline"
-                defaultSelectedKeys={['Home_page']}
-                style={{ fontFamily: 'Montserrat, Arial, sans-serif' }}
+                defaultSelectedKeys={["Home_page"]}
+                style={{ fontFamily: "Montserrat, Arial, sans-serif" }}
               >
                 {items.map((item) => (
                   <Menu.Item
@@ -157,31 +191,31 @@ const Header = (props) => {
           <div className={Styles.navigationButton}>
             <div
               className="btn-color"
-              style={{ height: '40px', width: '90px' }}
+              style={{ height: "40px", width: "90px" }}
             >
-              <Link to={'/signIn'} style={{ textDecoration: 'none' }}>
+              <Link to={"/signIn"} style={{ textDecoration: "none" }}>
                 <GeneralButton
-                  name={'Sign In'}
-                  type={'submit'}
-                  color={'#F8FAFC'}
+                  name={"Sign In"}
+                  type={"submit"}
+                  color={"#F8FAFC"}
                 />
               </Link>
             </div>
             <div
               className="btn-color-signup"
-              style={{ height: '40px', width: '90px' }}
+              style={{ height: "40px", width: "90px" }}
             >
-              <Link to={'/registerUser'} style={{ textDecoration: 'none' }}>
+              <Link to={"/registerUser"} style={{ textDecoration: "none" }}>
                 <GeneralButton
-                  name={'Sign Up'}
-                  type={'submit'}
-                  color={'#F8FAFC'}
+                  name={"Sign Up"}
+                  type={"submit"}
+                  color={"#F8FAFC"}
                 />
               </Link>
             </div>
           </div>
         ) : (
-          ''
+          ""
         )}
       </Header>
     </Layout>

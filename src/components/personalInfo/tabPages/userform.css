@@ -76,39 +76,33 @@ label {
     padding: 0.375rem 0.75rem;
   }
   .inputstyle-css-changepassword{
-    /* width: 280px !important; */
     height: 50px;
     border-radius: 40px;
     border: 1px solid var(--Neutral-400, #94a3b8);
     background: transparent !important;
-    color: #212529;
-    
+    color: #212529;    
+  }
+  .inputstyle-css-changepassword{
+    /* margin-left: -36px; */
   }
 }
 
 
-@media only screen and (max-width: 320px) and (min-width: 320px) {
-  .inputstyle-css {
-   max-width: 230px;
-   }
-
-   /* .inputstyle-css-changepassword{
-    margin-left: -38px;
-   }
-   .input-label-changepassword{
-    margin-left: -38px;
-   } */
-  }
 
 
 .inputstyle-css-changepassword{
-    height: 50px;
+    height: 35px;
     border-radius: 40px;
     border: 1px solid var(--Neutral-400, #4338CA);
     background: transparent !important;
     color: #212529;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
 }
-
+.error-password {
+  color: red;
+  font-family: Montserrat, Arial, sans-serif;
+}
 .main-change-password{
 padding-top: 60px;
 }
@@ -117,7 +111,7 @@ padding-top: 60px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 52vh;
+  height: 143%;
   /* background-color: cyan; */
 }
 
@@ -127,24 +121,33 @@ padding-top: 60px;
   /* justify-content: flex-end; */
 }
 
-@media (min-width: 900px)and (max-width: 1022px) {
-  .inputstyle-css-changepassword {
-    width: 60%;
-  }
+
+.EyeButton {
+  position: absolute;
+  height: 1.7rem;
+  z-index: 999;
+  /* bottom: 0.1rem ; */
+  right: 3rem;
 }
 
-
-@media (min-width: 1023px) and (max-width: 1200px) {
-  .inputstyle-css-changepassword {
-    width: 65%;
-  }
+.cancelButtonStyle{
+  display: flex;
+  width: 130px;
+  height: 50px;
+  padding: 10px 16px;
+  justify-content:center;
+  align-items:center;
+  gap: 8px;
+  flex-shrink: 0;
+  border-radius:30px;
+  font-family: Into Lato;
+  font-size : 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 24px;
+  border: 1px solid #212529;
 }
 
-@media (min-width: 1201px) {
-  .inputstyle-css-changepassword {
-    width: 80%;
-  }
-}
 
 
 

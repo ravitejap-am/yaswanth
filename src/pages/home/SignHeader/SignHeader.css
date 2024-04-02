@@ -1,5 +1,6 @@
 .signheader-main {
-    background: var(--Neutral-200, #E2E8F0);
+    /* background: var(--Neutral-200, #E2E8F0); */
+    background-color: var(--Neutral-900, #0F172A);
 }
 
 .signheader-content {
@@ -25,17 +26,17 @@
     font-style: normal;
     font-weight: 700;
     line-height: 24px;
-    margin-top: 10px;
+    /* margin-top: 10px; */
 }
 
 .signheader-account {
     margin-right: 10px;
-    margin-top: 10px;
+    /* margin-top: 10px; */
 }
 
 .signheader-btn {
     margin-right: 30px;
-    margin-top: 10px;
+    /* margin-top: 10px; */
 }
 
 .headerVector-icon {
@@ -45,8 +46,8 @@
 
 .signin-link {
     text-decoration: none;
-    color: var(--Brand-900, #312E81);
-
+    /* color: var(--Brand-900, #312E81); */
+    color: white;
     font-family: Lato;
     font-size: 0.875rem;
     font-style: normal;

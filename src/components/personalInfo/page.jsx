@@ -90,7 +90,7 @@ const PersonalInfo = () => {
         <TabPanel value="1" style={{ padding: '0px' }}>
           <Information />
         </TabPanel>
-        <TabPanel value="2" style={{height: '70%'}}>
+        <TabPanel value="2" style={{height: '70%',padding: '30px 0px 0px 0px'}}>
           <ChangePassword />
         </TabPanel>
         <TabPanel value="3">

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { PlusOutlined, DeleteOutlined } from '@ant-design/icons'; // Import the delete icon
+import { PLACEHODER_IMAGE } from '../../../constants/Constant'; 
 
 const CircularFileInput = ({ initialImageUrl, apiUrl, onChange }) => {
   const [imageUrl, setImageUrl] = useState('');
@@ -21,6 +22,9 @@ const CircularFileInput = ({ initialImageUrl, apiUrl, onChange }) => {
     setImageUrl(''); // Clear the image URL
     onChange(null); // Clear the file selection
   };
+
+
+  console.log("imageUrl---->",imageUrl);
 
   return (
     <div>
@@ -71,7 +75,7 @@ const CircularFileInput = ({ initialImageUrl, apiUrl, onChange }) => {
           )}
         </div>
       </label>
-      {imageUrl && ( // Render delete button only if imageUrl is present
+      {imageUrl !== PLACEHODER_IMAGE && ( // Render delete button only if imageUrl is present
         <div // Delete icon container
           style={{
             marginTop: '5px',

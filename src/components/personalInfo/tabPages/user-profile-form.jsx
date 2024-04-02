@@ -160,9 +160,8 @@ function UserProfileForm({ formData, setFormData, submitHandler }) {
           style={{ justifyContent: isMobile ? "center" : "flex-end"}}
         >
           <Button
-            type="primary"
             onClick={cancelHandler}
-            className="buttonStyle"
+            className="cancelButtonStyle"
           >
             <Typography variant="button"> Cancel </Typography>
           </Button>

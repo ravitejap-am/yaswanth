@@ -55,17 +55,17 @@ function UserInfoForm({
         sx={{
           height:'60vh',
            overflowY:'scroll',
-          '&::-webkit-scrollbar': {
-            width: '2px',
-            height: '2px' 
-          },
-          '&::-webkit-scrollbar-track': {
-            background: 'transparent', 
-          },
-          '&::-webkit-scrollbar-thumb': {
-            background: '#888', 
-            borderRadius: '6px', 
-          },
+          // '&::-webkit-scrollbar': {
+          //   width: '2px',
+          //   height: '2px' 
+          // },
+          // '&::-webkit-scrollbar-track': {
+          //   background: 'transparent', 
+          // },
+          // '&::-webkit-scrollbar-thumb': {
+          //   background: '#888', 
+          //   borderRadius: '6px', 
+          // },
          }}
         >
         <Grid item         
@@ -125,7 +125,7 @@ function UserInfoForm({
           alignItems="flex-end"
           spacing={0.5} 
         >
-        <Grid item xs={6} sm={2.8} md={3} lg={1.6} xl={1} 
+        <Grid item xs={6} sm={2.8} md={3} lg={1.6} xl={1.2} 
         >
        <Button
           style={{ marginTop: '1em', width: '8em' }}
@@ -138,7 +138,7 @@ function UserInfoForm({
           <Typography variant="body1">Previous</Typography>
         </Button>
         </Grid>
-        <Grid item xs={6} sm={2.8} md={3} lg={1.6} xl={1}
+        <Grid item xs={6} sm={2.8} md={3} lg={1.6} xl={1.2}
         >
         <Button
           type="primary"

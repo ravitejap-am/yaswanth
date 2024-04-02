@@ -122,6 +122,10 @@ const EditUsers = () => {
     fetchUserData();
   }, []);
 
+  const cancelHandler = () => {
+    navigate("/users");
+  };
+
   return (
     <Layout componentName="Update user">
       <EditForm
@@ -130,6 +134,7 @@ const EditUsers = () => {
         submitHandler={submitHandler}
         isEdit={true}
         buttonLoading={buttonLoading}
+        cancelHandler={cancelHandler}
       />
     </Layout>
   );
