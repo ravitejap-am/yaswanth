@@ -12,8 +12,8 @@ const SignHeader = ({ title, linkText, linkTo, buttonText, buttonProps }) => {
         <Box className="signheader-amchattext">
           <Link to="/" style={{ textDecoration: 'none', color: 'black' }}>
           <Typography variant="h5" mt={1}>             
-           {title}{' '}
-              <img className="headerVector-icon" src={headerVector} alt="" />
+           {title}
+              {/* <img className="headerVector-icon" src={headerVector} alt="" /> */}
               </Typography>
           </Link>
         </Box>

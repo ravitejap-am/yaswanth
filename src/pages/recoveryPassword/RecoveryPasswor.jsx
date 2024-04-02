@@ -11,6 +11,7 @@ import SignHeader from "../home/SignHeader/SignHeader";
 import { useNavigate } from "react-router-dom";
 import { Form, Input, Select, Grid, Button } from "antd";
 import { Box, Typography } from "@mui/material";
+import Logo from "../../asset/images/logo.png"
 
 const RecoveryPasswor = () => {
   let {
@@ -162,7 +163,7 @@ const RecoveryPasswor = () => {
     <>
       <div className="recoverpassword-header">
         <SignHeader
-          title="AM-Chat"
+          title={<img src={Logo} alt="" width={120} />}
           linkText={!isMobile && "Don't have an account?"}
           linkTo="/registeruser"
           buttonText={buttonProps.name}
