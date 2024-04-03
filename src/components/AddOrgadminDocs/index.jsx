@@ -107,7 +107,7 @@ function AddOrgDocuments() {
       setIsDirty(true);
       return false;
     },
-    accept: ".pdf",
+    accept: ".pdf,.PDF,application/pdf",
     onchange: () => {},
   };
 
