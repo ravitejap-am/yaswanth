@@ -184,8 +184,9 @@ function OrganizationForm({
       > 
         <Grid item         
         container 
+        columnGap={{lg: 8}}
         >
-          <Grid item xs={12} md={6} lg={6}>
+          <Grid item xs={12} md={6} lg={5}>
           <Typography variant="body1">Organisation Name :</Typography>
             <input
               type="text"
@@ -197,7 +198,7 @@ function OrganizationForm({
             />
             {errors.name && <FormHelperText error sx={{ fontSize: '14px' }}>{errors.name}</FormHelperText>}
           </Grid>
-          <Grid item xs={12} md={6} lg={6}>
+          <Grid item xs={12} md={6} lg={5}>
           <Typography variant="body1">Address One :</Typography>
             <input
               type="text"
@@ -209,7 +210,7 @@ function OrganizationForm({
             />
             {errors.address1 && <FormHelperText error sx={{ fontSize: '14px' }}>{errors.address1}</FormHelperText>}
         </Grid>
-        <Grid item xs={12} md={6} lg={6}>
+        <Grid item xs={12} md={6} lg={5}>
         <Typography variant="body1">Address Two :</Typography>
           <input
             type="text"
@@ -220,7 +221,7 @@ function OrganizationForm({
             className={styles.inputstyle}
           />
         </Grid>
-            <Grid item xs={12} md={6} lg={6}>
+            <Grid item xs={12} md={6} lg={5}>
               <Typography variant="body1">Country :</Typography>
               <Select
                 showSearch
@@ -236,7 +237,7 @@ function OrganizationForm({
 
               {errors.country && <FormHelperText error sx={{ fontSize: '14px' }}>{errors.country}</FormHelperText>}  
             </Grid>   
-            <Grid item xs={12} md={6} lg={6}>
+            <Grid item xs={12} md={6} lg={5}>
             <Typography variant="body1">State :</Typography>
               <Select
                 showSearch
@@ -252,7 +253,7 @@ function OrganizationForm({
 
               {errors.state && <FormHelperText error sx={{ fontSize: '14px' }}>{errors.state}</FormHelperText>}
             </Grid>
-            <Grid item xs={12} md={6} lg={6}>
+            <Grid item xs={12} md={6} lg={5}>
             <Typography variant="body1">City :</Typography>
               <Select
                 showSearch
@@ -268,7 +269,7 @@ function OrganizationForm({
 
               {errors.city && <FormHelperText error sx={{ fontSize: '14px' }}>{errors.city}</FormHelperText>}              
             </Grid>                     
-        <Grid item xs={12} md={6} lg={6}>
+        <Grid item xs={12} md={6} lg={5}>
         <Typography variant="body1">Zip Code :</Typography>
             <input
               type="number"
