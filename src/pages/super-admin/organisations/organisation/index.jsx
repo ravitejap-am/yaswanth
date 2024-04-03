@@ -381,6 +381,13 @@ function Organisation() {
     return parts[1];
   };
 
+
+    const isValidDomain = (domain) => {
+      const domainRegex = /^[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$/;
+      const domainRegexone = /^[a-zA-Z0-9-]+\.[a-zA-Z]{2,}\.[a-zA-Z]{2,}$/;
+      return domainRegex.test(domain) || domainRegexone.test(domain);
+    };
+
   const personalInformationHandler = (tab) => {
     console.log("orgData", orgData, "tabData", selectedTab, "tab", tab);
 
@@ -435,13 +442,26 @@ function Organisation() {
       //   );
       //   return;
       // }
-      if(domainValidation(orgData?.metaData)){
+      if (!domainValidation(orgData?.metaData)) {
         showNotifyMessage(
-          'warn',
-          'At least one domain name should be there',
+          "warn",
+          "At least one domain name should be there",
           messageHandler
         );
         return;
+      }
+
+      const checkForEveryDomain = () => {
+        return orgData?.metaData.every((field) => isValidDomain(field.typeDetails));
+      }
+
+      if(!checkForEveryDomain()){
+        showNotifyMessage(
+          "warn",
+          "Please enter valid domain",
+          messageHandler
+        );
+        return ;
       }
 
       if (hasRepeatingValues(orgData?.metaData, "typeDetails")) {
@@ -474,11 +494,12 @@ function Organisation() {
     }
   };
 
-
   const domainValidation = (domainArray) => {
-    const isValid = domainArray?.length > 0 
-    return isValid
-  }
+    console.log("domain array---->", domainArray);
+    const isValid =
+      domainArray?.length > 0 && domainArray[0].typeDetails !== "";
+    return isValid;
+  };
 
   function hasRepeatingValues(arr, prop) {
     const uniqueValues = new Set();
