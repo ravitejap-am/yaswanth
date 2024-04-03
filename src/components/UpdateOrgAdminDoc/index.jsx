@@ -236,7 +236,7 @@ function UpdateOrgAdminDoc() {
             onClick={() => submitHandler()}
             disabled={isDirty}
           >
-            <Typography variant="button">Submit</Typography>
+            <Typography variant="button">Update</Typography>
           </Button>
         </Box>
       </Box>

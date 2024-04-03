@@ -91,6 +91,7 @@ const RecoveryPasswor = () => {
     }
   };
   useEffect(() => {
+    window.scrollTo(0, 0);
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
     };
