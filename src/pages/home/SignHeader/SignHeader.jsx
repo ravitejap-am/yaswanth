@@ -3,9 +3,11 @@ import GeneralButton from '../../../components/common/buttons/GeneralButton';
 import { Link } from 'react-router-dom';
 import './SignHeader.css';
 import headerVector from '../../../asset/headerVector.png';
-import { Box, Typography } from '@mui/material';
+import { Box, Typography ,useMediaQuery} from '@mui/material';
 
 const SignHeader = ({ title, linkText, linkTo, buttonText, buttonProps }) => {
+  const isMobile = useMediaQuery("(max-width:600px)");
+
   return (
     <div className="signheader-main">
       <div className="signheader-content">
@@ -18,13 +20,13 @@ const SignHeader = ({ title, linkText, linkTo, buttonText, buttonProps }) => {
           </Link>
         </Box>
         <div className="signheader-buttoncontent">
-          <Box className="signheader-account">
+          {!isMobile && <Box className="signheader-account">
             <Link className="signin-link" to={linkTo}>
             <Typography variant="body2" gutterBottom>
               {linkText}
               </Typography>
             </Link>
-          </Box>
+          </Box>}
           <div className="signheader-btn">
             <Link to={linkTo} style={{ textDecoration: 'none' }}>
               <GeneralButton {...buttonProps}><Typography variant="button" display="block" gutterBottom>{buttonText}</Typography></GeneralButton>
