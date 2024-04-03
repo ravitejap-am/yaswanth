@@ -76,27 +76,6 @@ const Rout = () => {
       <Route exact path="/internal500" element={<Page505 />} />
       <Route exact path="/undermaintenence" element={<MaintainencePage />} />
       <Route
-        path="/user"
-        element={
-          <ProtectedRoute
-            element={
-              decodedToken?.role == 'USER' ? (
-                <>
-                  <Chats />
-                </>
-              ) : decodedToken?.role == 'ORG_ADMIN' ? (
-                <>
-                  <OrgAdminSidebar />
-                </>
-              ) : (
-                <PageNotFound />
-              )
-            }
-            allowedRoles={['USER', 'ORG_ADMIN']}
-          />
-        }
-      ></Route>
-      <Route
         path="/chat"
         element={
           <ProtectedRoute
