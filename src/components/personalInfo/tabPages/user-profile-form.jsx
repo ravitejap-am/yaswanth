@@ -73,8 +73,10 @@ function UserProfileForm({ formData, setFormData, submitHandler }) {
   };
 
   return (
-    <form className="form" onSubmit={handleSubmit}>
-      <div className="info-cotnainer">
+    <form 
+    className="info-cotnainer"
+    style={{ height: '111%'}}
+    onSubmit={handleSubmit}>
         <div>
           <div className="profile-form-row">
             <div className="form-group">
@@ -161,7 +163,6 @@ function UserProfileForm({ formData, setFormData, submitHandler }) {
             </Typography>
           </Button>
         </div>
-      </div>
     </form>
   );
 }

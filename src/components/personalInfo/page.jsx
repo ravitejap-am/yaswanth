@@ -87,7 +87,7 @@ const PersonalInfo = () => {
         </Box>
         {/* )} */}
         <Box sx={{height: '70%'}}>
-        <TabPanel value="1" style={{ padding: '0px' }}>
+        <TabPanel value="1" style={{ padding: '0px', height: '100%' }}>
           <Information />
         </TabPanel>
         <TabPanel value="2" style={{height: '70%',padding: '30px 0px 0px 0px'}}>
