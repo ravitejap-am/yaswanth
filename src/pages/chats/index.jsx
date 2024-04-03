@@ -63,6 +63,7 @@ function Chats() {
   useEffect(() => {
     setQuestions([]);
     setMessageSent(false);
+    setQuestionIndex(0)
   }, [isChatOpen]);
 
   const scrollToBottom = () => {
