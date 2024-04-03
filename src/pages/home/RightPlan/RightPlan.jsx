@@ -4,9 +4,12 @@ import Tick1 from '../../../asset/tick.png';
 import GeneralButton from '../../../components/common/buttons/GeneralButton';
 import frame from '../../../asset/Frame 1.png';
 import { Typography, useMediaQuery } from '@mui/material';
+import { useNavigate } from "react-router-dom";
+
 function RightPlan() {
   const [scroll, setScroll] = useState(false);
   const isMobile = useMediaQuery('(max-width:600px)');
+  const navigate = useNavigate();
 
   const smallTextStyles = isMobile
     ? {
@@ -82,7 +85,7 @@ function RightPlan() {
           </div>
           <div
             className="Right_Plan_Gernal_Button"
-            onClick={() => scrollToElement('Contact_Up')}
+            onClick={() => navigate("/signIn")}
           >
             <GeneralButton
               name={'Get Started'}

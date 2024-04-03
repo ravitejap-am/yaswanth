@@ -36,6 +36,11 @@ function DynamicTextComponent({
   const [isNewDomain, setIsNewDomain] = useState(false);
   const isMobile = useMediaQuery("(max-width:600px)");
   const [openDeletePopUp, setOpenDeletePopUp] = useState(false);
+  const [deleteName, setDeleteName] = useState("")
+  const [deleteDetails, setDeleteDetails] = useState({
+    name : "",
+    id: ""
+  })
 
   const handleAddText = () => {
     if (orgStatus == 'edit') {
@@ -264,6 +269,7 @@ function DynamicTextComponent({
     if (name === "" || name === undefined || name === null) {
       handleDeleteDomain(index);
     } else {
+      setDeleteDetails({id: index, name: name})
       setOpenDeletePopUp(true);
     }
   };
@@ -271,10 +277,12 @@ function DynamicTextComponent({
   const handleYes = (index) => {
     handleDeleteDomain(index)
     setOpenDeletePopUp(false);
+    setDeleteDetails({id: "", name: ""})
   };
 
   const handleNo = () => {
     setOpenDeletePopUp(false);
+    setDeleteDetails({id: "", name: ""})
   };
 
   return (
@@ -334,7 +342,9 @@ function DynamicTextComponent({
                 </FormHelperText>
               )}
             </Box>
-            {
+            {!!loadingIndex && loadingIndex == index ? (
+              <CircularProgress style={{height: "20px", width: "20px"}}/>
+            ) : (
               <DeleteIcon
                 style={{
                   height: "20px",
@@ -342,9 +352,11 @@ function DynamicTextComponent({
                   cursor: "pointer",
                   fill: "#4338ca",
                 }}
-                onClick={() => handleDelete(index, typeDetails)}
+                onClick={() => {
+                  handleDelete(index, typeDetails)
+                }}
               />
-            }
+            )}
             {openDeletePopUp && (
               <Modal
                 title={"Confirmation"}
@@ -352,7 +364,7 @@ function DynamicTextComponent({
                 open={openDeletePopUp}
                 onOk={() => {
                   console.log("delete key-->", index);
-                  handleYes(index);
+                  handleYes(deleteDetails.id);
                 }}
                 okText={"Yes"}
                 cancelText={"No"}
@@ -360,13 +372,8 @@ function DynamicTextComponent({
                   handleNo();
                 }}
               >
-                <p>{`Are you sure you want to delete "${typeDetails}" ?`}</p>
+                <p>{`Are you sure you want to delete "${deleteDetails.name}" ?`}</p>
               </Modal>
-            )}
-            {!!loadingIndex && loadingIndex == index ? (
-              <CircularProgress />
-            ) : (
-              ""
             )}
             {usedDomainIndexCollection.includes(index) && (
               <span style={{ color: "red" }}>
