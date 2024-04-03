@@ -139,34 +139,20 @@ function UserProfileForm({ formData, setFormData, submitHandler }) {
             </div>
           </div>
         </div>
-        {/* <div className="form-row">
-    <div className="form-group">
-      <label htmlFor="status">Status:</label>
-      <input
-        className="inputstyle"
-        type="text"
-        id="status"
-        name="status"
-        value={formData.status}
-        onChange={handleChange}
-        disabled
-        style={{ backgroundColor: '#CBD5E1' }}
-      />
-      {errors.status && <span className="error">{errors.status}</span>}
-    </div>
-  </div> */}
         <div
           className="button-container"
           style={{ justifyContent: isMobile ? "center" : "flex-end"}}
         >
           <Button
-            onClick={cancelHandler}
-            className="cancelButtonStyle"
+            htmlType="cancel"
+            className="buttonStyle"
+            style={{backgroundColor: 'white', color: 'black'}}
           >
-            <Typography variant="button"> Cancel </Typography>
+            <Typography variant="button" display="block">
+              Cancel
+            </Typography>
           </Button>
           <Button
-            type="primary"
             htmlType="submit"
             className="buttonStyle"
           >
