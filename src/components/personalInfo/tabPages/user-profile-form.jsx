@@ -6,15 +6,8 @@ import { useNavigate } from "react-router-dom";
 
 function UserProfileForm({ formData, setFormData, submitHandler }) {
   const isMobile = useMediaQuery("(max-width:600px)");
-  // const [formData, setFormData] = useState({
-  //   firstName: '',
-  //   lastName: '',
-  //   email: '',
-  //   organization: '',
-  //   status: '',
-  // });
-
   const [errors, setErrors] = useState({});
+  const [isDisable, setIsDisable] = useState(true);
   const navigate = useNavigate();
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -22,6 +15,11 @@ function UserProfileForm({ formData, setFormData, submitHandler }) {
       ...formData,
       [name]: value,
     });
+    setIsDisable(false);
+    // if (formData[name] === value) {
+    //   setIsDisable(true);
+    // } else {
+    // }
   };
 
   const handleSubmit = (e) => {
@@ -29,6 +27,7 @@ function UserProfileForm({ formData, setFormData, submitHandler }) {
     if (validateForm()) {
       // Submit the form
       submitHandler(formData);
+      setIsDisable(true);
     }
   };
 
@@ -58,11 +57,6 @@ function UserProfileForm({ formData, setFormData, submitHandler }) {
       errors.organization = "Organisation is required";
       isValid = false;
     }
-
-    // if (!formData.status.trim()) {
-    //   errors.status = 'Status is required';
-    //   isValid = false;
-    // }
 
     setErrors(errors);
     return isValid;
@@ -139,36 +133,18 @@ function UserProfileForm({ formData, setFormData, submitHandler }) {
             </div>
           </div>
         </div>
-        {/* <div className="form-row">
-    <div className="form-group">
-      <label htmlFor="status">Status:</label>
-      <input
-        className="inputstyle"
-        type="text"
-        id="status"
-        name="status"
-        value={formData.status}
-        onChange={handleChange}
-        disabled
-        style={{ backgroundColor: '#CBD5E1' }}
-      />
-      {errors.status && <span className="error">{errors.status}</span>}
-    </div>
-  </div> */}
         <div
           className="button-container"
-          style={{ justifyContent: isMobile ? "center" : "flex-end"}}
+          style={{ justifyContent: isMobile ? "center" : "flex-end" }}
         >
-          <Button
-            onClick={cancelHandler}
-            className="cancelButtonStyle"
-          >
+          <Button onClick={cancelHandler} className="cancelButtonStyle">
             <Typography variant="button"> Cancel </Typography>
           </Button>
           <Button
             type="primary"
             htmlType="submit"
             className="buttonStyle"
+            disabled={isDisable}
           >
             <Typography variant="button" display="block">
               Submit

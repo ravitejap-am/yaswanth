@@ -21,7 +21,7 @@ col {
 }
 .box-round {
   border-radius: 10px;
-  
+
   /* background-color: #ffff !important;
 
   box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important ; */
@@ -39,9 +39,6 @@ col {
 }
 .social-heading {
   text-align: center;
-}
-.facebook {
-  /* background-image: url("../../../public/asset/facebookICon.jpg"); */
 }
 
 .social-container {
@@ -170,48 +167,42 @@ a {
 
 .text-top-signup {
   text-align: justify;
-  }
+}
 
 @media screen and (max-width: 767px) {
   .Signup-header {
-  box-sizing: border-box;
-  margin-bottom: -2px;
+    box-sizing: border-box;
+    margin-bottom: -2px;
   }
 
-  .signup-footer{
+  .signup-footer {
     box-sizing: border-box;
   }
-  .signup-main{
-  width: 100%;
-  /* padding-top: 100px;
+  .signup-main {
+    width: 100%;
+    /* padding-top: 100px;
   padding-bottom: 100px; */
   }
 
   .signup-main-container {
-    width: 100%; 
-    padding: 0 20px; 
-    box-sizing: border-box; 
+    width: 100%;
+    padding: 0 20px;
+    box-sizing: border-box;
   }
 
   .box-round {
-    width: 100%; 
-    margin: 0 auto; 
+    width: 100%;
+    margin: 0 auto;
   }
 }
 
-.signup-footer{
-  /* margin-top: 10px; */
-}
-
-
-.sign-up-mail{
+.sign-up-mail {
   text-decoration: none;
   margin-left: 3px;
   color: #475f7b;
-
 }
 
-.contactus-text{
+.contactus-text {
   text-decoration: none;
   color: #475f7b;
   cursor: pointer;
@@ -225,37 +216,33 @@ a {
   line-height: 5px;
 }
 .text-top-signup p {
-text-align: center;
-font-weight: 600;
+  text-align: center;
+  font-weight: 600;
 }
-
-
 
 .signup_input_css {
-width: 495px !important;
-height: 50px;
-border-radius: 40px;
-border: 1px solid var(--Neutral-400, #94a3b8);
-background: transparent !important;
-color: #212529;
-
+  width: 495px !important;
+  height: 50px;
+  border-radius: 40px;
+  border: 1px solid var(--Neutral-400, #94a3b8);
+  background: transparent !important;
+  color: #212529;
 }
 .ant-input:focus {
-color: black; 
+  color: black;
 }
 .ant-input::placeholder {
-color: #808080; 
+  color: #808080;
 }
 
 .signup_submit_btn_css {
-background-color: var(--Brand-500, #6366F1);
-width: 495px;
-height: 50px;
-border-radius: 40px;
+  background-color: var(--Brand-500, #6366f1);
+  width: 495px;
+  height: 50px;
+  border-radius: 40px;
 }
 
 @media screen and (max-width: 767px) {
-
   .text-top-signup h2 {
     text-align: center;
     color: #312e81;
@@ -265,48 +252,43 @@ border-radius: 40px;
     line-height: 5px;
   }
   .text-top-signup p {
-  text-align: center;
-  font-weight: 600;
-  font-size: 13px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 13px;
   }
-  .linktextsigup{
+  .linktextsigup {
     font-size: 12px;
   }
 
-.signup_input_css{
-  width: 300px !important;
-}
-.text-top-signin
-  .signup_submit_btn_css {
+  .signup_input_css {
+    width: 300px !important;
+  }
+  .text-top-signin .signup_submit_btn_css {
     width: 300px;
-
+  }
 }
-.signup-main-container{
+.ant-form-item-control {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
 }
-
-
-}
-
-.signup-main-css{
+.signup-main-css {
   padding-top: 100px;
   background-color: #e2e8f0;
 }
-.signup-form-css{
+.signup-form-css {
   display: flex;
   /* height: 87vh; */
   justify-content: center;
 }
-.linktextsigup{
+.linktextsigup {
   display: flex;
   justify-content: center;
   color: black;
   font-size: 16px;
 }
-.signup-main-css{
-  /* height: 87vh; */
-}
 @media screen and (min-width: 1655px) {
   .signup-form-css {
-  height: 75vh;
+    height: 75vh;
   }
 }
