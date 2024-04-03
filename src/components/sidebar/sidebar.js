@@ -59,8 +59,8 @@ const USER = [
   {
     name: 'Chat',
     icon: <Chat />,
-    link: '/user',
-    activeLinks: ['user'],
+    link: '/chat',
+    activeLinks: ['chat'],
   },
 ];
 
