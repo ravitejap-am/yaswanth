@@ -6,15 +6,8 @@ import { useNavigate } from "react-router-dom";
 
 function UserProfileForm({ formData, setFormData, submitHandler }) {
   const isMobile = useMediaQuery("(max-width:600px)");
-  // const [formData, setFormData] = useState({
-  //   firstName: '',
-  //   lastName: '',
-  //   email: '',
-  //   organization: '',
-  //   status: '',
-  // });
-
   const [errors, setErrors] = useState({});
+  const [isDisable, setIsDisable] = useState(true);
   const navigate = useNavigate();
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -22,6 +15,11 @@ function UserProfileForm({ formData, setFormData, submitHandler }) {
       ...formData,
       [name]: value,
     });
+    setIsDisable(false);
+    // if (formData[name] === value) {
+    //   setIsDisable(true);
+    // } else {
+    // }
   };
 
   const handleSubmit = (e) => {
@@ -29,6 +27,7 @@ function UserProfileForm({ formData, setFormData, submitHandler }) {
     if (validateForm()) {
       // Submit the form
       submitHandler(formData);
+      setIsDisable(true);
     }
   };
 
@@ -58,11 +57,6 @@ function UserProfileForm({ formData, setFormData, submitHandler }) {
       errors.organization = "Organisation is required";
       isValid = false;
     }
-
-    // if (!formData.status.trim()) {
-    //   errors.status = 'Status is required';
-    //   isValid = false;
-    // }
 
     setErrors(errors);
     return isValid;
@@ -143,12 +137,13 @@ function UserProfileForm({ formData, setFormData, submitHandler }) {
         </div>
         <div
           className="button-container"
-          style={{ justifyContent: isMobile ? "center" : "flex-end"}}
+          style={{ justifyContent: isMobile ? "center" : "flex-end" }}
         >
           <Button
             htmlType="cancel"
             className="buttonStyle"
             style={{backgroundColor: 'white', color: 'black'}}
+            onClick={cancelHandler}
           >
             <Typography variant="button" display="block">
               Cancel
@@ -157,6 +152,7 @@ function UserProfileForm({ formData, setFormData, submitHandler }) {
           <Button
             htmlType="submit"
             className="buttonStyle"
+            disabled={isDisable}
           >
             <Typography variant="button" display="block">
               Submit

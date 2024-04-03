@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import './information.css';
-import editprofilepic from '../../../asset/editprofilepic.png';
-import GeneralForm from '../../../components/common/forms/GeneralForm';
-import { setUser, selectUser } from '../../../store/authSlice';
-import { useSelector } from 'react-redux';
-import * as constants from '../../../constants/Constant';
-import { updateAdminProfileDetails } from '../../../apiCalls/ApiCalls';
-import { useMessageState } from '../../../hooks/useapp-message';
-import UploadProfilePic from '../upload/page';
-import PageLoader from '../../loader/loader';
-import CircularFileInfo from '../upload/circularFileInfo';
-import axios from 'axios';
-import UserProfileForm from './user-profile-form';
+import React, { useEffect, useState } from "react";
+import "./information.css";
+import editprofilepic from "../../../asset/editprofilepic.png";
+import GeneralForm from "../../../components/common/forms/GeneralForm";
+import { setUser, selectUser } from "../../../store/authSlice";
+import { useSelector } from "react-redux";
+import * as constants from "../../../constants/Constant";
+import { updateAdminProfileDetails } from "../../../apiCalls/ApiCalls";
+import { useMessageState } from "../../../hooks/useapp-message";
+import UploadProfilePic from "../upload/page";
+import PageLoader from "../../loader/loader";
+import CircularFileInfo from "../upload/circularFileInfo";
+import axios from "axios";
+import UserProfileForm from "./user-profile-form";
 // import { USER_PROFILE } from '../../../apiCalls/Constants';
 
 function Information({ setFileSysytem, validateEmail }) {
@@ -21,19 +21,19 @@ function Information({ setFileSysytem, validateEmail }) {
 
   const decodeJWT = (token) => {
     try {
-      const base64Url = token.split('.')[1];
-      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      const base64Url = token.split(".")[1];
+      const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
       const jsonPayload = decodeURIComponent(
         atob(base64)
-          .split('')
+          .split("")
           .map((char) => {
-            return '%' + ('00' + char.charCodeAt(0).toString(16)).slice(-2);
+            return "%" + ("00" + char.charCodeAt(0).toString(16)).slice(-2);
           })
-          .join('')
+          .join("")
       );
       return JSON.parse(jsonPayload);
     } catch (error) {
-      console.error('Error decoding JWT:', error);
+      console.error("Error decoding JWT:", error);
       return null;
     }
   };
@@ -42,11 +42,11 @@ function Information({ setFileSysytem, validateEmail }) {
   const userId = decodedToken ? decodedToken.userId : null;
 
   const [userData, setUserData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    organization: '',
-    status: '',
+    firstName: "",
+    lastName: "",
+    email: "",
+    organization: "",
+    status: "",
   });
   const [error, setError] = useState(null);
 
@@ -56,7 +56,7 @@ function Information({ setFileSysytem, validateEmail }) {
     if (userId) {
       fetchUserProfile();
     } else {
-      setError('User ID is missing or invalid.');
+      setError("User ID is missing or invalid.");
     }
   }, [userId]);
 
@@ -77,7 +77,7 @@ function Information({ setFileSysytem, validateEmail }) {
       );
       if (!response.ok) {
         setIsLoading(false);
-        throw new Error('Failed to fetch user profile.');
+        throw new Error("Failed to fetch user profile.");
       }
 
       const userData = await response.json();
@@ -87,21 +87,21 @@ function Information({ setFileSysytem, validateEmail }) {
         email: userData?.data?.user?.email,
         organization: userData?.data?.organisation?.name,
         status:
-          userData?.data?.organisation?.active == true ? 'ACTIVE' : 'INACTIVE',
+          userData?.data?.organisation?.active == true ? "ACTIVE" : "INACTIVE",
       });
-      
+
       const profileImagePath = userData?.data?.user?.profileImagePath;
       if (profileImagePath) {
         localStorage.setItem(
-          'userImageUrl',
+          "userImageUrl",
           `https://medicalpublic.s3.amazonaws.com/${profileImagePath}`
         );
       }
       // setUserData(userData?.data?.user);
       setIsLoading(false);
     } catch (error) {
-      console.error('Error fetching user profile:', error);
-      setError('Failed to fetch user profile.');
+      console.error("Error fetching user profile:", error);
+      setError("Failed to fetch user profile.");
       setIsLoading(false);
     }
   };
@@ -112,16 +112,12 @@ function Information({ setFileSysytem, validateEmail }) {
     setIsLoading(true);
     try {
       if (values === undefined) {
-        console.log('Values are undefined');
+        console.log("Values are undefined");
         return;
-      } else if (userData?.firstName === values.firstName && userData?.lastName === values?.lastName) {
-        setIsLoading(false);
-        showNotifyMessage('success', "Already updated!", messageHandler);
-      }
-       else {
+      } else {
         const headers = {
           Authorization: `Bearer ${jwt}`,
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         };
         const { firstName, lastName, ...rest } = values;
         const reqBody = { firstName: firstName, lastName: lastName };
@@ -131,13 +127,13 @@ function Information({ setFileSysytem, validateEmail }) {
           reqBody
         );
         if (response.status === 200) {
-          showNotifyMessage('success', response?.data?.message, messageHandler);
+          showNotifyMessage("success", response?.data?.message, messageHandler);
           setIsLoading(false);
         }
-        console.log('response---->', response);
+        console.log("response---->", response);
       }
     } catch (error) {
-      console.log('Error in updating user details', error);
+      console.log("Error in updating user details", error);
       setIsLoading(false);
       // throw new Error('Failed to update user profile');
     }
@@ -153,7 +149,7 @@ function Information({ setFileSysytem, validateEmail }) {
   };
   const uploadFile = async (file) => {
     const formData = new FormData();
-    formData.append('image', file);
+    formData.append("image", file);
 
     try {
       const response = await axios.post(
@@ -162,17 +158,17 @@ function Information({ setFileSysytem, validateEmail }) {
         {
           headers: {
             Authorization: `Bearer ${jwt}`,
-            'Content-Type': 'multipart/form-data',
+            "Content-Type": "multipart/form-data",
           },
         }
       );
       console.log(response);
-      showNotifyMessage('success', response?.data?.message, messageHandler);
-      await fetchUserProfile()
+      showNotifyMessage("success", response?.data?.message, messageHandler);
+      await fetchUserProfile();
       window.location.href = "/Info";
     } catch (error) {
       console.log(error);
-      showNotifyMessage('error', error?.message, messageHandler);
+      showNotifyMessage("error", error?.message, messageHandler);
       setIsLoading(false);
     }
   };
@@ -188,19 +184,18 @@ function Information({ setFileSysytem, validateEmail }) {
         {
           headers: {
             Authorization: `Bearer ${jwt}`,
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
         }
       );
-      showNotifyMessage('success', response?.data?.message, messageHandler);
-      fetchUserProfile()
+      showNotifyMessage("success", response?.data?.message, messageHandler);
+      fetchUserProfile();
       window.location.href = "/Info";
     } catch (error) {
-      showNotifyMessage('error', error?.message, messageHandler);
+      showNotifyMessage("error", error?.message, messageHandler);
       setIsLoading(false);
     }
   };
-  
 
   return (
     <>
@@ -208,24 +203,24 @@ function Information({ setFileSysytem, validateEmail }) {
 
       <div
         // className="personal-contentcard"
-        style={{  height: "100%",}}
+        style={{ height: "100%" }}
       >
         <div className="">
           <div
             style={{
-              display: 'flex',
-              justifyContent: '',
+              display: "flex",
+              justifyContent: "",
               marginTop: "20px",
-              marginBottom: "10px"
+              marginBottom: "10px",
             }}
           >
             <CircularFileInfo
               onChange={handleFileChange}
-              initialImageUrl={localStorage.getItem('userImageUrl')}
+              initialImageUrl={localStorage.getItem("userImageUrl")}
             />
           </div>
         </div>
-        <div style={{height: "75%"}}>
+        <div style={{ height: "75%" }}>
           <UserProfileForm
             formData={userData}
             setFormData={setUserData}

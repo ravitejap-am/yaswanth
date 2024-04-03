@@ -325,6 +325,7 @@ function Organisation() {
           );
           setButtonLoading(false);
           // setIsReset(true);
+          setIsDirty(true);
           showNotifyMessage("success", response?.data?.message, messageHandler);
           console.log("API Response:", response.data);
           dispatch(setOrganisationData(response.data?.data));
@@ -706,7 +707,11 @@ function Organisation() {
             loading={buttonLoading}
             disabled={isDirty}
           >
-            <Typography variant="body1">{"Submit"}</Typography>
+            {buttonLoading ? (
+              ""
+            ) : (
+              <Typography variant="body1">{"Submit"}</Typography>
+            )}
           </Button>
         </Grid>
       </Grid>

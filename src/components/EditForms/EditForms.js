@@ -131,20 +131,20 @@ function EditForm({
           </Grid>
         </Box>
         <Box className="button-container">
-        {(
-          <Button
-            type="secondary"
-            className="buttonStyle"
-            style={{
-              backgroundColor: 'white',
-              color: 'black',
-              border: '1px solid black',
-            }}
-            onClick={cancelHandler}
-          >
-            <Typography variant="button"> Cancel</Typography>
-          </Button>
-        )}
+          {
+            <Button
+              type="secondary"
+              className="buttonStyle"
+              style={{
+                backgroundColor: "white",
+                color: "black",
+                border: "1px solid black",
+              }}
+              onClick={cancelHandler}
+            >
+              <Typography variant="button"> Cancel</Typography>
+            </Button>
+          }
 
           <Button
             type="primary"
@@ -153,10 +153,11 @@ function EditForm({
             loading={buttonLoading}
             disabled={isDirty}
           >
-            <Typography variant="button">
-              {" "}
-              {isEdit ? "Update" : "Submit"}
-            </Typography>
+            {buttonLoading ? "" : (
+              <Typography variant="button">
+                {isEdit ? "Update" : "Submit"}
+              </Typography>
+            )}
           </Button>
         </Box>
       </Box>

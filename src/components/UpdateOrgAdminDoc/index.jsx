@@ -137,7 +137,7 @@ function UpdateOrgAdminDoc() {
       setIsDirty(true);
       return false;
     },
-    accept: ".pdf",
+    accept: ".pdf,.PDF,application/pdf",
     onchange: () => {},
   };
 
@@ -236,7 +236,7 @@ function UpdateOrgAdminDoc() {
             onClick={() => submitHandler()}
             disabled={isDirty}
           >
-            <Typography variant="button">Submit</Typography>
+            <Typography variant="button">Update</Typography>
           </Button>
         </Box>
       </Box>

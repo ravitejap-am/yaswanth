@@ -314,7 +314,6 @@ const RegisterUser = () => {
               }}
               layout="vertical"
               autoComplete="off"
-              style={{ width: "auto", margin: "auto" }}
               onFinish={submitHandler}
             >
               <Form.Item
