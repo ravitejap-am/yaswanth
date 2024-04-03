@@ -435,6 +435,14 @@ function Organisation() {
       //   );
       //   return;
       // }
+      if(domainValidation(orgData?.metaData)){
+        showNotifyMessage(
+          'warn',
+          'At least one domain name should be there',
+          messageHandler
+        );
+        return;
+      }
 
       if (hasRepeatingValues(orgData?.metaData, "typeDetails")) {
         showNotifyMessage(
@@ -465,6 +473,12 @@ function Organisation() {
       return !!isDomainValid;
     }
   };
+
+
+  const domainValidation = (domainArray) => {
+    const isValid = domainArray?.length > 0 
+    return isValid
+  }
 
   function hasRepeatingValues(arr, prop) {
     const uniqueValues = new Set();

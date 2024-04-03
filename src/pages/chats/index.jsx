@@ -209,15 +209,6 @@ function Chats() {
         };
         const updatedQuestionAndAnswer = [...questions, modifyData];
         const response = await getChatResponse(headers, body);
-        console.log("response--->", response);
-        // const response = {
-        //   doc_name: "Invoice-899B3FD6-0001.pdf",
-        //   query: "When is it due?",
-        //   response: "It is due on March 7, 2023.",
-        //   session_id: 10003,
-        //   session_title: ""
-        // }
-
         updatedQuestionAndAnswer[questionIndex].answer = response?.response;
         updatedQuestionAndAnswer[questionIndex].answerData = true;
         setQuestions(updatedQuestionAndAnswer);
@@ -237,22 +228,24 @@ function Chats() {
       const updatedQuestionAndAnswer = [...questions, modifyData];
       setQuestions(updatedQuestionAndAnswer);
       console.log("showing error");
-      const response = {
-        doc_name: "Invoice-899B3FD6-0001.pdf",
-        query: "When is it due?",
-        response: "It is due on March 7, 2023.",
-        session_id: 10003,
-        session_title: "",
-      };
-      setErrorMessage("");
-      console.log("question index--->", questionIndex);
-      setInputValue("");
-      setLoading(false);
-      updatedQuestionAndAnswer[questionIndex].answer = response?.response;
-      updatedQuestionAndAnswer[questionIndex].answerData = true;
-      setQuestions(updatedQuestionAndAnswer);
-      setQuestionIndex(questionIndex + 1);
-      setMessageSent(true);
+      setTimeout(() => {
+        const response = {
+          doc_name: "Invoice-899B3FD6-0001.pdf",
+          query: "When is it due?",
+          response: "It is due on March 7, 2023.",
+          session_id: 10003,
+          session_title: "",
+        };
+        setErrorMessage("");
+        console.log("question index--->", questionIndex);
+        setInputValue("");
+        setLoading(false);
+        updatedQuestionAndAnswer[questionIndex].answer = response?.response;
+        updatedQuestionAndAnswer[questionIndex].answerData = true;
+        setQuestions(updatedQuestionAndAnswer);
+        setQuestionIndex(questionIndex + 1);
+        setMessageSent(true);
+      }, 1000);
       console.error("Error fetching data:", error);
     }
   };
@@ -316,6 +309,8 @@ function Chats() {
       chatRef.current.scrollIntoView({ behavior: "smooth", block: "end" });
     }
   }, []);
+
+  console.log("questions---->",questions);
 
   return (
     <Layout componentName="Chat">
@@ -575,7 +570,7 @@ function Chats() {
                       </Typography>
                     </div>
                     {loading && (item?.answer == null || item?.answer == "") ? (
-                      <div className={styles.response}>
+                      <div className={styles.response} style={{width: '100%'}}>
                         <Skeleton active />
                       </div>
                     ) : (

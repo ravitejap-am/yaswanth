@@ -443,8 +443,8 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
         >
           <Button
             onClick={cancelHandler}
-            className="cancelButtonStyle"
-            style={{ marginRight: "0.5rem" }}
+            className="buttonStyle"
+            style={{ marginRight: "0.5rem",backgroundColor: 'white', color: 'black' }}
           >
             <Typography variant="button"> Cancel </Typography>
           </Button>

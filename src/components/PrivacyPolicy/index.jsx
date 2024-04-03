@@ -126,11 +126,11 @@ const PrivacyPolicies = () => {
                   <p>
                     <strong>Website</strong> refers to AM-Chat, accessible from{" "}
                     <a
-                      href="http://amchat.areteminds.com"
+                      href="https://amchatd1.areteminds.com"
                       rel="external nofollow noopener"
                       target="_blank"
                     >
-                      http://amchat.areteminds.com
+                      https://amchatd1.areteminds.com
                     </a>
                   </p>
                 </li>

@@ -67,8 +67,10 @@ function UserProfileForm({ formData, setFormData, submitHandler }) {
   };
 
   return (
-    <form className="form" onSubmit={handleSubmit}>
-      <div className="info-cotnainer">
+    <form 
+    className="info-cotnainer"
+    style={{ height: '111%'}}
+    onSubmit={handleSubmit}>
         <div>
           <div className="profile-form-row">
             <div className="form-group">
@@ -137,11 +139,17 @@ function UserProfileForm({ formData, setFormData, submitHandler }) {
           className="button-container"
           style={{ justifyContent: isMobile ? "center" : "flex-end" }}
         >
-          <Button onClick={cancelHandler} className="cancelButtonStyle">
-            <Typography variant="button"> Cancel </Typography>
+          <Button
+            htmlType="cancel"
+            className="buttonStyle"
+            style={{backgroundColor: 'white', color: 'black'}}
+            onClick={cancelHandler}
+          >
+            <Typography variant="button" display="block">
+              Cancel
+            </Typography>
           </Button>
           <Button
-            type="primary"
             htmlType="submit"
             className="buttonStyle"
             disabled={isDisable}
@@ -151,7 +159,6 @@ function UserProfileForm({ formData, setFormData, submitHandler }) {
             </Typography>
           </Button>
         </div>
-      </div>
     </form>
   );
 }
