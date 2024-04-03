@@ -59,8 +59,8 @@ const USER = [
   {
     name: 'Chat',
     icon: <Chat />,
-    link: '/user',
-    activeLinks: ['user'],
+    link: '/chat',
+    activeLinks: ['chat'],
   },
 ];
 
@@ -219,7 +219,7 @@ export const sideBar = (
                 color: 'white',
                 textDecoration: 'none',
                 cursor: 'pointer',
-                padding: '4px',
+                padding: '8px',
               }}
               onClick={handleAddChat}
             >
@@ -300,7 +300,7 @@ export const sideBar = (
             </Hidden>
             <Hidden lgUp>
               <Drawer
-                title={<p style={{ color: 'white' }}>Menu</p>}
+                title={<p style={{ color: 'white' }}>Sessions</p>}
                 placement="left"
                 closable={true}
                 onClose={onClose}
