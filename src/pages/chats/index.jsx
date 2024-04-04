@@ -420,7 +420,7 @@ function Chats() {
                 alignItems: isMobile ? 'center' : 'center',
                 flexWrap: isMobile ? '' : '',
                 height: isMobile
-                  ? `calc(105% - ${containerHeight})`
+                  ? `calc(100% - ${containerHeight})`
                   : `calc(100% - ${containerHeight})`,
                 overflowY: 'auto',
                 scrollbarWidth: 'thin',
@@ -511,7 +511,7 @@ function Chats() {
               ref={scrollContainerRef}
               sx={{
                 display: 'flex',
-                height: isMobile ? '100%' : '90%',
+                height: isMobile ? '96%' : '90%',
                 overflowY: 'auto',
                 scrollbarWidth: '3px',
                 scrollbarColor: 'lightgrey #f5f5f5',
@@ -537,6 +537,7 @@ function Chats() {
                         gutterBottom
                         className={styles.askedQuestionText}
                         style={{ fontSize: '14px' }}
+                        mt={1}
                       >
                         {' '}
                         {item.question}
