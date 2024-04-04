@@ -10,8 +10,18 @@ import LoginIcon from "@mui/icons-material/Login";
 import Avatar from "@mui/material/Avatar";
 import { Grid } from "antd";
 import { Typography } from "@mui/material";
+import { Link } from "react-router-dom";
 
 function HowItWorks() {
+
+  const scrollToElement = (elementId) => {
+    const element = document.getElementById(elementId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+
   let stepperItems = [
     {
       title: (
@@ -20,16 +30,29 @@ function HowItWorks() {
         </Typography>
       ),
       description: (
-        <Typography variant="subtitle2"  className="how_to_works_span_text">
+        <Typography variant="subtitle2" className="how_to_works_span_text">
           Reach out to our sales team at sales@areteminds.com or fill up the
-          form given in Contact Us section below. <br />
+          form given in&nbsp;  
+          <a
+           className="how_to_works_span_text highlight_text"
+           
+           onClick={() => scrollToElement("Contact_Up")}
+          >Contact Us</a>
+           &nbsp;section below. <br />
           <br />
         </Typography>
       ),
       icon: <img src={Stepper} style={{ width: "1.5em" }} />,
     },
     {
-      title: <Typography variant="h5" className="Sub_Title_of_how_it_Works">Sign Up</Typography>,
+      title: (
+        <Link to="/registeruser" style={{textDecoration: 'underline'}}>
+        <Typography variant="h5" className="Sub_Title_of_how_it_Works">
+            Sign Up
+        </Typography>
+        </Link>
+      ),
+
       description: (
         <Typography variant="subtitle2" className="how_to_works_span_text">
           Sign up using your details, email, and setting up your password.{" "}
@@ -40,17 +63,25 @@ function HowItWorks() {
       icon: <img src={Stepper} style={{ width: "1.5em" }} />,
     },
     {
-      title: <Typography variant="h5" className="Sub_Title_of_how_it_Works">Sign In</Typography>,
+      title: (
+        <Link to="/signIn" style={{textDecoration: 'underline'}}>
+          <Typography variant="h5" className="Sub_Title_of_how_it_Works">
+            Sign In
+          </Typography>
+        </Link>
+      ),
       description: (
         <Typography variant="subtitle2" className="how_to_works_span_text">
-          Use your organisational email and your password. <br /> <br />
+          Sign in using your organisation email and your password. <br /> <br />
         </Typography>
       ),
       icon: <img src={Stepper} style={{ width: "1.5em" }} />,
     },
     {
       title: (
-        <Typography variant="h5" className="Sub_Title_of_how_it_Works">Explore and Engage</Typography>
+        <Typography variant="h5" className="Sub_Title_of_how_it_Works">
+          Explore and Engage
+        </Typography>
       ),
       description: (
         <Typography variant="subtitle2" className="how_to_works_span_text">
@@ -71,7 +102,7 @@ function HowItWorks() {
           Your organisation may have enormous amount of documents lying in some
           repository or archival. Upload them and create the knowledge base and
           start interacting with your documents.
-        </Typography >
+        </Typography>
       </div>
       <div className="How_It_Works_2">
         <div className="How_It_Works_Left_Side_div">

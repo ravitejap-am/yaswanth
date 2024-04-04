@@ -193,6 +193,12 @@
   border-radius: 50%;
   margin-right: 15px;
   margin-top: 0.3rem;
+  background: linear-gradient(
+    114deg,
+    #0f172a 51.52%,
+    #152346 73.32%,
+    #1a2e5e 92.75%
+  );
 }
 
 .chatimg{

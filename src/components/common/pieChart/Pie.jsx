@@ -10,6 +10,24 @@ const Pie = ({ selectedTypeValue }) => {
     const option = {
       tooltip: {
         trigger: "item",
+        position: function (point, params, dom, rect, size) {
+          var x = point[0]; 
+          var y = point[1];
+          var viewWidth = size.viewSize[0];
+          var viewHeight = size.viewSize[1];
+          var boxWidth = size.contentSize[0];
+          var boxHeight = size.contentSize[1];
+          
+
+          if (x > viewWidth - boxWidth) {
+            x = viewWidth - boxWidth;
+          }
+          if (y > viewHeight - boxHeight) {
+            y = viewHeight - boxHeight;
+          }
+          
+          return [x, y];
+        }
       },
       legend: {
         orient: "vertical",

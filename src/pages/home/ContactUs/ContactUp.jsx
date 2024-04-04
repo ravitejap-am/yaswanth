@@ -128,7 +128,7 @@ const ContactUp = () => {
             className="Contact-us-form-sub-title"
           >
             To get in touch with AM-Chat team, simply fill out the form below,
-            and one of us reach out to you as soon as possible.
+            and one of us will reach out to you as soon as possible.
           </Typography>
         </div>
         <div className="Contact-Us-General-Form-Style">

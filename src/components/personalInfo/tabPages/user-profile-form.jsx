@@ -9,6 +9,7 @@ function UserProfileForm({ formData, setFormData, submitHandler }) {
   const [errors, setErrors] = useState({});
   const [isDisable, setIsDisable] = useState(true);
   const navigate = useNavigate();
+  const userRole = localStorage.getItem('userRole');
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -63,7 +64,11 @@ function UserProfileForm({ formData, setFormData, submitHandler }) {
   };
 
   const cancelHandler = () => {
-    navigate("/dashboard");
+    if(userRole === 'SUPER_ADMIN' || userRole === 'ORG_ADMIN'){
+      navigate("/dashboard");
+    }else if(userRole === 'USER'){
+      navigate("/chat");
+    }
   };
 
   return (

@@ -39,7 +39,13 @@ function Layout({ children, componentName }) {
           borderRadius: 5,
           padding: 3,
           color: 'black',
-          height: '92%',
+          height:
+          {
+            lg: '92%',
+            xs: '75%',
+            md: '92%',
+            xl: '92%',
+          },
         }}
       >
         <Box
