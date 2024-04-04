@@ -4,6 +4,8 @@ import Sidebar from '../components/sidebar';
 import Header from '../components/header';
 
 function Layout({ children, componentName }) {
+  const height = window.innerHeight
+
   return (
     <Box
       sx={{
@@ -23,7 +25,7 @@ function Layout({ children, componentName }) {
         },
         // gap: 3,
         overflowY: 'hidden',
-        height: '100vh',
+        height: height + 50 ,
       }}
     >
       <Sidebar />
@@ -46,7 +48,7 @@ function Layout({ children, componentName }) {
           color: 'black',
           height: {
             lg: '92%',
-            xs: '75%',
+            xs: '85%',
             md: '92%',
             xl: '92%',
           },
