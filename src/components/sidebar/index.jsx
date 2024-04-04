@@ -15,7 +15,7 @@ import { tokenDecodeJWT } from '../../utils/authUtils';
 import { useChat } from '../../contexts/provider/ChatContext';
 import { Layout, Menu, Grid, Drawer } from 'antd';
 import { UseDispatch } from 'react-redux';
-
+import MobileHeader from './MobileHeader';
 
 function Sidebar() {
   const { useBreakpoint } = Grid;
@@ -31,101 +31,121 @@ function Sidebar() {
     setChatHistory,
     isNewChat,
     setIsNewChat,
-    questionIndex, 
-    setQuestionIndex, 
-    questions, 
-    setQuestions ,
+    questionIndex,
+    setQuestionIndex,
+    questions,
+    setQuestions,
     messageSent,
-    setMessageSent
+    setMessageSent,
   } = useChat();
 
   const [visible, setVisible] = useState(false);
   const user = useSelector(selectUser);
   const jwt = user.userToken;
 
-
   const setSessionHandler = (id) => {
     dispatch(setChatSessionId(id));
   };
-
+  const mobileHeaderProps = {
+    role: role,
+    pathname: pathname,
+    setChatHistory: setChatHistory,
+    chatHistory: chatHistory,
+    setIsChatOpen: setIsChatOpen,
+    isChatOpen: isChatOpen,
+    setMessageSent: setMessageSent,
+    setIsNewChat: setIsNewChat,
+    setQuestionIndex: setQuestionIndex,
+    setQuestions: setQuestions,
+    isNewChat: isNewChat,
+    jwt: jwt,
+    setSessionHandler: setSessionHandler,
+  };
   return (
-    <Box
-      sx={{
-        backgroundColor: 'transparent',
-        padding: 2,
-        borderRadius: 2,
-        display: 'flex',
-        flexDirection: {
-          xs: 'row',
-          lg: 'column',
-        },
-        alignItems: 'cente',
-        justifyContent: 'space-between',
-        width: {
-          sm: '100%',
-          lg: 200,
-        },
-      }}
-    >
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: {
-            xs: 'row',
-            lg: 'column',
-          },
-          gap: 5,
-          alignItems: {
-            xs: 'center',
-            ls: 'start',
-          },
-          width: '100%',
-        }}
-      >
-        <Hidden lgDown>
-          <Link to={role == 'USER' ? '/user' : '/dashboard'}>
-            <img src={sidebarImg} alt="" height={40} />
-          </Link>
-        </Hidden>
+    <>
+      <Hidden smDown>
         <Box
           sx={{
-            py: {
-              xs: '0px',
-              ls: '16px',
-            },
+            backgroundColor: 'transparent',
+            padding: 2,
+            borderRadius: 2,
             display: 'flex',
             flexDirection: {
               xs: 'row',
               lg: 'column',
             },
-            gap: 4,
+            alignItems: 'cente',
+            justifyContent: 'space-between',
+            width: {
+              sm: '100%',
+              lg: 200,
+            },
           }}
         >
-          {sideBar(
-            role,
-            pathname,
-            chatHistory,
-            setChatHistory,
-            setIsChatOpen,
-            isChatOpen,
-            screens,
-            visible,
-            setVisible,
-            isNewChat,
-            setIsNewChat,
-            setSessionHandler,
-            questionIndex, 
-            setQuestionIndex, 
-            questions, 
-            setQuestions, 
-            user,
-            jwt , 
-            messageSent, 
-            setMessageSent
-          )}
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: {
+                xs: 'row',
+                lg: 'column',
+              },
+              gap: 5,
+              alignItems: {
+                xs: 'center',
+                ls: 'start',
+              },
+              width: '100%',
+            }}
+          >
+            <Hidden lgDown>
+              <Link to={role == 'USER' ? '/user' : '/dashboard'}>
+                <img src={sidebarImg} alt="" height={40} />
+              </Link>
+            </Hidden>
+            <Box
+              sx={{
+                py: {
+                  xs: '0px',
+                  ls: '16px',
+                },
+                display: 'flex',
+                flexDirection: {
+                  xs: 'row',
+                  lg: 'column',
+                },
+                gap: 4,
+              }}
+            >
+              {sideBar(
+                role,
+                pathname,
+                chatHistory,
+                setChatHistory,
+                setIsChatOpen,
+                isChatOpen,
+                screens,
+                visible,
+                setVisible,
+                isNewChat,
+                setIsNewChat,
+                setSessionHandler,
+                questionIndex,
+                setQuestionIndex,
+                questions,
+                setQuestions,
+                user,
+                jwt,
+                messageSent,
+                setMessageSent
+              )}
+            </Box>
+          </Box>
         </Box>
-      </Box>
-    </Box>
+      </Hidden>
+      <Hidden smUp>
+        <MobileHeader {...mobileHeaderProps} />
+      </Hidden>
+    </>
   );
 }
 

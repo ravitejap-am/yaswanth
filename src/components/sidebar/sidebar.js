@@ -64,7 +64,7 @@ const USER = [
   },
 ];
 
-const navLinks = {
+export const navLinks = {
   ORG_ADMIN: ORG_ADMIN,
   SUPER_ADMIN: SUPER_ADMIN,
   USER: USER,

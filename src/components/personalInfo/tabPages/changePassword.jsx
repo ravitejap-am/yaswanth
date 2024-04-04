@@ -32,6 +32,7 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
     newPassword: "",
     confirmPassword: "",
   });
+  const [isDisable, setIsDisable] = useState(true);
   const [errors, setErrors] = useState({});
   const isMobile = useMediaQuery("(max-width:600px)");
   const userRole = localStorage.getItem('userRole');
@@ -64,6 +65,7 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
     setIsReset(false);
     hideNotifyMessage();
   };
+
   const validatePassword = (_, value) => {
     if (value && value.length < 8) {
       return Promise.reject("Password must be at least 8 characters");
@@ -93,6 +95,7 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
 
   const handleChangePassword = async () => {
     if (validateForm() && verifyPassword(formData)) {
+      setIsDisable(true);
       try {
         setButtonLoading(true);
         setIsLoading(true);
@@ -117,6 +120,11 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
             setButtonLoading(false);
             setIsLoading(false);
             setIsReset(true);
+            setFormData({
+              password: "",
+              newPassword: "",
+              confirmPassword: "",
+            });
             showNotifyMessage(
               "success",
               "Password Changed Successfully",
@@ -154,6 +162,7 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    setIsDisable(false);
     setFormData({
       ...formData,
       [name]: value,
@@ -285,8 +294,8 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
         }}
       >
         {isLoading && <PageLoader loadingStatus={isLoading} />}
-        <Grid container spacing={2} style={{marginLeft: "0px"}}>
-          <Grid item xs={12} md={6}  style={{paddingLeft: "0px"}}>
+        <Grid container spacing={2} style={{ marginLeft: "0px" }}>
+          <Grid item xs={12} md={6} style={{ paddingLeft: "0px" }}>
             <Box
               style={{
                 display: "flex",
@@ -339,7 +348,7 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
             </Box>
           </Grid>
 
-          <Grid item xs={12} md={6} style={{paddingLeft: "0px"}}>
+          <Grid item xs={12} md={6} style={{ paddingLeft: "0px" }}>
             <Box style={{ display: "flex", flexDirection: "column" }}>
               <Typography>
                 <label
@@ -385,7 +394,7 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
               )}
             </Box>
           </Grid>
-          <Grid item xs={12} md={6} style={{paddingLeft: "0px"}}>
+          <Grid item xs={12} md={6} style={{ paddingLeft: "0px" }}>
             <Box style={{ display: "flex", flexDirection: "column" }}>
               <Typography>
                 <label
@@ -442,13 +451,17 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
             justifyContent: isMobile ? "center" : "flex-end",
             alignItems: isMobile ? "center" : "flex-end",
             padding: "1rem",
-            paddingRight: isMobile ? "" : "0px"
+            paddingRight: isMobile ? "" : "0px",
           }}
         >
           <Button
             onClick={cancelHandler}
             className="buttonStyle"
-            style={{ marginRight: "0.5rem",backgroundColor: 'white', color: 'black' }}
+            style={{
+              marginRight: "0.5rem",
+              backgroundColor: "white",
+              color: "black",
+            }}
           >
             <Typography variant="button"> Cancel </Typography>
           </Button>
@@ -457,6 +470,7 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
             htmlType="submit"
             className="buttonStyle"
             style={{ marginLeft: "0.5rem" }}
+            disabled={isDisable}
           >
             <Typography variant="button" display="block">
               Submit
