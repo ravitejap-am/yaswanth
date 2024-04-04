@@ -28,6 +28,7 @@ import { getChatResponse } from '../../apiCalls/ApiCalls';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../../store/authSlice';
 import { useLocation } from 'react-router-dom';
+import Vector from "../../asset/Vector.png"
 
 function Chats() {
   const {
@@ -58,7 +59,7 @@ function Chats() {
   const defaultScroll = useRef(null);
   const location = useLocation();
   const pathName = location.pathname;
-  console.log('pathname---->', pathName);
+  const userImageUrl =  localStorage.getItem('userImageUrl')
 
   useEffect(() => {
     setQuestions([]);
@@ -154,36 +155,6 @@ function Chats() {
     }
   };
 
-  //   const pastedText = event.clipboardData.getData("text");
-  //   const existingInputLength = inputValue.replace(/\s/g, "").length;
-  //   const pastedCharLength = pastedText.replace(/\s/g, "").length;
-  //   const textarea = event.target;
-
-  //   let allowedLength = 0;
-  //   if (pastedCharLength + existingInputLength > 1000) {
-  //     const subLength = (pastedText + inputValue).replace(/\s/g, "").length - 1000;
-  //     allowedLength = pastedText.length - subLength;
-  //   } else {
-  //     allowedLength = pastedCharLength + existingInputLength;
-  //   }
-
-  //   const allowedContent = pastedText.substring(0, allowedLength);
-
-  //   console.log("allowed length content--->",allowedContent.replace(/\s/g, "").length);
-  //   if (allowedContent.replace(/\s/g, "").length > 1000) {
-  //     event.preventDefault();
-  //     setErrorMessage("Maximum 1000 characters allowed");
-  //   } else{
-  //     setErrorMessage("");
-  //   }
-  //   // else {
-  //     // Update input value with spaces preserved
-
-  //     const newValue = allowedContent ;
-  //     console.log("newValue length--->", newValue.replace(/\s/g, "").length);
-  //     setInputValue(newValue);
-  //   // }
-  // };
 
   const handleSend = async () => {
     try {
@@ -507,7 +478,6 @@ function Chats() {
                 </Box>
               </Box>
               <Box
-              // sx={{display:'flex'}}
               >
                 <Grid container spacing={2}>
                   {defaultQuestions.map((questions, index) => (
@@ -558,7 +528,7 @@ function Chats() {
                   <div className={styles.responseContent}>
                     <div className={styles.askedQuestion}>
                       <img
-                        src={uesrImg}
+                        src={userImageUrl}
                         alt="User"
                         className={styles.userImage}
                       />
@@ -582,7 +552,7 @@ function Chats() {
                     ) : (
                       <div className={styles.response}>
                         <img
-                          src={responseImg}
+                          src={Vector}
                           alt="User"
                           className={styles.userImage}
                         />
@@ -622,31 +592,12 @@ function Chats() {
               minHeight: '34px',
               overflowY: 'auto',
               paddingRight: '4rem',
-              // scrollbarWidth: "thin",
-              // scrollbarColor: "#ffffff",
               scrollHeight: '3px',
               scrollPaddingRight: '6px',
               WebkitScrollbarCorner: {
                 background: 'transparent',
                 paddingRight: '16px',
               },
-              // webkitScrollbarThumb :{
-              //   backgroundColor: "#c4c4c4",
-              //   borderRadius: "4px",
-              //   border: "2px solid transparent"
-              // },
-              // WebkitScrollbar: {
-              //   width: "3px",
-              // },
-              // WebkitScrollbarTrack: {
-              //   background: "transparent",
-              // },
-              // WebkitScrollbarThumb: {
-              //   backgroundColor: "#c4c4c4",
-              //   borderRadius: "2px",
-              //   border: "2px solid transparent",
-              // },
-
               resize: 'none',
             }}
             onPaste={handlePaste}
