@@ -34,7 +34,7 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
   });
   const [errors, setErrors] = useState({});
   const isMobile = useMediaQuery("(max-width:600px)");
-
+  const userRole = localStorage.getItem('userRole');
   let {
     buttonLoading,
     setButtonLoading,
@@ -247,7 +247,11 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
   };
 
   const cancelHandler = () => {
-    navigate("/dashboard");
+    if(userRole === 'SUPER_ADMIN' || userRole === 'ORG_ADMIN'){
+      navigate("/dashboard");
+    }else if(userRole === 'USER'){
+      navigate("/chat");
+    }
   };
 
   return (
