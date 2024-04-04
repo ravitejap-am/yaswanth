@@ -15,8 +15,13 @@ function Layout({ children, componentName }) {
           lg: 'row',
         },
         color: 'white',
-        padding: 3,
-        gap: 3,
+        padding: {
+          lg: 3,
+          xs: '5px 24px 24px 24px',
+          md: 3,
+          xl: 3,
+        },
+        // gap: 3,
         overflowY: 'hidden',
         height: '100vh',
       }}
@@ -39,8 +44,7 @@ function Layout({ children, componentName }) {
           borderRadius: 5,
           padding: 3,
           color: 'black',
-          height:
-          {
+          height: {
             lg: '92%',
             xs: '75%',
             md: '92%',
