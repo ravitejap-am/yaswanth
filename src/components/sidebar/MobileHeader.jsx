@@ -41,14 +41,19 @@ function MobileHeader(props) {
           id: chatHistory.length + 1,
         },
       ]);
-      setIsChatOpen(!isChatOpen);
-      setMessageSent(false);
-      setIsNewChat(false);
-      setQuestionIndex(0);
-      setQuestions([]);
-      onClose();
+      // setIsChatOpen(!isChatOpen);
+      // setMessageSent(false);
+      // setIsNewChat(false);
+      // setQuestionIndex(0);
+      // setQuestions([]);
+      // onClose();
     }
     console.error('please add the chat');
+    setIsChatOpen(!isChatOpen);
+    setMessageSent(false);
+    setIsNewChat(false);
+    setQuestionIndex(0);
+    setQuestions([]);
     onClose();
   };
   const showPreviousChats = async (id) => {
