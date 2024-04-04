@@ -165,3 +165,8 @@
     width: 0;
   }
 }
+
+
+.highlight_text {
+  text-decoration: underline;
+}
