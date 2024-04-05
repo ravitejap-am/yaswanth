@@ -232,8 +232,7 @@ const RegisterUser = () => {
   }, []);
 
   return (
-    <>
-      <div>
+      <div style={{overflowY:'auto', height:'100vh'}}>
         <div className="Signup-header">
           <SignHeader
             title={<img src={Logo} alt="" width={120} />}
@@ -461,7 +460,7 @@ const RegisterUser = () => {
           <Footer />
         </div>
       </div>
-    </>
+
   );
 };
 

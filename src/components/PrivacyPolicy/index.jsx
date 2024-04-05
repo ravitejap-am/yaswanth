@@ -13,7 +13,7 @@ const PrivacyPolicies = () => {
   };
 
   return (
-    <>
+    <div style={{overflowY:'auto', height:'100vh'}}>
       <div>
         <Header handleLogoClick={handleLogoClick} />
       </div>
@@ -603,7 +603,7 @@ const PrivacyPolicies = () => {
       <div>
         <Footer />
       </div>
-    </>
+    </div>
   );
 };
 

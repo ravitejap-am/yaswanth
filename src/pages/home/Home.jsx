@@ -19,7 +19,7 @@ const Home = () => {
   };
 
   return (
-    <>
+    <div style={{overflowY:'auto', height: '100vh'}}>
       <div>
         <Header  handleLogoClick= {handleLogoClick}/>
       </div>
@@ -53,7 +53,7 @@ const Home = () => {
         <ContactUp />
       </div>
       <Footer />
-    </>
+    </div>
   );
 };
 

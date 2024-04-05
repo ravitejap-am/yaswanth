@@ -161,7 +161,7 @@ const RecoveryPasswor = () => {
   };
 
   return (
-    <>
+    <div style={{overflowY:'auto', height:'100vh'}}>
       <div className="recoverpassword-header">
         <SignHeader
           title={<img src={Logo} alt="" width={120} />}
@@ -228,7 +228,7 @@ const RecoveryPasswor = () => {
       <div className="forgotpass-footer">
           <Footer />
         </div>
-    </>
+    </div>
   );
 };
 

@@ -213,7 +213,7 @@ const ResetPassword = () => {
   };
 
   return (
-    <>
+    <div style={{overflowY:'auto', height:'100vh'}}>
       <div className="resetpassword-header">
         <SignHeader
           title={<img src={Logo} alt="" width={120} />}
@@ -304,7 +304,7 @@ const ResetPassword = () => {
       <div className="signin-footer">
           <Footer />
         </div>
-    </>
+    </div>
   );
 };
 

@@ -13,7 +13,7 @@ function TermsAndConditions() {
   };
 
   return (
-    <>
+    <div style={{overflowY:'auto', height:'100vh'}}>
       <div>
         <Header handleLogoClick={handleLogoClick} />
       </div>
@@ -181,7 +181,7 @@ function TermsAndConditions() {
     <div>
         <Footer />
       </div>
-    </>
+    </div>
   );
 }
 

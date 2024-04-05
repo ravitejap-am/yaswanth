@@ -263,7 +263,7 @@ const SignIn = () => {
   };
 
   return (
-    <>
+    <div style={{overflowY:'auto', height:'100vh'}}>
       <div className="signin-header">
         <SignHeader
           title={<img src={Logo} alt="" width={120} />}
@@ -385,7 +385,7 @@ const SignIn = () => {
       <div className="signin-footer">
         <Footer />
       </div>
-    </>
+    </div>
   );
 };
 

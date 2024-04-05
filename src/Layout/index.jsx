@@ -23,7 +23,7 @@ function Layout({ children, componentName }) {
   return (
     <Box
     ref={topRef}
-      sx={{
+    sx={{
         background:
           'linear-gradient(114deg,#0f172a 51.52%, #152346 73.32%,#1a2e5e 92.75%)',
         display: 'flex',
@@ -32,15 +32,9 @@ function Layout({ children, componentName }) {
           lg: 'row',
         },
         color: 'white',
-        padding: {
-          lg: 3,
-          xs: '5px 24px 24px 24px',
-          md: 3,
-          xl: 3,
-        },
-        // gap: 3,
-        overflowY: 'hidden',
-        height: "100vh" ,
+        padding: 3,
+        height: '100vh' ,
+        overflowY:'hidden'
       }}
     >
       <Sidebar />
@@ -48,7 +42,7 @@ function Layout({ children, componentName }) {
         sx={{
           width: {
             lg: '95%',
-            xs: '90%',
+            xs: '88%',
             md: '93%',
             xl: '95%',
           },
@@ -62,19 +56,16 @@ function Layout({ children, componentName }) {
           padding: 3,
           color: 'black',
           height: {
-            lg: '92%',
-            xs: '70%',
-            md: '92%',
-            xl: '92%',
+            lg: '88%',
+            xs: '78%',
+            md: '88%',
+            xl: '88%',
           },
         }}
       >
         <Box
           sx={{
             width: '100%',
-            // display: 'flex',
-            // justifyContent: 'flex-end',
-            // alignItems: 'center',
           }}
         >
           <Header componentName={componentName} />
