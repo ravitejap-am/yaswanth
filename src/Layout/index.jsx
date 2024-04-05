@@ -1,13 +1,28 @@
-import React from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import { Box, Typography } from '@mui/material';
 import Sidebar from '../components/sidebar';
 import Header from '../components/header';
 
 function Layout({ children, componentName }) {
-  const height = window.innerHeight
+
+  const topRef = useRef(null);
+
+  const handleScrollToTop = () => {
+
+    if (topRef.current) {
+      topRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+
+  useEffect(() => {
+    handleScrollToTop()
+  },[])
+  
 
   return (
     <Box
+    ref={topRef}
       sx={{
         background:
           'linear-gradient(114deg,#0f172a 51.52%, #152346 73.32%,#1a2e5e 92.75%)',
@@ -25,7 +40,7 @@ function Layout({ children, componentName }) {
         },
         // gap: 3,
         overflowY: 'hidden',
-        height: height + 50 ,
+        height: "100vh" ,
       }}
     >
       <Sidebar />
@@ -48,7 +63,7 @@ function Layout({ children, componentName }) {
           color: 'black',
           height: {
             lg: '92%',
-            xs: '85%',
+            xs: '70%',
             md: '92%',
             xl: '92%',
           },
