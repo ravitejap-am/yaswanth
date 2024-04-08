@@ -30,3 +30,4 @@ export const CHAT = 'http://127.0.0.1:5000/api/v1/query';
 export const CHAT_OF_SESSION = 'http://127.0.0.1:5000/api/v1/sessions/query?session=';
 
 export const PLACEHODER_IMAGE = 'https://medicalpublic.s3.amazonaws.com/AMCHAT/UserDP_1708667530992.jpg'
+export const PLAN_DETAILS = 'https://amchatd1.areteminds.com/api/v1/subscription'

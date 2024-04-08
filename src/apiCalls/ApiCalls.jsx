@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useState } from 'react';
 
 // import {   GET_ACTIVE_USERS } from './Constants';
-import { UPDATE_ADMIN_USER, USER_PROFILE,GET_ACTIVE_USERS, CHAT, CHAT_OF_SESSION } from '../constants/Constant';
+import { UPDATE_ADMIN_USER, USER_PROFILE,GET_ACTIVE_USERS, CHAT, CHAT_OF_SESSION, PLAN_DETAILS } from '../constants/Constant';
 
 export const getUserProfileDetails = async (userId, headers) => {
   try {
@@ -76,5 +76,19 @@ export const getChatSessions = async (id, headers) => {
   } catch (error) {
     console.log('Failed to get chat session response.', error);
     throw new Error('Failed to get chat session');
+  }
+};
+
+export const getPlanDetails = async ( headers) => {
+  try {
+    console.log('headers---->', headers);
+    const data = await axios.get(
+      `${PLAN_DETAILS}`,
+      headers
+    );
+    return data;
+  } catch (error) {
+    console.log('Failed to get plan details.', error);
+    throw new Error('Failed to get plan details.');
   }
 };

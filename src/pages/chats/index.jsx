@@ -395,9 +395,7 @@ function Chats() {
                 </DialogTitle>
                 <DialogContent>
                   <Typography>
-                    Searching across files is a costly, time-consuming process
-                    and may result in inefficient results. Would you like to
-                    continue?
+                  Interacting across files is a costly and time-consuming process. Would you like to continue ?
                   </Typography>
                 </DialogContent>
                 <DialogActions>
