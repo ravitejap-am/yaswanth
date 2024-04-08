@@ -25,6 +25,7 @@ function DynamicTextComponent({
   orgData,
   setButtonLoading,
   personalInformationHandler,
+  readOnlyMode
 }) {
   const user = useSelector(selectUser);
   const jwt = user.userToken;
@@ -333,8 +334,8 @@ function DynamicTextComponent({
                 }
                 onBlur={(event) => handleCheckDomain(index, event.target.value)}
                 className="domain-text-input"
-                disabled={id ? true : false}
-                style={{ height: "3em", margin: "0px" }}
+                disabled={id || readOnlyMode ? true : false}
+                style={{ height: "3em", margin: "0px", backgroundColor: readOnlyMode ? '#CBD5E1' : "" }}
               />
               {typeDetails && !isValidDomain(typeDetails) && (
                 <FormHelperText sx={{ fontSize: "14px" }} error>
@@ -344,7 +345,7 @@ function DynamicTextComponent({
             </Box>
             {!!loadingIndex && loadingIndex == index ? (
               <CircularProgress style={{height: "20px", width: "20px"}}/>
-            ) : (
+            ) : (!readOnlyMode &&
               <DeleteIcon
                 style={{
                   height: "20px",
@@ -383,7 +384,7 @@ function DynamicTextComponent({
             )}
           </Box>
         ))}
-        <Box
+        {!readOnlyMode && <Box
         container
           style={{
             display: "flex",
@@ -421,7 +422,7 @@ function DynamicTextComponent({
               icon={<PlusCircleFilled />}
             ></Button>
           </Tooltip>
-        </Box>
+        </Box>}
       </Box>
       {/* <Box sx={{ flex: 1 }}></Box> */}
       <Box

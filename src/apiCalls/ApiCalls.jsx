@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useState } from 'react';
 
 // import {   GET_ACTIVE_USERS } from './Constants';
-import { UPDATE_ADMIN_USER, USER_PROFILE,GET_ACTIVE_USERS, CHAT, CHAT_OF_SESSION, PLAN_DETAILS } from '../constants/Constant';
+import { UPDATE_ADMIN_USER, USER_PROFILE,GET_ACTIVE_USERS, CHAT, CHAT_OF_SESSION, PLAN_DETAILS, PLAN_DETAILS_BY_ID } from '../constants/Constant';
 
 export const getUserProfileDetails = async (userId, headers) => {
   try {
@@ -90,5 +90,20 @@ export const getPlanDetails = async ( headers) => {
   } catch (error) {
     console.log('Failed to get plan details.', error);
     throw new Error('Failed to get plan details.');
+  }
+};
+
+
+export const getPlanDetailsById = async (id, headers) => {
+  try {
+    console.log('headers---->', headers);
+    const data = await axios.post(
+      `${PLAN_DETAILS_BY_ID}${id}`,
+      headers
+    );
+    return data;
+  } catch (error) {
+    console.log('Failed to get plan details by id', error);
+    throw new Error('Failed to get plan details by id');
   }
 };

@@ -25,6 +25,7 @@ function OrganizationDomains({
   setButtonLoading,
   setBackDropLoading,
   personalInformationHandler,
+  readOnlyMode
 }) {
   const navigate = useNavigate();
   const [newDomains, setNewDomains] = useState(
@@ -225,6 +226,7 @@ function OrganizationDomains({
           setButtonLoading={setButtonLoading}
           setSelectedTab={setSelectedTab}
           personalInformationHandler={personalInformationHandler}
+          readOnlyMode={readOnlyMode}
         />      
     </Grid>
 

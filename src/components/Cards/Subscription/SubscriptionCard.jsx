@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import SubscriptionPlanStyle from "./subscriptioncard.module.css";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-function SubscriptionCard({ item, selectedPlan, setSelectedPlan }) {
+function SubscriptionCard({ item, selectedPlan, setSelectedPlan, externalHeight }) {
   const handleCardClick = (subscription) => {
     setSelectedPlan(subscription);
   };
@@ -23,7 +23,7 @@ function SubscriptionCard({ item, selectedPlan, setSelectedPlan }) {
     >
       <CardContent>
         <Typography variant="h5">{item.title}</Typography>
-        <Box sx={{ height: "2.5em" }}>
+        <Box sx={{ height: externalHeight ? externalHeight : "2.5em" }}>
           <Typography variant="body2">{item.description}</Typography>
         </Box>
 

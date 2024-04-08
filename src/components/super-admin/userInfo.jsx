@@ -11,7 +11,8 @@ function UserInfoForm({
   errors,
   setErrors,
   personalInformationHandler,
-  orgStatus
+  orgStatus, 
+  readOnlyMode
 }) {
   const handleChange = (e) => {
     let myContact = orgData.contact;
@@ -81,6 +82,8 @@ function UserInfoForm({
                   name="firstName"
                   value={formData.firstName}
                   onChange={handleChange}
+                  disabled={readOnlyMode}
+                  style={{ backgroundColor: readOnlyMode ? '#CBD5E1' : "" }}
                 />
                 {errors.firstName && (
                   <FormHelperText error sx={{ fontSize: '14px' }}>{errors.firstName}</FormHelperText>
@@ -97,6 +100,8 @@ function UserInfoForm({
               name="lastName"
               value={formData.lastName}
               onChange={handleChange}
+              disabled={readOnlyMode}
+              style={{ backgroundColor: readOnlyMode ? '#CBD5E1' : "" }}
             />
             {errors.lastName && <FormHelperText error sx={{ fontSize: '14px' }}>{errors.lastName}</FormHelperText>}
           </div>
@@ -111,8 +116,8 @@ function UserInfoForm({
               name="email"
               value={formData.email}
               onChange={handleChange}
-              disabled = {orgStatus === "edit" ? true : false}
-              style={{ backgroundColor: orgStatus === "edit" ? '#CBD5E1' : "" }}
+              disabled = {orgStatus === "edit"  || readOnlyMode? true : false}
+              style={{ backgroundColor: orgStatus === "edit" || readOnlyMode ? '#CBD5E1' : "" }}
             />
             {errors.email && <FormHelperText error sx={{ fontSize: '14px' }}>{errors.email}</FormHelperText>}
           </div>

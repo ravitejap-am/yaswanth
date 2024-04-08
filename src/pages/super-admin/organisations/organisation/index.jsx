@@ -61,9 +61,11 @@ function Organisation() {
   const organisation = useSelector(selectOrganisation);
   const dispatch = useDispatch();
   const pageTitle =
-    organisation?.organisationStatus === "edit"
-      ? "Update Organisation"
-      : "Add Organisation";
+  organisation?.organisationStatus === "edit"
+    ? "Update Organisation"
+    : organisation?.organisationStatus === "view"
+    ? "Organisation"
+    : "Add Organisation";
   console.log("organisation", organisation);
   const jwt = user.userToken;
   const navigate = useNavigate();
@@ -71,7 +73,7 @@ function Organisation() {
   console.log("decoded token", decodedToken);
   const [selectedTab, setSelectedTab] = useState("personalinformation");
   const [orgData, selectOrgData] = useState(
-    organisation?.organisationStatus == "edit"
+    organisation?.organisationStatus == "edit" || organisation?.organisationStatus == "view"
       ? {
           orgId: organisation?.organisationData?.id,
           address: {
@@ -177,6 +179,8 @@ function Organisation() {
   const [value, setValue] = useState("1");
   const orgStatus = organisation?.organisationStatus || null;
   const isMobile = useMediaQuery("(max-width:600px)");
+  const readOnlyMode = organisation?.organisationStatus === "view"
+  console.log("read only mode---->",readOnlyMode);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -596,6 +600,7 @@ function Organisation() {
                 errors={orgInfoErrors}
                 setErrors={setOrgInfoErrors}
                 personalInformationHandler={personalInformationHandler}
+                readOnlyMode={readOnlyMode}
               />
             </TabPanel>
             <TabPanel value="organizationadmin">
@@ -616,6 +621,7 @@ function Organisation() {
                 setErrors={setUserInfoErrors}
                 personalInformationHandler={personalInformationHandler}
                 orgStatus={orgStatus}
+                readOnlyMode={readOnlyMode}
               />
             </TabPanel>
             <TabPanel value="organizationdomains">
@@ -633,6 +639,7 @@ function Organisation() {
                 setButtonLoading={setButtonLoading}
                 setBackDropLoading={setBackDropLoading}
                 personalInformationHandler={personalInformationHandler}
+                readOnlyMode={readOnlyMode}
               />
             </TabPanel>
             <TabPanel value="subscriptionplan">

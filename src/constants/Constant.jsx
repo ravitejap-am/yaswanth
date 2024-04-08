@@ -31,3 +31,4 @@ export const CHAT_OF_SESSION = 'http://127.0.0.1:5000/api/v1/sessions/query?sess
 
 export const PLACEHODER_IMAGE = 'https://medicalpublic.s3.amazonaws.com/AMCHAT/UserDP_1708667530992.jpg'
 export const PLAN_DETAILS = 'https://amchatd1.areteminds.com/api/v1/subscription'
+export const PLAN_DETAILS_BY_ID = PLAN_DETAILS + "?org_id="

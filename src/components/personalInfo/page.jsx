@@ -81,7 +81,7 @@ const PersonalInfo = () => {
               value="2"
             />
             {isAllowedToSeePlans && (
-              <Tab label={<Typography fontWeight="bold">Plans</Typography>} value="3" />
+              <Tab label={<Typography fontWeight="bold">Usage/Subscription</Typography>} value="3" />
             )}
           </TabList>
         </Box>

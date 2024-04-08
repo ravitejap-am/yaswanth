@@ -1,33 +1,88 @@
-import React from 'react';
-import { Card } from 'antd'; 
-import righticon from '../../../asset/primiumrighticon.png';
-import { Box, Typography } from '@mui/material';
+import React, { useState, useEffect } from "react";
+import { Card } from "antd";
+import righticon from "../../../asset/primiumrighticon.png";
+import { Box, Typography, Grid } from "@mui/material";
+import SubscriptionCard from "../../Cards/Subscription/SubscriptionCard";
+import { getPlanDetailsById } from "../../../apiCalls/ApiCalls";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../../store/authSlice";
 
 function PersonalPlans() {
+  const [selectedPlan, setSelectedPlan] = useState("Freemium");
+  const [planDetails, setPlanDetails] = useState([]);
+  const user = useSelector(selectUser);
+  const jwt = user.userToken;
+
+  useEffect(() => {
+    fetchPlanDetails();
+  }, []);
+
+  const fetchPlanDetails = async () => {
+    console.log("fetching plan details---->");
+    try {
+      const headers = {
+        Authorization: `Bearer ${jwt}`,
+        "Content-Type": "multipart/form-data",
+      };
+      const id = 1;
+      const response = await getPlanDetailsById(id, headers);
+    } catch (error) {
+      console.log("error in fetching plan details---->", error);
+      const response = {
+        Freemium: [
+          "Max 2 users",
+          "Max 5 Documents",
+          "Upload size 2 MB",
+          "Max 10 chats free",
+        ],
+      };
+
+      const modifyData = [
+        {
+          title: "Freemium",
+          description:
+            "Revolutionize keywords search into your document with our free plan.",
+          price: "Free",
+          features: response["Freemium"],
+        },
+      ];
+      setPlanDetails(modifyData);
+    }
+  };
+
+  const subscriptionItems = [
+    {
+      title: "Freemium",
+      description:
+        "Revolutionize keywords search into your document with our free plan.",
+      price: "Free",
+      features: [
+        "Max 2 users",
+        "Max 5 Documents",
+        "Upload size 2 MB",
+        "Max 10 chats free",
+      ],
+    },
+  ];
+
   return (
-    <Card style={{ width: '%' }}>
-      <div className="">
-        <Typography variant='h5' mb={2} style={{fontWeight: "bold"}}>Premium</Typography>
-        <Typography variant='subtitle2' gutterBottom>
-          <img className="right-icon" src={righticon} alt="" /> Max 2 users.
-        </Typography >
-        <Typography variant='subtitle2' gutterBottom whiteSpace='nowrap'> 
-          <img className="right-icon" src={righticon} alt="" />
-          Max 5 Documents.
-        </Typography >
-        <Typography variant='subtitle2' gutterBottom whiteSpace='nowrap'>
-          <img className="right-icon" src={righticon} alt="" />
-          Upload size 2 MB.
-        </Typography>
-        <Typography variant='subtitle2' gutterBottom>
-          <img className="right-icon" src={righticon} alt="" />
-          Max 10 chats free
-        </Typography>
-        <Box className="note-p-text" mt={3}>
-          <Typography variant='body1'>Note: Your plan is due on 31st December 2024</Typography>
-        </Box>
-      </div>
-    </Card>
+    <Box>
+      <Grid container>
+        {planDetails?.length > 0 &&
+          planDetails.map((item) => {
+            return (
+              <Grid item xs={12} md={5} lg={4}>
+                <SubscriptionCard
+                  item={item}
+                  selectedPlan={selectedPlan}
+                  setSelectedPlan={setSelectedPlan}
+                  externalHeight={"auto"}
+                />
+              </Grid>
+            );
+          })}
+      </Grid>
+    </Box>
   );
 }
 

@@ -25,6 +25,7 @@ function OrganizationForm({
   errors,
   setErrors,
   personalInformationHandler,
+  readOnlyMode
 }) {
 
   const isMobile = useMediaQuery('(max-width:600px)');
@@ -195,6 +196,8 @@ function OrganizationForm({
               value={orgData?.name}
               onChange={handleChange}
               className={styles.inputstyle}
+              disabled={readOnlyMode}
+              style={{ backgroundColor: readOnlyMode ? '#CBD5E1' : "" }}
             />
             {errors.name && <FormHelperText error sx={{ fontSize: '14px' }}>{errors.name}</FormHelperText>}
           </Grid>
@@ -207,6 +210,8 @@ function OrganizationForm({
               value={orgData?.address?.address1}
               onChange={handleChange}
               className={styles.inputstyle}
+              disabled={readOnlyMode}
+              style={{ backgroundColor: readOnlyMode ? '#CBD5E1' : "" }}
             />
             {errors.address1 && <FormHelperText error sx={{ fontSize: '14px' }}>{errors.address1}</FormHelperText>}
         </Grid>
@@ -219,6 +224,8 @@ function OrganizationForm({
             value={orgData?.address?.address2}
             onChange={handleChange}
             className={styles.inputstyle}
+            disabled={readOnlyMode}
+            style={{ backgroundColor: readOnlyMode ? '#CBD5E1' : "" }}
           />
         </Grid>
             <Grid item xs={12} md={6} lg={5}>
@@ -233,6 +240,8 @@ function OrganizationForm({
                 filterSort={filterSort}
                 options={countries}
                 value={orgData?.address?.country}
+                disabled={readOnlyMode}
+                style={{ backgroundColor: readOnlyMode ? '#CBD5E1' : "" }}
               />
 
               {errors.country && <FormHelperText error sx={{ fontSize: '14px' }}>{errors.country}</FormHelperText>}  
@@ -249,6 +258,8 @@ function OrganizationForm({
                 filterSort={filterSort}
                 options={states}
                 value={orgData?.address?.state}
+                disabled={readOnlyMode}
+                style={{ backgroundColor: readOnlyMode ? '#CBD5E1' : "" }}
               />
 
               {errors.state && <FormHelperText error sx={{ fontSize: '14px' }}>{errors.state}</FormHelperText>}
@@ -265,6 +276,8 @@ function OrganizationForm({
                 filterSort={filterSort}
                 options={cities}
                 value={orgData?.address?.city}
+                disabled={readOnlyMode}
+                style={{ backgroundColor: readOnlyMode ? '#CBD5E1' : "" }}
               />
 
               {errors.city && <FormHelperText error sx={{ fontSize: '14px' }}>{errors.city}</FormHelperText>}              
@@ -278,6 +291,8 @@ function OrganizationForm({
               value={orgData?.address?.postCode}
               onChange={handleChange}
               className={styles.pincodeStyle}
+              disabled={readOnlyMode}
+              style={{ backgroundColor: readOnlyMode ? '#CBD5E1' : "" }}
             />
             {errors.postCode && <FormHelperText error sx={{ fontSize: '14px' }}>{errors.postCode}</FormHelperText>}
         </Grid>

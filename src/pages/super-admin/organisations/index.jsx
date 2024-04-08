@@ -24,6 +24,7 @@ import GeneralButton from "../../../components/common/buttons/GeneralButton";
 import DataGridTable from "../../../components/common/muiTable/DataGridTable";
 import { AM_CHAT } from "../../../constants/Constant";
 import { Modal } from "antd";
+import  eye1  from '../../../asset/eye1.png' 
 
 function Organisations() {
   let { showNotifyMessage, hideNotifyMessage } = useMessageState();
@@ -257,6 +258,13 @@ function Organisations() {
     dispatch(setOrganisationData(orgObject));
   };
 
+  const handleViewOrganisation = (id) => {
+    const orgObject = responseData.find((obj) => obj.id === id);
+    navigate("/organisation");
+    dispatch(setOrganisationStatus("view"));
+    dispatch(setOrganisationData(orgObject));
+  }
+
   const handleNo = () => {
     setDeleteProps({});
     setOpenDeletePopUp(false);
@@ -329,6 +337,12 @@ function Organisations() {
             }}
           >
             <img src={deleteIcon} alt="Delete" />
+          </IconButton>
+          <IconButton
+            aria-label="eye"
+            onClick={() => handleViewOrganisation(params.row.id)}
+          >
+            <img src={eye1} alt="eye" />
           </IconButton>
         </div>
       ),
