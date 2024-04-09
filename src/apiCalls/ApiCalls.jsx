@@ -2,12 +2,10 @@ import axios from 'axios';
 import { useState } from 'react';
 
 // import {   GET_ACTIVE_USERS } from './Constants';
-import { UPDATE_ADMIN_USER, USER_PROFILE,GET_ACTIVE_USERS, CHAT, CHAT_OF_SESSION, PLAN_DETAILS, PLAN_DETAILS_BY_ID } from '../constants/Constant';
+import { UPDATE_ADMIN_USER, USER_PROFILE,GET_ACTIVE_USERS, CHAT, CHAT_OF_SESSION, PLAN_DETAILS, PLAN_DETAILS_BY_ID, LIST_OF_CHAT_SESSIONS, DEFAULT_QUESTIONS, INDIVIDUAL_SESSION_CHAT } from '../constants/Constant';
 
 export const getUserProfileDetails = async (userId, headers) => {
   try {
-    console.log('userId----->', userId);
-    console.log('headers---->', headers);
     const data = await axios.get(
       `${USER_PROFILE}/${userId}/getUserProfile`,
       headers
@@ -21,8 +19,6 @@ export const getUserProfileDetails = async (userId, headers) => {
 
 export const updateAdminProfileDetails = async (userId, headers, reqBody) => {
   try {
-    console.log('userId----->', userId);
-    console.log('headers---->', headers);
     const data = await axios.put(
       `${UPDATE_ADMIN_USER}/${userId}`,
       reqBody,
@@ -38,7 +34,6 @@ export const updateAdminProfileDetails = async (userId, headers, reqBody) => {
 
 export const getActiveUserList = async ( headers) => {
   try {
-    console.log('headers---->', headers);
     const data = await axios.get(
       `${GET_ACTIVE_USERS}`,
       headers
@@ -52,11 +47,13 @@ export const getActiveUserList = async ( headers) => {
 
 export const getChatResponse = async (body, headers) => {
   try {
-    console.log('headers---->', headers);
+    console.log("body--->",body);
+    console.log("headers--->",headers);
     const data = await axios.post(
       `${CHAT}`,
-      headers, body
+       body, {headers: headers}
     );
+    console.log("chat data---->",data);
     return data;
   } catch (error) {
     console.log('Failed to get amchat response.', error);
@@ -67,7 +64,6 @@ export const getChatResponse = async (body, headers) => {
 
 export const getChatSessions = async (id, headers) => {
   try {
-    console.log('headers---->', headers);
     const data = await axios.post(
       `${CHAT_OF_SESSION}${id}`,
       headers,
@@ -81,7 +77,6 @@ export const getChatSessions = async (id, headers) => {
 
 export const getPlanDetails = async ( headers) => {
   try {
-    console.log('headers---->', headers);
     const data = await axios.get(
       `${PLAN_DETAILS}`,
       headers
@@ -96,14 +91,59 @@ export const getPlanDetails = async ( headers) => {
 
 export const getPlanDetailsById = async (id, headers) => {
   try {
-    console.log('headers---->', headers);
-    const data = await axios.post(
-      `${PLAN_DETAILS_BY_ID}${id}`,
+    const data = await axios.get(
+      `${DEFAULT_QUESTIONS}`,
       headers
     );
     return data;
   } catch (error) {
-    console.log('Failed to get plan details by id', error);
-    throw new Error('Failed to get plan details by id');
+    console.log('Failed to get default questions', error);
+    throw new Error('Failed to get default questions');
+  }
+};
+
+
+export const getSessionList = async (headers) => {
+  try {
+    console.log("headers in session list",headers);
+    const data = await axios.get(
+      `${LIST_OF_CHAT_SESSIONS}`,
+      {headers: headers}
+    );
+    console.log("session data---->",data);
+    return data;
+  } catch (error) {
+    console.log('Failed to get session list', error);
+    throw new Error('Failed to get session list');
+  }
+};
+
+export const getQuestions = async (headers) => {
+  try {
+    console.log("headers---->",headers);
+    const data = await axios.get(
+      `${DEFAULT_QUESTIONS}`,
+      {headers: headers}
+    );
+    console.log("questions data---->",data);
+    return data;
+  } catch (error) {
+    console.log('Failed to get questions', error);
+    throw new Error('Failed to get questions');
+  }
+};
+
+
+export const getIndividualChatSessions = async (headers, id) => {
+  try {
+    console.log("headers---->",headers);
+    const data = await axios.get(
+      `${INDIVIDUAL_SESSION_CHAT}${id}`,
+      {headers: headers }
+    );
+    return data;
+  } catch (error) {
+    console.log('Failed to get questions', error);
+    throw new Error('Failed to get questions');
   }
 };

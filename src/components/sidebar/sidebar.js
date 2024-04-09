@@ -12,7 +12,7 @@ import AddIcon from '@mui/icons-material/Add';
 import './sidebarIndex.css';
 import { Layout, Menu, Grid, Drawer } from 'antd';
 import WorkHistoryIcon from '@mui/icons-material/WorkHistory';
-import { getChatSessions } from '../../apiCalls/ApiCalls';
+import { getChatSessions, getSessionList } from '../../apiCalls/ApiCalls';
 
 const ORG_ADMIN = [
   {
@@ -92,23 +92,31 @@ export const sideBar = (
   messageSent,
   setMessageSent
 ) => {
-  const handleAddChat = () => {
-    if (isNewChat) {
-      setChatHistory([
-        ...chatHistory,
-        {
-          session_title: 'chat one title for chat adress',
-          data: [],
-          id: chatHistory.length + 1,
-        },
-      ]);
-      setIsChatOpen(!isChatOpen);
-      setMessageSent(false);
-      setIsNewChat(false);
-      setQuestionIndex(0);
-      setQuestions([]);
+  const handleAddChat =async () => {
+    try{
+      if (isNewChat) {
+        const headers = { Authorization: `Bearer ${jwt}` };
+        console.log("headers---->",headers);
+        const fetchChatSessions = await getSessionList(headers)
+        console.log("fetchChatSessions---->",fetchChatSessions);
+        // setChatHistory([
+        //   ...chatHistory,
+        //   {
+        //     session_title: 'chat one title for chat adress',
+        //     data: [],
+        //     id: chatHistory.length + 1,
+        //   },
+        // ]);
+        setIsChatOpen(!isChatOpen);
+        setMessageSent(false);
+        setIsNewChat(false);
+        setQuestionIndex(0);
+        setQuestions([]);
+      }
+      console.error('please add the chat');
+    }catch(error){
+      console.log("error in fetching chat session list",error);
     }
-    console.error('please add the chat');
   };
   const onClose = () => {
     setVisible(false);
@@ -275,7 +283,6 @@ export const sideBar = (
                       }}
                       className="hoverDiv"
                     >
-                      {/* <Tooltip title={item?.title}> */}
                       <p
                         style={{
                           margin: 0,
@@ -291,9 +298,6 @@ export const sideBar = (
                       >
                         {item?.session_title}
                       </p>
-                      {/* </Tooltip> */}
-
-                      {/* <ChatMenuItems /> */}
                     </div>
                   ))}
               </Box>

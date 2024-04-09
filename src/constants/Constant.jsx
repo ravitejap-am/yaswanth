@@ -1,8 +1,9 @@
 export const BASE_API_URL = 'https://amchatd1.areteminds.com/api/v1/iam';
-export const BASE_DOC_API_URL = 'https://amchatd1.areteminds.com/api/v1/doc';
+export const BASE_DOC_API_URL = 'https://amchatd1.areteminds.com/api/v1/doc/';
 export const BASE_ORG_API_URL = 'https://amchatd1.areteminds.com/api/v1/org';
 export const BASE_USER_IMAGE_URL = 'https://medicalpublic.s3.amazonaws.com/';
 export const CHAT_GETSESSION = 'http://127.0.0.1:5000/api/v1/sessions';
+export const BASE_API_URL_V1 = 'https://amchatd1.areteminds.com/api/v1';
 
 export const SIGNUP_ENDPOINT = '/user/signup';
 export const SIGNIN_ENDPOINT = '/user/signin';
@@ -25,10 +26,16 @@ export const OrgAdminAccount = 'ORG_ADMIN';
 export const SuperAdminAccount = 'SUPER_ADMIN';
 
 export const AM_CHAT = 'AM-Chat';
-export const CHAT = 'http://127.0.0.1:5000/api/v1/query';
+// export const CHAT = 'http://127.0.0.1:5000/api/v1/query';
 
 export const CHAT_OF_SESSION = 'http://127.0.0.1:5000/api/v1/sessions/query?session=';
 
 export const PLACEHODER_IMAGE = 'https://medicalpublic.s3.amazonaws.com/AMCHAT/UserDP_1708667530992.jpg'
 export const PLAN_DETAILS = 'https://amchatd1.areteminds.com/api/v1/subscription'
 export const PLAN_DETAILS_BY_ID = PLAN_DETAILS + "?org_id="
+export const LIST_OF_CHAT_SESSIONS = BASE_API_URL_V1 + "/sessions" 
+export const DEFAULT_QUESTIONS = BASE_API_URL_V1 + "/doc/1012/questions"
+export const CHAT =   BASE_API_URL_V1 + '/query';
+export const INDIVIDUAL_SESSION_CHAT = BASE_API_URL_V1 + "/sessions/query?session="
+
+

@@ -29,6 +29,7 @@ function UpdateOrgAdminDoc() {
 
   useEffect(() => {
     const storedFirstName = localStorage.getItem("firstNameOrganisation");
+    console.log("storedFirstName--->",storedFirstName);
     setFirstName(storedFirstName);
   }, []);
 
@@ -46,19 +47,19 @@ function UpdateOrgAdminDoc() {
   };
   const submitHandler = async () => {
     if (!!file) {
-      if (
-        trimFileNameBeforeExtension(file?.name) !=
-        localStorage.getItem("documentName")
-      ) {
-        showNotifyMessage(
-          "error",
-          "Uploading file with different name is not allowed. Please try to the file with same name",
-          messageHandler
-        );
+      // if (
+      //   file?.name !=
+      //   localStorage.getItem("documentName")
+      // ) {
+      //   showNotifyMessage(
+      //     "error",
+      //     "Uploading file with different name is not allowed. Please try to the file with same name",
+      //     messageHandler
+      //   );
 
-        return;
-      }
-      if (trimFileNameBeforeExtension(file?.name).length > 50) {
+      //   return;
+      // }
+      if (file?.name.length > 50) {
         showNotifyMessage(
           "error",
           "File name should be less than 50 characters",
@@ -86,10 +87,10 @@ function UpdateOrgAdminDoc() {
       setButtonLoading(true);
       const formData = new FormData();
       formData.append("file", file);
-      formData.append("name", trimFileNameBeforeExtension(file?.name));
+      // formData.append("name", file?.name);
       console.log("formData", formData);
       const response = await axios.put(
-        `${constants.BASE_DOC_API_URL}/${documentId}`,
+        `${constants.BASE_DOC_API_URL}${documentId}`,
         formData,
         {
           headers: {

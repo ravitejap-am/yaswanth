@@ -55,8 +55,9 @@ function AddOrgDocuments() {
     try {
       setButtonLoading(true);
       const formData = new FormData();
+      console.log("file-----",file)
       formData.append("file", file);
-      formData.append("name", trimFileNameBeforeExtension(file?.name));
+      formData.append("name", file?.name);
       console.log("formData", formData);
       const response = await axios.post(
         `${constants.BASE_DOC_API_URL}`,
@@ -150,7 +151,7 @@ function AddOrgDocuments() {
           }}
         >
           <Input
-            value={!!file?.name ? trimFileNameBeforeExtension(file?.name) : ""}
+            value={!!file?.name ? file?.name : ""}
             placeholder="Upload Document"
             className="Adddoc_input_css"
             style={{

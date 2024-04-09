@@ -97,7 +97,7 @@ function Documents() {
       console.log("api called");
       const organizationId = decodeJWT(jwt).organisationId;
       setTableLoading(true);
-      const documentUrl = `${constants.BASE_DOC_API_URL}/getAllByOrg/${organizationId}`;
+      const documentUrl = `${constants.BASE_DOC_API_URL}`;
       const response = await axios.get(documentUrl, {
         params: {
           page: page,
@@ -167,7 +167,7 @@ function Documents() {
     try {
       setTableLoading(true);
       const response = await axios.put(
-        `${BASE_DOC_API_URL}/${documentId}/status`,
+        `${BASE_DOC_API_URL}${documentId}/status`,
         { isActive: false },
         {
           headers: {
@@ -176,6 +176,7 @@ function Documents() {
           },
         }
       );
+      console.log("delete response--->",response);
       if (response.status === 200) {
         setDocuments(documents.filter((doc) => doc.id !== documentId));
         showNotifyMessage("success", response?.data?.message, messageHandler);
@@ -311,7 +312,7 @@ function Documents() {
   const data = documents.map((item) => ({
     id: item?.id,
     documentName: item?.name,
-    size: `${item?.fileSize}${" "}${"MB"}`,
+    size: `${item?.fileSize || 0}${" "}${"MB"}`,
     version: item?.version,
     status: item?.active ? "Active" : "Inactive",
   }));
