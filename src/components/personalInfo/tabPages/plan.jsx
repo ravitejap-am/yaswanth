@@ -24,10 +24,8 @@ function PersonalPlans() {
         Authorization: `Bearer ${jwt}`,
         "Content-Type": "multipart/form-data",
       };
-      const id = 1;
-      const response = await getPlanDetailsById(id, headers);
-    } catch (error) {
-      console.log("error in fetching plan details---->", error);
+      // const id = 1;
+      // const response = await getPlanDetailsById(id, headers);
       const response = {
         Freemium: [
           "Max 2 users",
@@ -47,6 +45,8 @@ function PersonalPlans() {
         },
       ];
       setPlanDetails(modifyData);
+    } catch (error) {
+      console.log("error in fetching plan details---->", error);
     }
   };
 
@@ -65,13 +65,16 @@ function PersonalPlans() {
     },
   ];
 
+
+  console.log("plan details---->",planDetails);
+
   return (
     <Box>
       <Grid container>
         {planDetails?.length > 0 &&
-          planDetails.map((item) => {
+          planDetails.map((item, id) => {
             return (
-              <Grid item xs={12} md={5} lg={4}>
+              <Grid item xs={12} md={5} lg={4} key={id}>
                 <SubscriptionCard
                   item={item}
                   selectedPlan={selectedPlan}

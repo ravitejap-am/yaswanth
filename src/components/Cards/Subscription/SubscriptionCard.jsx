@@ -27,8 +27,9 @@ function SubscriptionCard({ item, selectedPlan, setSelectedPlan, externalHeight 
           <Typography variant="body2">{item.description}</Typography>
         </Box>
 
-        <Box>
-          <p className="Right_Plan_Content_Price">
+        <Box >
+        {
+          <p className="Right_Plan_Content_Price" style={{height:"1rem"}}>
             <span className="price" style={{ color: "black" }}>
               {item.price}
             </span>
@@ -38,11 +39,12 @@ function SubscriptionCard({ item, selectedPlan, setSelectedPlan, externalHeight 
                 color: "gray",
               }}
             >
-              {item.price === "Free" ? "" : "/Month"}
+              {item.price === "Free" ? "" : item.price === "" ? "" : "/Month"}
             </Typography>
           </p>
+        }
         </Box>
-        <Box sx={{ display: "flex", flexDirection: "column", gap: "1em" }}>
+        <Box sx={{ display: "flex", flexDirection: "column", gap: "1em", height: '9em' }}>
           {item?.features?.map((feature, index) => {
             return (
               <Box sx={{ display: "flex", gap: "1em" }}>

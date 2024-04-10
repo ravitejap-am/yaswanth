@@ -12,60 +12,77 @@ import {
 } from '@mui/material';
 import SubscriptionCard from '../../../../components/Cards/Subscription/SubscriptionCard';
 
-const subscription = [
-  {
-    title: 'Freemium',
-    description:
-      'Revolutionize keywords search into your document with our free plan.',
-    price: 'Free',
-    features: [
-      'Max 2 users',
-      'Max 5 Documents',
-      'Upload size 2 MB',
-      'Max 10 chats free',
-    ],
-  },
-  {
-    title: 'Standard',
-    description:
-      'Best fit for organisation with 50 to 100 users or 10 to 50 users. ',
-    price: '99.99',
-    features: [
-      'Max 50 users',
-      'Max 5 Documents',
-      'Upload size 5 MB',
-      'Max 100 chats free',
-    ],
-  },
-  {
-    title: 'Enterprise',
-    description: 'For details about this plan, please press the button below.',
-    price: '999.99',
-    features: [
-      'Max 100 users',
-      'Max 50 Documents',
-      'Upload size 50 MB',
-      'Max 1000 chats free',
-    ],
-  },
-];
 
 function SubscriptionPlan({ personalInformationHandler }) {
   const [selectedPlan, setSelectedPlan] = useState('Freemium');
   const [subscriptionItems, setSubscriptionItems] = useState();
   const isMobile = useMediaQuery('(max-width:600px)');
+  const [planDetails, setPlanDetails] = useState([])
 
   useEffect(() => {
-    getSubscriptionDetails();
+    // getSubscriptionDetails();
+    fetchPlanDetails()
   }, []);
 
-  const getSubscriptionDetails = () => {
-    // axios.get().then(()=>{}).catch(()=>{})
-    setSubscriptionItems(subscription);
-  };
+  // const getSubscriptionDetails = () => {
+  //   setSubscriptionItems(subscription);
+  // };
 
   const handlePlanSelection = (plan) => {
     setSelectedPlan(plan);
+  };
+
+
+  const fetchPlanDetails = async () => {
+    console.log("fetching plan details---->");
+    try {
+      const headers = {
+        "Content-Type": "application/json",
+      };
+
+      const response = await getPlanDetails(headers);
+    } catch (error) {
+      console.log("error in fetching plan details---->", error);
+      const response = {
+        Freemium: [
+          "Max 2 users",
+          "Max 5 Documents",
+          "Upload size 2 MB",
+          "Max 10 chats free",
+        ],
+        Standard: [
+          "Max 50 users",
+          "Max 20 Documents",
+          "Upload size 5 MB",
+          "Max 100 Chats per user per day",
+        ],
+        Enterprise: [],
+      };
+
+      const subscription = [
+        {
+          title: 'Freemium',
+          description:
+            'Start exploring knowledge hidden in your organisational content using GenAI based.',
+          price: 'Free',
+          features: response['Freemium']
+        },
+        {
+          title: 'Standard',
+          description:
+            'Revolutionise how you interact with your organisational data.',
+          price: '$9.99',
+          features: response['Standard']
+        },
+        {
+          title: 'Enterprise',
+          description: "Please reach out to our sales team at sales@areteminds.com", 
+          price: '',
+          features: response['Enterprise']
+        },
+      ];
+      setPlanDetails(subscription);
+    }
   };
 
   return (
@@ -78,9 +95,9 @@ function SubscriptionPlan({ personalInformationHandler }) {
       }}
     >
       <Grid container spacing={2}>
-        {subscriptionItems?.map((item) => {
+        {planDetails?.map((item, index) => {
           return (
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={4} id={index}>
               <SubscriptionCard
                 item={item}
                 selectedPlan={selectedPlan}
@@ -100,7 +117,7 @@ function SubscriptionPlan({ personalInformationHandler }) {
         }}
       >
         <Button
-          style={{ marginTop: '1em', width: '8em' }}
+          style={{ marginTop: '1em', width: '7.6em' }}
           onClick={() => {
             personalInformationHandler('personalinformation');
           }}

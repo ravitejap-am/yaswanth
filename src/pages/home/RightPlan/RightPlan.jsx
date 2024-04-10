@@ -246,10 +246,9 @@ function RightPlan() {
             </div>
 
             <div>
-              <p class="Right_Plan_Content_Price">
-                <span class="price">$ 9.99</span>
+              <p class="Right_Plan_Content_Price" style={{height:'1rem'}}>
+                <span class="price"></span>
                 <Typography variant="caption" className="per-month">
-                  /Month
                 </Typography>
               </p>
             </div>
