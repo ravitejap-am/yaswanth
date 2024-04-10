@@ -79,7 +79,7 @@ function Dashboard() {
 
   const getDocumentsCount = async () => {
     try {
-      const response = await axios.get(`${BASE_DOC_API_URL}/total`, {
+      const response = await axios.get(`${BASE_DOC_API_URL}total`, {
         headers: {
           Authorization: `Bearer ${jwt}`,
         },
