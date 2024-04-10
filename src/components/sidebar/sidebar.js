@@ -244,7 +244,7 @@ export const sideBar = (
               <Typography variant="h6">Sessions</Typography>
               <Box
                 sx={{
-                  height: '45%',
+                  height: '30%',
                   overflowY: 'auto',
                 }}
                 className="chat_history"

@@ -569,8 +569,8 @@ function Chats() {
                 </Box>
               </Box>
               <Box>
-                <Grid container spacing={2}>
-                  {defaultQuestions?.length > 0 && defaultQuestions.map((questions, index) => (
+                {searchOption === "specificFileText" &&  <Grid container spacing={2}>
+                  { defaultQuestions?.length > 0 && defaultQuestions.map((questions, index) => (
                     <Grid
                       item
                       xs={12}
@@ -592,7 +592,7 @@ function Chats() {
                       </Typography>
                     </Grid>
                   ))}
-                </Grid>
+                </Grid>}
               </Box>
             </Box>
           )}

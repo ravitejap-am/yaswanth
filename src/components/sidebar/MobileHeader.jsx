@@ -5,7 +5,7 @@ import { Layout, Menu, Grid, Drawer } from 'antd';
 import { navLinks } from './sidebar';
 import { Link } from 'react-router-dom';
 import AddIcon from '@mui/icons-material/Add';
-import { getChatSessions } from '../../apiCalls/ApiCalls';
+import { getChatSessions , getIndividualChatSessions} from '../../apiCalls/ApiCalls';
 
 function MobileHeader(props) {
   const {
@@ -22,7 +22,9 @@ function MobileHeader(props) {
     isNewChat,
     jwt,
     setSessionHandler,
-    fetchSessionList
+    fetchSessionList,
+    setPageLoading,
+    pageLoading
   } = props;
   console.log('role', role, 'patname', pathname);
   const [visible, setVisible] = useState(false);
@@ -32,72 +34,41 @@ function MobileHeader(props) {
   const onClose = () => {
     setVisible(false);
   };
-  const handleAddChat = () => {
-    if (isNewChat) {
-      setChatHistory([
-        ...chatHistory,
-        {
-          session_title: 'chat one title for chat adress ',
-          data: [],
-          id: chatHistory.length + 1,
-        },
-      ]);
-      // setIsChatOpen(!isChatOpen);
-      // setMessageSent(false);
-      // setIsNewChat(false);
-      // setQuestionIndex(0);
-      // setQuestions([]);
-      // onClose();
+
+  const handleAddChat =async () => {
+    try{
+      console.log("is new chat--->",isNewChat);
+      onClose()
+      if (isNewChat) {
+        fetchSessionList()
+      }
+
+      setIsChatOpen(!isChatOpen);
+      setMessageSent(false);
+      setIsNewChat(false);
+      setQuestionIndex(0);
+      setQuestions([]);
+      setSessionId("")
+      console.error('please add the chat');
+    }catch(error){
+      console.log("error in fetching chat session list",error);
     }
-    console.error('please add the chat');
-    setIsChatOpen(!isChatOpen);
-    setMessageSent(false);
-    setIsNewChat(false);
-    setQuestionIndex(0);
-    setQuestions([]);
-    onClose();
   };
+
   const showPreviousChats = async (id) => {
-    onClose();
+    onClose()
     try {
       console.log('previous chats id---->', id);
+      
       const headers = {
         Authorization: `Bearer ${jwt}`,
-        'Content-Type': 'multipart/form-data',
       };
-
-      const response = await getChatSessions(headers, id);
-      console.log('response--->', response);
-      setSessionHandler(id);
-    } catch (error) {
-      console.log('throwing error in chat');
-      const response = {
-        data: [
-          {
-            created_at: 'Mon, 25 Mar 2024 10:54:30 GMT',
-            doc_name: 'Invoice-899B3FD6-0001.pdf',
-            id: 3,
-            query: 'When is it due?',
-            response: 'It is due on March 7, 2023.',
-          },
-          {
-            created_at: 'Mon, 25 Mar 2024 10:54:12 GMT',
-            doc_name: 'Invoice-899B3FD6-0001.pdf',
-            id: 2,
-            query: 'When is it due?',
-            response: 'The amount is due on March 7, 2023.',
-          },
-        ],
-        pagination: {
-          page: 1,
-          per_page: 10,
-          total_count: 2,
-          total_pages: 1.2,
-        },
-      };
-
+      setPageLoading(true)
+      const response = await getIndividualChatSessions(id, headers);
+      
+      console.log('response--->12', response);
       const modifiedData = response?.data;
-      const changedData = modifiedData.map((data, index) => {
+      const changedData = modifiedData?.data.map((data, index) => {
         return {
           questionId: index,
           question: data?.query,
@@ -109,9 +80,15 @@ function MobileHeader(props) {
       setQuestionIndex(changedData?.length);
       setQuestions(changedData);
       setMessageSent(true);
-      setSessionHandler(id);
+      setSessionId(id)
+      setPageLoading(false)
+      // setSessionHandler(id);
+    } catch (error) {
+      console.log('throwing error in chat');
+      setPageLoading(false)
     }
   };
+
   return (
     <Box
       sx={{
