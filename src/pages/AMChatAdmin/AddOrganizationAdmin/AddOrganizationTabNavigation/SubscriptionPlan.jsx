@@ -11,6 +11,7 @@ import {
   useMediaQuery,
 } from '@mui/material';
 import SubscriptionCard from '../../../../components/Cards/Subscription/SubscriptionCard';
+import { getPlanDetails } from '../../../../apiCalls/ApiCalls'; 
 
 
 function SubscriptionPlan({ personalInformationHandler }) {

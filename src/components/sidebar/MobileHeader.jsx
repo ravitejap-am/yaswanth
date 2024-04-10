@@ -24,7 +24,9 @@ function MobileHeader(props) {
     setSessionHandler,
     fetchSessionList,
     setPageLoading,
-    pageLoading
+    pageLoading,
+    setSessionId,
+    sessionId
   } = props;
   console.log('role', role, 'patname', pathname);
   const [visible, setVisible] = useState(false);
