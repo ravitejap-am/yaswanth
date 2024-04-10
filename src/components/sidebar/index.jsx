@@ -16,6 +16,7 @@ import { useChat } from '../../contexts/provider/ChatContext';
 import { Layout, Menu, Grid, Drawer } from 'antd';
 import { UseDispatch } from 'react-redux';
 import MobileHeader from './MobileHeader';
+import { getSessionList } from '../../apiCalls/ApiCalls';
 
 function Sidebar() {
   const { useBreakpoint } = Grid;
@@ -37,11 +38,55 @@ function Sidebar() {
     setQuestions,
     messageSent,
     setMessageSent,
+    sessionId,
+    setSessionId
   } = useChat();
 
   const [visible, setVisible] = useState(false);
   const user = useSelector(selectUser);
   const jwt = user.userToken;
+
+
+  useEffect(() => {
+    fetchSessionList()
+  }, [])
+
+  const extractQuestion = (data) => {
+    const regex = /:(.*?):$/;
+    console.log("data--->");
+    const match = data.match(regex);
+    
+    console.log("match---->",match);
+    if (match && match.length > 1) {
+      const extractedText = match[1];
+      console.log("extractedText--->",extractedText); 
+      return extractedText ; 
+    } else {
+      console.log("No match found.");
+    }
+  }
+  
+
+  const fetchSessionList =async () => {
+    try{
+      const headers = { Authorization: `Bearer ${jwt}` };
+      console.log("headers---->",headers);
+      const response = await getSessionList(headers)
+      const fetchChatSessions = response?.data?.data
+      console.log("fetchChatSessions---->",fetchChatSessions);
+      const modifyData = fetchChatSessions.map((data) => {
+        return {
+          session_title: data?.session_title,
+          // data: [],
+          id: data?.id, 
+        }
+      })
+      console.log("modified data---->",modifyData);
+      setChatHistory(modifyData)
+    }catch(error){
+      console.log("error in fetching session list", error);
+    }
+  }
 
   const setSessionHandler = (id) => {
     dispatch(setChatSessionId(id));
@@ -60,7 +105,12 @@ function Sidebar() {
     isNewChat: isNewChat,
     jwt: jwt,
     setSessionHandler: setSessionHandler,
+    setSessionId: setSessionId,
+    sessionId: sessionId,
+    fetchSessionList: fetchSessionList
   };
+
+
   return (
     <>
       <Hidden smDown>
@@ -136,7 +186,10 @@ function Sidebar() {
                 user,
                 jwt,
                 messageSent,
-                setMessageSent
+                setMessageSent,
+                sessionId,
+                setSessionId,
+                fetchSessionList
               )}
             </Box>
           </Box>

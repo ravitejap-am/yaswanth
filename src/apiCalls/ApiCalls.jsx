@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useState } from 'react';
 
 // import {   GET_ACTIVE_USERS } from './Constants';
-import { UPDATE_ADMIN_USER, USER_PROFILE,GET_ACTIVE_USERS, CHAT, CHAT_OF_SESSION, PLAN_DETAILS, PLAN_DETAILS_BY_ID, LIST_OF_CHAT_SESSIONS, DEFAULT_QUESTIONS, INDIVIDUAL_SESSION_CHAT } from '../constants/Constant';
+import { UPDATE_ADMIN_USER, USER_PROFILE,GET_ACTIVE_USERS, CHAT, CHAT_OF_SESSION, PLAN_DETAILS, PLAN_DETAILS_BY_ID, LIST_OF_CHAT_SESSIONS, DEFAULT_QUESTIONS, INDIVIDUAL_SESSION_CHAT, USAGE_SUBSCRIPTION } from '../constants/Constant';
 
 export const getUserProfileDetails = async (userId, headers) => {
   try {
@@ -47,13 +47,10 @@ export const getActiveUserList = async ( headers) => {
 
 export const getChatResponse = async (body, headers) => {
   try {
-    console.log("body--->",body);
-    console.log("headers--->",headers);
     const data = await axios.post(
       `${CHAT}`,
        body, {headers: headers}
     );
-    console.log("chat data---->",data);
     return data;
   } catch (error) {
     console.log('Failed to get amchat response.', error);
@@ -105,12 +102,10 @@ export const getPlanDetailsById = async (id, headers) => {
 
 export const getSessionList = async (headers) => {
   try {
-    console.log("headers in session list",headers);
     const data = await axios.get(
       `${LIST_OF_CHAT_SESSIONS}`,
       {headers: headers}
     );
-    console.log("session data---->",data);
     return data;
   } catch (error) {
     console.log('Failed to get session list', error);
@@ -120,12 +115,10 @@ export const getSessionList = async (headers) => {
 
 export const getQuestions = async (headers) => {
   try {
-    console.log("headers---->",headers);
     const data = await axios.get(
       `${DEFAULT_QUESTIONS}`,
       {headers: headers}
     );
-    console.log("questions data---->",data);
     return data;
   } catch (error) {
     console.log('Failed to get questions', error);
@@ -134,9 +127,8 @@ export const getQuestions = async (headers) => {
 };
 
 
-export const getIndividualChatSessions = async (headers, id) => {
+export const getIndividualChatSessions = async (id, headers) => {
   try {
-    console.log("headers---->",headers);
     const data = await axios.get(
       `${INDIVIDUAL_SESSION_CHAT}${id}`,
       {headers: headers }
@@ -145,5 +137,19 @@ export const getIndividualChatSessions = async (headers, id) => {
   } catch (error) {
     console.log('Failed to get questions', error);
     throw new Error('Failed to get questions');
+  }
+};
+
+
+export const getUsageSubscription = async (headers) => {
+  try {
+    const data = await axios.get(
+      USAGE_SUBSCRIPTION,
+      {headers: headers }
+    );
+    return data;
+  } catch (error) {
+    console.log('Failed to get usage subscription details in dashboard', error);
+    throw new Error('Failed to get usage subscription details in dashboard');
   }
 };

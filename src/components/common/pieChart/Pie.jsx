@@ -3,6 +3,7 @@ import * as echarts from "echarts";
 import { Box } from "@mui/material";
 
 const Pie = ({ selectedTypeValue }) => {
+  console.log("selectedTypeValue----->",selectedTypeValue);
   useEffect(() => {
     const chartDom = document.getElementById("pie");
     const myChart = echarts.init(chartDom);
@@ -30,8 +31,8 @@ const Pie = ({ selectedTypeValue }) => {
         }
       },
       legend: {
-        orient: "vertical",
-        left: "right",
+        orient: "horizontal",
+        bottom: 10, 
       },
       series: [
         {
@@ -43,6 +44,10 @@ const Pie = ({ selectedTypeValue }) => {
             show: false,
             position: "center",
           },
+          // label: {
+          //   show: true, 
+          //   formatter: '{b}: {d}%', 
+          // },
           labelLine: {
             show: false,
           },

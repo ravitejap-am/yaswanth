@@ -28,8 +28,8 @@ const Bar = ({ dateList }) => {
         }
       },
       legend: {
-        orient: "vertical",
-        left: "right",
+        orient: "horizontal",
+        bottom: 10, 
       },
       toolbox: {
         show: false,
@@ -57,11 +57,19 @@ const Bar = ({ dateList }) => {
           name: "Chat Counts",
           type: "bar",
           data: xAxisData.map((date) => dateList[date].chat_count),
+          // label: {
+          //   show: true, 
+          //   position: 'top', 
+          // },
         },
         {
           name: "Session Counts",
           type: "bar",
           data: xAxisData.map((date) => dateList[date].session_count),
+          // label: {
+          //   show: true, 
+          //   position: 'top', 
+          // },
         },
       ],
       graphic: [

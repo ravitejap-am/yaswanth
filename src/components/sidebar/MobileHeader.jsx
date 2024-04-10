@@ -22,6 +22,7 @@ function MobileHeader(props) {
     isNewChat,
     jwt,
     setSessionHandler,
+    fetchSessionList
   } = props;
   console.log('role', role, 'patname', pathname);
   const [visible, setVisible] = useState(false);

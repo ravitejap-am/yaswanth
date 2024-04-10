@@ -18,6 +18,7 @@ export const ChatProvider = ({ children }) => {
   const [questionIndex, setQuestionIndex] = useState(0)
   const [questions, setQuestions] = useState([]);
   const [messageSent, setMessageSent] = useState(false);
+  const [sessionId, setSessionId] = useState("")
 
 
   // useEffect(() => {
@@ -55,7 +56,9 @@ export const ChatProvider = ({ children }) => {
         messageSent,
         setIsNewChat, 
         setMessageSent,
-        messageSent
+        messageSent,
+        sessionId,
+        setSessionId
       }}
     >
       {children}

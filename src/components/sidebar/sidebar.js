@@ -12,7 +12,7 @@ import AddIcon from '@mui/icons-material/Add';
 import './sidebarIndex.css';
 import { Layout, Menu, Grid, Drawer } from 'antd';
 import WorkHistoryIcon from '@mui/icons-material/WorkHistory';
-import { getChatSessions, getSessionList } from '../../apiCalls/ApiCalls';
+import { getIndividualChatSessions, getSessionList } from '../../apiCalls/ApiCalls';
 
 const ORG_ADMIN = [
   {
@@ -90,28 +90,26 @@ export const sideBar = (
   user,
   jwt,
   messageSent,
-  setMessageSent
+  setMessageSent,
+  setSessionId,
+  sessionId,
+  fetchSessionList
 ) => {
+
+
+
+
   const handleAddChat =async () => {
     try{
+      console.log("is new chat--->",isNewChat);
       if (isNewChat) {
-        const headers = { Authorization: `Bearer ${jwt}` };
-        console.log("headers---->",headers);
-        const fetchChatSessions = await getSessionList(headers)
-        console.log("fetchChatSessions---->",fetchChatSessions);
-        // setChatHistory([
-        //   ...chatHistory,
-        //   {
-        //     session_title: 'chat one title for chat adress',
-        //     data: [],
-        //     id: chatHistory.length + 1,
-        //   },
-        // ]);
+        fetchSessionList()
         setIsChatOpen(!isChatOpen);
         setMessageSent(false);
         setIsNewChat(false);
         setQuestionIndex(0);
         setQuestions([]);
+        setSessionId("")
       }
       console.error('please add the chat');
     }catch(error){
@@ -127,41 +125,12 @@ export const sideBar = (
       console.log('previous chats id---->', id);
       const headers = {
         Authorization: `Bearer ${jwt}`,
-        'Content-Type': 'multipart/form-data',
       };
-
-      const response = await getChatSessions(headers, id);
-      console.log('response--->', response);
-      setSessionHandler(id);
-    } catch (error) {
-      console.log('throwing error in chat');
-      const response = {
-        data: [
-          {
-            created_at: 'Mon, 25 Mar 2024 10:54:30 GMT',
-            doc_name: 'Invoice-899B3FD6-0001.pdf',
-            id: 3,
-            query: 'When is it due?',
-            response: 'It is due on March 7, 2023.',
-          },
-          {
-            created_at: 'Mon, 25 Mar 2024 10:54:12 GMT',
-            doc_name: 'Invoice-899B3FD6-0001.pdf',
-            id: 2,
-            query: 'When is it due?',
-            response: 'The amount is due on March 7, 2023.',
-          },
-        ],
-        pagination: {
-          page: 1,
-          per_page: 10,
-          total_count: 2,
-          total_pages: 1.2,
-        },
-      };
-
+      const response = await getIndividualChatSessions(id, headers);
+      
+      console.log('response--->12', response);
       const modifiedData = response?.data;
-      const changedData = modifiedData.map((data, index) => {
+      const changedData = modifiedData?.data.map((data, index) => {
         return {
           questionId: index,
           question: data?.query,
@@ -173,7 +142,10 @@ export const sideBar = (
       setQuestionIndex(changedData?.length);
       setQuestions(changedData);
       setMessageSent(true);
-      setSessionHandler(id);
+      setSessionId(id)
+      // setSessionHandler(id);
+    } catch (error) {
+      console.log('throwing error in chat');
     }
   };
 
@@ -294,6 +266,7 @@ export const sideBar = (
                         }}
                         onClick={() => {
                           showPreviousChats(item.id);
+                          // setSessionId(item.id)
                         }}
                       >
                         {item?.session_title}
@@ -326,6 +299,7 @@ export const sideBar = (
                         key={index}
                         onClick={() => {
                           showPreviousChats(item.id);
+                          // setSessionId(item.id)
                           // setSessionHandler(item.id);
                         }}
                       >

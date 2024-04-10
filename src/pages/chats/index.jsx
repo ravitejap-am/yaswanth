@@ -32,6 +32,7 @@ import Vector from "../../asset/Vector.png";
 import * as constants from "../../constants/Constant";
 import axios from "axios";
 import { CHAT } from "../../constants/Constant"; 
+import PageLoader from "../../components/loader/loader";
 
 function Chats() {
   const {
@@ -45,10 +46,12 @@ function Chats() {
     setQuestions,
     messageSent,
     setMessageSent,
+    sessionId,
+    setSessionId
   } = useChat();
 
   const [searchOption, setSearchOption] = useState("specificFileText");
-  const [selectedFile, setSelectedFile] = useState("1012");
+  const [selectedFile, setSelectedFile] = useState("");
   const [inputValue, setInputValue] = useState("");
 
   const [loading, setLoading] = useState(false);
@@ -71,6 +74,7 @@ function Chats() {
     totalPages: null,
   });
   const [defaultQuestions, setDefaultQuestions] = useState([])
+  const [pageLoading, setPageLoading] = useState(false)
 
   useEffect(() => {
     setQuestions([]);
@@ -172,6 +176,7 @@ function Chats() {
   };
 
   const handleSend = async () => {
+    console.log("session id---->",sessionId);
     try {
       setLoading(true);
       if (inputValue.trim() !== "") {
@@ -185,75 +190,72 @@ function Chats() {
           answerData: false,
         };
         const body = {
-          doc_name: "Invoice-899B3FD6-0001.pdf",
+          doc_name:"",
+          // doc_name: selectedFile,
           query: inputValue,
-          session_id: "",
-          across: searchOption === "specificFileText" ? false : true
+          session_id: `${sessionId}`,
+          // across: searchOption === "specificFileText" ? false : true
+          across: true
         };
         const headers = {
           Authorization: `Bearer ${jwt}`,
           'Content-Type': 'application/json',
         };
         const updatedQuestionAndAnswer = [...questions, modifyData];
-        // const response = await getChatResponse(body, headers);
-        const response = await fetch(
-          `${CHAT}`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${jwt}`,
-              "Access-Control-Allow-Origin": '*'
-            },
-            body: JSON.stringify(body),
-          }
-        );
-
+        setQuestions(updatedQuestionAndAnswer);
+        setErrorMessage("");
+        setInputValue("");
+        const response = await getChatResponse(body, headers);
 
         console.log("chat response---->",response);
-        updatedQuestionAndAnswer[questionIndex].answer = response?.response;
+        updatedQuestionAndAnswer[questionIndex].answer = response?.data?.response;
         updatedQuestionAndAnswer[questionIndex].answerData = true;
         setQuestions(updatedQuestionAndAnswer);
-        // setQuestionIndex(questionIndex + 1)
-
+        setQuestionIndex(questionIndex + 1)
+        if(response?.data?.session_id){
+          setSessionId(response?.data?.session_id)
+        }
         setMessageSent(true);
         setLoading(false);
       }
     } catch (error) {
-      setLoading(true);
-      let modifyData = {
-        questionId: questionIndex,
-        question: inputValue,
-        answer: "",
-        answerData: false,
-      };
-      const updatedQuestionAndAnswer = [...questions, modifyData];
-      setQuestions(updatedQuestionAndAnswer);
-      console.log("showing error");
-      setTimeout(() => {
-        const response = {
-          doc_name: "Invoice-899B3FD6-0001.pdf",
-          query: "When is it due?",
-          response: "It is due on March 7, 2023.",
-          session_id: 10003,
-          session_title: "",
-        };
-        setErrorMessage("");
-        console.log("question index--->", questionIndex);
-        setInputValue("");
-        setLoading(false);
-        updatedQuestionAndAnswer[questionIndex].answer = response?.response;
-        updatedQuestionAndAnswer[questionIndex].answerData = true;
-        setQuestions(updatedQuestionAndAnswer);
-        setQuestionIndex(questionIndex + 1);
-        setMessageSent(true);
-      }, 1000);
-      console.error("Error fetching data:", error);
+      setLoading(false)
+      console.log("error in fetching chat response--->",error);
+      // setLoading(true);
+      // let modifyData = {
+      //   questionId: questionIndex,
+      //   question: inputValue,
+      //   answer: "",
+      //   answerData: false,
+      // };
+      // const updatedQuestionAndAnswer = [...questions, modifyData];
+      // setQuestions(updatedQuestionAndAnswer);
+      // console.log("showing error");
+      // setTimeout(() => {
+      //   const response = {
+      //     doc_name: "Invoice-899B3FD6-0001.pdf",
+      //     query: "When is it due?",
+      //     response: "It is due on March 7, 2023.",
+      //     session_id: 10003,
+      //     session_title: "",
+      //   };
+      //   setErrorMessage("");
+      //   console.log("question index--->", questionIndex);
+      //   setInputValue("");
+      //   setLoading(false);
+      //   updatedQuestionAndAnswer[questionIndex].answer = response?.response;
+      //   updatedQuestionAndAnswer[questionIndex].answerData = true;
+      //   setQuestions(updatedQuestionAndAnswer);
+      //   setQuestionIndex(questionIndex + 1);
+      //   setMessageSent(true);
+      // }, 1000);
+      // console.error("Error fetching data:", error);
     }
   };
 
   const fetchQuestions = async () => {
     try {
+      setPageLoading(true)
       const headers = {
         Authorization: `Bearer ${jwt}`,
       };
@@ -261,16 +263,16 @@ function Chats() {
       const response = await getQuestions(headers);
       console.log("question response---->", response);
       setDefaultQuestions(response?.data?.data)
+      setPageLoading(false)
     } catch (error) {
       console.log("error in fetching questions");
+      setPageLoading(false)
     }
   };
 
   const fetchDocuments = async () => {
-    // setLoading(true);
     try {
-      console.log("api called");
-      // setTableLoading(true);
+      setPageLoading(true)
       const documentUrl = `${constants.BASE_DOC_API_URL}`;
       console.log("documentUrl---->", documentUrl);
       const response = await axios.get(documentUrl, {
@@ -303,26 +305,13 @@ function Chats() {
         totalCount: response?.data?.totalCount,
         totalPages: response?.data?.totalPages,
       });
-      // setLoading(false);
-      // setTableLoading(false);
+      setPageLoading(false)
     } catch (error) {
       setDocuments([]);
-      // setTableLoading(false);
+      setPageLoading(false)
       console.error("Error fetching documents:", error.message);
     }
   };
-
-  // const defaultQuestions = isMobile
-  //   ? [
-  //       "Can you tell me what's wrong in my lab reports?",
-  //       "Can you explain me the quantum?",
-  //     ]
-  //   : [
-  //       "Could you help me with the maternity policy of my organisation?",
-  //       "Can you tell me about GDPR compliance.  Which I should follow in my organisation?",
-  //       "Can you tell me what's wrong in my lab reports?",
-  //       "Can you explain me the quantum?",
-  //     ];
 
   const handleSuggestionClick = (question) => {
     setInputValue(question);
@@ -380,6 +369,7 @@ function Chats() {
 
   return (
     <Layout componentName="Chat">
+      {pageLoading && <PageLoader loadingStatus={pageLoading} />}
       <Box
         sx={{
           height: isMobile ? "83%" : "85%",

@@ -30,6 +30,7 @@ import Bar from "../../../components/common/barChart/Bar";
 import Pie from "../../../components/common/pieChart/Pie";
 import CommonDatePicker from "../../../components/common/date-picker/CommonDatePicker";
 import { pieRaw_data, barRaw_data } from "../../../constants/RawData";
+import { getUsageSubscription } from "../../../apiCalls/ApiCalls"; 
 
 function Dashboard() {
   const user = useSelector(selectUser);
@@ -248,6 +249,16 @@ function Dashboard() {
     return filter;
   };
 
+  const fetchUsageSubscriptionDetails =async () => {
+    try{
+      const headers = { Authorization: `Bearer ${jwt}` };
+      // const response = await getUsageSubscription(headers)
+      const response = pieRaw_data
+    }catch(error){
+      console.log("error in fetching usage subscription details-->",error);
+    }
+  }
+
   useEffect(() => {
     if (userRole === "SUPER_ADMIN") {
       getOrganisationCount();
@@ -256,6 +267,7 @@ function Dashboard() {
       fetchActiveUserCount();
       fetchOrgChatSession();
       fetchDocumentCount();
+      fetchUsageSubscriptionDetails()
       setToShowPie(pieRaw_data[selectedValue]);
       setToShowBar(filteredData(startDate, endDate, barRaw_data));
     } else {
@@ -343,7 +355,7 @@ function Dashboard() {
               }}
             >
               <Typography variant="h6" fontWeight="bold">
-                Subscription Details
+                Usage/Subscription
               </Typography>
               <FormControl
                 sx={{
@@ -354,7 +366,6 @@ function Dashboard() {
                 <Select
                   id="demo-select-small"
                   value={selectedValue}
-                  // label="Filter"
                   onChange={(e) => handleChange(e)}
                 >
                   <MenuItem value="chat">Chat</MenuItem>
@@ -364,10 +375,67 @@ function Dashboard() {
                 </Select>
               </FormControl>
             </Box>
-            <Pie selectedTypeValue={toShowPie} />
+            <Pie selectedTypeValue={pieRaw_data[selectedValue]} />
           </Grid>
-          {/* <Grid item sm={12} md={6} lg={4}>
-            <OrgChatSession activeUserList={orgChatSessionList} />
+          {/* <Grid item sm={12} md={6} lg={6}>
+            <Box
+              sx={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: "1rem",
+                justifyContent: {
+                  xs: "center",
+                  sm: "space-between",
+                  lg: "space-between",
+                  md: "space-between",
+                },
+              }}
+            >
+              <Typography variant="h6" fontWeight="bold">
+                Usage/Subscription
+              </Typography>
+            </Box>
+            <Pie selectedTypeValue={pieRaw_data["users"]} />
+          </Grid>
+          <Grid item sm={12} md={6} lg={6}>
+            <Box
+              sx={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: "1rem",
+                justifyContent: {
+                  xs: "center",
+                  sm: "space-between",
+                  lg: "space-between",
+                  md: "space-between",
+                },
+              }}
+            >
+              <Typography variant="h6" fontWeight="bold">
+                Usage/Subscription
+              </Typography>
+            </Box>
+            <Pie selectedTypeValue={pieRaw_data["documents"]} />
+          </Grid>
+          <Grid item sm={12} md={6} lg={6}>
+            <Box
+              sx={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: "1rem",
+                justifyContent: {
+                  xs: "center",
+                  sm: "space-between",
+                  lg: "space-between",
+                  md: "space-between",
+                },
+              }}
+            >
+              <Typography variant="h6" fontWeight="bold">
+                Usage/Subscription
+              </Typography>
+            </Box>
+            <Pie selectedTypeValue={pieRaw_data["documents_size"]} />
           </Grid> */}
         </Grid>
       )}
