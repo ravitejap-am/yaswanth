@@ -39,7 +39,9 @@ function Sidebar() {
     messageSent,
     setMessageSent,
     sessionId,
-    setSessionId
+    setSessionId,
+    pageLoading,
+    setPageLoading
   } = useChat();
 
   const [visible, setVisible] = useState(false);
@@ -76,12 +78,11 @@ function Sidebar() {
       console.log("fetchChatSessions---->",fetchChatSessions);
       const modifyData = fetchChatSessions.map((data) => {
         return {
-          session_title: data?.session_title,
+          session_title: data?.session_title.split(':')[4],
           // data: [],
           id: data?.id, 
         }
       })
-      console.log("modified data---->",modifyData);
       setChatHistory(modifyData)
     }catch(error){
       console.log("error in fetching session list", error);
@@ -107,7 +108,9 @@ function Sidebar() {
     setSessionHandler: setSessionHandler,
     setSessionId: setSessionId,
     sessionId: sessionId,
-    fetchSessionList: fetchSessionList
+    fetchSessionList: fetchSessionList,
+    pageLoading:pageLoading,
+    setPageLoading: setPageLoading
   };
 
 
@@ -189,7 +192,9 @@ function Sidebar() {
                 setMessageSent,
                 sessionId,
                 setSessionId,
-                fetchSessionList
+                fetchSessionList,
+                pageLoading,
+                setPageLoading
               )}
             </Box>
           </Box>

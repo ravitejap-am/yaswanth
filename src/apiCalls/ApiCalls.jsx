@@ -113,10 +113,10 @@ export const getSessionList = async (headers) => {
   }
 };
 
-export const getQuestions = async (headers) => {
+export const getQuestions = async (headers, id) => {
   try {
     const data = await axios.get(
-      `${DEFAULT_QUESTIONS}`,
+      `${DEFAULT_QUESTIONS}/${id}/questions`,
       {headers: headers}
     );
     return data;

@@ -47,11 +47,13 @@ function Chats() {
     messageSent,
     setMessageSent,
     sessionId,
-    setSessionId
+    setSessionId, 
+    pageLoading,
+    setPageLoading
   } = useChat();
 
   const [searchOption, setSearchOption] = useState("specificFileText");
-  const [selectedFile, setSelectedFile] = useState("");
+  const [selectedFile, setSelectedFile] = useState(1012);
   const [inputValue, setInputValue] = useState("");
 
   const [loading, setLoading] = useState(false);
@@ -74,7 +76,7 @@ function Chats() {
     totalPages: null,
   });
   const [defaultQuestions, setDefaultQuestions] = useState([])
-  const [pageLoading, setPageLoading] = useState(false)
+  // const [pageLoading, setPageLoading] = useState(false)
 
   useEffect(() => {
     setQuestions([]);
@@ -83,9 +85,12 @@ function Chats() {
   }, [isChatOpen]);
 
   useEffect(() => {
-    fetchQuestions();
     fetchDocuments();
   }, []);
+
+  useEffect(() => {
+    fetchQuestions();
+  },[selectedFile])
 
   const scrollToBottom = () => {
     if (scrollContainerRef.current) {
@@ -204,18 +209,18 @@ function Chats() {
         const updatedQuestionAndAnswer = [...questions, modifyData];
         setQuestions(updatedQuestionAndAnswer);
         setErrorMessage("");
-        setInputValue("");
+        setMessageSent(true);
         const response = await getChatResponse(body, headers);
 
         console.log("chat response---->",response);
         updatedQuestionAndAnswer[questionIndex].answer = response?.data?.response;
         updatedQuestionAndAnswer[questionIndex].answerData = true;
+        setInputValue("");
         setQuestions(updatedQuestionAndAnswer);
         setQuestionIndex(questionIndex + 1)
         if(response?.data?.session_id){
           setSessionId(response?.data?.session_id)
         }
-        setMessageSent(true);
         setLoading(false);
       }
     } catch (error) {
@@ -260,7 +265,7 @@ function Chats() {
         Authorization: `Bearer ${jwt}`,
       };
       console.log("headers in api--->", headers);
-      const response = await getQuestions(headers);
+      const response = await getQuestions(headers, selectedFile);
       console.log("question response---->", response);
       setDefaultQuestions(response?.data?.data)
       setPageLoading(false)
@@ -367,6 +372,7 @@ function Chats() {
   }, []);
 
 
+  console.log("documents--->",documents);
   return (
     <Layout componentName="Chat">
       {pageLoading && <PageLoader loadingStatus={pageLoading} />}
@@ -569,11 +575,11 @@ function Chats() {
                       item
                       xs={12}
                       sm={12}
-                      md={6}
-                      lg={6}
-                      xl={6}
+                      md={defaultQuestions?.length === 1 ? 12 : 6}
+                      lg={defaultQuestions?.length === 1 ? 12 : 6}
+                      xl={defaultQuestions?.length === 1 ? 12 : 6}
                       key={index}
-                      style={{ display: "flex" }}
+                      style={{ display: "flex"}}
                     >
                       <Typography
                         variant="caption"

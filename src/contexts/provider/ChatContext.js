@@ -19,6 +19,7 @@ export const ChatProvider = ({ children }) => {
   const [questions, setQuestions] = useState([]);
   const [messageSent, setMessageSent] = useState(false);
   const [sessionId, setSessionId] = useState("")
+  const [pageLoading, setPageLoading] = useState(false)
 
 
   // useEffect(() => {
@@ -58,7 +59,9 @@ export const ChatProvider = ({ children }) => {
         setMessageSent,
         messageSent,
         sessionId,
-        setSessionId
+        setSessionId,
+        pageLoading,
+        setPageLoading
       }}
     >
       {children}

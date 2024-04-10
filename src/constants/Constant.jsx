@@ -34,7 +34,7 @@ export const PLACEHODER_IMAGE = 'https://medicalpublic.s3.amazonaws.com/AMCHAT/U
 export const PLAN_DETAILS = 'https://amchatd1.areteminds.com/api/v1/subscription'
 export const PLAN_DETAILS_BY_ID = PLAN_DETAILS + "?org_id="
 export const LIST_OF_CHAT_SESSIONS = BASE_API_URL_V1 + "/sessions" 
-export const DEFAULT_QUESTIONS = BASE_API_URL_V1 + "/doc/1012/questions"
+export const DEFAULT_QUESTIONS = BASE_API_URL_V1 + "/doc"
 export const CHAT =   BASE_API_URL_V1 + '/query';
 export const INDIVIDUAL_SESSION_CHAT = BASE_API_URL_V1 + "/sessions/query?session="
 export const USAGE_SUBSCRIPTION = "https://amchatd1.areteminds.com/api/v1/subscription?org_id=1"

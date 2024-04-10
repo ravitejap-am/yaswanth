@@ -93,7 +93,9 @@ export const sideBar = (
   setMessageSent,
   setSessionId,
   sessionId,
-  fetchSessionList
+  fetchSessionList,
+  pageLoading,
+  setPageLoading
 ) => {
 
 
@@ -104,13 +106,13 @@ export const sideBar = (
       console.log("is new chat--->",isNewChat);
       if (isNewChat) {
         fetchSessionList()
-        setIsChatOpen(!isChatOpen);
-        setMessageSent(false);
-        setIsNewChat(false);
-        setQuestionIndex(0);
-        setQuestions([]);
-        setSessionId("")
       }
+      setIsChatOpen(!isChatOpen);
+      setMessageSent(false);
+      setIsNewChat(false);
+      setQuestionIndex(0);
+      setQuestions([]);
+      setSessionId("")
       console.error('please add the chat');
     }catch(error){
       console.log("error in fetching chat session list",error);
@@ -123,9 +125,11 @@ export const sideBar = (
   const showPreviousChats = async (id) => {
     try {
       console.log('previous chats id---->', id);
+      
       const headers = {
         Authorization: `Bearer ${jwt}`,
       };
+      setPageLoading(true)
       const response = await getIndividualChatSessions(id, headers);
       
       console.log('response--->12', response);
@@ -143,9 +147,11 @@ export const sideBar = (
       setQuestions(changedData);
       setMessageSent(true);
       setSessionId(id)
+      setPageLoading(false)
       // setSessionHandler(id);
     } catch (error) {
       console.log('throwing error in chat');
+      setPageLoading(false)
     }
   };
 
