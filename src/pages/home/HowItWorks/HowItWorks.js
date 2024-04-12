@@ -13,14 +13,12 @@ import { Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 
 function HowItWorks() {
-
   const scrollToElement = (elementId) => {
     const element = document.getElementById(elementId);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
     }
   };
-
 
   let stepperItems = [
     {
@@ -31,14 +29,25 @@ function HowItWorks() {
       ),
       description: (
         <Typography variant="subtitle2" className="how_to_works_span_text">
-          Reach out to our sales team at sales@areteminds.com or fill up the
-          form given in&nbsp;  
+          Reach out to our sales team at&nbsp;
           <a
-           className="how_to_works_span_text highlight_text"
-           
-           onClick={() => scrollToElement("Contact_Up")}
-          >Contact Us</a>
-           &nbsp;section below. <br />
+            href="mailto:sales@areteminds.com"
+            target="_blank"
+            className="how_to_works_span_text"
+            style={{
+              textDecoration: "underline",
+            }}
+          >
+            sales@areteminds.com
+          </a>
+          &nbsp;or fill up the form given in&nbsp;
+          <a
+            className="how_to_works_span_text highlight_text"
+            onClick={() => scrollToElement("Contact_Up")}
+          >
+            Contact Us
+          </a>
+          &nbsp;section below. <br />
           <br />
         </Typography>
       ),
@@ -46,10 +55,10 @@ function HowItWorks() {
     },
     {
       title: (
-        <Link to="/registeruser" style={{textDecoration: 'underline'}}>
-        <Typography variant="h5" className="Sub_Title_of_how_it_Works">
+        <Link to="/registeruser" style={{ textDecoration: "underline" }}>
+          <Typography variant="h5" className="Sub_Title_of_how_it_Works">
             Sign Up
-        </Typography>
+          </Typography>
         </Link>
       ),
 
@@ -64,7 +73,7 @@ function HowItWorks() {
     },
     {
       title: (
-        <Link to="/signIn" style={{textDecoration: 'underline'}}>
+        <Link to="/signIn" style={{ textDecoration: "underline" }}>
           <Typography variant="h5" className="Sub_Title_of_how_it_Works">
             Sign In
           </Typography>

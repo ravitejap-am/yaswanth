@@ -46,7 +46,7 @@ const Banner = () => {
           </Typography>
         </div>
         <div className={Style.bannerPara}>
-          <Typography variant="body2" gutterBottom mt={3} >
+          <Typography variant="body2" gutterBottom mt={3}  style={{ fontSize: '16px' }}>
             Explore, learn and chat with the knowledge base created from <br />
             your enterprise documents.
           </Typography>

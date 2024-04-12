@@ -27,7 +27,7 @@ function AIChatBot() {
           <Typography variant="h5" className="AI_chat_title">AM-Chat / Gen AI Chatbot</Typography>
         </div>
         <div className="AI_chat_second_heading">
-          <Typography variant="subtitle2" className="AI_chat_secont_title">
+          <Typography variant="subtitle2" className="AI_chat_secont_title" style={{fontSize:'15px'}}>
             Utilize the power of generative AI to interact with your documents.
           </Typography >
         </div>

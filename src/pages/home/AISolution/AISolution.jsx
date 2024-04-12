@@ -49,7 +49,7 @@ function AISolution() {
       </div>
       <br />
       <div className="AI_Solution_title_style2">
-        <Typography variant="body2" >It's completely secured, personalized and scalable.</Typography >
+        <Typography variant="body2" style={{fontSize:'16px'}}>It's completely secured, personalized and scalable.</Typography >
       </div>
       <div className="AI_Solution_Content_Main_Style">
         <div className="AI_Solution_Content_Style">

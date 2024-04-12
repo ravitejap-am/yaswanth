@@ -100,7 +100,7 @@
   color: var(--Neutral-200, #e2e8f0);
   text-align: center;
   font-family: Lato;
-  font-size: 0.875rem;
+  /* font-size: 20px; */
 }
 
 .Right_Plan_below_Content_Sub_Div {
@@ -108,7 +108,7 @@
   align-items: center;
   height: 35px;
 }
-.Right_Plan_Content_Sub_Div {
+/* .Right_Plan_Content_Sub_Div {
   width: 295px;
   color: var(--Neutral-400, #94a3b8);
   font-family: Lato;
@@ -116,7 +116,7 @@
   font-style: normal;
   font-weight: 500;
   line-height: 28px;
-}
+} */
 .Right_Plan_Content_Price {
   color: #ffffff;
   font-family: Montserrat;
@@ -155,9 +155,9 @@
   .Right_Plan_Content {
     width: 260px;
   }
-  .Right_Plan_Content_Sub_Div {
+  /* .Right_Plan_Content_Sub_Div {
     width: 250px;
-  }
+  } */
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
@@ -166,7 +166,7 @@
     text-align: center;
   }
   .Right_Plan_Top_Content_SubTitle {
-    font-size: 14px;
+    font-size: 16px;
     text-align: center;
   }
 }

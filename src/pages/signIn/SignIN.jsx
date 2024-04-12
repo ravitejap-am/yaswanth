@@ -50,7 +50,7 @@ const SignIn = () => {
             navigate('/dashboard');
             break;
           case 'USER':
-            navigate('/chat');
+            navigate('/user');
             break;
           case 'SUPER_ADMIN':
             navigate('/dashboard');

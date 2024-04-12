@@ -6,6 +6,7 @@ import frame from "../../../asset/Frame 1.png";
 import { Typography, useMediaQuery } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { getPlanDetails } from "../../../apiCalls/ApiCalls";
+import PlanCard from "../../../components/PlanCard/PlanCard";
 
 function RightPlan() {
   const [scroll, setScroll] = useState(false);
@@ -27,10 +28,7 @@ function RightPlan() {
       const headers = {
         "Content-Type": "application/json",
       };
-
-      const response = await getPlanDetails(headers);
-    } catch (error) {
-      console.log("error in fetching plan details---->", error);
+      // const response = await getPlanDetails(headers);
       const response = {
         Freemium: [
           "Max 2 users",
@@ -47,6 +45,8 @@ function RightPlan() {
         Enterprise: [],
       };
       setPlanDetails(response);
+    } catch (error) {
+      console.log("error in fetching plan details---->", error);
     }
   };
 
@@ -69,9 +69,13 @@ function RightPlan() {
     }
   };
 
-  console.log("plan details---->", planDetails);
-
-  console.log("freemium details---->", planDetails["Freemium"]);
+  const handleClick = (plan) => {
+    if(plan === "Freemium" ){
+      navigate("/signIn")
+    }else{
+      scrollToElement("Contact_Up")
+    }
+  }
 
   return (
     <div className="Right_Plan_Main_Card">
@@ -88,12 +92,46 @@ function RightPlan() {
           variant="caption"
           mt={2}
           className="Right_Plan_Top_Content_SubTitle"
+          style={{fontSize: isMobile ? '14px' : '16px'}}
         >
           Use one of the plan from below based on your need.
         </Typography>
       </div>
+      
       <div className="Right_Plan_Three_Container">
-        <div className="Right_Plan_Content">
+        <PlanCard 
+          title={"Freemium"}
+          description={"Start exploring knowledge hidden in your organisational content using GenAI based Chatbot."}
+          price={"Free"}
+          handleClick = {()=> handleClick("Freemium")}
+          planDetails={planDetails}
+        />
+        <PlanCard 
+          title={"Standard"}
+          description={"Revolutionise how you interact with your organisational data."}
+          price={"$ 9.99"}
+          handleClick = {()=> handleClick("Standard")}
+          planDetails={planDetails}
+        />
+        <PlanCard 
+          title={"Enterprise"}
+          description={
+          <>
+            Please reach out to our sales team at&nbsp;
+          <a
+            className="how_to_works_span_text highlight_text"
+            style={{cursor: 'pointer'}}
+            onClick={() => scrollToElement("Contact_Up")}
+          >
+            sales@areteminds.com
+          </a>
+          &nbsp;.
+          </>}
+          price={""}
+          handleClick = {()=> handleClick("Enterprise")}
+          planDetails={planDetails}
+        />
+        {/* <div className="Right_Plan_Content">
           <div>
             <Typography
               variant="h5"
@@ -269,7 +307,7 @@ function RightPlan() {
               />
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

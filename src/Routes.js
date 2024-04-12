@@ -81,12 +81,8 @@ const Rout = () => {
           <ProtectedRoute
             element={
               decodedToken?.role == 'SUPER_ADMIN' ||
-              decodedToken?.role == 'USER' ? (
-                // <SearchUIAIChatSidebar />
-                <Chats />
-              ) : decodedToken?.role == 'ORG_ADMIN' ? (
-                <Chats />
-              ) : (
+              decodedToken?.role == 'ORG_ADMIN' ? 
+                <Chats />: (
                 <PageNotFound />
               )
             }
@@ -96,7 +92,15 @@ const Rout = () => {
       ></Route>
 
       <Route exact path="/customerSupport" element={<CustomerSupportPage />} />
-
+      <Route
+        path="/user"
+        element={
+          <ProtectedRoute
+            element={<Chats/>}
+            allowedRoles={['USER']}
+          />
+        }
+      ></Route>
       <Route
         path="/dashboard"
         element={

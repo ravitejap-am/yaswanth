@@ -384,6 +384,8 @@ function DynamicTextComponent({
             )}
           </Box>
         ))}
+      </Box>
+      {/* <Box sx={{ flex: 1 }}></Box> */}
         {!readOnlyMode && <Box
         container
           style={{
@@ -391,7 +393,7 @@ function DynamicTextComponent({
             flexDirection: "row",
             justifyContent: "flex-end",
           }}
-          className= "plus-alignment"
+          // className= "plus-alignment"
         >
           <Tooltip placement="rightTop" title="Add Domain">
             <Button
@@ -423,8 +425,6 @@ function DynamicTextComponent({
             ></Button>
           </Tooltip>
         </Box>}
-      </Box>
-      {/* <Box sx={{ flex: 1 }}></Box> */}
       <Box
         style={{
           display: "flex",

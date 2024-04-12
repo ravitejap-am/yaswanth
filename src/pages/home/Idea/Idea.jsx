@@ -26,7 +26,7 @@ function Idea() {
           organisation
         </Typography>
         <div className="bannerPara">
-          <Typography variant="caption" gutterBottom>
+          <Typography variant="caption" gutterBottom style={{fontSize:'14px'}}>
             Use the knowledge of your organisational documents at your
             fingertips.
             <br /> Upload your organisational documents to a completely secure
@@ -36,14 +36,14 @@ function Idea() {
         <div className="bannerParaUnorderList">
           <div className="bannerPareInnerTextStyle">
             <img src={tickSign} alt="" style={{ marginRight: "10px" }} />
-            <Typography variant="caption" gutterBottom className="">
+            <Typography variant="caption" gutterBottom  style={{fontSize:'14px'}}>
               {" "}
               Your organisational documents are completely secure
             </Typography >
           </div>
           <div className="bannerPareInnerTextStyle">
             <img src={tickSign} alt="" style={{ marginRight: "10px" }} />
-            <Typography variant="caption">
+            <Typography variant="caption" style={{fontSize:'14px'}}>
               Your documents are loaded in a private instance of Gen AI modal
             </Typography >
           </div>
