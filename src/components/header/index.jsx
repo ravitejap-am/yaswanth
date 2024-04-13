@@ -18,48 +18,9 @@ function Header({ componentName, customStyle, navigationRoute }) {
   const jwt = user?.userToken;
   const decodedToken = tokenDecodeJWT(jwt);
   const userId = decodedToken ? decodedToken?.userId : null;
-  const [headerImage, setHeaderImage] = useState(
-    localStorage.getItem('userImageUrl') ?? defaultImage
-  );
+  const headerImage = localStorage.getItem('userImageUrl') ?? defaultImage
+  
   const storedFullName = localStorage.getItem('fullName');
-
-  useEffect(() => {
-    if (userId) {
-      fetchUserProfile();
-    } else {
-      console.log('User ID is missing or invalid');
-    }
-  }, [userId]);
-
-  const fetchUserProfile = async () => {
-    try {
-      const response = await fetch(
-        `${constants.BASE_API_URL}/user/${userId}/getUserProfile`,
-        {
-          headers: {
-            Authorization: `Bearer ${jwt}`,
-          },
-        }
-      );
-      if (!response.ok) {
-        throw new Error('Failed to fetch user profile.');
-      }
-
-      const userData = await response.json();
-
-      const profileImagePath = userData?.data?.user?.profileImagePath;
-      if (profileImagePath) {
-        localStorage.setItem(
-          'userImageUrl',
-          `https://medicalpublic.s3.amazonaws.com/${profileImagePath}`
-        );
-        const fullImagePath = `https://medicalpublic.s3.amazonaws.com/${profileImagePath}`;
-        setHeaderImage(fullImagePath);
-      }
-    } catch (error) {
-      console.error('Error fetching user profile:', error);
-    }
-  };
 
   const handleLogout = () => {
     localStorage.clear();

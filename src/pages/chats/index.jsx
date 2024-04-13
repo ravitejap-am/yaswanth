@@ -54,7 +54,7 @@ function Chats() {
   } = useChat();
 
   const [searchOption, setSearchOption] = useState("specificFileText");
-  const [selectedFile, setSelectedFile] = useState(1012);
+  const [selectedFile, setSelectedFile] = useState(1);
   const [inputValue, setInputValue] = useState("");
 
   const [loading, setLoading] = useState(false);
@@ -90,7 +90,11 @@ function Chats() {
   }, []);
 
   useEffect(() => {
-    fetchQuestions();
+    if(selectedFile === "" || selectedFile === null || typeof selectedFile === "string"){
+      setDefaultQuestions([])
+    }else{
+      fetchQuestions();
+    }
   },[selectedFile])
 
   const scrollToBottom = () => {
@@ -266,6 +270,7 @@ function Chats() {
         Authorization: `Bearer ${jwt}`,
       };
       console.log("headers in api--->", headers);
+      console.log("selectedFile---->",selectedFile);
       const response = await getQuestions(headers, selectedFile);
       console.log("question response---->", response);
       setDefaultQuestions(response?.data?.data)
@@ -357,7 +362,7 @@ function Chats() {
   const handleOkWarning = () => {
     setShowWarning(false);
     setSearchOption("acrossFiles");
-    setSelectedFile("  ");
+    setSelectedFile("");
   };
 
   const handleCancelWarning = () => {

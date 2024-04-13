@@ -15,6 +15,7 @@ import { SetSessionToken } from '../../utils/SessionManager';
 import { Form, Input, Select, Grid, Button } from 'antd';
 import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
 import Logo from '../../asset/images/logo.png';
+import { tokenDecodeJWT } from '../../utils/authUtils'; 
 
 import './sign-in.css';
 import { Box, Typography } from '@mui/material';
@@ -109,6 +110,35 @@ const SignIn = () => {
     return Promise.reject('Please enter a valid email address!');
   };
 
+
+  const fetchUserProfile = async (userId, jwt) => {
+    try {
+      const response = await fetch(
+        `${constants.BASE_API_URL}/user/${userId}/getUserProfile`,
+        {
+          headers: {
+            Authorization: `Bearer ${jwt}`,
+          },
+        }
+      );
+      if (!response.ok) {
+        throw new Error('Failed to fetch user profile.');
+      }
+
+      const userData = await response.json();
+
+      const profileImagePath = userData?.data?.user?.profileImagePath;
+      if (profileImagePath) {
+        localStorage.setItem(
+          'userImageUrl',
+          `https://medicalpublic.s3.amazonaws.com/${profileImagePath}`
+        );
+      }
+    } catch (error) {
+      console.error('Error fetching user profile:', error);
+    }
+  };
+
   const submitHandler = async (values) => {
     if (isSigningIn) return;
 
@@ -127,6 +157,9 @@ const SignIn = () => {
           const jwtToken = response.data.data?.jwtToken;
           if (jwtToken) {
             SetSessionToken(jwtToken);
+            const decodedToken = tokenDecodeJWT(jwtToken);
+            const userId =  decodedToken?.userId
+            fetchUserProfile(userId, jwtToken);
           }
 
           const fetchedUserData = { userToken: jwtToken };
