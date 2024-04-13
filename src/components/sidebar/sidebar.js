@@ -193,7 +193,7 @@ export const sideBar = (
       {(role == 'ORG_ADMIN' || role == 'USER') &&
         (pathname == '/chat' || pathname == '/user') && (
           <Link
-            to="/chat"
+            to= {role == 'ORG_ADMIN' ? "/chat" : '/user'} 
             style={{ textDecoration: 'none' }}
             className="hoverDiv"
           >

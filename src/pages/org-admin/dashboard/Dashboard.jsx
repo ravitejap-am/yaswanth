@@ -154,22 +154,6 @@ function Dashboard() {
     }
   };
 
-  const fetchOrgChatSession = async () => {
-    try {
-      const headers = { Authorization: `Bearer ${jwt}` };
-      const response = await getActiveUserList(headers);
-      console.log("response of active users---->", response);
-      if (response.data?.data) {
-        setOrgChatSessionList(response.data?.data);
-        console.log("fetchOrgChatSession ::", response.data?.data);
-      } else {
-        setOrgChatSessionList([]);
-      }
-    } catch (error) {
-      setOrgChatSessionList([]);
-      console.log("Failed to get active users.", error);
-    }
-  };
 
   const fetchDocumentCount = () => {
     fetch(`${constants.BASE_DOC_API_URL}/${organisationId}`, {
@@ -265,7 +249,6 @@ function Dashboard() {
       getDocumentsCount();
     } else if (userRole === "ORG_ADMIN") {
       fetchActiveUserCount();
-      fetchOrgChatSession();
       fetchDocumentCount();
       fetchUsageSubscriptionDetails()
       setToShowPie(pieRaw_data[selectedValue]);
@@ -300,22 +283,6 @@ function Dashboard() {
       )}
       {userRole === "ORG_ADMIN" && (
         <Grid container spacing={2} className={styles.container}>
-          {/* <Grid item sm={12} md={6} lg={6}>
-            <DashboardCard
-              mainClass={styles.sub}
-              icon={documentIcon1}
-              contentName={"Documents"}
-              contentNumber={documentCount}
-            />
-          </Grid>
-          <Grid item sm={12} md={6} lg={6}>
-            <DashboardCard
-              mainClass={styles.sub}
-              icon={documentIcon2}
-              contentName={"Active Users"}
-              contentNumber={activeUsersCount}
-            />
-          </Grid> */}
           <Grid item sm={12} md={6} lg={6}>
             <Box
               sx={{
@@ -377,66 +344,6 @@ function Dashboard() {
             </Box>
             <Pie selectedTypeValue={pieRaw_data[selectedValue]} />
           </Grid>
-          {/* <Grid item sm={12} md={6} lg={6}>
-            <Box
-              sx={{
-                display: "flex",
-                flexWrap: "wrap",
-                gap: "1rem",
-                justifyContent: {
-                  xs: "center",
-                  sm: "space-between",
-                  lg: "space-between",
-                  md: "space-between",
-                },
-              }}
-            >
-              <Typography variant="h6" fontWeight="bold">
-                Usage/Subscription
-              </Typography>
-            </Box>
-            <Pie selectedTypeValue={pieRaw_data["users"]} />
-          </Grid>
-          <Grid item sm={12} md={6} lg={6}>
-            <Box
-              sx={{
-                display: "flex",
-                flexWrap: "wrap",
-                gap: "1rem",
-                justifyContent: {
-                  xs: "center",
-                  sm: "space-between",
-                  lg: "space-between",
-                  md: "space-between",
-                },
-              }}
-            >
-              <Typography variant="h6" fontWeight="bold">
-                Usage/Subscription
-              </Typography>
-            </Box>
-            <Pie selectedTypeValue={pieRaw_data["documents"]} />
-          </Grid>
-          <Grid item sm={12} md={6} lg={6}>
-            <Box
-              sx={{
-                display: "flex",
-                flexWrap: "wrap",
-                gap: "1rem",
-                justifyContent: {
-                  xs: "center",
-                  sm: "space-between",
-                  lg: "space-between",
-                  md: "space-between",
-                },
-              }}
-            >
-              <Typography variant="h6" fontWeight="bold">
-                Usage/Subscription
-              </Typography>
-            </Box>
-            <Pie selectedTypeValue={pieRaw_data["documents_size"]} />
-          </Grid> */}
         </Grid>
       )}
     </Layout>

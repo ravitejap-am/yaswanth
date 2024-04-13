@@ -50,7 +50,9 @@ function Sidebar() {
 
 
   useEffect(() => {
-    fetchSessionList()
+    if(pathname === "/chat" || pathname === "/user"){
+      fetchSessionList()
+    }
   }, [])
 
   const extractQuestion = (data) => {
