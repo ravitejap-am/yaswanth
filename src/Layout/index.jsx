@@ -33,7 +33,7 @@ function Layout({ children, componentName }) {
 
   return (
     <Box
-    // ref={topRef}
+    ref={topRef}
     sx={{
         background:
           'linear-gradient(114deg,#0f172a 51.52%, #152346 73.32%,#1a2e5e 92.75%)',
@@ -68,7 +68,8 @@ function Layout({ children, componentName }) {
           color: 'black',
           height: {
             lg: '88%',
-            xs: calculatedHeight,
+            // xs: calculatedHeight,
+            xs:"75%",
             md: '88%',
             xl: '88%',
           },
