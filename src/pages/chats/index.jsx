@@ -33,7 +33,7 @@ import * as constants from "../../constants/Constant";
 import axios from "axios";
 import { CHAT } from "../../constants/Constant"; 
 import PageLoader from "../../components/loader/loader";
-import amChatLogo from "../../asset/amChatLogo.png"
+import AMChato from "../../asset/AMChato.png"
 
 function Chats() {
   const {
@@ -532,7 +532,7 @@ function Chats() {
                   }}
                 >
                   <Typography variant="h4" textAlign={"center"}>
-                    <img src={amChatLogo} alt="" className={styles.chatimg} />
+                    <img src={AMChato} alt="" className={styles.chatimg} />
                   </Typography>
                 </Box>
               ) : (
