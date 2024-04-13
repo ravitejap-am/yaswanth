@@ -56,6 +56,7 @@ function Chats() {
     pageLoading,
     setPageLoading,
     setSessionId,
+    fetchSessionList
   } = useChat();
 
   const [searchOption, setSearchOption] = useState('specificFileText');
@@ -272,6 +273,9 @@ function Chats() {
         setQuestionIndex(questionIndex + 1);
         if (response?.data?.session_id) {
           setSessionId(response?.data?.session_id);
+        }
+        if(!sessionId){
+          fetchSessionList()
         }
         setLoading(false);
       }

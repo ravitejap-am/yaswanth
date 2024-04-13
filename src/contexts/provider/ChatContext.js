@@ -5,6 +5,7 @@ import axios from 'axios';
 import { CHAT_GETSESSION } from '../../constants/Constant';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../../store/authSlice';
+import { getSessionList } from '../../apiCalls/ApiCalls'; 
 
 const ChatContext = createContext();
 
@@ -40,6 +41,27 @@ export const ChatProvider = ({ children }) => {
       .catch((error) => console.error(error));
   };
 
+
+  const fetchSessionList = async () => {
+    try {
+      const headers = { Authorization: `Bearer ${jwt}` };
+      console.log('headers---->', headers);
+      const response = await getSessionList(headers);
+      const fetchChatSessions = response?.data?.data;
+      console.log('fetchChatSessions---->', fetchChatSessions);
+      const modifyData = fetchChatSessions.map((data) => {
+        return {
+          session_title: data?.session_title.split(':')[4],
+          // data: [],
+          id: data?.id,
+        };
+      });
+      setChatHistory(modifyData);
+    } catch (error) {
+      console.log('error in fetching session list', error);
+    }
+  };
+
   return (
     <ChatContext.Provider
       value={{
@@ -61,6 +83,7 @@ export const ChatProvider = ({ children }) => {
         pageLoading,
         setPageLoading,
         setSessionId,
+        fetchSessionList
       }}
     >
       {children}

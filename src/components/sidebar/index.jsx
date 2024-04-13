@@ -42,6 +42,7 @@ function Sidebar() {
     pageLoading,
     setPageLoading,
     setSessionId,
+    fetchSessionList
   } = useChat();
 
   const [visible, setVisible] = useState(false);
@@ -69,25 +70,7 @@ function Sidebar() {
     }
   };
 
-  const fetchSessionList = async () => {
-    try {
-      const headers = { Authorization: `Bearer ${jwt}` };
-      console.log('headers---->', headers);
-      const response = await getSessionList(headers);
-      const fetchChatSessions = response?.data?.data;
-      console.log('fetchChatSessions---->', fetchChatSessions);
-      const modifyData = fetchChatSessions.map((data) => {
-        return {
-          session_title: data?.session_title.split(':')[4],
-          // data: [],
-          id: data?.id,
-        };
-      });
-      setChatHistory(modifyData);
-    } catch (error) {
-      console.log('error in fetching session list', error);
-    }
-  };
+
 
   const setSessionHandler = (id) => {
     dispatch(setChatSessionId(id));

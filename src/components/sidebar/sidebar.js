@@ -62,7 +62,7 @@ const USER = [
   {
     name: 'Chat',
     icon: <Chat />,
-    link: '/chat',
+    link: '/user',
     activeLinks: ['chat'],
   },
 ];
@@ -103,9 +103,6 @@ export const sideBar = (
   const handleAddChat = async () => {
     try {
       console.log('is new chat--->', isNewChat);
-      if (isNewChat) {
-        fetchSessionList();
-      }
       setIsChatOpen(!isChatOpen);
       setMessageSent(false);
       setIsNewChat(false);
@@ -122,6 +119,7 @@ export const sideBar = (
   };
 
   const showPreviousChats = async (id) => {
+    onClose()
     try {
       console.log('previous chats id---->', id);
 
@@ -243,12 +241,11 @@ export const sideBar = (
               <Typography variant="h6">Sessions</Typography>
               <Box
                 sx={{
-                  height: '30%',
+                  height: role == 'ORG_ADMIN' ? '30%' : '100%',
                   overflowY: 'auto',
                 }}
                 className="chat_history"
               >
-                {console.log('chat history', chatHistory)}
                 {chatHistory.length > 0 &&
                   chatHistory?.map((item) => (
                     <div
@@ -271,7 +268,6 @@ export const sideBar = (
                         }}
                         onClick={() => {
                           showPreviousChats(item.id);
-                          // setSessionId(item.id)
                         }}
                       >
                         {item?.session_title}
@@ -297,6 +293,7 @@ export const sideBar = (
                   theme="dark"
                   mode="inline"
                   defaultSelectedKeys={['Home_page']}
+                  selectedKeys={[]}
                 >
                   {chatHistory.length > 0 &&
                     chatHistory.map((item, index) => (
@@ -304,8 +301,6 @@ export const sideBar = (
                         key={index}
                         onClick={() => {
                           showPreviousChats(item.id);
-                          // setSessionId(item.id)
-                          // setSessionHandler(item.id);
                         }}
                       >
                         {item.session_title}
