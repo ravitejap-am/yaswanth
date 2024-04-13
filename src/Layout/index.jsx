@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useRef} from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Box, Typography } from '@mui/material';
 import Sidebar from '../components/sidebar';
 import Header from '../components/header';
@@ -8,71 +8,54 @@ function Layout({ children, componentName }) {
     const { innerWidth: width, innerHeight: height } = window;
     return {
       width,
-      height
+      height,
     };
   }
 
-  const { width , height} = getWindowDimensions()
-  const calculatedHeight = `${height * 0.8}px` 
-
+  const { width, height } = getWindowDimensions();
+  const calculatedHeight = `${height * 0.8}px`;
 
   const topRef = useRef(null);
 
   const handleScrollToTop = () => {
-
     if (topRef.current) {
       topRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
-
   useEffect(() => {
-    handleScrollToTop()
-  },[])
-  
+    handleScrollToTop();
+  }, []);
 
   return (
     <Box
-    ref={topRef}
-    sx={{
-        background:
-          'linear-gradient(114deg,#0f172a 51.52%, #152346 73.32%,#1a2e5e 92.75%)',
+      ref={topRef}
+      sx={{
+        backgroundColor: 'white',
         display: 'flex',
         flexDirection: {
           xs: 'column',
           lg: 'row',
         },
         color: 'white',
-        padding: 3,
-        height: "100vh",
-        overflowY:'hidden',
+        // padding: 3,
+        height: '100vh',
+        overflowY: 'hidden',
+        paddingLeft: 1,
       }}
     >
       <Sidebar />
       <Box
         sx={{
-          width: {
-            lg: '95%',
-            xs: '88%',
-            md: '93%',
-            xl: '95%',
-          },
+          width: '100%',
           overflowY: {
             xs: 'auto',
             md: 'auto',
             lg: 'auto',
           },
-          backgroundColor: '#F8FAFC',
-          borderRadius: 5,
-          padding: "16px 24px 24px 24px",
+
           color: 'black',
-          height: {
-            lg: '88%',
-            // xs: calculatedHeight,
-            xs:"75%",
-            md: '88%',
-            xl: '88%',
-          },
+          height: '100*',
         }}
       >
         <Box

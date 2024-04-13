@@ -5,7 +5,10 @@ import { Layout, Menu, Grid, Drawer } from 'antd';
 import { navLinks } from './sidebar';
 import { Link } from 'react-router-dom';
 import AddIcon from '@mui/icons-material/Add';
-import { getChatSessions , getIndividualChatSessions} from '../../apiCalls/ApiCalls';
+import {
+  getChatSessions,
+  getIndividualChatSessions,
+} from '../../apiCalls/ApiCalls';
 
 function MobileHeader(props) {
   const {
@@ -26,7 +29,7 @@ function MobileHeader(props) {
     setPageLoading,
     pageLoading,
     setSessionId,
-    sessionId
+    sessionId,
   } = props;
   console.log('role', role, 'patname', pathname);
   const [visible, setVisible] = useState(false);
@@ -37,12 +40,12 @@ function MobileHeader(props) {
     setVisible(false);
   };
 
-  const handleAddChat =async () => {
-    try{
-      console.log("is new chat--->",isNewChat);
-      onClose()
+  const handleAddChat = async () => {
+    try {
+      console.log('is new chat--->', isNewChat);
+      onClose();
       if (isNewChat) {
-        fetchSessionList()
+        fetchSessionList();
       }
 
       setIsChatOpen(!isChatOpen);
@@ -50,24 +53,24 @@ function MobileHeader(props) {
       setIsNewChat(false);
       setQuestionIndex(0);
       setQuestions([]);
-      setSessionId("")
+      setSessionId('');
       console.error('please add the chat');
-    }catch(error){
-      console.log("error in fetching chat session list",error);
+    } catch (error) {
+      console.log('error in fetching chat session list', error);
     }
   };
 
   const showPreviousChats = async (id) => {
-    onClose()
+    onClose();
     try {
       console.log('previous chats id---->', id);
-      
+
       const headers = {
         Authorization: `Bearer ${jwt}`,
       };
-      setPageLoading(true)
+      setPageLoading(true);
       const response = await getIndividualChatSessions(id, headers);
-      
+
       console.log('response--->12', response);
       const modifiedData = response?.data;
       const changedData = modifiedData?.data.map((data, index) => {
@@ -82,12 +85,12 @@ function MobileHeader(props) {
       setQuestionIndex(changedData?.length);
       setQuestions(changedData);
       setMessageSent(true);
-      setSessionId(id)
-      setPageLoading(false)
+      setSessionId(id);
+      setPageLoading(false);
       // setSessionHandler(id);
     } catch (error) {
       console.log('throwing error in chat');
-      setPageLoading(false)
+      setPageLoading(false);
     }
   };
 
@@ -95,10 +98,10 @@ function MobileHeader(props) {
     <Box
       sx={{
         width: '100%',
-        zIndex: 999
+        zIndex: 999,
       }}
     >
-      <ListIcon sx={{ fontSize: 40 }} onClick={onOpen} />
+      <ListIcon sx={{ fontSize: 40, color: 'black' }} onClick={onOpen} />
       <Drawer
         title={
           <Typography variant="h5" sx={{ color: 'white' }}>

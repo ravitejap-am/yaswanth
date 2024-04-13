@@ -12,7 +12,10 @@ import AddIcon from '@mui/icons-material/Add';
 import './sidebarIndex.css';
 import { Layout, Menu, Grid, Drawer } from 'antd';
 import WorkHistoryIcon from '@mui/icons-material/WorkHistory';
-import { getIndividualChatSessions, getSessionList } from '../../apiCalls/ApiCalls';
+import {
+  getIndividualChatSessions,
+  getSessionList,
+} from '../../apiCalls/ApiCalls';
 
 const ORG_ADMIN = [
   {
@@ -60,7 +63,7 @@ const USER = [
     name: 'Chat',
     icon: <Chat />,
     link: '/chat',
-    activeLinks: ['chat'],
+    activeLinks: ['chat', 'user'],
   },
 ];
 
@@ -97,25 +100,21 @@ export const sideBar = (
   pageLoading,
   setPageLoading
 ) => {
-
-
-
-
-  const handleAddChat =async () => {
-    try{
-      console.log("is new chat--->",isNewChat);
+  const handleAddChat = async () => {
+    try {
+      console.log('is new chat--->', isNewChat);
       if (isNewChat) {
-        fetchSessionList()
+        fetchSessionList();
       }
       setIsChatOpen(!isChatOpen);
       setMessageSent(false);
       setIsNewChat(false);
       setQuestionIndex(0);
       setQuestions([]);
-      setSessionId("")
+      setSessionId('');
       console.error('please add the chat');
-    }catch(error){
-      console.log("error in fetching chat session list",error);
+    } catch (error) {
+      console.log('error in fetching chat session list', error);
     }
   };
   const onClose = () => {
@@ -125,13 +124,13 @@ export const sideBar = (
   const showPreviousChats = async (id) => {
     try {
       console.log('previous chats id---->', id);
-      
+
       const headers = {
         Authorization: `Bearer ${jwt}`,
       };
-      setPageLoading(true)
+      setPageLoading(true);
       const response = await getIndividualChatSessions(id, headers);
-      
+
       console.log('response--->12', response);
       const modifiedData = response?.data;
       const changedData = modifiedData?.data.map((data, index) => {
@@ -146,12 +145,12 @@ export const sideBar = (
       setQuestionIndex(changedData?.length);
       setQuestions(changedData);
       setMessageSent(true);
-      setSessionId(id)
-      setPageLoading(false)
+      setSessionId(id);
+      setPageLoading(false);
       // setSessionHandler(id);
     } catch (error) {
       console.log('throwing error in chat');
-      setPageLoading(false)
+      setPageLoading(false);
     }
   };
 
@@ -180,11 +179,11 @@ export const sideBar = (
                 style: {
                   color: item?.activeLinks.includes(pathname.split('/')[1])
                     ? '#4F46E5'
-                    : 'white',
+                    : 'black',
                 },
               })}
               <Hidden mdDown>
-                <Typography>{item.name}</Typography>
+                <Typography sx={{ color: 'black' }}>{item.name}</Typography>
               </Hidden>
             </Box>
           </Link>
@@ -209,9 +208,9 @@ export const sideBar = (
               }}
               onClick={handleAddChat}
             >
-              <AddIcon style={{ color: 'white' }} />
+              <AddIcon style={{ color: 'black' }} />
               <Hidden mdDown>
-                <Typography>New Chat</Typography>
+                <Typography style={{ color: 'black' }}>New Chat</Typography>
               </Hidden>
             </Box>
           </Link>
@@ -232,7 +231,7 @@ export const sideBar = (
                 setVisible(true);
               }}
             >
-              <WorkHistoryIcon color="white" />
+              <WorkHistoryIcon color="black" />
             </Box>
           </Hidden>
         )}
@@ -241,7 +240,9 @@ export const sideBar = (
         (pathname == '/chat' || pathname == '/user') && (
           <>
             <Hidden lgDown>
-              <Typography variant="h6">Sessions</Typography>
+              <Typography variant="h6" sx={{ color: 'black' }}>
+                Sessions
+              </Typography>
               <Box
                 sx={{
                   height: '30%',
@@ -269,6 +270,7 @@ export const sideBar = (
                           whiteSpace: 'nowrap',
                           width: '8em',
                           cursor: 'pointer',
+                          color: 'black',
                         }}
                         onClick={() => {
                           showPreviousChats(item.id);
