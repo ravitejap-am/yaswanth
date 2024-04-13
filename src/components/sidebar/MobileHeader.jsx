@@ -95,6 +95,7 @@ function MobileHeader(props) {
     <Box
       sx={{
         width: '100%',
+        zIndex: 999
       }}
     >
       <ListIcon sx={{ fontSize: 40 }} onClick={onOpen} />

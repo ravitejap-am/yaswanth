@@ -4,6 +4,17 @@ import Sidebar from '../components/sidebar';
 import Header from '../components/header';
 
 function Layout({ children, componentName }) {
+  function getWindowDimensions() {
+    const { innerWidth: width, innerHeight: height } = window;
+    return {
+      width,
+      height
+    };
+  }
+
+  const { width , height} = getWindowDimensions()
+  const calculatedHeight = `${height * 0.8}px` 
+
 
   const topRef = useRef(null);
 
@@ -22,7 +33,7 @@ function Layout({ children, componentName }) {
 
   return (
     <Box
-    ref={topRef}
+    // ref={topRef}
     sx={{
         background:
           'linear-gradient(114deg,#0f172a 51.52%, #152346 73.32%,#1a2e5e 92.75%)',
@@ -33,8 +44,8 @@ function Layout({ children, componentName }) {
         },
         color: 'white',
         padding: 3,
-        height: '100vh' ,
-        overflowY:'hidden'
+        height: "100vh",
+        overflowY:'hidden',
       }}
     >
       <Sidebar />
@@ -53,11 +64,11 @@ function Layout({ children, componentName }) {
           },
           backgroundColor: '#F8FAFC',
           borderRadius: 5,
-          padding: 3,
+          padding: "16px 24px 24px 24px",
           color: 'black',
           height: {
             lg: '88%',
-            xs: '78%',
+            xs: calculatedHeight,
             md: '88%',
             xl: '88%',
           },
