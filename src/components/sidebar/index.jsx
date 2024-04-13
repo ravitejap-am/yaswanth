@@ -39,57 +39,55 @@ function Sidebar() {
     messageSent,
     setMessageSent,
     sessionId,
-    setSessionId,
     pageLoading,
-    setPageLoading
+    setPageLoading,
+    setSessionId,
   } = useChat();
 
   const [visible, setVisible] = useState(false);
   const user = useSelector(selectUser);
   const jwt = user.userToken;
 
-
   useEffect(() => {
-    if(pathname === "/chat" || pathname === "/user"){
-      fetchSessionList()
+    if (pathname === '/chat' || pathname === '/user') {
+      fetchSessionList();
     }
-  }, [])
+  }, []);
 
   const extractQuestion = (data) => {
     const regex = /:(.*?):$/;
-    console.log("data--->");
+    console.log('data--->');
     const match = data.match(regex);
-    
-    console.log("match---->",match);
+
+    console.log('match---->', match);
     if (match && match.length > 1) {
       const extractedText = match[1];
-      console.log("extractedText--->",extractedText); 
-      return extractedText ; 
+      console.log('extractedText--->', extractedText);
+      return extractedText;
     } else {
-      console.log("No match found.");
+      console.log('No match found.');
     }
-  }
-  
+  };
 
-  const fetchSessionList =async () => {
-    try{
+  const fetchSessionList = async () => {
+    try {
       const headers = { Authorization: `Bearer ${jwt}` };
-      console.log("headers---->",headers);
-      const response = await getSessionList(headers)
-      const fetchChatSessions = response?.data?.data
-      console.log("fetchChatSessions---->",fetchChatSessions);
+      console.log('headers---->', headers);
+      const response = await getSessionList(headers);
+      const fetchChatSessions = response?.data?.data;
+      console.log('fetchChatSessions---->', fetchChatSessions);
       const modifyData = fetchChatSessions.map((data) => {
         return {
           session_title: data?.session_title.split(':')[4],
           // data: [],
-          id: data?.id, 
-        }
-      })
-      setChatHistory(modifyData)
-    }catch(error){
-      console.log("error in fetching session list", error);
+          id: data?.id,
+        };
+      });
+      setChatHistory(modifyData);
+    } catch (error) {
+      console.log('error in fetching session list', error);
     }
-  }
+  };
 
   const setSessionHandler = (id) => {
     dispatch(setChatSessionId(id));
@@ -111,10 +109,9 @@ function Sidebar() {
     setSessionId: setSessionId,
     sessionId: sessionId,
     fetchSessionList: fetchSessionList,
-    pageLoading:pageLoading,
-    setPageLoading: setPageLoading
+    pageLoading: pageLoading,
+    setPageLoading: setPageLoading,
   };
-
 
   return (
     <>
@@ -193,10 +190,10 @@ function Sidebar() {
                 messageSent,
                 setMessageSent,
                 sessionId,
-                setSessionId,
                 fetchSessionList,
                 pageLoading,
-                setPageLoading
+                setPageLoading,
+                setSessionId
               )}
             </Box>
           </Box>

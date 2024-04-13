@@ -12,7 +12,10 @@ import AddIcon from '@mui/icons-material/Add';
 import './sidebarIndex.css';
 import { Layout, Menu, Grid, Drawer } from 'antd';
 import WorkHistoryIcon from '@mui/icons-material/WorkHistory';
-import { getIndividualChatSessions, getSessionList } from '../../apiCalls/ApiCalls';
+import {
+  getIndividualChatSessions,
+  getSessionList,
+} from '../../apiCalls/ApiCalls';
 
 const ORG_ADMIN = [
   {
@@ -91,31 +94,27 @@ export const sideBar = (
   jwt,
   messageSent,
   setMessageSent,
-  setSessionId,
   sessionId,
   fetchSessionList,
   pageLoading,
-  setPageLoading
+  setPageLoading,
+  setSessionId
 ) => {
-
-
-
-
-  const handleAddChat =async () => {
-    try{
-      console.log("is new chat--->",isNewChat);
+  const handleAddChat = async () => {
+    try {
+      console.log('is new chat--->', isNewChat);
       if (isNewChat) {
-        fetchSessionList()
+        fetchSessionList();
       }
       setIsChatOpen(!isChatOpen);
       setMessageSent(false);
       setIsNewChat(false);
       setQuestionIndex(0);
       setQuestions([]);
-      setSessionId("")
+      setSessionId('');
       console.error('please add the chat');
-    }catch(error){
-      console.log("error in fetching chat session list",error);
+    } catch (error) {
+      console.log('error in fetching chat session list', error);
     }
   };
   const onClose = () => {
@@ -125,13 +124,13 @@ export const sideBar = (
   const showPreviousChats = async (id) => {
     try {
       console.log('previous chats id---->', id);
-      
+
       const headers = {
         Authorization: `Bearer ${jwt}`,
       };
-      setPageLoading(true)
+      setPageLoading(true);
       const response = await getIndividualChatSessions(id, headers);
-      
+
       console.log('response--->12', response);
       const modifiedData = response?.data;
       const changedData = modifiedData?.data.map((data, index) => {
@@ -146,12 +145,12 @@ export const sideBar = (
       setQuestionIndex(changedData?.length);
       setQuestions(changedData);
       setMessageSent(true);
-      setSessionId(id)
-      setPageLoading(false)
+      setSessionId(id);
+      setPageLoading(false);
       // setSessionHandler(id);
     } catch (error) {
       console.log('throwing error in chat');
-      setPageLoading(false)
+      setPageLoading(false);
     }
   };
 
@@ -193,7 +192,7 @@ export const sideBar = (
       {(role == 'ORG_ADMIN' || role == 'USER') &&
         (pathname == '/chat' || pathname == '/user') && (
           <Link
-            to= {role == 'ORG_ADMIN' ? "/chat" : '/user'} 
+            to={role == 'ORG_ADMIN' ? '/chat' : '/user'}
             style={{ textDecoration: 'none' }}
             className="hoverDiv"
           >

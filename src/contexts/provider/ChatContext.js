@@ -15,12 +15,11 @@ export const ChatProvider = ({ children }) => {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [chatHistory, setChatHistory] = useState([]);
   const [isNewChat, setIsNewChat] = useState(false);
-  const [questionIndex, setQuestionIndex] = useState(0)
+  const [questionIndex, setQuestionIndex] = useState(0);
   const [questions, setQuestions] = useState([]);
   const [messageSent, setMessageSent] = useState(false);
-  const [sessionId, setSessionId] = useState("")
-  const [pageLoading, setPageLoading] = useState(false)
-
+  const [sessionId, setSessionId] = useState('');
+  const [pageLoading, setPageLoading] = useState(false);
 
   // useEffect(() => {
   //   console.log("use effect is called");
@@ -55,13 +54,13 @@ export const ChatProvider = ({ children }) => {
         questions,
         setQuestions,
         messageSent,
-        setIsNewChat, 
+        setIsNewChat,
         setMessageSent,
         messageSent,
         sessionId,
-        setSessionId,
         pageLoading,
-        setPageLoading
+        setPageLoading,
+        setSessionId,
       }}
     >
       {children}
