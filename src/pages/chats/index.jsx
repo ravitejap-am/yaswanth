@@ -77,7 +77,7 @@ function Chats() {
     totalPages: null,
   });
   const [defaultQuestions, setDefaultQuestions] = useState([]);
-  // const [pageLoading, setPageLoading] = useState(false)
+  const isAndroid = /Android/.test(navigator.userAgent);
 
   useEffect(() => {
     setQuestions([]);
@@ -388,12 +388,10 @@ function Chats() {
       {pageLoading && <PageLoader loadingStatus={pageLoading} />}
       <Box
         sx={{
-          height: isMobile ? '80vh' : '85%',
+          height: isMobile ? isAndroid ? '80vh' : '72vh' : '85%',
           width: isMobile ? '100%' : '98%',
-          // backgroundColor: "white",
           borderRadius: '10px',
           display: 'flex',
-          // padding: '10px',
           flexDirection: 'column',
         }}
       >
@@ -679,8 +677,7 @@ function Chats() {
             </Box>
           )}
         </Box>
-      </Box>
-      <Box
+        <Box
         sx={{
           display: 'flex',
           justifyContent: 'center',
@@ -731,6 +728,8 @@ function Chats() {
           </Typography>
         )}
       </Box>
+      </Box>
+     
     </Layout>
   );
 }
