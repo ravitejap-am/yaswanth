@@ -21,7 +21,7 @@ const SignHeader = ({ title, linkText, linkTo, buttonText, buttonProps }) => {
         </Box>
         <div className="signheader-buttoncontent">
           {!isMobile && <Box className="signheader-account">
-            <Link className="signin-link" to={linkTo}>
+            <Link className="signin-link">
             <Typography variant="body2" gutterBottom>
               {linkText}
               </Typography>

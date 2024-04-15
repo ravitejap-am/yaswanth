@@ -227,6 +227,12 @@ a {
   border: 1px solid var(--Neutral-400, #94a3b8);
   background: transparent !important;
   color: #212529;
+  /* background-color: red; */
+}
+
+.field-container .ant-form-item-explain{
+  width:495px;
+  text-align: center;
 }
 .ant-input:focus {
   color: black;
@@ -263,6 +269,12 @@ a {
   .signup_input_css {
     width: 300px !important;
   }
+
+  .field-container .ant-form-item-explain{
+    width:300px;
+    text-align: center;
+  }
+  
   .text-top-signin .signup_submit_btn_css {
     width: 300px;
   }

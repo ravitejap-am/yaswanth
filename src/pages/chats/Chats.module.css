@@ -215,8 +215,9 @@
   align-items: flex-start;
   text-align: left;
   flex:1;
-  /* background-color: #475569; */
-  width: max-content
+  flex-wrap: nowrap;
+  width: auto;
+  overflow-x: hidden;
 }
 
 .responseImage {
