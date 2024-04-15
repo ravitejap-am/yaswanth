@@ -17,6 +17,7 @@ import { Form, Input, Select, Grid, Button } from "antd";
 import { EyeInvisibleOutlined, EyeOutlined } from "@ant-design/icons";
 import { Box, Typography } from "@mui/material";
 import Logo from "../../asset/images/logo.png"
+import { validatePassword, validateConfirmPassword } from "../../../src/components/super-admin/validation"
 
 const RegisterUser = () => {
   let {
@@ -54,13 +55,13 @@ const RegisterUser = () => {
     }
   }, [signupMessage]);
 
-  const validatePassword = (_, value) => {
-    if (value && value.length < 8) {
-      return Promise.reject("Password must be at least 8 characters");
-    } else {
-      return Promise.resolve();
-    }
-  };
+  // const validatePassword = (_, value) => {
+  //   if (value && value.length < 8) {
+  //     return Promise.reject("Password must be at least 8 characters");
+  //   } else {
+  //     return Promise.resolve();
+  //   }
+  // };
 
   const validateEmail = (_, value) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -231,6 +232,7 @@ const RegisterUser = () => {
     window.addEventListener("scroll", handleScroll);
   }, []);
 
+
   return (
       <div style={{overflowY:'auto', height:'100vh'}}>
         <div className="Signup-header">
@@ -314,6 +316,9 @@ const RegisterUser = () => {
               layout="vertical"
               autoComplete="off"
               onFinish={submitHandler}
+              form={form}
+              // className="signup_input_css"
+              // style={{backgroundColor:'cyan', width:'35%'}}
             >
               <Form.Item
                 name="firstName"
@@ -362,15 +367,15 @@ const RegisterUser = () => {
                 name="password"
                 rules={[
                   {
-                    required: true,
-                    message: "Please enter your password!",
+                    validator: validatePassword,
                   },
                 ]}
                 required={false}
+                className="field-container"
               >
                 <Input.Password
                   className="signup_input_css"
-                  placeholder="Confirm Password"
+                  placeholder="Password"
                   iconRender={(visible) =>
                     visible ? (
                       <EyeOutlined style={{ fontSize: "25px" }} />
@@ -384,11 +389,11 @@ const RegisterUser = () => {
                 name="confirmPassword"
                 rules={[
                   {
-                    required: true,
-                    message: "Please enter your password!",
-                  },
+                    validator: (_, value) => validateConfirmPassword(value, form.getFieldValue('password')),
+                  }
                 ]}
                 required={false}
+                className="field-container"
               >
                 <Input.Password
                   className="signup_input_css"

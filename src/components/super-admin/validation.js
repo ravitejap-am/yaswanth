@@ -90,3 +90,28 @@ export const validationOrgData = (jsonData) => {
 
   return true;
 };
+
+
+export const validatePassword = (_, value) => {
+  if (!value) {
+    return Promise.reject("Please enter your password!");
+  }
+  if (value.length < 8 || !/[A-Z]/.test(value) || !/[a-z]/.test(value) || !/\d/.test(value) || !/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(value)) {
+    return Promise.reject("Your password is very simple. Password should be a combination of at least 8 characters, 1 uppercase, 1 lowercase, 1 digit, and 1 special character.");
+  }
+  return Promise.resolve("");
+};
+
+
+export const validateConfirmPassword = (value, passwordValue) => {
+  if (!value) {
+    return Promise.reject('Please confirm your password!');
+  }
+    if (value.length < 8 || !/[A-Z]/.test(value) || !/[a-z]/.test(value) || !/\d/.test(value) || !/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(value)) {
+      return Promise.reject("Your password is very simple. Password should be a combination of at least 8 characters, 1 uppercase, 1 lowercase, 1 digit, and 1 special character.");
+    }
+  if (value !== passwordValue) {
+    return Promise.reject('The password do not match!');
+  }
+  return Promise.resolve();
+};

@@ -8,10 +8,11 @@ import { useMessageState } from "../../hooks/useapp-message";
 import Footer from "../../pages/home/Footer/Footer";
 import { toast } from "react-toastify";
 import SignHeader from "../home/SignHeader/SignHeader";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { Form, Input, Select, Grid, Button } from "antd";
 import { Box, Typography } from "@mui/material";
-import Logo from "../../asset/images/logo.png"
+import Logo from "../../asset/images/logo.png";
+import back_navigation from "../../asset/back_navigation.png"
 
 const RecoveryPasswor = () => {
   let {
@@ -216,6 +217,18 @@ const RecoveryPasswor = () => {
             </Typography> 
               </Button>
             </Form.Item>
+            <div className="footer-text">
+              <Typography variant="body2">
+                <Link
+                  to={"/signin"}
+                  style={{
+                    color: "black",
+                  }}
+                >
+                 <img src={back_navigation} alt="back"  className="back-icon"/> Back to Login
+                </Link>
+              </Typography>
+            </div>
           </Form>
          </div>
          {/* <br /> */}

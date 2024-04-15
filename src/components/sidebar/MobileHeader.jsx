@@ -40,14 +40,10 @@ function MobileHeader(props) {
     setVisible(false);
   };
 
-  const handleAddChat = async () => {
-    try {
-      console.log('is new chat--->', isNewChat);
-      onClose();
-      if (isNewChat) {
-        fetchSessionList();
-      }
-
+  const handleAddChat =async () => {
+    try{
+      onClose()
+      console.log("is new chat--->",isNewChat);
       setIsChatOpen(!isChatOpen);
       setMessageSent(false);
       setIsNewChat(false);

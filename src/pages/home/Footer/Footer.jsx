@@ -111,7 +111,7 @@ const Footer = () => {
           variant="caption"
           style={{ color: "#FFF", fontSize: "14px" }}
         >
-          Copyright © 2020 | Powered by AreteMinds{" "}
+          Copyright © 2020 | Powered by AreteMinds Technologies Private Limited
         </Typography>
       </div>
     </div>

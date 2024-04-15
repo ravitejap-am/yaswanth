@@ -5,6 +5,7 @@ import axios from 'axios';
 import { CHAT_GETSESSION } from '../../constants/Constant';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../../store/authSlice';
+import { getSessionList } from '../../apiCalls/ApiCalls'; 
 
 const ChatContext = createContext();
 
@@ -15,12 +16,11 @@ export const ChatProvider = ({ children }) => {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [chatHistory, setChatHistory] = useState([]);
   const [isNewChat, setIsNewChat] = useState(false);
-  const [questionIndex, setQuestionIndex] = useState(0)
+  const [questionIndex, setQuestionIndex] = useState(0);
   const [questions, setQuestions] = useState([]);
   const [messageSent, setMessageSent] = useState(false);
-  const [sessionId, setSessionId] = useState("")
-  const [pageLoading, setPageLoading] = useState(false)
-
+  const [sessionId, setSessionId] = useState('');
+  const [pageLoading, setPageLoading] = useState(false);
 
   // useEffect(() => {
   //   console.log("use effect is called");
@@ -41,6 +41,27 @@ export const ChatProvider = ({ children }) => {
       .catch((error) => console.error(error));
   };
 
+
+  const fetchSessionList = async () => {
+    try {
+      const headers = { Authorization: `Bearer ${jwt}` };
+      console.log('headers---->', headers);
+      const response = await getSessionList(headers);
+      const fetchChatSessions = response?.data?.data;
+      console.log('fetchChatSessions---->', fetchChatSessions);
+      const modifyData = fetchChatSessions.map((data) => {
+        return {
+          session_title: data?.session_title.split(':')[4],
+          // data: [],
+          id: data?.id,
+        };
+      });
+      setChatHistory(modifyData);
+    } catch (error) {
+      console.log('error in fetching session list', error);
+    }
+  };
+
   return (
     <ChatContext.Provider
       value={{
@@ -55,13 +76,14 @@ export const ChatProvider = ({ children }) => {
         questions,
         setQuestions,
         messageSent,
-        setIsNewChat, 
+        setIsNewChat,
         setMessageSent,
         messageSent,
         sessionId,
-        setSessionId,
         pageLoading,
-        setPageLoading
+        setPageLoading,
+        setSessionId,
+        fetchSessionList
       }}
     >
       {children}

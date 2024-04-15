@@ -189,7 +189,7 @@ function Information({ setFileSysytem, validateEmail }) {
         }
       );
       showNotifyMessage("success", response?.data?.message, messageHandler);
-      fetchUserProfile();
+      await fetchUserProfile();
       window.location.href = "/Info";
     } catch (error) {
       showNotifyMessage("error", error?.message, messageHandler);

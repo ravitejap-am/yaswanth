@@ -24,7 +24,11 @@ import responseImg from '../../asset/responseimg.jpg';
 import amchatImg from '../../asset/Vector (1).png';
 import { useChat } from '../../contexts/provider/ChatContext';
 import { AM_CHAT } from '../../constants/Constant';
-import { getChatResponse, getQuestions } from '../../apiCalls/ApiCalls';
+import {
+  getChatResponse,
+  getQuestions,
+  getSessionList,
+} from '../../apiCalls/ApiCalls';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../../store/authSlice';
 import { useLocation } from 'react-router-dom';
@@ -34,6 +38,7 @@ import axios from 'axios';
 import { CHAT } from '../../constants/Constant';
 import PageLoader from '../../components/loader/loader';
 import AMChato from '../../asset/AMChato.png';
+import { useMessageState } from '../../hooks/useapp-message';
 
 function Chats() {
   const {
@@ -48,13 +53,14 @@ function Chats() {
     messageSent,
     setMessageSent,
     sessionId,
-    setSessionId,
     pageLoading,
     setPageLoading,
+    setSessionId,
+    fetchSessionList
   } = useChat();
 
   const [searchOption, setSearchOption] = useState('specificFileText');
-  const [selectedFile, setSelectedFile] = useState(1);
+  const [selectedFile, setSelectedFile] = useState('');
   const [inputValue, setInputValue] = useState('');
 
   const [loading, setLoading] = useState(false);
@@ -78,6 +84,14 @@ function Chats() {
   });
   const [defaultQuestions, setDefaultQuestions] = useState([]);
   const isAndroid = /Android/.test(navigator.userAgent);
+
+  let { isReset, setIsReset, showNotifyMessage, hideNotifyMessage } =
+    useMessageState();
+
+  const messageHandler = () => {
+    setIsReset(false);
+    hideNotifyMessage();
+  };
 
   useEffect(() => {
     setQuestions([]);
@@ -125,11 +139,26 @@ function Chats() {
     }
   }, [pathName]);
 
+  const addNewChat = () => {
+    setIsChatOpen(!isChatOpen);
+    setMessageSent(false);
+    setIsNewChat(false);
+    setQuestionIndex(0);
+    setQuestions([]);
+    setSessionId('');
+  };
+
   const handleSearchOptionChange = (option) => {
     if (option === 'acrossFiles') {
       setShowWarning(true);
     } else {
       setSearchOption(option);
+      if (documents?.length > 0) {
+        setSelectedFile(documents[0]?.id);
+      }
+      if (isNewChat) {
+        addNewChat();
+      }
     }
   };
 
@@ -190,7 +219,23 @@ function Chats() {
   };
 
   const handleSend = async () => {
-    console.log('session id---->', sessionId);
+    let docName = '';
+    if (
+      selectedFile &&
+      typeof selectedFile === 'number' &&
+      searchOption === 'specificFileText'
+    ) {
+      docName = documents.filter((doc) => {
+        if (doc.id === selectedFile) {
+          return doc;
+        }
+      });
+    } else {
+      if (searchOption === 'specificFileText') {
+        showNotifyMessage('error', 'Please select file', messageHandler);
+        return;
+      }
+    }
     try {
       setLoading(true);
       if (inputValue.trim() !== '') {
@@ -204,12 +249,10 @@ function Chats() {
           answerData: false,
         };
         const body = {
-          doc_name: '',
-          // doc_name: selectedFile,
+          doc_name: docName[0]?.name,
           query: inputValue,
           session_id: `${sessionId}`,
-          // across: searchOption === "specificFileText" ? false : true
-          across: true,
+          across: searchOption === 'specificFileText' ? false : true,
         };
         const headers = {
           Authorization: `Bearer ${jwt}`,
@@ -231,40 +274,14 @@ function Chats() {
         if (response?.data?.session_id) {
           setSessionId(response?.data?.session_id);
         }
+        if(!sessionId){
+          fetchSessionList()
+        }
         setLoading(false);
       }
     } catch (error) {
       setLoading(false);
       console.log('error in fetching chat response--->', error);
-      // setLoading(true);
-      // let modifyData = {
-      //   questionId: questionIndex,
-      //   question: inputValue,
-      //   answer: "",
-      //   answerData: false,
-      // };
-      // const updatedQuestionAndAnswer = [...questions, modifyData];
-      // setQuestions(updatedQuestionAndAnswer);
-      // console.log("showing error");
-      // setTimeout(() => {
-      //   const response = {
-      //     doc_name: "Invoice-899B3FD6-0001.pdf",
-      //     query: "When is it due?",
-      //     response: "It is due on March 7, 2023.",
-      //     session_id: 10003,
-      //     session_title: "",
-      //   };
-      //   setErrorMessage("");
-      //   console.log("question index--->", questionIndex);
-      //   setInputValue("");
-      //   setLoading(false);
-      //   updatedQuestionAndAnswer[questionIndex].answer = response?.response;
-      //   updatedQuestionAndAnswer[questionIndex].answerData = true;
-      //   setQuestions(updatedQuestionAndAnswer);
-      //   setQuestionIndex(questionIndex + 1);
-      //   setMessageSent(true);
-      // }, 1000);
-      // console.error("Error fetching data:", error);
     }
   };
 
@@ -314,6 +331,10 @@ function Chats() {
       }
       console.log('response----->', response);
       setDocuments(response.data.data.filter((items) => items.active === true));
+      if (response?.data?.data?.length > 0) {
+        console.log('intial selected file---->', response?.data?.data[0].name);
+        setSelectedFile(response?.data?.data[0].id);
+      }
       setPageInfo({
         ...pageInfo,
         pageSize: response?.data?.pageSize,
@@ -366,6 +387,11 @@ function Chats() {
 
   const handleOkWarning = () => {
     setShowWarning(false);
+    console.log('is new chat---->', isNewChat);
+    if (isNewChat) {
+      console.log('add new chat');
+      addNewChat();
+    }
     setSearchOption('acrossFiles');
     setSelectedFile('');
   };
@@ -382,7 +408,6 @@ function Chats() {
     }
   }, []);
 
-  console.log('documents--->', documents);
   return (
     <Layout componentName="Chat">
       {pageLoading && <PageLoader loadingStatus={pageLoading} />}
