@@ -17,6 +17,7 @@ import { Layout, Menu, Grid, Drawer } from 'antd';
 import { UseDispatch } from 'react-redux';
 import MobileHeader from './MobileHeader';
 import { getSessionList } from '../../apiCalls/ApiCalls';
+import AMChato from "../../asset/AMChato.png"
 
 function Sidebar() {
   const { useBreakpoint } = Grid;
@@ -101,9 +102,9 @@ function Sidebar() {
       <Hidden smDown>
         <Box
           sx={{
-            backgroundColor: 'transparent',
+            // backgroundColor: 'transparent',
             padding: 2,
-            borderRadius: 2,
+            // borderRadius: 2,
             display: 'flex',
             flexDirection: {
               xs: 'row',
@@ -115,6 +116,7 @@ function Sidebar() {
               sm: '100%',
               lg: 200,
             },
+            backgroundColor:'red'
           }}
         >
           <Box
@@ -134,7 +136,7 @@ function Sidebar() {
           >
             <Hidden lgDown>
               <Link to={role == 'USER' ? '/user' : '/dashboard'}>
-                <img src={sidebarImg} alt="" height={40} />
+                <img src={AMChato} alt="" height={65} />
               </Link>
             </Hidden>
             <Box
