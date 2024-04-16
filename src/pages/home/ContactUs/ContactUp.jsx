@@ -10,7 +10,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { Typography, useMediaQuery } from "@mui/material";
 const { TextArea } = Input;
 
-const ContactUp = () => {
+const ContactUp = (props) => {
+  const {selectPlan , setSelectPlan} = props
   const formRef = createRef();
   let {
     buttonLoading,
@@ -38,7 +39,10 @@ const ContactUp = () => {
     if (formRef.current) {
       formRef.current.scrollIntoView({ behavior: "auto" });
     }
-  }, []);
+    if(selectPlan){
+      form.setFieldsValue({ plan: selectPlan }); 
+    }
+  }, [selectPlan]);
 
   const selectOptions = [
     { value: "FREEMIUM", label: "Freemium" },
@@ -143,9 +147,10 @@ const ContactUp = () => {
             onFinishFailed={onFinishFailed}
             autoComplete="off"
             style={{ width: "auto", margin: "auto" }}
+            validateTrigger="onSubmit"
           >
             <Form.Item
-              label="Name"
+              label="Name *"
               name="name"
               rules={[
                 {
@@ -158,7 +163,7 @@ const ContactUp = () => {
               <Input className="contact_input_css" />
             </Form.Item>
             <Form.Item
-              label="Email"
+              label="Email *"
               name="email"
               rules={[
                 {
@@ -175,7 +180,7 @@ const ContactUp = () => {
               <Input className="contact_input_css" />
             </Form.Item>
             <Form.Item
-              label="Select Plan"
+              label="Select Plan *"
               name="plan"
               required={false}
               rules={[
@@ -193,16 +198,9 @@ const ContactUp = () => {
             </Form.Item>
             <Form.Item
               label="Comments"
-              name="comments"
-              rules={[
-                {
-                  required: true,
-                  message: "Please enter your comments!",
-                },
-              ]}
-              required={false}
+              name="comments"              
             >
-              <TextArea className="contact_input_css" />
+              <TextArea className="comment_input_css" style={{padding: "10px"}}/>
             </Form.Item>
             <Form.Item>
               <Button

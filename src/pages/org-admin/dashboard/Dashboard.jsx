@@ -119,72 +119,72 @@ function Dashboard() {
     }
   };
 
-  const fetchActiveUserCount = async () => {
-    try {
-      const response = await fetch(
-        `${constants.BASE_ORG_API_URL}/totalUsers/?active=true`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${jwt}`,
-          },
-        }
-      );
-      if (!response.ok) {
-        if (response.status === 404) {
-          console.log("400 error ");
-          setIsLoading(false);
-        } else if (response.status === 405) {
-          console.log("response 405");
-          setIsLoading(false);
-        } else {
-          console.log("response 405");
-          setIsLoading(false);
-        }
-        return;
-      }
-      const responseData = await response.json();
-      console.log("fetchActiveUserCount ::", responseData);
-      setActiveUsersCount(responseData.totalElements); // Set active users count from the API response
-      setIsLoading(false);
-    } catch (error) {
-      setIsLoading(false);
-      navigate("/maintenance");
-    }
-  };
+  // const fetchActiveUserCount = async () => {
+  //   try {
+  //     const response = await fetch(
+  //       `${constants.BASE_ORG_API_URL}/totalUsers/?active=true`,
+  //       {
+  //         method: "GET",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Authorization: `Bearer ${jwt}`,
+  //         },
+  //       }
+  //     );
+  //     if (!response.ok) {
+  //       if (response.status === 404) {
+  //         console.log("400 error ");
+  //         setIsLoading(false);
+  //       } else if (response.status === 405) {
+  //         console.log("response 405");
+  //         setIsLoading(false);
+  //       } else {
+  //         console.log("response 405");
+  //         setIsLoading(false);
+  //       }
+  //       return;
+  //     }
+  //     const responseData = await response.json();
+  //     console.log("fetchActiveUserCount ::", responseData);
+  //     setActiveUsersCount(responseData.totalElements); // Set active users count from the API response
+  //     setIsLoading(false);
+  //   } catch (error) {
+  //     setIsLoading(false);
+  //     navigate("/maintenance");
+  //   }
+  // };
 
 
-  const fetchDocumentCount = () => {
-    fetch(`${constants.BASE_DOC_API_URL}/${organisationId}`, {
-      headers: {
-        Authorization: `Bearer ${jwt}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("fetchDocumentCount ::", data);
-        setDocumentCount(data?.totalElements);
-      })
-      .catch((error) => {
-        setIsLoading(false);
-        if (
-          error?.response?.status == 500 ||
-          error?.response?.status == "500"
-        ) {
-          const errorMsgprops = {
-            message: {
-              title: "Something went wrong",
-              content: "Please contact our customer support team",
-            },
-            handleVerification: handleVerification,
-            onOkButtonText: "Retry",
-          };
-          dispatch(setErrorMsg({ ...errorMsgprops }));
-        }
-        console.error("Error fetching document count:", error);
-      });
-  };
+  // const fetchDocumentCount = () => {
+  //   fetch(`${constants.BASE_DOC_API_URL}/${organisationId}`, {
+  //     headers: {
+  //       Authorization: `Bearer ${jwt}`,
+  //     },
+  //   })
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       console.log("fetchDocumentCount ::", data);
+  //       setDocumentCount(data?.totalElements);
+  //     })
+  //     .catch((error) => {
+  //       setIsLoading(false);
+  //       if (
+  //         error?.response?.status == 500 ||
+  //         error?.response?.status == "500"
+  //       ) {
+  //         const errorMsgprops = {
+  //           message: {
+  //             title: "Something went wrong",
+  //             content: "Please contact our customer support team",
+  //           },
+  //           handleVerification: handleVerification,
+  //           onOkButtonText: "Retry",
+  //         };
+  //         dispatch(setErrorMsg({ ...errorMsgprops }));
+  //       }
+  //       console.error("Error fetching document count:", error);
+  //     });
+  // };
 
   const handleVerification = () => {
     const isValidJwtToken = true;
@@ -248,11 +248,12 @@ function Dashboard() {
       getOrganisationCount();
       getDocumentsCount();
     } else if (userRole === "ORG_ADMIN") {
-      fetchActiveUserCount();
-      fetchDocumentCount();
+      // fetchActiveUserCount();
+      // fetchDocumentCount();
       fetchUsageSubscriptionDetails()
       setToShowPie(pieRaw_data[selectedValue]);
       setToShowBar(filteredData(startDate, endDate, barRaw_data));
+      setIsLoading(false);
     } else {
       setIsLoading(false);
     }

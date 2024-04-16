@@ -140,6 +140,19 @@
   color: #fff !important;
 }
 
+.comment_input_css {
+  width: 495px !important;
+  height: 50px !important;
+  border-radius: 40px;
+  border: 1px solid var(--Brand-700, #4338CA);
+  background: transparent !important;
+  color: #fff !important;
+  box-sizing: border-box;
+  /* padding: 10px 22px 10px 22px !important; */
+}
+
+
+
 .contact_select_css {
   width: 495px !important;
   height: 50px;
@@ -222,6 +235,4 @@
   }
 }
 
-@media (min-width: 768px) and (max-width: 1023px) {
 
-}

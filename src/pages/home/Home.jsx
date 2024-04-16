@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Style from "./home.module.css";
 import Header from "./Header/Header";
 import Footer from "./Footer/Footer";
@@ -13,6 +13,7 @@ import { Typography } from "@mui/material";
 
 
 const Home = () => {
+  const [selectPlan, setSelectPlan] = useState("")
 
   const handleLogoClick = () => {
     window.location.href = "/"; 
@@ -47,10 +48,10 @@ const Home = () => {
         <HowItWorks />
       </div>
       <div id="Plan_Page">
-        <RightPlan />
+        <RightPlan  selectPlan={selectPlan}  setSelectPlan={setSelectPlan}/>
       </div>
       <div id="Contact_Up">
-        <ContactUp />
+        <ContactUp selectPlan={selectPlan}  setSelectPlan={setSelectPlan}/>
       </div>
       <Footer />
     </div>
