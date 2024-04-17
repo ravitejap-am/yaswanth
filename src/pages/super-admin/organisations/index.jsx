@@ -49,6 +49,7 @@ function Organisations() {
   const [isOpen, setIsOpen] = useState(false);
   const [openDeletePopUp, setOpenDeletePopUp] = useState(false);
   const [deleteProps, setDeleteProps] = useState({});
+  const [previousSearchQuery, setPreviousSearchQuery] = useState("");
 
   const itemRender = (_, type, originalElement) => {
     if (type === "prev") {
@@ -66,10 +67,19 @@ function Organisations() {
   }, []);
 
   useEffect(() => {
-    if (searchValue?.length >= 3 || searchValue?.length === 0) {
+    fetchlist();
+  },[jwt, order])
+
+  useEffect(() => {
+    const trimmedQuery = searchValue.trim();
+    if (
+      (trimmedQuery.length >= 3 && trimmedQuery !== previousSearchQuery) ||
+      (trimmedQuery.length === 0 && previousSearchQuery.length > 0)
+    ) {
       fetchlist();
+      setPreviousSearchQuery(trimmedQuery);
     }
-  }, [jwt, order, searchValue]);
+  }, [ searchValue, previousSearchQuery]);
 
   const fetchlist = async (page = 0, pageSize) => {
     setTableLoading(true);

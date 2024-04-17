@@ -198,9 +198,9 @@ const ContactUp = (props) => {
             </Form.Item>
             <Form.Item
               label="Comments"
-              name="comments"              
+              name="comments"            
             >
-              <TextArea className="comment_input_css" style={{padding: "10px"}}/>
+              <TextArea className="comment_input_css" />
             </Form.Item>
             <Form.Item>
               <Button

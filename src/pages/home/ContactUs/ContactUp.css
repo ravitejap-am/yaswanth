@@ -148,10 +148,8 @@
   background: transparent !important;
   color: #fff !important;
   box-sizing: border-box;
-  /* padding: 10px 22px 10px 22px !important; */
+  padding: 10px 20px 10px 20px!important;
 }
-
-
 
 .contact_select_css {
   width: 495px !important;
