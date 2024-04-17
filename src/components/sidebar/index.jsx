@@ -18,7 +18,7 @@ import { UseDispatch } from 'react-redux';
 import MobileHeader from './MobileHeader';
 import { getSessionList } from '../../apiCalls/ApiCalls';
 import AMChato from '../../asset/AMChato.png';
-
+import AmChatLogo from '../../asset/logo/logofinal.png';
 function Sidebar() {
   const { useBreakpoint } = Grid;
   const dispatch = useDispatch();
@@ -134,7 +134,7 @@ function Sidebar() {
           >
             <Hidden lgDown>
               <Link to={role == 'USER' ? '/user' : '/dashboard'}>
-                <img src={AMChato} alt="" height={65} />
+                <img src={AmChatLogo} alt="" width={100} />
               </Link>
             </Hidden>
             <Box

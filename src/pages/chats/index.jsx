@@ -37,7 +37,7 @@ import * as constants from '../../constants/Constant';
 import axios from 'axios';
 import { CHAT } from '../../constants/Constant';
 import PageLoader from '../../components/loader/loader';
-import AMChato from '../../asset/AMChato.png';
+import AMChato from '../../asset/logo/logofinal.png';
 import { useMessageState } from '../../hooks/useapp-message';
 
 function Chats() {
