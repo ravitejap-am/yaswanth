@@ -18,6 +18,7 @@ import {
   IconButton,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { validConfirmPassword, validPassword } from "../../super-admin/validation";
 
 function ChangePassword({ setFileSysytem, validateEmail }) {
   const navigate = useNavigate();
@@ -174,19 +175,19 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
     let isValid = true;
 
     if (!formData.password.trim()) {
-      errors.password = "Old password is required";
-      isValid = false;
-    }
-    if (!formData.newPassword.trim()) {
-      errors.newPassword = "New password is required";
-      isValid = false;
-    } else if (formData.newPassword.length < 8) {
-      errors.newPassword = "Password must be at least 8 characters";
+      errors.password = "Please enter your Old password";
       isValid = false;
     }
 
-    if (!formData.confirmPassword.trim()) {
-      errors.confirmPassword = "Confirm password is required";
+    const isValidNewPassword = validPassword(formData.newPassword, formData.password)
+    if(isValidNewPassword){
+      errors.newPassword = isValidNewPassword;
+      isValid = false;
+    }
+
+    const isValidConfirmPassword = validConfirmPassword(formData.confirmPassword, formData.newPassword)
+    if(isValidConfirmPassword){
+      errors.confirmPassword = isValidConfirmPassword;
       isValid = false;
     }
 
@@ -284,13 +285,6 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
           height: "140%",
           flexDirection: "column",
           justifyContent: "space-between",
-          // width: {
-          //   xs: 300 ,
-          //   sm: 600 ,
-          //   md: 900 ,
-          //   lg: 1200,
-          //   xl: 1350
-          // },
         }}
       >
         {isLoading && <PageLoader loadingStatus={isLoading} />}

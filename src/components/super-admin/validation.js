@@ -115,3 +115,35 @@ export const validateConfirmPassword = (value, passwordValue) => {
   }
   return Promise.resolve();
 };
+
+
+export const validPassword = (value, oldPassword) => {
+  console.log("val pass---->",value);
+  if (!value) {
+    return "Please enter your password";
+  }
+  if (value.length < 8 || !/[A-Z]/.test(value) || !/[a-z]/.test(value) || !/\d/.test(value) || !/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(value)) {
+    return "Your password is very simple. Password should be a combination of at least 8 characters, 1 uppercase, 1 lowercase, 1 digit, and 1 special character.";
+  }
+  if(value === oldPassword){
+    return "New password should not match with old password";
+  }
+
+  return "";
+};
+
+
+export const validConfirmPassword = (value, passwordValue) => {
+  console.log("val conf pass---->",value);
+  console.log("cond-->",!value);
+  if (!value) {
+    return 'Please enter your password';
+  }
+  else if (value.length < 8 || !/[A-Z]/.test(value) || !/[a-z]/.test(value) || !/\d/.test(value) || !/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(value)) {
+      return "Your password is very simple. Password should be a combination of at least 8 characters, 1 uppercase, 1 lowercase, 1 digit, and 1 special character.";
+    }
+  else if (value !== passwordValue) {
+    return 'The password do not match!';
+  }
+  return "";
+};

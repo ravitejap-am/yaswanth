@@ -21,11 +21,9 @@ const SignHeader = ({ title, linkText, linkTo, buttonText, buttonProps }) => {
         </Box>
         <div className="signheader-buttoncontent">
           {!isMobile && <Box className="signheader-account">
-            <Link className="signin-link">
-            <Typography variant="body2" gutterBottom>
+            <Typography variant="body2" className="signin-link" gutterBottom>
               {linkText}
               </Typography>
-            </Link>
           </Box>}
           <div className="signheader-btn">
             <Link to={linkTo} style={{ textDecoration: 'none' }}>

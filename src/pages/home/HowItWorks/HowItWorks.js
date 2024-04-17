@@ -108,9 +108,7 @@ function HowItWorks() {
       <div className="How_It_Works">
         <span className="Main_Title_of_HowItWorks">How It works</span>
         <Typography variant="body2" mb={3} className="How_it_works_Your_Org">
-          Your organisation may have enormous amount of documents lying in some
-          repository or archival. Upload them and create the knowledge base and
-          start interacting with your documents.
+        Your organization likely has a vast repository of documents stored in an archive. By uploading them and creating a knowledge base, you can interact more effectively with your documents.
         </Typography>
       </div>
       <div className="How_It_Works_2">

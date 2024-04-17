@@ -5,6 +5,8 @@ import img2 from "../../../asset/img2.png";
 import img3 from "../../../asset/img3.png";
 import img4 from "../../../asset/img4.png";
 import { Typography, useMediaQuery } from "@mui/material";
+import AIsolutionCard from "../../../components/AIsolutionCard/AIsolutionCard";
+import lang1 from "../../../asset/lang1.png"
 
 
 function AISolution() {
@@ -27,10 +29,10 @@ function AISolution() {
       img: img3,
       title: "Insights",
       subTitle:
-        "Learn & Explore what’s hidden knowledge in your organsational document.",
+        "Chat & Explore what’s hidden knowledge in your organsational document.",
     },
     {
-      img: img2,
+      img:lang1,
       title: "Multilingual Support",
       subTitle: "Use the Gen AI based chat in your language, say goodbye to language barriers. ",
     },
@@ -54,17 +56,7 @@ function AISolution() {
       <div className="AI_Solution_Content_Main_Style">
         <div className="AI_Solution_Content_Style">
           {columns.map((column, index) => (
-            <div className="AI_Solution_Content_Child_div" key={index}>
-              <div className="AI_Solution_Content_Image_Style">
-                <img src={column.img} alt={`Image ${index + 1}`} />
-              </div>
-              <Typography variant="h6" gutterBottom  className="AI_Solution_Content_Title_Style">
-                {column.title}
-              </Typography >
-              <Typography variant="subtitle1" className="AI_Solution_Content_SubTitle_Style">
-                {column.subTitle}
-              </Typography >
-            </div>
+            <AIsolutionCard column={column} index={index}/>
           ))}
         </div>
       </div>
