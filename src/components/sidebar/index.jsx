@@ -17,7 +17,7 @@ import { Layout, Menu, Grid, Drawer } from 'antd';
 import { UseDispatch } from 'react-redux';
 import MobileHeader from './MobileHeader';
 import { getSessionList } from '../../apiCalls/ApiCalls';
-import AMChato from "../../asset/AMChato.png"
+import AMChato from '../../asset/AMChato.png';
 
 function Sidebar() {
   const { useBreakpoint } = Grid;
@@ -43,7 +43,7 @@ function Sidebar() {
     pageLoading,
     setPageLoading,
     setSessionId,
-    fetchSessionList
+    fetchSessionList,
   } = useChat();
 
   const [visible, setVisible] = useState(false);
@@ -70,8 +70,6 @@ function Sidebar() {
       console.log('No match found.');
     }
   };
-
-
 
   const setSessionHandler = (id) => {
     dispatch(setChatSessionId(id));
@@ -116,7 +114,7 @@ function Sidebar() {
               sm: '100%',
               lg: 200,
             },
-            backgroundColor:'red'
+            backgroundColor: 'rgb(248, 250, 252)',
           }}
         >
           <Box

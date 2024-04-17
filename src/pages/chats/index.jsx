@@ -56,7 +56,7 @@ function Chats() {
     pageLoading,
     setPageLoading,
     setSessionId,
-    fetchSessionList
+    fetchSessionList,
   } = useChat();
 
   const [searchOption, setSearchOption] = useState('specificFileText');
@@ -274,8 +274,8 @@ function Chats() {
         if (response?.data?.session_id) {
           setSessionId(response?.data?.session_id);
         }
-        if(!sessionId){
-          fetchSessionList()
+        if (!sessionId) {
+          fetchSessionList();
         }
         setLoading(false);
       }
@@ -413,7 +413,7 @@ function Chats() {
       {pageLoading && <PageLoader loadingStatus={pageLoading} />}
       <Box
         sx={{
-          height: isMobile ? isAndroid ? '80vh' : '72vh' : '85%',
+          height: isMobile ? '72vh' : '90%',
           width: isMobile ? '100%' : '98%',
           borderRadius: '10px',
           display: 'flex',
@@ -703,58 +703,57 @@ function Chats() {
           )}
         </Box>
         <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'center',
-        }}
-      >
-        <textarea
-          className={styles.bigInput}
-          value={inputValue}
-          onChange={handleInputChange}
-          placeholder="Ask Anything..."
-          autoSize={{ minRows: 1 }}
-          onKeyPress={handleKeyPress}
-          ref={(textarea) => {
-            if (textarea) resizeTextarea(textarea);
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
           }}
-          style={{
-            minHeight: '34px',
-            overflowY: 'auto',
-            paddingRight: '4rem',
-            scrollHeight: '3px',
-            scrollPaddingRight: '6px',
-            WebkitScrollbarCorner: {
-              background: 'transparent',
-              paddingRight: '16px',
-            },
-            resize: 'none',
-          }}
-          onPaste={handlePaste}
-        />
-        {inputValue && (
-          <Box sx={{ position: 'relative' }}>
-            <Button
-              type="primary"
-              icon={<SendOutlined />}
-              className={styles.SendButton}
-              onClick={handleSend}
-            />
-          </Box>
-        )}
+        >
+          <textarea
+            className={styles.bigInput}
+            value={inputValue}
+            onChange={handleInputChange}
+            placeholder="Ask Anything..."
+            autoSize={{ minRows: 1 }}
+            onKeyPress={handleKeyPress}
+            ref={(textarea) => {
+              if (textarea) resizeTextarea(textarea);
+            }}
+            style={{
+              minHeight: '34px',
+              overflowY: 'auto',
+              paddingRight: '4rem',
+              scrollHeight: '3px',
+              scrollPaddingRight: '6px',
+              WebkitScrollbarCorner: {
+                background: 'transparent',
+                paddingRight: '16px',
+              },
+              resize: 'none',
+            }}
+            onPaste={handlePaste}
+          />
+          {inputValue && (
+            <Box sx={{ position: 'relative' }}>
+              <Button
+                type="primary"
+                icon={<SendOutlined />}
+                className={styles.SendButton}
+                onClick={handleSend}
+              />
+            </Box>
+          )}
+        </Box>
+        <Box style={{ width: '100%', height: '1rem' }}>
+          {errorMessage && (
+            <Typography
+              variant="body2"
+              style={{ color: 'red', textAlign: 'center', marginTop: '0.4rem' }}
+            >
+              {errorMessage}
+            </Typography>
+          )}
+        </Box>
       </Box>
-      <Box style={{ width: '100%', height: '1rem' }}>
-        {errorMessage && (
-          <Typography
-            variant="body2"
-            style={{ color: 'red', textAlign: 'center', marginTop: '0.4rem' }}
-          >
-            {errorMessage}
-          </Typography>
-        )}
-      </Box>
-      </Box>
-     
     </Layout>
   );
 }

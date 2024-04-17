@@ -55,8 +55,8 @@ function Layout({ children, componentName }) {
           },
 
           color: 'black',
-          height: '100*',
-          margin:"16px",
+          height: '100',
+          margin: '16px',
         }}
       >
         <Box
