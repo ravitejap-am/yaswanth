@@ -55,7 +55,7 @@ function Layout({ children, componentName }) {
           },
 
           color: 'black',
-          height: '100',
+          height: '95%',
           margin: '16px',
         }}
       >

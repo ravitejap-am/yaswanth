@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { Button } from "antd";
-import "./editForm.css";
-import { Box, Grid, Typography } from "@mui/material";
+import React, { useState, useEffect } from 'react';
+import { Button } from 'antd';
+import './editForm.css';
+import { Box, Grid, Typography } from '@mui/material';
 
 function EditForm({
   formData: initialFormData,
@@ -14,7 +14,9 @@ function EditForm({
   const [formData, setFormData] = useState(initialFormData);
   const [isDirty, setIsDirty] = useState(true);
   const [errors, setErrors] = useState({});
-
+  const isAndroid = /Android/.test(navigator.userAgent);
+  const isIos =
+    /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
   useEffect(() => {
     setFormData(initialFormData);
   }, [initialFormData]);
@@ -45,17 +47,17 @@ function EditForm({
     let isValid = true;
 
     if (!formData.firstName.trim()) {
-      newErrors.firstName = "First name is required";
+      newErrors.firstName = 'First name is required';
       isValid = false;
     }
 
     if (!formData.lastName.trim()) {
-      newErrors.lastName = "Last name is required";
+      newErrors.lastName = 'Last name is required';
       isValid = false;
     }
 
     if (!formData.email.trim()) {
-      newErrors.email = "Email is required";
+      newErrors.email = 'Email is required';
       isValid = false;
     }
 
@@ -64,20 +66,20 @@ function EditForm({
   };
 
   return (
-    <form className="form" onSubmit={handleSubmit} style={{ height: "84%" }}>
+    <form className="form" onSubmit={handleSubmit} style={{ height: '84%' }}>
       <Box
         sx={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
-          height: "100%",
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          height: '100%',
         }}
       >
         <Box>
           <Grid container spacing={1}>
             <Grid item xs={12} md={6} lg={6} className="form-group">
               <Typography>
-                {" "}
+                {' '}
                 <label htmlFor="firstName">First Name:</label>
               </Typography>
               <input
@@ -95,7 +97,7 @@ function EditForm({
             </Grid>
             <Grid item xs={12} md={6} lg={6} className="form-group">
               <Typography>
-                {" "}
+                {' '}
                 <label htmlFor="lastName">Last Name:</label>
               </Typography>
               <input
@@ -124,21 +126,28 @@ function EditForm({
                 value={formData.email}
                 onChange={handleChange}
                 disabled={isEdit}
-                style={{ backgroundColor: isEdit ? "#CBD5E1" : "" }}
+                style={{ backgroundColor: isEdit ? '#CBD5E1' : '' }}
               />
               {errors.email && <span className="error">{errors.email}</span>}
             </Grid>
           </Grid>
         </Box>
-        <Box className="button-container">
+        <Box
+          className="button-container"
+          sx={{
+            marginBottom: {
+              xs: isAndroid ? '2em' : '4em',
+            },
+          }}
+        >
           {
             <Button
               type="secondary"
               className="buttonStyle"
               style={{
-                backgroundColor: "white",
-                color: "black",
-                border: "1px solid black",
+                backgroundColor: 'white',
+                color: 'black',
+                border: '1px solid black',
               }}
               onClick={cancelHandler}
             >
@@ -153,9 +162,11 @@ function EditForm({
             loading={buttonLoading}
             disabled={isDirty}
           >
-            {buttonLoading ? "" : (
+            {buttonLoading ? (
+              ''
+            ) : (
               <Typography variant="button">
-                {isEdit ? "Update" : "Submit"}
+                {isEdit ? 'Update' : 'Submit'}
               </Typography>
             )}
           </Button>
