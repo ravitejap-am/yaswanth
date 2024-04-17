@@ -156,11 +156,9 @@ function UpdateOrgAdminDoc() {
       <PageLoader loadingStatus={buttonLoading} />
       <Box
         sx={{
-          background: 'var(--White, #fff)',
-          boxShadow: '0px 2.789px 6.972px 3.486px rgba(0, 0, 0, 0.09)',
           width: '100%',
           height: '85%',
-          borderRadius: '10px',
+
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
