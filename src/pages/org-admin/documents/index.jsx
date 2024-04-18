@@ -46,6 +46,7 @@ function Documents() {
   const [filteredDocuments, setFilteredDocuments] = useState([]);
   const profileSrc = localStorage.getItem("profileImage");
   const navigate = useNavigate();
+  const [previousSearchQuery, setPreviousSearchQuery] = useState("");
 
   const [pageInfo, setPageInfo] = useState({
     pageSize: 10,
@@ -135,13 +136,23 @@ function Documents() {
     }
   };
 
+
   useEffect(() => {
-    if (searchQuery?.length >= 3) {
+    fetchDocuments();
+  },[])
+
+
+  useEffect(() => {
+    const trimmedQuery = searchQuery.trim();
+    if (
+      (trimmedQuery.length >= 3 && trimmedQuery !== previousSearchQuery) ||
+      (trimmedQuery.length === 0 && previousSearchQuery.length > 0)
+    ) {
       fetchDocuments();
-    } else if (searchQuery?.length === 0) {
-      fetchDocuments();
+      setPreviousSearchQuery(trimmedQuery);
     }
-  }, [jwt, searchQuery, order]);
+  }, [searchQuery, previousSearchQuery]); 
+
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -279,29 +290,6 @@ function Documents() {
               handleConfirmationPopUp(props);
             }}
           >
-            {/* {params?.row?.status === "Active" && (
-              <Popconfirm
-                key={params.row.id || "amchat"}
-                title={AM_CHAT}
-                description={
-                  <span style={{ whiteSpace: "nowrap" }}>
-                    {"Do you really want to delete this document '" +
-                      params.row.documentName +
-                      "'"}
-                  </span>
-                }
-                onConfirm={() => {
-                  const props = {
-                    id: params.row.id,
-                    name: params.row.documentName,
-                  };
-                  handleConfirmationPopUp(props);
-                }}
-                okText="Submit"
-                cancelText="Close"
-              >
-              </Popconfirm>
-            )} */}
             <img src={deleteIcon} alt="Delete" />
           </IconButton>
         </div>

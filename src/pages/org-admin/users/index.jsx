@@ -45,6 +45,7 @@ function Users() {
   const profileSrc = localStorage.getItem("profileImage");
   const [fullName, setFullName] = useState("");
   const [tableloading, setTableLoading] = useState(false);
+  const [previousSearchQuery, setPreviousSearchQuery] = useState("");
 
   const [pageInfo, setPageInfo] = useState({
     pageSize: 10,
@@ -79,61 +80,68 @@ function Users() {
     setSearchQuery(event.target.value);
   };
 
+  // useEffect(() => {
+  //   if (searchQuery?.length >= 3) {
+  //     setLoading(true);
+  //     fetchUserList();
+  //   } else if (searchQuery?.length === 0) {
+  //     setLoading(true);
+  //     fetchUserList();
+  //   }
+  // }, [searchQuery, order]);
+
   useEffect(() => {
-    if (searchQuery?.length >= 3) {
-      setLoading(true);
+    fetchUserList()
+  },[])
+
+  useEffect(() => {
+    const trimmedQuery = searchQuery.trim();
+    if (
+      (trimmedQuery.length >= 3 && trimmedQuery !== previousSearchQuery) ||
+      (trimmedQuery.length === 0 && previousSearchQuery.length > 0)
+    ) {
       fetchUserList();
-    } else if (searchQuery?.length === 0) {
-      setLoading(true);
-      fetchUserList();
+      setPreviousSearchQuery(trimmedQuery);
     }
-  }, [searchQuery, order]);
+  }, [searchQuery, previousSearchQuery]);
 
   const fetchUserList = async (page = 0, pageSize) => {
     try {
-      console.log("filters", filters);
-      const queryParams = new URLSearchParams({
-        page: page,
-        size: pageSize || pageInfo.pageSize,
-        sortField: orderBy,
-        sortDirection: order,
-        email: "",
-        active: true,
-        name: searchQuery,
-      });
+      console.log("search query---->", searchQuery);
+
+
+      console.log(searchQuery)
       setTableLoading(true);
-      const response = await fetch(
-        `${constants.BASE_API_URL}${constants.USER_LIST_ENDPOINT}?${queryParams}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${jwt}`,
-          },
-        }
-      );
-      setTableLoading(false);
-      if (!response.ok) {
-        if (response.status === 404) {
-          console.log("400 error ");
-        } else if (response.status === 405) {
-          console.log("response 405");
-        } else {
-          console.log("response 405");
-        }
-        return;
-      }
-      const responseData = await response.json();
-      console.log("users-------->", responseData);
-      setPageInfo({
-        ...pageInfo,
-        pageSize: responseData?.pageSize,
-        page: responseData?.page,
-        totalCount: responseData?.totalCount,
-        totalPages: responseData?.totalPages,
+
+      const response = await axios.get(`${constants.BASE_API_URL}${constants.USER_LIST_ENDPOINT}`, {
+        params: {
+          page: page,
+          size: pageSize || pageInfo.pageSize,
+          sortField: orderBy,
+          sortDirection: order,
+          email: "",
+          active: true,
+          name: searchQuery,
+        },
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+          "Content-Type": "application/json",
+        },
       });
-      const users = responseData.data.users;
-      setRows(users);
+
+      setTableLoading(false);
+      if(response.status === 200){
+        const responseData = response?.data;
+        setPageInfo({
+          ...pageInfo,
+          pageSize: responseData?.pageSize,
+          page: responseData?.page,
+          totalCount: responseData?.totalCount,
+          totalPages: responseData?.totalPages,
+        });
+        const users = responseData?.data?.users;
+        setRows(users);
+      }
       setLoading(false);
     } catch (error) {
       setTableLoading(false);
@@ -319,7 +327,7 @@ function Users() {
     name: `${item.firstName} ${item.lastName}`,
     email: item?.email,
     lastChat: item?.createdAt,
-    totalChat: item?.updatedAt,
+    totalChat: item?.totalChat,
     status: item?.active ? "Active" : "Inactive",
   }));
 

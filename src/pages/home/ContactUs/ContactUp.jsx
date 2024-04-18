@@ -7,11 +7,16 @@ import * as constants from "../../../constants/Constant";
 import { useMessageState } from "../../../hooks/useapp-message";
 import "./ContactUp.css";
 import { Link, useNavigate } from "react-router-dom";
-import { Typography, useMediaQuery } from "@mui/material";
+import {
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
+import Thankyou from "./Thankyou";
+
 const { TextArea } = Input;
 
 const ContactUp = (props) => {
-  const {selectPlan , setSelectPlan} = props
+  const { selectPlan, setSelectPlan } = props;
   const formRef = createRef();
   let {
     buttonLoading,
@@ -24,6 +29,7 @@ const ContactUp = (props) => {
   const navigate = useNavigate();
   const { useBreakpoint } = Grid;
   const isMobile = useMediaQuery("(max-width:600px)");
+  const [showThanksPopup, setShowThanksPopup] = useState(false);
 
   const smallTextStyles = isMobile
     ? {
@@ -39,8 +45,8 @@ const ContactUp = (props) => {
     if (formRef.current) {
       formRef.current.scrollIntoView({ behavior: "auto" });
     }
-    if(selectPlan){
-      form.setFieldsValue({ plan: selectPlan }); 
+    if (selectPlan) {
+      form.setFieldsValue({ plan: selectPlan });
     }
   }, [selectPlan]);
 
@@ -88,7 +94,8 @@ const ContactUp = (props) => {
       );
       setButtonLoading(false);
       setIsReset(true);
-      showNotifyMessage("success", response?.data?.message, messageHandler);
+      setShowThanksPopup(true);
+      // showNotifyMessage("success", response?.data?.message, messageHandler);
     } catch (error) {
       if (error?.response?.status == 500 || error?.response?.status == "500") {
         navigate("/customerSupport");
@@ -101,6 +108,10 @@ const ContactUp = (props) => {
         messageHandler
       );
     }
+  };
+
+  const handleClose = () => {
+    setShowThanksPopup(false);
   };
 
   return (
@@ -196,11 +207,8 @@ const ContactUp = (props) => {
                 placeholder="Select an option"
               />
             </Form.Item>
-            <Form.Item
-              label="Comments"
-              name="comments"              
-            >
-              <TextArea className="comment_input_css" style={{padding: "10px"}}/>
+            <Form.Item label="Comments" name="comments">
+              <TextArea className="comment_input_css" />
             </Form.Item>
             <Form.Item>
               <Button
@@ -211,6 +219,11 @@ const ContactUp = (props) => {
                 <Typography variant="button"> Submit </Typography>
               </Button>
             </Form.Item>
+            <Thankyou 
+              showThanksPopup={showThanksPopup}
+              setShowThanksPopup={setShowThanksPopup}
+              handleClose={handleClose}
+            />
           </Form>
         </div>
       </div>
