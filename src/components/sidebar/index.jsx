@@ -19,7 +19,7 @@ import MobileHeader from './MobileHeader';
 import { getSessionList } from '../../apiCalls/ApiCalls';
 import AMChato from '../../asset/AMChato.png';
 import AmChatLogo from '../../asset/logo/logofinal.png';
-function Sidebar() {
+function Sidebar({ componentName }) {
   const { useBreakpoint } = Grid;
   const dispatch = useDispatch();
   const screens = useBreakpoint();
@@ -93,6 +93,7 @@ function Sidebar() {
     fetchSessionList: fetchSessionList,
     pageLoading: pageLoading,
     setPageLoading: setPageLoading,
+    componentName: componentName,
   };
 
   return (

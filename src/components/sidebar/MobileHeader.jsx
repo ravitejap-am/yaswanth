@@ -9,7 +9,12 @@ import {
   getChatSessions,
   getIndividualChatSessions,
 } from '../../apiCalls/ApiCalls';
-
+import ShortTextIcon from '@mui/icons-material/ShortText';
+import defaultImage from '../../asset/defaultProfile.jpg';
+import { Dropdown, Space } from 'antd';
+import PersonIcon from '@mui/icons-material/Person';
+import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
+import { icons } from 'antd/es/image/PreviewGroup';
 function MobileHeader(props) {
   const {
     role,
@@ -30,9 +35,39 @@ function MobileHeader(props) {
     pageLoading,
     setSessionId,
     sessionId,
+    componentName,
   } = props;
   console.log('role', role, 'patname', pathname);
   const [visible, setVisible] = useState(false);
+  const headerImage = localStorage.getItem('userImageUrl') ?? defaultImage;
+
+  const handleLogout = () => {
+    localStorage.clear();
+    window.location.href = '/signin';
+  };
+
+  const handleViewProfile = () => {
+    window.location.href = '/Info';
+  };
+
+  const items = [
+    {
+      label: 'View Profile',
+      key: '0',
+      icon: <PersonIcon />,
+      onClick: handleViewProfile,
+    },
+    {
+      type: 'divider',
+    },
+    {
+      label: 'Logout',
+      key: '2',
+      icon: <LogoutOutlinedIcon />,
+      onClick: handleLogout,
+    },
+  ];
+
   const onOpen = () => {
     setVisible(true);
   };
@@ -40,10 +75,10 @@ function MobileHeader(props) {
     setVisible(false);
   };
 
-  const handleAddChat =async () => {
-    try{
-      onClose()
-      console.log("is new chat--->",isNewChat);
+  const handleAddChat = async () => {
+    try {
+      onClose();
+      console.log('is new chat--->', isNewChat);
       setIsChatOpen(!isChatOpen);
       setMessageSent(false);
       setIsNewChat(false);
@@ -91,13 +126,41 @@ function MobileHeader(props) {
   };
 
   return (
-    <Box
-      sx={{
-        width: '100%',
-        zIndex: 999,
-      }}
-    >
-      <ListIcon sx={{ fontSize: 40, color: 'black' }} onClick={onOpen} />
+    <>
+      <Box
+        sx={{
+          width: '100%',
+          zIndex: 999,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          paddingLeft: '10px',
+          borderBottom: '1px solid #b4b4b4',
+          paddingRight: '10px',
+        }}
+      >
+        <ShortTextIcon
+          sx={{ fontSize: 40, color: '#676767' }}
+          onClick={onOpen}
+        />
+        <Typography variant="h5" color={'#312e81'}>
+          {componentName}
+        </Typography>
+        <Dropdown
+          menu={{
+            items,
+          }}
+          trigger={['click']}
+        >
+          <img
+            src={headerImage}
+            alt=""
+            style={{ height: '44px', width: '44px', borderRadius: '50%' }}
+            onClick={(e) => e.preventDefault()}
+          />
+        </Dropdown>
+      </Box>
+
       <Drawer
         title={
           <Typography variant="h5" sx={{ color: 'white' }}>
@@ -222,7 +285,7 @@ function MobileHeader(props) {
             </>
           )}
       </Drawer>
-    </Box>
+    </>
   );
 }
 

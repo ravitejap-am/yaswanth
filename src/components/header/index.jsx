@@ -18,8 +18,8 @@ function Header({ componentName, customStyle, navigationRoute }) {
   const jwt = user?.userToken;
   const decodedToken = tokenDecodeJWT(jwt);
   const userId = decodedToken ? decodedToken?.userId : null;
-  const headerImage = localStorage.getItem('userImageUrl') ?? defaultImage
-  
+  const headerImage = localStorage.getItem('userImageUrl') ?? defaultImage;
+
   const storedFullName = localStorage.getItem('fullName');
 
   const handleLogout = () => {

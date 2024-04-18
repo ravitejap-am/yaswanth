@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, Hidden } from '@mui/material';
 import Sidebar from '../components/sidebar';
 import Header from '../components/header';
 
@@ -38,13 +38,12 @@ function Layout({ children, componentName }) {
           lg: 'row',
         },
         color: 'white',
-        // padding: 3,
         height: '100vh',
         overflowY: 'hidden',
         paddingLeft: 1,
       }}
     >
-      <Sidebar />
+      <Sidebar componentName={componentName} />
       <Box
         sx={{
           width: '100%',
@@ -59,14 +58,17 @@ function Layout({ children, componentName }) {
           margin: '16px',
         }}
       >
-        <Box
-          sx={{
-            width: '100%',
-          }}
-        >
-          <Header componentName={componentName} />
-          <br />
-        </Box>
+        <Hidden smDown>
+          <Box
+            sx={{
+              width: '100%',
+            }}
+          >
+            <Header componentName={componentName} />
+            <br />
+          </Box>
+        </Hidden>
+
         {children}
       </Box>
     </Box>
