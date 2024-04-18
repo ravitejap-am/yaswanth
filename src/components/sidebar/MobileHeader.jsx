@@ -172,7 +172,7 @@ function MobileHeader(props) {
 
       <Drawer
         title={
-          <Typography variant="h5" sx={{ color: 'white' }}>
+          <Typography variant="h5" sx={{ color: 'black' }}>
             Menu
           </Typography>
         }
@@ -182,8 +182,8 @@ function MobileHeader(props) {
         open={visible}
         mask
         style={{
-          background:
-            'linear-gradient(114deg,#0f172a 51.52%,#152346 73.32%,#1a2e5e 92.75%)',
+          backgroundColor: 'rgb(248, 250, 252)',
+          width: '75%',
         }}
       >
         {navLinks[role]?.map((item) => {
@@ -209,11 +209,11 @@ function MobileHeader(props) {
                   style: {
                     color: item?.activeLinks.includes(pathname.split('/')[1])
                       ? '#4F46E5'
-                      : 'white',
+                      : 'black',
                   },
                 })}
 
-                <Typography>{item.name}</Typography>
+                <Typography style={{ color: 'black' }}>{item.name}</Typography>
               </Box>
             </Link>
           );
@@ -237,16 +237,16 @@ function MobileHeader(props) {
                 }}
                 onClick={handleAddChat}
               >
-                <AddIcon style={{ color: 'white' }} />
+                <AddIcon style={{ color: 'black' }} />
 
-                <Typography>New Chat</Typography>
+                <Typography style={{ color: 'black' }}>New Chat</Typography>
               </Box>
             </Link>
           )}
         {(role == 'ORG_ADMIN' || role == 'USER') &&
           (pathname == '/chat' || pathname == '/user') && (
             <>
-              <Typography variant="h6" sx={{ color: 'white' }}>
+              <Typography variant="h6" sx={{ color: 'black' }}>
                 Sessions
               </Typography>
               <Box
@@ -277,7 +277,7 @@ function MobileHeader(props) {
                           whiteSpace: 'nowrap',
                           width: '100%',
                           cursor: 'pointer',
-                          color: 'white',
+                          color: 'black',
                         }}
                         onClick={() => {
                           showPreviousChats(item.id);
