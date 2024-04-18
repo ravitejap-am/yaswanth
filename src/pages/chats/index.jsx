@@ -84,6 +84,8 @@ function Chats() {
   });
   const [defaultQuestions, setDefaultQuestions] = useState([]);
   const isAndroid = /Android/.test(navigator.userAgent);
+  const isIos =
+    /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
   let { isReset, setIsReset, showNotifyMessage, hideNotifyMessage } =
     useMessageState();
@@ -413,7 +415,7 @@ function Chats() {
       {pageLoading && <PageLoader loadingStatus={pageLoading} />}
       <Box
         sx={{
-          height: isMobile ? '72vh' : '90%',
+          height: isMobile ? '85vh' : '90%',
           width: isMobile ? '100%' : '98%',
           borderRadius: '10px',
           display: 'flex',
@@ -422,7 +424,7 @@ function Chats() {
       >
         <Box
           sx={{
-            height: { sm: '8em', md: '3em' },
+            height: { sm: '8em', md: '3em', xs: '3em' },
             borderBottom: '1px solid lightGrey',
             width: '100%',
             display: 'flex',
@@ -430,8 +432,9 @@ function Chats() {
             justifyContent: isMobile ? 'space-around' : 'flex-start',
             flexDirection: 'row',
             gap: isMobile ? '0.6rem' : '2rem',
-            paddingBottom: '5px',
+            paddingBottom: isMobile ? '0px' : '5px',
             flexWrap: 'wrap',
+            marginTop: isMobile ? '0.5em' : '0px',
           }}
         >
           <Box
@@ -706,6 +709,7 @@ function Chats() {
           sx={{
             display: 'flex',
             justifyContent: 'center',
+            marginBottom: isIos ? '2em' : '0px',
           }}
         >
           <textarea

@@ -137,6 +137,8 @@ function MobileHeader(props) {
           paddingLeft: '10px',
           borderBottom: '1px solid #b4b4b4',
           paddingRight: '10px',
+          // paddingTop: '2px',
+          // paddingBottom: '2px',
         }}
       >
         <ShortTextIcon
@@ -155,7 +157,14 @@ function MobileHeader(props) {
           <img
             src={headerImage}
             alt=""
-            style={{ height: '44px', width: '44px', borderRadius: '50%' }}
+            style={{
+              height: '44px',
+              width: '44px',
+              borderRadius: '50%',
+              marginRight: '0.6em',
+              paddingBottom: '2px',
+              paddingTop: '2px',
+            }}
             onClick={(e) => e.preventDefault()}
           />
         </Dropdown>

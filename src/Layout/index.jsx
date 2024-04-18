@@ -55,7 +55,12 @@ function Layout({ children, componentName }) {
 
           color: 'black',
           height: '95%',
-          margin: '16px',
+          margin: {
+            md: '16px',
+            lg: '16px',
+            xs: '0px',
+            sm: '16px',
+          },
         }}
       >
         <Hidden smDown>

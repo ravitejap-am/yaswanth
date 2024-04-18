@@ -162,6 +162,7 @@ function UpdateOrgAdminDoc() {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
+          marginTop: isMobile ? '2em' : '0px',
         }}
       >
         <Box

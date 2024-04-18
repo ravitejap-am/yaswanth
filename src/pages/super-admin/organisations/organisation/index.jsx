@@ -517,7 +517,7 @@ function Organisation() {
   return (
     <Layout componentName={pageTitle}>
       {backDropLoading && <PageLoader loadingStatus={backDropLoading} />}
-      <Box>
+      <Box sx={{ marginTop: isMobile ? '5px' : '0px' }}>
         <TabContext value={selectedTab}>
           <Box
             sx={{
@@ -668,7 +668,7 @@ function Organisation() {
         marginTop={'0.3rem'}
         sx={{
           marginBottom: {
-            xs: isAndroid ? '3em' : '6em',
+            xs: isAndroid ? '3em' : '7em',
           },
         }}
       >

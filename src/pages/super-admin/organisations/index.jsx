@@ -1,30 +1,30 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { Popconfirm } from "antd";
-import Layout from "../../../Layout";
-import { Box, Grid, IconButton } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Popconfirm } from 'antd';
+import Layout from '../../../Layout';
+import { Box, Grid, IconButton, useMediaQuery } from '@mui/material';
+import { Link, useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   selectUser,
   setOrganisationStatus,
   setOrganisationData,
   setErrorMsg,
-} from "../../../store/authSlice";
-import styles from "./index.module.css";
-import { CircularProgress, Button } from "@mui/material";
-import PageLoader from "../../../components/loader/loader";
-import Search from "../../../components/common/common-searchInput";
-import { BASE_ORG_API_URL } from "../../../constants/Constant";
-import { useMessageState } from "../../../hooks/useapp-message";
-import frame from "../../../asset/AmChatSuperAdmin/plus-sm.png";
-import editIcon from "../../../asset/AmChatSuperAdmin/pencil-alt.png";
-import deleteIcon from "../../../asset/AmChatSuperAdmin/Frame 2302.png";
-import GeneralButton from "../../../components/common/buttons/GeneralButton";
-import DataGridTable from "../../../components/common/muiTable/DataGridTable";
-import { AM_CHAT } from "../../../constants/Constant";
-import { Modal } from "antd";
-import  eye1  from '../../../asset/eye1.png' 
+} from '../../../store/authSlice';
+import styles from './index.module.css';
+import { CircularProgress, Button } from '@mui/material';
+import PageLoader from '../../../components/loader/loader';
+import Search from '../../../components/common/common-searchInput';
+import { BASE_ORG_API_URL } from '../../../constants/Constant';
+import { useMessageState } from '../../../hooks/useapp-message';
+import frame from '../../../asset/AmChatSuperAdmin/plus-sm.png';
+import editIcon from '../../../asset/AmChatSuperAdmin/pencil-alt.png';
+import deleteIcon from '../../../asset/AmChatSuperAdmin/Frame 2302.png';
+import GeneralButton from '../../../components/common/buttons/GeneralButton';
+import DataGridTable from '../../../components/common/muiTable/DataGridTable';
+import { AM_CHAT } from '../../../constants/Constant';
+import { Modal } from 'antd';
+import eye1 from '../../../asset/eye1.png';
 
 function Organisations() {
   let { showNotifyMessage, hideNotifyMessage } = useMessageState();
@@ -32,12 +32,12 @@ function Organisations() {
   const navigate = useNavigate();
   const jwt = user.userToken;
   const [rows, setRows] = useState([]);
-  const [order, setOrder] = useState("desc");
-  const [orderBy, setOrderBy] = useState("createdAt");
+  const [order, setOrder] = useState('desc');
+  const [orderBy, setOrderBy] = useState('createdAt');
   const [responseData, setResponseData] = useState([]);
   const dispatch = useDispatch();
   const [loadingId, setLoadingId] = useState(null);
-  const [fullName, setFullName] = useState("");
+  const [fullName, setFullName] = useState('');
   const [pageInfo, setPageInfo] = useState({
     pageSize: 10,
     page: 0,
@@ -45,30 +45,31 @@ function Organisations() {
     totalPages: null,
   });
   const [tableloading, setTableLoading] = useState(false);
-  const [searchValue, setSearchValue] = useState("");
+  const [searchValue, setSearchValue] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const [openDeletePopUp, setOpenDeletePopUp] = useState(false);
   const [deleteProps, setDeleteProps] = useState({});
-  const [previousSearchQuery, setPreviousSearchQuery] = useState("");
+  const [previousSearchQuery, setPreviousSearchQuery] = useState('');
+  const isMobile = useMediaQuery('(max-width:600px)');
 
   const itemRender = (_, type, originalElement) => {
-    if (type === "prev") {
+    if (type === 'prev') {
       return <a>Previous</a>;
     }
-    if (type === "next") {
+    if (type === 'next') {
       return <a>Next</a>;
     }
     return originalElement;
   };
 
   useEffect(() => {
-    const storedFullName = localStorage.getItem("fullName");
+    const storedFullName = localStorage.getItem('fullName');
     setFullName(storedFullName);
   }, []);
 
   useEffect(() => {
     fetchlist();
-  },[jwt, order])
+  }, [jwt, order]);
 
   useEffect(() => {
     const trimmedQuery = searchValue.trim();
@@ -79,7 +80,7 @@ function Organisations() {
       fetchlist();
       setPreviousSearchQuery(trimmedQuery);
     }
-  }, [ searchValue, previousSearchQuery]);
+  }, [searchValue, previousSearchQuery]);
 
   const fetchlist = async (page = 0, pageSize) => {
     setTableLoading(true);
@@ -96,17 +97,17 @@ function Organisations() {
         },
         headers: {
           Authorization: `Bearer ${jwt}`,
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
       });
 
       if (!response.data || !response.data.data) {
-        throw new Error("Failed to fetch documents");
+        throw new Error('Failed to fetch documents');
       }
 
-      console.log("----response", response);
+      console.log('----response', response);
       if (
-        response?.data?.message == "list is empty" ||
+        response?.data?.message == 'list is empty' ||
         response?.data?.data == null ||
         response?.data?.data.length == 0
       ) {
@@ -130,46 +131,46 @@ function Organisations() {
         totalCount: responseData?.totalCount,
         totalPages: responseData?.totalPages,
       });
-      console.log("-----organisationData", organisationData);
+      console.log('-----organisationData', organisationData);
       let allOrgansisation = [];
       organisationData?.map((org) => {
         let address = `${
-          org?.address?.address1 ? org.address?.address1 : ""
-        }, ${org.address?.address2 ? org.address?.address2 : ""}, ${
-          org?.address?.city ? org?.address?.city : ""
+          org?.address?.address1 ? org.address?.address1 : ''
+        }, ${org.address?.address2 ? org.address?.address2 : ''}, ${
+          org?.address?.city ? org?.address?.city : ''
         }, ${
-          org?.address?.state?.stateName ? org?.address?.state?.stateName : ""
+          org?.address?.state?.stateName ? org?.address?.state?.stateName : ''
         }, ${
           org?.address?.country?.countryName
             ? org?.address?.country?.countryName
-            : ""
-        }-${org?.address?.postCode ? org?.address?.postCode : ""}`;
+            : ''
+        }-${org?.address?.postCode ? org?.address?.postCode : ''}`;
         let individuvalOrg = {
           id: org.id,
           name: org.name,
           address: address,
           contactPerson: `${
-            org?.contact?.firstName ? org?.contact?.firstName : ""
-          }  ${org?.contact?.lastName ? org?.contact?.lastName : ""}`,
+            org?.contact?.firstName ? org?.contact?.firstName : ''
+          }  ${org?.contact?.lastName ? org?.contact?.lastName : ''}`,
 
-          plans: "Basic",
-          status: org?.active ? "Active" : "Inactive",
+          plans: 'Basic',
+          status: org?.active ? 'Active' : 'Inactive',
         };
         allOrgansisation.push(individuvalOrg);
       });
       setRows(allOrgansisation);
       setTableLoading(false);
     } catch (error) {
-      console.log("error---->", error);
+      console.log('error---->', error);
       if (error?.response?.status === 500) {
         const errorMsgprops = {
           message: {
-            title: "Something went wrong",
-            content: "Please contact our customer support team",
+            title: 'Something went wrong',
+            content: 'Please contact our customer support team',
           },
           handleCancelVerification: handleCancelVerification,
           handleVerification: handleVerification,
-          onOkButtonText: "Retry",
+          onOkButtonText: 'Retry',
         };
         dispatch(setErrorMsg({ ...errorMsgprops }));
       }
@@ -181,7 +182,7 @@ function Organisations() {
         totalPages: 0,
       });
       setRows([]);
-      console.error("Error fetching documents:", error.message);
+      console.error('Error fetching documents:', error.message);
       setTableLoading(false);
     }
   };
@@ -198,34 +199,34 @@ function Organisations() {
       const response = await axios.delete(`${BASE_ORG_API_URL}`, {
         headers: {
           Authorization: `Bearer ${jwt}`,
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         data: JSON.stringify(body),
       });
       setLoadingId(null);
 
       fetchlist();
-      showNotifyMessage("success", response?.data?.message, messageHandler);
-      console.log("API Response:", response.data);
+      showNotifyMessage('success', response?.data?.message, messageHandler);
+      console.log('API Response:', response.data);
       setTableLoading(false);
     } catch (error) {
-      console.error("Error occurred:", error);
-      if (error?.response?.status == 500 || error?.response?.status == "500") {
+      console.error('Error occurred:', error);
+      if (error?.response?.status == 500 || error?.response?.status == '500') {
         const errorMsgprops = {
           message: {
-            title: "Something went wrong",
-            content: "Please contact our customer support team",
+            title: 'Something went wrong',
+            content: 'Please contact our customer support team',
           },
           handleCancelVerification: handleCancelVerification,
           handleVerification: handleVerification,
-          onOkButtonText: "Retry",
+          onOkButtonText: 'Retry',
         };
         dispatch(setErrorMsg({ ...errorMsgprops }));
       }
       setLoadingId(null);
       console.log(error);
       setTableLoading(false);
-      showNotifyMessage("error", error?.message, messageHandler);
+      showNotifyMessage('error', error?.message, messageHandler);
     }
   };
 
@@ -236,11 +237,11 @@ function Organisations() {
   const handleVerification = () => {
     const isValidJwtToken = true;
     if (isValidJwtToken) {
-      console.log("valid jwt token");
-      navigate("/dashboardadmin");
+      console.log('valid jwt token');
+      navigate('/dashboardadmin');
     } else {
       localStorage.clear();
-      navigate("/signin");
+      navigate('/signin');
     }
   };
 
@@ -260,20 +261,20 @@ function Organisations() {
   };
 
   const handleEdit = (id) => {
-    console.log("editing");
+    console.log('editing');
     console.log(id);
     const orgObject = responseData.find((obj) => obj.id === id);
-    navigate("/organisation");
-    dispatch(setOrganisationStatus("edit"));
+    navigate('/organisation');
+    dispatch(setOrganisationStatus('edit'));
     dispatch(setOrganisationData(orgObject));
   };
 
   const handleViewOrganisation = (id) => {
     const orgObject = responseData.find((obj) => obj.id === id);
-    navigate("/organisation");
-    dispatch(setOrganisationStatus("view"));
+    navigate('/organisation');
+    dispatch(setOrganisationStatus('view'));
     dispatch(setOrganisationData(orgObject));
-  }
+  };
 
   const handleNo = () => {
     setDeleteProps({});
@@ -282,54 +283,54 @@ function Organisations() {
 
   const columns = [
     {
-      field: "organisationName",
-      headerName: "Organisation Name",
+      field: 'organisationName',
+      headerName: 'Organisation Name',
       flex: 1,
       minWidth: 200,
       maxWidth: 400,
       sortable: false,
     },
     {
-      field: "address",
-      headerName: "Address",
+      field: 'address',
+      headerName: 'Address',
       flex: 1,
       minWidth: 450,
       maxWidth: 900,
       sortable: false,
     },
     {
-      field: "organisationAdmin",
-      headerName: "Organisation Admin",
+      field: 'organisationAdmin',
+      headerName: 'Organisation Admin',
       flex: 1,
       minWidth: 200,
       maxWidth: 400,
       sortable: false,
     },
     {
-      field: "plans",
-      headerName: "Plans",
+      field: 'plans',
+      headerName: 'Plans',
       flex: 1,
       minWidth: 100,
       maxWidth: 200,
       sortable: false,
     },
     {
-      field: "status",
-      headerName: "Status",
+      field: 'status',
+      headerName: 'Status',
       flex: 1,
       minWidth: 100,
       maxWidth: 200,
       sortable: false,
     },
     {
-      field: "actions",
-      headerName: "Actions",
+      field: 'actions',
+      headerName: 'Actions',
       flex: 1,
       minWidth: 100,
       maxWidth: 200,
       sortable: false,
       renderCell: (params) => (
-        <div style={{ backgroundColor: "transparent" }}>
+        <div style={{ backgroundColor: 'transparent' }}>
           <IconButton
             aria-label="edit"
             onClick={() => handleEdit(params.row.id)}
@@ -371,30 +372,30 @@ function Organisations() {
   return (
     <Layout componentName="Organisations">
       {tableloading && <PageLoader loadingStatus={tableloading} />}
-      <Grid container spacing={2}>
+      <Grid container spacing={2} sx={{ marginTop: isMobile ? '5px' : '0px' }}>
         <Grid item xs={12} md={12} lg={12}>
           <Box className={styles.search_container}>
             <Box>
               <Search
-                inputLabel={"Search organisation by name"}
+                inputLabel={'Search organisation by name'}
                 handleSearchChange={handleChangeSearch}
                 inputValue={searchValue}
               />
             </Box>
             <Box>
-              <Link to="/organisation" style={{ textDecoration: "none" }}>
+              <Link to="/organisation" style={{ textDecoration: 'none' }}>
                 <GeneralButton
-                  name={"Add Organisation"}
-                  type={"submit"}
-                  color={"#f8fafc"}
-                  borderRadius={"30px"}
-                  backgroundColor={"#6366f1"}
+                  name={'Add Organisation'}
+                  type={'submit'}
+                  color={'#f8fafc'}
+                  borderRadius={'30px'}
+                  backgroundColor={'#6366f1'}
                   icons={frame}
-                  width={"180px"}
-                  height={"45px"}
+                  width={'180px'}
+                  height={'45px'}
                   buttonHandler={() => {
-                    console.log("getting");
-                    dispatch(setOrganisationStatus("add"));
+                    console.log('getting');
+                    dispatch(setOrganisationStatus('add'));
                   }}
                 />
               </Link>
@@ -403,14 +404,14 @@ function Organisations() {
         </Grid>
         {openDeletePopUp && (
           <Modal
-            title={"Confirmation"}
+            title={'Confirmation'}
             centered
             open={openDeletePopUp}
             onOk={() => {
               handleYes(deleteProps?.id);
             }}
-            okText={"Yes"}
-            cancelText={"No"}
+            okText={'Yes'}
+            cancelText={'No'}
             onCancel={() => {
               handleNo();
             }}

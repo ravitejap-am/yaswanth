@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from 'antd';
 import './editForm.css';
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, Grid, Typography, useMediaQuery } from '@mui/material';
 
 function EditForm({
   formData: initialFormData,
@@ -17,6 +17,7 @@ function EditForm({
   const isAndroid = /Android/.test(navigator.userAgent);
   const isIos =
     /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+  const isMobile = useMediaQuery('(max-width:600px)');
   useEffect(() => {
     setFormData(initialFormData);
   }, [initialFormData]);
@@ -66,7 +67,15 @@ function EditForm({
   };
 
   return (
-    <form className="form" onSubmit={handleSubmit} style={{ height: '84%' }}>
+    <form
+      className="form"
+      onSubmit={handleSubmit}
+      style={{
+        height: '84%',
+        marginTop: isMobile ? '2em' : '0px',
+        marginLeft: isMobile ? '5px' : '0px',
+      }}
+    >
       <Box
         sx={{
           display: 'flex',
@@ -136,7 +145,7 @@ function EditForm({
           className="button-container"
           sx={{
             marginBottom: {
-              xs: isAndroid ? '2em' : '4em',
+              xs: isAndroid ? '1em' : '3em',
             },
           }}
         >

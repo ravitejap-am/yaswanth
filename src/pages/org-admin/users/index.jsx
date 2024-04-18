@@ -1,51 +1,52 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { Popconfirm } from "antd";
-import Layout from "../../../Layout";
-import { Box, Grid, IconButton } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Popconfirm } from 'antd';
+import Layout from '../../../Layout';
+import { Box, Grid, IconButton, useMediaQuery } from '@mui/material';
+import { Link, useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   selectUser,
   setOrganisationStatus,
   setOrganisationData,
   setErrorMsg,
-} from "../../../store/authSlice";
-import styles from "./index.module.css";
-import { toast } from "react-toastify";
-import { CircularProgress } from "@mui/material";
-import PageLoader from "../../../components/loader/loader";
-import Search from "../../../components/common/common-searchInput";
-import { BASE_ORG_API_URL } from "../../../constants/Constant";
-import { useMessageState } from "../../../hooks/useapp-message";
-import frame from "../../../asset/AmChatSuperAdmin/plus-sm.png";
-import editIcon from "../../../asset/AmChatSuperAdmin/pencil-alt.png";
-import deleteIcon from "../../../asset/AmChatSuperAdmin/Frame 2302.png";
-import SearchImages from "../../../asset/AmChatSuperAdmin/Group 2307.png";
-import GeneralButton from "../../../components/common/buttons/GeneralButton";
-import DataGridTable from "../../../components/common/muiTable/DataGridTable";
-import * as constants from "../../../constants/Constant";
-import NotifyMessage from "../../../components/common/toastMessages/NotifyMessage";
-import { AM_CHAT } from "../../../constants/Constant";
-import { Modal } from "antd";
+} from '../../../store/authSlice';
+import styles from './index.module.css';
+import { toast } from 'react-toastify';
+import { CircularProgress } from '@mui/material';
+import PageLoader from '../../../components/loader/loader';
+import Search from '../../../components/common/common-searchInput';
+import { BASE_ORG_API_URL } from '../../../constants/Constant';
+import { useMessageState } from '../../../hooks/useapp-message';
+import frame from '../../../asset/AmChatSuperAdmin/plus-sm.png';
+import editIcon from '../../../asset/AmChatSuperAdmin/pencil-alt.png';
+import deleteIcon from '../../../asset/AmChatSuperAdmin/Frame 2302.png';
+import SearchImages from '../../../asset/AmChatSuperAdmin/Group 2307.png';
+import GeneralButton from '../../../components/common/buttons/GeneralButton';
+import DataGridTable from '../../../components/common/muiTable/DataGridTable';
+import * as constants from '../../../constants/Constant';
+import NotifyMessage from '../../../components/common/toastMessages/NotifyMessage';
+import { AM_CHAT } from '../../../constants/Constant';
+import { Modal } from 'antd';
 
 function Users() {
   let { showNotifyMessage, hideNotifyMessage } = useMessageState();
+  const isMobile = useMediaQuery('(max-width:600px)');
   const user = useSelector(selectUser);
   const jwt = user.userToken;
   const navigate = useNavigate();
   const [rows, setRows] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [order, setOrder] = useState("asc");
-  const [orderBy, setOrderBy] = useState("createdAt");
+  const [order, setOrder] = useState('asc');
+  const [orderBy, setOrderBy] = useState('createdAt');
   const [loading, setLoading] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const profileSrc = localStorage.getItem("profileImage");
-  const [fullName, setFullName] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const profileSrc = localStorage.getItem('profileImage');
+  const [fullName, setFullName] = useState('');
   const [tableloading, setTableLoading] = useState(false);
-  const [previousSearchQuery, setPreviousSearchQuery] = useState("");
+  const [previousSearchQuery, setPreviousSearchQuery] = useState('');
 
   const [pageInfo, setPageInfo] = useState({
     pageSize: 10,
@@ -57,11 +58,11 @@ function Users() {
   const [filters, setFilters] = useState({
     page: page,
     size: pageInfo?.pageSize,
-    sortField: "createdAt",
-    sortDirection: "desc",
-    email: "",
+    sortField: 'createdAt',
+    sortDirection: 'desc',
+    email: '',
     active: true,
-    name: "",
+    name: '',
   });
 
   const [openDeletePopUp, setOpenDeletePopUp] = useState(false);
@@ -72,7 +73,7 @@ function Users() {
   };
 
   useEffect(() => {
-    const storedFullName = localStorage.getItem("fullName");
+    const storedFullName = localStorage.getItem('fullName');
     setFullName(storedFullName);
   }, []);
 
@@ -91,8 +92,8 @@ function Users() {
   // }, [searchQuery, order]);
 
   useEffect(() => {
-    fetchUserList()
-  },[])
+    fetchUserList();
+  }, []);
 
   useEffect(() => {
     const trimmedQuery = searchQuery.trim();
@@ -107,30 +108,32 @@ function Users() {
 
   const fetchUserList = async (page = 0, pageSize) => {
     try {
-      console.log("search query---->", searchQuery);
+      console.log('search query---->', searchQuery);
 
-
-      console.log(searchQuery)
+      console.log(searchQuery);
       setTableLoading(true);
 
-      const response = await axios.get(`${constants.BASE_API_URL}${constants.USER_LIST_ENDPOINT}`, {
-        params: {
-          page: page,
-          size: pageSize || pageInfo.pageSize,
-          sortField: orderBy,
-          sortDirection: order,
-          email: "",
-          active: true,
-          name: searchQuery,
-        },
-        headers: {
-          Authorization: `Bearer ${jwt}`,
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await axios.get(
+        `${constants.BASE_API_URL}${constants.USER_LIST_ENDPOINT}`,
+        {
+          params: {
+            page: page,
+            size: pageSize || pageInfo.pageSize,
+            sortField: orderBy,
+            sortDirection: order,
+            email: '',
+            active: true,
+            name: searchQuery,
+          },
+          headers: {
+            Authorization: `Bearer ${jwt}`,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
 
       setTableLoading(false);
-      if(response.status === 200){
+      if (response.status === 200) {
         const responseData = response?.data;
         setPageInfo({
           ...pageInfo,
@@ -146,7 +149,7 @@ function Users() {
     } catch (error) {
       setTableLoading(false);
       setLoading(false);
-      navigate("/maintenance");
+      navigate('/maintenance');
     }
   };
 
@@ -165,18 +168,18 @@ function Users() {
       setRows(rows.filter((row) => row.id !== userId));
       setTableLoading(false);
       // toast.success("User deleted successfully");
-      showNotifyMessage("success", "User deleted successfully", messageHandler);
+      showNotifyMessage('success', 'User deleted successfully', messageHandler);
     } catch (error) {
       setTableLoading(false);
-      console.error("Error deleting user:", error);
+      console.error('Error deleting user:', error);
       // toast.error("Error deleting user");
-      showNotifyMessage("error", "Error deleting user", messageHandler);
+      showNotifyMessage('error', 'Error deleting user', messageHandler);
     }
   };
 
   const handleRequestSort = (event, property) => {
-    const isAsc = orderBy === property && order === "asc";
-    setOrder(isAsc ? "desc" : "asc");
+    const isAsc = orderBy === property && order === 'asc';
+    setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
   };
 
@@ -190,10 +193,10 @@ function Users() {
   };
 
   const itemRender = (_, type, originalElement) => {
-    if (type === "prev") {
+    if (type === 'prev') {
       return <a>Previous</a>;
     }
-    if (type === "next") {
+    if (type === 'next') {
       return <a>Next</a>;
     }
     return originalElement;
@@ -210,7 +213,7 @@ function Users() {
 
   const handleCheckboxClick = async (userId, isChecked) => {
     try {
-      let roleId = isChecked ? "19" : "17";
+      let roleId = isChecked ? '19' : '17';
       await axios.put(
         `${constants.BASE_API_URL}/user/role`,
         {
@@ -220,7 +223,7 @@ function Users() {
         {
           headers: {
             Authorization: `Bearer ${jwt}`,
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
         }
       );
@@ -231,17 +234,25 @@ function Users() {
         )
       );
       // Show different messages based on the roleId
-      if (roleId === "17") {
+      if (roleId === '17') {
         // toast.success("Admin role assigned successfully");
-        showNotifyMessage("success", "Admin role assigned successfully", messageHandler);
-      } else if (roleId === "19") {
+        showNotifyMessage(
+          'success',
+          'Admin role assigned successfully',
+          messageHandler
+        );
+      } else if (roleId === '19') {
         // toast.success("User role assigned successfully");
-        showNotifyMessage("success", "User role assigned successfully", messageHandler);
+        showNotifyMessage(
+          'success',
+          'User role assigned successfully',
+          messageHandler
+        );
       }
     } catch (error) {
-      console.error("Error updating role:", error);
+      console.error('Error updating role:', error);
       // toast.error("Error updating role");
-      showNotifyMessage("error", "Error updating role", messageHandler);
+      showNotifyMessage('error', 'Error updating role', messageHandler);
     }
   };
 
@@ -252,48 +263,48 @@ function Users() {
 
   const columns = [
     {
-      field: "name",
-      headerName: "Name",
-      flex: 1, 
-      minWidth: 150, 
-      maxWidth: 300, 
+      field: 'name',
+      headerName: 'Name',
+      flex: 1,
+      minWidth: 150,
+      maxWidth: 300,
       sortable: false,
     },
     {
-      field: "email",
-      headerName: "Email",
+      field: 'email',
+      headerName: 'Email',
       flex: 1,
       minWidth: 200,
       maxWidth: 400,
       sortable: false,
     },
     {
-      field: "lastChat",
-      headerName: "Last Chat",
+      field: 'lastChat',
+      headerName: 'Last Chat',
       flex: 1,
       minWidth: 200,
       maxWidth: 400,
       sortable: false,
     },
     {
-      field: "totalChat",
-      headerName: "Total Chat",
+      field: 'totalChat',
+      headerName: 'Total Chat',
       flex: 1,
       minWidth: 200,
       maxWidth: 400,
       sortable: false,
     },
     {
-      field: "status",
-      headerName: "Status",
+      field: 'status',
+      headerName: 'Status',
       flex: 1,
       minWidth: 100,
       maxWidth: 150,
       sortable: false,
     },
     {
-      field: "actions",
-      headerName: "Actions",
+      field: 'actions',
+      headerName: 'Actions',
       flex: 1,
       minWidth: 100,
       maxWidth: 150,
@@ -306,14 +317,15 @@ function Users() {
           >
             <img src={editIcon} alt="Edit" />
           </IconButton>
-          <IconButton aria-label="delete"
-           onClick= {() => {
-            const props = {
-              id: params.row.id,
-              name: params.row.name,
-            };
-            handleConfirmationPopUp(props)  
-          }}
+          <IconButton
+            aria-label="delete"
+            onClick={() => {
+              const props = {
+                id: params.row.id,
+                name: params.row.name,
+              };
+              handleConfirmationPopUp(props);
+            }}
           >
             <img src={deleteIcon} alt="Delete" />
           </IconButton>
@@ -328,7 +340,7 @@ function Users() {
     email: item?.email,
     lastChat: item?.createdAt,
     totalChat: item?.totalChat,
-    status: item?.active ? "Active" : "Inactive",
+    status: item?.active ? 'Active' : 'Inactive',
   }));
 
   const handleYes = (id) => {
@@ -345,27 +357,33 @@ function Users() {
   return (
     <Layout componentName="Users">
       {tableloading && <PageLoader loadingStatus={tableloading} />}
-      <Grid container spacing={2}>
+      <Grid
+        container
+        spacing={2}
+        sx={{
+          marginTop: isMobile ? '5px' : '0px',
+        }}
+      >
         <Grid item xs={12} md={12} lg={12}>
           <Box className={styles.search_container}>
             <Box>
               <Search
-                inputLabel={"Search by user name"}
+                inputLabel={'Search by user name'}
                 handleSearchChange={handleSearchChange}
                 inputValue={searchQuery}
               />
             </Box>
             <Box>
-              <Link to="/adduser" style={{ textDecoration: "none" }}>
+              <Link to="/adduser" style={{ textDecoration: 'none' }}>
                 <GeneralButton
-                  name={"Add User"}
-                  type={"submit"}
-                  color={"#f8fafc"}
-                  borderRadius={"30px"}
-                  backgroundColor={"#6366f1"}
+                  name={'Add User'}
+                  type={'submit'}
+                  color={'#f8fafc'}
+                  borderRadius={'30px'}
+                  backgroundColor={'#6366f1'}
                   icons={frame}
-                  width={"158px"}
-                  height={"48px"}
+                  width={'158px'}
+                  height={'48px'}
                 />
               </Link>
             </Box>
@@ -373,14 +391,14 @@ function Users() {
         </Grid>
         {openDeletePopUp && (
           <Modal
-            title={"Confirmation"}
+            title={'Confirmation'}
             centered
             open={openDeletePopUp}
             onOk={() => {
               handleYes(deleteProps?.id);
             }}
-            okText={"Yes"}
-            cancelText={"No"}
+            okText={'Yes'}
+            cancelText={'No'}
             onCancel={() => {
               handleNo();
             }}
