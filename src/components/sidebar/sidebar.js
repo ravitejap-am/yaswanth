@@ -98,7 +98,9 @@ export const sideBar = (
   fetchSessionList,
   pageLoading,
   setPageLoading,
-  setSessionId
+  setSessionId,
+  setInputValue,
+  inputValue
 ) => {
   const handleAddChat = async () => {
     try {
@@ -145,6 +147,8 @@ export const sideBar = (
       setMessageSent(true);
       setSessionId(id);
       setPageLoading(false);
+      setIsNewChat(true)
+      setInputValue("")
       // setSessionHandler(id);
     } catch (error) {
       console.log('throwing error in chat');

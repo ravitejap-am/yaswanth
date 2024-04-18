@@ -56,12 +56,14 @@ function Chats() {
     pageLoading,
     setPageLoading,
     setSessionId,
-    fetchSessionList
+    fetchSessionList,
+    setInputValue,
+    inputValue
   } = useChat();
 
   const [searchOption, setSearchOption] = useState('specificFileText');
   const [selectedFile, setSelectedFile] = useState('');
-  const [inputValue, setInputValue] = useState('');
+  // const [inputValue, setInputValue] = useState('');
 
   const [loading, setLoading] = useState(false);
   const [showWarning, setShowWarning] = useState(false);
@@ -102,6 +104,10 @@ function Chats() {
   useEffect(() => {
     fetchDocuments();
   }, []);
+
+
+
+
 
   useEffect(() => {
     if (
@@ -153,6 +159,7 @@ function Chats() {
       setShowWarning(true);
     } else {
       setSearchOption(option);
+      setInputValue("")
       if (documents?.length > 0) {
         setSelectedFile(documents[0]?.id);
       }
@@ -163,16 +170,27 @@ function Chats() {
   };
 
   const handleFileChange = (event) => {
+    if (isNewChat) {
+      addNewChat();
+    }
+    setInputValue("")
     setSelectedFile(event.target.value);
+    console.log("is new chat",isNewChat);
   };
 
   const handleInputChange = (event) => {
-    if (event.target.value.replace(/\s/g, '').length <= 1000) {
-      setInputValue(event.target.value);
+    const newValue = event.target.value;
+    const newLength = newValue.replace(/\s/g, '').length;
+
+    if (newLength <= 1000) {
+      setInputValue(newValue);
       setErrorMessage('');
     } else {
+      const allowedContent = newValue.substring(0, calculateLastIndexOfText(newValue, 1003));
+      setInputValue(allowedContent);
       setErrorMessage('Maximum 1000 characters allowed');
     }
+  
     if (!messageSent) {
       setMessageSent(false);
     }
@@ -190,33 +208,33 @@ function Chats() {
     return i;
   };
 
-  const handlePaste = (event) => {
-    const pastedText = event.clipboardData.getData('text');
-    const existingInputLength = inputValue.replace(/\s/g, '').length;
-    const pastedCharLength = pastedText.replace(/\s/g, '').length;
+  // const handlePaste = (event) => {
+  //   const pastedText = event.clipboardData.getData('text');
+  //   const existingInputLength = inputValue.replace(/\s/g, '').length;
+  //   const pastedCharLength = pastedText.replace(/\s/g, '').length;
 
-    let allowedLength = 0;
-    if (pastedCharLength + existingInputLength > 1000) {
-      const subLength =
-        (pastedText + inputValue).replace(/\s/g, '').length - 1000;
-      allowedLength =
-        (pastedText + inputValue).replace(/\s/g, '').length - subLength;
-    } else {
-      allowedLength = pastedCharLength + existingInputLength;
-    }
-    let fullText = pastedText + inputValue;
+  //   let allowedLength = 0;
+  //   if (pastedCharLength + existingInputLength > 1000) {
+  //     const subLength =
+  //       (pastedText + inputValue).replace(/\s/g, '').length - 1000;
+  //     allowedLength =
+  //       (pastedText + inputValue).replace(/\s/g, '').length - subLength;
+  //   } else {
+  //     allowedLength = pastedCharLength + existingInputLength;
+  //   }
+  //   let fullText = pastedText + inputValue;
 
-    const number = calculateLastIndexOfText(fullText, 1000);
-    const allowedContent = fullText.substring(0, number);
+  //   const number = calculateLastIndexOfText(fullText, 1000);
+  //   const allowedContent = fullText.substring(0, number);
 
-    if (allowedContent.replace(/\s/g, '').length > 1000) {
-      event.preventDefault();
-      setErrorMessage('Maximum 1000 characters allowed');
-    } else {
-      const newValue = allowedContent;
-      setInputValue(newValue);
-    }
-  };
+  //   if (allowedContent.replace(/\s/g, '').length > 1000) {
+  //     event.preventDefault();
+  //     setErrorMessage('Maximum 1000 characters allowed');
+  //   } else {
+  //     const newValue = allowedContent;
+  //     setInputValue(newValue);
+  //   }
+  // };
 
   const handleSend = async () => {
     let docName = '';
@@ -392,6 +410,7 @@ function Chats() {
       console.log('add new chat');
       addNewChat();
     }
+    setInputValue("")
     setSearchOption('acrossFiles');
     setSelectedFile('');
   };
@@ -406,7 +425,8 @@ function Chats() {
     if (pathName) {
       chatRef?.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
     }
-  }, []);
+  }, [isNewChat]);
+
 
   return (
     <Layout componentName="Chat">
@@ -545,9 +565,7 @@ function Chats() {
                 justifyContent: isMobile ? 'space-between' : 'space-between',
                 alignItems: isMobile ? 'center' : 'center',
                 flexWrap: isMobile ? '' : '',
-                height: isMobile
-                  ? `calc(100% - ${containerHeight})`
-                  : `calc(100% - ${containerHeight})`,
+                height: { sm: `calc(100% - ${containerHeight})`, lg: '95%', xl:'98%' },
                 overflowY: 'auto',
                 scrollbarWidth: 'thin',
                 scrollbarColor: 'lightgrey #f5f5f5',
@@ -709,6 +727,7 @@ function Chats() {
           sx={{
             display: 'flex',
             justifyContent: 'center',
+            marginTop:'5px'
           }}
         >
           <textarea
@@ -733,8 +752,7 @@ function Chats() {
               },
               resize: 'none',
             }}
-            onPaste={handlePaste}
-          />
+            />
           {inputValue && (
             <Box sx={{ position: 'relative' }}>
               <Button

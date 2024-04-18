@@ -21,6 +21,7 @@ export const ChatProvider = ({ children }) => {
   const [messageSent, setMessageSent] = useState(false);
   const [sessionId, setSessionId] = useState('');
   const [pageLoading, setPageLoading] = useState(false);
+  const [inputValue, setInputValue] = useState('');
 
   // useEffect(() => {
   //   console.log("use effect is called");
@@ -83,7 +84,9 @@ export const ChatProvider = ({ children }) => {
         pageLoading,
         setPageLoading,
         setSessionId,
-        fetchSessionList
+        fetchSessionList,
+        setInputValue,
+        inputValue
       }}
     >
       {children}

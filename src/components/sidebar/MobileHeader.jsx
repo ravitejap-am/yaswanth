@@ -26,7 +26,9 @@ function MobileHeader(props) {
     setPageLoading,
     pageLoading,
     setSessionId,
-    sessionId
+    sessionId,
+    setInputValue,
+    inputValue
   } = props;
   console.log('role', role, 'patname', pathname);
   const [visible, setVisible] = useState(false);
@@ -80,6 +82,7 @@ function MobileHeader(props) {
       setMessageSent(true);
       setSessionId(id)
       setPageLoading(false)
+      setInputValue("")
       // setSessionHandler(id);
     } catch (error) {
       console.log('throwing error in chat');

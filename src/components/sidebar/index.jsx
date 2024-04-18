@@ -42,7 +42,9 @@ function Sidebar() {
     pageLoading,
     setPageLoading,
     setSessionId,
-    fetchSessionList
+    fetchSessionList,
+    setInputValue,
+    inputValue
   } = useChat();
 
   const [visible, setVisible] = useState(false);
@@ -94,6 +96,8 @@ function Sidebar() {
     fetchSessionList: fetchSessionList,
     pageLoading: pageLoading,
     setPageLoading: setPageLoading,
+    setInputValue: setInputValue,
+    inputValue: inputValue
   };
 
   return (
@@ -176,7 +180,9 @@ function Sidebar() {
                 fetchSessionList,
                 pageLoading,
                 setPageLoading,
-                setSessionId
+                setSessionId,
+                setInputValue,
+                inputValue
               )}
             </Box>
           </Box>
