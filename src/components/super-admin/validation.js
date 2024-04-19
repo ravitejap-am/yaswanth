@@ -147,3 +147,42 @@ export const validConfirmPassword = (value, passwordValue) => {
   }
   return "";
 };
+
+
+export const validateEmail = (value) => {
+  console.log("email--->",value);
+  if(!value){
+    return 'Please enter your email';
+  }else if( !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)){
+    return "Invalid email format";
+  }
+  return "";
+}
+
+export const validateePassword = (value) => {
+  if(!value){
+    return 'Please enter your password';
+  }else if(value.length < 8 || !/[A-Z]/.test(value) || !/[a-z]/.test(value) || !/\d/.test(value) || !/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(value)){
+    return "Your password is very simple. Password should be a combination of at least 8 characters, 1 uppercase, 1 lowercase, 1 digit, and 1 special character." ; 
+  }
+  return "";
+}
+
+
+export const validatFirstName = (value) => {
+  if(!value){
+    return "Please enter your first name"
+  }
+}
+
+export const validatLastName = (value) => {
+  if(!value){
+    return "Please enter your last name"
+  }
+}
+
+export const validateFilledInput = (value, message) => {
+  if(!value){
+    return message;
+  }
+}

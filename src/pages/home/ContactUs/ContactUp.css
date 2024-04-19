@@ -63,8 +63,11 @@
   display: flex;
   width: 542px;
   flex-direction: column;
-  align-items: flex-start;
+  justify-content: center;
+  align-items: center;
   gap: 18px;
+  padding:16px
+
 }
 
 .contact-section {
@@ -140,16 +143,31 @@
   color: #fff !important;
 }
 
-.comment_input_css {
-  width: 495px !important;
-  height: 50px !important;
-  border-radius: 40px;
-  border: 1px solid var(--Brand-700, #4338CA);
-  background: transparent !important;
-  color: #fff !important;
-  box-sizing: border-box;
-  padding: 10px 20px 10px 20px!important;
+.custom_input .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input{
+  color: white;
 }
+
+.contact_input_css .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+  border-color: #4338CA; 
+}
+
+.comment_input_css{
+  width: 495px !important;
+  height:50px !important;
+  border-radius: 5px;
+  border: 2px solid var(--Brand-700, #4338CA);
+
+}
+
+.custom_comment .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline{
+  border-color: #4338CA;
+}
+
+.custom_comment .css-1sqnrkk-MuiInputBase-input-MuiOutlinedInput-input {
+  color: white;
+}
+
+
 
 .contact_select_css {
   width: 495px !important;
@@ -231,6 +249,9 @@
   .ant-form-item .ant-form-item-control-input {
     width: 300px !important;
   }
+  .comment_input_css{
+    width: 300px !important;
+   }
 }
 
 
@@ -245,8 +266,9 @@
 }
 
 .notification_icon {
-  height:40px;
-  width:40px
+  height:400px;
+  width:400px;
+  color: #6366F1;
 }
 
 .notification_container{
@@ -287,3 +309,13 @@
   flex-direction: column;
   justify-content:space-between ;
 }
+
+@media (max-width: 1023px){
+  .thankyou_footer{
+    height: 35%;
+  }
+}
+
+/* .Contact-us-page-ant-form{
+  height: 50%;
+} */

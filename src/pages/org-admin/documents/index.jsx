@@ -253,8 +253,8 @@ function Documents() {
       field: "version",
       headerName: "Version",
       flex: 1,
-      minWidth: 150,
-      maxWidth: 300,
+      minWidth: 100,
+      maxWidth: 150,
       sortable: false,
     },
     {
@@ -262,7 +262,7 @@ function Documents() {
       headerName: "Status",
       flex: 1,
       minWidth: 200,
-      maxWidth: 400,
+      maxWidth: 500,
       sortable: false,
     },
     {
@@ -302,7 +302,7 @@ function Documents() {
     documentName: item?.name,
     size: `${item?.fileSize || 0}${" "}${"MB"}`,
     version: item?.version,
-    status: item?.active ? "Active" : "Inactive",
+    status: item?.status,
   }));
 
   const handleYes = (id) => {

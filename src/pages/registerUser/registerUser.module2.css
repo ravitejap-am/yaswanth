@@ -285,13 +285,14 @@ a {
   align-items: center !important;
 }
 .signup-main-css {
-  padding-top: 100px;
+  padding-top: 50px;
   background-color: #e2e8f0;
 }
 .signup-form-css {
   display: flex;
-  /* height: 87vh; */
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
 }
 .linktextsigup {
   display: flex;
@@ -304,3 +305,9 @@ a {
     height: 75vh;
   }
 }
+
+.password_input .css-hagjoj-MuiInputBase-root-MuiOutlinedInput-root{
+  height: 56px;
+}
+
+
