@@ -28,6 +28,7 @@ import * as constants from '../../../constants/Constant';
 import NotifyMessage from '../../../components/common/toastMessages/NotifyMessage';
 import { AM_CHAT } from '../../../constants/Constant';
 import { Modal } from 'antd';
+import MobileViewUserAccordin from '../../../components/MobileComponent/MobileViewUserAccordin';
 
 function Users() {
   let { showNotifyMessage, hideNotifyMessage } = useMessageState();
@@ -354,6 +355,12 @@ function Users() {
     setDeleteProps({});
   };
 
+  const mobileProps = {
+    data: data,
+    handleEdit: handleEdit,
+    handleConfirmationPopUp: handleConfirmationPopUp,
+  };
+
   return (
     <Layout componentName="Users">
       {tableloading && <PageLoader loadingStatus={tableloading} />}
@@ -407,15 +414,19 @@ function Users() {
           </Modal>
         )}
         <Grid item xs={12} md={12} lg={12}>
-          <DataGridTable
-            rows={data}
-            columns={columns}
-            showOrHide={false}
-            pageInfo={pageInfo}
-            setPageInfo={setPageInfo}
-            itemRender={itemRender}
-            fetchlist={fetchUserList}
-          />
+          {isMobile ? (
+            <MobileViewUserAccordin {...mobileProps} />
+          ) : (
+            <DataGridTable
+              rows={data}
+              columns={columns}
+              showOrHide={false}
+              pageInfo={pageInfo}
+              setPageInfo={setPageInfo}
+              itemRender={itemRender}
+              fetchlist={fetchUserList}
+            />
+          )}
         </Grid>
         <NotifyMessage messageHandler={toast.dismiss} />
       </Grid>

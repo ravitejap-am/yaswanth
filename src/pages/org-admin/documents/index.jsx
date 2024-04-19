@@ -25,6 +25,7 @@ import GeneralButton from '../../../components/common/buttons/GeneralButton';
 import DataGridTable from '../../../components/common/muiTable/DataGridTable';
 import { AM_CHAT } from '../../../constants/Constant';
 import { Modal } from 'antd';
+import MobileViewDocumentAccordin from '../../../components/MobileComponent/MobileViewDocumentAccordin';
 
 function Documents() {
   let {
@@ -200,9 +201,15 @@ function Documents() {
   };
 
   const handleEdit = (documentId, params) => {
-    console.log(params?.row?.documentName);
-    localStorage.setItem('documentName', params?.row?.documentName);
-    navigate(`/document/${documentId}`);
+    if (isMobile) {
+      console.log(params?.documentName);
+      localStorage.setItem('documentName', params?.documentName);
+      navigate(`/document/${documentId}`);
+    } else {
+      console.log(params?.row?.documentName);
+      localStorage.setItem('documentName', params?.row?.documentName);
+      navigate(`/document/${documentId}`);
+    }
   };
 
   const emptyRows =
@@ -299,7 +306,7 @@ function Documents() {
     documentName: item?.name,
     size: `${item?.fileSize || 0}${' '}${'MB'}`,
     version: item?.version,
-    status: item?.active ? 'Active' : 'Inactive',
+    status: item?.status,
   }));
 
   const handleYes = (id) => {
@@ -312,7 +319,11 @@ function Documents() {
     setOpenDeletePopUp(false);
     setDeleteProps({});
   };
-
+  const mobileProps = {
+    data: data,
+    handleEdit: handleEdit,
+    handleConfirmationPopUp: handleConfirmationPopUp,
+  };
   return (
     <Layout componentName="Documents">
       {tableloading && <PageLoader loadingStatus={tableloading} />}
@@ -366,15 +377,19 @@ function Documents() {
           </Modal>
         )}
         <Grid item xs={12} md={12} lg={12}>
-          <DataGridTable
-            rows={data}
-            columns={columns}
-            showOrHide={false}
-            pageInfo={pageInfo}
-            setPageInfo={setPageInfo}
-            itemRender={itemRender}
-            fetchlist={fetchDocuments}
-          />
+          {isMobile ? (
+            <MobileViewDocumentAccordin {...mobileProps} />
+          ) : (
+            <DataGridTable
+              rows={data}
+              columns={columns}
+              showOrHide={false}
+              pageInfo={pageInfo}
+              setPageInfo={setPageInfo}
+              itemRender={itemRender}
+              fetchlist={fetchDocuments}
+            />
+          )}
         </Grid>
       </Grid>
     </Layout>
