@@ -171,7 +171,10 @@ html {
 .anticon-close {
   color: black !important;
 }
-
+:where(.css-dev-only-do-not-override-1rqnfsa).ant-drawer-left>.ant-drawer-content-wrapper {
+  /* box-shadow: none; */
+  width:100% !important;
+}
 @font-face {
   font-family: "Montserrat300";
   src: local("Montserrat300"),
