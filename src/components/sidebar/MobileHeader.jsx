@@ -148,6 +148,7 @@ function MobileHeader(props) {
                 cursor: 'pointer',
                 color: 'black',
                 paddingTop: '0.5em',
+                fontFamily: 'Montserrat',
               }}
               onClick={() => {
                 showPreviousChats(item.id);

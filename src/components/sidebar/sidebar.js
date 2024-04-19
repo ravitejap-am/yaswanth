@@ -176,6 +176,7 @@ export const sideBar = (
                 cursor: 'pointer',
                 color: 'black',
                 paddingTop: '0.5em',
+                // fontWeight: 500,
               }}
               onClick={() => {
                 showPreviousChats(item.id);
