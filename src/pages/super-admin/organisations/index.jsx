@@ -25,6 +25,7 @@ import DataGridTable from '../../../components/common/muiTable/DataGridTable';
 import { AM_CHAT } from '../../../constants/Constant';
 import { Modal } from 'antd';
 import eye1 from '../../../asset/eye1.png';
+import MobileViewOrganisationAccordin from '../../../components/MobileComponent/MobileViewOrganisationAccordin';
 
 function Organisations() {
   let { showNotifyMessage, hideNotifyMessage } = useMessageState();
@@ -369,6 +370,13 @@ function Organisations() {
     status: item?.status,
   }));
 
+  const mobileProps = {
+    data: data,
+    handleEdit: handleEdit,
+    handleConfirmationPopUp: handleConfirmationPopUp,
+    handleViewOrganisation: handleViewOrganisation,
+  };
+
   return (
     <Layout componentName="Organisations">
       {tableloading && <PageLoader loadingStatus={tableloading} />}
@@ -420,15 +428,19 @@ function Organisations() {
           </Modal>
         )}
         <Grid item xs={12} md={12} lg={12}>
-          <DataGridTable
-            rows={data}
-            columns={columns}
-            showOrHide={false}
-            pageInfo={pageInfo}
-            setPageInfo={setPageInfo}
-            itemRender={itemRender}
-            fetchlist={fetchlist}
-          />
+          {isMobile ? (
+            <MobileViewOrganisationAccordin {...mobileProps} />
+          ) : (
+            <DataGridTable
+              rows={data}
+              columns={columns}
+              showOrHide={false}
+              pageInfo={pageInfo}
+              setPageInfo={setPageInfo}
+              itemRender={itemRender}
+              fetchlist={fetchlist}
+            />
+          )}
         </Grid>
       </Grid>
     </Layout>
