@@ -326,7 +326,7 @@ const ContactUp = (props) => {
               className="contact_submit_btn_css"
               onClick={submitHandler}
             >
-              <Typography variant="button">Sign Up</Typography>
+              <Typography variant="button">Submit</Typography>
             </Button>
         </div>
       </div>
