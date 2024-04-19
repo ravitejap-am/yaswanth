@@ -44,6 +44,7 @@ function Sidebar({ componentName }) {
     setPageLoading,
     setSessionId,
     fetchSessionList,
+    sessionHistory,
   } = useChat();
 
   const [visible, setVisible] = useState(false);
@@ -94,6 +95,7 @@ function Sidebar({ componentName }) {
     pageLoading: pageLoading,
     setPageLoading: setPageLoading,
     componentName: componentName,
+    sessionHistory: sessionHistory,
   };
 
   return (
@@ -177,7 +179,8 @@ function Sidebar({ componentName }) {
                 fetchSessionList,
                 pageLoading,
                 setPageLoading,
-                setSessionId
+                setSessionId,
+                sessionHistory
               )}
             </Box>
           </Box>

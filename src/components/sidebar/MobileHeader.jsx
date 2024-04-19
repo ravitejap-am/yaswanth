@@ -36,6 +36,7 @@ function MobileHeader(props) {
     setSessionId,
     sessionId,
     componentName,
+    sessionHistory,
   } = props;
   console.log('role', role, 'patname', pathname);
   const [visible, setVisible] = useState(false);
@@ -123,6 +124,41 @@ function MobileHeader(props) {
       console.log('throwing error in chat');
       setPageLoading(false);
     }
+  };
+  const sessionRendering = (data) => {
+    return (
+      <>
+        {data?.map((item) => (
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              padding: '4px',
+            }}
+            className="hoverDiv"
+          >
+            <p
+              style={{
+                margin: 0,
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+                width: '100%',
+                cursor: 'pointer',
+                color: 'black',
+                paddingTop: '0.5em',
+              }}
+              onClick={() => {
+                showPreviousChats(item.id);
+              }}
+            >
+              {item?.session_title.split(':')[4]}
+            </p>
+          </div>
+        ))}
+      </>
+    );
   };
 
   return (
@@ -251,12 +287,50 @@ function MobileHeader(props) {
               </Typography>
               <Box
                 sx={{
-                  height: '45%',
+                  height: '95%',
                   overflowY: 'auto',
                 }}
                 className="chat_history"
               >
-                {console.log('chat history', chatHistory)}
+                {sessionHistory['today']?.length > 0 && (
+                  <>
+                    <Typography variant="caption" sx={{ color: 'gray' }}>
+                      Today
+                    </Typography>
+                    {sessionRendering(sessionHistory['today'])}
+                    <br />
+                  </>
+                )}
+
+                {sessionHistory['yesterday']?.length > 0 && (
+                  <>
+                    <Typography variant="caption" sx={{ color: 'gray' }}>
+                      Yesterday
+                    </Typography>
+                    {sessionRendering(sessionHistory['yesterday'])}
+                    <br />
+                  </>
+                )}
+
+                {sessionHistory['past_7_days']?.length > 0 && (
+                  <>
+                    <Typography variant="caption" sx={{ color: 'gray' }}>
+                      Previous 7 Days
+                    </Typography>
+                    {sessionRendering(sessionHistory['past_7_days'])}
+                    <br />
+                  </>
+                )}
+
+                {sessionHistory['past_30_days']?.length > 0 && (
+                  <>
+                    <Typography variant="caption" sx={{ color: 'gray' }}>
+                      Previous 30 Days
+                    </Typography>
+                    {sessionRendering(sessionHistory['past_30_days'])}
+                  </>
+                )}
+                {/* {console.log('chat history', chatHistory)}
                 {chatHistory.length > 0 &&
                   chatHistory?.map((item) => (
                     <div
@@ -268,7 +342,7 @@ function MobileHeader(props) {
                       }}
                       className="hoverDiv"
                     >
-                      {/* <Tooltip title={item?.title}> */}
+                     
                       <p
                         style={{
                           margin: 0,
@@ -285,11 +359,9 @@ function MobileHeader(props) {
                       >
                         {item?.session_title}
                       </p>
-                      {/* </Tooltip> */}
-
-                      {/* <ChatMenuItems /> */}
+                     
                     </div>
-                  ))}
+                  ))} */}
               </Box>
             </>
           )}

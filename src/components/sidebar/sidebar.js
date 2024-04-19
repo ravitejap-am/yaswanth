@@ -98,7 +98,8 @@ export const sideBar = (
   fetchSessionList,
   pageLoading,
   setPageLoading,
-  setSessionId
+  setSessionId,
+  sessionHistory
 ) => {
   const handleAddChat = async () => {
     try {
@@ -119,7 +120,7 @@ export const sideBar = (
   };
 
   const showPreviousChats = async (id) => {
-    onClose()
+    onClose();
     try {
       console.log('previous chats id---->', id);
 
@@ -150,6 +151,42 @@ export const sideBar = (
       console.log('throwing error in chat');
       setPageLoading(false);
     }
+  };
+
+  const sessionRendering = (data) => {
+    return (
+      <>
+        {data?.map((item) => (
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              padding: '4px',
+            }}
+            className="hoverDiv"
+          >
+            <p
+              style={{
+                margin: 0,
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+                width: '8em',
+                cursor: 'pointer',
+                color: 'black',
+                paddingTop: '0.5em',
+              }}
+              onClick={() => {
+                showPreviousChats(item.id);
+              }}
+            >
+              {item?.session_title.split(':')[4]}
+            </p>
+          </div>
+        ))}
+      </>
+    );
   };
 
   return (
@@ -243,12 +280,50 @@ export const sideBar = (
               </Typography>
               <Box
                 sx={{
-                  height: role == 'ORG_ADMIN' ? '30%' : '100%',
+                  height: role == 'ORG_ADMIN' ? '50%' : '100%',
                   overflowY: 'auto',
                 }}
                 className="chat_history"
               >
-                {chatHistory.length > 0 &&
+                {sessionHistory['today']?.length > 0 && (
+                  <>
+                    <Typography variant="caption" sx={{ color: 'gray' }}>
+                      Today
+                    </Typography>
+                    {sessionRendering(sessionHistory['today'])}
+                    <br />
+                  </>
+                )}
+
+                {sessionHistory['yesterday']?.length > 0 && (
+                  <>
+                    <Typography variant="caption" sx={{ color: 'gray' }}>
+                      Yesterday
+                    </Typography>
+                    {sessionRendering(sessionHistory['yesterday'])}
+                    <br />
+                  </>
+                )}
+
+                {sessionHistory['past_7_days']?.length > 0 && (
+                  <>
+                    <Typography variant="caption" sx={{ color: 'gray' }}>
+                      Previous 7 Days
+                    </Typography>
+                    {sessionRendering(sessionHistory['past_7_days'])}
+                    <br />
+                  </>
+                )}
+
+                {sessionHistory['past_30_days']?.length > 0 && (
+                  <>
+                    <Typography variant="caption" sx={{ color: 'gray' }}>
+                      Previous 30 Days
+                    </Typography>
+                    {sessionRendering(sessionHistory['past_30_days'])}
+                  </>
+                )}
+                {/* {chatHistory.length > 0 &&
                   chatHistory?.map((item) => (
                     <div
                       style={{
@@ -276,7 +351,7 @@ export const sideBar = (
                         {item?.session_title}
                       </p>
                     </div>
-                  ))}
+                  ))} */}
               </Box>
             </Hidden>
             <Hidden lgUp>
