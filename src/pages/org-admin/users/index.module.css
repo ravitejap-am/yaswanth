@@ -13,3 +13,9 @@
 
 @media (min-width: 768px) and (max-width: 1023px) {
 }
+
+.name_container{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}

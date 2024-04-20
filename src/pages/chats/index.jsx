@@ -37,7 +37,7 @@ import * as constants from '../../constants/Constant';
 import axios from 'axios';
 import { CHAT } from '../../constants/Constant';
 import PageLoader from '../../components/loader/loader';
-import AMChato from '../../asset/AMChato.png';
+import AMChato from '../../asset/logo/logofinal.png';
 import { useMessageState } from '../../hooks/useapp-message';
 
 function Chats() {
@@ -85,7 +85,9 @@ function Chats() {
     totalPages: null,
   });
   const [defaultQuestions, setDefaultQuestions] = useState([]);
-  // const [pageLoading, setPageLoading] = useState(false)
+  const isAndroid = /Android/.test(navigator.userAgent);
+  const isIos =
+    /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
   let { isReset, setIsReset, showNotifyMessage, hideNotifyMessage } =
     useMessageState();
@@ -105,7 +107,20 @@ function Chats() {
     fetchDocuments();
   }, []);
 
-
+  useEffect(() => {
+    if(pathName === "/user"){
+      const disableBack = () => {
+        window.history.pushState(null, '', window.location.href);
+        window.onpopstate = () => {
+        window.history.pushState(null, '', window.location.href);
+        };
+      };
+      disableBack();
+      return () => {
+        window.onpopstate = null;
+      };
+    }
+  },[pathName])
 
 
 
@@ -292,8 +307,8 @@ function Chats() {
         if (response?.data?.session_id) {
           setSessionId(response?.data?.session_id);
         }
-        if(!sessionId){
-          fetchSessionList()
+        if (!sessionId) {
+          fetchSessionList();
         }
         setLoading(false);
       }
@@ -433,18 +448,16 @@ function Chats() {
       {pageLoading && <PageLoader loadingStatus={pageLoading} />}
       <Box
         sx={{
-          height: isMobile ? '83%' : '85%',
-          width: isMobile ? '94%' : '98%',
-          backgroundColor: 'white',
+          height: isMobile ? '85vh' : '90%',
+          width: isMobile ? '100%' : '98%',
           borderRadius: '10px',
           display: 'flex',
-          padding: '10px',
           flexDirection: 'column',
         }}
       >
         <Box
           sx={{
-            height: { sm: '8em', md: '3em' },
+            height: { sm: '8em', md: '3em', xs: '3em' },
             borderBottom: '1px solid lightGrey',
             width: '100%',
             display: 'flex',
@@ -452,8 +465,9 @@ function Chats() {
             justifyContent: isMobile ? 'space-around' : 'flex-start',
             flexDirection: 'row',
             gap: isMobile ? '0.6rem' : '2rem',
-            paddingBottom: '5px',
+            paddingBottom: isMobile ? '0px' : '5px',
             flexWrap: 'wrap',
+            marginTop: isMobile ? '0.5em' : '0px',
           }}
         >
           <Box
@@ -722,12 +736,12 @@ function Chats() {
             </Box>
           )}
         </Box>
-
         <Box
           sx={{
             display: 'flex',
             justifyContent: 'center',
-            marginTop:'5px'
+            marginTop:'5px',
+            marginBottom: isIos ? '2em' : '0px',
           }}
         >
           <textarea

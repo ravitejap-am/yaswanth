@@ -202,8 +202,8 @@
 }
 
 .chatimg{
-  height: 70px;
-  width:200px;
+  /* height: 70px; */
+  width:150px;
   margin-left: -7px;
   margin-bottom: 4px;
 }

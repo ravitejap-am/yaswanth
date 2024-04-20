@@ -100,7 +100,8 @@ export const sideBar = (
   setPageLoading,
   setSessionId,
   setInputValue,
-  inputValue
+  inputValue,
+  sessionHistory
 ) => {
   const handleAddChat = async () => {
     try {
@@ -121,7 +122,7 @@ export const sideBar = (
   };
 
   const showPreviousChats = async (id) => {
-    onClose()
+    onClose();
     try {
       console.log('previous chats id---->', id);
 
@@ -156,6 +157,43 @@ export const sideBar = (
     }
   };
 
+  const sessionRendering = (data) => {
+    return (
+      <>
+        {data?.map((item) => (
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              padding: '4px',
+            }}
+            className="hoverDiv"
+          >
+            <p
+              style={{
+                margin: 0,
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+                width: '8em',
+                cursor: 'pointer',
+                color: 'black',
+                paddingTop: '0.5em',
+                // fontWeight: 500,
+              }}
+              onClick={() => {
+                showPreviousChats(item.id);
+              }}
+            >
+              {item?.session_title.split(':')[4]}
+            </p>
+          </div>
+        ))}
+      </>
+    );
+  };
+
   return (
     <>
       {navLinks[role]?.map((item) => {
@@ -181,11 +219,11 @@ export const sideBar = (
                 style: {
                   color: item?.activeLinks.includes(pathname.split('/')[1])
                     ? '#4F46E5'
-                    : 'white',
+                    : 'black',
                 },
               })}
               <Hidden mdDown>
-                <Typography>{item.name}</Typography>
+                <Typography sx={{ color: 'black' }}>{item.name}</Typography>
               </Hidden>
             </Box>
           </Link>
@@ -210,9 +248,9 @@ export const sideBar = (
               }}
               onClick={handleAddChat}
             >
-              <AddIcon style={{ color: 'white' }} />
+              <AddIcon style={{ color: 'black' }} />
               <Hidden mdDown>
-                <Typography>New Chat</Typography>
+                <Typography style={{ color: 'black' }}>New Chat</Typography>
               </Hidden>
             </Box>
           </Link>
@@ -233,7 +271,7 @@ export const sideBar = (
                 setVisible(true);
               }}
             >
-              <WorkHistoryIcon color="white" />
+              <WorkHistoryIcon color="black" />
             </Box>
           </Hidden>
         )}
@@ -242,15 +280,55 @@ export const sideBar = (
         (pathname == '/chat' || pathname == '/user') && (
           <>
             <Hidden lgDown>
-              <Typography variant="h6">Sessions</Typography>
+              <Typography variant="h6" sx={{ color: 'black' }}>
+                Sessions
+              </Typography>
               <Box
                 sx={{
-                  height: role == 'ORG_ADMIN' ? '30%' : '100%',
+                  height: role == 'ORG_ADMIN' ? '50%' : '100%',
                   overflowY: 'auto',
                 }}
                 className="chat_history"
               >
-                {chatHistory.length > 0 &&
+                {sessionHistory['today']?.length > 0 && (
+                  <>
+                    <Typography variant="caption" sx={{ color: 'gray' }}>
+                      Today
+                    </Typography>
+                    {sessionRendering(sessionHistory['today'])}
+                    <br />
+                  </>
+                )}
+
+                {sessionHistory['yesterday']?.length > 0 && (
+                  <>
+                    <Typography variant="caption" sx={{ color: 'gray' }}>
+                      Yesterday
+                    </Typography>
+                    {sessionRendering(sessionHistory['yesterday'])}
+                    <br />
+                  </>
+                )}
+
+                {sessionHistory['past_7_days']?.length > 0 && (
+                  <>
+                    <Typography variant="caption" sx={{ color: 'gray' }}>
+                      Previous 7 Days
+                    </Typography>
+                    {sessionRendering(sessionHistory['past_7_days'])}
+                    <br />
+                  </>
+                )}
+
+                {sessionHistory['past_30_days']?.length > 0 && (
+                  <>
+                    <Typography variant="caption" sx={{ color: 'gray' }}>
+                      Previous 30 Days
+                    </Typography>
+                    {sessionRendering(sessionHistory['past_30_days'])}
+                  </>
+                )}
+                {/* {chatHistory.length > 0 &&
                   chatHistory?.map((item) => (
                     <div
                       style={{
@@ -269,6 +347,7 @@ export const sideBar = (
                           whiteSpace: 'nowrap',
                           width: '8em',
                           cursor: 'pointer',
+                          color: 'black',
                         }}
                         onClick={() => {
                           showPreviousChats(item.id);
@@ -277,7 +356,7 @@ export const sideBar = (
                         {item?.session_title}
                       </p>
                     </div>
-                  ))}
+                  ))} */}
               </Box>
             </Hidden>
             <Hidden lgUp>
