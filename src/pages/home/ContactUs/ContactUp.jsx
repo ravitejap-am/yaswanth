@@ -16,10 +16,15 @@ import {
   FormControl,
   TextField,
   TextareaAutosize,
-  Button
+  Button,
+  FormHelperText,
 } from "@mui/material";
 import Thankyou from "./Thankyou";
-import { validatFirstName, validateEmail, validateFilledInput } from "../../../components/super-admin/validation";
+import {
+  validatFirstName,
+  validateEmail,
+  validateFilledInput,
+} from "../../../components/super-admin/validation";
 
 const { TextArea } = Input;
 
@@ -82,13 +87,13 @@ const ContactUp = (props) => {
     hideNotifyMessage();
   };
 
-
   const validateDetails = () => {
-    let flag = false
-    const isValidName = validateFilledInput(values.name)
+    let flag = false;
+    const errorMsg = "Please enter your name";
+    const isValidName = validateFilledInput(values.name, errorMsg);
     const isValidEmail = validateEmail(values.email);
-    const message = "Please select your plan"
-    const isValidPlan = validateFilledInput(values.plan, message)
+    const message = "Please select your plan";
+    const isValidPlan = validateFilledInput(values.plan, message);
 
 
     if (isValidName) {
@@ -111,7 +116,7 @@ const ContactUp = (props) => {
       }));
     }
 
-    if(isValidEmail){
+    if (isValidEmail) {
       flag = true;
       console.log("inside invalid email", isValidEmail);
       setValidations((prev) => ({
@@ -121,7 +126,7 @@ const ContactUp = (props) => {
           errorMsg: isValidEmail,
         },
       }));
-    }else{
+    } else {
       setValidations((prev) => ({
         ...prev,
         email: {
@@ -131,7 +136,7 @@ const ContactUp = (props) => {
       }));
     }
 
-    if(isValidPlan){
+    if (isValidPlan) {
       flag = true;
       console.log("inside invalid plan", isValidPlan);
       setValidations((prev) => ({
@@ -141,7 +146,7 @@ const ContactUp = (props) => {
           errorMsg: isValidPlan,
         },
       }));
-    }else{
+    } else {
       setValidations((prev) => ({
         ...prev,
         plan: {
@@ -150,21 +155,20 @@ const ContactUp = (props) => {
         },
       }));
     }
-    return flag
-  }
+    return flag;
+  };
 
   const submitHandler = async () => {
     // e.preventDefault()
     console.log("submit hanler function is executed");
-    console.log("values---->",values);
+    console.log("values---->", values);
 
     const isValidForm = validateDetails();
 
-    console.log("isValidForm---->",isValidForm);
+    console.log("isValidForm---->", isValidForm);
 
-
-    if(!isValidForm){     
-       setButtonLoading(true);
+    if (!isValidForm) {
+      setButtonLoading(true);
       console.log("contact up", values);
       try {
         const response = await axios.post(
@@ -189,10 +193,13 @@ const ContactUp = (props) => {
         setShowThanksPopup(true);
         // showNotifyMessage("success", response?.data?.message, messageHandler);
       } catch (error) {
-        if (error?.response?.status == 500 || error?.response?.status == "500") {
+        if (
+          error?.response?.status == 500 ||
+          error?.response?.status == "500"
+        ) {
           navigate("/customerSupport");
         }
-  
+
         setButtonLoading(false);
         showNotifyMessage(
           "error",
@@ -224,7 +231,7 @@ const ContactUp = (props) => {
       ) : (
         ""
       )}
-      <div className="Contact-us-page-ant-form" >
+      <div className="Contact-us-page-ant-form">
         <div>
           <Typography
             variant="h4"
@@ -243,13 +250,7 @@ const ContactUp = (props) => {
             and one of us will reach out to you as soon as possible.
           </Typography>
         </div>
-        <div 
-        className="Contact-Us-General-Form-Style"
-        >
-          {/* <form
-           style={{ width: "auto", margin: "auto", height:'auto', flexGrow:"1" }}
-          onSubmit={submitHandler}
-          > */}
+        <div className="Contact-Us-General-Form-Style">
             <TextField
               name="name"
               label="Name"
@@ -285,6 +286,7 @@ const ContactUp = (props) => {
               size="large"
               margin="normal"
               required
+              error={!validations["plan"].isValid}
             >
               <InputLabel id="Select-plan" style={{ color: "white" }}>
                 Select Plan
@@ -302,6 +304,11 @@ const ContactUp = (props) => {
                     return <MenuItem value={item.value}>{item.label}</MenuItem>;
                   })}
               </Select>
+              {validations["plan"].errorMsg && ( 
+                <FormHelperText style={{color:'red'}}>
+                  {validations["plan"].errorMsg}
+                </FormHelperText>
+              )}
             </FormControl>
 
             <TextField
@@ -318,8 +325,7 @@ const ContactUp = (props) => {
               }}
               onChange={handleChange}
             />
-          {/* </form> */}
-          <Button
+            <Button
               type="submit"
               variant="contained"
               color="primary"
