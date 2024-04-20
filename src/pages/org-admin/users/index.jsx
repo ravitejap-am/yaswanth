@@ -273,11 +273,23 @@ function Users() {
       maxWidth: 400,
       sortable: false,
       renderCell: (params) => (
-        <div style={{display:'flex', flexDirection:'row', justifyContent:'flex-start'}}>
-          <div style={{width:'20px'}}>{params?.value?.role !==  'USER' ? params?.value?.role === 'SUPER_ADMIN' ?    <RiAdminFill size={18}/> : <RiAdminLine size={18}/> : ""}</div>  
+        <div
+          className={styles.name_container}
+        >
+          <div style={{ width: "20px" }}>
+            {params?.value?.role !== "USER" ? (
+              params?.value?.role === "SUPER_ADMIN" ? (
+                <RiAdminFill size={18} />
+              ) : (
+                <RiAdminLine size={18} />
+              )
+            ) : (
+              ""
+            )}
+          </div>
           <div>{`${params?.value?.name}`}</div>
         </div>
-      ), 
+      ),
     },
     {
       field: 'email',
@@ -345,10 +357,11 @@ function Users() {
 
   const data = rows.map((item) => ({
     id: item?.id,
-    name: {name: `${item?.firstName} ${item?.lastName}`,
-          icon: <RiAdminFill/>,
-          role: item?.roles[0]
-   } ,
+    name: {
+      name: `${item?.firstName} ${item?.lastName}`,
+      icon: <RiAdminFill />,
+      role: item?.roles[0],
+    },
     email: item?.email,
     lastChat: item?.createdAt,
     totalChat: item?.totalChat,

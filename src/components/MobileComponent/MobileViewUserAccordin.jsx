@@ -6,7 +6,8 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Button from '@mui/material/Button';
 import { Box, Typography } from '@mui/material';
-
+import { RiAdminFill } from "react-icons/ri";
+import { RiAdminLine } from "react-icons/ri";
 function MobileViewUserAccordin({ data, handleEdit, handleConfirmationPopUp }) {
   console.log('mobileData', data);
   return (
@@ -21,7 +22,26 @@ function MobileViewUserAccordin({ data, handleEdit, handleConfirmationPopUp }) {
                   aria-controls="panel3-content"
                   id="panel3-header"
                 >
-                  {user.name}
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "flex-start",
+                    }}
+                  >
+                    <div style={{ width: "20px", marginTop: "2px" }}>
+                      {user?.name?.role !== "USER" ? (
+                        user?.name?.role === "SUPER_ADMIN" ? (
+                          <RiAdminFill size={18} />
+                        ) : (
+                          <RiAdminLine size={18} />
+                        )
+                      ) : (
+                        ""
+                      )}
+                    </div>
+                    <div>{`${user?.name?.name}`}</div>
+                  </div>
                 </AccordionSummary>
                 <AccordionDetails>
                   <Box
