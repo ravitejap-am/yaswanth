@@ -61,17 +61,15 @@ const Rout = () => {
     decodedToken = tokenDecodeJWT(jwtToken);
   }
 
-  console.log('userRole--->', userRole);
-
   return (
     <Routes>
-      <Route exact path="/" element={<Home />} />
-      <Route exact path="/registerUser" element={<RegisterUser />} />
-      <Route exact path="/signin" element={<SignIn />} />
-      <Route exact path="/user/verify/:id" element={<SignIn />} />
-      <Route exact path="/recoverypassword" element={<RecoveryPasswor />} />
-      <Route exact path="/api/v1/iam/user/verify" element={<ResetPassword />} />
-      <Route exact path="/resetPassword/:id" element={<ResetPassword />} />
+      <Route exact path="/"    element={<ProtectedRoute element={<Home />} allowedRoles={['']} path="/" />}/>
+      <Route exact path="/registerUser" element={<ProtectedRoute element={<RegisterUser />} allowedRoles={['']} path="/registerUser" />}/>
+      <Route exact path="/signin" element={<ProtectedRoute element={<SignIn />} allowedRoles={['']} path="/signin"/>} />
+      <Route exact path="/user/verify/:id"  element={<ProtectedRoute element={<SignIn />} allowedRoles={['']} path="/signin"/>} />
+      <Route exact path="/recoverypassword" element={<ProtectedRoute element={<RecoveryPasswor />} allowedRoles={['']} path="/recoverypassword"/>} />
+      <Route exact path="/api/v1/iam/user/verify" element={<ProtectedRoute element={<ResetPassword />} allowedRoles={['']} path="/api/v1/iam/user/verify"/>} />
+      <Route exact path="/resetPassword/:id"  element={<ProtectedRoute element={<ResetPassword />} allowedRoles={['']} path="/resetPassword/:id"/>}  />
       <Route exact path="/pagenotfound" element={<PageNotFound />} />
       <Route exact path="/internal500" element={<Page505 />} />
       <Route exact path="/undermaintenence" element={<MaintainencePage />} />

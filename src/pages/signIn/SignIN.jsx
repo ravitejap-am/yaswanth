@@ -72,6 +72,11 @@ const SignIn = () => {
   };
 
   useEffect(() => {
+    dispatch(setUser(null));
+    localStorage.clear();
+  },[])
+
+  useEffect(() => {
     if (showSuccessMessage && user?.userToken) {
       const jwtToken = user.userToken;
       const decodedToken = decodeJWT(jwtToken);
