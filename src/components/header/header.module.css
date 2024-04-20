@@ -4,10 +4,10 @@
     height: 44px;
   }
   .headermain{
-    padding-top: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    /* margin-top: 16px; */
   }
   .headertext{
     color: #312e81;

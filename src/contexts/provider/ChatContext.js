@@ -5,7 +5,8 @@ import axios from 'axios';
 import { CHAT_GETSESSION } from '../../constants/Constant';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../../store/authSlice';
-import { getSessionList } from '../../apiCalls/ApiCalls'; 
+import { getSessionList } from '../../apiCalls/ApiCalls';
+import { segregateSessions } from '../../utils/dateSeggrigation';
 
 const ChatContext = createContext();
 
@@ -22,6 +23,7 @@ export const ChatProvider = ({ children }) => {
   const [sessionId, setSessionId] = useState('');
   const [pageLoading, setPageLoading] = useState(false);
   const [inputValue, setInputValue] = useState('');
+  const [sessionHistory, setSessionHistory] = useState({});
 
   // useEffect(() => {
   //   console.log("use effect is called");
@@ -42,7 +44,6 @@ export const ChatProvider = ({ children }) => {
       .catch((error) => console.error(error));
   };
 
-
   const fetchSessionList = async () => {
     try {
       const headers = { Authorization: `Bearer ${jwt}` };
@@ -58,6 +59,9 @@ export const ChatProvider = ({ children }) => {
         };
       });
       setChatHistory(modifyData);
+
+      const segregatedData = segregateSessions(fetchChatSessions);
+      setSessionHistory(segregatedData);
     } catch (error) {
       console.log('error in fetching session list', error);
     }
@@ -86,7 +90,8 @@ export const ChatProvider = ({ children }) => {
         setSessionId,
         fetchSessionList,
         setInputValue,
-        inputValue
+        inputValue,
+        sessionHistory,
       }}
     >
       {children}

@@ -17,8 +17,9 @@ import { Layout, Menu, Grid, Drawer } from 'antd';
 import { UseDispatch } from 'react-redux';
 import MobileHeader from './MobileHeader';
 import { getSessionList } from '../../apiCalls/ApiCalls';
-
-function Sidebar() {
+import AMChato from '../../asset/AMChato.png';
+import AmChatLogo from '../../asset/logo/logofinal.png';
+function Sidebar({ componentName }) {
   const { useBreakpoint } = Grid;
   const dispatch = useDispatch();
   const screens = useBreakpoint();
@@ -44,7 +45,8 @@ function Sidebar() {
     setSessionId,
     fetchSessionList,
     setInputValue,
-    inputValue
+    inputValue,
+    sessionHistory,
   } = useChat();
 
   const [visible, setVisible] = useState(false);
@@ -72,8 +74,6 @@ function Sidebar() {
     }
   };
 
-
-
   const setSessionHandler = (id) => {
     dispatch(setChatSessionId(id));
   };
@@ -97,7 +97,9 @@ function Sidebar() {
     pageLoading: pageLoading,
     setPageLoading: setPageLoading,
     setInputValue: setInputValue,
-    inputValue: inputValue
+    inputValue: inputValue,
+    componentName: componentName,
+    sessionHistory: sessionHistory,
   };
 
   return (
@@ -105,9 +107,9 @@ function Sidebar() {
       <Hidden smDown>
         <Box
           sx={{
-            backgroundColor: 'transparent',
+            // backgroundColor: 'transparent',
             padding: 2,
-            borderRadius: 2,
+            // borderRadius: 2,
             display: 'flex',
             flexDirection: {
               xs: 'row',
@@ -119,6 +121,7 @@ function Sidebar() {
               sm: '100%',
               lg: 200,
             },
+            backgroundColor: 'rgb(248, 250, 252)',
           }}
         >
           <Box
@@ -138,7 +141,7 @@ function Sidebar() {
           >
             <Hidden lgDown>
               <Link to={role == 'USER' ? '/user' : '/dashboard'}>
-                <img src={sidebarImg} alt="" height={40} />
+                <img src={AmChatLogo} alt="" width={100} />
               </Link>
             </Hidden>
             <Box
@@ -182,7 +185,8 @@ function Sidebar() {
                 setPageLoading,
                 setSessionId,
                 setInputValue,
-                inputValue
+                inputValue,
+                sessionHistory
               )}
             </Box>
           </Box>
