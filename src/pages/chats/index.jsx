@@ -107,7 +107,20 @@ function Chats() {
     fetchDocuments();
   }, []);
 
-
+  useEffect(() => {
+    if(pathName === "/user"){
+      const disableBack = () => {
+        window.history.pushState(null, '', window.location.href);
+        window.onpopstate = () => {
+        window.history.pushState(null, '', window.location.href);
+        };
+      };
+      disableBack();
+      return () => {
+        window.onpopstate = null;
+      };
+    }
+  },[pathName])
 
 
 

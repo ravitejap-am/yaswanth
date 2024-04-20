@@ -56,6 +56,20 @@ function Dashboard() {
   const userRole = localStorage.getItem('userRole');
   const isMobile = useMediaQuery('(max-width:600px)');
 
+
+  useEffect(() => {
+    const disableBack = () => {
+      window.history.pushState(null, '', window.location.href);
+      window.onpopstate = () => {
+      window.history.pushState(null, '', window.location.href);
+      };
+    };
+    disableBack();
+    return () => {
+      window.onpopstate = null;
+    };
+  }, []);
+  
   const decodeJWT = (token) => {
     try {
       const base64Url = token.split('.')[1];
