@@ -29,6 +29,8 @@ import NotifyMessage from '../../../components/common/toastMessages/NotifyMessag
 import { AM_CHAT } from '../../../constants/Constant';
 import { Modal } from 'antd';
 import MobileViewUserAccordin from '../../../components/MobileComponent/MobileViewUserAccordin';
+import { RiAdminFill } from "react-icons/ri";
+import { RiAdminLine } from "react-icons/ri";
 
 function Users() {
   let { showNotifyMessage, hideNotifyMessage } = useMessageState();
@@ -268,8 +270,14 @@ function Users() {
       headerName: 'Name',
       flex: 1,
       minWidth: 150,
-      maxWidth: 300,
+      maxWidth: 400,
       sortable: false,
+      renderCell: (params) => (
+        <div style={{display:'flex', flexDirection:'row', justifyContent:'flex-start'}}>
+          <div style={{width:'20px'}}>{params?.value?.role !==  'USER' ? params?.value?.role === 'SUPER_ADMIN' ?    <RiAdminFill size={18}/> : <RiAdminLine size={18}/> : ""}</div>  
+          <div>{`${params?.value?.name}`}</div>
+        </div>
+      ), 
     },
     {
       field: 'email',
@@ -337,7 +345,10 @@ function Users() {
 
   const data = rows.map((item) => ({
     id: item?.id,
-    name: `${item.firstName} ${item.lastName}`,
+    name: {name: `${item?.firstName} ${item?.lastName}`,
+          icon: <RiAdminFill/>,
+          role: item?.roles[0]
+   } ,
     email: item?.email,
     lastChat: item?.createdAt,
     totalChat: item?.totalChat,
