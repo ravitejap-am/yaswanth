@@ -260,7 +260,7 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
     if(userRole === 'SUPER_ADMIN' || userRole === 'ORG_ADMIN'){
       navigate("/dashboard");
     }else if(userRole === 'USER'){
-      navigate("/chat");
+      navigate("/user");
     }
   };
 
