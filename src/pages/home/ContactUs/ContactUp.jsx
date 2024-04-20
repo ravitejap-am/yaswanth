@@ -259,7 +259,7 @@ const ContactUp = (props) => {
               fullWidth
               margin="normal"
               required
-              className="contact_input_css custom_input"
+              className="contact_input_css custom_input input_text"
               error={!validations["name"].isValid}
               helperText={validations["name"].errorMsg}
               InputLabelProps={{
@@ -275,7 +275,7 @@ const ContactUp = (props) => {
               fullWidth
               margin="normal"
               required
-              className="contact_input_css custom_input"
+              className="contact_input_css custom_input input_text"
               error={!validations["email"].isValid}
               helperText={validations["email"].errorMsg}
               InputLabelProps={{
@@ -318,7 +318,7 @@ const ContactUp = (props) => {
               maxRows={2}
               // maxRows={2}
               margin="normal"
-              className="comment_input_css custom_comment"
+              className="comment_input_css custom_comment .comment_text"
               style={{ color: "white" , marginBottom:'16px'}}
               InputLabelProps={{
                 style: { color: "white" },
