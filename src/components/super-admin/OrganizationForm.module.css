@@ -68,6 +68,18 @@
   height: 2.1rem;
 }
 
+@media(max-width:450px){
+  .selectContainer{
+    width: 96%
+  }
+}
+
+@media(min-width: 451px) and (max-width:599px){
+  .selectContainer{
+    width: 94%
+  }
+}
+
 
 @media (max-width: 600px) {
   .inputstyle{
@@ -83,7 +95,6 @@
 @media (min-width: 601px) and (max-width: 750px){
   .inputstyle{
     width: 95%;
-    background-color: red;
   }
 
   .pincodeStyle{
