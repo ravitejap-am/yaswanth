@@ -16,7 +16,7 @@ import { toast } from 'react-toastify';
 import { CircularProgress } from '@mui/material';
 import PageLoader from '../../../components/loader/loader';
 import Search from '../../../components/common/common-searchInput';
-import { BASE_ORG_API_URL } from '../../../constants/Constant';
+import { BASE_ORG_API_URL, BUTTON_COLOUR } from '../../../constants/Constant';
 import { useMessageState } from '../../../hooks/useapp-message';
 import frame from '../../../asset/AmChatSuperAdmin/plus-sm.png';
 import editIcon from '../../../asset/AmChatSuperAdmin/pencil-alt.png';
@@ -411,7 +411,7 @@ function Users() {
                   type={'submit'}
                   color={'#f8fafc'}
                   borderRadius={'30px'}
-                  backgroundColor={'#6366f1'}
+                  backgroundColor={BUTTON_COLOUR}
                   icons={frame}
                   width={'158px'}
                   height={'48px'}

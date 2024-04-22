@@ -708,7 +708,7 @@ function Organisation() {
               gap: '8px',
               flexShrink: '0',
               borderRadius: '30px',
-              backgroundColor: 'var(--Brand-500, #6366F1)',
+              backgroundColor: constants.BUTTON_COLOUR,
               color: '#FFFFFF',
               fontFamily: 'Into Lato',
               fontSize: '16px',

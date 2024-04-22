@@ -39,4 +39,6 @@ export const CHAT =   BASE_API_URL_V1 + '/query';
 export const INDIVIDUAL_SESSION_CHAT = BASE_API_URL_V1 + "/sessions/query?session="
 export const USAGE_SUBSCRIPTION = "https://amchatd1.areteminds.com/api/v1/subscription?org_id=1"
 
+export const BUTTON_COLOUR = "#6366F1"
+
 

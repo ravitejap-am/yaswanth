@@ -22,13 +22,15 @@ import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 import "./sign-in.css";
-import { Box, Typography } from "@mui/material";
+import { Box, CircularProgress, Typography } from "@mui/material";
 import {
   validateEmail,
   validateePassword,
 } from "../../components/super-admin/validation";
+import Submit from "../../components/common/buttons/Submit";
 
 const SignIn = () => {
   let {
@@ -74,7 +76,7 @@ const SignIn = () => {
   useEffect(() => {
     dispatch(setUser(null));
     localStorage.clear();
-  },[])
+  }, []);
 
   useEffect(() => {
     if (showSuccessMessage && user?.userToken) {
@@ -164,7 +166,7 @@ const SignIn = () => {
     let flag = false;
     const isValidEmail = validateEmail(values.email);
     const isValidPassword = validateePassword(values.password);
-    console.log("isvalid password--->",isValidPassword);
+    console.log("isvalid password--->", isValidPassword);
 
     if (isValidEmail) {
       flag = true;
@@ -375,19 +377,13 @@ const SignIn = () => {
                 ),
               }}
               sx={{ borderRadius: "50px", marginBottom: "16px" }}
-            >
-            </TextField>
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              className="signin_submit_btn_css"
-              style={{ marginBottom: "16px" }}
-            >
-              <Typography variant="button" display="block">
-                Sign In
-              </Typography>
-            </Button>
+            ></TextField>
+            <Submit
+              backgroundColor={constants.BUTTON_COLOUR}
+              buttonLoading={buttonLoading}
+              btnText={"Sign In"}
+            />
+
           </form>
         </div>
         <Typography className="linktextsignin" variant="body2" gutterBottom>

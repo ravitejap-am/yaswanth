@@ -3,6 +3,7 @@ import GeneralButton from "../common/buttons/GeneralButton";
 import frame from '../../asset/Frame 1.png'
 import Tick1 from "../../asset/tick.png"
 import "../PlanCard/Plancard.css"
+import { BUTTON_COLOUR } from "../../constants/Constant";
 
 
 const PlanCard = ({
@@ -49,7 +50,7 @@ const PlanCard = ({
         type={"Get Started"}
         color={"#f8fafc"}
         borderRadius={"30px"}
-        backgroundColor={"#6366f1"}
+        backgroundColor={BUTTON_COLOUR}
         icons={frame}
         width={"282.001px"}
         height={"45px"}

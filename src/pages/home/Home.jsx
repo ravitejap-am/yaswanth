@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Style from "./home.module.css";
 import Header from "./Header/Header";
 import Footer from "./Footer/Footer";
@@ -10,14 +10,22 @@ import HowItWorks from "./HowItWorks/HowItWorks";
 import RightPlan from "./RightPlan/RightPlan";
 import ContactUp from "./ContactUs/ContactUp";
 import { Typography } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../store/authSlice";
 
 
 const Home = () => {
   const [selectPlan, setSelectPlan] = useState("")
+  const dispatch = useDispatch();
 
   const handleLogoClick = () => {
     window.location.href = "/"; 
   };
+
+  useEffect(() => {
+    dispatch(setUser(null));
+    localStorage.clear();
+  },[])
 
   return (
     <div style={{overflowY:'auto', height: '100vh'}}>

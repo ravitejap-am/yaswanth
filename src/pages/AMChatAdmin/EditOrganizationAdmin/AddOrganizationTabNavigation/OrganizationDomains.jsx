@@ -201,10 +201,7 @@ function OrganizationDomains({
         );
         return;
       }
-      // }
     }
-
-    // setSelectedTab('organizationadmin');
   };
 
   return (
@@ -229,30 +226,6 @@ function OrganizationDomains({
           readOnlyMode={readOnlyMode}
         />      
     </Grid>
-
-
-    // <div>
-    //   <div className={Style.container}>
-    //     <DynamicTextComponent
-    //       textFields={orgData?.metaData.filter(
-    //         (obj) => obj['status'] !== 'INACTIVE'
-    //       )}
-    //       setTextFields={setNewDomains}
-    //       submitHandler={submitHandler}
-    //       handleRemoveDomain={handleRemoveDomain}
-    //       buttonLoading={buttonLoading}
-    //       setBackDropLoading={setBackDropLoading}
-    //       showNotifyMessage={showNotifyMessage}
-    //       messageHandler={messageHandler}
-    //       orgStatus={organisation?.organisationStatus}
-    //       selectOrgData={selectOrgData}
-    //       orgData={orgData}
-    //       setButtonLoading={setButtonLoading}
-    //       setSelectedTab={setSelectedTab}
-    //       personalInformationHandler={personalInformationHandler}
-    //     />
-    //   </div>
-    // </div>
   );
 }
 

@@ -15,7 +15,17 @@ import { useMessageState } from "../../hooks/useapp-message";
 import Header from "../home/Header/Header";
 import { Form, Input, Select, Grid } from "antd";
 import { EyeInvisibleOutlined, EyeOutlined } from "@ant-design/icons";
-import { Box, TextField, Typography,Button, FormControl, InputLabel, FilledInput, OutlinedInput } from "@mui/material";
+import {
+  Box,
+  TextField,
+  Typography,
+  Button,
+  FormControl,
+  InputLabel,
+  FilledInput,
+  OutlinedInput,
+  CircularProgress,
+} from "@mui/material";
 import Logo from "../../asset/images/logo.png";
 import {
   validatePassword,
@@ -30,6 +40,8 @@ import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import { useDispatch } from "react-redux";
+import Submit from "../../components/common/buttons/Submit";
 
 const RegisterUser = () => {
   let {
@@ -54,13 +66,12 @@ const RegisterUser = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-
   const [values, setValues] = useState({
     firstName: "",
     lastName: "",
-    email:"",
-    password:"",
-    confirmPassword:""
+    email: "",
+    password: "",
+    confirmPassword: "",
   });
 
   const [validations, setValidations] = useState({
@@ -70,8 +81,7 @@ const RegisterUser = () => {
     password: { isValid: true, errorMsg: "" },
     confirmPassword: { isValid: true, errorMsg: "" },
   });
-
-
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (signupMessage) {
@@ -79,14 +89,16 @@ const RegisterUser = () => {
     }
   }, [signupMessage]);
 
-
   const validateDetails = () => {
     let flag = false;
-    const isValidfirstName = validatFirstName(values.firstName)
-    const isValidlastName = validatLastName(values.lastName)
+    const isValidfirstName = validatFirstName(values.firstName);
+    const isValidlastName = validatLastName(values.lastName);
     const isValidEmail = validateEmail(values.email);
     const isValidPassword = validateePassword(values.password);
-    const isValidConfirmPassword = validConfirmPassword(values.confirmPassword, values.password)
+    const isValidConfirmPassword = validConfirmPassword(
+      values.confirmPassword,
+      values.password
+    );
 
     if (isValidfirstName) {
       flag = true;
@@ -186,15 +198,14 @@ const RegisterUser = () => {
       }));
     }
     return flag;
-  }
-
+  };
 
   const submitHandler = async (e) => {
     e.preventDefault();
     const isValidForm = validateDetails();
-    console.log("isValidForm--->",isValidForm);
+    console.log("isValidForm--->", isValidForm);
 
-    if(!isValidForm){
+    if (!isValidForm) {
       setButtonLoading(true);
       const apiUrl = `${constants.BASE_API_URL}${constants.SIGNUP_ENDPOINT}`;
       const data = {
@@ -223,6 +234,7 @@ const RegisterUser = () => {
           hideNotifyMessage();
         }
       } catch (error) {
+        setButtonLoading(false);
         showNotifyMessage(
           "error",
           error?.response?.data?.message,
@@ -235,8 +247,10 @@ const RegisterUser = () => {
     }
   };
 
-
   useEffect(() => {
+    dispatch(setUser(null));
+    localStorage.clear();
+
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
     };
@@ -255,8 +269,6 @@ const RegisterUser = () => {
     });
   };
 
-
-
   const buttonProps = {
     name: "Sign In",
     type: "primary",
@@ -268,8 +280,6 @@ const RegisterUser = () => {
     borderRadius: "30px",
     icons: "",
   };
-
-
 
   useEffect(() => {
     const scrollToTop = () => {
@@ -285,15 +295,14 @@ const RegisterUser = () => {
     window.addEventListener("scroll", handleScroll);
   }, []);
 
-
   const handleChange = (event) => {
     setValues({ ...values, [event.target.name]: event.target.value });
-  }
+  };
 
   const togglePasswordVisibility = (type) => {
-    if (type === 'password') {
+    if (type === "password") {
       setShowPassword(!showPassword);
-    } else if (type === 'confirmPassword') {
+    } else if (type === "confirmPassword") {
       setShowConfirmPassword(!showConfirmPassword);
     }
   };
@@ -371,11 +380,8 @@ const RegisterUser = () => {
             </Typography>
           )}
         </Box>
-        <div >
-          <form
-          className="signup-form-css" 
-          onSubmit={submitHandler}
-          >
+        <div>
+          <form className="signup-form-css" onSubmit={submitHandler}>
             <TextField
               name="firstName"
               label="First Name"
@@ -385,8 +391,8 @@ const RegisterUser = () => {
               margin="normal"
               required
               className="signin_input_css"
-              error={!validations["firstName"].isValid} 
-              helperText={validations["firstName"].errorMsg} 
+              error={!validations["firstName"].isValid}
+              helperText={validations["firstName"].errorMsg}
             />
             <TextField
               name="lastName"
@@ -397,8 +403,8 @@ const RegisterUser = () => {
               margin="normal"
               required
               className="signin_input_css"
-              error={!validations["lastName"].isValid} 
-              helperText={validations["lastName"].errorMsg} 
+              error={!validations["lastName"].isValid}
+              helperText={validations["lastName"].errorMsg}
             />
             <TextField
               name="email"
@@ -410,7 +416,7 @@ const RegisterUser = () => {
               margin="normal"
               required
               className="signin_input_css"
-              error={!validations["email"].isValid} 
+              error={!validations["email"].isValid}
               helperText={validations["email"].errorMsg}
             />
             <TextField
@@ -423,14 +429,14 @@ const RegisterUser = () => {
               margin="normal"
               required
               className="signin_input_css password_input"
-              error={!validations["password"].isValid} 
+              error={!validations["password"].isValid}
               helperText={validations["password"].errorMsg}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
                     <IconButton
                       aria-label="toggle password visibility"
-                      onClick={() => togglePasswordVisibility('password')}
+                      onClick={() => togglePasswordVisibility("password")}
                       edge="end"
                     >
                       {showPassword ? <Visibility /> : <VisibilityOff />}
@@ -448,31 +454,27 @@ const RegisterUser = () => {
               fullWidth
               margin="normal"
               required
-              error={!validations["confirmPassword"].isValid} 
+              error={!validations["confirmPassword"].isValid}
               helperText={validations["confirmPassword"].errorMsg}
               className="signin_input_css password_input"
-              sstyle={{ height: '200px' }}
+              sstyle={{ height: "200px" }}
               InputProps={{
                 endAdornment: (
-
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={() => togglePasswordVisibility('confirmPassword')}
-                      edge="end"
-                    >
-                      {showConfirmPassword ? <Visibility /> : <VisibilityOff />}
-                    </IconButton>
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={() => togglePasswordVisibility("confirmPassword")}
+                    edge="end"
+                  >
+                    {showConfirmPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
                 ),
               }}
             />
-
-
-            <Button type="submit" variant="contained" color="primary" className="signin_submit_btn_css"
->
-              <Typography variant="button" >
-                Sign Up
-              </Typography>
-            </Button>
+            <Submit
+              backgroundColor={constants.BUTTON_COLOUR}
+              buttonLoading={buttonLoading}
+              btnText={"Sign Up"}
+            />
           </form>
 
           <Typography className="linktextsigup" variant="body2" gutterBottom>
@@ -507,7 +509,6 @@ const RegisterUser = () => {
           <br />
         </div>
       </div>
-      {/* {loader ? <Spinner /> : null} */}
       <NotifyMessage
         message={signupMessage ? signupMessage : null}
         errorHandle={false}

@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import GroupImage from "../../../asset/groupImageOne.png";
 import { Grid } from "antd";
 import { Typography, useMediaQuery } from "@mui/material";
+import { BUTTON_COLOUR } from "../../../constants/Constant";
 const Banner = () => {
   const { useBreakpoint } = Grid;
   const screens = useBreakpoint();
@@ -58,7 +59,7 @@ const Banner = () => {
               type={"submit"}
               color={"#f8fafc"}
               borderRadius={"30px"}
-              backgroundColor={"#6366f1"}
+              backgroundColor={BUTTON_COLOUR}
               icons={frame}
               width={"140px"}
               height={"45px"}

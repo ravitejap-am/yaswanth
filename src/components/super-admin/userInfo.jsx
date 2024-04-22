@@ -9,6 +9,7 @@ import {
   useMediaQuery,
 } from '@mui/material';
 import { yellow } from '@mui/material/colors';
+import { BUTTON_COLOUR } from '../../constants/Constant';
 
 function UserInfoForm({
   formData,
@@ -63,17 +64,6 @@ function UserInfoForm({
         sx={{
           height: '60vh',
           overflowY: 'scroll',
-          // '&::-webkit-scrollbar': {
-          //   width: '2px',
-          //   height: '2px'
-          // },
-          // '&::-webkit-scrollbar-track': {
-          //   background: 'transparent',
-          // },
-          // '&::-webkit-scrollbar-thumb': {
-          //   background: '#888',
-          //   borderRadius: '6px',
-          // },
         }}
       >
         <Grid item container spacing={2}>
@@ -151,12 +141,9 @@ function UserInfoForm({
             width: '100%',
           }}
         >
-          {/* <Box style={{ flex: 1 }}></Box> */}
           <Button
             style={{ marginTop: '1em', width: '8em' }}
             onClick={() => {
-              // personalInformationHandler('personalinformation');
-
               personalInformationHandler('organizationdomains');
             }}
           >
@@ -164,7 +151,7 @@ function UserInfoForm({
           </Button>
           <Button
             type="primary"
-            style={{ marginTop: '1em', width: '8em' }}
+            style={{ marginTop: '1em', width: '8em', backgroundColor: BUTTON_COLOUR }}
             onClick={() => {
               personalInformationHandler('subscriptionplan');
             }}
