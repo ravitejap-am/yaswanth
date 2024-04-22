@@ -579,7 +579,7 @@ function Chats() {
                 justifyContent: isMobile ? 'space-between' : 'space-between',
                 alignItems: isMobile ? 'center' : 'center',
                 flexWrap: isMobile ? '' : '',
-                height: { sm: `calc(100% - ${containerHeight})`, lg: '95%', xl:'98%' },
+                height: {xs:`calc(100% - ${containerHeight})` ,sm: '98%', lg: '95%', xl:'98%' },
                 overflowY: 'auto',
                 scrollbarWidth: 'thin',
                 scrollbarColor: 'lightgrey #f5f5f5',
