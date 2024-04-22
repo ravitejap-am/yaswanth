@@ -18,6 +18,7 @@ import {
   TextareaAutosize,
   Button,
   FormHelperText,
+  CircularProgress,
 } from "@mui/material";
 import Thankyou from "./Thankyou";
 import {
@@ -25,6 +26,8 @@ import {
   validateEmail,
   validateFilledInput,
 } from "../../../components/super-admin/validation";
+import { LoadingButton } from "@mui/lab";
+import Submit from "../../../components/common/buttons/Submit";
 
 const { TextArea } = Input;
 
@@ -324,15 +327,13 @@ const ContactUp = (props) => {
               }}
               onChange={handleChange}
             />
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              className="contact_submit_btn_css"
-              onClick={submitHandler}
-            >
-              <Typography variant="button">Submit</Typography>
-            </Button>
+            <Submit
+              backgroundColor={constants.BUTTON_COLOUR}
+              buttonLoading={buttonLoading}
+              btnText={"Submit"}
+              submitHandler={submitHandler}
+            /> 
+
         </div>
       </div>
     </div>

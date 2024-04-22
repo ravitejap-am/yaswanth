@@ -28,3 +28,15 @@
     height: 3em;
     border-radius: 8px;
 }
+.submit_btn_css {
+  background-color: var(--Brand-500, #6366f1);
+  width: 495px;
+  height: 50px;
+  border-radius: 40px;
+}
+
+@media screen and (max-width: 767px) {
+  .submit_btn_css {
+    width: 300px;
+  }
+}

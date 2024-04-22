@@ -5,6 +5,7 @@ import { Button, Select } from 'antd';
 import './orginfo.css';
 import { ArrowRightOutlined } from '@mui/icons-material';
 import {Box, Grid, FormHelperText, useMediaQuery, Typography, FormLabel } from "@mui/material"
+import { BUTTON_COLOUR } from '../../constants/Constant'; 
 
 const getAllCountries = Country.getAllCountries();
 const getAllStates = State.getAllStates();
@@ -305,7 +306,7 @@ function OrganizationForm({
         >
         <Button
           type="primary"
-          style={{ marginTop: '1em', width: '8em' }}
+          style={{ marginTop: '1em', width: '8em', backgroundColor: BUTTON_COLOUR }}
           onClick={() => {
             personalInformationHandler('organizationdomains');
           }}

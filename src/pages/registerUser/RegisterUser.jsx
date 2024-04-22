@@ -24,6 +24,7 @@ import {
   InputLabel,
   FilledInput,
   OutlinedInput,
+  CircularProgress,
 } from "@mui/material";
 import Logo from "../../asset/images/logo.png";
 import {
@@ -40,6 +41,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { useDispatch } from "react-redux";
+import Submit from "../../components/common/buttons/Submit";
 
 const RegisterUser = () => {
   let {
@@ -232,6 +234,7 @@ const RegisterUser = () => {
           hideNotifyMessage();
         }
       } catch (error) {
+        setButtonLoading(false);
         showNotifyMessage(
           "error",
           error?.response?.data?.message,
@@ -467,16 +470,11 @@ const RegisterUser = () => {
                 ),
               }}
             />
-
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              className="signin_submit_btn_css"
-              style={{ backgroundColor: constants.BUTTON_COLOUR }}
-            >
-              <Typography variant="button">Sign Up</Typography>
-            </Button>
+            <Submit
+              backgroundColor={constants.BUTTON_COLOUR}
+              buttonLoading={buttonLoading}
+              btnText={"Sign Up"}
+            />
           </form>
 
           <Typography className="linktextsigup" variant="body2" gutterBottom>
@@ -511,7 +509,6 @@ const RegisterUser = () => {
           <br />
         </div>
       </div>
-      {/* {loader ? <Spinner /> : null} */}
       <NotifyMessage
         message={signupMessage ? signupMessage : null}
         errorHandle={false}

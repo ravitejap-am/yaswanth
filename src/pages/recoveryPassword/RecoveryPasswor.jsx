@@ -9,10 +9,11 @@ import SignHeader from "../home/SignHeader/SignHeader";
 import { useNavigate, Link } from "react-router-dom";
 import { Box, Typography, TextField, Button } from "@mui/material";
 import Logo from "../../asset/images/logo.png";
-import back_navigation from "../../asset/back_navigation.png"
+import back_navigation from "../../asset/back_navigation.png";
 import { validateEmail } from "../../components/super-admin/validation";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../store/authSlice";
+import Submit from "../../components/common/buttons/Submit";
 
 const RecoveryPasswor = () => {
   let {
@@ -24,8 +25,7 @@ const RecoveryPasswor = () => {
     hideNotifyMessage,
   } = useMessageState();
   const navigate = useNavigate();
-  const [isMobile, setIsMobile] = useState(false); 
-
+  const [isMobile, setIsMobile] = useState(false);
 
   const [values, setValues] = useState({
     email: "",
@@ -40,8 +40,6 @@ const RecoveryPasswor = () => {
   const handleChange = (event) => {
     setValues({ ...values, [event.target.name]: event.target.value });
   };
-
-
 
   const messageHandler = () => {
     setIsReset(false);
@@ -75,9 +73,10 @@ const RecoveryPasswor = () => {
   };
 
   const submitHandler = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     const isValidForm = validateDetails();
-    if(!isValidForm){
+    setButtonLoading(true)
+    if (!isValidForm) {
       const url = `${constants.BASE_API_URL}${constants.MAIL_RECOVERY_PASSWORD_ENDPOINT}`;
       const data = {
         email: values.email,
@@ -98,7 +97,7 @@ const RecoveryPasswor = () => {
         ) {
           navigate("/customerSupport");
         }
-  
+
         setButtonLoading(false);
         showNotifyMessage(
           "error",
@@ -112,17 +111,14 @@ const RecoveryPasswor = () => {
     dispatch(setUser(null));
     localStorage.clear();
 
-
     window.scrollTo(0, 0);
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
     };
-    handleResize(); 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
-
-
 
   const buttonProps = {
     name: "Sign Up",
@@ -136,9 +132,8 @@ const RecoveryPasswor = () => {
     icons: "",
   };
 
-
   return (
-    <div style={{overflowY:'auto', height:'100vh'}}>
+    <div style={{ overflowY: "auto", height: "100vh" }}>
       <div className="recoverpassword-header">
         <SignHeader
           title={<img src={Logo} alt="" width={120} />}
@@ -149,63 +144,67 @@ const RecoveryPasswor = () => {
         />
       </div>
       <div className="recover-main-css">
-        <Box className="text-top-signup" mb={3} >
-        <Typography variant="h2" gutterBottom >Forgot Password</Typography>
-       <Typography variant="body1" mt={4}gutterBottom color={'#1e293b'}> Please use your organisation email id.</Typography>
-        </Box>
-         <div className="signin-form-css" >
-
-         <form onSubmit={submitHandler}>
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-      <TextField
-              label="Email"
-              name="email"
-              value={values.email}
-              onChange={handleChange}
-              error={!validations["email"].isValid}
-              helperText={validations["email"].errorMsg}
-              required
-              fullWidth
-              className="signin_input_css"
-              placeholder="Email"
-              sx={{ borderRadius: "50px", marginBottom: "16px" }}
-            />
-
-        <Button variant="contained" type="submit" color="primary" className="signin_submit_btn_css"
-        style={{backgroundColor:constants.BUTTON_COLOUR}}
-        >
-          <Typography variant="button" display="block">
-            Submit
+        <Box className="text-top-signup" mb={3}>
+          <Typography variant="h2" gutterBottom>
+            Forgot Password
           </Typography>
-        </Button>
-        <Box sx={{
-          textAlign:'center',
-          color: 'black',
-        }}>
-              <Typography variant="body2">
-                <Link
-                  to={"/signin"}
-                  style={{
-                    color: "black",
-                  }}
-                >
-                 <img src={back_navigation} alt="back"  className="back-icon"/> Back to Login
-                </Link>
-              </Typography>
+          <Typography variant="body1" mt={4} gutterBottom color={"#1e293b"}>
+            {" "}
+            Please use your organisation email id.
+          </Typography>
+        </Box>
+        <div className="signin-form-css">
+          <form onSubmit={submitHandler}>
+            <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+              <TextField
+                label="Email"
+                name="email"
+                value={values.email}
+                onChange={handleChange}
+                error={!validations["email"].isValid}
+                helperText={validations["email"].errorMsg}
+                required
+                fullWidth
+                className="signin_input_css"
+                placeholder="Email"
+                sx={{ borderRadius: "50px", marginBottom: "16px" }}
+              />
+              <Submit
+                backgroundColor={constants.BUTTON_COLOUR}
+                buttonLoading={buttonLoading}
+                btnText={"Submit"}
+              />
+              <Box
+                sx={{
+                  textAlign: "center",
+                  color: "black",
+                }}
+              >
+                <Typography variant="body2">
+                  <Link
+                    to={"/signin"}
+                    style={{
+                      color: "black",
+                    }}
+                  >
+                    <img
+                      src={back_navigation}
+                      alt="back"
+                      className="back-icon"
+                    />{" "}
+                    Back to Login
+                  </Link>
+                </Typography>
+              </Box>
             </Box>
-      </Box>
-    </form>
-         </div>
-         {/* <br /> */}
-         <br />
-
+          </form>
+        </div>
+        <br />
         <NotifyMessage />
-
-
       </div>
       <div className="forgotpass-footer">
-          <Footer />
-        </div>
+        <Footer />
+      </div>
     </div>
   );
 };

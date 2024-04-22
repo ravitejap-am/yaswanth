@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { ReactComponent as DeleteIcon } from "../../asset/AmChatSuperAdmin/trash-solid.svg";
 import { Button, Tooltip } from "antd";
 import axios from "axios";
-import { BASE_ORG_API_URL, AM_CHAT } from "../../constants/Constant";
+import { BASE_ORG_API_URL, AM_CHAT, BUTTON_COLOUR } from "../../constants/Constant";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../store/authSlice";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -446,7 +446,7 @@ function DynamicTextComponent({
         </Button>
         <Button
           type="primary"
-          style={{ marginTop: "1em", width: "8em" }}
+          style={{ marginTop: "1em", width: "8em", backgroundColor: BUTTON_COLOUR }}
           onClick={() => {
             personalInformationHandler("organizationadmin");
           }}
