@@ -8,6 +8,7 @@ import BannerImage3 from "../../../asset/banner-box-2.png";
 import { Link } from "react-router-dom";
 import { Grid } from "antd";
 import { Typography, useMediaQuery } from "@mui/material";
+import { BUTTON_COLOUR } from "../../../constants/Constant";
 function Idea() {
   const { useBreakpoint } = Grid;
   const screens = useBreakpoint();
@@ -55,7 +56,7 @@ function Idea() {
               type={"submit"}
               color={"#f8fafc"}
               borderRadius={"30px"}
-              backgroundColor={"#6366f1"}
+              backgroundColor={BUTTON_COLOUR}
               icons={frame}
               width={"140px"}
               height={"45px"}
