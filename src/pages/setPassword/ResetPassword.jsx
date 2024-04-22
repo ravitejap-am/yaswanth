@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Footer from '../../pages/home/Footer/Footer';
 import SignHeader from '../home/SignHeader/SignHeader';
-import { useSelector } from 'react-redux'; 
+import { useDispatch, useSelector } from 'react-redux'; 
 import { useParams } from 'react-router-dom';
 import * as constants from '../../constants/Constant';
 import { useMessageState } from '../../hooks/useapp-message';
@@ -16,6 +16,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { validateePassword, validConfirmPassword } from '../../components/super-admin/validation';
+import { setUser } from '../../store/authSlice';
 const ResetPassword = () => {
   let {
     buttonLoading,
@@ -33,6 +34,7 @@ const ResetPassword = () => {
   const [isMobile, setIsMobile] = useState(false); 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const dispatch = useDispatch();
 
   const [values, setValues] = useState({
     password: "",
@@ -58,6 +60,9 @@ const ResetPassword = () => {
 
 
   useEffect(() => {
+    dispatch(setUser(null));
+    localStorage.clear();
+
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
     };
@@ -263,82 +268,14 @@ const ResetPassword = () => {
         }}
         onChange={handleChange}
       />
-      <Button variant="contained" type="submit" color="primary" className="signin_submit_btn_css">
+      <Button variant="contained" type="submit" color="primary" className="signin_submit_btn_css"
+      style={{backgroundColor:constants.BUTTON_COLOUR}}
+      >
         <Typography variant="button" display="block">
           Submit
         </Typography>
       </Button>
     </form>
-
-         {/* <Form
-            name="basic"
-            initialValues={{
-              remember: true,
-            }}
-            layout="vertical"
-            autoComplete="off"
-            onFinish={feedingVariable.submitHandler}
-          >
-            <Form.Item
-              name="password"
-              place
-              rules={[
-                {
-                  required: true,
-                  message: "Please enter your password!",
-                },
-              ]}
-              required={false}
-            >
-              <Input 
-              className="signin_input_css" 
-               placeholder="Password"
-               type={showPassword ? 'text' : 'password'}
-               suffix={
-                <Button
-                  type="text"
-                  onClick={() => togglePasswordVisibility('password')}
-                  icon={showPassword ? <EyeOutlined style={{fontSize: "25px"}}/> : <EyeInvisibleOutlined  style={{fontSize: "25px"}}/>}
-                />
-              }
-               />
-            </Form.Item>
-            <Form.Item
-              name="confirmPassword"
-              rules={[
-                {
-                  required: true,
-                  message: "Please enter your password!",
-                },
-              ]}
-              required={false}
-            >
-              <Input 
-              className="signin_input_css" 
-              placeholder="Confirm Password"
-              type={showConfirmPassword ? 'text' : 'password'}
-              suffix={
-                <Button
-                  type="text"
-                  onClick={() => togglePasswordVisibility('confirmPassword')}
-                  icon={showConfirmPassword ? <EyeOutlined style={{fontSize: "25px"}} /> : <EyeInvisibleOutlined style={{fontSize: "25px"}} />}
-                />
-              }
-               />
-            </Form.Item>
-            <Form.Item>
-              <Button
-                type="primary"
-                htmlType="submit"
-                className="signin_submit_btn_css"
-              >
-            <Typography variant="button" display="block" >
-             Submit
-            </Typography> 
-              </Button>
-            </Form.Item>
-
-          </Form> */}
          </div>
       </div>
       <div className="signin-footer">

@@ -382,7 +382,7 @@ const SignIn = () => {
               variant="contained"
               color="primary"
               className="signin_submit_btn_css"
-              style={{ marginBottom: "16px" }}
+              style={{ marginBottom: "16px", backgroundColor:constants.BUTTON_COLOUR }}
             >
               <Typography variant="button" display="block">
                 Sign In

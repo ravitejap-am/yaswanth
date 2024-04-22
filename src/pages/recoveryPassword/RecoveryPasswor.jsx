@@ -11,6 +11,8 @@ import { Box, Typography, TextField, Button } from "@mui/material";
 import Logo from "../../asset/images/logo.png";
 import back_navigation from "../../asset/back_navigation.png"
 import { validateEmail } from "../../components/super-admin/validation";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../store/authSlice";
 
 const RecoveryPasswor = () => {
   let {
@@ -28,6 +30,8 @@ const RecoveryPasswor = () => {
   const [values, setValues] = useState({
     email: "",
   });
+
+  const dispatch = useDispatch();
 
   const [validations, setValidations] = useState({
     email: { isValid: true, errorMsg: "" },
@@ -105,6 +109,10 @@ const RecoveryPasswor = () => {
     }
   };
   useEffect(() => {
+    dispatch(setUser(null));
+    localStorage.clear();
+
+
     window.scrollTo(0, 0);
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
@@ -163,7 +171,9 @@ const RecoveryPasswor = () => {
               sx={{ borderRadius: "50px", marginBottom: "16px" }}
             />
 
-        <Button variant="contained" type="submit" color="primary" className="signin_submit_btn_css">
+        <Button variant="contained" type="submit" color="primary" className="signin_submit_btn_css"
+        style={{backgroundColor:constants.BUTTON_COLOUR}}
+        >
           <Typography variant="button" display="block">
             Submit
           </Typography>
@@ -185,56 +195,6 @@ const RecoveryPasswor = () => {
             </Box>
       </Box>
     </form>
-         {/* <Form
-            name="basic"
-            initialValues={{
-              remember: true,
-            }}
-            layout="vertical"
-            autoComplete="off"
-            onFinish={submitHandler}
-          >
-            <Form.Item
-              name="email"
-              place
-              rules={[
-                {
-                  required: true,
-                  message: "Please enter your email!",
-                },
-                {
-                  type: 'email',
-                  message: 'Invalid email format',
-                },
-              ]}
-              required={false}
-            >
-              <Input className="signin_input_css"  placeholder="Email"/>
-            </Form.Item>
-            <Form.Item>
-              <Button
-                type="primary"
-                htmlType="submit"
-                className="signin_submit_btn_css"
-              >
-            <Typography variant="button" display="block" >
-             Submit
-            </Typography> 
-              </Button>
-            </Form.Item>
-            <div className="footer-text">
-              <Typography variant="body2">
-                <Link
-                  to={"/signin"}
-                  style={{
-                    color: "black",
-                  }}
-                >
-                 <img src={back_navigation} alt="back"  className="back-icon"/> Back to Login
-                </Link>
-              </Typography>
-            </div>
-          </Form> */}
          </div>
          {/* <br /> */}
          <br />
