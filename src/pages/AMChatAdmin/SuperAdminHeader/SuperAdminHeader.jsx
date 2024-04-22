@@ -1,16 +1,17 @@
-import React from "react";
-import Styles from "./SuperAdminHeader.module.css";
-import { Link } from "react-router-dom";
-import Popover from "@mui/material/Popover";
-import PopupState, { bindTrigger, bindPopover } from "material-ui-popup-state";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
-import Divider from "@mui/material/Divider";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import AssignmentIndOutlinedIcon from "@mui/icons-material/AssignmentIndOutlined";
-import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
+import React from 'react';
+import Styles from './SuperAdminHeader.module.css';
+import { Link } from 'react-router-dom';
+import Popover from '@mui/material/Popover';
+import PopupState, { bindTrigger, bindPopover } from 'material-ui-popup-state';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import Divider from '@mui/material/Divider';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import AssignmentIndOutlinedIcon from '@mui/icons-material/AssignmentIndOutlined';
+import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
+import DefaultProfileImage from '../../../asset/defaultProfile.jpg';
 function SuperAdminHeader({
   componentName,
   name,
@@ -20,6 +21,15 @@ function SuperAdminHeader({
   const style = {
     width: 200,
     ...customStyle,
+  };
+
+  const handleLogout = () => {
+    localStorage.clear();
+    window.location.href = '/signin';
+  };
+
+  const handleNavigation = () => {
+    window.location.href = '/Info';
   };
   return (
     <PopupState variant="popover" popupId="profile-popup-popover">
@@ -33,12 +43,14 @@ function SuperAdminHeader({
             className={Styles.superAdminProfileImgNameStyle}
             onClick={popupState.open}
           >
-            <img
-              src={profileImageSrc}
-              alt=""
-              className={Styles.AdminProfileStyle}
-              style={customStyle.imageStyle}
-            />
+            <div>
+              <img
+                src={profileImageSrc ? profileImageSrc : DefaultProfileImage}
+                alt=""
+                className={Styles.AdminProfileStyle}
+                style={customStyle.imageStyle}
+              />
+            </div>
             <span
               className={Styles.SuperAdminProfileStyle}
               style={customStyle.textStyle}
@@ -50,37 +62,35 @@ function SuperAdminHeader({
           <Popover
             {...bindPopover(popupState)}
             anchorOrigin={{
-              vertical: "bottom",
-              horizontal: "center",
+              vertical: 'bottom',
+              horizontal: 'center',
             }}
             transformOrigin={{
-              vertical: "top",
-              horizontal: "center",
+              vertical: 'top',
+              horizontal: 'center',
             }}
           >
             <List sx={style}>
               <ListItem>
-                <ListItemButton>
+                <ListItemButton onClick={handleNavigation}>
                   <ListItemIcon>
                     <AssignmentIndOutlinedIcon />
                   </ListItemIcon>
-                  <Link
+                  {/* <Link
                     to="/SuperAdminPersonalInfo"
-                    style={{ textDecoration: "none" }}
-                  >
-                    <ListItemText primary="View Profile" />
-                  </Link>
+                    style={{ textDecoration: 'none' }}
+                  > */}
+                  <ListItemText primary="View Profile" />
+                  {/* </Link> */}
                 </ListItemButton>
               </ListItem>
               <Divider component="li" />
               <ListItem>
-                <ListItemButton>
+                <ListItemButton onClick={handleLogout}>
                   <ListItemIcon>
                     <LogoutOutlinedIcon />
                   </ListItemIcon>
-                  <Link to="/signin" style={{ textDecoration: "none" }}>
-                    <ListItemText primary="Logout" />
-                  </Link>
+                  <ListItemText primary="Logout" />
                 </ListItemButton>
               </ListItem>
             </List>

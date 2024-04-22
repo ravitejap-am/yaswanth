@@ -28,7 +28,7 @@ const PageNotFound = () => {
               backgroundColor={'var(--Brand-500, #6366F1)'}
               color={'#fff'}
               buttonHandler={() => {
-                alert('hi');
+                // alert('hi');
               }}
               isSubmit={true}
             />

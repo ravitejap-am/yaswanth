@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Style from './input.module.css';
-// import { EyeOutlined, EyeInvisibleOutlined } from "@ant-design/icons";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+
 
 const Input = ({
   type,
@@ -13,13 +14,15 @@ const Input = ({
   defaultValue = '',
   pattern = null,
   onBlur = null,
+  iconStyle,
+  disabled = false,
 }) => {
   const [visible, setVisible] = useState(false);
   const handleOnClick = () => {
     setVisible(!visible);
   };
 
-  return (
+    return (
     <div className={Style.groupform}>
       <div className={Style.inputgroup}>
         {iconClass ? (
@@ -33,7 +36,7 @@ const Input = ({
               {visible ? <EyeInvisibleOutlined /> : <EyeOutlined />}
             </i>
           </span>
-        {/* ) : null} */}
+        ) : null} */}
         <div className={Style.labelStyle}>
           <label>{labelName ? labelName : null}</label>
           <input
@@ -47,7 +50,17 @@ const Input = ({
             defaultValue={defaultValue}
             pattern={pattern}
             onBlur={onBlur}
+            disabled={disabled}
           />
+        {type === "password" && (
+          <span
+            className={Style.inputIcon}
+            style={iconStyle}
+            onClick={handleOnClick}
+          >
+            {visible ? <Visibility  />: <VisibilityOff  />}
+          </span>
+        )}
         </div>
         <br />
       </div>

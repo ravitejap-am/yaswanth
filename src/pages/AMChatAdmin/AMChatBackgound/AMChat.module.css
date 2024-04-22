@@ -1,6 +1,6 @@
 .AMChatMainDiv {
   width: 100%;
-  height: 100%;
+  height: 92%;
   flex-shrink: 0;
   background: linear-gradient(
     114deg,
@@ -66,7 +66,15 @@
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  margin-top: 60px;
+  /* margin-top: 60px; */
+  padding-left: 10px;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.container:hover {
+  background-color: #6366f1; /* Change background color on hover */
+  color: #f8fafc; /* Change text color on hover */
 }
 
 .AmChatsTwoContents {
@@ -124,7 +132,7 @@
   font-weight: 500;
 }
 
-.AMChatFooterStyle {
+/* .AMChatFooterStyle {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -135,14 +143,14 @@
     #1a2e5e 92.75%
   );
   border-style: none;
-  margin-top: -20px;
   color: var(--White, #fff);
   font-family: Lato;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
   line-height: 20px;
-}
+  margin-top: 10px;
+} */
 .footerPTagStyle {
   margin-left: 150px;
   font-family: var(--text-base-font-family, "Lato-SemiBold", sans-serif);
@@ -161,13 +169,13 @@
 .AMchatMainDiv {
   margin-top: 30px;
 }
-.AMChatFooterStyle {
+/* .AMChatFooterStyle {
   color: var(--White, #fff);
   font-family: Lato;
   font-size: 14px;
   font-style: normal;
   font-weight: 1.2rem;
-}
+} */
 
 .AMChatFooterStyle {
   display: flex;
@@ -180,7 +188,13 @@
     #1a2e5e 92.75%
   );
   border-style: none;
-  margin-top: -20px;
+  color: var(--White, #fff);
+  font-family: Lato;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 1.2rem;
+  height: auto;
+  /* margin-top: -20px; */
 }
 .organizationTextStyle {
   color: var(--White, #fff);
@@ -191,10 +205,50 @@
   line-height: var(--text-base-line-height, 24px);
   font-weight: var(--text-base-font-weight, 500);
 }
-.AMChatFooterStyle {
+/* .AMChatFooterStyle {
   color: var(--White, #fff);
   font-family: Lato;
   font-size: 14px;
   font-style: normal;
   font-weight: 1.2rem;
+} */
+
+.dashboardContainer {
+  height: 100vh;
+  background: linear-gradient(
+    114deg,
+    #0f172a 51.52%,
+    #152346 73.32%,
+    #1a2e5e 92.75%
+  );
+}
+
+.navbarTitles {
+  margin-top: 20px;
+}
+
+
+.activeColor {
+  background-color: #6366f1;
+}
+
+
+.OrgMainDiv {
+  width: 100%;
+  height: auto;
+  flex-shrink: 0;
+  background: linear-gradient(
+    114deg,
+    #0f172a 51.52%,
+    #152346 73.32%,
+    #1a2e5e 92.75%
+  );
+  display: flex;
+  justify-content: flex-start;
+  /* position: fixed; */
+}
+
+.AMChatMainDivMain {
+  height: auto;
+  overflow-x: hidden;
 }

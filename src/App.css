@@ -54,11 +54,11 @@
     transform: rotate(360deg);
   }
 }
-body {
+/* body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
-  overflow-y: auto;
+  overflow-y: hidden;
   color: #475f7b;
   font-size: 1rem;
   font-style: normal;
@@ -66,7 +66,26 @@ body {
   font-family: "IBM Plex Sans", sans-serif;
   line-height: 1.5;
   height: 100vh;
+} */
+
+html {
+  overflow: hidden;
 }
+  body {
+  height: 100%;
+  width:100%;
+  position: fixed;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  color: #475f7b;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  font-family: "Montserrat", sans-serif;
+  line-height: 1.5;
+  /* -webkit-overflow-scrolling: touch; */
+  }
 .main {
   height: 100vh;
   /* background: rgb(181, 100, 229); */
@@ -85,9 +104,9 @@ body {
 
 .btn-color {
   display: flex;
-  width: 80px;
+  width: 90px;
   height: 30px;
-  padding: 10px 16px;
+  padding: 20px 30px;
   justify-content: center;
   align-items: center;
   gap: 8px;
@@ -98,9 +117,9 @@ body {
 
 .btn-color-signup {
   display: flex;
-  width: 80px;
+  width: 90px;
   height: 30px;
-  padding: 10px 16px;
+  padding: 20px 30px;
   justify-content: center;
   align-items: center;
   gap: 8px;
@@ -108,6 +127,20 @@ body {
   margin-left: 20px;
   border-radius: 30px;
   background: var(--Brand-500, #6366f1);
+}
+
+#bar {
+  position: relative;
+  height: 400px;
+  width: auto;
+  overflow: auto;
+}
+
+#pie {
+  position: relative;
+  height: 400px;
+  width: auto;
+  overflow: auto;
 }
 
 .container {
@@ -122,6 +155,26 @@ body {
   margin-right: auto;
   margin-left: auto;
 }
+
+.css-t89xny-MuiDataGrid-columnHeaderTitle {
+  font-weight: 700 !important;
+}
+
+.css-nxo287-MuiInputBase-input-MuiOutlinedInput-input {
+  padding: 9.5px 12px !important;
+}
+
+.ant-select-selector {
+  border: none !important;
+}
+
+.anticon-close {
+  color: black !important;
+}
+:where(.css-dev-only-do-not-override-1rqnfsa).ant-drawer-left>.ant-drawer-content-wrapper {
+  /* box-shadow: none; */
+  width:100% !important;
+}
 @font-face {
   font-family: "Montserrat300";
   src: local("Montserrat300"),
@@ -133,4 +186,14 @@ body {
   src: local("Montserrat600"),
     url("../src/asset/fonts/Montserrat-300.ttf") format("ttf"),
     url("../src/asset/fonts/Montserrat-300.ttf") format("ttf");
+}
+@media (max-width: 600px) {
+  #bar {
+    width: 15em;
+    margin: 0 auto;
+  }
+  #pie {
+    width: 15em;
+    margin: 0 auto;
+  }
 }

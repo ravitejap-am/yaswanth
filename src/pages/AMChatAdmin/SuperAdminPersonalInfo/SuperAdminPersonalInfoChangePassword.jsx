@@ -23,6 +23,24 @@ function SuperAdminPersonalInfoChangePassword({
     hideNotifyMessage,
   } = useMessageState();
 
+  const passwordStyles = { 
+    position: 'absolute',
+    // right: '10px',
+    top: '73%',
+    transform: 'translateY(-50%)',
+    cursor: 'pointer',
+    left: '340px'
+}
+
+const confirmPasswordStyles = { 
+  position: 'absolute',
+  // right: '10px',
+  top: '60%',
+  transform: 'translateY(-50%)',
+  cursor: 'pointer',
+  left: '340px'
+}
+
   const messageHandler = () => {
     setIsReset(false);
     hideNotifyMessage();
@@ -73,7 +91,7 @@ function SuperAdminPersonalInfoChangePassword({
       }
     } catch (error) {
       if (error?.response?.status == 500 || error?.response?.status == "500") {
-        navigate("/internal500");
+        navigate("/customerSupport");
       }
 
       setButtonLoading(false);
@@ -116,6 +134,7 @@ function SuperAdminPersonalInfoChangePassword({
           { validator: validatePassword },
         ],
         style: { width: "350px", marginTop: "40px", marginLeft: "20px" },
+        iconStyle: passwordStyles
       },
       {
         label: "New Password",
@@ -125,7 +144,8 @@ function SuperAdminPersonalInfoChangePassword({
           { required: true, message: "Please input a valid password!" },
           { validator: validatePassword },
         ],
-        style: { width: "350px", marginLeft: "20px" },
+        style: { width: "350px", marginTop: "40px", marginLeft: "20px" },
+        iconStyle: passwordStyles
       },
       {
         label: "Confirm Password",
@@ -133,6 +153,7 @@ function SuperAdminPersonalInfoChangePassword({
         name: "confirmPassword",
         rules: [{ required: true, message: "Please confirm your password!" }],
         style: { width: "350px", marginLeft: "20px" },
+        iconStyle: confirmPasswordStyles
       },
     ],
     formType: "normal",

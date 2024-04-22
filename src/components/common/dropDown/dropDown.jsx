@@ -55,7 +55,7 @@ function Dropdown({
             {placeholder || 'Select an option'}
           </div>
         </option>
-        {options.map((option) => (
+        {options?.map((option) => (
           <option
             style={{ color: 'black' }}
             key={option.value}

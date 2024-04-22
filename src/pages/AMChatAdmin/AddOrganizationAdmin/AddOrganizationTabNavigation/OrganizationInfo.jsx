@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import GeneralForm from '../../../../components/common/forms/GeneralForm';
 import { useNavigate } from 'react-router-dom';
+import { Country, State, City }  from 'country-state-city';
+
 function OrganizationInfo({
   orgData,
   setSelectedTab,
@@ -18,37 +20,47 @@ function OrganizationInfo({
   setCities,
   organisation,
   editOrganisation,
+  setBackDropLoading,
 }) {
+
+  const getAllCountries = Country.getAllCountries();
+  const getAllStates = State.getAllStates();
+  const getAllCities = City.getAllCities();
   useEffect(() => {
     console.log('orgData', orgData);
     const fetchCountries = async () => {
-      setButtonLoading(true);
+      // setButtonLoading(true);
+      setBackDropLoading(true);
       try {
-        const response = await fetch(
-          'https://countriesnow.space/api/v0.1/countries',
-          {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          }
-        );
-        const data = await response.json();
+        // const response = await fetch(
+        //   'https://countriesnow.space/api/v0.1/countries',
+        //   {
+        //     method: 'GET',
+        //     headers: {
+        //       'Content-Type': 'application/json',
+        //     },
+        //   }
+        // );
+        // const data = await response.json();
 
-        let countries = data.data;
+        // let countries = data.data;
         let countryArray = [];
-        countries?.map((country) => {
+        getAllCountries?.map((country) => {
           let countryObject = {
-            label: country?.country,
-            value: country?.country,
+            label: country?.name,
+            value: country?.name,
+            code: country?.isoCode,
           };
           countryArray.push(countryObject);
         });
-        setButtonLoading(false);
+        console.log("countryArray---->",countryArray);
+        // setButtonLoading(false);
         setCountries(countryArray);
+        setBackDropLoading(false);
       } catch (error) {
         console.error('Error fetching countries:', error);
-        setButtonLoading(false);
+        // setButtonLoading(false);
+        setBackDropLoading(false);
       }
     };
 
@@ -57,11 +69,14 @@ function OrganizationInfo({
       let countryValue = {
         label: orgData?.address?.country,
         value: orgData?.address?.country,
+        code: orgData?.address?.countryCode,
       };
       handleCountryChange(countryValue);
       let stateValue = {
         label: orgData?.address?.state,
         value: orgData?.address?.state,
+        code: orgData?.address?.stateCode,
+        countryCode: orgData?.address?.countryCode
       };
       handleStateChange(stateValue);
     }
@@ -78,11 +93,13 @@ function OrganizationInfo({
       const updatedOrgData = {
         ...orgData,
         address: values,
-        name: values.name,
+        name: values.orgName,
       };
+      console.log('updateData', updatedOrgData);
       selectOrgData(updatedOrgData);
       if (organisation?.organisationStatus == 'edit') {
-        editOrganisation();
+        editOrganisation(updatedOrgData);
+        return;
       }
 
       setSelectedTab('organizationadmin');
@@ -94,84 +111,100 @@ function OrganizationInfo({
 
   const handleCountryChange = async (value) => {
     console.log(value);
-    setButtonLoading(true);
+    console.log("country value---->",value);
+    // setButtonLoading(true);
+    setBackDropLoading(true);
     setLocalState({ ...localState, country: value.label });
     let payload = { country: value.label };
+
     try {
-      const response = await fetch(
-        `https://countriesnow.space/api/v0.1/countries/states`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            // Authorization: token,
-          },
-          body: JSON.stringify(payload),
-        }
-      );
-      const data = await response.json();
-      console.log(JSON.stringify(data.data));
-      let states = data?.data?.states;
+      const filterStates = getAllStates.filter((state) => { return state.countryCode === value.code });
+      console.log("filterStates---->",filterStates);
+      // const response = await fetch(
+      //   `https://countriesnow.space/api/v0.1/countries/states`,
+      //   {
+      //     method: 'POST',
+      //     headers: {
+      //       'Content-Type': 'application/json',
+      //       // Authorization: token,
+      //     },
+      //     body: JSON.stringify(payload),
+      //   }
+      // );
+      // const data = await response.json();
+      // console.log(JSON.stringify(data.data));
+      // let states = data?.data?.states;
       let stateArray = [];
-      states.map((state, index) => {
+      filterStates.map((state, index) => {
         let stateObject = {
           label: state.name,
           value: state.name,
+          code: state.isoCode,
+          countryCode: value?.code
         };
         stateArray.push(stateObject);
       });
+      console.log("stateArray---->",stateArray);
+      setCities([])
       setStates(stateArray);
-
-      setButtonLoading(false);
+      setBackDropLoading(false);
+      // setButtonLoading(false);
     } catch (error) {
       console.error('Error fetching testimonials:', error);
-      setButtonLoading(false);
+      // setButtonLoading(false);
+      setBackDropLoading(false);
     }
   };
 
   const handleStateChange = async (value) => {
     console.log(localState);
     setLocalState({ ...localState, state: value.label });
-    setButtonLoading(true);
+    // setButtonLoading(true);
+    setBackDropLoading(true);
     try {
-      const response = await fetch(
-        `https://countriesnow.space/api/v0.1/countries/state/cities`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            // Authorization: token,
-          },
-          body: JSON.stringify({
-            country: localState.country,
-            state: value.label,
-          }),
-        }
-      );
-      const data = await response.json();
-      console.log(JSON.stringify(data.data));
-      let cities = data?.data;
+      const filterCities = getAllCities.filter((city) => { return city.stateCode === value.code && city.countryCode === value.countryCode });
+      console.log("z",filterCities);
+      // const response = await fetch(
+      //   `https://countriesnow.space/api/v0.1/countries/state/cities`,
+      //   {
+      //     method: 'POST',
+      //     headers: {
+      //       'Content-Type': 'application/json',
+      //       // Authorization: token,
+      //     },
+      //     body: JSON.stringify({
+      //       country: localState.country,
+      //       state: value.label,
+      //     }),
+      //   }
+      // );
+      // const data = await response.json();
+      // console.log(JSON.stringify(data.data));
+      // let cities = data?.data;
       let citiyArray = [];
-      cities?.map((city, index) => {
+      filterCities?.map((city, index) => {
         let cityObject = {
-          label: city,
-          value: city,
+          label: city?.name,
+          value: city?.name,
         };
         citiyArray.push(cityObject);
       });
       // setComments(data.data);
       // setCities(data.data);
       setCities(citiyArray);
-      setButtonLoading(false);
+      console.log("citiyArray---->",citiyArray);
+      // setButtonLoading(false);
+      setBackDropLoading(false);
     } catch (error) {
       console.error('Error fetching testimonials:', error);
-      setButtonLoading(false);
+      // setButtonLoading(false);
+      setBackDropLoading(false);
     }
   };
-
+ 
   const formElements = [
     {
-      name: 'name',
+      name: 'orgName',
       label: 'Organization Name',
       type: 'text',
       style: {
@@ -183,6 +216,9 @@ function OrganizationInfo({
       // rules: [{ required: true, message: 'Please enter your name' }],
       labelName: false,
       defaultValue: orgData?.name,
+      pattern: /^([a-zA-Z]{3,30}\s*)+/,
+      emptyErrorMessage: 'Please Enter the Organisation Name',
+      invalidErrorMessage: 'Please Enter the Valid Organisation Name',
     },
     {
       name: 'address1',
@@ -197,6 +233,9 @@ function OrganizationInfo({
       labelName: false,
       // rules: [{ required: true, message: 'Please enter Street 1' }],
       defaultValue: orgData?.address?.address1,
+      pattern: /^([a-zA-Z]{3,30}\s*)+/,
+      emptyErrorMessage: 'Please Enter the First Address',
+      invalidErrorMessage: 'Please Enter the Valid Address',
     },
     {
       name: 'address2',
@@ -210,6 +249,9 @@ function OrganizationInfo({
       },
       labelName: false,
       defaultValue: orgData?.address?.address2,
+      pattern: /^([a-zA-Z]{3,30}\s*)+/,
+      emptyErrorMessage: 'Please Enter the Second Address',
+      invalidErrorMessage: 'Please Enter the Valid Address',
     },
     {
       name: 'country',
@@ -233,6 +275,9 @@ function OrganizationInfo({
       // rules: [{ required: true, message: 'Please select Country' }],
       defaultValue: orgData?.address?.country,
       onSelectApiCall: handleCountryChange,
+      pattern: /^([a-zA-Z]{3,30}\s*)+/,
+      emptyErrorMessage: 'Pleas Select the Country',
+      invalidErrorMessage: 'Pleas Select the Valid Country'
     },
     {
       name: 'state',
@@ -250,11 +295,15 @@ function OrganizationInfo({
         paddingRight: '20px',
         appearance: 'border',
         color: '#475569',
+  
       },
       labelName: false,
       // rules: [{ required: true, message: 'Please select State' }],
-      defaultValue: orgData?.address?.state,
+       defaultValue: orgData?.address?.state,
       onSelectApiCall: handleStateChange,
+      pattern: /^([a-zA-Z]{3,30}\s*)+/,
+      emptyErrorMessage: 'Pleas Select the State',
+      invalidErrorMessage: 'Pleas Select the Valid State',
     },
     {
       name: 'city',
@@ -279,21 +328,33 @@ function OrganizationInfo({
       onSelectApiCall: () => {
         console.log('handle city change');
       },
+      pattern: /^([a-zA-Z]{3,30}\s*)+/,
+      emptyErrorMessage: 'Please Select the City',
+      invalidErrorMessage: 'Please Select the Valid City',
     },
     {
       name: 'postCode',
       label: 'Zipcode',
-      type: 'text',
+      type: 'number',
+      className:"custom-input-number",
       style: {
-        width: '445px',
+        width: '465px',
+        display:'none',
         borderRadius: '40px',
         border: '1px solid var(--Brand-700, #4338CA)',
         backgroundColor: 'transparent',
         margin: '10px 0', // Adjusted for consistent spacing
+        height: '50px',
+        display: 'flex',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
       },
       labelName: false,
       // rules: [{ required: true, message: 'Please enter Zipcode' }],
       defaultValue: orgData?.address?.postCode,
+      pattern: /^[1-9][0-9]{5}$/,
+      emptyErrorMessage: 'Please Enter your zipcode',
+      invalidErrorMessage: 'Please Enter the Valid zipcode',
     },
   ];
   const cancelHandler = (values) => {
@@ -301,7 +362,7 @@ function OrganizationInfo({
     const updatedOrgData = {
       ...orgData,
       address: values,
-      name: values.name,
+      name: values.orgName,
     };
 
     selectOrgData(updatedOrgData);
@@ -310,6 +371,8 @@ function OrganizationInfo({
     // Redirect to /dashboardadmin/organizationlist
     // navigate('/dashboardadmin/organizationlist');
   };
+
+
 
   const submitButtonProperty = {
     display: 'flex',
@@ -376,6 +439,8 @@ function OrganizationInfo({
     orgData: orgData,
     screen: selectedTab,
   };
+
+
   return (
     <div style={{}}>
       <GeneralForm

@@ -1,15 +1,35 @@
-import React, { useEffect, createRef, useState } from 'react';
-import img1 from '../../../asset/contact.png';
-import GeneralForm from '../../../components/common/forms/GeneralForm';
-import { Form, Input, Select } from 'antd';
-import axios from 'axios';
-import * as constants from '../../../constants/Constant';
-import { useMessageState } from '../../../hooks/useapp-message';
-import './ContactUp.css';
-import { Link, useNavigate } from 'react-router-dom';
-const { Option } = Select;
+import React, { useEffect, createRef, useState } from "react";
+import img1 from "../../../asset/contact.png";
+import GeneralForm from "../../../components/common/forms/GeneralForm";
+import { Form, Input, Grid } from "antd";
+import axios from "axios";
+import * as constants from "../../../constants/Constant";
+import { useMessageState } from "../../../hooks/useapp-message";
+import "./ContactUp.css";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  Typography,
+  useMediaQuery,
+  Select,
+  MenuItem,
+  InputLabel,
+  FormControl,
+  TextField,
+  TextareaAutosize,
+  Button,
+  FormHelperText,
+} from "@mui/material";
+import Thankyou from "./Thankyou";
+import {
+  validatFirstName,
+  validateEmail,
+  validateFilledInput,
+} from "../../../components/super-admin/validation";
 
-const ContactUp = () => {
+const { TextArea } = Input;
+
+const ContactUp = (props) => {
+  const { selectPlan, setSelectPlan } = props;
   const formRef = createRef();
   let {
     buttonLoading,
@@ -20,166 +40,185 @@ const ContactUp = () => {
     hideNotifyMessage,
   } = useMessageState();
   const navigate = useNavigate();
+  const { useBreakpoint } = Grid;
+  const isMobile = useMediaQuery("(max-width:600px)");
+  const [showThanksPopup, setShowThanksPopup] = useState(false);
+
+  const smallTextStyles = isMobile
+    ? {
+        fontSize: "27px",
+        lineHeight: "1.5",
+      }
+    : {};
+  const screens = useBreakpoint();
+  const [form] = Form.useForm();
+
+  const [values, setValues] = useState({
+    name: "",
+    email: "",
+    plan: "",
+    comments: "",
+  });
+
+  const [validations, setValidations] = useState({
+    name: { isValid: true, errorMsg: "" },
+    email: { isValid: true, errorMsg: "" },
+    plan: { isValid: true, errorMsg: "" },
+    comments: { isValid: true, errorMsg: "" },
+  });
 
   useEffect(() => {
     if (formRef.current) {
-      formRef.current.scrollIntoView({ behavior: 'auto' });
+      formRef.current.scrollIntoView({ behavior: "auto" });
     }
-  }, []);
-  const validateEmail = (_, value) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (value && emailRegex.test(value)) {
-      return Promise.resolve();
-    }
-    return Promise.reject('Please enter a valid email address!');
-  };
-  const formElements = [
-    {
-      name: 'name',
-      label: 'Name',
-      type: 'text',
-      style: {
-        width: '495px',
-        borderRadius: '40px',
-        border: '1px solid var(--Brand-700, #4338CA)',
-        backgroundColor: 'transparent',
-        color: '#FFF',
-      },
-      rules: [{ required: true, message: 'Please enter your name' }],
-      labelName: true,
-    },
-    {
-      name: 'email',
-      label: 'Email',
-      type: 'email',
-      style: {
-        width: '495px',
-        borderRadius: '40px',
-        border: '1px solid var(--Brand-700, #4338CA)',
-        backgroundColor: 'transparent',
-        color: '#FFF',
-      },
-      labelName: true,
-      rules: [
-        { required: true, message: 'Please enter your email' },
-        { type: 'email', message: 'Please enter a valid email address' },
-      ],
-    },
-    {
-      name: 'plan',
-      label: 'Select Plan',
-      type: 'select',
-      style: {
-        width: '521px',
-        height: '50px',
-        borderRadius: '40px',
-        border: '1px solid var(--Brand-700, #4338CA)',
-        backgroundColor: 'transparent',
-        paddingLeft: '10px',
-        color: '#FFF',
-        margin: '0px 5px 20px 1px',
-      },
-      labelName: true,
-      options: [
-        { value: 'FREEMIUM', label: 'Freemium' },
-        { value: 'PREMIUM', label: 'Standard' },
-        { value: 'ENTERPRISE', label: 'Enterprise' },
-      ],
-      rules: [{ required: true, message: 'Please select a plan' }],
-    },
-    {
-      name: 'comment',
-      label: 'Comments',
-      type: 'description',
-      style: {
-        width: '525px',
-        height: '50px',
-        borderRadius: '40px',
-        border: '1px solid var(--Brand-700, #4338CA)',
-        backgroundColor: 'transparent',
-        marginBottom: '13px',
-        paddingLeft: '10px',
-        color: '#FFF',
-      },
-      labelName: 'Comments',
-      // rules: [{ required: true, message: 'Please enter your comment' }],
-    },
+    setValues({ ...values, plan: selectPlan });
+  }, [selectPlan]);
+
+  const selectOptions = [
+    { value: "FREEMIUM", label: "Freemium" },
+    { value: "PREMIUM", label: "Standard" },
+    { value: "ENTERPRISE", label: "Enterprise" },
   ];
+
   const messageHandler = () => {
     setIsReset(false);
     hideNotifyMessage();
   };
-  const submitHandler = async (values) => {
-    setButtonLoading(true);
-    console.log('contact up', values);
-    try {
-      const response = await axios.post(
-        `${constants.BASE_API_URL}/user/contactUs`,
-        {
-          name: values.name,
-          emailId: values.email,
-          status: true,
-          plan: values.plan,
-          comments: values.comment,
-          createdBy: 'admin',
-          updatedBy: 'admin',
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      );
-      setButtonLoading(false);
-      setIsReset(true);
-      showNotifyMessage('success', response?.data?.message, messageHandler);
-    } catch (error) {
-      if (error?.response?.status == 500 || error?.response?.status == '500') {
-        navigate('/internal500');
-      }
 
-      setButtonLoading(false);
-      showNotifyMessage(
-        'error',
-        error?.response?.data?.message,
-        messageHandler
-      );
+  const validateDetails = () => {
+    let flag = false;
+    const errorMsg = "Please enter your name";
+    const isValidName = validateFilledInput(values.name, errorMsg);
+    const isValidEmail = validateEmail(values.email);
+    const message = "Please select your plan";
+    const isValidPlan = validateFilledInput(values.plan, message);
+
+
+    if (isValidName) {
+      flag = true;
+      console.log("inside invalid name", isValidName);
+      setValidations((prev) => ({
+        ...prev,
+        name: {
+          isValid: false,
+          errorMsg: isValidName,
+        },
+      }));
+    } else {
+      setValidations((prev) => ({
+        ...prev,
+        name: {
+          isValid: true,
+          errorMsg: "",
+        },
+      }));
+    }
+
+    if (isValidEmail) {
+      flag = true;
+      console.log("inside invalid email", isValidEmail);
+      setValidations((prev) => ({
+        ...prev,
+        email: {
+          isValid: false,
+          errorMsg: isValidEmail,
+        },
+      }));
+    } else {
+      setValidations((prev) => ({
+        ...prev,
+        email: {
+          isValid: true,
+          errorMsg: "",
+        },
+      }));
+    }
+
+    if (isValidPlan) {
+      flag = true;
+      console.log("inside invalid plan", isValidPlan);
+      setValidations((prev) => ({
+        ...prev,
+        plan: {
+          isValid: false,
+          errorMsg: isValidPlan,
+        },
+      }));
+    } else {
+      setValidations((prev) => ({
+        ...prev,
+        plan: {
+          isValid: true,
+          errorMsg: "",
+        },
+      }));
+    }
+    return flag;
+  };
+
+  const submitHandler = async () => {
+    // e.preventDefault()
+    console.log("submit hanler function is executed");
+    console.log("values---->", values);
+
+    const isValidForm = validateDetails();
+
+    console.log("isValidForm---->", isValidForm);
+
+    if (!isValidForm) {
+      setButtonLoading(true);
+      console.log("contact up", values);
+      try {
+        const response = await axios.post(
+          `${constants.BASE_API_URL}/user/contactUs`,
+          {
+            name: values.name,
+            emailId: values.email,
+            status: true,
+            plan: values.plan,
+            comments: values.comments,
+            createdBy: "admin",
+            updatedBy: "admin",
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        setButtonLoading(false);
+        setIsReset(true);
+        setShowThanksPopup(true);
+        // showNotifyMessage("success", response?.data?.message, messageHandler);
+      } catch (error) {
+        if (
+          error?.response?.status == 500 ||
+          error?.response?.status == "500"
+        ) {
+          navigate("/customerSupport");
+        }
+
+        setButtonLoading(false);
+        showNotifyMessage(
+          "error",
+          error?.response?.data?.message,
+          messageHandler
+        );
+      }
     }
   };
 
-  const submitButtonProperty = {
-    name: 'Submit',
-    color: 'white',
-    backgroundColor: 'var(--Brand-500, #6366F1)',
-    type: 'primary',
-    width: '525px',
-    height: '50px',
-    borderRadius: '35px',
-    marginTop: '.6em',
+  const handleClose = (event) => {
+    setShowThanksPopup(false);
   };
 
-  const feedingVariable = {
-    isCancel: false,
-    isSubmit: true,
-    cancelHandler: (errorInfo) => {
-      console.log(errorInfo);
-    },
-    submitHandler: submitHandler,
-    submitButtonProperty: submitButtonProperty,
-    formElements: formElements,
-    formType: 'normal',
-    forgorPasswordHandler: () => {
-      console.log('forgot Password....');
-    },
-    validateEmail: validateEmail,
+  const handleChange = (event) => {
+    setValues({ ...values, [event.target.name]: event.target.value });
   };
 
   return (
     <div className="Contact-us-page-main-div">
-      <br />
-      <br />
-      <br />
-      <div className="Contact-us-page-child-div">
+      {screens.sm || screens.lg ? (
         <div className="Contact-usi-left-side-img">
           <img
             src={img1}
@@ -187,22 +226,113 @@ const ContactUp = () => {
             className="contact-us-image-style"
           />
         </div>
-        <div className="Contact-us-page-ant-form">
-          <div>
-            <p className="Contact-us-form-title">Contact Us</p>
-            <p className="Contact-us-form-sub-title">
-              To get in touch with AM Chat team, simply fill out the contact
-              form below
-            </p>
-          </div>
-
-          <div className="Contact-Us-General-Form-Style">
-            <GeneralForm
-              {...feedingVariable}
-              buttonLoading={buttonLoading}
-              isReset={isReset}
+      ) : (
+        ""
+      )}
+      <div className="Contact-us-page-ant-form">
+        <div>
+          <Typography
+            variant="h4"
+            className="Contact-us-form-title"
+            sx={smallTextStyles}
+          >
+            Contact Us
+          </Typography>
+          <Typography
+            variant="body2"
+            mt={2}
+            mb={2}
+            className="Contact-us-form-sub-title"
+          >
+            To get in touch with AM-Chat team, simply fill out the form below,
+            and one of us will reach out to you as soon as possible.
+          </Typography>
+        </div>
+        <div className="Contact-Us-General-Form-Style">
+            <TextField
+              name="name"
+              label="Name"
+              value={values.name}
+              onChange={handleChange}
+              fullWidth
+              margin="normal"
+              required
+              className="contact_input_css custom_input input_text"
+              error={!validations["name"].isValid}
+              helperText={validations["name"].errorMsg}
+              InputLabelProps={{
+                style: { color: "white" },
+              }}
             />
-          </div>
+            <TextField
+              name="email"
+              label="Email"
+              type="email"
+              value={values.email}
+              onChange={handleChange}
+              fullWidth
+              margin="normal"
+              required
+              className="contact_input_css custom_input input_text"
+              error={!validations["email"].isValid}
+              helperText={validations["email"].errorMsg}
+              InputLabelProps={{
+                style: { color: "white" },
+              }}
+            />
+            <FormControl
+              size="large"
+              margin="normal"
+              required
+              error={!validations["plan"].isValid}
+            >
+              <InputLabel id="Select-plan" style={{ color: "white" }}>
+                Select Plan
+              </InputLabel>
+              <Select
+                labelId="Select-plan"
+                name="plan"
+                id="Select-plan"
+                label="Select Plan"
+                className="contact_input_css custom_input"
+                onChange={handleChange}
+                value={values?.plan}
+              >
+                {selectOptions?.length > 0 &&
+                  selectOptions.map((item) => {
+                    return <MenuItem value={item.value}>{item.label}</MenuItem>;
+                  })}
+              </Select>
+              {validations["plan"].errorMsg && ( 
+                <FormHelperText style={{color:'red'}}>
+                  {validations["plan"].errorMsg}
+                </FormHelperText>
+              )}
+            </FormControl>
+
+            <TextField
+              label="Comments"
+              name="comments"
+              multiline
+              maxRows={2}
+              // maxRows={2}
+              margin="normal"
+              className="comment_input_css custom_comment .comment_text"
+              style={{ color: "white" , marginBottom:'16px'}}
+              InputLabelProps={{
+                style: { color: "white" },
+              }}
+              onChange={handleChange}
+            />
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              className="contact_submit_btn_css"
+              onClick={submitHandler}
+            >
+              <Typography variant="button">Submit</Typography>
+            </Button>
         </div>
       </div>
     </div>

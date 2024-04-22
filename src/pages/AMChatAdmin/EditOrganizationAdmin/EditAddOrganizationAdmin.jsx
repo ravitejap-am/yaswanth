@@ -1,21 +1,21 @@
-import React, { useState } from "react";
-import { Tabs, Button } from "antd";
-import { Link, useNavigate } from "react-router-dom";
-import Styles from "./AddOrganizationAdmin.module.css";
-import profile from "../../../asset/AmChatSuperAdmin/profile.png";
-import GeneralForm from "../../../components/common/forms/GeneralForm";
-import OrganizationInfo from "./AddOrganizationTabNavigation/OrganizationInfo";
-import TabNavigation from "./AddOrganizationTabNavigation/MainTabNavigationAddOrg";
-import OrganizationAdmin from "./AddOrganizationTabNavigation/OrganizationAdmin";
-import OrganizationDomains from "./AddOrganizationTabNavigation/OrganizationDomains";
-import SubscriptionPlan from "./AddOrganizationTabNavigation/SubscriptionPlan";
-import GeneralButton from "../../../components/common/buttons/GeneralButton";
-import AMChatHeader from "../AMChatHeader/AMChatHeader";
-import SuperAdminHeader from "../SuperAdminHeader/SuperAdminHeader";
+import React, { useState } from 'react';
+import { Tabs, Button } from 'antd';
+import { Link, useNavigate } from 'react-router-dom';
+import Styles from './AddOrganizationAdmin.module.css';
+import profile from '../../../asset/AmChatSuperAdmin/profile.png';
+import GeneralForm from '../../../components/common/forms/GeneralForm';
+import OrganizationInfo from './AddOrganizationTabNavigation/OrganizationInfo';
+import TabNavigation from './AddOrganizationTabNavigation/MainTabNavigationAddOrg';
+import OrganizationAdmin from './AddOrganizationTabNavigation/OrganizationAdmin';
+import OrganizationDomains from './AddOrganizationTabNavigation/OrganizationDomains';
+import SubscriptionPlan from './AddOrganizationTabNavigation/SubscriptionPlan';
+import GeneralButton from '../../../components/common/buttons/GeneralButton';
+import AMChatHeader from '../AMChatHeader/AMChatHeader';
+import SuperAdminHeader from '../SuperAdminHeader/SuperAdminHeader';
 
 function EditAddOrganizationAdmin() {
   const navigate = useNavigate();
-  const [selectedTab, setSelectedTab] = useState("personalinformation");
+  const [selectedTab, setSelectedTab] = useState('personalinformation');
 
   const handleTabChange = (tab) => {
     const normalizedTab = tab.toLowerCase(); // Normalize to lowercase
@@ -26,12 +26,12 @@ function EditAddOrganizationAdmin() {
 
   const handleSubmit = () => {
     // Add logic for handling form submission
-    console.log("Submitting form");
+    console.log('Submitting form');
   };
 
   const handleCancel = () => {
     // Add logic for handling form cancellation
-    console.log("Cancelling form");
+    console.log('Cancelling form');
   };
 
   return (
@@ -44,16 +44,16 @@ function EditAddOrganizationAdmin() {
             profileImageSrc={profile}
             customStyle={{
               containerStyle: {
-                display: "flex",
-                borderRadius: "8px",
+                display: 'flex',
+                borderRadius: '8px',
               },
               imageStyle: {
-                width: "50%",
-                height: "70%",
+                width: '50%',
+                height: '70%',
               },
               textStyle: {
-                color: "blue",
-                fontWeight: "bold",
+                color: 'blue',
+                fontWeight: 'bold',
               },
             }}
           />
@@ -65,10 +65,10 @@ function EditAddOrganizationAdmin() {
         />
         <br />
         <div className={Styles.superAdminTabChildCardStyle}>
-          {selectedTab === "personalinformation" && <OrganizationInfo />}
-          {selectedTab === "organizationadmin" && <OrganizationAdmin />}
-          {selectedTab === "subscriptionplan" && <SubscriptionPlan />}
-          {selectedTab === "organizationdomains" && <OrganizationDomains />}
+          {selectedTab === 'personalinformation' && <OrganizationInfo />}
+          {selectedTab === 'organizationadmin' && <OrganizationAdmin />}
+          {selectedTab === 'subscriptionplan' && <SubscriptionPlan />}
+          {selectedTab === 'organizationdomains' && <OrganizationDomains />}
         </div>
         <div className={Styles.generalButtonStyle}>
           <div>
@@ -89,10 +89,7 @@ function EditAddOrganizationAdmin() {
               buttonHandler={handleSubmit}
             />
           </div>
-          <Link
-            to="/dashboardadmin/organizationlist"
-            style={{ textDecoration: "none" }}
-          >
+          <Link to="/organisations" style={{ textDecoration: 'none' }}>
             <div>
               <GeneralButton
                 name="Cancel"

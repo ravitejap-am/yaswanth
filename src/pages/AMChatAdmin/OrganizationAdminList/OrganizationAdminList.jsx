@@ -1,69 +1,70 @@
-import React from "react";
-import Styles from "./OrganizationAdminList.module.css";
-import profile from "../../../asset/AmChatSuperAdmin/profile.png";
-import GeneralButton from "../../../components/common/buttons/GeneralButton";
-import frame from "../../../asset/AmChatSuperAdmin/plus-sm.png";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TablePagination from "@mui/material/TablePagination";
-import TableRow from "@mui/material/TableRow";
-import TableSortLabel from "@mui/material/TableSortLabel";
-import Typography from "@mui/material/Typography";
-import Paper from "@mui/material/Paper";
-import Checkbox from "@mui/material/Checkbox";
-import IconButton from "@mui/material/IconButton";
-import editIcon from "../../../asset/AmChatSuperAdmin/pencil-alt.png";
-import deleteIcon from "../../../asset/AmChatSuperAdmin/Frame 2302.png";
-import Select from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import { Link } from "react-router-dom";
+import React from 'react';
+import Styles from './OrganizationAdminList.module.css';
+import profile from '../../../asset/AmChatSuperAdmin/profile.png';
+import GeneralButton from '../../../components/common/buttons/GeneralButton';
+import frame from '../../../asset/AmChatSuperAdmin/plus-sm.png';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TablePagination from '@mui/material/TablePagination';
+import TableRow from '@mui/material/TableRow';
+import TableSortLabel from '@mui/material/TableSortLabel';
+import Typography from '@mui/material/Typography';
+import Paper from '@mui/material/Paper';
+import Checkbox from '@mui/material/Checkbox';
+import IconButton from '@mui/material/IconButton';
+import editIcon from '../../../asset/AmChatSuperAdmin/pencil-alt.png';
+import deleteIcon from '../../../asset/AmChatSuperAdmin/Frame 2302.png';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import { Link } from 'react-router-dom';
+import Tables from '../../../components/common/muiTable/Tables';
 
 function OrganizationAdminList() {
   const rows = [
     {
       id: 1,
-      name: "John Doe",
-      email: "john.doe@example.com",
-      organizationName: "Org 1",
+      name: 'John Doe',
+      email: 'john.doe@example.com',
+      organizationName: 'Org 1',
     },
     {
       id: 2,
-      name: "Jane Doe",
-      email: "jane.doe@example.com",
-      organizationName: "Org 2",
+      name: 'Jane Doe',
+      email: 'jane.doe@example.com',
+      organizationName: 'Org 2',
     },
     {
       id: 3,
-      name: "Alice Smith",
-      email: "alice.smith@example.com",
-      organizationName: "Org 3",
+      name: 'Alice Smith',
+      email: 'alice.smith@example.com',
+      organizationName: 'Org 3',
     },
     {
       id: 4,
-      name: "Bob Johnson",
-      email: "bob.johnson@example.com",
-      organizationName: "Org 4",
+      name: 'Bob Johnson',
+      email: 'bob.johnson@example.com',
+      organizationName: 'Org 4',
     },
     {
       id: 5,
-      name: "Eve Wilson",
-      email: "eve.wilson@example.com",
-      organizationName: "Org 5",
+      name: 'Eve Wilson',
+      email: 'eve.wilson@example.com',
+      organizationName: 'Org 5',
     },
   ];
 
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [order, setOrder] = React.useState("asc");
-  const [orderBy, setOrderBy] = React.useState("name");
+  const [order, setOrder] = React.useState('asc');
+  const [orderBy, setOrderBy] = React.useState('name');
 
   const handleRequestSort = (event, property) => {
-    const isAsc = orderBy === property && order === "asc";
-    setOrder(isAsc ? "desc" : "asc");
+    const isAsc = orderBy === property && order === 'asc';
+    setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
   };
 
@@ -75,6 +76,25 @@ function OrganizationAdminList() {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
+
+  const tableHead = [
+    {
+      label: "Name",
+      key: "name",
+    },
+    {
+      label: "Email",
+      key: "email",
+    },
+    {
+      label: "Organization Name",
+      key: "organizationName",
+    },
+    {
+      label: "Actions",
+      key: "action",
+    },
+  ];
 
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
@@ -90,7 +110,7 @@ function OrganizationAdminList() {
           </div>
           <div
             className={Styles.superAdminProfileImgNameStyle}
-            style={{ display: "flex", alignItems: "center" }}
+            style={{ display: 'flex', alignItems: 'center' }}
           >
             <img src={profile} alt="" className={Styles.AdminProfileStyle} />
             <span className={Styles.SuperAdminProfileStyle}>Lian Vendiar</span>
@@ -100,19 +120,16 @@ function OrganizationAdminList() {
         <div>
           <div className={Styles.bannerBtn}>
             <div className={Styles.bannerButton}>
-              <Link
-                to="/dashboardadmin/addorganizationadmin"
-                style={{ textDecoration: "none" }}
-              >
+              <Link to="/organisation" style={{ textDecoration: 'none' }}>
                 <GeneralButton
-                  name={"Add Admin"}
-                  type={"submit"}
-                  color={"#f8fafc"}
-                  borderRadius={"30px"}
-                  backgroundColor={"#6366f1"}
+                  name={'Add Admin'}
+                  type={'submit'}
+                  color={'#f8fafc'}
+                  borderRadius={'30px'}
+                  backgroundColor={'#6366f1'}
                   icons={frame}
-                  width={"132px"}
-                  height={"45px"}
+                  width={'132px'}
+                  height={'45px'}
                 />
               </Link>
             </div>
@@ -125,24 +142,24 @@ function OrganizationAdminList() {
               <Table
                 sx={{ minWidth: 750 }}
                 aria-labelledby="tableTitle"
-                size={"medium"}
+                size={'medium'}
                 aria-label="enhanced table"
               >
-                <TableHead style={{ borderBottom: "2px solid #0F172A" }}>
+                <TableHead style={{ borderBottom: '2px solid #0F172A' }}>
                   <TableRow>
                     <TableCell padding="checkbox">
                       <Checkbox
                         indeterminate={false}
-                        inputProps={{ "aria-label": "select all desserts" }}
+                        inputProps={{ 'aria-label': 'select all desserts' }}
                       />
                     </TableCell>
                     <TableCell>
                       <TableSortLabel
-                        onClick={(e) => handleRequestSort(e, "name")}
+                        onClick={(e) => handleRequestSort(e, 'name')}
                       >
                         <Typography
                           variant="body1"
-                          style={{ fontWeight: "bold" }}
+                          style={{ fontWeight: 'bold' }}
                         >
                           Name
                         </Typography>
@@ -150,13 +167,13 @@ function OrganizationAdminList() {
                     </TableCell>
                     <TableCell>
                       <TableSortLabel
-                        active={orderBy === "email"}
-                        direction={orderBy === "email" ? order : "asc"}
-                        onClick={(e) => handleRequestSort(e, "email")}
+                        active={orderBy === 'email'}
+                        direction={orderBy === 'email' ? order : 'asc'}
+                        onClick={(e) => handleRequestSort(e, 'email')}
                       >
                         <Typography
                           variant="body1"
-                          style={{ fontWeight: "bold" }}
+                          style={{ fontWeight: 'bold' }}
                         >
                           Email
                         </Typography>
@@ -164,17 +181,17 @@ function OrganizationAdminList() {
                     </TableCell>
                     <TableCell>
                       <TableSortLabel
-                        active={orderBy === "organizationName"}
+                        active={orderBy === 'organizationName'}
                         direction={
-                          orderBy === "organizationName" ? order : "asc"
+                          orderBy === 'organizationName' ? order : 'asc'
                         }
                         onClick={(e) =>
-                          handleRequestSort(e, "organizationName")
+                          handleRequestSort(e, 'organizationName')
                         }
                       >
                         <Typography
                           variant="body1"
-                          style={{ fontWeight: "bold" }}
+                          style={{ fontWeight: 'bold' }}
                         >
                           Organization Name
                         </Typography>
@@ -183,7 +200,7 @@ function OrganizationAdminList() {
                     <TableCell>
                       <Typography
                         variant="body1"
-                        style={{ fontWeight: "bold" }}
+                        style={{ fontWeight: 'bold' }}
                       >
                         Actions
                       </Typography>
@@ -191,14 +208,13 @@ function OrganizationAdminList() {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {/* Map through the data and create rows */}
                   {rows
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row) => (
                       <TableRow key={row.id}>
                         <TableCell padding="checkbox">
                           <Checkbox
-                            inputProps={{ "aria-labelledby": row.name }}
+                            inputProps={{ 'aria-labelledby': row.name }}
                           />
                         </TableCell>
                         <TableCell component="th" scope="row">
@@ -234,6 +250,7 @@ function OrganizationAdminList() {
               onRowsPerPageChange={handleChangeRowsPerPage}
             />
           </Paper>
+          {/* <Tables tableHead={tableHead} handleRequestSort={handleRequestSort} rows={rows} order={order} orderBy={orderBy} page={page} rowsPerPage={rowsPerPage} emptyRows={emptyRows} deleteIcon={deleteIcon} editIcon={editIcon} /> */}
         </div>
       </div>
     </div>

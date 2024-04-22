@@ -7,8 +7,10 @@ import Dropdown from '.././dropDown/dropDown';
 import { LockFilled } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import TextArea from 'antd/es/input/TextArea';
-
-// const { TextArea } = Input;
+import { ReactComponent as DeleteIcon } from '../../../asset/AmChatSuperAdmin/trash-solid.svg';
+import { PlusOutlined } from '@ant-design/icons';
+import { Button as AddButton } from 'antd';
+import './GeneralForm.css';
 
 const GeneralForm = (props) => {
   const {
@@ -29,16 +31,30 @@ const GeneralForm = (props) => {
     isSuperAdmin = false,
     orgInfo = {},
     defaultValue = '',
+    isOrgAdmin = false,
+    personalInfo = {},
+    domainProps = {
+      isDomain: false,
+      domainDeleteHandler: () => {},
+      addDomainHandler: () => {},
+    },
   } = props;
   console.log('props', props, 'grid', grid, 'formelements', formElements);
   const [form] = Form.useForm();
   const [Errors, setErrors] = useState([]);
 
+
+  const inputNumberStyle = {
+    '& .ant-input-number-handler-wrap': {
+      display: 'none',
+    },
+  };
+
   useEffect(() => {
     if (isReset) {
       form.resetFields();
     }
-  }, [isReset, form]);
+  }, [isReset]);
 
   useEffect(() => {
     if (isSuperAdmin) {
@@ -47,8 +63,49 @@ const GeneralForm = (props) => {
 
         form.setFieldsValue(orgInfo?.orgData?.address);
         form.setFieldsValue({ name: orgInfo?.orgData?.name });
+        form.setFieldsValue({ orgName: orgInfo?.orgData?.name });
+        formElements?.map((itemname)=>{
+          const name=itemname?.name||'';
+          const namevalue=itemname?.defaultValue||'';
+          
+          form.setFieldsValue({ [name]: namevalue });
+        })
       } else {
         form.setFieldsValue(orgInfo?.orgData?.contact);
+      
+      }
+      formElements?.map((itemname)=>{
+        const name=itemname?.name||'';
+        const namevalue=itemname?.defaultValue||'';
+        
+        form.setFieldsValue({ [name]: namevalue });
+      })
+      console.log("_form_",form.getFieldsValue())
+      console.log("_form_status ",orgInfo?.orgData)
+    }
+
+    if (isOrgAdmin) {
+      if (orgInfo?.screen == 'personalinformation') {
+        console.log('initializing values');
+        // console.log("form elements---->", formElements);
+        console.log('personalInfo---->', personalInfo);
+        console.log(
+          'personalInfo?.firstName------>',
+          personalInfo?.userData?.lastName
+        );
+        form.setFieldsValue({
+          firstName: personalInfo?.userData?.firstName,
+          lastName: personalInfo?.userData?.lastName,
+        });
+        console.log('form---->', form);
+
+        formElements?.map((itemname)=>{
+          const name=itemname?.name||'';
+          const namevalue=itemname?.defaultValue||'';
+          
+          form.setFieldsValue({ [name]: namevalue });
+        })
+
       }
     }
   }, []);
@@ -58,17 +115,34 @@ const GeneralForm = (props) => {
     value,
     name,
     emptyErrorMessage = null,
-    inValidErrorMessage = null
+    inValidErrorMessage = null,
+    passcallback = null
   ) => {
     let result = false;
     if (pattern !== null && pattern !== undefined) {
       const patternObj = new RegExp(pattern);
       if (patternObj.test(value)) {
-        // debugger;
+
+        const IsErrorAvailable = [...Errors].filter((ErrorName) => {
+          
+          const keysname = Object?.keys(ErrorName);
+
+          if (ErrorName && keysname && keysname[0] !== name) {
+            return ErrorName;
+          }
+        });
+        setErrors(IsErrorAvailable||[])
         result = true;
       } else {
-        // debugger;
-        const newMessages = [...Errors];
+        result = false;
+        // const newMessages = [...Errors];
+
+        let newMessages = [];
+
+        if (passcallback === null|| passcallback === undefined) {
+          newMessages = [...Errors];
+        }
+
         // if (value == '' || value == null || value == undefined) {
         //   newMessages.push({
         //     [name]: emptyErrorMessage
@@ -83,7 +157,7 @@ const GeneralForm = (props) => {
         //   });
         // }
 
-        const IsErrorAvailable = newMessages.find((ErrorName) => {
+        const IsErrorAvailable = [newMessages].find((ErrorName) => {
           const keysname = Object.keys(ErrorName);
 
           if (ErrorName && keysname && keysname[0] == name) {
@@ -91,20 +165,68 @@ const GeneralForm = (props) => {
           }
         });
 
-        if (IsErrorAvailable) {
-          const indexError = Errors.indexOf(IsErrorAvailable);
-          Errors[indexError][name] = inValidErrorMessage
+
+        // console.log(" IsErrorAvailable ",IsErrorAvailable)
+        // if (IsErrorAvailable) {
+        //   const indexError = newMessages.indexOf(IsErrorAvailable);
+        //   newMessages[indexError][name] = inValidErrorMessage
+        //     ? inValidErrorMessage
+        //     : 'Please enter valid input value';
+        // } else {
+        //   newMessages.push({
+        //     [name]: emptyErrorMessage
+        //       ? emptyErrorMessage
+        //       : 'Please enter value',
+        //   });
+        // }
+
+        console.log(" IsErrorAvailable ",IsErrorAvailable);
+
+         if (IsErrorAvailable===true) {
+          const indexError = newMessages.indexOf(IsErrorAvailable);
+          newMessages[indexError][name] = inValidErrorMessage
             ? inValidErrorMessage
             : 'Please enter valid input value';
-        } else {
-          newMessages.push({
-            [name]: emptyErrorMessage
-              ? emptyErrorMessage
-              : 'Please enter value',
-          });
+        } else if((IsErrorAvailable===null || IsErrorAvailable===undefined)&& value?.length  && value?.length>0)
+        {
+          // const indexError = newMessages.indexOf(IsErrorAvailable);
+          // newMessages[indexError][name] = inValidErrorMessage
+          //   ? inValidErrorMessage
+          //   : 'Please enter valid input value';
+
+            newMessages.push({
+              [name]: inValidErrorMessage
+                ? inValidErrorMessage
+                :'Please enter valid input value'
+            });
+
+        }else{
+          {
+            newMessages.push({
+              [name]: emptyErrorMessage
+                ? emptyErrorMessage
+                : 'Please enter value',
+            });
+          }
         }
-        console.log('newMessages ', newMessages);
-        setErrors(newMessages);
+
+
+
+
+        // const merges=[...]
+
+        if (passcallback && newMessages?.length > 0) {
+       
+
+           if(newMessages?.length>=0)
+           {
+            passcallback(newMessages[newMessages.length-1]);
+           }    else{
+            passcallback(newMessages[0]);
+           }
+        } else {
+          setErrors(newMessages);
+        }
 
         result = false;
       }
@@ -117,8 +239,9 @@ const GeneralForm = (props) => {
   });
   const ErrorMessage = (name) => {
     const namevalue = name?.name;
+    console.log('Errors msg--->', Errors);
     const findresult = Errors?.find((Item) => Item[namevalue]);
-    console.log(' findresult name', findresult);
+    console.log('findresult name--->', findresult);
     // console.log(" findresult ",findresult[namevalue]);
     return (
       <>
@@ -128,21 +251,25 @@ const GeneralForm = (props) => {
       </>
     );
   };
+
+  console.log(" general is here ",form.getFieldsValue());
+
   return (
     <Form
       style={{ padding: '18px' }}
       form={form}
       // onFinish={submitHandler}
       onFinish={(value) => {
+        // console.log('onFinish values ', value);
         console.log('onFinish values ', value);
-
+        console.log('formElements', formElements);
         setErrors([]);
-
         const checkPatternFound = formElements.some(
           (ItemCheck) => ItemCheck.pattern
         );
         if (checkPatternFound) {
           let patterncountCompleted = 0;
+          const AllErrorMessages = [];
 
           const AvailablePattern = formElements.filter((ItemCheck) => {
             if (ItemCheck.pattern) {
@@ -155,7 +282,7 @@ const GeneralForm = (props) => {
                 : '';
               const valuesfield = value[ItemCheck?.name] || '';
               const patternName = ItemCheck?.name ? ItemCheck?.name : '';
-
+        
               console.log('patternvalue  ', ItemCheck);
               console.log('patternvalue  ', patternvalue);
               console.log('valuesfield  ', valuesfield);
@@ -165,13 +292,25 @@ const GeneralForm = (props) => {
                 valuesfield,
                 patternName,
                 emptyErrorMessage,
-                invalidErrorMessage
+                invalidErrorMessage,
+                (message) => {
+                  AllErrorMessages.push(message);
+                  console.log('AllErrorMessages  ', AllErrorMessages);
+                  setErrors(AllErrorMessages);
+                }
               );
+              console.log('result  valid', result);
               if (result === true) {
                 patterncountCompleted = patterncountCompleted + 1;
               }
+
+              console.log('result  ', result);
               return ItemCheck;
             }
+
+            // if (no === formElements.length - 1) {
+            //   // setErrors(AllErrorMessages)
+            // }
           });
 
           if (AvailablePattern?.length === patterncountCompleted) {
@@ -194,14 +333,16 @@ const GeneralForm = (props) => {
           {formElements.map((item, index) => {
             const elements = {
               email: (
-                <div>
+                <div key={"divs" + index.toString()}>
                   <Input
+                    key={"input" + index.toString()}
                     labelName={item.labelName ? item.label : null}
                     type={item.type}
                     placeholder={item.labelName ? null : item.label}
                     iconClass={item.iconClass}
                     onChange={(e) => {
                       form.setFieldValue({ [item.name]: e.target.value });
+                      
                     }}
                     // pattern={item.pattern}
                     onBlur={() => {
@@ -217,6 +358,7 @@ const GeneralForm = (props) => {
                     }}
                     style={item.style}
                     defaultValue={item.defaultValue ? item.defaultValue : ''}
+                    disabled={item?.disabled || false}
                     // required={item.required}
                   />
                   {<ErrorMessage name={item.name} />}
@@ -224,8 +366,10 @@ const GeneralForm = (props) => {
               ),
 
               text: (
-                <div>
+                <div key={"divs" + index.toString()}>
                   <Input
+                    key={"val" + index.toString()}
+                     value={form.getFieldValue([item.name])}
                     labelName={item.labelName ? item.label : null}
                     type={item.type}
                     placeholder={item.labelName ? null : item.label}
@@ -234,7 +378,7 @@ const GeneralForm = (props) => {
                       form.setFieldValue({ [item.name]: e.target.value });
                     }}
                     style={item.style}
-                    defaultValue={item.defaultValue ? item.defaultValue : ''}
+                    defaultValue={item?.defaultValue ? item?.defaultValue : ''}
                     onBlur={() => {
                       if (item.pattern !== null && item.pattern !== undefined) {
                         isValid(
@@ -246,6 +390,7 @@ const GeneralForm = (props) => {
                         );
                       }
                     }}
+                    disabled={item?.disabled || false}
                   />
                   {<ErrorMessage name={item.name} />}
                 </div>
@@ -258,20 +403,11 @@ const GeneralForm = (props) => {
                   onChange={(e) => {
                     form.setFieldValue({ [item.name]: e.target.value });
                   }}
+                  disabled={item?.disabled || false}
                 />
               ),
               password: (
-                <Input
-                  labelName={item.labelName ? item.label : null}
-                  type={item.type}
-                  placeholder={item.label}
-                  iconClass={item.iconClass}
-                  onChange={(e) => {
-                    form.setFieldValue({ [item.name]: e.target.value });
-                  }}
-                />
-              ),
-              confirmPassword: (
+                <div style={item?.containerStyles ? item?.containerStyles : ""}>
                 <Input
                   labelName={item.labelName ? item.label : null}
                   type={item.type}
@@ -281,7 +417,49 @@ const GeneralForm = (props) => {
                     form.setFieldValue({ [item.name]: e.target.value });
                   }}
                   style={item.style}
+                  iconStyle={item.iconStyle}
+                  disabled={item?.disabled || false}
+                  onBlur={() => {
+                    if (item.pattern !== null && item.pattern !== undefined) {
+                      isValid(
+                        item.pattern,
+                        form.getFieldValue(item.name),
+                        item.name,
+                        item?.emptyErrorMessage,
+                        item?.invalidErrorMessage
+                      );
+                    }
+                  }}
                 />
+                {<ErrorMessage name={item.name} style={item.errorMsgStyles}/>}
+                </div>
+              ),
+              confirmPassword: (
+                <div >
+                <Input
+                  labelName={item.labelName ? item.label : null}
+                  type={item.type}
+                  placeholder={item.label}
+                  iconClass={item.iconClass}
+                  onChange={(e) => {
+                    form.setFieldValue({ [item.name]: e.target.value });
+                  }}
+                  style={item.style}
+                  disabled={item?.disabled || false}
+                  onBlur={() => {
+                    if (item.pattern !== null && item.pattern !== undefined) {
+                      isValid(
+                        item.pattern,
+                        form.getFieldValue(item.name),
+                        item.name,
+                        item?.emptyErrorMessage,
+                        item?.invalidErrorMessage
+                      );
+                    }
+                  }}
+                />
+                {<ErrorMessage name={item.name} style={item.errorMsgStyles}/>}
+                </div>
               ),
 
               comment: (
@@ -294,15 +472,34 @@ const GeneralForm = (props) => {
                     form.setFieldValue({ [item.name]: e.target.value });
                   }}
                   style={item.style}
+                  disabled={item?.disabled || false}
                 />
               ),
               number: (
-                <InputNumber
-                  labelName={item.labelName ? item.label : null}
-                  type={item.type}
-                  placeholder={item.label}
-                  iconClass={item.iconClass}
-                />
+                <div>
+                  <InputNumber
+                    labelName={item.labelName ? item.label : null}
+                    type={item.type}
+                    placeholder={item.label}
+                    iconClass={item.iconClass}
+                    disabled={item?.disabled || false}
+                    style={item.style}
+                    onBlur={() => {
+                      if (item.pattern !== null && item.pattern !== undefined) {
+                        isValid(
+                          item.pattern,
+                          form.getFieldValue(item.name),
+                          item.name,
+                          item?.emptyErrorMessage,
+                          item?.invalidErrorMessage
+                        );
+                      }
+                    }}
+                    defaultValue={item?.defaultValue ? item?.defaultValue : ''}
+                    className={item?.className ? item?.className:''}
+                  />
+                  {<ErrorMessage name={item.name} />}
+                </div>
               ),
               switch: <Switch />,
               date: <DatePicker />,
@@ -323,6 +520,7 @@ const GeneralForm = (props) => {
                       form.setFieldValue({ [item.name]: e.target.value });
                     }}
                     style={item.style}
+                    disabled={item?.disabled || false}
                   />
                 </>
               ),
@@ -361,23 +559,44 @@ const GeneralForm = (props) => {
                       options={item?.options != undefined ? item?.options : []}
                       style={item.style}
                     /> */}
-                        <Dropdown
-                          labelName={item.labelName ? item.label : null}
-                          options={
-                            item?.options != undefined ? item?.options : []
-                          }
-                          onSelect={(value) => {
-                            if (isSuperAdmin) {
-                              item?.onSelectApiCall(value);
+                        <div>
+                          <Dropdown
+                            key={item.name || "dropdown"}
+                            labelName={item.labelName ? item.label : null}
+                            options={
+                              item?.options != undefined ? item?.options : []
                             }
-                            form.setFieldsValue({ [item.name]: value });
-                          }}
-                          style={item.style}
-                          placeholder={item.labelName ? null : item.label}
-                          defaultValue={
-                            item.defaultValue ? item.defaultValue : ''
-                          }
-                        />
+                            onSelect={(value) => {
+                                                        
+                              if (isSuperAdmin) {
+                                item?.onSelectApiCall(value);
+                              }
+                            
+                              form.setFieldsValue({ [item.name]: value });                          
+
+                            }}
+                            style={item.style}
+                            placeholder={item.labelName ? null : item.label}
+                            defaultValue={
+                              item.defaultValue ? item.defaultValue : ''
+                            }
+                            onBlur={() => {
+                              if (
+                                item.pattern !== null &&
+                                item.pattern !== undefined
+                              ) {
+                                isValid(
+                                  item.pattern,
+                                  form.getFieldValue(item.name),
+                                  item.name,
+                                  item?.emptyErrorMessage,
+                                  item?.invalidErrorMessage
+                                );
+                              }
+                            }}
+                          />
+                          {<ErrorMessage name={item.name} />}
+                        </div>
                       </div>
                     )}
                     {item?.type === 'file' && (
@@ -403,6 +622,7 @@ const GeneralForm = (props) => {
           {formElements.map((item, index) => {
             const elements = {
               email: (
+                <div>
                 <Input
                   labelName={item.labelName ? item.label : null}
                   type={item.type}
@@ -414,35 +634,110 @@ const GeneralForm = (props) => {
                   style={item.style}
                   // required={item.required}
                   defaultValue={item.defaultValue ? item.defaultValue : ''}
+                  onBlur={() => {
+                    if (item.pattern !== null && item.pattern !== undefined) {
+                      isValid(
+                        item.pattern,
+                        form.getFieldValue(item.name),
+                        item.name,
+                        item?.emptyErrorMessage,
+                        item?.invalidErrorMessage
+                      );
+                    }
+                  }}
                 />
+                {<ErrorMessage name={item.name} />}
+                </div>
               ),
               text: (
                 <div>
-                  <Input
-                    labelName={item.labelName ? item.label : null}
-                    type={item.type}
-                    placeholder={item.labelName ? null : item.label}
-                    iconClass={item.iconClass}
-                    onChange={(e) => {
-                      form.setFieldValue({ [item.name]: e.target.value });
-                    }}
-                    style={item.style}
-                    defaultValue={item.defaultValue ? item.defaultValue : ''}
-                    onBlur={() => {
-                      if (item.pattern !== null && item.pattern !== undefined) {
-                        isValid(
-                          item.pattern,
-                          form.getFieldValue(item.name),
-                          item.name,
-                          item?.emptyErrorMessage,
-                          item?.invalidErrorMessage
-                        );
-                      }
-                    }}
-                  />
-                  {<ErrorMessage name={item.name} />}
+                  {domainProps?.isDomain ? (
+                    <div
+                      style={{
+                        display: 'flex',
+                        gap: '1em',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                      }}
+                    >
+                      <div>
+                        <Input
+                          labelName={item.labelName ? item.label : null}
+                          type={item.type}
+                          placeholder={item.labelName ? null : item.label}
+                          iconClass={item.iconClass}
+                          onChange={(e) => {
+                      
+                            form.setFieldValue({ [item.name]: e.target.value });
+                          }}
+                          style={item.style}
+                          defaultValue={
+                            item.defaultValue ? item.defaultValue : ''
+                          }
+                          onBlur={() => {
+                            if (
+                              item.pattern !== null &&
+                              item.pattern !== undefined
+                            ) {
+                              isValid(
+                                item.pattern,
+                                form.getFieldValue(item.name),
+                                item.name,
+                                item?.emptyErrorMessage,
+                                item?.invalidErrorMessage
+                              );
+                            }
+                          }}
+                        />
+                        {<ErrorMessage name={item.name} />}
+                      </div>
+                      <DeleteIcon
+                        style={{
+                          height: '20px',
+                          width: '20px',
+                          cursor: 'pointer',
+                          fill: '#4338ca',
+                        }}
+                        onClick={() =>
+                          domainProps?.domainDeleteHandler(item?.domainIndex)
+                        }
+                      />
+                    </div>
+                  ) : (
+                    <div>
+                      <Input
+                        labelName={item.labelName ? item.label : null}
+                        type={item.type}
+                        placeholder={item.labelName ? null : item.label}
+                        iconClass={item.iconClass}
+                        onChange={(e) => {
+                          form.setFieldValue({ [item.name]: e.target.value });
+                        }}
+                        style={item.style}
+                        defaultValue={
+                          item.defaultValue ? item.defaultValue : ''
+                        }
+                        onBlur={() => {
+                          if (
+                            item.pattern !== null &&
+                            item.pattern !== undefined
+                          ) {
+                            isValid(
+                              item.pattern,
+                              form.getFieldValue(item.name),
+                              item.name,
+                              item?.emptyErrorMessage,
+                              item?.invalidErrorMessage
+                            );
+                          }
+                        }}
+                      />
+                      {<ErrorMessage name={item.name} />}
+                    </div>
+                  )}
                 </div>
               ),
+
               tel: (
                 <Input
                   type={item.type}
@@ -454,6 +749,7 @@ const GeneralForm = (props) => {
                 />
               ),
               password: (
+                <div style={item?.passwordContainerStyle ?  item?.passwordContainerStyle : {} }>
                 <Input
                   labelName={item.labelName ? item.label : null}
                   type={item.type}
@@ -462,9 +758,25 @@ const GeneralForm = (props) => {
                   onChange={(e) => {
                     form.setFieldValue({ [item.name]: e.target.value });
                   }}
+                  onBlur={() => {
+                    if (item.pattern !== null && item.pattern !== undefined) {
+                      isValid(
+                        item.pattern,
+                        form.getFieldValue(item.name),
+                        item.name,
+                        item?.emptyErrorMessage,
+                        item?.invalidErrorMessage
+                      );
+                    }
+                  }}
+                  iconStyle={item.iconStyle}
+                  
                 />
+                {<ErrorMessage name={item.name} style={item.errorMsgStyles}/>}
+                </div>
               ),
               confirmPassword: (
+                <div>
                 <Input
                   labelName={item.labelName ? item.label : null}
                   type={item.type}
@@ -472,9 +784,22 @@ const GeneralForm = (props) => {
                   iconClass={item.iconClass}
                   onChange={(e) => {
                     form.setFieldValue({ [item.name]: e.target.value });
+                  }}
+                  onBlur={() => {
+                    if (item.pattern !== null && item.pattern !== undefined) {
+                      isValid(
+                        item.pattern,
+                        form.getFieldValue(item.name),
+                        item.name,
+                        item?.emptyErrorMessage,
+                        item?.invalidErrorMessage
+                      );
+                    }
                   }}
                   style={item.style}
                 />
+                {<ErrorMessage name={item.name} />}
+                </div>
               ),
 
               comment: (
@@ -490,12 +815,29 @@ const GeneralForm = (props) => {
                 />
               ),
               number: (
-                <InputNumber
-                  labelName={item.labelName ? item.label : null}
-                  type={item.type}
-                  placeholder={item.label}
-                  iconClass={item.iconClass}
-                />
+                <div>
+                  <InputNumber
+                    labelName={item.labelName ? item.label : null}
+                    type={item.type}
+                    placeholder={item.label}
+                    iconClass={item.iconClass}
+                    disabled={item?.disabled || false}
+                    style={item.style}
+                    onBlur={() => {
+                      if (item.pattern !== null && item.pattern !== undefined) {
+                        isValid(
+                          item.pattern,
+                          form.getFieldValue(item.name),
+                          item.name,
+                          item?.emptyErrorMessage,
+                          item?.invalidErrorMessage
+                        );
+                      }
+                    }}
+                    defaultValue={item?.defaultValue ? item?.defaultValue : ''}
+                                      />
+                  {<ErrorMessage name={item.name} />}
+                </div>
               ),
               switch: <Switch />,
               date: <DatePicker />,
@@ -550,24 +892,41 @@ const GeneralForm = (props) => {
                       options={item?.options != undefined ? item?.options : []}
                       style={item.style}
                     /> */}
-                        <Dropdown
-                          labelName={item.labelName ? item.label : null}
-                          options={
-                            item?.options != undefined ? item?.options : []
-                          }
-                          onSelect={(value) => {
-                            if (isSuperAdmin) {
-                              item?.onSelectApiCall(value);
+                        <div>
+                          <Dropdown
+                            labelName={item.labelName ? item.label : null}
+                            options={
+                              item?.options != undefined ? item?.options : []
                             }
-                            form.setFieldsValue({ [item.name]: value });
-                          }}
-                          style={{ ...item.style }}
-                          // style={item.style}
-                          placeholder={item.labelName ? null : item.label}
-                          defaultValue={
-                            item.defaultValue ? item.defaultValue : ''
-                          }
-                        />
+                            onSelect={(value) => {
+                              if (isSuperAdmin) {
+                                item?.onSelectApiCall(value);
+                              }
+                              form.setFieldsValue({ [item.name]: value });
+                            }}
+                            style={{ ...item.style }}
+                            // style={item.style}
+                            placeholder={item.labelName ? null : item.label}
+                            defaultValue={
+                              item.defaultValue ? item.defaultValue : ''
+                            }
+                            onBlur={() => {
+                              if (
+                                item.pattern !== null &&
+                                item.pattern !== undefined
+                              ) {
+                                isValid(
+                                  item.pattern,
+                                  form.getFieldValue(item.name),
+                                  item.name,
+                                  item?.emptyErrorMessage,
+                                  item?.invalidErrorMessage
+                                );
+                              }
+                            }}
+                          />
+                          {<ErrorMessage name={item.name} />}
+                        </div>
                       </div>
                     )}
                     {item?.type === 'file' && (
@@ -629,6 +988,17 @@ const GeneralForm = (props) => {
               fontSize={cancelButtonProperty.fontSize}
               marginTop={cancelButtonProperty.marginTop}
             />
+          )}
+          {domainProps?.isDomain && (
+            <AddButton
+              type="primary"
+              icon={<PlusOutlined />}
+              size="large"
+              style={{ backgroundColor: 'var(--Brand-500, #6366F1)' }}
+              onClick={domainProps?.addDomainHandler}
+            >
+              Add Domain
+            </AddButton>
           )}
         </div>
       </Form.Item>

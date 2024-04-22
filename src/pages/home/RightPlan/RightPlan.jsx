@@ -3,10 +3,56 @@ import "./RightPlan.css";
 import Tick1 from "../../../asset/tick.png";
 import GeneralButton from "../../../components/common/buttons/GeneralButton";
 import frame from "../../../asset/Frame 1.png";
-function RightPlan() {
+import { Typography, useMediaQuery } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { getPlanDetails } from "../../../apiCalls/ApiCalls";
+import PlanCard from "../../../components/PlanCard/PlanCard";
+
+function RightPlan(props) {
+  const {selectPlan , setSelectPlan} = props
   const [scroll, setScroll] = useState(false);
+  const isMobile = useMediaQuery("(max-width:600px)");
+  const navigate = useNavigate();
+  const [planDetails, setPlanDetails] = useState({});
+
+  const smallTextStyles = isMobile
+    ? {
+        fontSize: "25px",
+        lineHeight: "1.5",
+        // fontWeight: "bold"
+      }
+    : {};
+
+  const fetchPlanDetails = async () => {
+    console.log("fetching plan details---->");
+    try {
+      const headers = {
+        "Content-Type": "application/json",
+      };
+      // const response = await getPlanDetails(headers);
+      const response = {
+        Freemium: [
+          "Max 2 users",
+          "Max 5 Documents",
+          "Upload size 2 MB",
+          "Max 10 chats free",
+        ],
+        Standard: [
+          "Max 50 users",
+          "Max 20 Documents",
+          "Upload size 5 MB",
+          "Max 100 Chats per user per day",
+        ],
+        Enterprise: [],
+      };
+      setPlanDetails(response);
+    } catch (error) {
+      console.log("error in fetching plan details---->", error);
+    }
+  };
 
   useEffect(() => {
+    fetchPlanDetails();
     const handleScroll = () => {
       setScroll(window.scrollY > 0);
     };
@@ -23,200 +69,67 @@ function RightPlan() {
       element.scrollIntoView({ behavior: "smooth" });
     }
   };
+
+  const handleClick = (plan) => {
+    setSelectPlan(plan)
+    scrollToElement("Contact_Up")
+    
+  }
+
   return (
-    <div>
-      <div className="Right_Plan_Main_Card">
-        <br />
-        <br />
-        <br />
-        <div className="Right_Plan_Top_Content">
-          <div>
-            <p className="Right_Plan_Top_Content_Title">
-              Find Your Right Plan{" "}
-            </p>
-            <p className="Right_Plan_Top_Content_SubTitle">
-              Use one of the plan from below based on your need.
-            </p>
-          </div>
-        </div>
-
-        <div className="Right_Plan_Three_Container">
-          <div className="Right_Plan_Content">
-            <div>
-              <p className="Right_Plan_Content_Title">Freemium</p>
-              <p className="Right_Plan_Content_Sub_Div">
-                {" "}
-                Revolutionize keywords search into your document with our free
-                plan.
-              </p>
-            </div>
-
-            <div>
-              <p className="Right_Plan_Content_Price">
-                <span className="price">$ 9.99</span>
-                <span className="per-month">/Month</span>
-              </p>
-            </div>
-            <div
-              className="Right_Plan_Gernal_Button"
-              onClick={() => scrollToElement("Contact_Up")}
-            >
-              <GeneralButton
-                name={"Get Started"}
-                type={"Get Started"}
-                color={"#f8fafc"}
-                borderRadius={"30px"}
-                backgroundColor={"#6366f1"}
-                icons={frame}
-                width={"282.001px"}
-                height={"45px"}
-              />
-            </div>
-
-            <div className="Right_Plan_Below_Content">
-              <div className="Right_Plan_below_Content_Sub_Div">
-                <img src={Tick1} alt="" />
-                <p className="Right_Plan_below_Content_P_Tag">Max 2 users</p>
-              </div>
-              <div className="Right_Plan_below_Content_Sub_Div">
-                <img src={Tick1} alt="" />
-                <p className="Right_Plan_below_Content_P_Tag">
-                  Max 5 Documents
-                </p>
-              </div>
-              <div className="Right_Plan_below_Content_Sub_Div">
-                <img src={Tick1} alt="" />
-                <p className="Right_Plan_below_Content_P_Tag">
-                  Upload size 2 MB
-                </p>
-              </div>
-              <div className="Right_Plan_below_Content_Sub_Div">
-                <img src={Tick1} alt="" />
-                <p className="Right_Plan_below_Content_P_Tag">
-                  Max 10 chats free
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="Right_Plan_Content">
-            <div>
-              <p className="Right_Plan_Content_Title">Standard </p>
-              <p className="Right_Plan_Content_Sub_Div">
-                {" "}
-                Best fit for organization with 50 to 100 users or ten to 50
-                users. 
-              </p>
-            </div>
-
-            <div>
-              <p class="Right_Plan_Content_Price">
-                <span class="price">$ 9.99</span>
-                <span class="per-month">/Month</span>
-              </p>
-            </div>
-            <div
-              className="Right_Plan_Gernal_Button"
-              onClick={() => scrollToElement("Contact_Up")}
-            >
-              <GeneralButton
-                name={"Get Started"}
-                type={"Get Started"}
-                color={"#f8fafc"}
-                borderRadius={"30px"}
-                backgroundColor={"#6366f1"}
-                icons={frame}
-                width={"282.001px"}
-                height={"45px"}
-              />
-            </div>
-
-            <div className="Right_Plan_Below_Content">
-              <div className="Right_Plan_below_Content_Sub_Div">
-                <img src={Tick1} alt="" />
-                <p className="Right_Plan_below_Content_P_Tag">Max 50 users</p>
-              </div>
-              <div className="Right_Plan_below_Content_Sub_Div">
-                <img src={Tick1} alt="" />
-                <p className="Right_Plan_below_Content_P_Tag">
-                  Max 5 Documents
-                </p>
-              </div>
-              <div className="Right_Plan_below_Content_Sub_Div">
-                <img src={Tick1} alt="" />
-                <p className="Right_Plan_below_Content_P_Tag">
-                  Upload size 5 MB
-                </p>
-              </div>
-              <div className="Right_Plan_below_Content_Sub_Div">
-                <img src={Tick1} alt="" />
-                <p className="Right_Plan_below_Content_P_Tag">
-                  Max 100 chats per user per day
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="Right_Plan_Content">
-            <div>
-              <div>
-                <p className="Right_Plan_Content_Title">Enterprise</p>
-                <p className="Right_Plan_Content_Sub_Div">
-                  {" "}
-                  For details about this plan, please press the button below.
-                </p>
-              </div>
-
-              <div>
-                <p class="Right_Plan_Content_Price">
-                  <span class="price">$ 9.99</span>
-                  <span class="per-month">/Month</span>
-                </p>
-              </div>
-
-              <div
-                className="Right_Plan_Gernal_Button"
-                onClick={() => scrollToElement("Contact_Up")}
-              >
-                <GeneralButton
-                  name={"Get Started"}
-                  type={"Get Started"}
-                  color={"#f8fafc"}
-                  borderRadius={"30px"}
-                  backgroundColor={"#6366f1"}
-                  icons={frame}
-                  width={"282.001px"}
-                  height={"45px"}
-                />
-              </div>
-
-              <div className="Right_Plan_Below_Content">
-                {/* <div className="Right_Plan_below_Content_Sub_Div">
-                  <img src={Tick1} alt="" />
-                  <p className="Right_Plan_below_Content_P_Tag">Max 2 users</p>
-                </div>
-                <div className="Right_Plan_below_Content_Sub_Div">
-                  <img src={Tick1} alt="" />
-                  <p className="Right_Plan_below_Content_P_Tag">
-                    Max 5 Documents
-                  </p>
-                </div>
-                <div className="Right_Plan_below_Content_Sub_Div">
-                  <img src={Tick1} alt="" />
-                  <p className="Right_Plan_below_Content_P_Tag">
-                    Upload size 2 MB
-                  </p>
-                </div>
-                <div className="Right_Plan_below_Content_Sub_Div">
-                  <img src={Tick1} alt="" />
-                  <p className="Right_Plan_below_Content_P_Tag">
-                    Max 10 chats free
-                  </p>
-                </div> */}
-              </div>
-            </div>
-          </div>
-        </div>
+    <div className="Right_Plan_Main_Card">
+      <div className="Right_Plan_Top_Content">
+        <Typography
+          variant="h4"
+          gutterBottom
+          className="Right_Plan_Top_Content_Title"
+          sx={smallTextStyles}
+        >
+          Find Your Right Plan{" "}
+        </Typography>
+        <Typography
+          variant="caption"
+          mt={2}
+          className="Right_Plan_Top_Content_SubTitle"
+          style={{fontSize: isMobile ? '14px' : '16px'}}
+        >
+          Use one of the plan from below based on your need.
+        </Typography>
+      </div>
+      
+      <div className="Right_Plan_Three_Container">
+        <PlanCard 
+          title={"Freemium"}
+          description={"Start exploring knowledge hidden in your organisational content using GenAI based Chatbot."}
+          price={"Free"}
+          handleClick = {()=> handleClick("FREEMIUM")}
+          planDetails={planDetails}
+        />
+        <PlanCard 
+          title={"Standard"}
+          description={"Revolutionise how you interact with your organisational data."}
+          price={"$ 9.99"}
+          handleClick = {()=> handleClick("PREMIUM")}
+          planDetails={planDetails}
+        />
+        <PlanCard 
+          title={"Enterprise"}
+          description={
+          <>
+            Please reach out to our sales team at&nbsp;
+          <a
+            className="how_to_works_span_text highlight_text"
+            style={{cursor: 'pointer'}}
+            onClick={() => scrollToElement("Contact_Up")}
+          >
+            sales@areteminds.com
+          </a>
+          &nbsp;.
+          </>}
+          price={""}
+          handleClick = {()=> handleClick("ENTERPRISE")}
+          planDetails={planDetails}
+        />
       </div>
     </div>
   );

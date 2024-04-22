@@ -9,10 +9,12 @@ function Search({
   imageWidth,
   imageHeight,
   imageMarginLeft,
-  onSearchImageClick, 
+  onSearchImageClick,
   iconId,
   placeholders,
-  readOnly
+  readOnly,
+  searchValue = "",
+  handleChangeSearch = () => {},
 }) {
   const handleSearchImageClick = () => {
     if (onSearchImageClick) {
@@ -22,29 +24,15 @@ function Search({
 
   return (
     <div>
-      <div className="input_field_main_div">
-
-        <input
-          type="text"
-          placeholder={name}
-          className="input_filed_style with-icon"
-          style={styles}
-          readOnly={readOnly}
-        />
-        <div
-          className="icon-container"
-          id={`${iconId?iconId:null}`}
-          style={{ marginLeft: `${imageMarginLeft}px` }}
-        >
-          <img
-            src={searchImage}
-            alt=""
-            className="icon"
-            style={{ width: imageWidth, height: imageHeight, cursor: "pointer" }}
-            onClick={handleSearchImageClick} 
-          />
-        </div>
-      </div>
+      <input
+        type="text"
+        placeholder={name}
+        className="input_filed_style with-icon"
+        style={styles}
+        // readOnly={readOnly}
+        value={searchValue}
+        onChange={handleChangeSearch}
+      />
     </div>
   );
 }

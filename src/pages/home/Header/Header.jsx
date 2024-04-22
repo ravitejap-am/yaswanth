@@ -1,14 +1,33 @@
-// Header.jsx
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate ,} from "react-router-dom";
 import Styles from "./header.module.css";
 import Logo from "../../../asset/images/logo.png";
 import GeneralButton from "../../../components/common/buttons/GeneralButton";
-import menuImg from "../../../asset/images/menu.png";
-import logoFooter from "../../../asset/images/logo-footer.png";
+import { Layout, Menu, Grid, Drawer } from "antd";
+import { AppstoreOutlined } from "@ant-design/icons";
+import "./header.css";
+import { Typography } from "@mui/material";
 
-const Header = () => {
+const Header = (props) => {
   const [scroll, setScroll] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const { Header } = Layout;
+  const { useBreakpoint } = Grid;
+  const screens = useBreakpoint();
+  const location = useLocation();
+  const { handleLogoClick } = props;
+  const navigate = useNavigate();
+  const [selectedTab, setSelectedTab] = useState("")
+
+  const [defaultSelectedTab, setDefaultSelectedTab] = useState(location.pathname === "/" ? location.state?.tabName && !location.state?.showDefaultTab  ?  location.state?.tabName : "Home_page" : "")
+
+
+  useEffect(() => {
+    if (location.state && location.state.fromRegisterPage) {
+      setSelectedTab("Contact_Up")
+      scrollToElement("Contact_Up");
+    }
+  }, [location.state]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -29,115 +48,177 @@ const Header = () => {
     }
   };
 
+  const screenCheck = (tabName) => {
+    if(location.pathname !== "/"){
+      navigate("/", { state: {  tabName: tabName , showDefaultTab: false } });
+    }else{
+      navigate(location.pathname, { state: null });
+    }
+  }
+
+  const items = [
+    {
+      key: "Home_page",
+      label: "Home",
+      onClick: async() => {
+        await screenCheck("Home_page");
+        await scrollToElement("Home_page");
+      },
+    },
+    {
+      key: "ai_page",
+      label: "Solutions",
+      onClick: async() => {
+        await screenCheck("ai_page");
+        await scrollToElement("ai_page");
+      },
+    },
+    {
+      key: "How_it_works",
+      label: "How it Works",
+      onClick:async () => {
+        await screenCheck("How_it_works");
+        await scrollToElement("How_it_works");
+      },
+    },
+    {
+      key: "Plan_Page",
+      label: "Plans",
+      onClick:async () => {
+        await screenCheck("Plan_Page");
+        await scrollToElement("Plan_Page");
+      },
+    },
+    {
+      key: "Contact_Up",
+      label: "Contact Us",
+      onClick: async() => {
+        await screenCheck("Contact_Up");
+        await scrollToElement("Contact_Up");
+      },
+    },
+  ];
+
+  const showDrawer = () => {
+    setVisible(true);
+  };
+
+  const onClose = () => {
+    setVisible(false);
+  };
+
+
   return (
-    <div className={`${Styles.headerMain} ${scroll ? Styles.scrolled : ""}`}>
-      <div className={Styles.appLogo}>
-        {/* <span className={Styles.amChatTitle}>AM-Chat</span> */}
-        {/* <span className={Styles.appName}> */}
-          <img src={Logo} alt="" />
-        {/* </span> */}
-      </div>
-      <div className={Styles.appNavigation}>
-        <span
-          className={Styles.navigation}
-          onClick={() => scrollToElement("Home_page")}
+    <Layout>
+      <Header className={Styles.mainHeader}>
+        <div
+          className={Styles.appLogo}
+          onClick={handleLogoClick}
+          style={{ cursor: "pointer" }}
         >
-          Home
-        </span>
-        <span
-          className={Styles.navigation}
-          onClick={() => scrollToElement("ai_page")}
-        >
-          Solutions
-        </span>
-        <span
-          className={Styles.navigation}
-          onClick={() => scrollToElement("How_it_works")}
-        >
-          How it Works
-        </span>
-        <span
-          className={Styles.navigation}
-          onClick={() => scrollToElement("Plan_Page")}
-        >
-          Plans
-        </span>
-        <span
-          className={Styles.navigation}
-          onClick={() => scrollToElement("Contact_Up")}
-        >
-          Contact Us
-        </span>
-      </div>
-      <div className={Styles.navigationButton}>
-        <div className="btn-color">
-          <Link to={"/signIn"} style={{ textDecoration: "none" }}>
-            <GeneralButton name={"Sign In"} type={"submit"} color={"#F8FAFC"} />
-          </Link>
+          <img src={Logo} alt="" width={120} />
         </div>
-        <div className="btn-color-signup">
-          <Link to={"/registerUser"} style={{ textDecoration: "none" }}>
-            <GeneralButton name={"Sign Up"} type={"submit"} color={"#F8FAFC"} />
-          </Link>
-        </div>
-      </div>
-    </div>
-    // <section class="bg-dark">
-    //   <nav class="navbar navbar-expand-lg fixed-top ">
-    //     <div class="container">
-    //       <div class="title-box">
-    //         <a class="navbar-brand " href="landing.html">
-    //           <img src={logoFooter} class="img-fluid" />
-    //         </a>
-    //         <button
-    //           class="navbar-toggler"
-    //           type="button"
-    //           data-bs-toggle="collapse"
-    //           data-bs-target="#navbarSupportedContent"
-    //           aria-controls="navbarSupportedContent"
-    //           aria-expanded="false"
-    //           aria-label="Toggle navigation"
-    //         >
-    //           <img src={menuImg} class="img-fluid" />
-    //         </button>
-    //       </div>
-
-    //       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    //         <ul class="navbar-nav mx-auto justify-content-lg-center">
-    //           {/* <li class="nav-item dropdown">
-    //                         <a href="#" class="close-icon"><img src="images/close.svg" class="img-fluid"/></a>
-    //                     </li> */}
-    //           <li class="nav-item dropdown">
-    //             <a class="nav-link active" href="#Solutions">
-    //               Solutions
-    //             </a>
-    //           </li>
-    //           <li class="nav-item ">
-    //             <a class="nav-link" href="#How-it-Works">
-    //               How it Works
-    //             </a>
-    //           </li>
-
-    //           <li class="nav-item ">
-    //             <a class="nav-link" href="#Plans">
-    //               Plans
-    //             </a>
-    //           </li>
-    //           <li class="nav-item ">
-    //             <a class="nav-link" href="#contact-us">
-    //               Contact Us
-    //             </a>
-    //           </li>
-    //         </ul>
-    //       </div>
-
-    //       <div class="d-lg-flex mob-view">
-    //         <a class="btn btn-blue me-2">Sign In</a>
-    //         <a class="btn btn-blue">Sign Up</a>
-    //       </div>
-    //     </div>
-    //   </nav>
-    // </section>
+        {screens.sm || screens.md || screens.lg ? (
+          <Menu
+            theme="dark"
+            mode="horizontal"
+            // selectedKeys={[selectedTab]} 
+            defaultSelectedKeys={[defaultSelectedTab]}
+            items={items}
+            style={{
+              display: "flex",
+              flex: 1,
+              justifyContent: "center",
+              fontFamily: "Montserrat, Arial, sans-serif",
+            }}
+          >
+            {items?.map((item) => (
+              <Menu.Item
+                key={item?.key}
+                onClick={item.onClick}
+              >
+                {item?.label}
+              </Menu.Item>
+            ))}
+          </Menu>
+        ) : (
+          <>
+            <AppstoreOutlined
+              onClick={showDrawer}
+              style={{ color: "white", fontSize: "30px" }}
+            />
+            <Drawer
+              title={
+                <Typography
+                  variant="body2"
+                  style={{ color: "white", fontWeight: "500" }}
+                >
+                  Menu
+                </Typography>
+              }
+              placement="left"
+              closable={true}
+              onClose={onClose}
+              open={visible}
+              mask
+              style={{
+                background:
+                  "linear-gradient(114deg,#0f172a 51.52%,#152346 73.32%,#1a2e5e 92.75%)",
+              }}
+            >
+              <Menu
+                theme="dark"
+                mode="inline"
+                defaultSelectedKeys={["Home_page"]}
+                style={{ fontFamily: "Montserrat, Arial, sans-serif" }}
+              >
+                {items.map((item) => (
+                  <Menu.Item
+                    key={item.key}
+                    onClick={() => {
+                      item.onClick();
+                      onClose();
+                    }}
+                  >
+                    {item.label}
+                  </Menu.Item>
+                ))}
+              </Menu>
+            </Drawer>
+          </>
+        )}
+        {screens.sm || screens.md || screens.lg ? (
+          <div className={Styles.navigationButton}>
+            <div
+              className="btn-color"
+              style={{ height: "40px", width: "90px" }}
+            >
+              <Link to={"/signIn"} style={{ textDecoration: "none" }}>
+                <GeneralButton
+                  name={"Sign In"}
+                  type={"submit"}
+                  color={"#F8FAFC"}
+                />
+              </Link>
+            </div>
+            <div
+              className="btn-color-signup"
+              style={{ height: "40px", width: "90px" }}
+            >
+              <Link to={"/registerUser"} style={{ textDecoration: "none" }}>
+                <GeneralButton
+                  name={"Sign Up"}
+                  type={"submit"}
+                  color={"#F8FAFC"}
+                />
+              </Link>
+            </div>
+          </div>
+        ) : (
+          ""
+        )}
+      </Header>
+    </Layout>
   );
 };
 

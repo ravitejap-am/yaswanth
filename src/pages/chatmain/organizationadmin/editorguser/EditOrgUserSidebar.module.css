@@ -167,7 +167,7 @@
 }
 .container {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   flex-wrap: wrap;
   margin-top: -2px;
 }
@@ -185,6 +185,9 @@
 }
 
 .SuperAdminChildContainer {
+  width: 100%;
+  padding-left: 5px;
+  margin-top: 10px;
 }
 
 .SuperAdminChildContainer span {
@@ -196,6 +199,12 @@
 
 .SuperAdminChildContainer img {
   margin-right: 8px;
+}
+
+.SuperAdminChildContainer:hover {
+  background-color: #6366f1; 
+  color: #f8fafc; 
+  border-radius: 5px;
 }
 
 .bannerBtn {

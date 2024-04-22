@@ -1,0 +1,27 @@
+.Heading {
+  font-size: 24px !important;
+  font-weight: 500;
+}
+.UserNameHeading {
+  font-size: 16px;
+  font-weight: 600;
+}
+.userImg {
+  height: 35px;
+  width: 35px;
+  border-radius: 20px;
+  margin-top: 10px;
+}
+
+@media (max-width: 767px) {
+  .Heading {
+    font-size: 20px !important;
+    text-align: center;
+  }
+  .UserNameHeading {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+}

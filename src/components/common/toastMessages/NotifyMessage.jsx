@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -23,6 +23,11 @@ const NotifyMessage = ({
       onClose: messageHandler,
     });
 
+    const [containerLeft, setContainerLeft] = useState("45%");
+    const [phoneView, setPhoneView] = useState(false);
+
+
+
   useEffect(() => {
     if (messageTypes.includes(type)) {
       notifyMessage(type);
@@ -31,12 +36,34 @@ const NotifyMessage = ({
     }
   }, [message, type, messageHandler, theme]);
 
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= 600) {
+        setContainerLeft("auto");
+        setPhoneView(true);
+      } else {
+        setContainerLeft("45%");
+        setPhoneView(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    handleResize();
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+
   const customToastStyles = `
+  .Toastify__toast {
+    font-family: Montserrat, Arial, sans-serif;
+  }
     .Toastify__toast--error {
       background:  var(--Red-rose-50, #FFF1F2);
       color: rgba(225, 29, 72, 1);
       border-radius: 6px;
-      width: 500px;
+      width: ${phoneView ? 'auto' : '500px'};
       padding: 16px;
     }
     .Toastify__toast--warning {
@@ -44,7 +71,7 @@ const NotifyMessage = ({
       background: rgba(254, 243, 199, 1);
       color: rgba(217, 119, 6, 1);
       border-radius: 6px;
-      width: 500px;
+      width: ${phoneView ? 'auto' : '500px'};
       padding: 16px;
     }
     .Toastify__toast--success {
@@ -52,7 +79,7 @@ const NotifyMessage = ({
       background: var(--Teal-teal-50, #F0FDFA); /* Light green background */
       color: rgba(0, 128, 0, 1); /* Green text color */
       border-radius: 6px;
-      width: 500px;
+      width: ${phoneView ? 'auto' : '500px'};
       padding: 16px;
     }
   `;
@@ -73,7 +100,7 @@ const NotifyMessage = ({
       pauseOnFocusLoss
       draggable
       pauseOnHover
-      style={{ left: "45%" }}  
+      style={{ left: containerLeft }}  
     />
   );
 };

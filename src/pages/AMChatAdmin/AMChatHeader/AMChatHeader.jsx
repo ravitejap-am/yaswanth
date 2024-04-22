@@ -1,21 +1,27 @@
-import React from "react";
-import Styles from "./AMChat.module.css";
-import { Link } from "react-router-dom";
-import Popover from "@mui/material/Popover";
-import PopupState, { bindTrigger, bindPopover } from "material-ui-popup-state";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
-import Divider from "@mui/material/Divider";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import AssignmentIndOutlinedIcon from "@mui/icons-material/AssignmentIndOutlined";
-import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
+import React from 'react';
+import Styles from './AMChat.module.css';
+import { Link } from 'react-router-dom';
+import Popover from '@mui/material/Popover';
+import PopupState, { bindTrigger, bindPopover } from 'material-ui-popup-state';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import Divider from '@mui/material/Divider';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import AssignmentIndOutlinedIcon from '@mui/icons-material/AssignmentIndOutlined';
+import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
+import DefaultProfileImage from '../../../asset/defaultProfile.jpg';
 
 function AMChatHeader({ componentName, name, profileImageSrc, customStyle }) {
   const style = {
     width: 200,
     ...customStyle,
+  };
+
+  const handleLogout = () => {
+    localStorage.clear();
+    window.location.href = '/signin';
   };
 
   return (
@@ -31,7 +37,7 @@ function AMChatHeader({ componentName, name, profileImageSrc, customStyle }) {
             onClick={popupState.open}
           >
             <img
-              src={profileImageSrc}
+              src={profileImageSrc ? profileImageSrc : DefaultProfileImage}
               alt=""
               className={Styles.AdminProfileStyle}
               style={customStyle.imageStyle}
@@ -47,12 +53,12 @@ function AMChatHeader({ componentName, name, profileImageSrc, customStyle }) {
           <Popover
             {...bindPopover(popupState)}
             anchorOrigin={{
-              vertical: "bottom",
-              horizontal: "center",
+              vertical: 'bottom',
+              horizontal: 'center',
             }}
             transformOrigin={{
-              vertical: "top",
-              horizontal: "center",
+              vertical: 'top',
+              horizontal: 'center',
             }}
           >
             <List sx={style}>
@@ -61,20 +67,18 @@ function AMChatHeader({ componentName, name, profileImageSrc, customStyle }) {
                   <ListItemIcon>
                     <AssignmentIndOutlinedIcon />
                   </ListItemIcon>
-                  <Link to="/userprofile" style={{ textDecoration: "none" }}>
+                  <Link to="/Info" style={{ textDecoration: 'none' }}>
                     <ListItemText primary="View Profile" />
                   </Link>
                 </ListItemButton>
               </ListItem>
               <Divider component="li" />
               <ListItem>
-                <ListItemButton>
+                <ListItemButton onClick={handleLogout}>
                   <ListItemIcon>
                     <LogoutOutlinedIcon />
                   </ListItemIcon>
-                  <Link to="/signin" style={{ textDecoration: "none" }}>
-                    <ListItemText primary="Logout" />
-                  </Link>
+                  <ListItemText primary="Logout" />
                 </ListItemButton>
               </ListItem>
             </List>

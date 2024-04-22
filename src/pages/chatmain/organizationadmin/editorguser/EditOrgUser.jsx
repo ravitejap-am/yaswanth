@@ -1,19 +1,22 @@
-import React, { useState, useEffect } from "react";
-import Styles from "./EditOrgUserSidebar.module.css";
-import profile from "../../../../asset/AmChatSuperAdmin/profile.png";
-import GeneralForm from "../../../../components/common/forms/GeneralForm";
-import { useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
-import { Upload, Modal } from "antd";
-import { PlusOutlined } from "@ant-design/icons";
-import { useMessageState } from "../../../../hooks/useapp-message";
-import NotifyMessage from "../../../../components/common/toastMessages/NotifyMessage";
-import { selectUser } from "../../../../store/authSlice";
-import * as constants from "../../../../constants/Constant";
-import { toast } from "react-toastify";
-import AMChatHeader from "../../../AMChatAdmin/AMChatHeader/AMChatHeader";
-import Avatar from "@mui/material/Avatar";
-import OrganizationAdminHeader from "../OrganizationAdminHeader/OrganizationAdminHeader";
+import React, { useState, useEffect } from 'react';
+import Styles from './EditOrgUserSidebar.module.css';
+import profile from '../../../../asset/AmChatSuperAdmin/profile.png';
+import GeneralForm from '../../../../components/common/forms/GeneralForm';
+import { useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
+import { Upload, Modal } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
+import { useMessageState } from '../../../../hooks/useapp-message';
+import NotifyMessage from '../../../../components/common/toastMessages/NotifyMessage';
+import { selectUser } from '../../../../store/authSlice';
+import * as constants from '../../../../constants/Constant';
+import { toast } from 'react-toastify';
+import AMChatHeader from '../../../AMChatAdmin/AMChatHeader/AMChatHeader';
+import Avatar from '@mui/material/Avatar';
+import OrganizationAdminHeader from '../OrganizationAdminHeader/OrganizationAdminHeader';
+import EditForm from '../../../../components/EditForms/EditForms';
+import CircularFileInfo from '../../../../components/personalInfo/upload/circularFileInfo';
+import axios from 'axios';
 
 const getBase64 = (file) =>
   new Promise((resolve, reject) => {
@@ -23,7 +26,7 @@ const getBase64 = (file) =>
     reader.onerror = (error) => reject(error);
   });
 
-function EditOrgUser() {
+function EditOrgUser(props) {
   const { userId } = useParams();
   let {
     buttonLoading,
@@ -39,54 +42,36 @@ function EditOrgUser() {
   const jwt = user.userToken;
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState(
-    "https://medicalpublic.s3.amazonaws.com/AMCHAT/UserDP_1707819604773.jpeg"
+    'https://medicalpublic.s3.amazonaws.com/AMCHAT/UserDP_1707819604773.jpeg'
   );
-  const [previewTitle, setPreviewTitle] = useState("");
-  const [userData, setUserData] = useState({});
+  const [previewTitle, setPreviewTitle] = useState('');
+  // const [userData, setUserData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [fileList, setFileList] = useState([
-    // {
-    //   uid: "-1",
-    //   name: "image.png",
-    //   status: "done",
-    //   url: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-    // },
-  ]);
+  const [fileList, setFileList] = useState();
 
-  const [firstName, setFirstName] = useState("");
+  const profileSrc = localStorage.getItem('profileImage');
+  const [firstName, setFirstName] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const navigationRoute = props?.navigationRoute;
+
+  const [userData, setUserData] = useState({
+    firstName: '',
+    lastName: '',
+  });
+  const [fullName, setFullName] = useState('');
+
   useEffect(() => {
     // Retrieve firstName from localStorage
-    const storedFirstName = localStorage.getItem("firstNameOrganisation");
+    const storedFirstName = localStorage.getItem('firstNameOrganisation');
     setFirstName(storedFirstName);
+    const storedFullName = localStorage.getItem('fullName');
+    setFullName(storedFullName);
   }, []);
 
   useEffect(() => {
     fetchUserData();
   }, []);
 
-  const PrintImage = () => {
-    return (
-      <div
-        // className={Styles.EditOrgUserImageStyle}
-        style={{
-          width: "5.5rem",
-          height: "180%",
-          borderRadius: "50px",
-          position: "relative",
-          top: "-20px",
-          left: "-18px",
-        }}
-      >
-        {userData?.profileImagePath?.length > 0 && (
-          <img
-            src="https://medicalpublic.s3.amazonaws.com/AMCHAT/UserDP_1707819604773.jpeg"
-            height={"80px"}
-            width={"120px"}
-          />
-        )}
-      </div>
-    );
-  };
   const fetchUserData = async () => {
     try {
       const response = await fetch(
@@ -101,63 +86,25 @@ function EditOrgUser() {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const data = await response.json();
-      setUserData(data.data);
-      console.log("====================================");
-      console.log(data, "*********************");
-      console.log("====================================");
+      // setUserData(data.data);
+      setUserData({
+        firstName: data?.data?.firstName,
+        lastName: data?.data?.lastName || '',
+        email: data?.data?.email,
+      });
+      console.log('====================================');
+      console.log(data, '*********************');
+      console.log('====================================');
+      console.log('data image ----->', data?.data?.profileImagePath);
       if (data?.data?.profileImagePath?.length > 0) {
-        const obj = {
-          uid: "-1",
-          name: "image.png",
-          status: "done",
-          url: constants.BASE_USER_IMAGE_URL + data?.data?.profileImagePath,
-        };
-        setFileList([obj]);
+        const url =
+          constants.BASE_USER_IMAGE_URL + data?.data?.profileImagePath;
+        setFileList(url);
       }
     } catch (error) {
-      console.error("Error fetching user data:", error);
+      console.error('Error fetching user data:', error);
     }
   };
-
-  const handleCancel = () => setPreviewOpen(false);
-
-  const handlePreview = async (file) => {
-    if (!file.url && !file.preview) {
-      file.preview = await getBase64(file.originFileObj);
-    }
-    setPreviewImage(file.url || file.preview);
-    setPreviewOpen(true);
-    setPreviewTitle(
-      file.name || file.url.substring(file.url.lastIndexOf("/") + 1)
-    );
-  };
-
-  // const handlePreview = (file) => {
-  //   setPreviewImage(file.url);
-  //   setPreviewOpen(true);
-  //   setPreviewTitle(file.name);
-  // };
-
-  const handleChange = ({ fileList }) => setFileList(fileList);
-
-  const uploadButton = (
-    <button
-      style={{
-        border: 0,
-        background: "none",
-      }}
-      type="button"
-    >
-      <PlusOutlined />
-      <div
-        style={{
-          marginTop: 8,
-        }}
-      >
-        Upload
-      </div>
-    </button>
-  );
 
   const messageHandler = () => {
     setIsReset(false);
@@ -170,146 +117,101 @@ function EditOrgUser() {
       return;
     }
     setIsSubmitting(true);
-    try {
-      const updateUserResponse = await fetch(
-        `${constants.BASE_API_URL}/user/${userId}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${jwt}`,
-          },
-          body: JSON.stringify({
-            firstName: values["firstName"],
-            lastName: values["lastName"],
-          }),
-        }
-      );
-
-      if (!updateUserResponse.ok) {
-        throw new Error(`HTTP error! status: ${updateUserResponse.status}`);
-      }
-
-      setIsReset(true);
-      showNotifyMessage(
-        "success",
-        "User details updated successfully",
-        messageHandler
-      );
-
-      const updateUserData = await updateUserResponse.json();
-
-      if (fileList.length > 0) {
-        const formData = new FormData();
-        formData.append("image", fileList[0].originFileObj);
-        const updateImageResponse = await fetch(
-          `${constants.BASE_API_URL}/user/dp/${userId}`,
+    if (values === undefined) {
+    } else {
+      try {
+        const updateUserResponse = await fetch(
+          `${constants.BASE_API_URL}/user/${userId}`,
           {
-            method: "PUT",
+            method: 'PUT',
             headers: {
+              'Content-Type': 'application/json',
               Authorization: `Bearer ${jwt}`,
             },
-            body: formData,
+            body: JSON.stringify({
+              firstName: values['firstName'],
+              lastName: values['lastName'],
+            }),
           }
         );
-
-        if (!updateImageResponse.ok) {
-          throw new Error(`HTTP error! status: ${updateImageResponse.status}`);
+        if (!updateUserResponse.ok) {
+          throw new Error(`HTTP error! status: ${updateUserResponse.status}`);
         }
-      }
 
-      setButtonLoading(false);
-      setIsReset(true);
-      showNotifyMessage("success", updateUserData?.message, messageHandler);
-    } catch (error) {
-      if (error?.response?.status == 500 || error?.response?.status == "500") {
-        navigate("/internal500");
-      }
+        setIsReset(true);
+        const updateUserData = await updateUserResponse.json();
+        setButtonLoading(false);
+        setIsReset(true);
+        showNotifyMessage('success', updateUserData?.message, messageHandler);
+      } catch (error) {
+        console.log('Error updating user details:', error);
+        if (
+          error?.response?.status == 500 ||
+          error?.response?.status == '500'
+        ) {
+          navigate('/customerSupport');
+        }
 
-      setButtonLoading(false);
-      // showNotifyMessage(
-      //   "error",
-      //   error?.response?.data?.message || "An error occurred",
-      //   messageHandler
-      // );
-    } finally {
-      setIsSubmitting(false);
+        setButtonLoading(false);
+      } finally {
+        console.log('SBH 17');
+        setIsSubmitting(false);
+      }
     }
   };
 
   const cancelHandler = () => {
-    navigate("/orguserlist");
+    navigate('/users');
   };
 
-  const formElements = [
-    {
-      name: "firstName",
-      label: "First Name",
-      type: "text",
-      style: {
-        width: "405px",
-        borderRadius: "40px",
-        border: "1px solid var(--Brand-700, #4338CA)",
-        backgroundColor: "transparent",
-      },
-      defaultValue: userData?.firstName ? userData?.firstName : "",
-      rules: [{ required: true, message: "Please enter your name" }],
-      labelName: false,
-    },
-    {
-      name: "lastName",
-      label: "Last Name",
-      type: "text",
-      style: {
-        width: "405px",
-        borderRadius: "40px",
-        border: "1px solid var(--Brand-700, #4338CA)",
-        backgroundColor: "transparent",
-      },
-      defaultValue: userData.lastName || "",
-      rules: [{ required: true, message: "Please enter your name" }],
-      labelName: false,
-    },
-    {
-      name: "Email",
-      label: "Email",
-      type: "text",
-      defaultValue: userData.email || "",
-      rules: [
-        { required: true, message: "Please input your email" },
-        { type: "email", message: "Invalid email format" },
-      ],
-      style: {
-        width: "405px",
-        borderRadius: "40px",
-        border: "1px solid var(--Brand-700, #4338CA)",
-        backgroundColor: "transparent",
-      },
-      disabled: true,
-      labelName: false,
-    },
-  ];
-  
-  // form.getFieldValue()
+  const handleFileChange = (file) => {
+    setIsLoading(true);
+    uploadFile(file);
+  };
+
+  const uploadFile = async (file) => {
+    const formData = new FormData();
+    formData.append('image', file);
+
+    try {
+      const response = await axios.post(
+        `${constants.BASE_API_URL}/user/dp`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${jwt}`,
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
+      console.log(response);
+      showNotifyMessage('success', response?.data?.message, messageHandler);
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error);
+      showNotifyMessage('error', error?.message, messageHandler);
+      setIsLoading(false);
+    }
+  };
 
   const submitButtonProperty = {
-    name: "Update",
-    color: "#ffffff",
-    backgroundColor: "var(--Brand-500, #6366F1)",
-    width: "150px",
-    height: "50px",
-    borderRadius: "28px",
-    marginTop: "10px",
+    name: 'Update',
+    color: '#ffffff',
+    backgroundColor: 'var(--Brand-500, #6366F1)',
+    width: '150px',
+    height: '50px',
+    borderRadius: '28px',
+    marginTop: '10px',
   };
 
   const cancelButtonProperty = {
-    name: "Cancel",
-    color: "black",
-    backgroundColor: "#fff",
-    width: "150px",
-    height: "50px",
-    borderRadius: "28px",
-    marginTop: "10px",
+    name: 'Cancel',
+    color: 'black',
+    backgroundColor: '#fff',
+    width: '150px',
+    height: '50px',
+    borderRadius: '28px',
+    marginTop: '10px',
   };
 
   const feedingVariable = {
@@ -319,13 +221,15 @@ function EditOrgUser() {
     submitHandler: submitHandler,
     submitButtonProperty: submitButtonProperty,
     cancelButtonProperty: cancelButtonProperty,
-    formElements: formElements,
-    formType: "normal",
+    // formElements: formElements,
+    formType: 'normal',
     forgorPasswordHandler: () => {
-      console.log("forgot Password....");
+      console.log('forgot Password....');
     },
-    grid: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px" },
+    grid: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' },
   };
+
+  console.log('user data---->', userData);
 
   return (
     <div className={Styles.superAdminMainCardDivStyle}>
@@ -333,54 +237,40 @@ function EditOrgUser() {
         <div className={Styles.superAdminProfileCardStyle}>
           <OrganizationAdminHeader
             componentName="Edit User"
-            name={firstName || ""}
-            profileImageSrc={profile}
+            name={fullName || ''}
+            profileImageSrc={localStorage.getItem('userImageUrl')}
             customStyle={{
               containerStyle: {
-                display: "flex",
-                borderRadius: "8px",
+                display: 'flex',
+                borderRadius: '8px',
               },
               imageStyle: {
-                width: "50%",
-                height: "70%",
+                width: '44px',
+                height: '44px',
               },
               textStyle: {
-                color: "blue",
-                fontWeight: "bold",
+                color: 'black',
+                fontWeight: '600',
+                fontSize: '18px',
               },
             }}
+            navigationRoute={navigationRoute}
           />
         </div>
 
         <div className={Styles.addOrganizationAdminSecondDiv}>
-          <div className={Styles.imageUploadSection}>
-            <Upload
-              action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
-              listType="picture-circle"
-              fileList={fileList}
-              onPreview={handlePreview}
-              onChange={handleChange}
-            >
-              {fileList.length >= 1 ? null : uploadButton}
-            </Upload>
-            <Modal
-              open={previewOpen}
-              title={previewTitle}
-              footer={null}
-              onCancel={handleCancel}
-            >
-              <img
-                alt="example"
-                style={{
-                  width: "100%",
-                }}
-                src={previewImage}
-              />
-            </Modal>
-          </div>
-
+          {/* <CircularFileInfo
+              onChange={handleFileChange}
+              initialImageUrl={fileList}
+            /> */}
           <div>
-            <GeneralForm {...feedingVariable} />
+            <div style={{ padding: '20px', width: '90%' }}>
+              <EditForm
+                formData={userData}
+                setFormData={setUserData}
+                submitHandler={submitHandler}
+              />
+            </div>
           </div>
         </div>
       </div>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Styles from "../../AMChatAdmin/SearchUIAMChat.jsx/SearchUIAIChat.module.css";
+import Styles from "../../AMChatAdmin/SearchUIAMChat/SearchUIAIChat.module.css";
 import { Card } from "antd";
 import profile from "../../../asset/AmChatSuperAdmin/profile.png";
 import Group2290 from "../../../asset/Group2290.png";
@@ -12,14 +12,20 @@ import { useSelector } from "react-redux";
 import { setUser, selectUser } from "../../../store/authSlice";
 import NotifyMessage from "../../../components/common/toastMessages/NotifyMessage";
 import AMChatHeader from "../../AMChatAdmin/AMChatHeader/AMChatHeader";
+import ChatSearch from "../../../components/common/chatSearch/ChatSearch";
+import './OrganizationAdmin.css'
 
-function OrganizationAdminSearchUIAIChat() {
+
+function OrganizationAdminSearchUIAIChat(props) {
   const [firstName, setFirstName] = useState("");
   const [responseData, setResponseData] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const user = useSelector(selectUser);
   const jwt = user.userToken;
   const navigate = useNavigate();
+  const [chat, setChat] = useState("");
+  const question = props.params;
+  const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
     const storedFirstName = localStorage.getItem("firstNameOrganisation");
@@ -95,8 +101,12 @@ function OrganizationAdminSearchUIAIChat() {
   };
 
   const handleSearchImageClick = () => {
-    navigate("/chat");
-    handleSubmit();
+    // navigate("/chat");
+    // handleSubmit();
+  };
+
+  const handleEditClick = () => {
+    setIsEditing(true);
   };
 
   return (
@@ -112,33 +122,62 @@ function OrganizationAdminSearchUIAIChat() {
               borderRadius: "8px",
             },
             imageStyle: {
-              width: "50%",
-              height: "70%",
+              width: "44px",
+              height: "44px",
             },
             textStyle: {
-              color: "blue",
-              fontWeight: "bold",
+              color: 'black',
+              fontWeight: '500',
+              fontSize: '24px',
             },
           }}
         />
 
-        <Card className={Styles.superAdminCardStyles}>
+        <Card className={Styles.superAdminCardStyles} style={{height:'80vh'}}>
+          <div>
+          <div className={Styles.questionContainer}>
+          <div className={Styles.answerImageContainer}>
+             <div>Q</div>
+          </div>
+          <div className={Styles.name}>
+            You
+          </div>
+          </div>
+          <div className={Styles.responseContainer}>
+            {responseData && responseData.data && (
+              <div className={Styles.chatBubble}>{question} </div>
+            )}
+          </div>
+          {/* {!isEditing && (
+            <div className="edit-button" onClick={handleEditClick}>
+              Edit
+            </div>
+          )} */}
+          </div>
+          <div className={Styles.questionContainer}>
+          <div className={Styles.questionImageContainer}>
+             <div>A</div>
+          </div>
+          <div className={Styles.name}>
+          AM-Chat
+          </div>
+          </div>
           <div className={Styles.responseContainer}>
             {responseData && responseData.data && (
               <div className={Styles.chatBubble}>{responseData.data}</div>
             )}
           </div>
-          <div className={Styles.AIChatInputBox}>
-            <Search
-              name={"Ask anything.."}
-              style={searchStyles}
-              searchImage={Group2290}
-              value={searchQuery}
-              onChange={handleSearchInputChange}
-              onSearchImageClick={handleSearchImageClick}
-              onKeyPress={handleKeyPress}
-            />
-          </div>
+          {/* <div className='chat_container'>
+              <ChatSearch
+                name={'Ask anything..'}
+                style={"searchStyles"}
+                searchImage={Group2290}
+                onSearchImageClick={handleSearchImageClick}
+                readOnly={false}
+                chat={chat}
+                setChat={setChat}
+              />
+          </div> */}
         </Card>
       </div>
     </div>
