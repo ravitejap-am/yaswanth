@@ -71,9 +71,7 @@ const ContactUp = (props) => {
     if (formRef.current) {
       formRef.current.scrollIntoView({ behavior: "auto" });
     }
-    if (selectPlan) {
-      form.setFieldsValue({ plan: selectPlan });
-    }
+    setValues({ ...values, plan: selectPlan });
   }, [selectPlan]);
 
   const selectOptions = [
@@ -298,6 +296,7 @@ const ContactUp = (props) => {
                 label="Select Plan"
                 className="contact_input_css custom_input"
                 onChange={handleChange}
+                value={values?.plan}
               >
                 {selectOptions?.length > 0 &&
                   selectOptions.map((item) => {
