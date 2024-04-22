@@ -17,7 +17,7 @@ function TermsAndConditions() {
       <div>
         <Header handleLogoClick={handleLogoClick} />
       </div>
-    <Box style={{ padding: "20px", marginTop: "1.5rem" }}>
+    <Box style={{ padding: "20px", marginTop: "1.5rem", backgroundColor:'#fff' }}>
       <Box>
         <p style={{ fontWeight: "bold", fontSize: "24px" }}>
           Terms & Conditions for AM-Chat

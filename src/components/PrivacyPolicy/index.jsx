@@ -17,7 +17,7 @@ const PrivacyPolicies = () => {
       <div>
         <Header handleLogoClick={handleLogoClick} />
       </div>
-      <Box style={{ padding: "30px", marginTop: "1rem" }}>
+      <Box style={{ padding: "30px", marginTop: "1rem", backgroundColor:'#fff' }}>
         <Box>
           <p style={{ fontWeight: "bold", fontSize: "24px" }}>
             Privacy Policy for AM-Chat
