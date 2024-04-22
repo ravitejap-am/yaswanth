@@ -26,6 +26,7 @@ import DataGridTable from '../../../components/common/muiTable/DataGridTable';
 import { AM_CHAT } from '../../../constants/Constant';
 import { Modal } from 'antd';
 import MobileViewDocumentAccordin from '../../../components/MobileComponent/MobileViewDocumentAccordin';
+import { bytesToMB, documentStatus } from '../../../utils/fileNameExtraction';
 
 function Documents() {
   let {
@@ -304,9 +305,9 @@ function Documents() {
   const data = documents.map((item) => ({
     id: item?.id,
     documentName: item?.name,
-    size: `${item?.fileSize || 0}${' '}${'MB'}`,
+    size: `${bytesToMB(item?.fileSize) || 0}${' '}${'MB'}`,
     version: item?.version,
-    status: item?.status,
+    status: documentStatus[item?.status],
   }));
 
   const handleYes = (id) => {
