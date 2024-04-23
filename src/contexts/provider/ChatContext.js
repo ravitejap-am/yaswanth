@@ -27,7 +27,7 @@ const tempData = [
 export const ChatProvider = ({ children }) => {
   const user = useSelector(selectUser);
   const jwt = user?.userToken;
-  const permittedScopes = tokenDecodeJWT(jwt).scopes;
+  const permittedScopes = tokenDecodeJWT(jwt)?.scopes;
   // const permittedScopes = tempData;
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [chatHistory, setChatHistory] = useState([]);
