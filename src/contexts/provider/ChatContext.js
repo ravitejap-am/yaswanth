@@ -7,13 +7,28 @@ import { useSelector } from 'react-redux';
 import { selectUser } from '../../store/authSlice';
 import { getSessionList } from '../../apiCalls/ApiCalls';
 import { segregateSessions } from '../../utils/dateSeggrigation';
+import { scopes } from '../../constants/scopes';
+import { tokenDecodeJWT } from '../../utils/authUtils';
 
 const ChatContext = createContext();
+const tempData = [
+  'CHU',
+  'CHR',
+  'CHD',
+  'CHC',
+  'UU',
+  'UR',
+  'UD',
+  'UC',
+  'DCQR',
+  'DCR',
+];
 
 export const ChatProvider = ({ children }) => {
   const user = useSelector(selectUser);
   const jwt = user?.userToken;
-
+  const permittedScopes = tokenDecodeJWT(jwt).scopes;
+  // const permittedScopes = tempData;
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [chatHistory, setChatHistory] = useState([]);
   const [isNewChat, setIsNewChat] = useState(false);
@@ -45,25 +60,28 @@ export const ChatProvider = ({ children }) => {
   };
 
   const fetchSessionList = async () => {
-    try {
-      const headers = { Authorization: `Bearer ${jwt}` };
-      console.log('headers---->', headers);
-      const response = await getSessionList(headers);
-      const fetchChatSessions = response?.data?.data;
-      console.log('fetchChatSessions---->', fetchChatSessions);
-      const modifyData = fetchChatSessions.map((data) => {
-        return {
-          session_title: data?.session_title.split(':')[4],
-          // data: [],
-          id: data?.id,
-        };
-      });
-      setChatHistory(modifyData);
+    if (permittedScopes.includes(scopes.CHR)) {
+      try {
+        const headers = { Authorization: `Bearer ${jwt}` };
+        console.log('headers---->', headers);
+        const response = await getSessionList(headers);
+        const fetchChatSessions = response?.data?.data;
+        console.log('fetchChatSessions---->', fetchChatSessions);
+        const modifyData = fetchChatSessions.map((data) => {
+          return {
+            session_title: data?.session_title.split(':')[4],
+            // data: [],
+            id: data?.id,
+          };
+        });
+        setChatHistory(modifyData);
 
-      const segregatedData = segregateSessions(fetchChatSessions);
-      setSessionHistory(segregatedData);
-    } catch (error) {
-      console.log('error in fetching session list', error);
+        const segregatedData = segregateSessions(fetchChatSessions);
+        setSessionHistory(segregatedData);
+        console.log('seggrigationData', segregatedData);
+      } catch (error) {
+        console.log('error in fetching session list', error);
+      }
     }
   };
 

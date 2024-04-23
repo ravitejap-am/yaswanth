@@ -39,6 +39,20 @@ import { CHAT } from '../../constants/Constant';
 import PageLoader from '../../components/loader/loader';
 import AMChato from '../../asset/logo/logofinal.png';
 import { useMessageState } from '../../hooks/useapp-message';
+import { tokenDecodeJWT } from '../../utils/authUtils';
+import { scopes } from '../../constants/scopes';
+const tempData = [
+  'CHU',
+  'CHR',
+  'CHD',
+  // 'CHC',
+  'UU',
+  'UR',
+  'UD',
+  'UC',
+  'DCQR',
+  'DCR',
+];
 
 function Chats() {
   const {
@@ -58,10 +72,9 @@ function Chats() {
     setSessionId,
     fetchSessionList,
     setInputValue,
-    inputValue
+    inputValue,
   } = useChat();
 
-  const [searchOption, setSearchOption] = useState('specificFileText');
   const [selectedFile, setSelectedFile] = useState('');
   // const [inputValue, setInputValue] = useState('');
 
@@ -72,6 +85,11 @@ function Chats() {
   const scrollContainerRef = useRef(null);
   const user = useSelector(selectUser);
   const jwt = user.userToken;
+  const permittedScopes = tokenDecodeJWT(jwt).scopes;
+  // const permittedScopes = tempData;
+  const [searchOption, setSearchOption] = useState(
+    permittedScopes.includes(scopes.DCR) ? 'specificFileText' : 'acrossFiles'
+  );
   const [errorMessage, setErrorMessage] = useState('');
   const defaultScroll = useRef(null);
   const location = useLocation();
@@ -104,15 +122,20 @@ function Chats() {
   }, [isChatOpen]);
 
   useEffect(() => {
-    fetchDocuments();
+    if (
+      permittedScopes.includes(scopes.CHC) &&
+      permittedScopes.includes(scopes.DCR)
+    ) {
+      fetchDocuments();
+    }
   }, []);
 
   useEffect(() => {
-    if(pathName === "/user"){
+    if (pathName === '/user') {
       const disableBack = () => {
         window.history.pushState(null, '', window.location.href);
         window.onpopstate = () => {
-        window.history.pushState(null, '', window.location.href);
+          window.history.pushState(null, '', window.location.href);
         };
       };
       disableBack();
@@ -120,9 +143,7 @@ function Chats() {
         window.onpopstate = null;
       };
     }
-  },[pathName])
-
-
+  }, [pathName]);
 
   useEffect(() => {
     if (
@@ -132,7 +153,11 @@ function Chats() {
     ) {
       setDefaultQuestions([]);
     } else {
-      fetchQuestions();
+      if (permittedScopes?.includes(scopes.DCQR)) {
+        fetchQuestions();
+      } else {
+        setDefaultQuestions([]);
+      }
     }
   }, [selectedFile]);
 
@@ -174,7 +199,7 @@ function Chats() {
       setShowWarning(true);
     } else {
       setSearchOption(option);
-      setInputValue("")
+      setInputValue('');
       if (documents?.length > 0) {
         setSelectedFile(documents[0]?.id);
       }
@@ -188,9 +213,9 @@ function Chats() {
     if (isNewChat) {
       addNewChat();
     }
-    setInputValue("")
+    setInputValue('');
     setSelectedFile(event.target.value);
-    console.log("is new chat",isNewChat);
+    console.log('is new chat', isNewChat);
   };
 
   const handleInputChange = (event) => {
@@ -201,11 +226,14 @@ function Chats() {
       setInputValue(newValue);
       setErrorMessage('');
     } else {
-      const allowedContent = newValue.substring(0, calculateLastIndexOfText(newValue, 1003));
+      const allowedContent = newValue.substring(
+        0,
+        calculateLastIndexOfText(newValue, 1003)
+      );
       setInputValue(allowedContent);
       setErrorMessage('Maximum 1000 characters allowed');
     }
-  
+
     if (!messageSent) {
       setMessageSent(false);
     }
@@ -425,7 +453,7 @@ function Chats() {
       console.log('add new chat');
       addNewChat();
     }
-    setInputValue("")
+    setInputValue('');
     setSearchOption('acrossFiles');
     setSelectedFile('');
   };
@@ -441,7 +469,6 @@ function Chats() {
       chatRef?.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
     }
   }, [isNewChat]);
-
 
   return (
     <Layout componentName="Chat">
@@ -470,102 +497,113 @@ function Chats() {
             marginTop: isMobile ? '0.5em' : '0px',
           }}
         >
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'row',
-            }}
-          >
-            <input
-              type="radio"
-              value="acrossFiles"
-              checked={searchOption === 'acrossFiles'}
-              onChange={() => handleSearchOptionChange('acrossFiles')}
-            />
-            <Typography
-              variant="body1"
-              sx={{
-                fontSize: isMobile ? '0.9rem' : '1rem',
-                paddingTop: '0.19rem',
-              }}
-            >
-              Across
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'row',
-            }}
-          >
-            <input
-              type="radio"
-              value="specificFileText"
-              checked={searchOption === 'specificFileText'}
-              onChange={() => handleSearchOptionChange('specificFileText')}
-            />
-            <Typography
-              variant="body1"
-              sx={{
-                fontSize: isMobile ? '0.9rem' : '1rem',
-                paddingTop: '0.19rem',
-              }}
-            >
-              Specific
-            </Typography>
-          </Box>
-          {searchOption === 'specificFileText' && (
-            <Box sx={{ width: isMobile ? '125px' : '140px' }}>
-              <FormControl
-                className={styles.chatFormControl}
-                size="large"
-                variant="outlined"
-                fullWidth
+          {permittedScopes.includes(scopes.CHC) && (
+            <>
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                }}
               >
-                <InputLabel id="file-select-label" shrink={true}>
-                  Document
-                </InputLabel>
-                <Select
-                  labelId="file-select-label"
-                  id="file-select"
-                  value={selectedFile}
-                  onChange={handleFileChange}
-                  label="Document"
-                  className={styles.chatSelect}
-                  style={{ textAlign: 'left', height: '30px' }}
+                <input
+                  type="radio"
+                  value="acrossFiles"
+                  checked={searchOption === 'acrossFiles'}
+                  onChange={() => handleSearchOptionChange('acrossFiles')}
+                />
+                <Typography
+                  variant="body1"
+                  sx={{
+                    fontSize: isMobile ? '0.9rem' : '1rem',
+                    paddingTop: '0.19rem',
+                  }}
                 >
-                  <MenuItem value="  ">
-                    <em>Select file</em>
-                  </MenuItem>
-                  {documents?.length > 0 &&
-                    documents.map((item) => {
-                      return <MenuItem value={item.id}>{item.name}</MenuItem>;
-                    })}
-                </Select>
-              </FormControl>
-              <Dialog open={showWarning} onClose={handleCancelWarning}>
-                <DialogTitle>
-                  <WarningOutlined
-                    style={{ color: '#faad14', marginRight: '8px' }}
+                  Across
+                </Typography>
+              </Box>
+              {permittedScopes.includes(scopes.DCR) && (
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                  }}
+                >
+                  <input
+                    type="radio"
+                    value="specificFileText"
+                    checked={searchOption === 'specificFileText'}
+                    onChange={() =>
+                      handleSearchOptionChange('specificFileText')
+                    }
                   />
-                  Warning
-                </DialogTitle>
-                <DialogContent>
-                  <Typography>
-                    Interacting across files is a costly and time-consuming
-                    process. Would you like to continue ?
+                  <Typography
+                    variant="body1"
+                    sx={{
+                      fontSize: isMobile ? '0.9rem' : '1rem',
+                      paddingTop: '0.19rem',
+                    }}
+                  >
+                    Specific
                   </Typography>
-                </DialogContent>
-                <DialogActions>
-                  <Button onClick={handleOkWarning} type="primary">
-                    <Typography variant="button"> Ok </Typography>
-                  </Button>
-                  <Button onClick={handleCancelWarning}>
-                    <Typography variant="button"> Cancel </Typography>
-                  </Button>
-                </DialogActions>
-              </Dialog>
-            </Box>
+                </Box>
+              )}
+
+              {searchOption === 'specificFileText' && (
+                <Box sx={{ width: isMobile ? '125px' : '140px' }}>
+                  <FormControl
+                    className={styles.chatFormControl}
+                    size="large"
+                    variant="outlined"
+                    fullWidth
+                  >
+                    <InputLabel id="file-select-label" shrink={true}>
+                      Document
+                    </InputLabel>
+                    <Select
+                      labelId="file-select-label"
+                      id="file-select"
+                      value={selectedFile}
+                      onChange={handleFileChange}
+                      label="Document"
+                      className={styles.chatSelect}
+                      style={{ textAlign: 'left', height: '30px' }}
+                    >
+                      <MenuItem value="  ">
+                        <em>Select file</em>
+                      </MenuItem>
+                      {documents?.length > 0 &&
+                        documents.map((item) => {
+                          return (
+                            <MenuItem value={item.id}>{item.name}</MenuItem>
+                          );
+                        })}
+                    </Select>
+                  </FormControl>
+                  <Dialog open={showWarning} onClose={handleCancelWarning}>
+                    <DialogTitle>
+                      <WarningOutlined
+                        style={{ color: '#faad14', marginRight: '8px' }}
+                      />
+                      Warning
+                    </DialogTitle>
+                    <DialogContent>
+                      <Typography>
+                        Interacting across files is a costly and time-consuming
+                        process. Would you like to continue ?
+                      </Typography>
+                    </DialogContent>
+                    <DialogActions>
+                      <Button onClick={handleOkWarning} type="primary">
+                        <Typography variant="button"> Ok </Typography>
+                      </Button>
+                      <Button onClick={handleCancelWarning}>
+                        <Typography variant="button"> Cancel </Typography>
+                      </Button>
+                    </DialogActions>
+                  </Dialog>
+                </Box>
+              )}
+            </>
           )}
         </Box>
 
@@ -579,7 +617,12 @@ function Chats() {
                 justifyContent: isMobile ? 'space-between' : 'space-between',
                 alignItems: isMobile ? 'center' : 'center',
                 flexWrap: isMobile ? '' : '',
-                height: {xs:`calc(100% - ${containerHeight})` ,sm: '98%', lg: '95%', xl:'98%' },
+                height: {
+                  xs: `calc(100% - ${containerHeight})`,
+                  sm: '98%',
+                  lg: '95%',
+                  xl: '98%',
+                },
                 overflowY: 'auto',
                 scrollbarWidth: 'thin',
                 scrollbarColor: 'lightgrey #f5f5f5',
@@ -736,48 +779,54 @@ function Chats() {
             </Box>
           )}
         </Box>
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            marginTop:'5px',
-            marginBottom: isIos ? '2em' : '0px',
-          }}
-        >
-          <textarea
-            className={styles.bigInput}
-            value={inputValue}
-            onChange={handleInputChange}
-            placeholder="Ask Anything..."
-            autoSize={{ minRows: 1 }}
-            onKeyPress={handleKeyPress}
-            ref={(textarea) => {
-              if (textarea) resizeTextarea(textarea);
+        {(permittedScopes?.includes(scopes.CHC) ||
+          (permittedScopes.includes(scopes.CHU) &&
+            !permittedScopes.includes(scopes.CHC) &&
+            questions.length > 0)) && (
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              marginTop: '5px',
+              marginBottom: isIos ? '2em' : '0px',
             }}
-            style={{
-              minHeight: '34px',
-              overflowY: 'auto',
-              paddingRight: '4rem',
-              scrollHeight: '3px',
-              scrollPaddingRight: '6px',
-              WebkitScrollbarCorner: {
-                background: 'transparent',
-                paddingRight: '16px',
-              },
-              resize: 'none',
-            }}
+          >
+            <textarea
+              className={styles.bigInput}
+              value={inputValue}
+              onChange={handleInputChange}
+              placeholder="Ask Anything..."
+              autoSize={{ minRows: 1 }}
+              onKeyPress={handleKeyPress}
+              ref={(textarea) => {
+                if (textarea) resizeTextarea(textarea);
+              }}
+              style={{
+                minHeight: '34px',
+                overflowY: 'auto',
+                paddingRight: '4rem',
+                scrollHeight: '3px',
+                scrollPaddingRight: '6px',
+                WebkitScrollbarCorner: {
+                  background: 'transparent',
+                  paddingRight: '16px',
+                },
+                resize: 'none',
+              }}
             />
-          {inputValue && (
-            <Box sx={{ position: 'relative' }}>
-              <Button
-                type="primary"
-                icon={<SendOutlined />}
-                className={styles.SendButton}
-                onClick={handleSend}
-              />
-            </Box>
-          )}
-        </Box>
+            {inputValue && (
+              <Box sx={{ position: 'relative' }}>
+                <Button
+                  type="primary"
+                  icon={<SendOutlined />}
+                  className={styles.SendButton}
+                  onClick={handleSend}
+                />
+              </Box>
+            )}
+          </Box>
+        )}
+
         <Box style={{ width: '100%', height: '1rem' }}>
           {errorMessage && (
             <Typography
