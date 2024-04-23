@@ -169,7 +169,7 @@ html {
 }
 
 .anticon-close {
-  color: black !important;
+  color: white !important;
 }
 :where(.css-dev-only-do-not-override-1rqnfsa).ant-drawer-left>.ant-drawer-content-wrapper {
   /* box-shadow: none; */
@@ -196,4 +196,8 @@ html {
     width: 15em;
     margin: 0 auto;
   }
+}
+
+.css-u36398{
+  color: white !important;
 }
