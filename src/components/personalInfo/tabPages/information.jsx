@@ -40,6 +40,7 @@ function Information({ setFileSysytem, validateEmail }) {
 
   const decodedToken = decodeJWT(jwt);
   const userId = decodedToken ? decodedToken.userId : null;
+  const userEmail = decodedToken ? decodedToken.sub : null
 
   const [userData, setUserData] = useState({
     firstName: "",
@@ -68,7 +69,7 @@ function Information({ setFileSysytem, validateEmail }) {
     setIsLoading(true);
     try {
       const response = await fetch(
-        `${constants.BASE_API_URL}/user/${userId}/getUserProfile`,
+        `${constants.BASE_API_URL}/user/${userId}/profile`,
         {
           headers: {
             Authorization: `Bearer ${jwt}`,
@@ -82,15 +83,15 @@ function Information({ setFileSysytem, validateEmail }) {
 
       const userData = await response.json();
       setUserData({
-        firstName: userData?.data?.user?.firstName,
-        lastName: userData?.data?.user?.lastName,
-        email: userData?.data?.user?.email,
-        organization: userData?.data?.organisation?.name,
+        firstName: userData?.data?.firstName,
+        lastName: userData?.data?.lastName,
+        email: userEmail,
+        organization: userData?.data?.name,
         status:
-          userData?.data?.organisation?.active == true ? "ACTIVE" : "INACTIVE",
+          userData?.data?.active == true ? "ACTIVE" : "INACTIVE",
       });
 
-      const profileImagePath = userData?.data?.user?.profileImagePath;
+      const profileImagePath = userData?.data?.profileImagePath;
       if (profileImagePath) {
         localStorage.setItem(
           "userImageUrl",

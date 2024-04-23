@@ -171,13 +171,11 @@ function EditForm({
             loading={buttonLoading}
             disabled={isDirty}
           >
-            {buttonLoading ? (
-              ''
-            ) : (
+
               <Typography variant="button">
                 {isEdit ? 'Update' : 'Submit'}
               </Typography>
-            )}
+
           </Button>
         </Box>
       </Box>
