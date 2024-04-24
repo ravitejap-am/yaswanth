@@ -1,5 +1,5 @@
 export const segregateSessions = (data, today = new Date()) => {
-  const desiredToday = new Date(today.getFullYear(), today.getMonth(), 20); // Specify the desired "today" date
+  const desiredToday = new Date(today.getFullYear(), today.getMonth(), today.getDate()); // Specify the desired "today" date
   const yesterday = new Date(desiredToday.getTime() - 1000 * 60 * 60 * 24); // Yesterday's date
   const pastWeekStart = new Date(
     desiredToday.getTime() - 1000 * 60 * 60 * 24 * 7
