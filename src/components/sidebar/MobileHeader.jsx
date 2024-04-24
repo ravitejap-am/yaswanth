@@ -15,6 +15,7 @@ import { Dropdown, Space } from 'antd';
 import PersonIcon from '@mui/icons-material/Person';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import { icons } from 'antd/es/image/PreviewGroup';
+import './sidebarIndex.css';
 function MobileHeader(props) {
   const {
     role,
@@ -227,6 +228,7 @@ function MobileHeader(props) {
           backgroundColor: 'rgb(248, 250, 252)',
           width: '75%',
         }}
+       className='closeIcon'
       >
         {navLinks[role]?.map((item) => {
           const isActive = pathname === item.link;
