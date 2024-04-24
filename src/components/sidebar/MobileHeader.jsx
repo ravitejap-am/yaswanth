@@ -55,7 +55,7 @@ function MobileHeader(props) {
     window.location.href = '/Info';
   };
 
-  const items = [
+  const itemsOne = [
     {
       label: 'View Profile',
       key: '0',
@@ -72,6 +72,16 @@ function MobileHeader(props) {
       onClick: handleLogout,
     },
   ];
+  const itemsTwo = [
+    {
+      label: 'Logout',
+      key: '2',
+      icon: <LogoutOutlinedIcon />,
+      onClick: handleLogout,
+    },
+  ];
+
+  const items = permitedScopes.includes(scopes.UR) ? itemsOne : itemsTwo;
 
   const onOpen = () => {
     setVisible(true);
