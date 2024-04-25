@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from 'antd';
 import './userForm.css';
 import {
@@ -20,8 +20,28 @@ function UserInfoForm({
   personalInformationHandler,
   orgStatus,
   readOnlyMode,
+  organisation,
+  setSelectedTab,
+  selectedTab,
+  isDisable
 }) {
   const isMobile = useMediaQuery('(max-width:600px)');
+  // const [isDisable, setIsDisable] = useState(false)
+
+  // const checkPermission = () => {
+  //   if(orgStatus === 'edit' || readOnlyMode){
+  //     if(formData.email !== "" && formData.email !== undefined){
+  //       return true
+  //     }
+  //     return false
+  //   }
+  //   return false
+  // }
+  // useEffect(() => {
+  //   const isPermssion = checkPermission()
+  //   setIsDisable(isPermssion)  
+  // },[])
+
   const handleChange = (e) => {
     let myContact = orgData.contact;
     const { name, value } = e.target;
@@ -117,10 +137,10 @@ function UserInfoForm({
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                disabled={orgStatus === 'edit' || readOnlyMode ? true : false}
+                disabled={isDisable ? true : false}
                 style={{
                   backgroundColor:
-                    orgStatus === 'edit' || readOnlyMode ? '#CBD5E1' : '',
+                  isDisable ? '#CBD5E1' : '',
                 }}
               />
               {errors.email && (
@@ -144,7 +164,11 @@ function UserInfoForm({
           <Button
             style={{ marginTop: '1em', width: '8em' }}
             onClick={() => {
-              personalInformationHandler('organizationdomains');
+              if(readOnlyMode){
+                setSelectedTab('organizationdomains')
+              }else{
+                personalInformationHandler("organizationdomains")
+              } 
             }}
           >
             <Typography variant="body1">Previous</Typography>
@@ -153,44 +177,16 @@ function UserInfoForm({
             type="primary"
             style={{ marginTop: '1em', width: '8em', backgroundColor: BUTTON_COLOUR }}
             onClick={() => {
-              personalInformationHandler('subscriptionplan');
+              if(readOnlyMode){
+                setSelectedTab('subscriptionplan')
+              }else{
+                personalInformationHandler("subscriptionplan")
+              } 
             }}
           >
             <Typography variant="body1">Next</Typography>
           </Button>
         </Box>
-        {/* <Grid
-          item
-          container
-          direction="row"
-          justifyContent="flex-end"
-          alignItems="flex-end"
-          spacing={0.2}
-        >
-          <Grid item xs={6} sm={2.8} md={3} lg={1.6} xl={1.2}>
-            <Button
-              style={{ marginTop: '1em', width: '8em' }}
-              onClick={() => {
-                // personalInformationHandler('personalinformation');
-
-                personalInformationHandler('organizationdomains');
-              }}
-            >
-              <Typography variant="body1">Previous</Typography>
-            </Button>
-          </Grid>
-          <Grid item xs={6} sm={2.8} md={3} lg={1.6} xl={1.2}>
-            <Button
-              type="primary"
-              style={{ marginTop: '1em', width: '8em' }}
-              onClick={() => {
-                personalInformationHandler('subscriptionplan');
-              }}
-            >
-              <Typography variant="body1">Next</Typography>
-            </Button>
-          </Grid>
-        </Grid> */}
       </Grid>
     </Box>
   );

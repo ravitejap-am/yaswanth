@@ -26,7 +26,9 @@ function OrganizationForm({
   errors,
   setErrors,
   personalInformationHandler,
-  readOnlyMode
+  readOnlyMode,
+  setSelectedTab,
+  selectedTab
 }) {
 
   const isMobile = useMediaQuery('(max-width:600px)');
@@ -168,10 +170,10 @@ function OrganizationForm({
     (optionA?.label ?? '')
       .toLowerCase()
       .localeCompare((optionB?.label ?? '').toLowerCase());
+
+
   return (
     <>
-
-
 <Box>
       <Grid 
       container 
@@ -308,7 +310,11 @@ function OrganizationForm({
           type="primary"
           style={{ marginTop: '1em', width: '8em', backgroundColor: BUTTON_COLOUR }}
           onClick={() => {
-            personalInformationHandler('organizationdomains');
+              if(readOnlyMode){
+                setSelectedTab('organizationdomains')
+              }else{
+                personalInformationHandler('organizationdomains');
+              }
           }}
         >
           <Typography variant="body1">Next</Typography>

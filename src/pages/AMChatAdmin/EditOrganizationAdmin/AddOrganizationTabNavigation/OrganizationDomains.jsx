@@ -25,7 +25,7 @@ function OrganizationDomains({
   setButtonLoading,
   setBackDropLoading,
   personalInformationHandler,
-  readOnlyMode
+  readOnlyMode,
 }) {
   const navigate = useNavigate();
   const [newDomains, setNewDomains] = useState(
