@@ -86,7 +86,7 @@ function Information({ setFileSysytem, validateEmail }) {
         firstName: userData?.data?.firstName,
         lastName: userData?.data?.lastName,
         email: userEmail,
-        organization: userData?.data?.name,
+        organization: userData?.data?.orgName,
         status:
           userData?.data?.active == true ? "ACTIVE" : "INACTIVE",
       });
