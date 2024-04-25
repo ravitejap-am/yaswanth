@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button } from 'antd';
 import './editForm.css';
 import { Box, Grid, Typography, useMediaQuery } from '@mui/material';
+import { scopes } from '../../constants/scopes';
 
 function EditForm({
   formData: initialFormData,
@@ -10,6 +11,7 @@ function EditForm({
   isEdit,
   cancelHandler,
   buttonLoading,
+  permittedScopes,
 }) {
   const [formData, setFormData] = useState(initialFormData);
   const [isDirty, setIsDirty] = useState(true);
@@ -163,20 +165,23 @@ function EditForm({
               <Typography variant="button"> Cancel</Typography>
             </Button>
           }
-
-          <Button
-            type="primary"
-            htmlType="submit"
-            className="buttonStyle"
-            loading={buttonLoading}
-            disabled={isDirty}
-          >
-
-              <Typography variant="button">
-                {isEdit ? 'Update' : 'Submit'}
-              </Typography>
-
-          </Button>
+          {permittedScopes.includes(scopes.UU) && (
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="buttonStyle"
+              loading={buttonLoading}
+              disabled={isDirty}
+            >
+              {buttonLoading ? (
+                ''
+              ) : (
+                <Typography variant="button">
+                  {isEdit ? 'Update' : 'Submit'}
+                </Typography>
+              )}
+            </Button>
+          )}
         </Box>
       </Box>
     </form>

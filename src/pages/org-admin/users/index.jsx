@@ -29,14 +29,31 @@ import NotifyMessage from '../../../components/common/toastMessages/NotifyMessag
 import { AM_CHAT } from '../../../constants/Constant';
 import { Modal } from 'antd';
 import MobileViewUserAccordin from '../../../components/MobileComponent/MobileViewUserAccordin';
-import { RiAdminFill } from "react-icons/ri";
-import { RiAdminLine } from "react-icons/ri";
+import { RiAdminFill } from 'react-icons/ri';
+import { RiAdminLine } from 'react-icons/ri';
+import { scopes } from '../../../constants/scopes';
+import { tokenDecodeJWT } from '../../../utils/authUtils';
+
+const tempData = [
+  'CHU',
+  'CHR',
+  'CHD',
+  'CHC',
+  'UU',
+  'UR',
+  'UD',
+  'UC',
+  'DCQR',
+  'DCR',
+];
 
 function Users() {
   let { showNotifyMessage, hideNotifyMessage } = useMessageState();
   const isMobile = useMediaQuery('(max-width:600px)');
   const user = useSelector(selectUser);
   const jwt = user.userToken;
+  const permittedScopes = tokenDecodeJWT(jwt).scopes;
+  // const permittedScopes = tempData;
   const navigate = useNavigate();
   const [rows, setRows] = useState([]);
   const [page, setPage] = useState(0);
@@ -273,18 +290,16 @@ function Users() {
       maxWidth: 400,
       sortable: false,
       renderCell: (params) => (
-        <div
-          className={styles.name_container}
-        >
-          <div style={{ width: "20px" }}>
-            {params?.value?.role !== "USER" ? (
-              params?.value?.role === "SUPER_ADMIN" ? (
+        <div className={styles.name_container}>
+          <div style={{ width: '20px' }}>
+            {params?.value?.role !== 'USER' ? (
+              params?.value?.role === 'SUPER_ADMIN' ? (
                 <RiAdminFill size={18} />
               ) : (
                 <RiAdminLine size={18} />
               )
             ) : (
-              ""
+              ''
             )}
           </div>
           <div>{`${params?.value?.name}`}</div>
@@ -332,24 +347,29 @@ function Users() {
       sortable: false,
       renderCell: (params) => (
         <div>
-          <IconButton
-            aria-label="edit"
-            onClick={() => handleEdit(params.row.id)}
-          >
-            <img src={editIcon} alt="Edit" />
-          </IconButton>
-          <IconButton
-            aria-label="delete"
-            onClick={() => {
-              const props = {
-                id: params.row.id,
-                name: params.row.name,
-              };
-              handleConfirmationPopUp(props);
-            }}
-          >
-            <img src={deleteIcon} alt="Delete" />
-          </IconButton>
+          {permittedScopes.includes(scopes.UR) && (
+            <IconButton
+              aria-label="edit"
+              onClick={() => handleEdit(params.row.id)}
+            >
+              <img src={editIcon} alt="Edit" />
+            </IconButton>
+          )}
+
+          {permittedScopes.includes(scopes.UD) && (
+            <IconButton
+              aria-label="delete"
+              onClick={() => {
+                const props = {
+                  id: params.row.id,
+                  name: params.row.name,
+                };
+                handleConfirmationPopUp(props);
+              }}
+            >
+              <img src={deleteIcon} alt="Delete" />
+            </IconButton>
+          )}
         </div>
       ),
     },
@@ -405,18 +425,20 @@ function Users() {
               />
             </Box>
             <Box>
-              <Link to="/adduser" style={{ textDecoration: 'none' }}>
-                <GeneralButton
-                  name={'Add User'}
-                  type={'submit'}
-                  color={'#f8fafc'}
-                  borderRadius={'30px'}
-                  backgroundColor={BUTTON_COLOUR}
-                  icons={frame}
-                  width={'158px'}
-                  height={'48px'}
-                />
-              </Link>
+              {permittedScopes.includes(scopes.UC) && (
+                <Link to="/adduser" style={{ textDecoration: 'none' }}>
+                  <GeneralButton
+                    name={'Add User'}
+                    type={'submit'}
+                    color={'#f8fafc'}
+                    borderRadius={'30px'}
+                    backgroundColor={BUTTON_COLOUR}
+                    icons={frame}
+                    width={'158px'}
+                    height={'48px'}
+                  />
+                </Link>
+              )}
             </Box>
           </Box>
         </Grid>

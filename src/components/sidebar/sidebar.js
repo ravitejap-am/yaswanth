@@ -16,6 +16,7 @@ import {
   getIndividualChatSessions,
   getSessionList,
 } from '../../apiCalls/ApiCalls';
+import { scopes } from '../../constants/scopes';
 
 const ORG_ADMIN = [
   {
@@ -101,7 +102,8 @@ export const sideBar = (
   setSessionId,
   setInputValue,
   inputValue,
-  sessionHistory
+  sessionHistory,
+  permitedScopes
 ) => {
   const handleAddChat = async () => {
     try {
@@ -148,8 +150,8 @@ export const sideBar = (
       setMessageSent(true);
       setSessionId(id);
       setPageLoading(false);
-      setIsNewChat(true)
-      setInputValue("")
+      setIsNewChat(true);
+      setInputValue('');
       // setSessionHandler(id);
     } catch (error) {
       console.log('throwing error in chat');
@@ -230,7 +232,8 @@ export const sideBar = (
         );
       })}
       {(role == 'ORG_ADMIN' || role == 'USER') &&
-        (pathname == '/chat' || pathname == '/user') && (
+        (pathname == '/chat' || pathname == '/user') &&
+        permitedScopes.includes(scopes.CHC) && (
           <Link
             to={role == 'ORG_ADMIN' ? '/chat' : '/user'}
             style={{ textDecoration: 'none' }}

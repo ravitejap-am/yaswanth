@@ -16,6 +16,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import { icons } from 'antd/es/image/PreviewGroup';
 import './sidebarIndex.css';
+import { scopes } from '../../constants/scopes';
 function MobileHeader(props) {
   const {
     role,
@@ -40,8 +41,9 @@ function MobileHeader(props) {
     inputValue,
     componentName,
     sessionHistory,
+    permitedScopes,
   } = props;
-  console.log('role', role, 'patname', pathname);
+  console.log('role', role, 'patname', pathname, 'props', props);
   const [visible, setVisible] = useState(false);
   const headerImage = localStorage.getItem('userImageUrl') ?? defaultImage;
 
@@ -54,7 +56,7 @@ function MobileHeader(props) {
     window.location.href = '/Info';
   };
 
-  const items = [
+  const itemsOne = [
     {
       label: 'View Profile',
       key: '0',
@@ -71,6 +73,16 @@ function MobileHeader(props) {
       onClick: handleLogout,
     },
   ];
+  const itemsTwo = [
+    {
+      label: 'Logout',
+      key: '2',
+      icon: <LogoutOutlinedIcon />,
+      onClick: handleLogout,
+    },
+  ];
+
+  const items = permitedScopes.includes(scopes.UR) ? itemsOne : itemsTwo;
 
   const onOpen = () => {
     setVisible(true);
@@ -120,9 +132,9 @@ function MobileHeader(props) {
       setQuestionIndex(changedData?.length);
       setQuestions(changedData);
       setMessageSent(true);
-      setSessionId(id)
-      setPageLoading(false)
-      setInputValue("")
+      setSessionId(id);
+      setPageLoading(false);
+      setInputValue('');
       setSessionId(id);
       setPageLoading(false);
       // setSessionHandler(id);
@@ -263,7 +275,8 @@ function MobileHeader(props) {
           );
         })}
         {(role == 'ORG_ADMIN' || role == 'USER') &&
-          (pathname == '/chat' || pathname == '/user') && (
+          (pathname == '/chat' || pathname == '/user') &&
+          permitedScopes.includes(scopes.CHC) && (
             <Link
               to="/chat"
               style={{ textDecoration: 'none' }}

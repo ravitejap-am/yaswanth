@@ -12,7 +12,6 @@ export const segregateSessions = (data, today = new Date()) => {
   const sessionsYesterday = [];
   const sessionsPastWeek = [];
   const sessionsPastMonth = [];
-
   for (const session of data) {
     const createdAt = new Date(session.updated_at);
     const createdDate = createdAt.toLocaleDateString();

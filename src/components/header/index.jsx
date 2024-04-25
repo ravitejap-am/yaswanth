@@ -12,14 +12,16 @@ import { selectUser } from '../../store/authSlice';
 import { tokenDecodeJWT } from '../../utils/authUtils';
 import * as constants from '../../constants/Constant';
 import { Typography } from '@mui/material';
-
+import { scopes } from '../../constants/scopes';
+const tempData = ['UU', 'UR', 'UD', 'UC', 'OGU', 'OGR', 'OGC', 'OGD'];
 function Header({ componentName, customStyle, navigationRoute }) {
   const user = useSelector(selectUser);
   const jwt = user?.userToken;
   const decodedToken = tokenDecodeJWT(jwt);
   const userId = decodedToken ? decodedToken?.userId : null;
   const headerImage = localStorage.getItem('userImageUrl') ?? defaultImage;
-
+  const permittedScopes = tokenDecodeJWT(jwt).scopes;
+  // const permittedScopes = tempData;
   const storedFullName = localStorage.getItem('fullName');
 
   const handleLogout = () => {
@@ -58,12 +60,15 @@ function Header({ componentName, customStyle, navigationRoute }) {
               horizontal: 'center',
             }}
           >
-            <MenuItem onClick={handleViewProfile}>
-              <span className={Style.Iconalgnment}>
-                <PersonIcon />{' '}
-              </span>
-              <span>View Profile</span>
-            </MenuItem>
+            {permittedScopes.includes(scopes.UR) && (
+              <MenuItem onClick={handleViewProfile}>
+                <span className={Style.Iconalgnment}>
+                  <PersonIcon />{' '}
+                </span>
+                <span>View Profile</span>
+              </MenuItem>
+            )}
+
             <MenuItem onClick={handleLogout}>
               <span className={Style.Iconalgnment}>
                 {' '}

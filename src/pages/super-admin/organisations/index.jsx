@@ -15,7 +15,7 @@ import styles from './index.module.css';
 import { CircularProgress, Button } from '@mui/material';
 import PageLoader from '../../../components/loader/loader';
 import Search from '../../../components/common/common-searchInput';
-import { BASE_ORG_API_URL , BUTTON_COLOUR} from '../../../constants/Constant';
+import { BASE_ORG_API_URL, BUTTON_COLOUR } from '../../../constants/Constant';
 import { useMessageState } from '../../../hooks/useapp-message';
 import frame from '../../../asset/AmChatSuperAdmin/plus-sm.png';
 import editIcon from '../../../asset/AmChatSuperAdmin/pencil-alt.png';
@@ -26,12 +26,18 @@ import { AM_CHAT } from '../../../constants/Constant';
 import { Modal } from 'antd';
 import eye1 from '../../../asset/eye1.png';
 import MobileViewOrganisationAccordin from '../../../components/MobileComponent/MobileViewOrganisationAccordin';
+import { tokenDecodeJWT } from '../../../utils/authUtils';
+import { scopes } from '../../../constants/scopes';
+
+const tempData = ['UU', 'UR', 'UD', 'UC', 'OGU', 'OGR', 'OGC', 'OGD'];
 
 function Organisations() {
   let { showNotifyMessage, hideNotifyMessage } = useMessageState();
   const user = useSelector(selectUser);
   const navigate = useNavigate();
   const jwt = user.userToken;
+  const permittedScopes = tokenDecodeJWT(jwt).scopes;
+  // const permittedScopes = tempData;
   const [rows, setRows] = useState([]);
   const [order, setOrder] = useState('desc');
   const [orderBy, setOrderBy] = useState('createdAt');
@@ -332,30 +338,37 @@ function Organisations() {
       sortable: false,
       renderCell: (params) => (
         <div style={{ backgroundColor: 'transparent' }}>
-          <IconButton
-            aria-label="edit"
-            onClick={() => handleEdit(params.row.id)}
-          >
-            <img src={editIcon} alt="Edit" />
-          </IconButton>
-          <IconButton
-            aria-label="delete"
-            onClick={() => {
-              const props = {
-                id: params.row.id,
-                name: params.row.organisationName,
-              };
-              handleConfirmationPopUp(props);
-            }}
-          >
-            <img src={deleteIcon} alt="Delete" />
-          </IconButton>
-          <IconButton
-            aria-label="eye"
-            onClick={() => handleViewOrganisation(params.row.id)}
-          >
-            <img src={eye1} alt="eye" />
-          </IconButton>
+          {permittedScopes.includes(scopes.OGU) && (
+            <IconButton
+              aria-label="edit"
+              onClick={() => handleEdit(params.row.id)}
+            >
+              <img src={editIcon} alt="Edit" />
+            </IconButton>
+          )}
+          {permittedScopes.includes(scopes.OGD) && (
+            <IconButton
+              aria-label="delete"
+              onClick={() => {
+                const props = {
+                  id: params.row.id,
+                  name: params.row.organisationName,
+                };
+                handleConfirmationPopUp(props);
+              }}
+            >
+              <img src={deleteIcon} alt="Delete" />
+            </IconButton>
+          )}
+
+          {permittedScopes.includes(scopes.OGR) && (
+            <IconButton
+              aria-label="eye"
+              onClick={() => handleViewOrganisation(params.row.id)}
+            >
+              <img src={eye1} alt="eye" />
+            </IconButton>
+          )}
         </div>
       ),
     },
@@ -391,22 +404,24 @@ function Organisations() {
               />
             </Box>
             <Box>
-              <Link to="/organisation" style={{ textDecoration: 'none' }}>
-                <GeneralButton
-                  name={'Add Organisation'}
-                  type={'submit'}
-                  color={'#f8fafc'}
-                  borderRadius={'30px'}
-                  backgroundColor={BUTTON_COLOUR}
-                  icons={frame}
-                  width={'180px'}
-                  height={'45px'}
-                  buttonHandler={() => {
-                    console.log('getting');
-                    dispatch(setOrganisationStatus('add'));
-                  }}
-                />
-              </Link>
+              {permittedScopes.includes(scopes.OGC) && (
+                <Link to="/organisation" style={{ textDecoration: 'none' }}>
+                  <GeneralButton
+                    name={'Add Organisation'}
+                    type={'submit'}
+                    color={'#f8fafc'}
+                    borderRadius={'30px'}
+                    backgroundColor={BUTTON_COLOUR}
+                    icons={frame}
+                    width={'180px'}
+                    height={'45px'}
+                    buttonHandler={() => {
+                      console.log('getting');
+                      dispatch(setOrganisationStatus('add'));
+                    }}
+                  />
+                </Link>
+              )}
             </Box>
           </Box>
         </Grid>

@@ -1,20 +1,33 @@
-import React, { useEffect, useState } from "react";
-import Layout from "../../../../Layout";
-import styles from "./EditUsers.module.css";
-import { useNavigate, useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
-import EditForm from "../../../../components/EditForms/EditForms";
-import { selectUser } from "../../../../store/authSlice";
-import * as constants from "../../../../constants/Constant";
-import { useMessageState } from "../../../../hooks/useapp-message";
+import React, { useEffect, useState } from 'react';
+import Layout from '../../../../Layout';
+import styles from './EditUsers.module.css';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import EditForm from '../../../../components/EditForms/EditForms';
+import { selectUser } from '../../../../store/authSlice';
+import * as constants from '../../../../constants/Constant';
+import { useMessageState } from '../../../../hooks/useapp-message';
+import { tokenDecodeJWT } from '../../../../utils/authUtils';
+const tempData = [
+  'CHU',
+  'CHR',
+  'CHD',
+  'CHC',
+  'UU',
+  'UR',
+  'UD',
+  'UC',
+  'DCQR',
+  'DCR',
+];
 
 const EditUsers = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [fileList, setFileList] = useState();
   const [userData, setUserData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
+    firstName: '',
+    lastName: '',
+    email: '',
   });
   let {
     buttonLoading,
@@ -28,6 +41,8 @@ const EditUsers = () => {
   const { userId } = useParams();
   const user = useSelector(selectUser);
   const jwt = user.userToken;
+  const permittedScopes = tokenDecodeJWT(jwt).scopes;
+  // const permittedScopes = tempData;
 
   const fetchUserData = async () => {
     try {
@@ -45,7 +60,7 @@ const EditUsers = () => {
       const data = await response.json();
       setUserData({
         firstName: data?.data?.firstName,
-        lastName: data?.data?.lastName || "",
+        lastName: data?.data?.lastName || '',
         email: data?.data?.email,
       });
       if (data?.data?.profileImagePath?.length > 0) {
@@ -54,7 +69,7 @@ const EditUsers = () => {
         setFileList(url);
       }
     } catch (error) {
-      console.error("Error fetching user data:", error);
+      console.error('Error fetching user data:', error);
     }
   };
 
@@ -76,20 +91,20 @@ const EditUsers = () => {
     ) {
       setButtonLoading(false);
       setIsSubmitting(false);
-      showNotifyMessage("success", "Already updated!", messageHandler);
+      showNotifyMessage('success', 'Already updated!', messageHandler);
     } else {
       try {
         const updateUserResponse = await fetch(
           `${constants.BASE_API_URL}/user/${userId}`,
           {
-            method: "PUT",
+            method: 'PUT',
             headers: {
-              "Content-Type": "application/json",
+              'Content-Type': 'application/json',
               Authorization: `Bearer ${jwt}`,
             },
             body: JSON.stringify({
-              firstName: values["firstName"],
-              lastName: values["lastName"],
+              firstName: values['firstName'],
+              lastName: values['lastName'],
             }),
           }
         );
@@ -100,18 +115,18 @@ const EditUsers = () => {
         const updateUserData = await updateUserResponse.json();
         setButtonLoading(false);
         setIsReset(true);
-        showNotifyMessage("success", updateUserData?.message, messageHandler);
+        showNotifyMessage('success', updateUserData?.message, messageHandler);
       } catch (error) {
-        console.log("Error updating user details:", error);
+        console.log('Error updating user details:', error);
         if (
           error?.response?.status == 500 ||
-          error?.response?.status == "500"
+          error?.response?.status == '500'
         ) {
-          navigate("/customerSupport");
+          navigate('/customerSupport');
         }
         setButtonLoading(false);
       } finally {
-        console.log("SBH 17");
+        console.log('SBH 17');
         setIsSubmitting(false);
         fetchUserData();
       }
@@ -123,7 +138,7 @@ const EditUsers = () => {
   }, []);
 
   const cancelHandler = () => {
-    navigate("/users");
+    navigate('/users');
   };
 
   return (
@@ -135,6 +150,7 @@ const EditUsers = () => {
         isEdit={true}
         buttonLoading={buttonLoading}
         cancelHandler={cancelHandler}
+        permittedScopes={permittedScopes}
       />
     </Layout>
   );
