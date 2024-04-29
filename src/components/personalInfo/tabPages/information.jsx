@@ -221,7 +221,7 @@ function Information({ setFileSysytem, validateEmail }) {
               marginBottom: '10px',
             }}
           >
-            {permittedScopes.includes(scopes.UU) && (
+            {permittedScopes?.includes(scopes.UU) && (
               <CircularFileInfo
                 onChange={handleFileChange}
                 initialImageUrl={localStorage.getItem('userImageUrl')}

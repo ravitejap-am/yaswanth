@@ -347,7 +347,7 @@ function Users() {
       sortable: false,
       renderCell: (params) => (
         <div>
-          {permittedScopes.includes(scopes.UR) && (
+          {permittedScopes?.includes(scopes.UR) && (
             <IconButton
               aria-label="edit"
               onClick={() => handleEdit(params.row.id)}
@@ -356,7 +356,7 @@ function Users() {
             </IconButton>
           )}
 
-          {permittedScopes.includes(scopes.UD) && (
+          {permittedScopes?.includes(scopes.UD) && (
             <IconButton
               aria-label="delete"
               onClick={() => {
@@ -425,7 +425,7 @@ function Users() {
               />
             </Box>
             <Box>
-              {permittedScopes.includes(scopes.UC) && (
+              {permittedScopes?.includes(scopes.UC) && (
                 <Link to="/adduser" style={{ textDecoration: 'none' }}>
                   <GeneralButton
                     name={'Add User'}

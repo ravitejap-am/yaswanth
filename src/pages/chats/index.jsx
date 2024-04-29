@@ -88,7 +88,7 @@ function Chats() {
   const permittedScopes = tokenDecodeJWT(jwt).scopes;
   // const permittedScopes = tempData;
   const [searchOption, setSearchOption] = useState(
-    permittedScopes.includes(scopes.DCR) ? 'specificFileText' : 'acrossFiles'
+    permittedScopes?.includes(scopes.DCR) ? 'specificFileText' : 'acrossFiles'
   );
   const [errorMessage, setErrorMessage] = useState('');
   const defaultScroll = useRef(null);
@@ -123,8 +123,8 @@ function Chats() {
 
   useEffect(() => {
     if (
-      permittedScopes.includes(scopes.CHC) &&
-      permittedScopes.includes(scopes.DCR)
+      permittedScopes?.includes(scopes.CHC) &&
+      permittedScopes?.includes(scopes.DCR)
     ) {
       fetchDocuments();
     }
@@ -497,7 +497,7 @@ function Chats() {
             marginTop: isMobile ? '0.5em' : '0px',
           }}
         >
-          {permittedScopes.includes(scopes.CHC) && (
+          {permittedScopes?.includes(scopes.CHC) && (
             <>
               <Box
                 sx={{
@@ -521,7 +521,7 @@ function Chats() {
                   Across
                 </Typography>
               </Box>
-              {permittedScopes.includes(scopes.DCR) && (
+              {permittedScopes?.includes(scopes.DCR) && (
                 <Box
                   sx={{
                     display: 'flex',
@@ -780,8 +780,8 @@ function Chats() {
           )}
         </Box>
         {(permittedScopes?.includes(scopes.CHC) ||
-          (permittedScopes.includes(scopes.CHU) &&
-            !permittedScopes.includes(scopes.CHC) &&
+          (permittedScopes?.includes(scopes.CHU) &&
+            !permittedScopes?.includes(scopes.CHC) &&
             questions.length > 0)) && (
           <Box
             sx={{

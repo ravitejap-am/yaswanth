@@ -60,7 +60,7 @@ export const ChatProvider = ({ children }) => {
   };
 
   const fetchSessionList = async () => {
-    if (permittedScopes.includes(scopes.CHR)) {
+    if (permittedScopes?.includes(scopes.CHR)) {
       try {
         const headers = { Authorization: `Bearer ${jwt}` };
         console.log('headers---->', headers);

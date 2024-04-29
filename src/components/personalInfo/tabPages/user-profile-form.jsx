@@ -166,7 +166,7 @@ function UserProfileForm({ formData, setFormData, submitHandler }) {
             Cancel
           </Typography>
         </Button>
-        {permittedScopes.includes(scopes.UU) && (
+        {permittedScopes?.includes(scopes.UU) && (
           <Button
             htmlType="submit"
             className="buttonStyle"
