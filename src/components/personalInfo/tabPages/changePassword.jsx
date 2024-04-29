@@ -474,7 +474,7 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
           >
             <Typography variant="button"> Cancel </Typography>
           </Button>
-          {permittedScopes.includes(scopes.UU) && (
+          {permittedScopes?.includes(scopes.UU) && (
             <Button
               type="primary"
               htmlType="submit"

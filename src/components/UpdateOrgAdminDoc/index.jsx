@@ -253,7 +253,7 @@ function UpdateOrgAdminDoc() {
           <Button onClick={cancelHandler} className={Styles.cancelButton}>
             <Typography variant="button"> Cancel</Typography>
           </Button>
-          {permittedScopes.includes(scopes.DCU) && (
+          {permittedScopes?.includes(scopes.DCU) && (
             <Button
               type="primary"
               htmlType="submit"

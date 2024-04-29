@@ -338,7 +338,7 @@ function Organisations() {
       sortable: false,
       renderCell: (params) => (
         <div style={{ backgroundColor: 'transparent' }}>
-          {permittedScopes.includes(scopes.OGU) && (
+          {permittedScopes?.includes(scopes.OGU) && (
             <IconButton
               aria-label="edit"
               onClick={() => handleEdit(params.row.id)}
@@ -346,7 +346,7 @@ function Organisations() {
               <img src={editIcon} alt="Edit" />
             </IconButton>
           )}
-          {permittedScopes.includes(scopes.OGD) && (
+          {permittedScopes?.includes(scopes.OGD) && (
             <IconButton
               aria-label="delete"
               onClick={() => {
@@ -361,7 +361,7 @@ function Organisations() {
             </IconButton>
           )}
 
-          {permittedScopes.includes(scopes.OGR) && (
+          {permittedScopes?.includes(scopes.OGR) && (
             <IconButton
               aria-label="eye"
               onClick={() => handleViewOrganisation(params.row.id)}
@@ -404,7 +404,7 @@ function Organisations() {
               />
             </Box>
             <Box>
-              {permittedScopes.includes(scopes.OGC) && (
+              {permittedScopes?.includes(scopes.OGC) && (
                 <Link to="/organisation" style={{ textDecoration: 'none' }}>
                   <GeneralButton
                     name={'Add Organisation'}

@@ -60,7 +60,7 @@ function Header({ componentName, customStyle, navigationRoute }) {
               horizontal: 'center',
             }}
           >
-            {permittedScopes.includes(scopes.UR) && (
+            {permittedScopes?.includes(scopes.UR) && (
               <MenuItem onClick={handleViewProfile}>
                 <span className={Style.Iconalgnment}>
                   <PersonIcon />{' '}

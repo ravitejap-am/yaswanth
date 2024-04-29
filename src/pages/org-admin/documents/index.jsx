@@ -299,7 +299,7 @@ function Documents() {
       sortable: false,
       renderCell: (params) => (
         <div>
-          {permittedScopes.includes(scopes.DCR) && (
+          {permittedScopes?.includes(scopes.DCR) && (
             <IconButton
               aria-label="edit"
               onClick={() => handleEdit(params.row.id, params)}
@@ -307,7 +307,7 @@ function Documents() {
               <img src={editIcon} alt="Edit" />
             </IconButton>
           )}
-          {permittedScopes.includes(scopes.DCD) && (
+          {permittedScopes?.includes(scopes.DCD) && (
             <IconButton
               aria-label="delete"
               onClick={() => {
@@ -370,7 +370,7 @@ function Documents() {
             </Box>
 
             <Box>
-              {permittedScopes.includes(scopes.DCC) && (
+              {permittedScopes?.includes(scopes.DCC) && (
                 <Link to="/document" style={{ textDecoration: 'none' }}>
                   <GeneralButton
                     name={'Add Document'}
