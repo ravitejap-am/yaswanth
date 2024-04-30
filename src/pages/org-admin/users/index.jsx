@@ -361,8 +361,8 @@ function Users() {
               aria-label="delete"
               onClick={() => {
                 const props = {
-                  id: params.row.id,
-                  name: params.row.name,
+                  id: params?.row?.id,
+                  name: params?.row.name?.name,
                 };
                 handleConfirmationPopUp(props);
               }}

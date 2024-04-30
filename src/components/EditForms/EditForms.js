@@ -174,7 +174,7 @@ function EditForm({
               disabled={isDirty}
             >
               {buttonLoading ? (
-                ''
+                '    '
               ) : (
                 <Typography variant="button">
                   {isEdit ? 'Update' : 'Submit'}
