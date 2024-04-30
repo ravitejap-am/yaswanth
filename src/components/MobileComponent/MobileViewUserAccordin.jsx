@@ -80,7 +80,7 @@ function MobileViewUserAccordin({ data, handleEdit, handleConfirmationPopUp }) {
                     onClick={() => {
                       const props = {
                         id: user.id,
-                        name: user.name,
+                        name: user.name?.name,
                       };
                       handleConfirmationPopUp(props);
                     }}
