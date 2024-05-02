@@ -1,7 +1,7 @@
 // Rout.js
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import LoginPageError from './pages/errorHandler/LoginPageError';
+
 import Home from './pages/home/Home';
 import RegisterUser from './pages/registerUser/RegisterUser';
 import SignIn from './pages/signIn/SignIN';
@@ -9,16 +9,10 @@ import RecoveryPasswor from './pages/recoveryPassword/RecoveryPasswor';
 import PageNotFound from './pages/errorHandler/PageNotFind/PageNotFound';
 import Page505 from './pages/errorHandler/InternalServerError/Page505';
 import MaintainencePage from './pages/errorHandler/UnderMaintainence/MaintainencePage';
-import OrganizationAdminListSidebar from './pages/AMChatAdmin/OrganizationAdminList/OrganizationAdminListSidebar';
-import OrgAdminSidebar from './pages/chatmain/organizationadmin/OrgAdminSidebar.jsx';
-import EnterpriseRegister from './pages/registerUser/EnterpriseRegister.jsx';
-import EditAddOrganizationAdminSidebar from './pages/AMChatAdmin/EditOrganizationAdmin/EditAddOrganizationAdminSidebar.jsx';
+
 import Error405 from '../src/pages/errorHandler/error405/Error405.jsx';
 import Error404 from './pages/errorHandler/error404/Error404.jsx';
 import ResetPassword from './pages/setPassword/ResetPassword.jsx';
-import AMChatHeader from './pages/AMChatAdmin/AMChatHeader/AMChatHeader.jsx';
-import OrganizationAdminHeader from './pages/chatmain/organizationadmin/OrganizationAdminHeader/OrganizationAdminHeader.jsx';
-import SuperAdminHeader from './pages/AMChatAdmin/SuperAdminHeader/SuperAdminHeader.jsx';
 import ProtectedRoute from './ProtectedRoute';
 
 import VerificationLink from './pages/linkverification/linkVerification.js';
@@ -63,13 +57,79 @@ const Rout = () => {
 
   return (
     <Routes>
-      <Route exact path="/"    element={<ProtectedRoute element={<Home />} allowedRoles={['']} path="/" />}/>
-      <Route exact path="/registerUser" element={<ProtectedRoute element={<RegisterUser />} allowedRoles={['']} path="/registerUser" />}/>
-      <Route exact path="/signin" element={<ProtectedRoute element={<SignIn />} allowedRoles={['']} path="/signin"/>} />
-      <Route exact path="/user/verify/:id"  element={<ProtectedRoute element={<SignIn />} allowedRoles={['']} path="/signin"/>} />
-      <Route exact path="/recoverypassword" element={<ProtectedRoute element={<RecoveryPasswor />} allowedRoles={['']} path="/recoverypassword"/>} />
-      <Route exact path="/api/v1/iam/user/verify" element={<ProtectedRoute element={<ResetPassword />} allowedRoles={['']} path="/api/v1/iam/user/verify"/>} />
-      <Route exact path="/resetPassword/:id"  element={<ProtectedRoute element={<ResetPassword />} allowedRoles={['']} path="/resetPassword/:id"/>}  />
+      <Route
+        exact
+        path="/"
+        element={
+          <ProtectedRoute element={<Home />} allowedRoles={['']} path="/" />
+        }
+      />
+      <Route
+        exact
+        path="/registerUser"
+        element={
+          <ProtectedRoute
+            element={<RegisterUser />}
+            allowedRoles={['']}
+            path="/registerUser"
+          />
+        }
+      />
+      <Route
+        exact
+        path="/signin"
+        element={
+          <ProtectedRoute
+            element={<SignIn />}
+            allowedRoles={['']}
+            path="/signin"
+          />
+        }
+      />
+      <Route
+        exact
+        path="/user/verify/:id"
+        element={
+          <ProtectedRoute
+            element={<SignIn />}
+            allowedRoles={['']}
+            path="/signin"
+          />
+        }
+      />
+      <Route
+        exact
+        path="/recoverypassword"
+        element={
+          <ProtectedRoute
+            element={<RecoveryPasswor />}
+            allowedRoles={['']}
+            path="/recoverypassword"
+          />
+        }
+      />
+      <Route
+        exact
+        path="/api/v1/iam/user/verify"
+        element={
+          <ProtectedRoute
+            element={<ResetPassword />}
+            allowedRoles={['']}
+            path="/api/v1/iam/user/verify"
+          />
+        }
+      />
+      <Route
+        exact
+        path="/resetPassword/:id"
+        element={
+          <ProtectedRoute
+            element={<ResetPassword />}
+            allowedRoles={['']}
+            path="/resetPassword/:id"
+          />
+        }
+      />
       <Route exact path="/pagenotfound" element={<PageNotFound />} />
       <Route exact path="/internal500" element={<Page505 />} />
       <Route exact path="/undermaintenence" element={<MaintainencePage />} />
@@ -79,8 +139,9 @@ const Rout = () => {
           <ProtectedRoute
             element={
               decodedToken?.role == 'SUPER_ADMIN' ||
-              decodedToken?.role == 'ORG_ADMIN' ? 
-                <Chats />: (
+              decodedToken?.role == 'ORG_ADMIN' ? (
+                <Chats />
+              ) : (
                 <PageNotFound />
               )
             }
@@ -92,12 +153,7 @@ const Rout = () => {
       <Route exact path="/customerSupport" element={<CustomerSupportPage />} />
       <Route
         path="/user"
-        element={
-          <ProtectedRoute
-            element={<Chats/>}
-            allowedRoles={['USER']}
-          />
-        }
+        element={<ProtectedRoute element={<Chats />} allowedRoles={['USER']} />}
       ></Route>
       <Route
         path="/dashboard"
@@ -109,7 +165,6 @@ const Rout = () => {
         }
       ></Route>
 
-      <Route exact path="/AMChatHeader" element={<AMChatHeader />} />
       <Route
         path="/organisations"
         element={
@@ -119,11 +174,6 @@ const Rout = () => {
           />
         }
       ></Route>
-      <Route
-        exact
-        path="/dashboardadmin/organizationadminlist"
-        element={<OrganizationAdminListSidebar />}
-      />
 
       <Route
         path="/organisation"
@@ -134,11 +184,6 @@ const Rout = () => {
           />
         }
       ></Route>
-      <Route
-        exact
-        path="/EditAddOrganizationAdmin"
-        element={<EditAddOrganizationAdminSidebar />}
-      />
 
       <Route
         exact
@@ -177,11 +222,6 @@ const Rout = () => {
           />
         }
       ></Route>
-      <Route
-        exact
-        path="/enterpriseregister"
-        element={<EnterpriseRegister />}
-      />
       <Route exact path="/error405" element={<Error405 />} />
       <Route exact path="/error404" element={<Error404 />} />
       <Route
@@ -218,12 +258,6 @@ const Rout = () => {
       />
       {/* Fallback route for any other URL */}
       <Route path="*" element={<PageNotFound />} />
-      <Route
-        exact
-        path="/OrganizationAdminHeader"
-        element={<OrganizationAdminHeader />}
-      />
-      <Route path="/SuperAdminHeader" element={<SuperAdminHeader />} />
     </Routes>
   );
 };
