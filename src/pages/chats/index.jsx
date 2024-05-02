@@ -1,33 +1,25 @@
 import React, { useEffect, useState, useRef } from "react";
 import Layout from "../../Layout";
-import Select from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
-import InputLabel from "@mui/material/InputLabel";
-import FormControl from "@mui/material/FormControl";
 import {
   Box,
   Typography,
   Grid,
-  Card,
-  CardContent,
   Dialog,
   DialogTitle,
   DialogContent,
   DialogActions,
   useMediaQuery,
+  TextField,
+  Autocomplete,
+  Popper,
 } from "@mui/material";
-import { Button, Modal, Skeleton } from "antd";
+import { Button, Skeleton } from "antd";
 import styles from "./Chats.module.css";
 import { SendOutlined, WarningOutlined } from "@ant-design/icons";
-import uesrImg from "../../asset/userimg.avif";
-import responseImg from "../../asset/responseimg.jpg";
-import amchatImg from "../../asset/Vector (1).png";
 import { useChat } from "../../contexts/provider/ChatContext";
-import { AM_CHAT } from "../../constants/Constant";
 import {
   getChatResponse,
   getQuestions,
-  getSessionList,
 } from "../../apiCalls/ApiCalls";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../store/authSlice";
@@ -35,7 +27,6 @@ import { useLocation } from "react-router-dom";
 import Vector from "../../asset/Vector.png";
 import * as constants from "../../constants/Constant";
 import axios from "axios";
-import { CHAT } from "../../constants/Constant";
 import PageLoader from "../../components/loader/loader";
 import AMChato from "../../asset/logo/logofinal.png";
 import { useMessageState } from "../../hooks/useapp-message";
@@ -43,6 +34,7 @@ import { tokenDecodeJWT } from "../../utils/authUtils";
 import { scopes } from "../../constants/scopes";
 import NoDocumentError from "../../components/errors/NoDocumentError";
 import { GrDocumentMissing } from "react-icons/gr";
+
 const tempData = [
   "CHU",
   "CHR",
@@ -76,8 +68,8 @@ function Chats() {
     setInputValue,
     inputValue,
   } = useChat();
-  const userId = localStorage.getItem('userRole');
-  const [selectedFile, setSelectedFile] = useState("");
+  const userId = localStorage.getItem("userRole");
+  const [selectedFile, setSelectedFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [showWarning, setShowWarning] = useState(false);
   const [containerHeight, setContainerHight] = useState(0);
@@ -114,9 +106,12 @@ function Chats() {
     hideNotifyMessage();
   };
 
-  const noDocumentsErrorMsg = userId === "ORG_ADMIN" ? "Please upload relevant organisation documents." :  "Please ask your admin to upload relevant organisation documents."
-  const errorMsgTitle= "No documents found !"
-  const noDocumentErrorIcon = <GrDocumentMissing size={35}/>
+  const noDocumentsErrorMsg =
+    userId === "ORG_ADMIN"
+      ? "Please upload relevant organisation documents."
+      : "Please ask your admin to upload relevant organisation documents.";
+  const errorMsgTitle = "No documents found !";
+  const noDocumentErrorIcon = <GrDocumentMissing size={35} />;
 
   useEffect(() => {
     setQuestions([]);
@@ -151,9 +146,9 @@ function Chats() {
   useEffect(() => {
     console.log("selected file---->", selectedFile);
     if (
-      selectedFile === "" ||
-      selectedFile === null ||
-      typeof selectedFile === "string"
+      selectedFile?.id === "" ||
+      selectedFile?.id === null ||
+      typeof selectedFile?.id !== "number"
     ) {
       setDefaultQuestions([]);
     } else {
@@ -204,7 +199,7 @@ function Chats() {
       setSearchOption(option);
       setInputValue("");
       if (documents?.length > 0) {
-        setSelectedFile(documents[0]?.id);
+        setSelectedFile({ ...documents[0] });
       }
       if (isNewChat) {
         addNewChat();
@@ -212,12 +207,12 @@ function Chats() {
     }
   };
 
-  const handleFileChange = (event) => {
+  const handleFileChange = (newValue) => {
     if (isNewChat) {
       addNewChat();
     }
     setInputValue("");
-    setSelectedFile(event.target.value);
+    setSelectedFile(newValue);
   };
 
   const handleInputChange = (event) => {
@@ -256,12 +251,12 @@ function Chats() {
   const handleSend = async () => {
     let docName = "";
     if (
-      selectedFile &&
-      typeof selectedFile === "number" &&
+      selectedFile?.id &&
+      typeof selectedFile?.id === "number" &&
       searchOption === "specificFileText"
     ) {
       docName = documents.filter((doc) => {
-        if (doc.id === selectedFile) {
+        if (doc.id === selectedFile?.id) {
           return doc;
         }
       });
@@ -322,7 +317,7 @@ function Chats() {
       const headers = {
         Authorization: `Bearer ${jwt}`,
       };
-      const response = await getQuestions(headers, selectedFile);
+      const response = await getQuestions(headers, selectedFile?.id);
       setDefaultQuestions(response?.data?.data);
       setPageLoading(false);
     } catch (error) {
@@ -354,10 +349,13 @@ function Chats() {
       if (!response.data || !response.data.data) {
         throw new Error("Failed to fetch documents");
       }
-      console.log("response----->", response);
-      setDocuments(response.data.data.filter((items) => items.active === true));
-      if (response?.data?.data?.length > 0) {
-        setSelectedFile(response?.data?.data[0].id);
+
+      const filteredDocs = response?.data?.data.filter(
+        (items) => items?.status === "LLM_TRAINING_COMPLETED"
+      );
+      setDocuments(filteredDocs);
+      if (filteredDocs?.length > 0) {
+        setSelectedFile({ ...filteredDocs[0] });
       }
       setPageInfo({
         ...pageInfo,
@@ -443,10 +441,10 @@ function Chats() {
             display: "flex",
           }}
         >
-          <NoDocumentError 
-           ErrorIcon={noDocumentErrorIcon}
-           errorMsgTitle={errorMsgTitle}
-           errorMsgBody ={noDocumentsErrorMsg}
+          <NoDocumentError
+            ErrorIcon={noDocumentErrorIcon}
+            errorMsgTitle={errorMsgTitle}
+            errorMsgBody={noDocumentsErrorMsg}
           />
         </Box>
       ) : (
@@ -461,7 +459,6 @@ function Chats() {
         >
           <Box
             sx={{
-              height: { sm: "8em", md: "3em", xs: "3em" },
               borderBottom: "1px solid lightGrey",
               width: "100%",
               display: "flex",
@@ -469,7 +466,7 @@ function Chats() {
               justifyContent: isMobile ? "space-around" : "flex-start",
               flexDirection: "row",
               gap: isMobile ? "0.6rem" : "2rem",
-              paddingBottom: isMobile ? "0px" : "5px",
+              paddingBottom: "10px",
               flexWrap: "wrap",
               marginTop: isMobile ? "0.5em" : "0px",
             }}
@@ -526,36 +523,47 @@ function Chats() {
                 )}
 
                 {searchOption === "specificFileText" && (
-                  <Box sx={{ width: isMobile ? "125px" : "140px" }}>
-                    <FormControl
-                      className={styles.chatFormControl}
-                      size="large"
-                      variant="outlined"
-                      fullWidth
-                    >
-                      <InputLabel id="file-select-label" shrink={true}>
-                        Document
-                      </InputLabel>
-                      <Select
-                        labelId="file-select-label"
-                        id="file-select"
-                        value={selectedFile}
-                        onChange={handleFileChange}
-                        label="Document"
-                        className={styles.chatSelect}
-                        style={{ textAlign: "left", height: "30px" }}
-                      >
-                        <MenuItem value="  ">
-                          <em>Select file</em>
-                        </MenuItem>
-                        {documents?.length > 0 &&
-                          documents.map((item) => {
-                            return (
-                              <MenuItem value={item.id}>{item.name}</MenuItem>
-                            );
-                          })}
-                      </Select>
-                    </FormControl>
+                  <Box>
+                    <Autocomplete
+                      onChange={(event, newValue) => handleFileChange(newValue)}
+                      id="document"
+                      fullWidth={true}
+                      options={documents}
+                      getOptionLabel={(option) => option?.name}
+                      value={selectedFile}
+                      sx={{
+                        ".MuiInputLabel-root": {
+                          transform: "translateY(-50%)",
+                          top: "50%",
+                          left: "5%",
+                          position: "absolute",
+                          "&.Mui-focused": {
+                            transform: "translateY(-50%) scale(0.75)",
+                            top: 0,
+                          },
+                          "&.MuiInputLabel-shrink": {
+                            transform: "translate(0, -50%) scale(0.75)",
+                            top: 0,
+                          },
+                        },
+                        ".MuiAutocomplete-inputRoot": {
+                          position: "relative",
+                          height: "40px",
+                          lineHeight: "1em",
+                          paddingTop: "0px",
+                          minWidth: "250px",
+                          overflow: "visible",
+                          flexGrow: 1,
+                        },
+                      }}
+                      PopperComponent={(props) => (
+                        <Popper {...props} style={{ width: "auto" }} />
+                      )}
+                      renderInput={(params) => (
+                        <TextField {...params} label="Document" />
+                      )}
+                    />
+
                     <Dialog open={showWarning} onClose={handleCancelWarning}>
                       <DialogTitle>
                         <WarningOutlined
@@ -583,22 +591,20 @@ function Chats() {
               </>
             )}
           </Box>
-
           <Box sx={{ flex: 1, overflowY: "auto" }}>
             {!messageSent && (
               <Box
                 ref={chatRef}
                 sx={{
                   display: "flex",
-                  flexDirection: isMobile ? "column" : "column",
-                  justifyContent: isMobile ? "space-between" : "space-between",
-                  alignItems: isMobile ? "center" : "center",
-                  flexWrap: isMobile ? "" : "",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                  alignItems: "center",
                   height: {
                     xs: `calc(100% - ${containerHeight})`,
                     sm: "98%",
                     lg: "95%",
-                    xl: "98%",
+                    xl: "96%",
                   },
                   overflowY: "auto",
                   scrollbarWidth: "thin",

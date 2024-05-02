@@ -29,7 +29,7 @@
 
 <body class="gradient-box" >
   <noscript>You need to enable JavaScript to run this app.</noscript>
-  <div id="root" class="gradient-box"></div>
+  <div id="root"></div>
   <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
@@ -49,7 +49,15 @@
 
   <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
   <script src="../public/js/script.js"></script>
-<style>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var rootElement = document.getElementById('root');
+      if (rootElement) {
+        rootElement.style.background = "linear-gradient(114deg, #0f172a 51.52%, #152346 73.32%, #1a2e5e 92.75%)";
+      }
+    });
+  </script>
+<!-- <style>
    .gradient-box {
     background-color: linear-gradient(
     114deg,
@@ -59,7 +67,7 @@
   );
    
   }
-</style>
+</style> -->
 </body>
 
 </html>
