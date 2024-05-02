@@ -27,6 +27,7 @@ const DataGridTable = ({
         checkboxSelection={showOrHide}
         paginationMode="server"
         disableColumnMenu={true}
+        disableRowSelectionOnClick
         rowCount={pageInfo?.totalCount}
         pageSizeOptions={[10, 25, 50, 100]}
       />
