@@ -168,9 +168,9 @@ html {
   border: none !important;
 }
 
-.anticon-close {
+/* .anticon-close {
   color: white !important;
-}
+} */
 :where(.css-dev-only-do-not-override-1rqnfsa).ant-drawer-left>.ant-drawer-content-wrapper {
   /* box-shadow: none; */
   width:100% !important;

@@ -95,9 +95,9 @@ function Organisation() {
           },
           name: organisation?.organisationData?.name,
           contact: {
-            firstName: organisation?.organisationData?.contact?.firstName,
-            lastName: organisation?.organisationData?.contact?.lastName,
-            email: organisation?.organisationData?.contact?.email,
+            firstName: organisation?.organisationData?.contact?.firstName ? organisation?.organisationData?.contact?.firstName : "" ,
+            lastName: organisation?.organisationData?.contact?.lastName ? organisation?.organisationData?.contact?.lastName : "" ,
+            email: organisation?.organisationData?.contact?.email ? organisation?.organisationData?.contact?.email : "",
           },
           metaData: organisation?.organisationData?.metadata,
         }
@@ -142,9 +142,9 @@ function Organisation() {
     },
     name: organisation?.organisationData?.name,
     contact: {
-      firstName: organisation?.organisationData?.contact?.firstName,
-      lastName: organisation?.organisationData?.contact?.lastName,
-      email: organisation?.organisationData?.contact?.email,
+      firstName: organisation?.organisationData?.contact?.firstName ?  organisation?.organisationData?.contact?.firstName : "",
+      lastName: organisation?.organisationData?.contact?.lastName ? organisation?.organisationData?.contact?.lastName : "",
+      email: organisation?.organisationData?.contact?.email ? organisation?.organisationData?.contact?.email : "",
     },
     metaData: organisation?.organisationData?.metadata,
   };
@@ -182,7 +182,8 @@ function Organisation() {
   const orgStatus = organisation?.organisationStatus || null;
   const isMobile = useMediaQuery('(max-width:600px)');
   const readOnlyMode = organisation?.organisationStatus === 'view';
-  console.log('read only mode---->', readOnlyMode);
+  const tabs = ["personalinformation","organizationdomains","organizationadmin"]
+  const [isDisable, setIsDisable] = useState(false)
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -213,8 +214,26 @@ function Organisation() {
 
   useEffect(() => {
     const dirty = compareObjects(prevData, orgData);
+    console.log("dirty---->",dirty);
     setIsDirty(dirty);
   }, [orgData]);
+
+  const checkPermission = () => {
+    if(readOnlyMode){
+      return true
+    }
+    if(orgStatus === 'edit'){
+      if(orgData?.contact?.email !== "" && orgData?.contact?.email !== undefined){
+        return true
+      }
+      return false
+    }
+    return false
+  }
+  useEffect(() => {
+    const isPermssion = checkPermission()
+    setIsDisable(isPermssion)  
+  },[])
 
   const messageHandler = () => {
     hideNotifyMessage();
@@ -288,6 +307,8 @@ function Organisation() {
 
   const compareObjects = (obj1, obj2) => {
     if (obj1 && obj2 && Object.keys(obj1).length === Object.keys(obj2).length) {
+      console.log("obj1---->",obj1);
+      console.log("obj2----->",obj2);
       for (let key in obj1) {
         if (typeof obj1[key] === 'object' && obj1[key] !== null) {
           if (!compareObjects(obj1[key], obj2[key])) {
@@ -307,13 +328,14 @@ function Organisation() {
 
   const editOrganisation = async (editedData) => {
     let body = editedData;
-    if (!validationOrgData(orgData)) {
-      showNotifyMessage('error', 'Please add the valid data', messageHandler);
-    }
+    console.log("body---->",body);
+    const isValidDetails = validateUpdateDetails()
+ 
+
     if (body.hasOwnProperty('plan')) {
       delete body['plan'];
     }
-    if (validationOrgData(orgData)) {
+    if (isValidDetails) {
       if (compareObjects(prevData, orgData)) {
         showNotifyMessage('success', 'Already Updated!', messageHandler);
       } else {
@@ -330,25 +352,21 @@ function Organisation() {
             }
           );
           setButtonLoading(false);
-          // setIsReset(true);
           setIsDirty(true);
           showNotifyMessage('success', response?.data?.message, messageHandler);
           console.log('API Response:', response.data);
           dispatch(setOrganisationData(response.data?.data));
-          // navigate('/dashboardadmin/organizationlist');
         } catch (error) {
           console.error('Error occurred:', error);
           if (
             error?.response?.status == 500 ||
             error?.response?.status == '500'
           ) {
-            // navigate('/customerSupport');
             const errorMsgprops = {
               message: {
                 title: 'Something went wrong',
                 content: 'Please contact our customer support team',
               },
-              // handleCancelVerification: handleCancelVerification,
               handleVerification: handleVerification,
               onOkButtonText: 'Retry',
             };
@@ -366,15 +384,13 @@ function Organisation() {
     }
   };
 
-  const handleTabChange = (event, newValue) => {
-    console.log('form change');
-    console.log('tab value--->', newValue);
+  const handleTabChange = (event, newValue, currentValue) => {
     const normalizedTab = newValue;
-    // const normalizedTab = tab.toLowerCase(); // Normalize to lowercase
-    personalInformationHandler(newValue);
-    // if (normalizedTab !== selectedTab) {
-    //   setSelectedTab(normalizedTab);
-    // }
+    if(readOnlyMode){
+      setSelectedTab(newValue)
+    }else{
+      personalInformationHandler(newValue)
+    }
   };
 
   const handleCancel = () => {
@@ -383,8 +399,12 @@ function Organisation() {
   };
 
   const extractDomain = (email) => {
-    const parts = email.split('@');
-    return parts[1];
+    if(email){
+      const parts = email.split('@');
+      return parts[1];
+    }else{
+      return "";
+    }
   };
 
   const isValidDomain = (domain) => {
@@ -405,11 +425,9 @@ function Organisation() {
         return;
       } else {
         setOrgInfoErrors(errors);
-        // showNotifyMessage(
-        //   'error',
-        //   'Please add the required fields with valid data',
-        //   messageHandler
-        // );
+        if(organisation?.organisationStatus == 'edit'){
+          setSelectedTab(tab);
+        }
         return;
       }
     }
@@ -431,28 +449,29 @@ function Organisation() {
           `Email Id domain should match with the existing domain ID's `,
           messageHandler
         );
+        if(organisation?.organisationStatus == 'edit'){
+          setSelectedTab(tab);
+        }
         return;
       } else {
         setUserInfoErrors(usererrors);
+        if(organisation?.organisationStatus == 'edit'){
+          setSelectedTab(tab);
+        }
         return;
       }
       return;
     }
     if (selectedTab == 'organizationdomains') {
-      // if (!domainNameValidation(orgData?.metaData)) {
-      //   showNotifyMessage(
-      //     'warn',
-      //     'At least one domain name should match the organisation domain',
-      //     messageHandler
-      //   );
-      //   return;
-      // }
       if (!domainValidation(orgData?.metaData)) {
         showNotifyMessage(
           'warn',
           'At least one domain name should be there',
           messageHandler
         );
+        if(organisation?.organisationStatus == 'edit'){
+          setSelectedTab(tab);
+        }
         return;
       }
 
@@ -464,6 +483,9 @@ function Organisation() {
 
       if (!checkForEveryDomain()) {
         showNotifyMessage('warn', 'Please enter valid domain', messageHandler);
+        if(organisation?.organisationStatus == 'edit'){
+          setSelectedTab(tab);
+        }
         return;
       }
 
@@ -473,6 +495,9 @@ function Organisation() {
           'Duplicate domains are not allowed',
           messageHandler
         );
+        if(organisation?.organisationStatus == 'edit'){
+          setSelectedTab(tab);
+        }
         return;
       }
 
@@ -483,9 +508,85 @@ function Organisation() {
     if (selectedTab == 'subscriptionplan') {
       setSelectedTab(tab);
     }
-
-    // handleTabChange(tab);
   };
+
+  const validateUpdateDetails = () => {
+    // if (checkTab == 'personalinformation') {
+      const errors = validatePersonalInfoForm(orgData);
+      console.log("errors--->",errors);
+      if (Object.keys(errors).length === 0) {
+        setOrgInfoErrors({});
+      } else {
+        setOrgInfoErrors(errors);
+        setSelectedTab('personalinformation');
+        showNotifyMessage('error', 'Please add the valid data', messageHandler);
+        return false
+      }
+    // }
+    // if (checkTab == 'organizationadmin') {
+      const domain = extractDomain(orgData?.contact?.email);
+      const isEmailPresent = (orgData?.metaData).some(
+        (obj) => obj.typeDetails === domain
+      );
+      const usererrors = validateUserInfoForm(orgData);
+      if (Object.keys(usererrors).length === 0 && isEmailPresent === true) {
+        setUserInfoErrors({});
+        
+      } else if (
+        Object.keys(usererrors).length === 0 &&
+        isEmailPresent === false
+      ) {
+        setSelectedTab('organizationadmin');
+        showNotifyMessage(
+          'error',
+          `Email Id domain should match with the existing domain ID's `,
+          messageHandler
+        );
+        return false;
+      } else {
+        setSelectedTab('organizationadmin');
+        setUserInfoErrors(usererrors);
+        showNotifyMessage('error', 'Please add the valid data', messageHandler);
+        return false;
+      }
+    // }
+    // if (checkTab == 'organizationdomains') {
+
+      if (!domainValidation(orgData?.metaData)) {
+        setSelectedTab('organizationdomains');
+        showNotifyMessage(
+          'warn',
+          'At least one domain name should be there',
+          messageHandler
+        );
+        return false;
+      }
+
+      const checkForEveryDomain = () => {
+        return orgData?.metaData.every((field) =>
+          isValidDomain(field.typeDetails)
+        );
+      };
+
+      if (!checkForEveryDomain()) {
+        setSelectedTab('organizationdomains');
+        showNotifyMessage('warn', 'Please enter valid domain', messageHandler);
+        return false;
+      }
+
+      if (hasRepeatingValues(orgData?.metaData, 'typeDetails')) {
+        setSelectedTab('organizationdomains');
+        showNotifyMessage(
+          'warn',
+          'Duplicate domains are not allowed',
+          messageHandler
+        );
+        return false;
+      }
+
+    // }
+    return true
+  }
 
   const domainNameValidation = (domainArray) => {
     if (orgData?.contact?.email.length > 0) {
@@ -514,6 +615,7 @@ function Organisation() {
     return uniqueValues.size !== arr.length;
   }
 
+
   return (
     <Layout componentName={pageTitle}>
       {backDropLoading && <PageLoader loadingStatus={backDropLoading} />}
@@ -521,10 +623,6 @@ function Organisation() {
         <TabContext value={selectedTab}>
           <Box
             sx={{
-              // borderBottom: 1,
-              // borderColor: 'divider',
-              // boxShadow: "0px 2.789px 6.972px 3.486px rgba(0, 0, 0, 0.09)",
-              // borderRadius: 3,
               marginBottom: '1rem',
             }}
           >
@@ -623,6 +721,7 @@ function Organisation() {
                 personalInformationHandler={personalInformationHandler}
                 orgStatus={orgStatus}
                 readOnlyMode={readOnlyMode}
+                isDisable={isDisable}
               />
             </TabPanel>
             <TabPanel value="organizationdomains">

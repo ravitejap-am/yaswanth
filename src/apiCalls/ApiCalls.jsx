@@ -22,7 +22,7 @@ export const updateAdminProfileDetails = async (userId, headers, reqBody) => {
     const data = await axios.put(
       `${UPDATE_ADMIN_USER}/${userId}`,
       reqBody,
-      headers
+      {headers: headers}
     );
     return data;
   } catch (error) {

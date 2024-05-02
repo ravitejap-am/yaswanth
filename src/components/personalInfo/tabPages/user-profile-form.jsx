@@ -1,15 +1,26 @@
-import React, { useState } from "react";
-import { Button } from "antd";
-import "./userform.css"; // Import CSS file for styling
-import { Typography, useMediaQuery } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import { Button } from 'antd';
+import './userform.css'; // Import CSS file for styling
+import { Typography, useMediaQuery } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { tokenDecodeJWT } from '../../../utils/authUtils';
+import { useSelector, useDispatch } from 'react-redux';
+import { selectUser } from '../../../store/authSlice';
+import { scopes } from '../../../constants/scopes';
+
+const tempData = ['UR', 'UD', 'UC', 'OGU', 'OGR', 'OGC', 'OGD'];
 
 function UserProfileForm({ formData, setFormData, submitHandler }) {
-  const isMobile = useMediaQuery("(max-width:600px)");
+  const isMobile = useMediaQuery('(max-width:600px)');
   const [errors, setErrors] = useState({});
   const [isDisable, setIsDisable] = useState(true);
   const navigate = useNavigate();
   const userRole = localStorage.getItem('userRole');
+  const user = useSelector(selectUser);
+  const jwt = user.userToken;
+  const permittedScopes = tokenDecodeJWT(jwt).scopes;
+  // const permittedScopes = tempData;
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -37,25 +48,25 @@ function UserProfileForm({ formData, setFormData, submitHandler }) {
     let isValid = true;
 
     if (!formData.firstName.trim()) {
-      errors.firstName = "First name is required";
+      errors.firstName = 'First name is required';
       isValid = false;
     }
 
     if (!formData.lastName.trim()) {
-      errors.lastName = "Last name is required";
+      errors.lastName = 'Last name is required';
       isValid = false;
     }
 
     if (!formData.email.trim()) {
-      errors.email = "Email is required";
+      errors.email = 'Email is required';
       isValid = false;
     } else if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
-      errors.email = "Invalid email format";
+      errors.email = 'Invalid email format';
       isValid = false;
     }
 
     if (!formData.organization.trim()) {
-      errors.organization = "Organisation is required";
+      errors.organization = 'Organisation is required';
       isValid = false;
     }
 
@@ -64,96 +75,98 @@ function UserProfileForm({ formData, setFormData, submitHandler }) {
   };
 
   const cancelHandler = () => {
-    if(userRole === 'SUPER_ADMIN' || userRole === 'ORG_ADMIN'){
-      navigate("/dashboard");
-    }else if(userRole === 'USER'){
-      navigate("/user");
+    if (userRole === 'SUPER_ADMIN' || userRole === 'ORG_ADMIN') {
+      navigate('/dashboard');
+    } else if (userRole === 'USER') {
+      navigate('/user');
     }
   };
 
   return (
-    <form 
-    className="info-cotnainer"
-    style={{ height: '111%'}}
-    onSubmit={handleSubmit}>
-        <div>
-          <div className="profile-form-row">
-            <div className="form-group">
-              <label htmlFor="firstName">First Name:</label>
-              <input
-                className="inputstyle-css"
-                type="text"
-                id="firstName"
-                name="firstName"
-                value={formData.firstName}
-                onChange={handleChange}
-              />
-              {errors.firstName && (
-                <span className="error">{errors.firstName}</span>
-              )}
-            </div>
-            <div className="form-group">
-              <label htmlFor="lastName">Last Name:</label>
-              <input
-                className="inputstyle-css"
-                type="text"
-                id="lastName"
-                name="lastName"
-                value={formData.lastName}
-                onChange={handleChange}
-              />
-              {errors.lastName && (
-                <span className="error">{errors.lastName}</span>
-              )}
-            </div>
+    <form
+      className="info-cotnainer"
+      style={{ height: '111%' }}
+      onSubmit={handleSubmit}
+    >
+      <div>
+        <div className="profile-form-row">
+          <div className="form-group">
+            <label htmlFor="firstName">First Name:</label>
+            <input
+              className="inputstyle-css"
+              type="text"
+              id="firstName"
+              name="firstName"
+              value={formData.firstName}
+              onChange={handleChange}
+            />
+            {errors.firstName && (
+              <span className="error">{errors.firstName}</span>
+            )}
           </div>
-          <div className="profile-form-row">
-            <div className="form-group">
-              <label htmlFor="email">Email:</label>
-              <input
-                className="inputstyle-css"
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                disabled
-                style={{ backgroundColor: "#CBD5E1" }}
-              />
-              {errors.email && <span className="error">{errors.email}</span>}
-            </div>
-            <div className="form-group">
-              <label htmlFor="organization">Organisation:</label>
-              <input
-                className="inputstyle-css"
-                type="text"
-                id="organization"
-                name="organization"
-                value={formData.organization}
-                onChange={handleChange}
-                disabled
-                style={{ backgroundColor: "#CBD5E1" }}
-              />
-              {errors.organization && (
-                <span className="error">{errors.organization}</span>
-              )}
-            </div>
+          <div className="form-group">
+            <label htmlFor="lastName">Last Name:</label>
+            <input
+              className="inputstyle-css"
+              type="text"
+              id="lastName"
+              name="lastName"
+              value={formData.lastName}
+              onChange={handleChange}
+            />
+            {errors.lastName && (
+              <span className="error">{errors.lastName}</span>
+            )}
           </div>
         </div>
-        <div
-          className="button-container"
-          style={{ justifyContent: isMobile ? "center" : "flex-end" }}
+        <div className="profile-form-row">
+          <div className="form-group">
+            <label htmlFor="email">Email:</label>
+            <input
+              className="inputstyle-css"
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              disabled
+              style={{ backgroundColor: '#CBD5E1' }}
+            />
+            {errors.email && <span className="error">{errors.email}</span>}
+          </div>
+          <div className="form-group">
+            <label htmlFor="organization">Organisation:</label>
+            <input
+              className="inputstyle-css"
+              type="text"
+              id="organization"
+              name="organization"
+              value={formData.organization}
+              onChange={handleChange}
+              disabled
+              style={{ backgroundColor: '#CBD5E1' }}
+            />
+            {errors.organization && (
+              <span className="error">{errors.organization}</span>
+            )}
+          </div>
+        </div>
+      </div>
+      <div
+        className="button-container"
+        style={{ justifyContent: isMobile ? 'center' : 'flex-end' }}
+      >
+        <Button
+          htmlType="cancel"
+          className="buttonStyle"
+          style={{ backgroundColor: 'white', color: 'black' }}
+          onClick={cancelHandler}
         >
-          <Button
-            htmlType="cancel"
-            className="buttonStyle"
-            style={{backgroundColor: 'white', color: 'black'}}
-            onClick={cancelHandler}
-          >
-            <Typography variant="button" display="block">
-              Cancel
-            </Typography>
-          </Button>
+          <Typography variant="button" display="block">
+            Cancel
+          </Typography>
+        </Button>
+        {permittedScopes?.includes(scopes.UU) && (
           <Button
             htmlType="submit"
             className="buttonStyle"
@@ -163,7 +176,8 @@ function UserProfileForm({ formData, setFormData, submitHandler }) {
               Submit
             </Typography>
           </Button>
-        </div>
+        )}
+      </div>
     </form>
   );
 }

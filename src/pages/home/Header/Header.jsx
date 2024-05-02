@@ -165,6 +165,7 @@ const Header = (props) => {
                 background:
                   "linear-gradient(114deg,#0f172a 51.52%,#152346 73.32%,#1a2e5e 92.75%)",
               }}
+              className="drawerClose"
             >
               <Menu
                 theme="dark"

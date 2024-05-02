@@ -137,7 +137,7 @@ const SignIn = () => {
   const fetchUserProfile = async (userId, jwt) => {
     try {
       const response = await fetch(
-        `${constants.BASE_API_URL}/user/${userId}/getUserProfile`,
+        `${constants.BASE_API_URL}/user/${userId}/profile`,
         {
           headers: {
             Authorization: `Bearer ${jwt}`,
@@ -149,8 +149,7 @@ const SignIn = () => {
       }
 
       const userData = await response.json();
-
-      const profileImagePath = userData?.data?.user?.profileImagePath;
+      const profileImagePath = userData?.data?.profileImagePath;
       if (profileImagePath) {
         localStorage.setItem(
           "userImageUrl",

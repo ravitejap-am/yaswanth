@@ -19,13 +19,25 @@ import MobileHeader from './MobileHeader';
 import { getSessionList } from '../../apiCalls/ApiCalls';
 import AMChato from '../../asset/AMChato.png';
 import AmChatLogo from '../../asset/logo/logofinal.png';
+const tempData = [
+  'CHU',
+  'CHR',
+  'CHD',
+  // 'CHC',
+  'UU',
+  'UR',
+  'UD',
+  'UC',
+  'DCQR',
+  'DCR',
+];
 function Sidebar({ componentName }) {
   const { useBreakpoint } = Grid;
   const dispatch = useDispatch();
   const screens = useBreakpoint();
   const { userToken } = useSelector(selectUser);
   const { pathname } = useLocation();
-  const { role } = tokenDecodeJWT(userToken);
+  const { role, scopes } = tokenDecodeJWT(userToken);
   const {
     isChatOpen,
     setIsChatOpen,
@@ -100,6 +112,7 @@ function Sidebar({ componentName }) {
     inputValue: inputValue,
     componentName: componentName,
     sessionHistory: sessionHistory,
+    permitedScopes: scopes,
   };
 
   return (
@@ -186,7 +199,8 @@ function Sidebar({ componentName }) {
                 setSessionId,
                 setInputValue,
                 inputValue,
-                sessionHistory
+                sessionHistory,
+                scopes
               )}
             </Box>
           </Box>

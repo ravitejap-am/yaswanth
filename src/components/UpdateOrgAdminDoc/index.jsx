@@ -12,6 +12,24 @@ import Layout from '../../Layout';
 import { Box, Typography, useMediaQuery } from '@mui/material';
 import PageLoader from '../loader/loader';
 import { trimFileNameBeforeExtension } from '../../utils/fileNameExtraction';
+import { tokenDecodeJWT } from '../../utils/authUtils';
+import { scopes } from '../../constants/scopes';
+
+const tempData = [
+  'CHU',
+  'CHR',
+  'CHD',
+  'CHC',
+  'UU',
+  'UR',
+  'UD',
+  'UC',
+  'DCQR',
+  'DCR',
+  'DCC',
+  'DCD',
+  // 'DCU',
+];
 
 function UpdateOrgAdminDoc() {
   let {
@@ -36,6 +54,8 @@ function UpdateOrgAdminDoc() {
 
   const user = useSelector(selectUser);
   const jwt = user.userToken;
+  const permittedScopes = tokenDecodeJWT(jwt).scopes;
+  // const permittedScopes = tempData;
   const [errors, setErrors] = useState('');
   const [fileName, setFileName] = useState('');
   const [isDirty, setIsDirty] = useState(true);
@@ -233,15 +253,17 @@ function UpdateOrgAdminDoc() {
           <Button onClick={cancelHandler} className={Styles.cancelButton}>
             <Typography variant="button"> Cancel</Typography>
           </Button>
-          <Button
-            type="primary"
-            htmlType="submit"
-            className={Styles.addButtonStyle}
-            onClick={() => submitHandler()}
-            disabled={isDirty}
-          >
-            <Typography variant="button">Update</Typography>
-          </Button>
+          {permittedScopes?.includes(scopes.DCU) && (
+            <Button
+              type="primary"
+              htmlType="submit"
+              className={Styles.addButtonStyle}
+              onClick={() => submitHandler()}
+              disabled={isDirty}
+            >
+              <Typography variant="button">Update</Typography>
+            </Button>
+          )}
         </Box>
       </Box>
     </Layout>

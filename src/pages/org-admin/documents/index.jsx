@@ -27,6 +27,24 @@ import { AM_CHAT } from '../../../constants/Constant';
 import { Modal } from 'antd';
 import MobileViewDocumentAccordin from '../../../components/MobileComponent/MobileViewDocumentAccordin';
 import { bytesToMB, documentStatus } from '../../../utils/fileNameExtraction';
+import { scopes } from '../../../constants/scopes';
+import { tokenDecodeJWT } from '../../../utils/authUtils';
+
+const tempData = [
+  'CHU',
+  'CHR',
+  'CHD',
+  'CHC',
+  'UU',
+  'UR',
+  'UD',
+  'UC',
+  'DCQR',
+  // 'DCR',
+  // 'DCC',
+  // 'DCD',
+  // 'DCU',
+];
 
 function Documents() {
   let {
@@ -59,6 +77,8 @@ function Documents() {
 
   const user = useSelector(selectUser);
   const jwt = user.userToken;
+  const permittedScopes = tokenDecodeJWT(jwt).scopes;
+  // const permittedScopes = tempData;
   const [fullName, setFullName] = useState('');
   const [tableloading, setTableLoading] = useState(false);
   const [openDeletePopUp, setOpenDeletePopUp] = useState(false);
@@ -279,24 +299,28 @@ function Documents() {
       sortable: false,
       renderCell: (params) => (
         <div>
-          <IconButton
-            aria-label="edit"
-            onClick={() => handleEdit(params.row.id, params)}
-          >
-            <img src={editIcon} alt="Edit" />
-          </IconButton>
-          <IconButton
-            aria-label="delete"
-            onClick={() => {
-              const props = {
-                id: params.row.id,
-                name: params.row.documentName,
-              };
-              handleConfirmationPopUp(props);
-            }}
-          >
-            <img src={deleteIcon} alt="Delete" />
-          </IconButton>
+          {permittedScopes?.includes(scopes.DCR) && (
+            <IconButton
+              aria-label="edit"
+              onClick={() => handleEdit(params.row.id, params)}
+            >
+              <img src={editIcon} alt="Edit" />
+            </IconButton>
+          )}
+          {permittedScopes?.includes(scopes.DCD) && (
+            <IconButton
+              aria-label="delete"
+              onClick={() => {
+                const props = {
+                  id: params.row.id,
+                  name: params.row.documentName,
+                };
+                handleConfirmationPopUp(props);
+              }}
+            >
+              <img src={deleteIcon} alt="Delete" />
+            </IconButton>
+          )}
         </div>
       ),
     },
@@ -344,19 +368,22 @@ function Documents() {
                 inputValue={searchQuery}
               />
             </Box>
+
             <Box>
-              <Link to="/document" style={{ textDecoration: 'none' }}>
-                <GeneralButton
-                  name={'Add Document'}
-                  type={'submit'}
-                  color={'#f8fafc'}
-                  borderRadius={'30px'}
-                  backgroundColor={'#6366f1'}
-                  icons={frame}
-                  width={'168px'}
-                  height={'48px'}
-                />
-              </Link>
+              {permittedScopes?.includes(scopes.DCC) && (
+                <Link to="/document" style={{ textDecoration: 'none' }}>
+                  <GeneralButton
+                    name={'Add Document'}
+                    type={'submit'}
+                    color={'#f8fafc'}
+                    borderRadius={'30px'}
+                    backgroundColor={'#6366f1'}
+                    icons={frame}
+                    width={'168px'}
+                    height={'48px'}
+                  />
+                </Link>
+              )}
             </Box>
           </Box>
         </Grid>

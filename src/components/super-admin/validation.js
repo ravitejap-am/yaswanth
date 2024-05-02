@@ -67,15 +67,13 @@ export const validationOrgData = (jsonData) => {
     address.country === '' ||
     address.state === '' ||
     address.city === '' ||
-    address.postCode === ''
+    (address.postCode === '' && address?.postCode?.length < 4)
   ) {
     return false;
   }
-  if (address?.postCode?.length < 4) {
-    return false;
-  }
+
   const { contact } = jsonData;
-  if (!contact || Object.values(contact).some((value) => value === '')) {
+  if (!contact || Object.values(contact).some((value) => value === '' || value === undefined )) {
     return false;
   }
 

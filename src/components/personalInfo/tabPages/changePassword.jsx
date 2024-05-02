@@ -1,24 +1,31 @@
-import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { setUser, selectUser } from "../../../store/authSlice";
-import * as constants from "../../../constants/Constant";
-import { useMessageState } from "../../../hooks/useapp-message";
-import { useNavigate } from "react-router-dom";
-import { Form, Button, Input } from "antd";
-import GeneralForm from "../../../components/common/forms/GeneralForm";
-import NotifyMessage from "../../../components/common/toastMessages/NotifyMessage";
-import PageLoader from "../../loader/loader";
-import { useState } from "react";
-import "./userform.css";
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { setUser, selectUser } from '../../../store/authSlice';
+import * as constants from '../../../constants/Constant';
+import { useMessageState } from '../../../hooks/useapp-message';
+import { useNavigate } from 'react-router-dom';
+import { Form, Button, Input } from 'antd';
+import GeneralForm from '../../../components/common/forms/GeneralForm';
+import NotifyMessage from '../../../components/common/toastMessages/NotifyMessage';
+import PageLoader from '../../loader/loader';
+import { useState } from 'react';
+import './userform.css';
 import {
   Typography,
   Box,
   Grid,
   useMediaQuery,
   IconButton,
-} from "@mui/material";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { validConfirmPassword, validPassword } from "../../super-admin/validation";
+} from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import {
+  validConfirmPassword,
+  validPassword,
+} from '../../super-admin/validation';
+import { scopes } from '../../../constants/scopes';
+import { tokenDecodeJWT } from '../../../utils/authUtils';
+
+const tempData = ['UR', 'UD', 'UC', 'OGU', 'OGR', 'OGC', 'OGD'];
 
 function ChangePassword({ setFileSysytem, validateEmail }) {
   const navigate = useNavigate();
@@ -29,13 +36,13 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
     confirmPassword: false,
   });
   const [formData, setFormData] = useState({
-    password: "",
-    newPassword: "",
-    confirmPassword: "",
+    password: '',
+    newPassword: '',
+    confirmPassword: '',
   });
   const [isDisable, setIsDisable] = useState(true);
   const [errors, setErrors] = useState({});
-  const isMobile = useMediaQuery("(max-width:600px)");
+  const isMobile = useMediaQuery('(max-width:600px)');
   const userRole = localStorage.getItem('userRole');
   let {
     buttonLoading,
@@ -47,19 +54,19 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
   } = useMessageState();
 
   const passwordStyles = {
-    position: "absolute",
-    top: "73%",
-    transform: "translateY(-50%)",
-    cursor: "pointer",
-    left: "320px",
+    position: 'absolute',
+    top: '73%',
+    transform: 'translateY(-50%)',
+    cursor: 'pointer',
+    left: '320px',
   };
 
   const confirmPasswordStyles = {
-    position: "absolute",
-    top: "60%",
-    transform: "translateY(-50%)",
-    cursor: "pointer",
-    left: "320px",
+    position: 'absolute',
+    top: '60%',
+    transform: 'translateY(-50%)',
+    cursor: 'pointer',
+    left: '320px',
   };
 
   const messageHandler = () => {
@@ -69,7 +76,7 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
 
   const validatePassword = (_, value) => {
     if (value && value.length < 8) {
-      return Promise.reject("Password must be at least 8 characters");
+      return Promise.reject('Password must be at least 8 characters');
     } else {
       return Promise.resolve();
     }
@@ -77,6 +84,8 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
 
   const user = useSelector(selectUser);
   const jwt = user.userToken;
+  const permittedScopes = tokenDecodeJWT(jwt).scopes;
+  // const permittedScopes = tempData;
 
   const verifyPassword = (values) => {
     if (
@@ -85,8 +94,8 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
       values?.newPassword !== values?.confirmPassword
     ) {
       showNotifyMessage(
-        "error",
-        "new password and confirm password should be same",
+        'error',
+        'new password and confirm password should be same',
         messageHandler
       );
       return false;
@@ -103,9 +112,9 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
         const response = await fetch(
           `${constants.BASE_API_URL}/user/verification/reset`,
           {
-            method: "POST",
+            method: 'POST',
             headers: {
-              "Content-Type": "application/json",
+              'Content-Type': 'application/json',
               Authorization: `Bearer ${jwt}`,
             },
             body: JSON.stringify({
@@ -115,29 +124,29 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
             }),
           }
         );
-        console.log("Response:", response);
+        console.log('Response:', response);
         if (response?.ok) {
           if (response.status === 200) {
             setButtonLoading(false);
             setIsLoading(false);
             setIsReset(true);
             setFormData({
-              password: "",
-              newPassword: "",
-              confirmPassword: "",
+              password: '',
+              newPassword: '',
+              confirmPassword: '',
             });
             showNotifyMessage(
-              "success",
-              "Password Changed Successfully",
+              'success',
+              'Password Changed Successfully',
               messageHandler
             );
           }
         } else {
           const errorMsg = await response.json();
-          console.log("Error changing password:", errorMsg);
+          console.log('Error changing password:', errorMsg);
           showNotifyMessage(
-            "error",
-            errorMsg?.message ? errorMsg.message : "Failed to change password",
+            'error',
+            errorMsg?.message ? errorMsg.message : 'Failed to change password',
             messageHandler
           );
         }
@@ -145,15 +154,15 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
       } catch (error) {
         if (
           error?.response?.status == 500 ||
-          error?.response?.status == "500"
+          error?.response?.status == '500'
         ) {
-          navigate("/customerSupport");
+          navigate('/customerSupport');
         }
 
         setButtonLoading(false);
         setIsLoading(false);
         showNotifyMessage(
-          "error",
+          'error',
           error?.response?.data?.message,
           messageHandler
         );
@@ -175,18 +184,24 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
     let isValid = true;
 
     if (!formData.password.trim()) {
-      errors.password = "Please enter your Old password";
+      errors.password = 'Please enter your Old password';
       isValid = false;
     }
 
-    const isValidNewPassword = validPassword(formData.newPassword, formData.password)
-    if(isValidNewPassword){
+    const isValidNewPassword = validPassword(
+      formData.newPassword,
+      formData.password
+    );
+    if (isValidNewPassword) {
       errors.newPassword = isValidNewPassword;
       isValid = false;
     }
 
-    const isValidConfirmPassword = validConfirmPassword(formData.confirmPassword, formData.newPassword)
-    if(isValidConfirmPassword){
+    const isValidConfirmPassword = validConfirmPassword(
+      formData.confirmPassword,
+      formData.newPassword
+    );
+    if (isValidConfirmPassword) {
       errors.confirmPassword = isValidConfirmPassword;
       isValid = false;
     }
@@ -198,69 +213,69 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
   const feedingVariable = {
     isCancel: false,
     cancelHandler: () => {
-      console.log("Canceling....");
+      console.log('Canceling....');
     },
     isSubmit: true,
     submitHandler: () => {
-      console.log("Submitting ChangePassword form....");
+      console.log('Submitting ChangePassword form....');
       handleChangePassword(formData);
     },
 
     submitButtonProperty: {
-      name: "Submit",
-      color: "white",
-      backgroundColor: "#6366F1",
-      type: "primary",
-      width: "150px",
-      height: "50px",
-      borderRadius: "35px",
-      marginTop: "5px",
+      name: 'Submit',
+      color: 'white',
+      backgroundColor: '#6366F1',
+      type: 'primary',
+      width: '150px',
+      height: '50px',
+      borderRadius: '35px',
+      marginTop: '5px',
     },
     formElements: [
       {
-        label: "Old Password",
-        type: "password",
-        name: "password",
-        style: { width: "350px", marginTop: "40px", marginLeft: "0px" },
+        label: 'Old Password',
+        type: 'password',
+        name: 'password',
+        style: { width: '350px', marginTop: '40px', marginLeft: '0px' },
         iconStyle: passwordStyles,
         pattern: /^.+$/,
-        emptyErrorMessage: "Please Enter the old passsword",
-        containerStyles: { width: "375px" },
+        emptyErrorMessage: 'Please Enter the old passsword',
+        containerStyles: { width: '375px' },
       },
       {
-        label: "New Password",
-        type: "password",
-        name: "newPassword",
-        style: { width: "350px", marginTop: "40px", marginLeft: "0px" },
+        label: 'New Password',
+        type: 'password',
+        name: 'newPassword',
+        style: { width: '350px', marginTop: '40px', marginLeft: '0px' },
         iconStyle: passwordStyles,
         pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d\S]{8,20}$/,
-        emptyErrorMessage: "Please Enter the new passsword",
+        emptyErrorMessage: 'Please Enter the new passsword',
         invalidErrorMessage:
-          "Password should have atleast 8 characters, 1 uppercase, 1 lowercase ,1 digit and 1 special character",
-        errorMsgStyles: { width: "375px" },
-        containerStyles: { width: "375px" },
+          'Password should have atleast 8 characters, 1 uppercase, 1 lowercase ,1 digit and 1 special character',
+        errorMsgStyles: { width: '375px' },
+        containerStyles: { width: '375px' },
       },
       {
-        label: "Confirm Password",
-        type: "password",
-        name: "confirmPassword",
-        style: { width: "350px", marginLeft: "0px" },
+        label: 'Confirm Password',
+        type: 'password',
+        name: 'confirmPassword',
+        style: { width: '350px', marginLeft: '0px' },
         iconStyle: confirmPasswordStyles,
         pattern: /^.+$/,
-        emptyErrorMessage: "Please Enter the confirm passsword",
-        containerStyles: { width: "375px" },
+        emptyErrorMessage: 'Please Enter the confirm passsword',
+        containerStyles: { width: '375px' },
       },
     ],
-    formType: "normal",
+    formType: 'normal',
     setFileSysytem: setFileSysytem,
-    grid: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px" },
+    grid: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' },
   };
 
   const cancelHandler = () => {
-    if(userRole === 'SUPER_ADMIN' || userRole === 'ORG_ADMIN'){
-      navigate("/dashboard");
-    }else if(userRole === 'USER'){
-      navigate("/user");
+    if (userRole === 'SUPER_ADMIN' || userRole === 'ORG_ADMIN') {
+      navigate('/dashboard');
+    } else if (userRole === 'USER') {
+      navigate('/user');
     }
   };
 
@@ -273,28 +288,28 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
       layout="vertical"
       autoComplete="off"
       style={{
-        width: "auto",
-        margin: "auto",
-        height: "110%",
+        width: 'auto',
+        margin: 'auto',
+        height: '110%',
       }}
       onFinish={feedingVariable.submitHandler}
     >
       <Box
         sx={{
-          display: "flex",
-          height: "140%",
-          flexDirection: "column",
-          justifyContent: "space-between",
+          display: 'flex',
+          height: '140%',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
         }}
       >
         {isLoading && <PageLoader loadingStatus={isLoading} />}
-        <Grid container spacing={2} style={{ marginLeft: "0px" }}>
-          <Grid item xs={12} md={6} style={{ paddingLeft: "0px" }}>
+        <Grid container spacing={2} style={{ marginLeft: '0px' }}>
+          <Grid item xs={12} md={6} style={{ paddingLeft: '0px' }}>
             <Box
               style={{
-                display: "flex",
-                flexDirection: "column",
-                position: "relative",
+                display: 'flex',
+                flexDirection: 'column',
+                position: 'relative',
               }}
             >
               <Typography>
@@ -307,15 +322,15 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
               </Typography>
               <Box
                 style={{
-                  position: "relative",
-                  display: "flex",
-                  alignItems: "center",
+                  position: 'relative',
+                  display: 'flex',
+                  alignItems: 'center',
                 }}
               >
                 <input
                   id="password"
                   name="password"
-                  type={showPassword.oldPassword ? "text" : "password"}
+                  type={showPassword.oldPassword ? 'text' : 'password'}
                   value={formData.password}
                   onChange={handleChange}
                   className="inputstyle-css-changepassword"
@@ -342,8 +357,8 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
             </Box>
           </Grid>
 
-          <Grid item xs={12} md={6} style={{ paddingLeft: "0px" }}>
-            <Box style={{ display: "flex", flexDirection: "column" }}>
+          <Grid item xs={12} md={6} style={{ paddingLeft: '0px' }}>
+            <Box style={{ display: 'flex', flexDirection: 'column' }}>
               <Typography>
                 <label
                   htmlFor="newPassword"
@@ -354,13 +369,13 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
               </Typography>
               <Box
                 style={{
-                  position: "relative",
-                  display: "flex",
-                  alignItems: "center",
+                  position: 'relative',
+                  display: 'flex',
+                  alignItems: 'center',
                 }}
               >
                 <input
-                  type={showPassword.newPassword ? "text" : "password"}
+                  type={showPassword.newPassword ? 'text' : 'password'}
                   id="newPassword"
                   name="newPassword"
                   value={formData.newPassword}
@@ -388,8 +403,8 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
               )}
             </Box>
           </Grid>
-          <Grid item xs={12} md={6} style={{ paddingLeft: "0px" }}>
-            <Box style={{ display: "flex", flexDirection: "column" }}>
+          <Grid item xs={12} md={6} style={{ paddingLeft: '0px' }}>
+            <Box style={{ display: 'flex', flexDirection: 'column' }}>
               <Typography>
                 <label
                   htmlFor="confirmPassword"
@@ -400,13 +415,13 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
               </Typography>
               <Box
                 style={{
-                  position: "relative",
-                  display: "flex",
-                  alignItems: "center",
+                  position: 'relative',
+                  display: 'flex',
+                  alignItems: 'center',
                 }}
               >
                 <input
-                  type={showPassword.confirmPassword ? "text" : "password"}
+                  type={showPassword.confirmPassword ? 'text' : 'password'}
                   id="confirmPassword"
                   name="confirmPassword"
                   value={formData.confirmPassword}
@@ -440,36 +455,38 @@ function ChangePassword({ setFileSysytem, validateEmail }) {
         <NotifyMessage />
         <Box
           sx={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: isMobile ? "center" : "flex-end",
-            alignItems: isMobile ? "center" : "flex-end",
-            padding: "1rem",
-            paddingRight: isMobile ? "" : "0px",
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: isMobile ? 'center' : 'flex-end',
+            alignItems: isMobile ? 'center' : 'flex-end',
+            padding: '1rem',
+            paddingRight: isMobile ? '' : '0px',
           }}
         >
           <Button
             onClick={cancelHandler}
             className="buttonStyle"
             style={{
-              marginRight: "0.5rem",
-              backgroundColor: "white",
-              color: "black",
+              marginRight: '0.5rem',
+              backgroundColor: 'white',
+              color: 'black',
             }}
           >
             <Typography variant="button"> Cancel </Typography>
           </Button>
-          <Button
-            type="primary"
-            htmlType="submit"
-            className="buttonStyle"
-            style={{ marginLeft: "0.5rem" }}
-            disabled={isDisable}
-          >
-            <Typography variant="button" display="block">
-              Submit
-            </Typography>
-          </Button>
+          {permittedScopes?.includes(scopes.UU) && (
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="buttonStyle"
+              style={{ marginLeft: '0.5rem' }}
+              disabled={isDisable}
+            >
+              <Typography variant="button" display="block">
+                Submit
+              </Typography>
+            </Button>
+          )}
         </Box>
       </Box>
     </Form>

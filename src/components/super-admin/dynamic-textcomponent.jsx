@@ -25,7 +25,8 @@ function DynamicTextComponent({
   orgData,
   setButtonLoading,
   personalInformationHandler,
-  readOnlyMode
+  readOnlyMode,
+  setSelectedTab
 }) {
   const user = useSelector(selectUser);
   const jwt = user.userToken;
@@ -438,7 +439,11 @@ function DynamicTextComponent({
         <Button
           style={{ marginTop: "1em", width: "8em" }}
           onClick={() => {
-            personalInformationHandler("personalinformation");
+            if(readOnlyMode){
+              setSelectedTab('personalinformation')
+            }else{
+              personalInformationHandler("personalinformation")
+            } 
           }}
           loading={buttonLoading}
         >
@@ -448,7 +453,11 @@ function DynamicTextComponent({
           type="primary"
           style={{ marginTop: "1em", width: "8em", backgroundColor: BUTTON_COLOUR }}
           onClick={() => {
-            personalInformationHandler("organizationadmin");
+            if(readOnlyMode){
+              setSelectedTab('organizationadmin')
+            }else{
+              personalInformationHandler("organizationadmin")
+            }    
           }}
           loading={buttonLoading}
           disabled={
