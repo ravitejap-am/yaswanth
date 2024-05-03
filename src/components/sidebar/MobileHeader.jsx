@@ -201,8 +201,8 @@ function MobileHeader(props) {
           onClick={onOpen}
         />
         <Typography variant="h5" color={"#312e81"}>
-          {componentName.split(" ").length > 2
-            ? componentName.split(" ").slice(0, 1).join(" ") + "..."
+          {componentName
+            ? componentName.slice(0, 10) + "..."
             : componentName}
         </Typography>
         <Dropdown
