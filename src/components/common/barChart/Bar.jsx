@@ -23,13 +23,9 @@ const Bar = ({ dateList }) => {
           if (y > viewHeight - boxHeight) {
             y = viewHeight - boxHeight;
           }
-          
+
           return [x, y];
-        }
-      },
-      legend: {
-        orient: "horizontal",
-        bottom: 10, 
+        },
       },
       toolbox: {
         show: false,
@@ -45,31 +41,28 @@ const Bar = ({ dateList }) => {
         {
           type: "category",
           data: xAxisData,
+          axisLabel: {
+            rotate: 45,
+          },
         },
       ],
       yAxis: [
         {
+          name: "Chat and Session counts",
           type: "value",
+          nameRotate: 90,
+          nameLocation: "middle",
+          nameGap: 40,
         },
       ],
       series: [
         {
-          name: "Chat Counts",
           type: "bar",
           data: xAxisData.map((date) => dateList[date].chat_count),
-          // label: {
-          //   show: true, 
-          //   position: 'top', 
-          // },
         },
         {
-          name: "Session Counts",
           type: "bar",
           data: xAxisData.map((date) => dateList[date].session_count),
-          // label: {
-          //   show: true, 
-          //   position: 'top', 
-          // },
         },
       ],
       graphic: [

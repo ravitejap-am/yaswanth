@@ -238,8 +238,15 @@ function Dashboard() {
 
     filteredItems.forEach((item) => {
       const itemDateParts = item.date.split('/');
-      const formattedDate = itemDateParts[0];
-      filter[formattedDate] = {
+
+      const monthNames = [
+        "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+        "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+      ];
+      const monthName = monthNames[parseInt(itemDateParts[1]) - 1]; 
+
+      const fullDate = itemDateParts[0] + "-" + monthName + "-" + itemDateParts[2] 
+      filter[fullDate] = {
         chat_count: item.chat_count,
         session_count: item.session_count,
       };
