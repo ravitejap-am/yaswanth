@@ -42,7 +42,7 @@ function Dashboard() {
         currentDate.setDate(currentDate.getDate() - 7)
         return currentDate
     })
-    const [endDate, setEndDate] = useState(new Date())
+    const [endDate, setEndDate] = useState(new Date());
     const [toShowPie, setToShowPie] = useState([])
     const [toShowBar, setToShowBar] = useState([])
     const [selectedValue, setSelectedValue] = useState('chat')
