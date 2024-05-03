@@ -1,53 +1,53 @@
 /* OrganizationDomain.module.css */
 
 .container {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
 .generalForm {
-  width: 445px;
-  margin-right: 10px;
+    width: 445px;
+    margin-right: 10px;
 }
 
 .plusSign,
 .deleteIcon {
-  cursor: pointer;
-  height: 20px; /* Set the height as needed */
-  width: 20px; /* Set the width as needed */
-  fill: var(--Brand-700, #4338ca);
+    cursor: pointer;
+    height: 20px; /* Set the height as needed */
+    width: 20px; /* Set the width as needed */
+    fill: var(--Brand-700, #4338ca);
 }
 
 .domainsList {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
 }
 
 .domainItem {
-  margin-bottom: 8px;
-  padding: 8px;
-  border: 1px solid #eaeaea;
-  border-radius: 4px;
-  background-color: #fff;
+    margin-bottom: 8px;
+    padding: 8px;
+    border: 1px solid #eaeaea;
+    border-radius: 4px;
+    background-color: #fff;
 }
 
 .domainItem:last-child {
-  margin-bottom: 0;
+    margin-bottom: 0;
 }
 
 .iconsContainer {
-  display: flex;
-  justify-content: space-between;
-  /* padding: 20px; */
+    display: flex;
+    justify-content: space-between;
+    /* padding: 20px; */
 }
 
 .plusSign {
-  margin-right: 20px;
-  /* width: 110px; */
+    margin-right: 20px;
+    /* width: 110px; */
 }
 
 .deleteIcon {
-  /* width: 110px; */
+    /* width: 110px; */
 }

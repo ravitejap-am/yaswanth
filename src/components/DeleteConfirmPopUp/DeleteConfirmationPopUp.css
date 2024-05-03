@@ -2,7 +2,11 @@
     background-color: rgba(0, 0, 0, 0.1); 
   } */
 
-
-  .transparent-modal .ant-modal-transparent .ant-modal-wrap {
-    background-color: rgba(233, 227, 227, 0.5); /* Adjust alpha value for transparency */
-  }
+.transparent-modal .ant-modal-transparent .ant-modal-wrap {
+    background-color: rgba(
+        233,
+        227,
+        227,
+        0.5
+    ); /* Adjust alpha value for transparency */
+}

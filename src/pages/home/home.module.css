@@ -1,115 +1,114 @@
 .card {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .cardHeading {
-  margin-top: 50px;
-  margin-bottom: 100px;
-  font-size: 36px;
+    margin-top: 50px;
+    margin-bottom: 100px;
+    font-size: 36px;
 }
 .banner {
-  background: linear-gradient(
-    114deg,
-    #0f172a 51.52%,
-    #152346 73.32%,
-    #1a2e5e 92.75%
-  );
-  width: 100%;
+    background: linear-gradient(
+        114deg,
+        #0f172a 51.52%,
+        #152346 73.32%,
+        #1a2e5e 92.75%
+    );
+    width: 100%;
 }
 .bannerCurve {
-  width: 100vw;
+    width: 100vw;
 }
 .bannerCurveBackground {
-  width: 1835px;
-  background-color: #32016f;
-  height: 185px;
-  /* border-top-right-radius: 1000px;
+    width: 1835px;
+    background-color: #32016f;
+    height: 185px;
+    /* border-top-right-radius: 1000px;
   border-top-left-radius: 1000px; */
 }
 .divider {
-  background: var(--Neutral-800, #1e293b);
-  width: 100%;
+    background: var(--Neutral-800, #1e293b);
+    width: 100%;
 }
 .dividerMainUlStyle {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: var(--neutral-400, #94a3b8);
-  font-family: "Lato-ExtraBold", sans-serif;
-  padding: 30px;
-  gap: 5rem;
-  font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--neutral-400, #94a3b8);
+    font-family: 'Lato-ExtraBold', sans-serif;
+    padding: 30px;
+    gap: 5rem;
+    font-size: 20px;
 }
 
 .productBanner {
-  position: relative;
-  padding-bottom: 100px;
-  bottom: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #32016f;
-  text-align: center;
-  color: #fff;
+    position: relative;
+    padding-bottom: 100px;
+    bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #32016f;
+    text-align: center;
+    color: #fff;
 }
 .Addbannner {
-  width: 786px;
-  height: 496px;
+    width: 786px;
+    height: 496px;
 }
 .AddbannnerSection {
-  margin-bottom: 100px;
+    margin-bottom: 100px;
 }
 .headingPara {
-  width: 610px;
-  height: 47px;
-  font-size: 38px;
-  margin-left: 100px;
+    width: 610px;
+    height: 47px;
+    font-size: 38px;
+    margin-left: 100px;
 }
 .addPara {
-  width: 612px;
-  text-align: center;
-  margin-left: 100px;
+    width: 612px;
+    text-align: center;
+    margin-left: 100px;
 }
 .paraHeadingBanner {
-  align-items: center;
+    align-items: center;
 }
 .largeCardComponentLeft {
-  display: flex;
-  margin-left: 200px;
-  margin-top: 100px;
-  margin-bottom: 100px;
+    display: flex;
+    margin-left: 200px;
+    margin-top: 100px;
+    margin-bottom: 100px;
 }
 .largeCardComponentRight {
-  display: flex;
-  justify-content: end;
-  margin-right: 200px;
-  margin-top: 100px;
-  margin-bottom: 100px;
+    display: flex;
+    justify-content: end;
+    margin-right: 200px;
+    margin-top: 100px;
+    margin-bottom: 100px;
 }
 .customers {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 719px;
-  background-color: #e5e6f8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 719px;
+    background-color: #e5e6f8;
 }
 .customersSection {
-  width: 860px;
+    width: 860px;
 }
 .customersHeading {
-  font-size: 38px;
-  color: #7529b2;
-  text-align: center;
+    font-size: 38px;
+    color: #7529b2;
+    text-align: center;
 }
 
 @media (max-width: 767px) {
-  .dividerMainUlStyle{
-    flex-direction: column;
-    gap: 1rem;
-  }
+    .dividerMainUlStyle {
+        flex-direction: column;
+        gap: 1rem;
+    }
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
-
 }

@@ -1,33 +1,33 @@
 .banner3 {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #32016f;
-  color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #32016f;
+    color: #fff;
 }
 .banner3box {
-  display: flex;
+    display: flex;
 }
 .bannerImage {
-  width: 528px;
-  width: 528px;
+    width: 528px;
+    width: 528px;
 }
 .logo {
-  width: 32px;
-  height: 32px;
+    width: 32px;
+    height: 32px;
 }
-.bannerContent{
+.bannerContent {
     display: flex;
     align-items: baseline;
     justify-content: baseline;
 }
-.bannerHeading{
+.bannerHeading {
     font-size: 50px;
     text-align: center;
 }
-.contentHeading{
+.contentHeading {
     font-size: 26px;
 }
-.contentPara{
+.contentPara {
     font-size: 20px;
 }

@@ -1,6 +1,5 @@
-import axios from "axios";
-import {useState} from 'react';
-
+import axios from 'axios'
+import { useState } from 'react'
 
 // const  = "http://localhost:8081/users";
 
@@ -16,37 +15,40 @@ import {useState} from 'react';
 // };
 // const [registerDetailsResponse,setRegisterDetails]=useState("")
 const sendLoginDetails = async (body) => {
-  try {
-    const data = await axios.post( body);
-    return data;
-  } catch (error) {
-    console.log(error);
-  }
-};
+    try {
+        const data = await axios.post(body)
+        return data
+    } catch (error) {
+        console.log(error)
+    }
+}
 
 const registerDetails = async (body) => {
-  try {
-    const data = await axios.post("http://localhost:8081/users/register", body);
-     return data;
-  } catch (error) {
-    console.log(error);
-  }
-};
+    try {
+        const data = await axios.post(
+            'http://localhost:8081/users/register',
+            body
+        )
+        return data
+    } catch (error) {
+        console.log(error)
+    }
+}
 const recoverPassword = async (body) => {
-  try {
-    const res = await axios.post(
-      "http://localhost:8081/users/forgetPassword",
-      body,
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    return res;
-  } catch (error) {
-    console.log(error);
-  }
-};
+    try {
+        const res = await axios.post(
+            'http://localhost:8081/users/forgetPassword',
+            body,
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            }
+        )
+        return res
+    } catch (error) {
+        console.log(error)
+    }
+}
 
-export { sendLoginDetails, registerDetails, recoverPassword };
+export { sendLoginDetails, registerDetails, recoverPassword }

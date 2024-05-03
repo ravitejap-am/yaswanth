@@ -1,16 +1,16 @@
-.sso{
-  width: 20em;
-  height: 4em;
-  background-color: rgb(232, 232, 227);
-  border-color: rgb(229, 231, 235);
-  border-radius: 15px;
-  cursor: pointer;
+.sso {
+    width: 20em;
+    height: 4em;
+    background-color: rgb(232, 232, 227);
+    border-color: rgb(229, 231, 235);
+    border-radius: 15px;
+    cursor: pointer;
 }
-.buttonColor{
-  color: rgb(19, 52, 59);
+.buttonColor {
+    color: rgb(19, 52, 59);
 }
-.submitButton{
-  outline: none;
+.submitButton {
+    outline: none;
     display: inline-block;
     font-weight: bold;
     white-space: nowrap;
@@ -29,14 +29,14 @@
     border-radius: 8px;
 }
 .submit_btn_css {
-  background-color: var(--Brand-500, #6366f1);
-  width: 495px;
-  height: 50px;
-  border-radius: 40px;
+    background-color: var(--Brand-500, #6366f1);
+    width: 495px;
+    height: 50px;
+    border-radius: 40px;
 }
 
 @media screen and (max-width: 767px) {
-  .submit_btn_css {
-    width: 300px;
-  }
+    .submit_btn_css {
+        width: 300px;
+    }
 }

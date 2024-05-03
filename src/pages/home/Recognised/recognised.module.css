@@ -1,24 +1,24 @@
 .recognised {
-  height: 413px;
-  background-color: #fff;
-  /* color: #0000 */
-  color: black;
+    height: 413px;
+    background-color: #fff;
+    /* color: #0000 */
+    color: black;
 }
 .recognisedHeading {
-  text-align: center;
+    text-align: center;
 }
 .recognisedCompany {
-  display: flex;
-  /* justify-content: space-between; */
-  justify-content: center;
-  align-items:first baseline;
+    display: flex;
+    /* justify-content: space-between; */
+    justify-content: center;
+    align-items: first baseline;
 }
 .recognisedCompany {
 }
 .recognisedImg {
-  width: 280px;
+    width: 280px;
 }
-.recognisedImg{
+.recognisedImg {
     display: flex;
     justify-content: center;
     align-items: center;
