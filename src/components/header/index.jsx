@@ -14,6 +14,7 @@ import * as constants from '../../constants/Constant';
 import { Typography } from '@mui/material';
 import { scopes } from '../../constants/scopes';
 const tempData = ['UU', 'UR', 'UD', 'UC', 'OGU', 'OGR', 'OGC', 'OGD'];
+
 function Header({ componentName, customStyle, navigationRoute }) {
   const user = useSelector(selectUser);
   const jwt = user?.userToken;
