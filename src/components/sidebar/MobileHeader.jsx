@@ -201,9 +201,7 @@ function MobileHeader(props) {
           onClick={onOpen}
         />
         <Typography variant="h5" color={"#312e81"}>
-          {componentName
-            ? componentName.slice(0, 10) + "..."
-            : componentName}
+          {componentName && componentName.slice(0, 10) + "..."}
         </Typography>
         <Dropdown
           menu={{
