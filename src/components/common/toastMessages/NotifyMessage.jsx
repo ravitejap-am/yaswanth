@@ -1,61 +1,53 @@
-import React, { useEffect, useState } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import React, { useEffect, useState } from 'react'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
-const messageTypes = ['error', 'info', 'warn', 'success'];
+const messageTypes = ['error', 'info', 'warn', 'success']
 
-const NotifyMessage = ({
-  messageHandler,
-  message,
-  type,
-  theme = 'light',
-}) => {
-  const notifyMessage = (type) =>
-    toast[type](message, {
-      position: "top-center",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: theme,
-      onClose: messageHandler,
-    });
+const NotifyMessage = ({ messageHandler, message, type, theme = 'light' }) => {
+    const notifyMessage = (type) =>
+        toast[type](message, {
+            position: 'top-center',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: theme,
+            onClose: messageHandler,
+        })
 
-    const [containerLeft, setContainerLeft] = useState("45%");
-    const [phoneView, setPhoneView] = useState(false);
+    const [containerLeft, setContainerLeft] = useState('45%')
+    const [phoneView, setPhoneView] = useState(false)
 
+    useEffect(() => {
+        if (messageTypes.includes(type)) {
+            notifyMessage(type)
+        } else {
+            notifyMessage('info')
+        }
+    }, [message, type, messageHandler, theme])
 
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth <= 600) {
+                setContainerLeft('auto')
+                setPhoneView(true)
+            } else {
+                setContainerLeft('45%')
+                setPhoneView(false)
+            }
+        }
 
-  useEffect(() => {
-    if (messageTypes.includes(type)) {
-      notifyMessage(type);
-    } else {
-      notifyMessage('info');
-    }
-  }, [message, type, messageHandler, theme]);
+        window.addEventListener('resize', handleResize)
 
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth <= 600) {
-        setContainerLeft("auto");
-        setPhoneView(true);
-      } else {
-        setContainerLeft("45%");
-        setPhoneView(false);
-      }
-    };
+        handleResize()
 
-    window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener('resize', handleResize)
+    }, [])
 
-    handleResize();
-
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-
-  const customToastStyles = `
+    const customToastStyles = `
   .Toastify__toast {
     font-family: Montserrat, Arial, sans-serif;
   }
@@ -82,27 +74,27 @@ const NotifyMessage = ({
       width: ${phoneView ? 'auto' : '500px'};
       padding: 16px;
     }
-  `;
+  `
 
-  const styleTag = document.createElement('style');
-  styleTag.type = 'text/css';
-  styleTag.appendChild(document.createTextNode(customToastStyles));
-  document.head.appendChild(styleTag);
+    const styleTag = document.createElement('style')
+    styleTag.type = 'text/css'
+    styleTag.appendChild(document.createTextNode(customToastStyles))
+    document.head.appendChild(styleTag)
 
-  return (
-    <ToastContainer
-      position="top-center"
-      autoClose={5000}
-      hideProgressBar={false}
-      newestOnTop={false}
-      closeOnClick
-      rtl={false}
-      pauseOnFocusLoss
-      draggable
-      pauseOnHover
-      style={{ left: containerLeft }}  
-    />
-  );
-};
+    return (
+        <ToastContainer
+            position="top-center"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            style={{ left: containerLeft }}
+        />
+    )
+}
 
-export default NotifyMessage;
+export default NotifyMessage

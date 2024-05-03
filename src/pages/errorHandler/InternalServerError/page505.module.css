@@ -1,30 +1,30 @@
 .page505 {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  width: 100vw;
-  background: rgb(181, 100, 229);
-  background: var(--Neutral-200, #e2e8f0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    background: rgb(181, 100, 229);
+    background: var(--Neutral-200, #e2e8f0);
 
-  background-repeat: no-repeat;
+    background-repeat: no-repeat;
 }
 .image {
-  width: 200px;
-  height: 200px;
+    width: 200px;
+    height: 200px;
 }
 .internalServerErrorDiv {
-  display: grid;
-  justify-content: center;
-  align-items: center;
+    display: grid;
+    justify-content: center;
+    align-items: center;
 }
 
 .buttonContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .cutomerSupportMsgError {
-  text-align: center;
+    text-align: center;
 }

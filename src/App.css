@@ -1,58 +1,58 @@
 .App {
-  text-align: center;
+    text-align: center;
 }
 /* p {
   font-family: system-ui;
 } */
 .App-logo {
-  height: 40vmin;
-  pointer-events: none;
+    height: 40vmin;
+    pointer-events: none;
 }
 .center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .butooneffect:active {
-  /* background-color: transparent; */
-  /* box-shadow: 0 5px #666; */
-  transform: translateY(4px);
+    /* background-color: transparent; */
+    /* box-shadow: 0 5px #666; */
+    transform: translateY(4px);
 }
 .coloumCenter {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 @media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+    .App-logo {
+        animation: App-logo-spin infinite 20s linear;
+    }
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
 }
 
 .App-link {
-  color: #61dafb;
+    color: #61dafb;
 }
 
 @keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }
 /* body {
   margin: 0;
@@ -69,27 +69,27 @@
 } */
 
 html {
-  overflow: hidden;
+    overflow: hidden;
 }
-  body {
-  height: 100%;
-  width:100%;
-  position: fixed;
-  overflow: hidden;
-  margin: 0;
-  padding: 0;
-  color: #475f7b;
-  font-size: 1rem;
-  font-style: normal;
-  font-weight: 400;
-  font-family: "Montserrat", sans-serif;
-  line-height: 1.5;
-  /* -webkit-overflow-scrolling: touch; */
-  }
+body {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    color: #475f7b;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.5;
+    /* -webkit-overflow-scrolling: touch; */
+}
 .main {
-  height: 100vh;
-  /* background: rgb(181, 100, 229); */
-  /* background: linear-gradient(
+    height: 100vh;
+    /* background: rgb(181, 100, 229); */
+    /* background: linear-gradient(
     190deg,
     rgba(181, 100, 229, 1) 20%,
 
@@ -97,107 +97,110 @@ html {
 
     rgba(105, 238, 245, 1) 100%
   ); */
-  background-color: #e2e8f0;
+    background-color: #e2e8f0;
 
-  background-repeat: no-repeat;
+    background-repeat: no-repeat;
 }
 
 .btn-color {
-  display: flex;
-  width: 90px;
-  height: 30px;
-  padding: 20px 30px;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  flex-shrink: 0;
-  border-radius: 30px;
-  background: var(--Brand-500, #6366f1);
+    display: flex;
+    width: 90px;
+    height: 30px;
+    padding: 20px 30px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+    border-radius: 30px;
+    background: var(--Brand-500, #6366f1);
 }
 
 .btn-color-signup {
-  display: flex;
-  width: 90px;
-  height: 30px;
-  padding: 20px 30px;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  flex-shrink: 0;
-  margin-left: 20px;
-  border-radius: 30px;
-  background: var(--Brand-500, #6366f1);
+    display: flex;
+    width: 90px;
+    height: 30px;
+    padding: 20px 30px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+    margin-left: 20px;
+    border-radius: 30px;
+    background: var(--Brand-500, #6366f1);
 }
 
 #bar {
-  position: relative;
-  height: 400px;
-  width: auto;
-  overflow: auto;
+    position: relative;
+    height: 400px;
+    width: auto;
+    overflow: auto;
 }
 
 #pie {
-  position: relative;
-  height: 400px;
-  width: auto;
-  overflow: auto;
+    position: relative;
+    height: 400px;
+    width: auto;
+    overflow: auto;
 }
 
 .container {
-  height: 100% !important;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  align-content: center;
-  width: 100%;
-  padding-right: var(--bs-gutter-x, 0.75rem);
-  padding-left: var(--bs-gutter-x, 0.75rem);
-  margin-right: auto;
-  margin-left: auto;
+    height: 100% !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    width: 100%;
+    padding-right: var(--bs-gutter-x, 0.75rem);
+    padding-left: var(--bs-gutter-x, 0.75rem);
+    margin-right: auto;
+    margin-left: auto;
 }
 
 .css-t89xny-MuiDataGrid-columnHeaderTitle {
-  font-weight: 700 !important;
+    font-weight: 700 !important;
 }
 
 .css-nxo287-MuiInputBase-input-MuiOutlinedInput-input {
-  padding: 9.5px 12px !important;
+    padding: 9.5px 12px !important;
 }
 
 .ant-select-selector {
-  border: none !important;
+    border: none !important;
 }
 
 /* .anticon-close {
   color: white !important;
 } */
-:where(.css-dev-only-do-not-override-1rqnfsa).ant-drawer-left>.ant-drawer-content-wrapper {
-  /* box-shadow: none; */
-  width:100% !important;
+:where(.css-dev-only-do-not-override-1rqnfsa).ant-drawer-left
+    > .ant-drawer-content-wrapper {
+    /* box-shadow: none; */
+    width: 100% !important;
 }
 @font-face {
-  font-family: "Montserrat300";
-  src: local("Montserrat300"),
-    url("../src/asset/fonts/Montserrat-300.ttf") format("ttf"),
-    url("../src/asset/fonts/Montserrat-300.ttf") format("ttf");
+    font-family: 'Montserrat300';
+    src:
+        local('Montserrat300'),
+        url('../src/asset/fonts/Montserrat-300.ttf') format('ttf'),
+        url('../src/asset/fonts/Montserrat-300.ttf') format('ttf');
 }
 @font-face {
-  font-family: "Montserrat600";
-  src: local("Montserrat600"),
-    url("../src/asset/fonts/Montserrat-300.ttf") format("ttf"),
-    url("../src/asset/fonts/Montserrat-300.ttf") format("ttf");
+    font-family: 'Montserrat600';
+    src:
+        local('Montserrat600'),
+        url('../src/asset/fonts/Montserrat-300.ttf') format('ttf'),
+        url('../src/asset/fonts/Montserrat-300.ttf') format('ttf');
 }
 @media (max-width: 600px) {
-  #bar {
-    width: 15em;
-    margin: 0 auto;
-  }
-  #pie {
-    width: 15em;
-    margin: 0 auto;
-  }
+    #bar {
+        width: 15em;
+        margin: 0 auto;
+    }
+    #pie {
+        width: 15em;
+        margin: 0 auto;
+    }
 }
 
-.css-u36398{
-  color: white !important;
+.css-u36398 {
+    color: white !important;
 }

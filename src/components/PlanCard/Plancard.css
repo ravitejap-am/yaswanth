@@ -1,42 +1,42 @@
 .Right_Plan_Main_Card {
     padding: 100px 40px;
     background: linear-gradient(
-      114deg,
-      #0f172a 51.52%,
-      #152346 73.32%,
-      #1a2e5e 92.75%
+        114deg,
+        #0f172a 51.52%,
+        #152346 73.32%,
+        #1a2e5e 92.75%
     );
     justify-content: center;
-  }
-  
-  @media (max-width: 1100px) {
+}
+
+@media (max-width: 1100px) {
     .Right_Plan_Main_Card {
-      height: auto;
-      padding:100px 20px;
-      margin: 0;
+        height: auto;
+        padding: 100px 20px;
+        margin: 0;
     }
-  
+
     .Right_Plan_Three_Container {
-      flex-direction: column;
-      align-items: center;
+        flex-direction: column;
+        align-items: center;
     }
-  
+
     .Right_Plan_Content {
-      width: auto;
-      height: auto;
-      margin-bottom: 20px;
+        width: auto;
+        height: auto;
+        margin-bottom: 20px;
     }
-  
+
     .Right_Plan_Below_Content {
-      margin-top: 15px;
+        margin-top: 15px;
     }
-  
+
     .Right_Plan_General_Button {
-      width: 100%;
+        width: 100%;
     }
-  }
-  
-  .Right_Plan_Gat_Started_button {
+}
+
+.Right_Plan_Gat_Started_button {
     display: flex;
     width: 282.001px;
     height: 50px;
@@ -47,78 +47,78 @@
     flex-shrink: 0;
     border-radius: 30px;
     background: var(--Brand-500, #6366f1);
-  }
-  .Right_Plan_Three_Container {
+}
+.Right_Plan_Three_Container {
     justify-content: center;
     width: 100%;
     display: flex;
     gap: 40px;
     margin-top: 50px;
-  }
-  .Right_Plan_Content {
+}
+.Right_Plan_Content {
     width: 290px;
     height: 400px;
     border-radius: 10px;
     border: 2px solid var(--Brand-700, #4338ca);
     background: var(--Neutral-800, #1e293b);
     padding: 20px;
-  }
-  .Right_Plan_Below_Content {
+}
+.Right_Plan_Below_Content {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     margin-top: 15px;
-  }
-  .Right_Plan_Gernal_Button {
+}
+.Right_Plan_Gernal_Button {
     margin-top: -12px;
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-  .Right_Plan_Content_Title {
+}
+.Right_Plan_Content_Title {
     color: #ffffff;
     font-family: Montserrat;
     font-size: 1.5rem;
     font-style: normal;
     font-weight: 600;
     line-height: 3px;
-  }
-  .Right_Plan_Top_Content {
+}
+.Right_Plan_Top_Content {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-  }
-  .Right_Plan_Top_Content_Title {
+}
+.Right_Plan_Top_Content_Title {
     color: var(--White, #fff);
     /* font-family: Montserrat; */
     font-size: 2.25rem;
     /* font-style: normal; */
     font-weight: 300;
-  }
-  .Right_Plan_Top_Content_SubTitle {
+}
+.Right_Plan_Top_Content_SubTitle {
     color: var(--Neutral-200, #e2e8f0);
     text-align: center;
     font-family: Lato;
     font-size: 0.875rem;
-  }
-  
-  .Right_Plan_below_Content_Sub_Div {
+}
+
+.Right_Plan_below_Content_Sub_Div {
     display: flex;
     align-items: center;
     height: 35px;
-  }
-  .Right_Plan_Content_Sub_Div {
+}
+.Right_Plan_Content_Sub_Div {
     width: 295px;
-    height:85px;
+    height: 85px;
     color: var(--Neutral-400, #94a3b8);
     font-family: Lato;
     font-size: 1.125rem;
     font-style: normal;
     font-weight: 500;
     line-height: 28px;
-  }
-  .Right_Plan_Content_Price {
+}
+.Right_Plan_Content_Price {
     color: #ffffff;
     font-family: Montserrat;
     font-size: 2.25rem;
@@ -126,15 +126,15 @@
     font-weight: 500;
     line-height: 0px;
     height: 22px;
-  }
-  .per-month {
+}
+.per-month {
     color: var(--Neutral-400, #94a3b8);
     font-family: Lato;
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
-  }
-  .Right_Plan_below_Content_P_Tag {
+}
+.Right_Plan_below_Content_P_Tag {
     padding-left: 17px !important;
     color: var(--Neutral-200, #e2e8f0);
     font-family: Lato;
@@ -142,32 +142,32 @@
     font-style: normal;
     font-weight: 300;
     line-height: 24px;
-  }
-  
-  @media (max-width: 767px) {
+}
+
+@media (max-width: 767px) {
     .Right_Plan_Top_Content_Title {
-      font-size: 28px;
-      text-align: center;
+        font-size: 28px;
+        text-align: center;
     }
     .Right_Plan_Top_Content_SubTitle {
-      font-size: 14px;
-      text-align: center;
+        font-size: 14px;
+        text-align: center;
     }
     .Right_Plan_Content {
-      width: 260px;
+        width: 260px;
     }
     .Right_Plan_Content_Sub_Div {
-      width: 250px;
+        width: 250px;
     }
-  }
-  
-  @media (min-width: 768px) and (max-width: 1023px) {
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
     .Right_Plan_Top_Content_Title {
-      font-size: 30px;
-      text-align: center;
+        font-size: 30px;
+        text-align: center;
     }
     .Right_Plan_Top_Content_SubTitle {
-      font-size: 14px;
-      text-align: center;
+        font-size: 14px;
+        text-align: center;
     }
-  }
+}

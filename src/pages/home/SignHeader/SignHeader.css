@@ -1,6 +1,6 @@
 .signheader-main {
     /* background: var(--Neutral-200, #E2E8F0); */
-    background-color: var(--Neutral-900, #0F172A);
+    background-color: var(--Neutral-900, #0f172a);
 }
 
 .signheader-content {
@@ -20,7 +20,7 @@
 
 .signheader-amchattext {
     margin-left: 35px;
-    color: var(--Neutral-900, #0F172A);
+    color: var(--Neutral-900, #0f172a);
     font-family: Lato;
     font-size: 1rem;
     font-style: normal;

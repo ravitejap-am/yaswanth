@@ -2,35 +2,34 @@
     border-radius: 50%;
     width: 44px;
     height: 44px;
-  }
-  .headermain{
+}
+.headermain {
     display: flex;
     justify-content: space-between;
     align-items: center;
     /* margin-top: 16px; */
-  }
-  .headertext{
+}
+.headertext {
     color: #312e81;
     color: var(--Brand-900, #312e81);
-    font-family: Into, "sans-serif";
+    font-family: Into, 'sans-serif';
     font-size: 24px;
     font-style: normal;
     font-weight: 600;
     line-height: 32px;
     width: 100%;
-  }
-  .popupalignment{
-   display: flex;
-   align-items: center;
-  }
-  .Usernametext{
+}
+.popupalignment {
+    display: flex;
+    align-items: center;
+}
+.Usernametext {
     margin-left: 10px;
     color: black;
     font-size: 18px;
     font-style: normal;
     font-weight: 600;
-  }
-  .Iconalgnment{
-   margin-right: 10px;
-  }
-
+}
+.Iconalgnment {
+    margin-right: 10px;
+}

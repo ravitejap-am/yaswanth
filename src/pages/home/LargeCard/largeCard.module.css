@@ -1,58 +1,58 @@
 .largeCardLeft {
-  width: 969px;
-  height: 363px;
-  background-color: #e5e6f8;
-  border-radius: 5px;
-  box-shadow: var(--shd, 0 1px 4px rgba(0, 0, 0, 0.6));
-  display: flex;
-  justify-content: space-between;
-  /* padding-left: 30px; */
-  /* padding-right: 50px; */
+    width: 969px;
+    height: 363px;
+    background-color: #e5e6f8;
+    border-radius: 5px;
+    box-shadow: var(--shd, 0 1px 4px rgba(0, 0, 0, 0.6));
+    display: flex;
+    justify-content: space-between;
+    /* padding-left: 30px; */
+    /* padding-right: 50px; */
 }
 .largeCardRight {
-  width: 969px;
-  height: 363px;
-  background-color: #e5e6f8;
-  border-radius: 5px;
-  box-shadow: var(--shd, 0 1px 4px rgba(0, 0, 0, 0.6));
-  display: flex;
-  justify-content: space-between;
-  /* padding-left: 30px; */
-  /* padding-right: 50px; */
-  color: white;
-  background-color: #32016f;
+    width: 969px;
+    height: 363px;
+    background-color: #e5e6f8;
+    border-radius: 5px;
+    box-shadow: var(--shd, 0 1px 4px rgba(0, 0, 0, 0.6));
+    display: flex;
+    justify-content: space-between;
+    /* padding-left: 30px; */
+    /* padding-right: 50px; */
+    color: white;
+    background-color: #32016f;
 }
 .largeImage {
-  position: relative;
-  width: 379px;
-  height: 379px;
+    position: relative;
+    width: 379px;
+    height: 379px;
 
-  object-fit: cover;
-  object-position: 50% 50%;
-  bottom: 60px;
-  /* left: 30px; */
+    object-fit: cover;
+    object-position: 50% 50%;
+    bottom: 60px;
+    /* left: 30px; */
 }
 .largeCardContent {
-  width: 380px;
-  margin-left: -80px;
-  margin-right: 100px;
-  margin-top: 20px;
-  color: black;
+    width: 380px;
+    margin-left: -80px;
+    margin-right: 100px;
+    margin-top: 20px;
+    color: black;
 }
 .largeCardContentRight {
-  width: 380px;
-  margin-left: 80px;
-  /* margin-right: px; */
-  margin-top: 20px;
+    width: 380px;
+    margin-left: 80px;
+    /* margin-right: px; */
+    margin-top: 20px;
 }
 .largeCardContentPara {
-  width: 339px;
-  height: 147px;
-  line-height: 1.5em;
-  font-size: 17px;
-  /* text-align: center; */
+    width: 339px;
+    height: 147px;
+    line-height: 1.5em;
+    font-size: 17px;
+    /* text-align: center; */
 }
 .largeCardContentHeading {
-  line-height: normal;
-  font-size: 26px;
+    line-height: normal;
+    font-size: 26px;
 }

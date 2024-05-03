@@ -1,165 +1,165 @@
 .headerMain {
-  width: 100svh;
-  height: 108px;
-  display: flex;
-  align-items: center;
-  padding-left: 20px;
-  gap: 100px;
+    width: 100svh;
+    height: 108px;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    gap: 100px;
 }
 
 @media only screen and (min-width: 769px) {
-  .headerMain {
-    padding-left: 100px;
-  }
+    .headerMain {
+        padding-left: 100px;
+    }
 
-  .appNavigation {
-    margin-right: 100px;
-  }
+    .appNavigation {
+        margin-right: 100px;
+    }
 }
 
 @media only screen and (max-width: 768px) {
-  .appNavigation {
-    margin-right: 20px;
-  }
+    .appNavigation {
+        margin-right: 20px;
+    }
 
-  .navigationPages {
-    margin-right: 0;
-  }
+    .navigationPages {
+        margin-right: 0;
+    }
 
-  .navigationButton {
-    margin-left: 20px;
-  }
+    .navigationButton {
+        margin-left: 20px;
+    }
 }
 
 .scrolled {
-  background: linear-gradient(
-    114deg,
-    #0f172a 51.52%,
-    #152346 73.32%,
-    #1a2e5e 92.75%
-  );
+    background: linear-gradient(
+        114deg,
+        #0f172a 51.52%,
+        #152346 73.32%,
+        #1a2e5e 92.75%
+    );
 }
 .navigation {
-  color: var(--neutral-300, #cbd5e1);
-  text-align: left;
-  font-family: var(--text-sm-font-family, "Lato-Regular", sans-serif);
-  font-size: var(--text-sm-font-size, 14px);
-  line-height: var(--text-sm-line-height, 20px);
-  font-weight: var(--text-sm-font-weight, 400);
-  position: relative;
-  line-height: 33px;
-  color: #cbd5e1;
-  transition: var(--trans, color 0.4s ease 0s);
-  display: inline-block;
-  padding: 0 10px;
-  cursor: pointer;
-  /* font-family: Lato;
+    color: var(--neutral-300, #cbd5e1);
+    text-align: left;
+    font-family: var(--text-sm-font-family, 'Lato-Regular', sans-serif);
+    font-size: var(--text-sm-font-size, 14px);
+    line-height: var(--text-sm-line-height, 20px);
+    font-weight: var(--text-sm-font-weight, 400);
+    position: relative;
+    line-height: 33px;
+    color: #cbd5e1;
+    transition: var(--trans, color 0.4s ease 0s);
+    display: inline-block;
+    padding: 0 10px;
+    cursor: pointer;
+    /* font-family: Lato;
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
   line-height: 20px; */
 }
 .headerMain {
-  width: 100%;
+    width: 100%;
 }
 .scrolled {
-  width: 100vw;
+    width: 100vw;
 }
 .appName {
-  width: 12px;
-  height: 12.571px;
-  flex-shrink: 0;
-  stroke-width: 1px;
-  stroke: #53a5df;
+    width: 12px;
+    height: 12.571px;
+    flex-shrink: 0;
+    stroke-width: 1px;
+    stroke: #53a5df;
 }
 .appNavigation {
-  background-color: transparent;
-  color: #cbd5e1;
-  font-family: Lato;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 20px;
-  bottom: 0;
-  height: 80px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /* width: 500px; */
-  margin-left: 82px;
+    background-color: transparent;
+    color: #cbd5e1;
+    font-family: Lato;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    bottom: 0;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* width: 500px; */
+    margin-left: 82px;
 }
 
 .homeBtn {
-  background-color: #7529b2;
-  border: solid
-    var(
-      --corvid-border-color,
-      rgba(var(--brd, var(--color_15)), var(--alpha-brd, 1))
-    )
-    var(--corvid-border-width, var(--brw, 0));
-  cursor: pointer !important;
-  border-radius: 50px;
-  box-shadow: var(--shd, 0 1px 4px rgba(0, 0, 0, 0.6));
-  transition: var(
-    --trans1,
-    border-color 0.4s ease 0s,
-    background-color 0.4s ease 0s
-  );
-  align-items: center;
-  box-sizing: border-box;
-  display: flex;
-  min-width: 100%;
-  text-align: initial;
-  width: 150px;
-  height: 50px;
-  justify-content: center;
+    background-color: #7529b2;
+    border: solid
+        var(
+            --corvid-border-color,
+            rgba(var(--brd, var(--color_15)), var(--alpha-brd, 1))
+        )
+        var(--corvid-border-width, var(--brw, 0));
+    cursor: pointer !important;
+    border-radius: 50px;
+    box-shadow: var(--shd, 0 1px 4px rgba(0, 0, 0, 0.6));
+    transition: var(
+        --trans1,
+        border-color 0.4s ease 0s,
+        background-color 0.4s ease 0s
+    );
+    align-items: center;
+    box-sizing: border-box;
+    display: flex;
+    min-width: 100%;
+    text-align: initial;
+    width: 150px;
+    height: 50px;
+    justify-content: center;
 }
 .amChatTitle {
-  color: var(--White, #fff);
-  font-family: Red Rose;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 24px;
+    color: var(--White, #fff);
+    font-family: Red Rose;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px;
 }
 .navigationButton {
-  display: flex;
-  color: #f8fafc;
-  font-family: Lato;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 24px;
+    display: flex;
+    color: #f8fafc;
+    font-family: Lato;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px;
 }
 .appLogo {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0 10px 0 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 10px 0 0;
 }
 
 .logo {
-  width: 150px;
-  margin-top: 20px;
+    width: 150px;
+    margin-top: 20px;
 }
 
 .mainHeader {
-  position: fixed;
-  top: 0;
-  z-index: 999;
-  width: 100%;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
+    position: fixed;
+    top: 0;
+    z-index: 999;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
 }
 
 @media (max-width: 767px) {
-  .mainHeader {
-    justify-content: space-between;
-    padding: 0 15px;
-  }
+    .mainHeader {
+        justify-content: space-between;
+        padding: 0 15px;
+    }
 }
 
-.drawerClose .anticon-close{
-  color: white !important; 
+.drawerClose .anticon-close {
+    color: white !important;
 }
