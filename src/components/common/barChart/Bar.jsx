@@ -27,6 +27,10 @@ const Bar = ({ dateList }) => {
           return [x, y];
         },
       },
+      // legend: {
+      //   orient: "vertical",
+      //   bottom: 10, 
+      // },
       toolbox: {
         show: false,
         feature: {

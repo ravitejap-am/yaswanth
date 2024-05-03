@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import Layout from '../../../Layout';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import Layout from "../../../Layout";
+import axios from "axios";
 import {
   BASE_DOC_API_URL,
   BASE_ORG_API_URL,
-} from '../../../constants/Constant';
+} from "../../../constants/Constant";
 import {
   Box,
   FormControl,
@@ -14,24 +14,24 @@ import {
   Select,
   Typography,
   useMediaQuery,
-} from '@mui/material';
-import styles from './dashboard.module.css';
-import { useNavigate } from 'react-router-dom';
-import { selectUser } from '../../../store/authSlice';
-import { setErrorMsg } from '../../../store/authSlice';
-import { useSelector, useDispatch } from 'react-redux';
-import * as constants from '../../../constants/Constant';
-import PageLoader from '../../../components/loader/loader';
-import { getActiveUserList } from '../../../apiCalls/ApiCalls';
-import documentIcon1 from '../../../asset/AmChatSuperAdmin/Group23.png';
-import documentIcon2 from '../../../asset/AmChatSuperAdmin/Group24.png';
-import DashboardCard from '../../../components/common/dashboard-card/DashboardCard';
-import OrgChatSession from '../../../components/common/org-chat-session/OrgChatSession';
-import Bar from '../../../components/common/barChart/Bar';
-import Pie from '../../../components/common/pieChart/Pie';
-import CommonDatePicker from '../../../components/common/date-picker/CommonDatePicker';
-import { pieRaw_data, barRaw_data } from '../../../constants/RawData';
-import { getUsageSubscription } from '../../../apiCalls/ApiCalls';
+} from "@mui/material";
+import styles from "./dashboard.module.css";
+import { useNavigate } from "react-router-dom";
+import { selectUser } from "../../../store/authSlice";
+import { setErrorMsg } from "../../../store/authSlice";
+import { useSelector, useDispatch } from "react-redux";
+import * as constants from "../../../constants/Constant";
+import PageLoader from "../../../components/loader/loader";
+import { getActiveUserList } from "../../../apiCalls/ApiCalls";
+import documentIcon1 from "../../../asset/AmChatSuperAdmin/Group23.png";
+import documentIcon2 from "../../../asset/AmChatSuperAdmin/Group24.png";
+import DashboardCard from "../../../components/common/dashboard-card/DashboardCard";
+import OrgChatSession from "../../../components/common/org-chat-session/OrgChatSession";
+import Bar from "../../../components/common/barChart/Bar";
+import CommonDatePicker from "../../../components/common/date-picker/CommonDatePicker";
+import { pieRaw_data, barRaw_data } from "../../../constants/RawData";
+import { getUsageSubscription } from "../../../apiCalls/ApiCalls";
+import PieChart from "../../../components/common/pieChart/PieChart";
 
 function Dashboard() {
   const user = useSelector(selectUser);
@@ -48,20 +48,19 @@ function Dashboard() {
   const [endDate, setEndDate] = useState(new Date());
   const [toShowPie, setToShowPie] = useState([]);
   const [toShowBar, setToShowBar] = useState([]);
-  const [selectedValue, setSelectedValue] = useState('chat');
+  const [selectedValue, setSelectedValue] = useState("chat");
   const [isLoading, setIsLoading] = useState(true);
   const [documentCount, setDocumentCount] = useState(0);
   const [activeUsersCount, setActiveUsersCount] = useState(0);
   const [orgChatSessionList, setOrgChatSessionList] = useState([]);
-  const userRole = localStorage.getItem('userRole');
-  const isMobile = useMediaQuery('(max-width:600px)');
-
+  const userRole = localStorage.getItem("userRole");
+  const isMobile = useMediaQuery("(max-width:600px)");
 
   useEffect(() => {
     const disableBack = () => {
-      window.history.pushState(null, '', window.location.href);
+      window.history.pushState(null, "", window.location.href);
       window.onpopstate = () => {
-      window.history.pushState(null, '', window.location.href);
+        window.history.pushState(null, "", window.location.href);
       };
     };
     disableBack();
@@ -69,22 +68,22 @@ function Dashboard() {
       window.onpopstate = null;
     };
   }, []);
-  
+
   const decodeJWT = (token) => {
     try {
-      const base64Url = token.split('.')[1];
-      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      const base64Url = token.split(".")[1];
+      const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
       const jsonPayload = decodeURIComponent(
         atob(base64)
-          .split('')
+          .split("")
           .map((char) => {
-            return '%' + ('00' + char.charCodeAt(0).toString(16)).slice(-2);
+            return "%" + ("00" + char.charCodeAt(0).toString(16)).slice(-2);
           })
-          .join('')
+          .join("")
       );
       return JSON.parse(jsonPayload);
     } catch (error) {
-      console.error('Error decoding JWT:', error);
+      console.error("Error decoding JWT:", error);
       return null;
     }
   };
@@ -101,10 +100,10 @@ function Dashboard() {
         },
       });
 
-      console.log('get total document', response);
+      console.log("get total document", response);
       setDocCount(response?.data?.totalElements);
     } catch (error) {
-      console.log('Failed to fetch user profile.', error);
+      console.log("Failed to fetch user profile.", error);
       setIsLoading(false);
     }
   };
@@ -119,15 +118,15 @@ function Dashboard() {
       setOrgCount(response?.data?.totalElements);
       setIsLoading(false);
     } catch (error) {
-      console.log('Failed to fetch user profile.', error);
-      if (error?.response?.status == 500 || error?.response?.status == '500') {
+      console.log("Failed to fetch user profile.", error);
+      if (error?.response?.status == 500 || error?.response?.status == "500") {
         const errorMsgprops = {
           message: {
-            title: 'Something went wrong',
-            content: 'Please contact our customer support team',
+            title: "Something went wrong",
+            content: "Please contact our customer support team",
           },
           // handleVerification: handleVerification,
-          onOkButtonText: 'Retry',
+          onOkButtonText: "Retry",
         };
         dispatch(setErrorMsg({ ...errorMsgprops }));
       }
@@ -204,11 +203,11 @@ function Dashboard() {
   const handleVerification = () => {
     const isValidJwtToken = true;
     if (isValidJwtToken) {
-      console.log('valid jwt token');
-      navigate('/dashboardadmin');
+      console.log("valid jwt token");
+      navigate("/dashboardadmin");
     } else {
       localStorage.clear();
-      navigate('/signin');
+      navigate("/signin");
     }
   };
 
@@ -216,16 +215,10 @@ function Dashboard() {
     setSelectedValue(e.target.value);
   };
 
-  const handleSelectedDate = (selectedDate) => {
-    const endDate = selectedDate ? new Date(selectedDate) : new Date();
-    const startDate = selectedDate ? new Date(selectedDate) : new Date();
-    startDate.setDate(endDate?.getDate() - 7);
-    setStartDate(startDate);
-    setEndDate(endDate);
-  };
+
 
   const parseDate = (dateStr) => {
-    const parts = dateStr.split('/');
+    const parts = dateStr.split("/");
     return new Date(parts[2], parts[1] - 1, parts[0]);
   };
 
@@ -237,15 +230,26 @@ function Dashboard() {
     });
 
     filteredItems.forEach((item) => {
-      const itemDateParts = item.date.split('/');
+      const itemDateParts = item.date.split("/");
 
       const monthNames = [
-        "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-        "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
       ];
-      const monthName = monthNames[parseInt(itemDateParts[1]) - 1]; 
+      const monthName = monthNames[parseInt(itemDateParts[1]) - 1];
 
-      const fullDate = itemDateParts[0] + "-" + monthName + "-" + itemDateParts[2] 
+      const fullDate =
+        itemDateParts[0] + "-" + monthName + "-" + itemDateParts[2];
       filter[fullDate] = {
         chat_count: item.chat_count,
         session_count: item.session_count,
@@ -261,15 +265,15 @@ function Dashboard() {
       // const response = await getUsageSubscription(headers)
       const response = pieRaw_data;
     } catch (error) {
-      console.log('error in fetching usage subscription details-->', error);
+      console.log("error in fetching usage subscription details-->", error);
     }
   };
 
   useEffect(() => {
-    if (userRole === 'SUPER_ADMIN') {
+    if (userRole === "SUPER_ADMIN") {
       getOrganisationCount();
       getDocumentsCount();
-    } else if (userRole === 'ORG_ADMIN') {
+    } else if (userRole === "ORG_ADMIN") {
       // fetchActiveUserCount();
       // fetchDocumentCount();
       fetchUsageSubscriptionDetails();
@@ -281,21 +285,46 @@ function Dashboard() {
     }
   }, [userRole, selectedValue, endDate]);
 
+
+  const handleSelectEnddDate = (selectedDate) => {
+    const endDate = selectedDate ? new Date(selectedDate) : new Date();
+    const startDate = selectedDate ? new Date(selectedDate) : new Date();
+    startDate.setDate(endDate?.getDate() - 7);
+    setStartDate(startDate);
+    setEndDate(endDate);
+  };
+
+
+  const handleSelectStartDate = (selectedDate) => {
+    let endDate = selectedDate ? new Date(selectedDate) : new Date();
+    let startDate = selectedDate ? new Date(selectedDate) : new Date();
+
+    console.log("startDate---->",startDate);
+    setStartDate(startDate);
+    let modifiedDate = startDate
+    const changedDate = modifiedDate.setDate(endDate?.getDate() + 7);
+    console.log("endate---->",new Date(changedDate));
+    setEndDate(new Date(changedDate));
+  }
+
+  console.log("return start date--->",startDate);
+  console.log("return end date---->",endDate);
+
   return (
     <Layout componentName="Dashboard">
       {isLoading && <PageLoader loadingStatus={isLoading} />}
-      {userRole === 'SUPER_ADMIN' && (
+      {userRole === "SUPER_ADMIN" && (
         <Grid
           container
           spacing={2}
           className={styles.container}
-          sx={{ marginTop: isMobile ? '1em' : '0px' }}
+          sx={{ marginTop: isMobile ? "1em" : "0px" }}
         >
           <Grid item sm={12} md={6} lg={6}>
             <DashboardCard
               mainClass={styles.sub}
               icon={documentIcon1}
-              contentName={'Organisation'}
+              contentName={"Organisation"}
               contentNumber={orgCount}
             />
           </Grid>
@@ -303,44 +332,103 @@ function Dashboard() {
             <DashboardCard
               mainClass={styles.sub}
               icon={documentIcon2}
-              contentName={'Documents Uploaded'}
+              contentName={"Documents Uploaded"}
               contentNumber={docCount}
             />
           </Grid>
         </Grid>
       )}
-      {userRole === 'ORG_ADMIN' && (
+      {userRole === "ORG_ADMIN" && (
         <Grid
           container
           spacing={2}
           className={styles.container}
-          sx={{ marginTop: isMobile ? '1em' : '0px' }}
+          sx={{ marginTop: isMobile ? "1em" : "0px" }}
         >
           <Grid item sm={12} md={6} lg={6}>
             <Box
               sx={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                gap: '1rem',
+                display: "flex",
+                flexWrap: "wrap",
+                gap: "1rem",
                 justifyContent: {
-                  xs: 'center',
-                  sm: 'space-between',
-                  lg: 'space-between',
-                  md: 'space-between',
+                  xs: "center",
+                  sm: "space-between",
+                  lg: "space-between",
+                  md: "space-between",
                 },
               }}
             >
               <Typography variant="h6" fontWeight="bold">
                 Chats and Sessions
               </Typography>
-              <CommonDatePicker
-                selectedDate={endDate ?? new Date()}
-                handleSelectedDate={handleSelectedDate}
-              />
+              <Box>
+                <CommonDatePicker
+                  selectedDate={startDate ?? new Date()}
+                  handleSelectedDate={handleSelectStartDate}
+                  label={"Start date"}
+                />
+                <CommonDatePicker
+                  selectedDate={endDate ?? new Date()}
+                  handleSelectedDate={handleSelectEnddDate}
+                  label={"End date"}
+                />
+              </Box>
             </Box>
             <Bar dateList={toShowBar} />
           </Grid>
-          <Grid item sm={12} md={6} lg={6}>
+          <Grid
+            item
+            sm={12}
+            md={5}
+            lg={5}
+            style={{ height: "330px", width: "100%" }}
+          >
+            <Typography variant="h6" fontWeight="bold">
+              Chat
+            </Typography>
+            <PieChart selectedTypeValue={pieRaw_data["chat"]} id="chat"/>
+          </Grid>
+          <Grid
+            item
+            sm={12}
+            md={5}
+            lg={5}
+            style={{ height: "330px", width: "100%" }}
+          >
+            <Typography variant="h6" fontWeight="bold">
+              Users
+            </Typography>
+            <PieChart selectedTypeValue={pieRaw_data["users"]}  id="users"/>
+          </Grid>
+          <Grid
+            item
+            sm={12}
+            md={5}
+            lg={5}
+            style={{ height: "330px", width: "100%" }}
+          >
+            <Typography variant="h6" fontWeight="bold">
+              Documents
+            </Typography>
+            <PieChart selectedTypeValue={pieRaw_data["documents"]} id="documents"/>
+          </Grid>
+          <Grid
+            item
+            sm={12}
+            md={5}
+            lg={5}
+            style={{ height: "330px", width: "100%" }}
+          >
+            <Typography variant="h6" fontWeight="bold">
+              Document size
+            </Typography>
+            <PieChart
+              selectedTypeValue={pieRaw_data["documents_size"]} 
+              id="documents_size"
+            />
+          </Grid>
+          {/* <Grid item sm={12} md={6} lg={6}>
             <Box
               sx={{
                 display: 'flex',
@@ -376,7 +464,7 @@ function Dashboard() {
               </FormControl>
             </Box>
             <Pie selectedTypeValue={pieRaw_data[selectedValue]} />
-          </Grid>
+          </Grid> */}
         </Grid>
       )}
     </Layout>
