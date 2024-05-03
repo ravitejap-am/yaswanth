@@ -61,12 +61,37 @@ function Organisation() {
   const user = useSelector(selectUser);
   const organisation = useSelector(selectOrganisation);
   const dispatch = useDispatch();
+  const isMobile = useMediaQuery("(max-width:600px)");
   const pageTitle =
-    organisation?.organisationStatus === "edit"
-      ? `Update Organisation: ${organisation?.organisationData?.name}`
-      : organisation?.organisationStatus === "view"
-      ? organisation?.organisationData?.name
-      : "Add Organisation";
+    organisation?.organisationStatus === "edit" ? (
+      <Typography
+        variant="h6"
+        sx={{
+          fontSize: isMobile ? "1.1rem" : "inherit",
+        }}
+      >
+        {`Update Organisation: ${organisation?.organisationData?.name}`}
+      </Typography>
+    ) : organisation?.organisationStatus === "view" ? (
+      <Typography
+        variant="h6"
+        sx={{
+          fontSize: isMobile ? "1.1rem" : "inherit",
+        }}
+      >
+        {organisation?.organisationData?.name}
+      </Typography>
+    ) : (
+      <Typography
+        variant="h6"
+        sx={{
+          fontSize: isMobile ? "1.3rem" : "inherit",
+        }}
+      >
+        Add Organisation
+      </Typography>
+    );
+
   console.log("organisation", organisation);
   const jwt = user.userToken;
   const navigate = useNavigate();
@@ -192,7 +217,7 @@ function Organisation() {
 
   const [value, setValue] = useState("1");
   const orgStatus = organisation?.organisationStatus || null;
-  const isMobile = useMediaQuery("(max-width:600px)");
+ 
   const readOnlyMode = organisation?.organisationStatus === "view";
   const tabs = [
     "personalinformation",

@@ -28,7 +28,6 @@ import eye1 from '../../../asset/eye1.png';
 import MobileViewOrganisationAccordin from '../../../components/MobileComponent/MobileViewOrganisationAccordin';
 import { tokenDecodeJWT } from '../../../utils/authUtils';
 import { scopes } from '../../../constants/scopes';
-
 const tempData = ['UU', 'UR', 'UD', 'UC', 'OGU', 'OGR', 'OGC', 'OGD'];
 
 function Organisations() {
