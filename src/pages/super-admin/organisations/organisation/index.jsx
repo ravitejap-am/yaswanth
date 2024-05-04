@@ -54,6 +54,7 @@ function Organisation() {
   } = useMessageState();
   const user = useSelector(selectUser);
   const organisation = useSelector(selectOrganisation);
+  console.log(organisation,"org info")
   const dispatch = useDispatch();
   const pageTitle =
     organisation?.organisationStatus === "edit"
