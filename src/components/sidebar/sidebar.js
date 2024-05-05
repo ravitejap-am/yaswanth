@@ -1,4 +1,12 @@
 import React from 'react'
+
+import Accordion from '@mui/material/Accordion'
+import AccordionSummary from '@mui/material/AccordionSummary'
+import AccordionDetails from '@mui/material/AccordionDetails'
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward'
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+
 import { Box, Hidden, Typography } from '@mui/material'
 import Dashboard from '@mui/icons-material/Dashboard'
 import DescriptionIcon from '@mui/icons-material/Description'
@@ -68,10 +76,45 @@ const USER = [
     },
 ]
 
+const ORG_ADMIN_TWO = [
+    {
+        name: 'Dashboard',
+        icon: <Dashboard />,
+        link: '/dashboard',
+        activeLinks: ['dashboard'],
+    },
+    {
+        name: 'Users',
+        icon: <PeopleIcon />,
+        link: '/users',
+        activeLinks: ['users', 'adduser', 'user'],
+    },
+    {
+        name: 'Documents',
+        icon: <DescriptionIcon />,
+        link: '/documents',
+        activeLinks: ['documents', 'document'],
+    },
+]
+
+export const CHAT = [
+    {
+        name: 'Chat',
+        icon: <Chat />,
+        link: '/chat',
+        activeLinks: ['chat'],
+    },
+]
+
 export const navLinks = {
     ORG_ADMIN: ORG_ADMIN,
     SUPER_ADMIN: SUPER_ADMIN,
     USER: USER,
+}
+
+export const orgNavLinks = {
+    DASHBOARD_NEXUS: ORG_ADMIN_TWO,
+    CHAT: CHAT,
 }
 
 export const sideBar = (
@@ -198,48 +241,153 @@ export const sideBar = (
 
     return (
         <>
-            {navLinks[role]?.map((item) => {
-                const isActive = pathname === item.link
-                return (
-                    <Link
-                        key={item.name}
-                        to={item.link}
-                        style={{ textDecoration: 'none' }}
-                        className="hoverDiv"
-                    >
-                        <Box
-                            sx={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: 2,
-                                color: 'white',
-                                textDecoration: 'none',
-                                padding: '8px',
-                            }}
-                        >
-                            {React.cloneElement(item.icon, {
-                                style: {
-                                    color: item?.activeLinks.includes(
-                                        pathname.split('/')[1]
+            {role == 'ORG_ADMIN' ? (
+                <>
+                    <Hidden lgDown>
+                        <Accordion sx={{ bgcolor: 'rgb(248, 250, 252)' }}>
+                            <AccordionSummary
+                                expandIcon={<ExpandMoreIcon />}
+                                aria-controls="panel1-content"
+                                id="panel1-header"
+                                sx={{
+                                    '&.MuiPaper-root-MuiAccordion-root': {
+                                        backgroundColor: 'transparent',
+                                    },
+                                }}
+                            >
+                                <Typography>Overview</Typography>
+                            </AccordionSummary>
+                            <AccordionDetails>
+                                {orgNavLinks['DASHBOARD_NEXUS']?.map((item) => {
+                                    const isActive = pathname === item.link
+                                    return (
+                                        <Link
+                                            key={item.name}
+                                            to={item.link}
+                                            style={{ textDecoration: 'none' }}
+                                            className="hoverDiv"
+                                        >
+                                            <Box
+                                                sx={{
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    gap: 2,
+                                                    color: 'white',
+                                                    textDecoration: 'none',
+                                                    padding: '8px',
+                                                }}
+                                            >
+                                                {React.cloneElement(item.icon, {
+                                                    style: {
+                                                        color: item?.activeLinks.includes(
+                                                            pathname.split(
+                                                                '/'
+                                                            )[1]
+                                                        )
+                                                            ? '#4F46E5'
+                                                            : 'black',
+                                                    },
+                                                })}
+
+                                                <Typography
+                                                    sx={{ color: 'black' }}
+                                                >
+                                                    {item.name}
+                                                </Typography>
+                                            </Box>
+                                        </Link>
                                     )
-                                        ? '#4F46E5'
-                                        : 'black',
-                                },
-                            })}
-                            <Hidden mdDown>
-                                <Typography sx={{ color: 'black' }}>
-                                    {item.name}
-                                </Typography>
-                            </Hidden>
-                        </Box>
-                    </Link>
-                )
-            })}
-            {(role == 'ORG_ADMIN' || role == 'USER') &&
-                (pathname == '/chat' || pathname == '/user') &&
+                                })}
+                            </AccordionDetails>
+                        </Accordion>
+                    </Hidden>
+                    <Hidden lgUp>
+                        {navLinks[role]?.map((item) => {
+                            const isActive = pathname === item.link
+                            return (
+                                <Link
+                                    key={item.name}
+                                    to={item.link}
+                                    style={{ textDecoration: 'none' }}
+                                    className="hoverDiv"
+                                >
+                                    <Box
+                                        sx={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            gap: 2,
+                                            color: 'white',
+                                            textDecoration: 'none',
+                                            padding: '8px',
+                                        }}
+                                    >
+                                        {React.cloneElement(item.icon, {
+                                            style: {
+                                                color: item?.activeLinks.includes(
+                                                    pathname.split('/')[1]
+                                                )
+                                                    ? '#4F46E5'
+                                                    : 'black',
+                                            },
+                                        })}
+                                        <Hidden mdDown>
+                                            <Typography sx={{ color: 'black' }}>
+                                                {item.name}
+                                            </Typography>
+                                        </Hidden>
+                                    </Box>
+                                </Link>
+                            )
+                        })}
+                    </Hidden>
+                </>
+            ) : (
+                <>
+                    {navLinks[role]?.map((item) => {
+                        const isActive = pathname === item.link
+                        return (
+                            <Link
+                                key={item.name}
+                                to={item.link}
+                                style={{ textDecoration: 'none' }}
+                                className="hoverDiv"
+                            >
+                                <Box
+                                    sx={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: 2,
+                                        color: 'white',
+                                        textDecoration: 'none',
+                                        padding: '8px',
+                                    }}
+                                >
+                                    {React.cloneElement(item.icon, {
+                                        style: {
+                                            color: item?.activeLinks.includes(
+                                                pathname.split('/')[1]
+                                            )
+                                                ? '#4F46E5'
+                                                : 'black',
+                                        },
+                                    })}
+                                    <Hidden mdDown>
+                                        <Typography sx={{ color: 'black' }}>
+                                            {item.name}
+                                        </Typography>
+                                    </Hidden>
+                                </Box>
+                            </Link>
+                        )
+                    })}
+                </>
+            )}
+
+            {role == 'USER' &&
+                pathname == '/user' &&
                 permitedScopes.includes(scopes.CHC) && (
                     <Link
-                        to={role == 'ORG_ADMIN' ? '/chat' : '/user'}
+                        to={'/user'}
                         style={{ textDecoration: 'none' }}
                         className="hoverDiv"
                     >
@@ -264,6 +412,146 @@ export const sideBar = (
                         </Box>
                     </Link>
                 )}
+
+            {role == 'ORG_ADMIN' && (
+                <>
+                    <Hidden lgUp>
+                        {permitedScopes.includes(scopes.CHC) && (
+                            <Link
+                                to={role == '/chat'}
+                                style={{ textDecoration: 'none' }}
+                                className="hoverDiv"
+                            >
+                                <Box
+                                    sx={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: 2,
+                                        color: 'white',
+                                        textDecoration: 'none',
+                                        cursor: 'pointer',
+                                        padding: '8px',
+                                    }}
+                                    onClick={handleAddChat}
+                                >
+                                    <AddIcon style={{ color: 'black' }} />
+                                    <Hidden mdDown>
+                                        <Typography style={{ color: 'black' }}>
+                                            New Chat
+                                        </Typography>
+                                    </Hidden>
+                                </Box>
+                            </Link>
+                        )}
+                    </Hidden>
+                    <Hidden lgDown>
+                        <Accordion sx={{ bgcolor: 'rgb(248, 250, 252)' }}>
+                            <AccordionSummary
+                                expandIcon={<ExpandMoreIcon />}
+                                aria-controls="panel1-content"
+                                id="panel1-header"
+                                sx={{
+                                    '&.MuiPaper-root-MuiAccordion-root': {
+                                        backgroundColor: 'transparent',
+                                    },
+                                }}
+                            >
+                                <Typography>Chat</Typography>
+                            </AccordionSummary>
+                            <AccordionDetails>
+                                {orgNavLinks['CHAT']?.map((item) => {
+                                    const isActive = pathname === item.link
+                                    return (
+                                        <>
+                                            <Link
+                                                key={item.name}
+                                                to={item.link}
+                                                style={{
+                                                    textDecoration: 'none',
+                                                }}
+                                                className="hoverDiv"
+                                            >
+                                                <Box
+                                                    sx={{
+                                                        display: 'flex',
+                                                        alignItems: 'center',
+                                                        gap: 2,
+                                                        color: 'white',
+                                                        textDecoration: 'none',
+                                                        padding: '8px',
+                                                    }}
+                                                >
+                                                    {React.cloneElement(
+                                                        item.icon,
+                                                        {
+                                                            style: {
+                                                                color: item?.activeLinks.includes(
+                                                                    pathname.split(
+                                                                        '/'
+                                                                    )[1]
+                                                                )
+                                                                    ? '#4F46E5'
+                                                                    : 'black',
+                                                            },
+                                                        }
+                                                    )}
+
+                                                    <Typography
+                                                        sx={{ color: 'black' }}
+                                                    >
+                                                        {item.name}
+                                                    </Typography>
+                                                </Box>
+                                            </Link>
+                                            {permitedScopes.includes(
+                                                scopes.CHC
+                                            ) && (
+                                                <Link
+                                                    to={role == '/chat'}
+                                                    style={{
+                                                        textDecoration: 'none',
+                                                    }}
+                                                    className="hoverDiv"
+                                                >
+                                                    <Box
+                                                        sx={{
+                                                            display: 'flex',
+                                                            alignItems:
+                                                                'center',
+                                                            gap: 2,
+                                                            color: 'white',
+                                                            textDecoration:
+                                                                'none',
+                                                            cursor: 'pointer',
+                                                            padding: '8px',
+                                                        }}
+                                                        onClick={handleAddChat}
+                                                    >
+                                                        <AddIcon
+                                                            style={{
+                                                                color: 'black',
+                                                            }}
+                                                        />
+                                                        <Hidden mdDown>
+                                                            <Typography
+                                                                style={{
+                                                                    color: 'black',
+                                                                }}
+                                                            >
+                                                                New Chat
+                                                            </Typography>
+                                                        </Hidden>
+                                                    </Box>
+                                                </Link>
+                                            )}
+                                        </>
+                                    )
+                                })}
+                            </AccordionDetails>
+                        </Accordion>
+                    </Hidden>
+                </>
+            )}
             {(role == 'ORG_ADMIN' || role == 'USER') &&
                 (pathname == '/chat' || pathname == '/user') && (
                     <Hidden lgUp>
