@@ -27,10 +27,15 @@ const Bar = ({ dateList }) => {
           return [x, y];
         },
       },
-      // legend: {
-      //   orient: "vertical",
-      //   bottom: 10, 
-      // },
+      legend: {
+        orient: "horizontal",
+        bottom: 0, 
+        show:true,
+        itemGap: 20,
+      },
+      grid: {
+        bottom: 100,
+      },
       toolbox: {
         show: false,
         feature: {
@@ -61,10 +66,12 @@ const Bar = ({ dateList }) => {
       ],
       series: [
         {
+          name: "Chat Counts",
           type: "bar",
           data: xAxisData.map((date) => dateList[date].chat_count),
         },
         {
+          name: "Session Counts",
           type: "bar",
           data: xAxisData.map((date) => dateList[date].session_count),
         },
@@ -86,13 +93,19 @@ const Bar = ({ dateList }) => {
     };
 
     option && myChart.setOption(option);
+    window.addEventListener('resize', () => {
+      myChart.resize();
+    });
 
     return () => {
       myChart.dispose();
+      window.removeEventListener('resize', () => {
+        myChart.resize();
+      });
     };
   }, [dateList]);
 
-  return <Box id="bar" />;
+  return <Box id="bar" style={{width:'100%'}}/>;
 };
 
 export default Bar;

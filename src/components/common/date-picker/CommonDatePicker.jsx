@@ -4,20 +4,19 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
 
-const CommonDatePicker = ({ selectedDate, handleSelectedDate, label }) => {
-  console.log("selectedDate", selectedDate);
+const CommonDatePicker = ({ selectedDate, handleSelectedDate, label, maxDays }) => {
   const dayjsSelectedDate = dayjs(selectedDate);
-  console.log("dayjsSelectedDate---->",dayjsSelectedDate);
-  const maxDate = dayjs().startOf("day");
-  console.log("maxDate---->",maxDate);
   
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DatePicker
         value={dayjsSelectedDate}
-        maxDate={maxDate}
+        maxDate={maxDays}
         label= {label}
         onChange={handleSelectedDate}
+        id={label}
+        format="DD-MM-YYYY"
+        sx={{width:{xs:'130px',sm:'auto'}}}
       />
     </LocalizationProvider>
   );

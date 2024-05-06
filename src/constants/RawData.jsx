@@ -17,205 +17,34 @@ export const pieRaw_data = {
   ],
 };
 
-export const barRaw_data = [
-  {
-    chat_count: 4.9,
-    session_count: 5.9,
-    date: "22/03/2024",
-  },
-  {
-    chat_count: 7.0,
-    session_count: 9.0,
-    date: "23/03/2024",
-  },
-  {
-    chat_count: 23.2,
-    session_count: 26.4,
-    date: "24/03/2024",
-  },
-  {
-    chat_count: 25.6,
-    session_count: 28.7,
-    date: "25/03/2024",
-  },
-  {
-    chat_count: 76.7,
-    session_count: 70.7,
-    date: "26/03/2024",
-  },
-  {
-    chat_count: 135.6,
-    session_count: 175.6,
-    date: "27/03/2024",
-  },
-  {
-    chat_count: 2.0,
-    session_count: 2.6,
-    date: "28/03/2024",
-  },
-  {
-    chat_count: 4.9,
-    session_count: 5.9,
-    date: "29/03/2024",
-  },
-  {
-    chat_count: 7.0,
-    session_count: 9.0,
-    date: "30/03/2024",
-  },
-  {
-    chat_count: 23.2,
-    session_count: 26.4,
-    date: "31/03/2024",
-  },
-  {
-    chat_count: 2.0,
-    session_count: 2.6,
-    date: "01/04/2024",
-  },
-  {
-    chat_count: 4.9,
-    session_count: 5.9,
-    date: "02/04/2024",
-  },
-  {
-    chat_count: 7.0,
-    session_count: 9.0,
-    date: "03/04/2024",
-  },
-  {
-    chat_count: 23.2,
-    session_count: 26.4,
-    date: "04/04/2024",
-  },
-  {
-    chat_count: 25.6,
-    session_count: 28.7,
-    date: "05/04/2024",
-  },
-  {
-    chat_count: 76.7,
-    session_count: 70.7,
-    date: "06/04/2024",
-  },
-  {
-    chat_count: 135.6,
-    session_count: 175.6,
-    date: "07/04/2024",
-  },
-  {
-    chat_count: 2.0,
-    session_count: 2.6,
-    date: "08/04/2024",
-  },
-  {
-    chat_count: 4.9,
-    session_count: 5.9,
-    date: "09/04/2024",
-  },
-  {
-    chat_count: 7.0,
-    session_count: 9.0,
-    date: "10/04/2024",
-  },
-  {
-    chat_count: 23.2,
-    session_count: 26.4,
-    date: "11/04/2024",
-  },
-  {
-    chat_count: 25.6,
-    session_count: 28.7,
-    date: "12/04/2024",
-  },
-  {
-    chat_count: 76.7,
-    session_count: 70.7,
-    date: "13/04/2024",
-  },
-  {
-    chat_count: 135.6,
-    session_count: 175.6,
-    date: "14/04/2024",
-  },
-  {
-    chat_count: 2.0,
-    session_count: 2.6,
-    date: "15/04/2024",
-  },
-  {
-    chat_count: 4.9,
-    session_count: 5.9,
-    date: "16/04/2024",
-  },
-  {
-    chat_count: 7.0,
-    session_count: 9.0,
-    date: "17/04/2024",
-  },
-  {
-    chat_count: 23.2,
-    session_count: 26.4,
-    date: "18/04/2024",
-  },
-  {
-    chat_count: 25.6,
-    session_count: 28.7,
-    date: "19/04/2024",
-  },
-  {
-    chat_count: 76.7,
-    session_count: 70.7,
-    date: "20/04/2024",
-  },
-  {
-    chat_count: 135.6,
-    session_count: 28.7,
-    date: "21/04/2024",
-  },
-  {
-    chat_count: 2.0,
-    session_count: 2.6,
-    date: "22/04/2024",
-  },
-  {
-    chat_count: 2.0,
-    session_count: 2.6,
-    date: "23/04/2024",
-  },
-  {
-    chat_count: 4.9,
-    session_count: 5.9,
-    date: "24/04/2024",
-  },
-  {
-    chat_count: 7.0,
-    session_count: 9.0,
-    date: "25/04/2024",
-  },
-  {
-    chat_count: 23.2,
-    session_count: 26.4,
-    date: "26/04/2024",
-  },
-  {
-    chat_count: 25.6,
-    session_count: 28.7,
-    date: "27/04/2024",
-  },
-  {
-    chat_count: 76.7,
-    session_count: 70.7,
-    date: "28/04/2024",
-  },
-  {
-    chat_count: 135.6,
-    session_count: 175.6,
-    date: "29/04/2024",
-  },
-  {
-    chat_count: 2.0,
-    session_count: 2.6,
-    date: "30/04/2024",
-  },
-];
+
+const getRandomNumber = (min, max) => {
+  return Math.random() * (max - min) + min;
+};
+
+
+ const generateDummyData = () => {
+  const currentDate = new Date();
+  const lastYearDate = new Date(currentDate.getFullYear() - 1, currentDate.getMonth(), currentDate.getDate());
+  const dummyData = [];
+
+  let currentDateIterator = new Date(lastYearDate);
+  while (currentDateIterator <= currentDate) {
+    const formattedDate = `${currentDateIterator.getDate().toString().padStart(2, '0')}/${(currentDateIterator.getMonth() + 1).toString().padStart(2, '0')}/${currentDateIterator.getFullYear()}`;
+    const chatCount = getRandomNumber(1, 150).toFixed(1); 
+    const sessionCount = getRandomNumber(1, 200).toFixed(1);
+
+    dummyData.push({
+      chat_count: parseInt(chatCount),
+      session_count: parseInt(sessionCount),
+      date: formattedDate
+    });
+
+    currentDateIterator.setDate(currentDateIterator.getDate() + 1);
+  }
+
+  return dummyData;
+};
+
+export const barRaw_data = generateDummyData();
+
