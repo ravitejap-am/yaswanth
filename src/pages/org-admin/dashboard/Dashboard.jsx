@@ -275,7 +275,7 @@ function Dashboard() {
             md={5.6}
             lg={2.85}
             style={{
-              height: "380px",
+              height: "390px",
               width: "100%",
               boxShadow: "2px 4px 8px rgba(0, 0, 0, 0.2)",
               display: "flex",
@@ -298,7 +298,7 @@ function Dashboard() {
             md={5.6}
             lg={2.85}
             style={{
-              height: "380px",
+              height: "390px",
               width: "100%",
               boxShadow: "2px 4px 8px rgba(0, 0, 0, 0.2)",
               display: "flex",
@@ -321,7 +321,7 @@ function Dashboard() {
             md={5.6}
             lg={2.85}
             style={{
-              height: "380px",
+              height: "390px",
               width: "100%",
               boxShadow: "2px 4px 8px rgba(0, 0, 0, 0.2)",
               display: "flex",
@@ -347,7 +347,7 @@ function Dashboard() {
             md={5.6}
             lg={2.85}
             style={{
-              height: "380px",
+              height: "390px",
               width: "100%",
               display: "flex",
               boxShadow: "2px 4px 8px rgba(0, 0, 0, 0.2)",
@@ -356,7 +356,7 @@ function Dashboard() {
               alignItems: "center",
               flexGrow: 1,
               flexWrap: "wrap",
-              marginBottom: isIos ? "55px" : "30px",
+              marginBottom: isIos ? "65px" : "30px",
             }}
           >
             <Typography variant="h6" fontWeight="bold">

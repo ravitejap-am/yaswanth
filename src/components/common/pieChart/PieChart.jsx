@@ -16,7 +16,7 @@ const PieChart = ({selectedTypeValue, id}) => {
       },
       legend: {
         orient: "horizontal",
-        bottom: 0, 
+        bottom: -5, 
         formatter: function(name) {
           const dataItem = selectedTypeValue.find(item => item.name === name);
           return `${name}: ${dataItem.value} (${((dataItem.value / totalValue) * 100).toFixed(2)}%)`;
@@ -50,7 +50,7 @@ const PieChart = ({selectedTypeValue, id}) => {
     };
   }, []);
 
-  return <div id={id} style={{ width: '80%', height: '80%' }} />;
+  return <div id={id} style={{ width: '75%', height: '75%' }} />;
 };
 
 export default PieChart;
