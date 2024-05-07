@@ -1,172 +1,171 @@
 .How_It_Works_Main_Div {
-  background: linear-gradient(
-    114deg,
-    #0f172a 51.52%,
-    #152346 73.32%,
-    #1a2e5e 92.75%
-  );
-  padding: 100px 40px;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
+    background: linear-gradient(
+        114deg,
+        #0f172a 51.52%,
+        #152346 73.32%,
+        #1a2e5e 92.75%
+    );
+    padding: 100px 40px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 .Main_Title_of_HowItWorks {
-  color: #ffffff;
-  font-family: Montserrat;
-  font-size: 36px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 40px;
-  margin-bottom: 50px;
-  width: 50%;
+    color: #ffffff;
+    font-family: Montserrat;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 40px;
+    margin-bottom: 50px;
+    width: 50%;
 }
 
 .how-it-work-section .steps-points h3 {
-  color: #fff;
-  font-family: Montserrat;
-  font-size: 24px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 32px;
+    color: #fff;
+    font-family: Montserrat;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 32px;
 }
 .how-it-work-section .steps-points p {
-  color: #94a3b8;
-  max-width: 360px;
-  width: 100%;
+    color: #94a3b8;
+    max-width: 360px;
+    width: 100%;
 }
 .How_It_Works_Left_Side_div {
-  width: 50%;
-  display: flex;
-  padding: 0 0 0 100px;
+    width: 50%;
+    display: flex;
+    padding: 0 0 0 100px;
 }
 .How_it_works_Your_Org {
-  color: var(--Neutral-200, #e2e8f0);
-  width: 70%;
-  display: flex;
-  font-family: Lato;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 20px;
-  width: 30%;
-  /* text-align: center; */
+    color: var(--Neutral-200, #e2e8f0);
+    width: 70%;
+    display: flex;
+    font-family: Lato;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    width: 30%;
+    /* text-align: center; */
 }
 .How_It_Works_Container {
-  display: flex;
-  flex-direction: column;
-  width: 50%;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
 }
 .How_It_Works {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 .How_It_Works_2 {
-  display: flex;
-  flex-direction: row;
+    display: flex;
+    flex-direction: row;
 }
 .how_to_works_span_text {
-  color: #94a3b8;
-  padding-top: 8px;
-  /* font-family: Lato; */
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 20px;
+    color: #94a3b8;
+    padding-top: 8px;
+    /* font-family: Lato; */
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
 }
 .how_it_works_second_div {
-  display: flex;
-  justify-content: space-around;
+    display: flex;
+    justify-content: space-around;
 }
 
 .how_it_works_child_div {
-  flex: 1;
-  text-align: center; /* Adjust as needed */
+    flex: 1;
+    text-align: center; /* Adjust as needed */
 }
 
 .How__it_Works_Right_Side_div {
-  width: 50%;
-  /* box-sizing: border-box; */
-  /* overflow: auto; */
+    width: 50%;
+    /* box-sizing: border-box; */
+    /* overflow: auto; */
 }
 
 .How__it_Works_Left_Side_div {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 
 .How_it_Works_image {
-  width: 100%;
-  height: 100%;
+    width: 100%;
+    height: 100%;
 }
 
 .Sub_Title_of_how_it_Works {
-  font-weight: bold;
-  margin-bottom: 5px;
-  color: #ffffff;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #ffffff;
 
-  /* text-2xl/font-semibold */
-  font-family: Montserrat;
-  font-size: 24px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 32px; /* 133.333% */
+    /* text-2xl/font-semibold */
+    font-family: Montserrat;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 32px; /* 133.333% */
 }
 @media (max-width: 767px) {
-  .How_It_Works{
-    flex-direction: column;
-  }
-  .How_it_works_Your_Org {
-    width: auto;
-    margin-bottom: 30px;
-    font-size: 16px;
-  }
-  .Main_Title_of_HowItWorks{
-    width: auto;
-    margin-bottom: 10px;
-    font-size: 28px;
-  }
-  .How_It_Works_Left_Side_div {
-    width: auto;
-    padding: 0;
-  }
-  .How__it_Works_Right_Side_div {
-    width: 0;
-  }
+    .How_It_Works {
+        flex-direction: column;
+    }
+    .How_it_works_Your_Org {
+        width: auto;
+        margin-bottom: 30px;
+        font-size: 16px;
+    }
+    .Main_Title_of_HowItWorks {
+        width: auto;
+        margin-bottom: 10px;
+        font-size: 28px;
+    }
+    .How_It_Works_Left_Side_div {
+        width: auto;
+        padding: 0;
+    }
+    .How__it_Works_Right_Side_div {
+        width: 0;
+    }
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
-  .How_it_Works_image {
-    width: 100%;
-    height: 60%;
-  }
-  .How_It_Works{
-    flex-direction: column;
-  }
-  .How_it_works_Your_Org {
-    width: auto;
-    margin-bottom: 30px;
-    font-size: 16px;
-  }
-  .Main_Title_of_HowItWorks{
-    width: auto;
-    margin-bottom: 10px;
-    font-size: 28px;
-  }
-  .How_It_Works_Left_Side_div {
-    width: auto;
-    padding: 0;
-  }
-  .How__it_Works_Right_Side_div {
-    width: 0;
-  }
+    .How_it_Works_image {
+        width: 100%;
+        height: 60%;
+    }
+    .How_It_Works {
+        flex-direction: column;
+    }
+    .How_it_works_Your_Org {
+        width: auto;
+        margin-bottom: 30px;
+        font-size: 16px;
+    }
+    .Main_Title_of_HowItWorks {
+        width: auto;
+        margin-bottom: 10px;
+        font-size: 28px;
+    }
+    .How_It_Works_Left_Side_div {
+        width: auto;
+        padding: 0;
+    }
+    .How__it_Works_Right_Side_div {
+        width: 0;
+    }
 }
 
-
 .highlight_text {
-  text-decoration: underline;
+    text-decoration: underline;
 }

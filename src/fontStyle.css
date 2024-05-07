@@ -1,13 +1,14 @@
 @font-face {
-    font-family: "Montserrat300";
-    src: local("Montserrat300"),
-      url("../src/asset/fonts/Montserrat-300.ttf") format("ttf"),
-      url("../src/asset/fonts/Montserrat-300.ttf") format("ttf");
-  }
-  @font-face {
-    font-family: "Montserrat600";
-    src: local("Montserrat600"),
-      url("../src/asset/fonts/Montserrat-600.ttf") format("ttf"),
-      url("../src/asset/fonts/Montserrat-600.ttf") format("ttf");
-  }
-  
+    font-family: 'Montserrat300';
+    src:
+        local('Montserrat300'),
+        url('../src/asset/fonts/Montserrat-300.ttf') format('ttf'),
+        url('../src/asset/fonts/Montserrat-300.ttf') format('ttf');
+}
+@font-face {
+    font-family: 'Montserrat600';
+    src:
+        local('Montserrat600'),
+        url('../src/asset/fonts/Montserrat-600.ttf') format('ttf'),
+        url('../src/asset/fonts/Montserrat-600.ttf') format('ttf');
+}

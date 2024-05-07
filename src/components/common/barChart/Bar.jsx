@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
-import * as echarts from "echarts";
-import { Box } from "@mui/material";
+import React, { useEffect } from 'react'
+import * as echarts from 'echarts'
+import { Box } from '@mui/material'
 
 const Bar = ({ dateList }) => {
   useEffect(() => {
@@ -108,4 +108,4 @@ const Bar = ({ dateList }) => {
   return <Box id="bar" style={{width:'100%'}}/>;
 };
 
-export default Bar;
+export default Bar

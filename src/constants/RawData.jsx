@@ -1,21 +1,21 @@
 export const pieRaw_data = {
-  chat: [
-    { value: 1048, name: "Remaining" },
-    { value: 735, name: "Used" },
-  ],
-  users: [
-    { value: 1148, name: "Remaining" },
-    { value: 635, name: "Used" },
-  ],
-  documents: [
-    { value: 1248, name: "Remaining" },
-    { value: 535, name: "Used" },
-  ],
-  documents_size: [
-    { value: 1348, name: "Remaining" },
-    { value: 435, name: "Used" },
-  ],
-};
+    chat: [
+        { value: 1048, name: 'Remaining' },
+        { value: 735, name: 'Used' },
+    ],
+    users: [
+        { value: 1148, name: 'Remaining' },
+        { value: 635, name: 'Used' },
+    ],
+    documents: [
+        { value: 1248, name: 'Remaining' },
+        { value: 535, name: 'Used' },
+    ],
+    documents_size: [
+        { value: 1348, name: 'Remaining' },
+        { value: 435, name: 'Used' },
+    ],
+}
 
 
 const getRandomNumber = (min, max) => {

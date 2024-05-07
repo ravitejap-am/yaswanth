@@ -1,21 +1,21 @@
 @media screen and (max-width: 767px) {
     .signin-header {
-    box-sizing: border-box;
-    margin-bottom: -2px;
+        box-sizing: border-box;
+        margin-bottom: -2px;
     }
 
     .main-container {
-      width: 100%; 
-      padding: 0 20px; 
-      box-sizing: border-box; 
+        width: 100%;
+        padding: 0 20px;
+        box-sizing: border-box;
     }
-  
+
     .box-round {
-      width: 100%; 
-      margin: 0 auto; 
+        width: 100%;
+        margin: 0 auto;
     }
-  }
-  .text-top-signin h2 {
+}
+.text-top-signin h2 {
     text-align: center;
     color: #312e81;
     font-family: Montserrat;
@@ -24,86 +24,81 @@
     line-height: 5px;
 }
 .text-top-signin p {
-  text-align: center;
-  font-weight: 600;
+    text-align: center;
+    font-weight: 600;
 }
 
 .signin_input_css {
-  width: 495px !important;
-  border-radius: 40px;
-  border: 1px solid var(--Neutral-400, #94a3b8);
-  background: transparent !important;
-  color: #212529;
-  
+    width: 495px !important;
+    border-radius: 40px;
+    border: 1px solid var(--Neutral-400, #94a3b8);
+    background: transparent !important;
+    color: #212529;
 }
 .ant-input:focus {
-  color: black; 
+    color: black;
 }
 .ant-input::placeholder {
-  color: #808080; 
+    color: #808080;
 }
 
 .signin_submit_btn_css {
-  background-color: var(--Brand-500, #6366F1);
-  width: 495px;
-  height: 50px;
-  border-radius: 40px;
+    background-color: var(--Brand-500, #6366f1);
+    width: 495px;
+    height: 50px;
+    border-radius: 40px;
 }
 
 @media screen and (max-width: 767px) {
-  .signin_input_css{
-    width: 300px !important;
-  }
-.signin-main-css{
-  height: 70vh;
-   }
+    .signin_input_css {
+        width: 300px !important;
+    }
+    .signin-main-css {
+        height: 70vh;
+    }
     .signin_submit_btn_css {
-      width: 300px;
-
-  }
-  .main-container{
-    max-height: 468px;
-  }
+        width: 300px;
+    }
+    .main-container {
+        max-height: 468px;
+    }
 }
 
-.signin-form-css{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  /* width: 100%; */
-  /* background-color: #6366F1; */
+.signin-form-css {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* width: 100%; */
+    /* background-color: #6366F1; */
 }
 
-.signin-main-css{
-  padding-top: 100px;
-  height: 73vh;
-  background-color: #e2e8f0;
+.signin-main-css {
+    padding-top: 100px;
+    height: 73vh;
+    background-color: #e2e8f0;
 }
 
 .linktextsignin {
-  display: flex;
-  justify-content: center;
-  color: black;
-  text-align: center;
+    display: flex;
+    justify-content: center;
+    color: black;
+    text-align: center;
 }
 @media screen and (max-width: 768px) {
-  .linktextsignin {
-    font-size: 12px; 
-  }
+    .linktextsignin {
+        font-size: 12px;
+    }
 }
 
 .password-eye-icon {
-  position: absolute;
-  right: 10px; 
-  top: 50%;
-  transform: translateY(-50%); 
-  cursor: pointer;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
 }
 
-.password_input .css-hagjoj-MuiInputBase-root-MuiOutlinedInput-root{
-  height: 56px;
+.password_input .css-hagjoj-MuiInputBase-root-MuiOutlinedInput-root {
+    height: 56px;
 }
-
-
-

@@ -6,16 +6,15 @@
     width: 100vw;
     background: rgb(181, 100, 229);
     background: var(--Neutral-200, #e2e8f0);
-  
+
     background-repeat: no-repeat;
-  }
-  .image {
+}
+.image {
     width: 210px;
     height: 155px;
-  }
-  .internalServerErrorDiv {
+}
+.internalServerErrorDiv {
     display: grid;
     justify-content: center;
     align-items: center;
-  }
-  
+}

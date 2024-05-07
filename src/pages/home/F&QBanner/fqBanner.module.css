@@ -1,10 +1,9 @@
 .FQBanner {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 440px;
-}
-.FQ{
     display: flex;
-
+    justify-content: center;
+    align-items: center;
+    height: 440px;
+}
+.FQ {
+    display: flex;
 }

@@ -4,101 +4,96 @@
     padding: 12px;
     border-radius: 8px;
     margin-top: 0px;
-    height:10%
-  }
+    height: 10%;
+}
 
-  .textContext{
+.textContext {
     display: flex;
     justify-content: flex-start;
     font-weight: bold;
-  }
-  
-  .chatLabel {
+}
+
+.chatLabel {
     /* margin-right: 20px; */
     font-size: 6px;
-  }
-  
-  .chatFormControl {
+}
+
+.chatFormControl {
     height: 30px;
-    width:200px
-  }
-  
-  .chatCardContainer {
+    width: 200px;
+}
+
+.chatCardContainer {
     margin-top: 20px;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-  }
+}
 
-    /* .chatscreen {
+/* .chatscreen {
       margin-top: 20px;
       position: fixed;
       bottom: 1px;
       width: 80%;
       margin-right: 20px;
     } */
-  
-  
-  .chatCardNew {
+
+.chatCardNew {
     align-items: center;
     justify-content: center;
     padding-bottom: 1px;
     background-color: red;
-  }
-  .chatCard {
+}
+.chatCard {
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-  
+}
 
-  .chatScroll {
+.chatScroll {
     height: 70vh;
     overflow-y: auto;
-  }
-  
-  
-  .chatHeading {
+}
+
+.chatHeading {
     text-align: center;
     margin-bottom: 10px;
-  }
-  
-  .chatParagraph {
+}
+
+.chatParagraph {
     text-align: center;
     color: #312e81;
     font-size: 1.5em;
     font-weight: bold;
-  }
+}
 
-  .chatParagraphText {
+.chatParagraphText {
     color: var(--Black, #000);
     font-size: 16px;
     font-style: normal;
     font-weight: 600;
     line-height: 24px;
-    
-  }
+}
 
-  .chatCard {
+.chatCard {
     height: 100%;
-  }
-  
-  .chatCardContent {
+}
+
+.chatCardContent {
     text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     height: 40vh;
     gap: 0px;
-  }
-  
-  
-  .bigInputContainer {
+}
+
+.bigInputContainer {
     text-align: center;
     margin-top: 20px;
-  }
-  
-  .bigInput {
+}
+
+.bigInput {
     /* width: 60%;  */
     padding: 7px;
     font-size: 0.9rem;
@@ -107,197 +102,191 @@
     box-sizing: border-box;
     min-height: 1.2rem;
     /* max-height: 80%; */
-  }
+}
 
-  @media (max-width: 600px){
+@media (max-width: 600px) {
     .bigInput {
-      width: 90%; 
+        width: 90%;
     }
-  }
+}
 
-  @media (min-width: 601px){
+@media (min-width: 601px) {
     .bigInput {
-      width: 60%; 
+        width: 60%;
     }
-  }
+}
 
-  .inputWithSendIcon {
+.inputWithSendIcon {
     position: relative;
-  }
-  
+}
 
-  .chatParagraphSuggestion {
+.chatParagraphSuggestion {
     text-align: center;
     padding: 10px;
     cursor: pointer;
-  border: 1px solid var(--Neutral-300, #cbd5e1);
-  border-radius: 0.8rem;
-  color: #475569;
-  color: var(--Neutral-600, #475569);
-  font-family: Into, Lato;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 400;
+    border: 1px solid var(--Neutral-300, #cbd5e1);
+    border-radius: 0.8rem;
+    color: #475569;
+    color: var(--Neutral-600, #475569);
+    font-family: Into, Lato;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
 }
 
 .inputContainer {
-  position: relative;
+    position: relative;
 }
 
 .textAreaContainer {
-  position: relative;
-}
-  
-.ResponseCardContent{
-  padding: 10px 15px;
-  min-height: 200px;
+    position: relative;
 }
 
 .ResponseCardContent {
-  /* background-color: #f0f0f0; */
-  border-radius: 10px;
-  padding: 15px;
-  margin-top: 20px;
+    padding: 10px 15px;
+    min-height: 200px;
+}
+
+.ResponseCardContent {
+    /* background-color: #f0f0f0; */
+    border-radius: 10px;
+    padding: 15px;
+    margin-top: 20px;
 }
 
 .responseContent {
-  display: block;
-  flex-direction: column;
-  margin-bottom: 0.4rem;
-  /* margin-bottom: 0.4rem; */
-}
-
-
-@media (min-width: 601px){
-  .responseContent {
+    display: block;
+    flex-direction: column;
     margin-bottom: 0.4rem;
-    /* width: 192%; */
-    /* background-color: red; */
-    /* padding-left: 20%;
-    padding-right: 20%;   */
-  }
+    /* margin-bottom: 0.4rem; */
 }
 
-
+@media (min-width: 601px) {
+    .responseContent {
+        margin-bottom: 0.4rem;
+        /* width: 192%; */
+        /* background-color: red; */
+        /* padding-left: 20%;
+    padding-right: 20%;   */
+    }
+}
 
 .askedQuestion {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: flex-start;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
 }
 
 .userImage {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  margin-right: 15px;
-  margin-top: 0.3rem;
-  background: linear-gradient(
-    114deg,
-    #0f172a 51.52%,
-    #152346 73.32%,
-    #1a2e5e 92.75%
-  );
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    margin-right: 15px;
+    margin-top: 0.3rem;
+    background: linear-gradient(
+        114deg,
+        #0f172a 51.52%,
+        #152346 73.32%,
+        #1a2e5e 92.75%
+    );
 }
 
-.chatimg{
-  /* height: 70px; */
-  width:150px;
-  margin-left: -7px;
-  margin-bottom: 4px;
+.chatimg {
+    /* height: 70px; */
+    width: 150px;
+    margin-left: -7px;
+    margin-bottom: 4px;
 }
 
 .response {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: flex-start;
-  text-align: left;
-  flex:1;
-  flex-wrap: nowrap;
-  width: auto;
-  overflow-x: hidden;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    text-align: left;
+    flex: 1;
+    flex-wrap: nowrap;
+    width: auto;
+    overflow-x: hidden;
 }
 
 .responseImage {
-  width: 33px;
-  height: 33px;
-  border-radius: 50%;
-  margin-right: 15px;
+    width: 33px;
+    height: 33px;
+    border-radius: 50%;
+    margin-right: 15px;
 }
 
-.askedQuestionText{
-  font-weight: bold;
-  text-align: left;
+.askedQuestionText {
+    font-weight: bold;
+    text-align: left;
 }
 
-
-@media (min-width: 601px){
-  .SendButton {
-    position: absolute;
-    height: 1.8rem;
-    bottom: 8%;
-    right: 0.2rem;
-  } 
+@media (min-width: 601px) {
+    .SendButton {
+        position: absolute;
+        height: 1.8rem;
+        bottom: 8%;
+        right: 0.2rem;
+    }
 }
-
-@media (max-width: 600px){
-.SendButton {
-  position: absolute;
-  height: 1.7rem;
-  z-index: 999;
-  bottom: 0.2rem ;
-  right: 0.2rem;
-  /* top:1rem */
-}
-}
-
-.textarea{
-  position: relative;
-  width: 100%;
-}
-
 
 @media (max-width: 600px) {
-  .response {
-    font-size: 14px; 
-  }
-  .askedQuestionText{
-    font-size: 14px;
-  }
-  .chatHeading{
-    font-size: 24px;
-  }
-  .chatParagraph{
-    font-size: 17px;
-  }
-  .chatParagraphText{
-    font-size: 13px;
-  }
-  .chatCardContent{
-    height: 80vh;
-  }
-  .amchattext{
-    font-size: 25px;
-  }
-  .chatimg{
-    height: 20px;
-  }
-  .chatParagraph{
-    font-size: 17px;
-  }
+    .SendButton {
+        position: absolute;
+        height: 1.7rem;
+        z-index: 999;
+        bottom: 0.2rem;
+        right: 0.2rem;
+        /* top:1rem */
+    }
+}
+
+.textarea {
+    position: relative;
+    width: 100%;
+}
+
+@media (max-width: 600px) {
+    .response {
+        font-size: 14px;
+    }
+    .askedQuestionText {
+        font-size: 14px;
+    }
+    .chatHeading {
+        font-size: 24px;
+    }
+    .chatParagraph {
+        font-size: 17px;
+    }
+    .chatParagraphText {
+        font-size: 13px;
+    }
+    .chatCardContent {
+        height: 80vh;
+    }
+    .amchattext {
+        font-size: 25px;
+    }
+    .chatimg {
+        height: 20px;
+    }
+    .chatParagraph {
+        font-size: 17px;
+    }
 }
 
 @media (max-width: 1200px) {
-  .chatCardContent {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    height: auto;
-    gap: 0px
-  }
+    .chatCardContent {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        height: auto;
+        gap: 0px;
+    }
 }
 
 /* ---------------------------------
@@ -305,40 +294,37 @@ new chat styles
 -------------------------------- */
 
 .amChatContainer {
-  height:63vh;
-  margin-top: 1rem;
-  border-radius: 0.5rem;
-  padding:0.8rem;
-  display:flex;
-  flex-direction: row;
-  justify-content: center;
+    height: 63vh;
+    margin-top: 1rem;
+    border-radius: 0.5rem;
+    padding: 0.8rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
-
-
 .defaultChatContainer {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
 @media (max-width: 600px) {
-   .amChatContentContainer {
-    width: 100%; 
-    flex-wrap: wrap;
-    display: flex;
-    height:auto;
-    overflow: auto;
-  }
+    .amChatContentContainer {
+        width: 100%;
+        flex-wrap: wrap;
+        display: flex;
+        height: auto;
+        overflow: auto;
+    }
 }
 
-@media (min-width: 601px){
-  .amChatContentContainer{
-    height: 90%;
-    flex-wrap: wrap;
-    width: 100%;
-  }
+@media (min-width: 601px) {
+    .amChatContentContainer {
+        height: 90%;
+        flex-wrap: wrap;
+        width: 100%;
+    }
 }
-  

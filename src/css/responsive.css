@@ -2,83 +2,83 @@
 }
 
 @media screen and (max-width: 1366px) {
-  .plan-card {
-    height: 100%;
-  }
+    .plan-card {
+        height: 100%;
+    }
 }
 
 @media screen and (max-width: 991px) {
-  .common-h2 {
-    font-size: 26px;
-    margin-bottom: 2px;
-    font-weight: 500;
-    line-height: 30px;
-  }
-  .common-p {
-    font-size: 13px;
-    font-weight: 200;
-  }
-  .banner-content h1 {
-    font-size: 40px;
-    line-height: 50px;
-    max-width: unset;
-    text-align: center;
-  }
-  .banner-content p {
-    font-size: 14px;
-    max-width: unset;
-  }
+    .common-h2 {
+        font-size: 26px;
+        margin-bottom: 2px;
+        font-weight: 500;
+        line-height: 30px;
+    }
+    .common-p {
+        font-size: 13px;
+        font-weight: 200;
+    }
+    .banner-content h1 {
+        font-size: 40px;
+        line-height: 50px;
+        max-width: unset;
+        text-align: center;
+    }
+    .banner-content p {
+        font-size: 14px;
+        max-width: unset;
+    }
 
-  .banner-content h1 {
-    text-align: center;
-  }
-  .banner-content p,
-  .banner-btn-div {
-    text-align: center;
-  }
-  .mob-view {
-    display: none;
-  }
-  .banner-content {
-    height: 600px;
-  }
-  .keywords h1 {
-    font-size: 16px;
-  }
-  .chat-section,
-  .about-section,
-  .explore-section,
-  .how-it-work-section,
-  .plans-section,
-  .contact-section {
-    padding: 40px 0;
-  }
-  .how-it-work-section .steps-points h3 {
-    font-size: 20px;
-  }
+    .banner-content h1 {
+        text-align: center;
+    }
+    .banner-content p,
+    .banner-btn-div {
+        text-align: center;
+    }
+    .mob-view {
+        display: none;
+    }
+    .banner-content {
+        height: 600px;
+    }
+    .keywords h1 {
+        font-size: 16px;
+    }
+    .chat-section,
+    .about-section,
+    .explore-section,
+    .how-it-work-section,
+    .plans-section,
+    .contact-section {
+        padding: 40px 0;
+    }
+    .how-it-work-section .steps-points h3 {
+        font-size: 20px;
+    }
 
-  .btn-blue {
-    font-size: 14px;
-    line-height: 18px;
-    font-weight: 400;
-    padding: 8px 14px;
-    max-width: unset;
-    width: auto;
-    min-width: unset;
-  }
-  .title-box {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-  }
-  .navbar-collapse {
-    background-color: #040a19;
-    padding: 10px;
-  }
+    .btn-blue {
+        font-size: 14px;
+        line-height: 18px;
+        font-weight: 400;
+        padding: 8px 14px;
+        max-width: unset;
+        width: auto;
+        min-width: unset;
+    }
+    .title-box {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
+    .navbar-collapse {
+        background-color: #040a19;
+        padding: 10px;
+    }
 }
 
 @media screen and (max-width: 575px) {
-  .contact-footer {
-    margin-top: 2rem;
-  }
+    .contact-footer {
+        margin-top: 2rem;
+    }
 }
