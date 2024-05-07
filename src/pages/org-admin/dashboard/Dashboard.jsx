@@ -42,6 +42,8 @@ function Dashboard() {
   const disableStartDates = new Date().setDate(new Date().getDate() - noOfDays);
   const disableStartDays = dayjs(disableStartDates);
   const disableEndDays = dayjs().startOf("day");
+  const isIos =
+  /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
   useEffect(() => {
     const disableBack = () => {
@@ -354,7 +356,7 @@ function Dashboard() {
               alignItems: "center",
               flexGrow: 1,
               flexWrap: "wrap",
-              marginBottom: "30px",
+              marginBottom: isIos ? "55px" : "30px",
             }}
           >
             <Typography variant="h6" fontWeight="bold">
