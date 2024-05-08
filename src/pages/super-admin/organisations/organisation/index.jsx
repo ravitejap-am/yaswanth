@@ -41,6 +41,7 @@ import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import { Country, State, City } from "country-state-city";
+import OrganisationLayout from "./organisationLayout";
 
 function Organisation() {
   const isAndroid = /Android/.test(navigator.userAgent);
@@ -628,9 +629,9 @@ function Organisation() {
     return uniqueValues.size !== arr.length;
   }
 
+  console.log("org layout is rendered");
   return (
-    //<Layout componentName={pageTitle}>
-    <organisationLayout
+    <OrganisationLayout
       componentName={pageTitle}
       action={organisation?.organisationStatus}
     >
@@ -843,8 +844,7 @@ function Organisation() {
           </Button>
         </Grid>
       </Grid>
-    </organisationLayout>
-    //</Layout>
+    </OrganisationLayout>
   );
 }
 
