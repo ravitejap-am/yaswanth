@@ -8,10 +8,12 @@ export default function OrganisationLayout({
 }) {
   console.log("action message--->", action);
   switch (action) {
-    case 'edit':
+    case "edit":
       return <Layout componentName={componentName}>{children}</Layout>;
-    case 'view':
+    case "view":
       return children;
+    case "Add Organisation":
+      return <Layout componentName={componentName}>{children}</Layout>;
     default:
       return children;
   }

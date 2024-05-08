@@ -3,14 +3,11 @@ import { Box, Grid, Typography, useMediaQuery } from "@mui/material";
 import Layout from "../../../../Layout";
 import { Link } from "react-router-dom";
 import GeneralButton from "../../../../components/common/buttons/GeneralButton";
-import Organisation from "../organisation";
 
 function OrganisationSecondOption() {
   const isMobile = useMediaQuery("(max-width:600px)");
-  const pageTitle = "Organisation Statistic";
   return (
     <>
-      {/* <Layout componentName={pageTitle}> */}
       <Box
         display="flex"
         justifyContent="center"
@@ -26,7 +23,7 @@ function OrganisationSecondOption() {
         </Typography>
       </Box>
 
-      {/* <Grid
+      <Grid
         container
         spacing={2}
         direction="row"
@@ -35,7 +32,7 @@ function OrganisationSecondOption() {
         marginTop={"0.3rem"}
       >
         <Grid item>
-          <Link to="/orgSelection" style={{ textDecoration: "none" }}>
+          <Link to="/organisations" style={{ textDecoration: "none" }}>
             <div>
               <GeneralButton
                 name="Cancel"
@@ -50,8 +47,7 @@ function OrganisationSecondOption() {
             </div>
           </Link>
         </Grid>
-      </Grid> */}
-      {/* </Layout> */}
+      </Grid>
     </>
   );
 }

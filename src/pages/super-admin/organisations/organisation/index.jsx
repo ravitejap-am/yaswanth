@@ -63,7 +63,11 @@ function Organisation() {
       : organisation?.organisationStatus === "view"
       ? organisation?.organisationData?.name
       : "Add Organisation";
-
+  const action =
+    organisation?.organisationStatus === "edit" ||
+    organisation?.organisationStatus === "view"
+      ? organisation?.organisationStatus
+      : "Add Organisation";
   console.log("organisation", organisation);
   const jwt = user.userToken;
   const navigate = useNavigate();
@@ -631,10 +635,7 @@ function Organisation() {
 
   console.log("org layout is rendered");
   return (
-    <OrganisationLayout
-      componentName={pageTitle}
-      action={organisation?.organisationStatus}
-    >
+    <OrganisationLayout componentName={pageTitle} action={action}>
       {backDropLoading && <PageLoader loadingStatus={backDropLoading} />}
       <Box sx={{ marginTop: isMobile ? "5px" : "0px" }}>
         <TabContext value={selectedTab}>
@@ -789,7 +790,7 @@ function Organisation() {
         }}
       >
         <Grid item>
-          <Link to="/orgSelection" style={{ textDecoration: "none" }}>
+          <Link to="/organisations" style={{ textDecoration: "none" }}>
             <div>
               <GeneralButton
                 name="Cancel"

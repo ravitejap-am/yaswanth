@@ -9,21 +9,22 @@ import RadioGroup from "@mui/material/RadioGroup";
 import "./ViewOrganisationDropdown.css";
 import Organisation from "../organisation";
 import OrganisationSecondOption from "./OrganisationSecondOption";
+import { useSelector } from "react-redux";
+import { selectOrganisation } from "../../../../store/authSlice";
 
 function ViewOrganisationDropdown() {
-  const isMobile = useMediaQuery("(max-width:600px)");
-  const navigate = useNavigate();
-  const pageTitle = "View Organisation Dropdown";
+  const organisation = useSelector(selectOrganisation);
+  console.log("organisation data", organisation);
+  const pageTitle = organisation?.organisationData?.name;
   const [selectedOption, setSelectedOption] = useState("option1");
 
-  const handleOptionChange = (event) => {
-    setSelectedOption(event.target.value);
+  const handleOptionChange = (e) => {
+    setSelectedOption(e.target.value);
   };
 
   return (
     <Layout componentName={pageTitle}>
       <div className="organization-info">
-        <h2>Select an Organization</h2>
         <RadioGroup
           row
           aria-label="organization-option"
@@ -44,36 +45,10 @@ function ViewOrganisationDropdown() {
         </RadioGroup>
       </div>
       {selectedOption === "option1" ? (
-        <Organisation />
+        <Organisation pageTitle={pageTitle} />
       ) : (
-        <OrganisationSecondOption />
+        <OrganisationSecondOption pageTitle={pageTitle} />
       )}
-
-      <Grid
-        container
-        spacing={2}
-        direction="row"
-        justifyContent={isMobile ? "center" : "flex-end"}
-        alignItems={isMobile ? "center" : "flex-end"}
-        marginTop={"0.3rem"}
-      >
-        <Grid item>
-          <Link to="/organisations" style={{ textDecoration: "none" }}>
-            <div>
-              <GeneralButton
-                name="Cancel"
-                buttonProps={{}}
-                type="default"
-                color="#334155"
-                backgroundColor="transparent"
-                width="130px"
-                height="50px"
-                borderRadius="30px"
-              />
-            </div>
-          </Link>
-        </Grid>
-      </Grid>
     </Layout>
   );
 }
