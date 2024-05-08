@@ -11,36 +11,36 @@ import {
 } from "@mui/material";
 import "./Index.css";
 
-import { Tabs, Button } from 'antd';
-import { Link, useNavigate } from 'react-router-dom';
-import OrganizationDomains from '../../../AMChatAdmin/EditOrganizationAdmin/AddOrganizationTabNavigation/OrganizationDomains';
+import { Tabs, Button } from "antd";
+import { Link, useNavigate } from "react-router-dom";
+import OrganizationDomains from "../../../AMChatAdmin/EditOrganizationAdmin/AddOrganizationTabNavigation/OrganizationDomains";
 
-import SubscriptionPlan from '../../../AMChatAdmin/AddOrganizationAdmin/AddOrganizationTabNavigation/SubscriptionPlan';
-import GeneralButton from '../../../../components/common/buttons/GeneralButton';
-import axios from 'axios';
+import SubscriptionPlan from "../../../AMChatAdmin/AddOrganizationAdmin/AddOrganizationTabNavigation/SubscriptionPlan";
+import GeneralButton from "../../../../components/common/buttons/GeneralButton";
+import axios from "axios";
 import {
   selectUser,
   selectOrganisation,
   setOrganisationData,
   setErrorMsg,
-} from '../../../../store/authSlice';
-import { useSelector, useDispatch } from 'react-redux';
-import * as constants from '../../../../constants/Constant';
-import { useMessageState } from '../../../../hooks/useapp-message';
-import { tokenDecodeJWT } from '../../../../utils/authUtils';
-import PageLoader from '../../../../components/loader/loader';
-import OrganizationInfoForm from '../../../../components/super-admin/organisation-info';
-import UserInfoForm from '../../../../components/super-admin/userInfo';
+} from "../../../../store/authSlice";
+import { useSelector, useDispatch } from "react-redux";
+import * as constants from "../../../../constants/Constant";
+import { useMessageState } from "../../../../hooks/useapp-message";
+import { tokenDecodeJWT } from "../../../../utils/authUtils";
+import PageLoader from "../../../../components/loader/loader";
+import OrganizationInfoForm from "../../../../components/super-admin/organisation-info";
+import UserInfoForm from "../../../../components/super-admin/userInfo";
 import {
   validatePersonalInfoForm,
   validateUserInfoForm,
   validationOrgData,
-} from '../../../../components/super-admin/validation';
-import { extractDomain } from '../../../../utils/generalUtils';
-import TabContext from '@mui/lab/TabContext';
-import TabList from '@mui/lab/TabList';
-import TabPanel from '@mui/lab/TabPanel';
-import { Country, State, City } from 'country-state-city';
+} from "../../../../components/super-admin/validation";
+import { extractDomain } from "../../../../utils/generalUtils";
+import TabContext from "@mui/lab/TabContext";
+import TabList from "@mui/lab/TabList";
+import TabPanel from "@mui/lab/TabPanel";
+import { Country, State, City } from "country-state-city";
 
 function Organisation() {
   const isAndroid = /Android/.test(navigator.userAgent);
@@ -54,7 +54,7 @@ function Organisation() {
   } = useMessageState();
   const user = useSelector(selectUser);
   const organisation = useSelector(selectOrganisation);
-  console.log(organisation,"org info")
+  console.log(organisation, "org info");
   const dispatch = useDispatch();
   const pageTitle =
     organisation?.organisationStatus === "edit"
@@ -93,13 +93,13 @@ function Organisation() {
           contact: {
             firstName: organisation?.organisationData?.contact?.firstName
               ? organisation?.organisationData?.contact?.firstName
-              : '',
+              : "",
             lastName: organisation?.organisationData?.contact?.lastName
               ? organisation?.organisationData?.contact?.lastName
-              : '',
+              : "",
             email: organisation?.organisationData?.contact?.email
               ? organisation?.organisationData?.contact?.email
-              : '',
+              : "",
           },
           metaData: organisation?.organisationData?.metadata,
         }
@@ -146,13 +146,13 @@ function Organisation() {
     contact: {
       firstName: organisation?.organisationData?.contact?.firstName
         ? organisation?.organisationData?.contact?.firstName
-        : '',
+        : "",
       lastName: organisation?.organisationData?.contact?.lastName
         ? organisation?.organisationData?.contact?.lastName
-        : '',
+        : "",
       email: organisation?.organisationData?.contact?.email
         ? organisation?.organisationData?.contact?.email
-        : '',
+        : "",
     },
     metaData: organisation?.organisationData?.metadata,
   };
@@ -188,12 +188,12 @@ function Organisation() {
 
   const [value, setValue] = useState("1");
   const orgStatus = organisation?.organisationStatus || null;
-  const isMobile = useMediaQuery('(max-width:600px)');
-  const readOnlyMode = organisation?.organisationStatus === 'view';
+  const isMobile = useMediaQuery("(max-width:600px)");
+  const readOnlyMode = organisation?.organisationStatus === "view";
   const tabs = [
-    'personalinformation',
-    'organizationdomains',
-    'organizationadmin',
+    "personalinformation",
+    "organizationdomains",
+    "organizationadmin",
   ];
   const [isDisable, setIsDisable] = useState(false);
 
@@ -226,7 +226,7 @@ function Organisation() {
 
   useEffect(() => {
     const dirty = compareObjects(prevData, orgData);
-    console.log('dirty---->', dirty);
+    console.log("dirty---->", dirty);
     setIsDirty(dirty);
   }, [orgData]);
 
@@ -234,9 +234,9 @@ function Organisation() {
     if (readOnlyMode) {
       return true;
     }
-    if (orgStatus === 'edit') {
+    if (orgStatus === "edit") {
       if (
-        orgData?.contact?.email !== '' &&
+        orgData?.contact?.email !== "" &&
         orgData?.contact?.email !== undefined
       ) {
         return true;
@@ -322,8 +322,8 @@ function Organisation() {
 
   const compareObjects = (obj1, obj2) => {
     if (obj1 && obj2 && Object.keys(obj1).length === Object.keys(obj2).length) {
-      console.log('obj1---->', obj1);
-      console.log('obj2----->', obj2);
+      console.log("obj1---->", obj1);
+      console.log("obj2----->", obj2);
       for (let key in obj1) {
         if (typeof obj1[key] === "object" && obj1[key] !== null) {
           if (!compareObjects(obj1[key], obj2[key])) {
@@ -343,11 +343,11 @@ function Organisation() {
 
   const editOrganisation = async (editedData) => {
     let body = editedData;
-    console.log('body---->', body);
+    console.log("body---->", body);
     const isValidDetails = validateUpdateDetails();
 
-    if (body.hasOwnProperty('plan')) {
-      delete body['plan'];
+    if (body.hasOwnProperty("plan")) {
+      delete body["plan"];
     }
     if (isValidDetails) {
       if (compareObjects(prevData, orgData)) {
@@ -414,10 +414,10 @@ function Organisation() {
 
   const extractDomain = (email) => {
     if (email) {
-      const parts = email.split('@');
+      const parts = email.split("@");
       return parts[1];
     } else {
-      return '';
+      return "";
     }
   };
 
@@ -439,7 +439,7 @@ function Organisation() {
         return;
       } else {
         setOrgInfoErrors(errors);
-        if (organisation?.organisationStatus == 'edit') {
+        if (organisation?.organisationStatus == "edit") {
           setSelectedTab(tab);
         }
         return;
@@ -463,13 +463,13 @@ function Organisation() {
           `Email Id domain should match with the existing domain ID's `,
           messageHandler
         );
-        if (organisation?.organisationStatus == 'edit') {
+        if (organisation?.organisationStatus == "edit") {
           setSelectedTab(tab);
         }
         return;
       } else {
         setUserInfoErrors(usererrors);
-        if (organisation?.organisationStatus == 'edit') {
+        if (organisation?.organisationStatus == "edit") {
           setSelectedTab(tab);
         }
         return;
@@ -483,7 +483,7 @@ function Organisation() {
           "At least one domain name should be there",
           messageHandler
         );
-        if (organisation?.organisationStatus == 'edit') {
+        if (organisation?.organisationStatus == "edit") {
           setSelectedTab(tab);
         }
         return;
@@ -496,8 +496,8 @@ function Organisation() {
       };
 
       if (!checkForEveryDomain()) {
-        showNotifyMessage('warn', 'Please enter valid domain', messageHandler);
-        if (organisation?.organisationStatus == 'edit') {
+        showNotifyMessage("warn", "Please enter valid domain", messageHandler);
+        if (organisation?.organisationStatus == "edit") {
           setSelectedTab(tab);
         }
         return;
@@ -509,7 +509,7 @@ function Organisation() {
           "Duplicate domains are not allowed",
           messageHandler
         );
-        if (organisation?.organisationStatus == 'edit') {
+        if (organisation?.organisationStatus == "edit") {
           setSelectedTab(tab);
         }
         return;
@@ -527,13 +527,13 @@ function Organisation() {
   const validateUpdateDetails = () => {
     // if (checkTab == 'personalinformation') {
     const errors = validatePersonalInfoForm(orgData);
-    console.log('errors--->', errors);
+    console.log("errors--->", errors);
     if (Object.keys(errors).length === 0) {
       setOrgInfoErrors({});
     } else {
       setOrgInfoErrors(errors);
-      setSelectedTab('personalinformation');
-      showNotifyMessage('error', 'Please add the valid data', messageHandler);
+      setSelectedTab("personalinformation");
+      showNotifyMessage("error", "Please add the valid data", messageHandler);
       return false;
     }
     // }
@@ -549,27 +549,27 @@ function Organisation() {
       Object.keys(usererrors).length === 0 &&
       isEmailPresent === false
     ) {
-      setSelectedTab('organizationadmin');
+      setSelectedTab("organizationadmin");
       showNotifyMessage(
-        'error',
+        "error",
         `Email Id domain should match with the existing domain ID's `,
         messageHandler
       );
       return false;
     } else {
-      setSelectedTab('organizationadmin');
+      setSelectedTab("organizationadmin");
       setUserInfoErrors(usererrors);
-      showNotifyMessage('error', 'Please add the valid data', messageHandler);
+      showNotifyMessage("error", "Please add the valid data", messageHandler);
       return false;
     }
     // }
     // if (checkTab == 'organizationdomains') {
 
     if (!domainValidation(orgData?.metaData)) {
-      setSelectedTab('organizationdomains');
+      setSelectedTab("organizationdomains");
       showNotifyMessage(
-        'warn',
-        'At least one domain name should be there',
+        "warn",
+        "At least one domain name should be there",
         messageHandler
       );
       return false;
@@ -582,16 +582,16 @@ function Organisation() {
     };
 
     if (!checkForEveryDomain()) {
-      setSelectedTab('organizationdomains');
-      showNotifyMessage('warn', 'Please enter valid domain', messageHandler);
+      setSelectedTab("organizationdomains");
+      showNotifyMessage("warn", "Please enter valid domain", messageHandler);
       return false;
     }
 
-    if (hasRepeatingValues(orgData?.metaData, 'typeDetails')) {
-      setSelectedTab('organizationdomains');
+    if (hasRepeatingValues(orgData?.metaData, "typeDetails")) {
+      setSelectedTab("organizationdomains");
       showNotifyMessage(
-        'warn',
-        'Duplicate domains are not allowed',
+        "warn",
+        "Duplicate domains are not allowed",
         messageHandler
       );
       return false;
@@ -629,7 +629,11 @@ function Organisation() {
   }
 
   return (
-    <Layout componentName={pageTitle}>
+    //<Layout componentName={pageTitle}>
+    <organisationLayout
+      componentName={pageTitle}
+      action={organisation?.organisationStatus}
+    >
       {backDropLoading && <PageLoader loadingStatus={backDropLoading} />}
       <Box sx={{ marginTop: isMobile ? "5px" : "0px" }}>
         <TabContext value={selectedTab}>
@@ -784,7 +788,7 @@ function Organisation() {
         }}
       >
         <Grid item>
-          <Link to="/organisations" style={{ textDecoration: "none" }}>
+          <Link to="/orgSelection" style={{ textDecoration: "none" }}>
             <div>
               <GeneralButton
                 name="Cancel"
@@ -839,7 +843,8 @@ function Organisation() {
           </Button>
         </Grid>
       </Grid>
-    </Layout>
+    </organisationLayout>
+    //</Layout>
   );
 }
 

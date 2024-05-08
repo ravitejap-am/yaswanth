@@ -41,6 +41,7 @@ import AddUsers from "./pages/org-admin/users/add-users/AddUsers.jsx";
 import TermsAndConditions from "./components/TermsAndConditions/index.jsx";
 import PrivacyPolicies from "./components/PrivacyPolicy/index.jsx";
 import ViewOrganisationDropdown from "./pages/super-admin/organisations/organisationDropdown/ViewOrganisationDropdown.jsx";
+import OrganisationSecondOption from "./pages/super-admin/organisations/organisationDropdown/OrganisationSecondOption.jsx";
 // import PrivacyPolicies from "./components/PrivacyPolicy/index.jsx";
 /*  
 new flow import statements stop
@@ -258,8 +259,9 @@ const Rout = () => {
         element={<TermsAndConditions />}
       />
       {/* Fallback route for any other URL */}
-      <Route path="*" element={<PageNotFound />} />
+      <Route path="*" element={<PageNotFound />}/>
       <Route path="/orgSelection" element={<ViewOrganisationDropdown />} />
+      <Route path="/OrgSecondOption" element={<OrganisationSecondOption/>}/>
     </Routes>
   );
 };

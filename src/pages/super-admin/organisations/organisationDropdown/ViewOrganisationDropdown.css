@@ -1,14 +1,30 @@
 .organization-info {
-  margin-bottom: 20px;
+  width: 100%;
+  margin: 0 auto 20px;
+  flex-direction: column;
 }
 
 .organization-info h2 {
+  margin-bottom: 10px;
+  font-weight: 400;
+  color: #312e81;
+  font-family: Montserrat, Arial, sans-serif;
   font-size: 1.5rem;
-  margin-bottom: 5px;
 }
 
 .custom-select {
   width: 100%;
+  background-color: #f7f7f7;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 1rem;
+  color: #555;
+}
+
+.custom-select:focus {
+  outline: none;
+  border-color: #6c63ff;
 }
 
 .MuiList-root {
@@ -18,8 +34,21 @@
 
 .MuiMenuItem-root {
   padding: 10px 20px;
+  transition: background-color 0.3s ease;
 }
 
 .MuiMenuItem-root:hover {
   background-color: #f0f0f0;
+}
+
+@media screen and (max-width: 768px) {
+  .custom-select {
+    font-size: 0.9rem;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .custom-select {
+    font-size: 0.8rem;
+  }
 }
