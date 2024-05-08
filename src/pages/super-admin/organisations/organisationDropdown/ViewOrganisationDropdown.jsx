@@ -14,6 +14,7 @@ import { selectOrganisation } from "../../../../store/authSlice";
 
 function ViewOrganisationDropdown() {
   const organisation = useSelector(selectOrganisation);
+  const isMobile = useMediaQuery("(max-width:600px)");
   console.log("organisation data", organisation);
   const pageTitle = organisation?.organisationData?.name;
   const [selectedOption, setSelectedOption] = useState("option1");
@@ -24,7 +25,13 @@ function ViewOrganisationDropdown() {
 
   return (
     <Layout componentName={pageTitle}>
-      <div className="organization-info">
+      <div
+        className="organization-info"
+        style={{
+          paddingTop: isMobile ? "15px" : "0px",
+          paddingRight: isMobile ? "25px" : "0px",
+        }}
+      >
         <RadioGroup
           row
           aria-label="organization-option"
