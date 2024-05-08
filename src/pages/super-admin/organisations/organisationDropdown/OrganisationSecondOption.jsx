@@ -29,7 +29,7 @@ function OrganisationSecondOption() {
         direction="row"
         justifyContent={isMobile ? "center" : "flex-end"}
         alignItems={isMobile ? "center" : "flex-end"}
-        marginTop={"0.3rem"}
+        marginTop={"3.3rem"}
       >
         <Grid item>
           <Link to="/organisations" style={{ textDecoration: "none" }}>
