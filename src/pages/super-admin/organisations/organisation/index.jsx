@@ -181,9 +181,9 @@ function Organisation() {
         }
   );
   const [cities, setCities] = useState([]);
-  const [firstNamelocal, setFirstName] = useState("");
+  // const [firstNamelocal, setFirstName] = useState("");
   const [backDropLoading, setBackDropLoading] = useState(false);
-  const [fullName, setFullName] = useState("");
+  // const [fullName, setFullName] = useState("");
   const [orgInfoErrors, setOrgInfoErrors] = useState({});
   const [userInfoErrors, setUserInfoErrors] = useState({});
 
@@ -217,10 +217,10 @@ function Organisation() {
   };
 
   useEffect(() => {
-    const storedFirstName = localStorage.getItem("firstName");
-    setFirstName(storedFirstName);
-    const storedfullName = localStorage.getItem("fullName");
-    setFullName(storedfullName);
+    // const storedFirstName = localStorage.getItem("firstName");
+    // setFirstName(storedFirstName);
+    // const storedfullName = localStorage.getItem("fullName");
+    // setFullName(storedfullName);
 
     initializeStates();
   }, [organisation]);
@@ -400,7 +400,7 @@ function Organisation() {
   };
 
   const handleTabChange = (event, newValue, currentValue) => {
-    const normalizedTab = newValue;
+    // const normalizedTab = newValue;
     if (readOnlyMode) {
       setSelectedTab(newValue);
     } else {
@@ -602,15 +602,15 @@ function Organisation() {
     return true;
   };
 
-  const domainNameValidation = (domainArray) => {
-    if (orgData?.contact?.email.length > 0) {
-      let isDomainValid = domainArray.find(
-        (obj) => obj["typeDetails"] == extractDomain(orgData?.contact?.email)
-      );
-      console.log("isDomainValid", !!isDomainValid);
-      return !!isDomainValid;
-    }
-  };
+  // const domainNameValidation = (domainArray) => {
+  //   if (orgData?.contact?.email.length > 0) {
+  //     let isDomainValid = domainArray.find(
+  //       (obj) => obj["typeDetails"] == extractDomain(orgData?.contact?.email)
+  //     );
+  //     console.log("isDomainValid", !!isDomainValid);
+  //     return !!isDomainValid;
+  //   }
+  // };
 
   const domainValidation = (domainArray) => {
     console.log("domain array---->", domainArray);
