@@ -30,7 +30,7 @@ import Dashboard from "./pages/org-admin/dashboard/Dashboard.jsx";
 import Users from "./pages/org-admin/users/index.jsx";
 import Documents from "./pages/org-admin/documents/index.jsx";
 import Chats from "./pages/chats/index.jsx";
-import SupeAdminDashboard from "./pages/super-admin/dasboard/index.jsx";
+
 import Organisations from "./pages/super-admin/organisations/index.jsx";
 import Organisation from "./pages/super-admin/organisations/organisation/index.jsx";
 import ProfileInfo from "./pages/Profile/index.jsx";
@@ -40,8 +40,7 @@ import EditUsers from "./pages/org-admin/users/edit-users/EditUsers.jsx";
 import AddUsers from "./pages/org-admin/users/add-users/AddUsers.jsx";
 import TermsAndConditions from "./components/TermsAndConditions/index.jsx";
 import PrivacyPolicies from "./components/PrivacyPolicy/index.jsx";
-import ViewOrganisationDropdown from "./pages/super-admin/organisations/organisationDropdown/ViewOrganisationDropdown.jsx";
-import OrganisationSecondOption from "./pages/super-admin/organisations/organisationDropdown/OrganisationSecondOption.jsx";
+import ViewOrganisation from "./pages/super-admin/organisations/organisationDropdown/ViewOrganisation.jsx";
 // import PrivacyPolicies from "./components/PrivacyPolicy/index.jsx";
 /*  
 new flow import statements stop
@@ -258,10 +257,8 @@ const Rout = () => {
         path="/termsandconditions"
         element={<TermsAndConditions />}
       />
-      {/* Fallback route for any other URL */}
       <Route path="*" element={<PageNotFound />}/>
-      <Route path="/orgSelection" element={<ViewOrganisationDropdown />} />
-      <Route path="/OrgSecondOption" element={<OrganisationSecondOption/>}/>
+      <Route path="/vieworganisation" element={<ViewOrganisation />} />
     </Routes>
   );
 };

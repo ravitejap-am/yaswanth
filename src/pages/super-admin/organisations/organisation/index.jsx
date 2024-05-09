@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Layout from "../../../../Layout";
 import {
-  AppBar,
-  Toolbar,
   Box,
   Tab,
   Grid,
@@ -11,7 +8,7 @@ import {
 } from "@mui/material";
 import "./Index.css";
 
-import { Tabs, Button } from "antd";
+import { Button } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import OrganizationDomains from "../../../AMChatAdmin/EditOrganizationAdmin/AddOrganizationTabNavigation/OrganizationDomains";
 
@@ -36,12 +33,11 @@ import {
   validateUserInfoForm,
   validationOrgData,
 } from "../../../../components/super-admin/validation";
-import { extractDomain } from "../../../../utils/generalUtils";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
-import { Country, State, City } from "country-state-city";
-import OrganisationLayout from "./organisationLayout";
+import { State } from "country-state-city";
+import OrganisationLayout from "./OrganisationLayout";
 
 function Organisation() {
   const isAndroid = /Android/.test(navigator.userAgent);

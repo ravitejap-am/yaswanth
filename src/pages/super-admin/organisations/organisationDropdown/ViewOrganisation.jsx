@@ -1,18 +1,16 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import Layout from "../../../../Layout";
-import { Grid, useMediaQuery } from "@mui/material";
-import GeneralButton from "../../../../components/common/buttons/GeneralButton";
+import { useMediaQuery } from "@mui/material";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
-import "./ViewOrganisationDropdown.css";
+import "./ViewOrganisation.css";
 import Organisation from "../organisation";
-import OrganisationSecondOption from "./OrganisationSecondOption";
 import { useSelector } from "react-redux";
 import { selectOrganisation } from "../../../../store/authSlice";
+import OrganizationStatistic from "./OrganizationStatistic";
 
-function ViewOrganisationDropdown() {
+function ViewOrganisation() {
   const organisation = useSelector(selectOrganisation);
   const isMobile = useMediaQuery("(max-width:600px)");
   console.log("organisation data", organisation);
@@ -54,10 +52,10 @@ function ViewOrganisationDropdown() {
       {selectedOption === "option1" ? (
         <Organisation pageTitle={pageTitle} />
       ) : (
-        <OrganisationSecondOption pageTitle={pageTitle} />
+        <OrganizationStatistic pageTitle={pageTitle} />
       )}
     </Layout>
   );
 }
 
-export default ViewOrganisationDropdown;
+export default ViewOrganisation;

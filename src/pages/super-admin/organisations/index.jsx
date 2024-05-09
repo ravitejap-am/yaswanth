@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Popconfirm } from "antd";
 import Layout from "../../../Layout";
 import { Box, Grid, IconButton, useMediaQuery } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
@@ -12,7 +11,6 @@ import {
   setErrorMsg,
 } from "../../../store/authSlice";
 import styles from "./index.module.css";
-import { CircularProgress, Button } from "@mui/material";
 import PageLoader from "../../../components/loader/loader";
 import Search from "../../../components/common/common-searchInput";
 import { BASE_ORG_API_URL, BUTTON_COLOUR } from "../../../constants/Constant";
@@ -22,7 +20,6 @@ import editIcon from "../../../asset/AmChatSuperAdmin/pencil-alt.png";
 import deleteIcon from "../../../asset/AmChatSuperAdmin/Frame 2302.png";
 import GeneralButton from "../../../components/common/buttons/GeneralButton";
 import DataGridTable from "../../../components/common/muiTable/DataGridTable";
-import { AM_CHAT } from "../../../constants/Constant";
 import { Modal } from "antd";
 import eye1 from "../../../asset/eye1.png";
 import MobileViewOrganisationAccordin from "../../../components/MobileComponent/MobileViewOrganisationAccordin";
@@ -279,8 +276,7 @@ function Organisations() {
   const handleViewOrganisation = (id) => {
     const orgObject = responseData.find((obj) => obj.id === id);
     console.log(orgObject, "org object");
-    // navigate('/organisation');
-    navigate("/orgSelection");
+    navigate("/vieworganisation");
     dispatch(setOrganisationStatus("view"));
     dispatch(setOrganisationData(orgObject));
   };
