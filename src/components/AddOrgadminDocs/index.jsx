@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Styles from './OrgAddDocument.module.css'
 import { selectUser } from '../../store/authSlice'
 import axios from 'axios'
 import { useSelector } from 'react-redux'
 import * as constants from '../../../src/constants/Constant'
-import { Upload, Button, Input, Form, Spin } from 'antd'
-import { LoadingOutlined, UploadOutlined } from '@ant-design/icons'
+import { Upload, Button, Input } from 'antd'
+import { UploadOutlined } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
 import { useMessageState } from '../../../src/hooks/useapp-message'
 import Layout from '../../Layout'
@@ -24,18 +24,11 @@ function AddOrgDocuments() {
     } = useMessageState()
     const [file, setFile] = useState(null)
     const navigate = useNavigate()
-    const [firstName, setFirstName] = useState('')
-
-    useEffect(() => {
-        const storedFirstName = localStorage.getItem('firstNameOrganisation')
-        setFirstName(storedFirstName)
-    }, [])
 
     const user = useSelector(selectUser)
     const jwt = user.userToken
     const [errors, setErrors] = useState('')
     const [isDirty, setIsDirty] = useState(true)
-    const [fileName, setFileName] = useState('')
     const isMobile = useMediaQuery('(max-width:600px)')
 
     const messageHandler = () => {
@@ -56,10 +49,9 @@ function AddOrgDocuments() {
         try {
             setButtonLoading(true)
             const formData = new FormData()
-            console.log('file-----', file)
             formData.append('file', file)
             formData.append('name', file?.name)
-            console.log('formData', formData)
+
             const response = await axios.post(
                 `${constants.BASE_DOC_API_URL}`,
                 formData,
@@ -70,6 +62,7 @@ function AddOrgDocuments() {
                     },
                 }
             )
+
             setButtonLoading(false)
             setIsReset(true)
             setErrors('')
@@ -79,10 +72,19 @@ function AddOrgDocuments() {
                 messageHandler
             )
             navigate('/documents')
-            console.log('API Response:', response.data)
         } catch (error) {
+            setButtonLoading(false)
+            if (error?.code === 'ERR_NETWORK') {
+                console.log('timed out error')
+                showNotifyMessage(
+                    'error',
+                    'Looks like request has timed out. Please retry',
+                    messageHandler
+                )
+                return
+            }
             setErrors('')
-            console.error('Error occurred:', error)
+
             showNotifyMessage(
                 'error',
                 error?.response?.data?.message,
@@ -94,7 +96,6 @@ function AddOrgDocuments() {
             ) {
                 navigate('/customerSupport')
             }
-            setButtonLoading(false)
         }
     }
 
@@ -154,9 +155,16 @@ function AddOrgDocuments() {
                         padding: '10px',
                         gap: '1em',
                         alignItems: 'baseline',
-                        height: '4em',
                     }}
                 >
+                    <Box
+                     sx={{
+                        minWidth: {
+                            md: '495px',
+                            xs: '100%',
+                        },
+                     }}
+                    >
                     <Input
                         value={!!file?.name ? file?.name : ''}
                         placeholder="Upload Document"
@@ -176,6 +184,17 @@ function AddOrgDocuments() {
                         }}
                         disabled
                     />
+                    <Typography
+                        variant="subtitle1"
+                        style={{
+                            fontSize: '16px',
+                            color: 'grey',
+                            paddingLeft: '20px',
+                        }}
+                    >
+                        (Supported files .PDF)
+                    </Typography>
+                    </Box>
                     <Box
                         sx={{
                             maxWidth: '10em',
