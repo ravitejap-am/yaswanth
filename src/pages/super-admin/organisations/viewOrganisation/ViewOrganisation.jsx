@@ -50,9 +50,9 @@ function ViewOrganisation() {
         </RadioGroup>
       </div>
       {selectedOption === "option1" ? (
-        <Organisation pageTitle={pageTitle} />
+        <Organisation />
       ) : (
-        <OrganizationStatistic pageTitle={pageTitle} />
+        <OrganizationStatistic />
       )}
     </Layout>
   );

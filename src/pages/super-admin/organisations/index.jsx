@@ -275,8 +275,9 @@ function Organisations() {
 
   const handleViewOrganisation = (id) => {
     const orgObject = responseData.find((obj) => obj.id === id);
+    const organisationName = orgObject?.name.replace(/\s+/g, "-");
     console.log(orgObject, "org object");
-    navigate("/vieworganisation");
+    navigate(`/organisation/${encodeURIComponent(organisationName)}`);
     dispatch(setOrganisationStatus("view"));
     dispatch(setOrganisationData(orgObject));
   };

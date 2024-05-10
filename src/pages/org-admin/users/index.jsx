@@ -33,6 +33,7 @@ import { RiAdminFill } from 'react-icons/ri';
 import { RiAdminLine } from 'react-icons/ri';
 import { scopes } from '../../../constants/scopes';
 import { tokenDecodeJWT } from '../../../utils/authUtils';
+import eye1 from "../../../asset/eye1.png";
 
 const tempData = [
   'CHU',
@@ -281,6 +282,10 @@ function Users() {
     setOpenDeletePopUp(true);
   };
 
+  const handleViewUserOrganisation = ()=>{
+
+  }
+
   const columns = [
     {
       field: 'name',
@@ -294,7 +299,7 @@ function Users() {
           <div style={{ width: '20px' }}>
             {params?.value?.role !== 'USER' ? (
               params?.value?.role === 'SUPER_ADMIN' ? (
-                <RiAdminFill size={18} />
+                <RiAdminFill size={18} />  
               ) : (
                 <RiAdminLine size={18} />
               )
@@ -370,6 +375,18 @@ function Users() {
               <img src={deleteIcon} alt="Delete" />
             </IconButton>
           )}
+
+          
+            
+          {permittedScopes?.includes(scopes.OGR) && (
+            <IconButton
+              aria-label="eye"
+              onClick={() => handleViewUserOrganisation(params.row.id)}
+            >
+              <img src={eye1} alt="eye" />
+            </IconButton>
+          )}
+          
         </div>
       ),
     },

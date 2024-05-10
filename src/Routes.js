@@ -257,8 +257,11 @@ const Rout = () => {
         path="/termsandconditions"
         element={<TermsAndConditions />}
       />
-      <Route path="*" element={<PageNotFound />}/>
-      <Route path="/vieworganisation" element={<ViewOrganisation />} />
+      <Route path="*" element={<PageNotFound />} />
+      <Route
+        path="/organisation/:organisationName"
+        element={<ViewOrganisation />}
+      />
     </Routes>
   );
 };
