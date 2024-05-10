@@ -189,10 +189,10 @@ function AddOrgDocuments() {
                         style={{
                             fontSize: '16px',
                             color: 'grey',
-                            paddingLeft: '20px',
+                            paddingLeft: '5px',
                         }}
                     >
-                        (Supported files .PDF)
+                        (Supported files&nbsp;&nbsp;.pdf)
                     </Typography>
                     </Box>
                     <Box
