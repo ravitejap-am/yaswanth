@@ -135,6 +135,16 @@ function UpdateOrgAdminDoc() {
             navigate('/documents')
             console.log('API Response:', response.data)
         } catch (error) {
+            setButtonLoading(false)
+            if (error?.code === 'ERR_NETWORK') {
+                console.log('timed out error')
+                showNotifyMessage(
+                    'error',
+                    'Looks like request has timed out. Please retry',
+                    messageHandler
+                )
+                return
+            }
             setErrors('')
             console.error('Error occurred:', error)
             showNotifyMessage(
@@ -148,7 +158,6 @@ function UpdateOrgAdminDoc() {
             ) {
                 navigate('/customerSupport')
             }
-            setButtonLoading(false)
         }
     }
 
