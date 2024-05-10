@@ -215,7 +215,15 @@ function UpdateOrgAdminDoc() {
                         height: '4em',
                     }}
                 >
-                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                    <Box
+                     sx={{
+                        minWidth: {
+                            md: '495px',
+                            xs: '100%',
+                        },
+                        height:'auto'
+                     }}
+                    >
                         <Input
                             value={
                                 !!file?.name
@@ -239,9 +247,18 @@ function UpdateOrgAdminDoc() {
                             }}
                             disabled
                         />
+                        <Typography
+                            variant="subtitle1"
+                            style={{
+                                fontSize: '16px',
+                                color: 'grey',
+                                paddingLeft: '5px',
+                            }}
+                        >
+                            (Supported files&nbsp;&nbsp;.pdf)
+                        </Typography>
                         {!!!file?.name ? <ErrorMsg /> : ''}
-                    </div>
-
+                    </Box>
                     <Box
                         sx={{
                             maxWidth: '10em',
