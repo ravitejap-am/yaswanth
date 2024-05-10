@@ -1,8 +1,10 @@
+import { Typography, useMediaQuery } from "@mui/material";
+import { Box } from "@mui/system";
 import React from "react";
-import { Box, Typography, useMediaQuery } from "@mui/material";
 import { Link } from "react-router-dom";
+import GeneralButton from "../../../../components/common/buttons/GeneralButton";
 
-function OrganizationStatistic() {
+function UserStatistic() {
   const isMobile = useMediaQuery("(max-width:600px)");
   return (
     <>
@@ -34,26 +36,20 @@ function OrganizationStatistic() {
         }}
       >
         <Link to="/organisations" style={{ textDecoration: "none" }}>
-          <button
-            variant="contained"
+          <GeneralButton
+            name="Cancel"
+            buttonProps={{}}
             type="default"
-            style={{
-              color: "rgb(51, 65, 85)",
-              backgroundColor: "transparent",
-              width: "130px",
-              height: "50px",
-              borderRadius: "30px",
-              "&:hover": {
-                backgroundColor: "transparent",
-              },
-            }}
-          >
-            Cancel
-          </button>
+            color="#334155"
+            backgroundColor="transparent"
+            width="130px"
+            height="50px"
+            borderRadius="30px"
+          />
         </Link>
       </Box>
     </>
   );
 }
 
-export default OrganizationStatistic;
+export default UserStatistic;

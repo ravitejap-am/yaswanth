@@ -1,11 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  Box,
-  Tab,
-  Grid,
-  useMediaQuery,
-  Typography,
-} from "@mui/material";
+import { Box, Tab, Grid, useMediaQuery, Typography } from "@mui/material";
 import "./Index.css";
 
 import { Button } from "antd";
@@ -778,10 +772,10 @@ function Organisation() {
         direction="row"
         justifyContent={isMobile ? "center" : "flex-end"}
         alignItems={isMobile ? "center" : "flex-end"}
-        marginTop={"0.3rem"}
+        marginTop={"0rem"}
         sx={{
           marginBottom: {
-            xs: isAndroid ? "3em" : "7em",
+            xs: isAndroid ? "4em" : "7em",
           },
         }}
       >

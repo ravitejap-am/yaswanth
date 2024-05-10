@@ -41,6 +41,7 @@ import AddUsers from "./pages/org-admin/users/add-users/AddUsers.jsx";
 import TermsAndConditions from "./components/TermsAndConditions/index.jsx";
 import PrivacyPolicies from "./components/PrivacyPolicy/index.jsx";
 import ViewOrganisation from "./pages/super-admin/organisations/viewOrganisation/ViewOrganisation.jsx";
+import ViewUser from "./pages/org-admin/users/view-user/ViewUser.jsx";
 // import PrivacyPolicies from "./components/PrivacyPolicy/index.jsx";
 /*  
 new flow import statements stop
@@ -262,6 +263,12 @@ const Rout = () => {
         path="/organisation/:organisationName"
         element={<ViewOrganisation />}
       />
+      <Route
+        path="/userinfo"
+        element={
+          <ProtectedRoute element={<ViewUser />} allowedRoles={["ORG_ADMIN"]} />
+        }
+      ></Route>
     </Routes>
   );
 };

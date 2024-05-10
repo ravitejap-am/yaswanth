@@ -178,6 +178,10 @@ function Users() {
     navigate(`/user/${userId}`);
   };
 
+  const handleViewUserOrganisation = ()=>{
+    navigate('/userinfo')
+  }
+
   const handleDelete = async (userId) => {
     try {
       setTableLoading(true);
@@ -282,9 +286,7 @@ function Users() {
     setOpenDeletePopUp(true);
   };
 
-  const handleViewUserOrganisation = ()=>{
 
-  }
 
   const columns = [
     {
