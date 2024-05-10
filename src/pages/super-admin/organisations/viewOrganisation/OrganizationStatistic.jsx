@@ -30,7 +30,8 @@ function OrganizationStatistic() {
           flexDirection: "row",
           justifyContent: isMobile ? "center" : "flex-end",
           alignItems: isMobile ? "center" : "flex-end",
-          marginTop: "3.3rem",
+          marginTop: isMobile ? "" : "139px",
+          paddingRight: isMobile ? "" : "35px",
         }}
       >
         <Link to="/organisations" style={{ textDecoration: "none" }}>
