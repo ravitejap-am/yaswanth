@@ -1,6 +1,7 @@
 import React from "react";
 import { Box, Typography, useMediaQuery } from "@mui/material";
 import { Link } from "react-router-dom";
+import CancelButton from "../../../../components/common/buttons/CancelButton";
 
 function OrganizationStatistic() {
   const isMobile = useMediaQuery("(max-width:600px)");
@@ -29,27 +30,12 @@ function OrganizationStatistic() {
           flexDirection: "row",
           justifyContent: isMobile ? "center" : "flex-end",
           alignItems: isMobile ? "center" : "flex-end",
-          marginTop: isMobile ? "" : "139px",
+          marginTop: isMobile ? "150px" : "139px",
           paddingRight: isMobile ? "" : "35px",
         }}
       >
         <Link to="/organisations" style={{ textDecoration: "none" }}>
-          <button
-            variant="contained"
-            type="default"
-            style={{
-              color: "rgb(51, 65, 85)",
-              backgroundColor: "transparent",
-              width: "130px",
-              height: "50px",
-              borderRadius: "30px",
-              "&:hover": {
-                backgroundColor: "transparent",
-              },
-            }}
-          >
-            Cancel
-          </button>
+          <CancelButton />
         </Link>
       </Box>
     </>

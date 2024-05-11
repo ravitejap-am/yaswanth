@@ -3,6 +3,7 @@ import { Box } from "@mui/system";
 import React from "react";
 import { Link } from "react-router-dom";
 import GeneralButton from "../../../../components/common/buttons/GeneralButton";
+import CancelButton from "../../../../components/common/buttons/CancelButton";
 
 function UserStatistic() {
   const isMobile = useMediaQuery("(max-width:600px)");
@@ -31,21 +32,12 @@ function UserStatistic() {
           flexDirection: "row",
           justifyContent: isMobile ? "center" : "flex-end",
           alignItems: isMobile ? "center" : "flex-end",
-          marginTop: isMobile ? "" : "139px",
-          paddingRight: isMobile ? "" : "35px",
+          marginTop: isMobile ? "" : "370px",
+          paddingRight: isMobile ? "" : "5px",
         }}
       >
-        <Link to="/organisations" style={{ textDecoration: "none" }}>
-          <GeneralButton
-            name="Cancel"
-            buttonProps={{}}
-            type="default"
-            color="#334155"
-            backgroundColor="transparent"
-            width="130px"
-            height="50px"
-            borderRadius="30px"
-          />
+        <Link to="/users" style={{ textDecoration: "none" }}>
+          <CancelButton />
         </Link>
       </Box>
     </>

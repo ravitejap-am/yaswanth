@@ -21,6 +21,7 @@ function UserInfo(props) {
 
   return (
     <Box>
+      <h1>Userinfo </h1>
       <UserInfoMain
         formData={formData}
         handleChange={handleChange}
