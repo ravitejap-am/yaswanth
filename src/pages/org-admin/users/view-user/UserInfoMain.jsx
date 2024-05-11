@@ -1,5 +1,6 @@
 import React from "react";
-import { Box, Grid, Typography, Button } from "@mui/material";
+import { Box, Grid, Typography, Button, useMediaQuery } from "@mui/material";
+import CancelButton from "../../../../components/common/buttons/CancelButton";
 
 function UserInfoMain({
   formData,
@@ -7,21 +8,24 @@ function UserInfoMain({
   handleSubmit,
   isEdit,
   isView,
-  isMobile,
-  isAndroid,
   cancelHandler,
   buttonLoading,
   isDirty,
   errors,
   permittedScopes,
   scopes,
+  firstName,
+  lastName,
+  email,
 }) {
+  const isMobile = useMediaQuery("(max-width:600px)");
+
   return (
     <form
       className="form"
       onSubmit={handleSubmit}
       style={{
-        height: "84%",
+        height: "auto",
         marginTop: isMobile ? "2em" : "0px",
         marginLeft: isMobile ? "5px" : "0px",
       }}
@@ -34,86 +38,59 @@ function UserInfoMain({
           height: "100%",
         }}
       >
-        <Box>
-          <Grid container spacing={1}>
-            <Grid item xs={12} md={6} lg={6} className="form-group">
+        <Grid container spacing={1}>
+          {[
+            { id: "firstName", label: "First Name", value: firstName },
+            { id: "lastName", label: "Last Name", value: lastName },
+            {
+              id: "email",
+              label: "Email",
+              value: email,
+              disabled: isEdit || isView,
+            },
+          ].map(({ id, label, value, disabled }) => (
+            <Grid item xs={12} md={6} lg={6} className="form-group" key={id}>
               <Typography>
-                <label htmlFor="firstName">First Name:</label>
+                <label htmlFor={id}>{label}:</label>
               </Typography>
               <input
                 className="inputstyle"
-                type="text"
-                id="firstName"
-                name="firstName"
-                placeholder="First Name"
-                value={formData.firstName}
+                type={id === "email" ? "email" : "text"}
+                id={id}
+                name={id}
+                placeholder={label}
+                value={value}
                 onChange={handleChange}
-                disabled={isView}
-                style={{ backgroundColor: isView ? "#CBD5E1" : "" }}
+                disabled={disabled}
+                style={{
+                  backgroundColor: isView ? "#CBD5E1" : "rgb(203, 213, 225)",
+                  pointerEvents: disabled ? "none" : "auto",
+                }}
               />
-              {errors.firstName && (
-                <span className="error">{errors.firstName}</span>
-              )}
+              {errors[id] && <span className="error">{errors[id]}</span>}
             </Grid>
-            <Grid item xs={12} md={6} lg={6} className="form-group">
-              <Typography>
-                <label htmlFor="lastName">Last Name:</label>
-              </Typography>
-              <input
-                className="inputstyle"
-                type="text"
-                id="lastName"
-                name="lastName"
-                placeholder="Last Name"
-                value={formData.lastName}
-                onChange={handleChange}
-                disabled={isView}
-                style={{ backgroundColor: isView ? "#CBD5E1" : "" }}
-              />
-              {errors.lastName && (
-                <span className="error">{errors.lastName}</span>
-              )}
-            </Grid>
-            <Grid item xs={12} md={6} lg={6} className="form-group">
-              <Typography>
-                <label htmlFor="email">Email:</label>
-              </Typography>
-              <input
-                className="inputstyle"
-                type="email"
-                id="email"
-                name="email"
-                placeholder="Email"
-                value={formData.email}
-                onChange={handleChange}
-                disabled={isEdit || isView}
-                style={{ backgroundColor: isEdit || isView ? "#CBD5E1" : "" }}
-              />
-              {errors.email && <span className="error">{errors.email}</span>}
-            </Grid>
-          </Grid>
-        </Box>
+          ))}
+        </Grid>
         <Box
           className="button-container"
           sx={{
-            marginBottom: {
-              xs: isAndroid ? "1em" : "3em",
-            },
+            marginTop: isMobile ? "165px" : "226px",
+            paddingRight: isMobile ? "" : "35px",
+            marginBottom: isMobile ? "3rem" : "3em",
           }}
         >
           {!isView && (
-            <Button
-              type="secondary"
-              className="buttonStyle"
-              style={{
-                backgroundColor: "white",
-                color: "black",
-                border: "1px solid black",
+            <CancelButton
+              onClick={() => {}}
+              style={{}}
+              text="Cancel"
+              onMouseOver={(e) => {
+                e.target.style.borderColor = "#5f94f5";
               }}
-              onClick={cancelHandler}
-            >
-              <Typography variant="button">Cancel</Typography>
-            </Button>
+              onMouseOut={(e) => {
+                e.target.style.borderColor = "rgb(218, 218, 218)";
+              }}
+            />
           )}
           {permittedScopes?.includes(scopes.UU) && !isView && (
             <Button
@@ -124,7 +101,7 @@ function UserInfoMain({
               disabled={isDirty}
             >
               {buttonLoading ? (
-                "    "
+                " "
               ) : (
                 <Typography variant="button">
                   {isEdit ? "Update" : "Submit"}

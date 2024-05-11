@@ -264,11 +264,11 @@ const Rout = () => {
         element={<ViewOrganisation />}
       />
       <Route
-        path="/userinfo"
+        path="/userinfo/:userName"
         element={
           <ProtectedRoute element={<ViewUser />} allowedRoles={["ORG_ADMIN"]} />
         }
-      ></Route>
+      />
     </Routes>
   );
 };

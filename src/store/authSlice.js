@@ -14,6 +14,10 @@ const authSlice = createSlice({
       organisationStatus: '',
       organisationData: null,
     },
+    organisationAdmin:{
+      organisationStatus: '',
+      userData: null,
+    },
     chatSessionId: null,
   },
   reducers: {
@@ -25,6 +29,9 @@ const authSlice = createSlice({
     },
     setOrganisationData: (state, action) => {
       state.organisation.organisationData = action.payload;
+    },
+    setUserData:(state,action)=>{
+      state.organisationAdmin.userData = action.payload;
     },
     setErrorMsg: (state, action) => {
       state.errorMsg = action.payload.message;
@@ -46,8 +53,10 @@ export const {
   setOrganisationData,
   setErrorMsg,
   setChatSessionId,
+  setUserData
 } = authSlice.actions;
 export const selectUser = (state) => state.auth.user;
 export const selectOrganisation = (state) => state.auth.organisation;
+export const selectUserDetails = (state) => state.auth.organisationAdmin;
 export const selectSessionId = (state) => state.auth.chatSessionId;
 export default authSlice.reducer;

@@ -35,7 +35,17 @@ function OrganizationStatistic() {
         }}
       >
         <Link to="/organisations" style={{ textDecoration: "none" }}>
-          <CancelButton />
+          <CancelButton
+            onClick={onclick}
+            style={{}}
+            text="Cancel"
+            onMouseOver={(e) => {
+              e.target.style.borderColor = "#5f94f5";
+            }}
+            onMouseOut={(e) => {
+              e.target.style.borderColor = "rgb(218, 218, 218)";
+            }}
+          />
         </Link>
       </Box>
     </>

@@ -4,16 +4,25 @@ import { Box, Tab, Typography } from "@mui/material";
 import UserStatistic from "./UserStatistic";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import UserInfo from "./UserInfo";
+import { useParams } from "react-router-dom";
+import { selectUserDetails } from "../../../../store/authSlice";
+import { useSelector } from "react-redux";
 
 function ViewUser() {
+  const { id } = useParams();
+  const organisation = useSelector(selectUserDetails);
+  // console.log("user id view user", id);
+  console.log("organisation admin user table store data", organisation);
   const [selectedTab, setSelectedTab] = useState("userinfo");
-
+  const pageTitle = `${organisation?.userData.firstName}${" "}${
+    organisation?.userData.lastName
+  }`;
   const handleTabChange = (event, newValue) => {
     setSelectedTab(newValue);
   };
 
   return (
-    <Layout>
+    <Layout componentName={pageTitle}>
       <Box>
         <TabContext value={selectedTab}>
           <Box
@@ -49,8 +58,8 @@ function ViewUser() {
             </TabList>
           </Box>
           <Box>
-            <TabPanel value="personalinformation">
-              <UserInfo setSelectedTab={setSelectedTab} />
+            <TabPanel value="userinfo">
+              <UserInfo formData={{ firstName: "", lastName: "", email: "" }} />
             </TabPanel>
             <TabPanel value="userstatistic">
               <UserStatistic setSelectedTab={setSelectedTab} />

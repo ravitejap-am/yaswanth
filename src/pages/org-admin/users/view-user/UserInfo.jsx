@@ -1,44 +1,50 @@
-import React from "react";
-import UserInfoMain from "./UserInfoMain";
+import React, { useState } from "react";
 import { Box } from "@mui/material";
+import UserInfoMain from "./UserInfoMain";
+import UserDetail from "./UserDetail";
 
-function UserInfo(props) {
+function UserInfo({ organisation, props }) {
+  const { userData } = organisation;
+  const { firstName, lastName, email } = userData;
+
   const {
-    formData,
-    handleChange,
-    handleSubmit,
-    isEdit,
-    isView,
-    isMobile,
-    isAndroid,
-    cancelHandler,
-    buttonLoading,
-    isDirty,
-    errors,
+    formData: initialFormData = {},
     permittedScopes,
     scopes,
-  } = props;
+  } = props || {};
+  const [formData, setFormData] = useState(initialFormData);
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+  };
 
   return (
     <Box>
-      <h1>Userinfo </h1>
       <UserInfoMain
         formData={formData}
         handleChange={handleChange}
         handleSubmit={handleSubmit}
-        isEdit={isEdit}
-        isView={isView}
-        isMobile={isMobile}
-        isAndroid={isAndroid}
-        cancelHandler={cancelHandler}
-        buttonLoading={buttonLoading}
-        isDirty={isDirty}
-        errors={errors}
+        isEdit={false}
+        isView={false}
+        isMobile={false}
+        isAndroid={false}
+        cancelHandler={() => {}}
+        buttonLoading={false}
+        isDirty={false}
+        errors={{}}
         permittedScopes={permittedScopes}
         scopes={scopes}
+        firstName={firstName}
+        lastName={lastName}
+        email={email}
       />
     </Box>
   );
 }
 
-export default UserInfo;
+export default UserDetail(UserInfo);

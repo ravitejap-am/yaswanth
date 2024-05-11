@@ -2,7 +2,6 @@ import { Typography, useMediaQuery } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
 import { Link } from "react-router-dom";
-import GeneralButton from "../../../../components/common/buttons/GeneralButton";
 import CancelButton from "../../../../components/common/buttons/CancelButton";
 
 function UserStatistic() {
@@ -15,10 +14,11 @@ function UserStatistic() {
           justifyContent: "center",
           alignItems: "center",
           height: "50%",
+          width: "100%",
           flexDirection: "column",
         }}
       >
-        <Typography variant="h4" gutterBottom>
+        <Typography variant="h5" gutterBottom>
           No Data Available
         </Typography>
         <Typography variant="body1" align="center">
@@ -32,12 +32,22 @@ function UserStatistic() {
           flexDirection: "row",
           justifyContent: isMobile ? "center" : "flex-end",
           alignItems: isMobile ? "center" : "flex-end",
-          marginTop: isMobile ? "" : "370px",
-          paddingRight: isMobile ? "" : "5px",
+          marginTop: isMobile ? "440px" : "380px",
+          paddingRight: isMobile ? "" : "35px",
         }}
       >
         <Link to="/users" style={{ textDecoration: "none" }}>
-          <CancelButton />
+          <CancelButton
+            onClick={onclick}
+            style={{}}
+            text="Cancel"
+            onMouseOver={(e) => {
+              e.target.style.borderColor = "#5f94f5";
+            }}
+            onMouseOut={(e) => {
+              e.target.style.borderColor = "rgb(218, 218, 218)";
+            }}
+          />
         </Link>
       </Box>
     </>

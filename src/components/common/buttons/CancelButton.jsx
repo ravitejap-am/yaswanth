@@ -1,6 +1,6 @@
 import React from "react";
 
-function CancelButton({ onClick }) {
+function CancelButton({ onClick, style, text, onMouseOver, onMouseOut }) {
   return (
     <button
       onClick={onClick}
@@ -18,15 +18,12 @@ function CancelButton({ onClick }) {
         fontFamily: "Montserrat, Arial, sans-serif",
         lineHeight: "1.5",
         transition: "background-color 0.3s, border-color 0.3s",
+        ...style,
       }}
-      onMouseOver={(e) => {
-        e.target.style.borderColor = "#5f94f5";
-      }}
-      onMouseOut={(e) => {
-        e.target.style.borderColor = "rgb(218, 218, 218)";
-      }}
+      onMouseOver={onMouseOver}
+      onMouseOut={onMouseOut}
     >
-      Cancel
+      {text}
     </button>
   );
 }
