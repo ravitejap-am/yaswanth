@@ -51,7 +51,7 @@ function AddOrgDocuments() {
             const formData = new FormData()
             formData.append('file', file)
             formData.append('name', file?.name)
-
+            console.log("form data--->",formData);
             const response = await axios.post(
                 `${constants.BASE_DOC_API_URL}`,
                 formData,
@@ -62,7 +62,7 @@ function AddOrgDocuments() {
                     },
                 }
             )
-
+            console.log("response---->",response);
             setButtonLoading(false)
             setIsReset(true)
             setErrors('')
@@ -74,6 +74,8 @@ function AddOrgDocuments() {
             navigate('/documents')
         } catch (error) {
             setButtonLoading(false)
+            console.log("error---->",error);
+            console.log("axios error---->",error?.code);
             if (error?.code === 'ERR_NETWORK') {
                 console.log('timed out error')
                 showNotifyMessage(
