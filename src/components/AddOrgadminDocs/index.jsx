@@ -75,8 +75,8 @@ function AddOrgDocuments() {
         } catch (error) {
             setButtonLoading(false)
             console.log("error---->",error);
-            console.log("axios error---->",error?.code);
-            if (error?.code === 'ERR_NETWORK') {
+            console.log("axios error---->",error?.status);
+            if (error?.status === 408) {
                 console.log('timed out error')
                 showNotifyMessage(
                     'error',
