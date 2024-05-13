@@ -36,12 +36,13 @@ import Organisation from "./pages/super-admin/organisations/organisation/index.j
 import ProfileInfo from "./pages/Profile/index.jsx";
 import AddOrgDocuments from "./components/AddOrgadminDocs/index.jsx";
 import UpdateOrgAdminDoc from "./components/UpdateOrgAdminDoc/index.jsx";
-import EditUsers from "./pages/org-admin/users/edit-users/EditUsers.jsx";
-import AddUsers from "./pages/org-admin/users/add-users/AddUsers.jsx";
+// import EditUsers from "./pages/org-admin/users/edit-users/EditUsers.jsx";
+// import AddUsers from "./pages/org-admin/users/add-users/AddUsers.jsx";
 import TermsAndConditions from "./components/TermsAndConditions/index.jsx";
 import PrivacyPolicies from "./components/PrivacyPolicy/index.jsx";
 import ViewOrganisation from "./pages/super-admin/organisations/viewOrganisation/ViewOrganisation.jsx";
 import ViewUser from "./pages/org-admin/users/view-user/ViewUser.jsx";
+import { AddUsers, EditUsers } from "./pages/org-admin/users/view-user/User.jsx";
 // import PrivacyPolicies from "./components/PrivacyPolicy/index.jsx";
 /*  
 new flow import statements stop

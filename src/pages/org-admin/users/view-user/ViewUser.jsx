@@ -3,20 +3,29 @@ import Layout from "../../../../Layout";
 import { Box, Tab, Typography } from "@mui/material";
 import UserStatistic from "./UserStatistic";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
-import UserInfo from "./UserInfo";
 import { useParams } from "react-router-dom";
 import { selectUserDetails } from "../../../../store/authSlice";
 import { useSelector } from "react-redux";
+import EditForm from "../../../../components/EditForms/EditForms";
 
 function ViewUser() {
-  const { id } = useParams();
   const organisation = useSelector(selectUserDetails);
-  // console.log("user id view user", id);
-  console.log("organisation admin user table store data", organisation);
   const [selectedTab, setSelectedTab] = useState("userinfo");
-  const pageTitle = `${organisation?.userData.firstName}${" "}${
-    organisation?.userData.lastName
-  }`;
+  const pageTitle = `${organisation?.userData.firstName} ${organisation?.userData.lastName}`;
+
+  const [userData, setUserData] = useState({
+    firstName: organisation?.userData.firstName || "",
+    lastName: organisation?.userData.lastName || "",
+    email: organisation?.userData.email || "",
+  });
+  const [buttonLoading, setButtonLoading] = useState(false);
+
+  const submitHandler = (formData) => {};
+
+  const cancelHandler = () => {};
+
+  const permittedScopes = [];
+
   const handleTabChange = (event, newValue) => {
     setSelectedTab(newValue);
   };
@@ -59,7 +68,16 @@ function ViewUser() {
           </Box>
           <Box>
             <TabPanel value="userinfo">
-              <UserInfo formData={{ firstName: "", lastName: "", email: "" }} />
+              <EditForm
+                formData={userData}
+                setFormsData={setUserData}
+                submitHandler={submitHandler}
+                isEdit={true}
+                buttonLoading={buttonLoading}
+                cancelHandler={cancelHandler}
+                permittedScopes={permittedScopes}
+                readOnlyMode={true}
+              />
             </TabPanel>
             <TabPanel value="userstatistic">
               <UserStatistic setSelectedTab={setSelectedTab} />
