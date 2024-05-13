@@ -1,11 +1,15 @@
 import { Typography, useMediaQuery } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
-import { Link } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import CancelButton from "../../../../components/common/buttons/CancelButton";
 
 function UserStatistic() {
   const isMobile = useMediaQuery("(max-width:600px)");
+  const navigate = useNavigate();
+  const handleCancel = () => {
+    navigate("/users");
+  };
   return (
     <>
       <Box
@@ -32,23 +36,20 @@ function UserStatistic() {
           flexDirection: "row",
           justifyContent: isMobile ? "center" : "flex-end",
           alignItems: isMobile ? "center" : "flex-end",
-          marginTop: isMobile ? "440px" : "380px",
-          paddingRight: isMobile ? "" : "35px",
+          marginTop: isMobile ? "440px" : "289px",
         }}
       >
-        <Link to="/users" style={{ textDecoration: "none" }}>
-          <CancelButton
-            onClick={onclick}
-            style={{}}
-            text="Cancel"
-            onMouseOver={(e) => {
-              e.target.style.borderColor = "#5f94f5";
-            }}
-            onMouseOut={(e) => {
-              e.target.style.borderColor = "rgb(218, 218, 218)";
-            }}
-          />
-        </Link>
+        <CancelButton
+          onClick={handleCancel}
+          style={{}}
+          text="Cancel"
+          onMouseOver={(e) => {
+            e.target.style.borderColor = "#5f94f5";
+          }}
+          onMouseOut={(e) => {
+            e.target.style.borderColor = "rgb(218, 218, 218)";
+          }}
+        />
       </Box>
     </>
   );

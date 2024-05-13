@@ -1,30 +1,24 @@
 import React, { useState } from "react";
 import Layout from "../../../../Layout";
-import { Box, Tab, Typography } from "@mui/material";
+import { Box, Tab, Typography, useMediaQuery } from "@mui/material";
 import UserStatistic from "./UserStatistic";
-import { TabContext, TabList, TabPanel } from "@mui/lab";
-import { useParams } from "react-router-dom";
+import { TabContext, TabPanel } from "@mui/lab";
 import { selectUserDetails } from "../../../../store/authSlice";
 import { useSelector } from "react-redux";
 import EditForm from "../../../../components/EditForms/EditForms";
+import CustomTabList from "../../../../components/TabList/CustomTabList";
 
 function ViewUser() {
-  const organisation = useSelector(selectUserDetails);
+  const isMobile = useMediaQuery("(max-width:600px)");
+  const user = useSelector(selectUserDetails);
   const [selectedTab, setSelectedTab] = useState("userinfo");
-  const pageTitle = `${organisation?.userData.firstName} ${organisation?.userData.lastName}`;
+  const pageTitle = `${user?.userData.firstName} ${user?.userData.lastName}`;
 
   const [userData, setUserData] = useState({
-    firstName: organisation?.userData.firstName || "",
-    lastName: organisation?.userData.lastName || "",
-    email: organisation?.userData.email || "",
+    firstName: user?.userData.firstName || "",
+    lastName: user?.userData.lastName || "",
+    email: user?.userData.email || "",
   });
-  const [buttonLoading, setButtonLoading] = useState(false);
-
-  const submitHandler = (formData) => {};
-
-  const cancelHandler = () => {};
-
-  const permittedScopes = [];
 
   const handleTabChange = (event, newValue) => {
     setSelectedTab(newValue);
@@ -32,28 +26,23 @@ function ViewUser() {
 
   return (
     <Layout componentName={pageTitle}>
-      <Box>
+      <Box
+        sx={{
+          marginLeft: isMobile ? "" : "-23px",
+        }}
+      >
         <TabContext value={selectedTab}>
           <Box
             sx={{
               marginBottom: "1rem",
             }}
           >
-            <TabList
+            <CustomTabList
               onChange={handleTabChange}
-              aria-label=""
-              variant="scrollable"
-              scrollButtons={false}
-              allowScrollButtonsMobile
-              sx={{
-                display: "flex",
-                flexWrap: "nowrap",
-                "& .MuiTab-root": {
-                  minWidth: "auto",
-                },
+              tabSx={{
+                marginLeft: "15px",
               }}
             >
-              <Tab value="personalinformation" />
               <Tab
                 label={<Typography fontWeight="bold">User Info</Typography>}
                 value="userinfo"
@@ -64,21 +53,19 @@ function ViewUser() {
                 }
                 value="userstatistic"
               />
-            </TabList>
+            </CustomTabList>
           </Box>
           <Box>
             <TabPanel value="userinfo">
               <EditForm
                 formData={userData}
                 setFormsData={setUserData}
-                submitHandler={submitHandler}
                 isEdit={true}
-                buttonLoading={buttonLoading}
-                cancelHandler={cancelHandler}
-                permittedScopes={permittedScopes}
+                cancelHandler
                 readOnlyMode={true}
               />
             </TabPanel>
+
             <TabPanel value="userstatistic">
               <UserStatistic setSelectedTab={setSelectedTab} />
             </TabPanel>

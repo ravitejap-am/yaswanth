@@ -85,13 +85,17 @@ const AddUsers = () => {
 
   return (
     <Layout componentName="Add user">
-      <EditForm
-        formData={{ firstName: "", lastName: "", email: "" }}
+        <EditForm
+        formData={{
+          firstName: user?.userData?.firstName || "",
+          lastName: user?.userData?.lastName || "",
+          email: user?.userData?.email || "",
+        }}
         submitHandler={submitHandler}
-        cancelHandler={cancelHandler}
-        isEdit={false}
         buttonLoading={buttonLoading}
+        cancelHandler={cancelHandler}
         permittedScopes={permittedScopes}
+        editableFields={["firstName", "lastName", "email"]}
       />
     </Layout>
   );

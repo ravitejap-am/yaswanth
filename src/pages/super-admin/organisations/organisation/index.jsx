@@ -28,10 +28,10 @@ import {
   validationOrgData,
 } from "../../../../components/super-admin/validation";
 import TabContext from "@mui/lab/TabContext";
-import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import { State } from "country-state-city";
 import OrganisationLayout from "./organisationLayout";
+import CustomTabList from "../../../../components/TabList/CustomTabList";
 
 function Organisation() {
   const isAndroid = /Android/.test(navigator.userAgent);
@@ -634,7 +634,7 @@ function Organisation() {
               marginBottom: "1rem",
             }}
           >
-            <TabList
+            <CustomTabList
               onChange={handleTabChange}
               aria-label="organisation tabs"
               variant="scrollable"
@@ -674,7 +674,7 @@ function Organisation() {
                 }
                 value="subscriptionplan"
               />
-            </TabList>
+            </CustomTabList>
           </Box>
           <Box
             sx={

@@ -3,23 +3,22 @@ import { Button } from "antd";
 import "./editForm.css";
 import { Box, Grid, Typography, useMediaQuery } from "@mui/material";
 import { scopes } from "../../constants/scopes";
+import CancelButton from "../common/buttons/CancelButton";
+import { useNavigate } from "react-router-dom";
 
-function EditForm({
+const EditForm = ({
   formData: initialFormData,
-  setFormsData,
   submitHandler,
   isEdit,
-  cancelHandler,
   buttonLoading,
   permittedScopes,
-  readOnlyMode,
-}) {
+  editableFields,
+}) => {
   const [formData, setFormData] = useState(initialFormData);
+  const navigate = useNavigate();
   const [isDirty, setIsDirty] = useState(true);
   const [errors, setErrors] = useState({});
   const isAndroid = /Android/.test(navigator.userAgent);
-  const isIos =
-    /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
   const isMobile = useMediaQuery("(max-width:600px)");
   useEffect(() => {
     setFormData(initialFormData);
@@ -69,6 +68,10 @@ function EditForm({
     return isValid;
   };
 
+  const handleCancel = () => {
+    navigate("/users");
+  };
+
   return (
     <form
       className="form"
@@ -101,9 +104,13 @@ function EditForm({
                 name="firstName"
                 placeholder="First Name"
                 value={formData.firstName}
-                disabled={isEdit || readOnlyMode}
+                disabled={!editableFields?.includes("firstName")}
                 onChange={handleChange}
-                style={{ backgroundColor: readOnlyMode ? "#CBD5E1" : "" }}
+                style={{
+                  backgroundColor: editableFields?.includes("firstName")
+                    ? ""
+                    : "#CBD5E1",
+                }}
               />
               {errors.firstName && (
                 <span className="error">{errors.firstName}</span>
@@ -121,9 +128,13 @@ function EditForm({
                 name="lastName"
                 placeholder="Last Name"
                 value={formData.lastName}
+                disabled={!editableFields?.includes("lastName")}
                 onChange={handleChange}
-                disabled={isEdit || readOnlyMode}
-                style={{ backgroundColor: readOnlyMode ? "#CBD5E1" : "" }}
+                style={{
+                  backgroundColor: editableFields?.includes("lastName")
+                    ? ""
+                    : "#CBD5E1",
+                }}
               />
               {errors.lastName && (
                 <span className="error">{errors.lastName}</span>
@@ -140,10 +151,12 @@ function EditForm({
                 name="email"
                 placeholder="Email"
                 value={formData.email}
+                disabled={!editableFields?.includes("email")}
                 onChange={handleChange}
-                disabled={isEdit || readOnlyMode}
                 style={{
-                  backgroundColor: isEdit || readOnlyMode ? "#CBD5E1" : "",
+                  backgroundColor: editableFields?.includes("email")
+                    ? ""
+                    : "#CBD5E1",
                 }}
               />
               {errors.email && <span className="error">{errors.email}</span>}
@@ -156,23 +169,20 @@ function EditForm({
             marginBottom: {
               xs: isAndroid ? "1em" : "3em",
             },
-            marginTop: isMobile ? "" : "140px",
+            marginTop: isMobile ? "165px" : "140px",
           }}
         >
-          {
-            <Button
-              type="secondary"
-              className="buttonStyle"
-              style={{
-                backgroundColor: "white",
-                color: "black",
-                border: "1px solid black",
-              }}
-              onClick={cancelHandler}
-            >
-              <Typography variant="button"> Cancel</Typography>
-            </Button>
-          }
+          <CancelButton
+            onClick={handleCancel}
+            style={{}}
+            text="Cancel"
+            onMouseOver={(e) => {
+              e.target.style.borderColor = "#5f94f5";
+            }}
+            onMouseOut={(e) => {
+              e.target.style.borderColor = "rgb(218, 218, 218)";
+            }}
+          />
           {permittedScopes?.includes(scopes.UU) && (
             <Button
               type="primary"
@@ -194,6 +204,6 @@ function EditForm({
       </Box>
     </form>
   );
-}
+};
 
 export default EditForm;
