@@ -1,167 +1,112 @@
-import React, { useEffect, useState } from 'react'
-import Layout from '../../../../Layout'
-import styles from './EditUsers.module.css'
-import { useNavigate, useParams } from 'react-router-dom'
-import { useSelector } from 'react-redux'
-import EditForm from '../../../../components/EditForms/EditForms'
-import { selectUser } from '../../../../store/authSlice'
-import * as constants from '../../../../constants/Constant'
-import { useMessageState } from '../../../../hooks/useapp-message'
-import { tokenDecodeJWT } from '../../../../utils/authUtils'
-const tempData = [
-    'CHU',
-    'CHR',
-    'CHD',
-    'CHC',
-    'UU',
-    'UR',
-    'UD',
-    'UC',
-    'DCQR',
-    'DCR',
-]
+import React, { useEffect, useState } from "react";
+import Layout from "../../../../Layout";
+import { useNavigate, useParams } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import UserForm from "../../../../components/EditForms/UserForm";
+import {
+  selectUser,
+  selectUserDetails,
+  setUserData,
+} from "../../../../store/authSlice";
+import * as constants from "../../../../constants/Constant";
+import { useMessageState } from "../../../../hooks/useapp-message";
+import { tokenDecodeJWT } from "../../../../utils/authUtils";
 
 const EditUsers = () => {
-    const [isSubmitting, setIsSubmitting] = useState(false)
-    const [fileList, setFileList] = useState()
-    const [userData, setUserData] = useState({
-        firstName: '',
-        lastName: '',
-        email: '',
-    })
-    let {
-        buttonLoading,
-        setButtonLoading,
-        isReset,
-        setIsReset,
-        showNotifyMessage,
-        hideNotifyMessage,
-    } = useMessageState()
-    const navigate = useNavigate()
-    const { userId } = useParams()
-    const user = useSelector(selectUser)
-    const jwt = user.userToken
-    const permittedScopes = tokenDecodeJWT(jwt).scopes
-    // const permittedScopes = tempData;
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-    const fetchUserData = async () => {
-        try {
-            const response = await fetch(
-                `${constants.BASE_API_URL}/user/${userId}/details`,
-                {
-                    headers: {
-                        Authorization: `Bearer ${jwt}`,
-                    },
-                }
-            )
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`)
-            }
-            const data = await response.json()
-            setUserData({
-                firstName: data?.data?.firstName,
-                lastName: data?.data?.lastName || '',
-                email: data?.data?.email,
-            })
-            if (data?.data?.profileImagePath?.length > 0) {
-                const url =
-                    constants.BASE_USER_IMAGE_URL + data?.data?.profileImagePath
-                setFileList(url)
-            }
-        } catch (error) {
-            console.error('Error fetching user data:', error)
+  const {
+    buttonLoading,
+    setButtonLoading,
+    showNotifyMessage,
+    hideNotifyMessage,
+  } = useMessageState();
+  const navigate = useNavigate();
+  const { userId } = useParams();
+  const user = useSelector(selectUser);
+  const userInfo = useSelector(selectUserDetails);
+  const dispatch = useDispatch();
+
+  const [userData, setUserDatas] = useState({
+    firstNmae: "",
+    lastName: "",
+    email: "",
+  });
+
+  useEffect(() => {
+    setUserDatas({
+      firstName: userInfo?.userData?.firstName || "",
+      lastName: userInfo?.userData?.lastName || "",
+      email: userInfo?.userData?.email || "",
+    });
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      dispatch(setUserData(null));
+    };
+  }, []);
+
+  const jwt = user.userToken;
+  const permittedScopes = tokenDecodeJWT(jwt).scopes;
+
+  const messageHandler = () => {
+    hideNotifyMessage();
+  };
+
+  const submitHandler = async (values) => {
+    setButtonLoading(true);
+    if (isSubmitting) {
+      return;
+    }
+    setIsSubmitting(true);
+    try {
+      const updateUserResponse = await fetch(
+        `${constants.BASE_API_URL}/user/${userId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${jwt}`,
+          },
+          body: JSON.stringify({
+            firstName: values["firstName"],
+            lastName: values["lastName"],
+          }),
         }
+      );
+      if (!updateUserResponse.ok) {
+        throw new Error(`HTTP error! status: ${updateUserResponse.status}`);
+      }
+      const updateUserData = await updateUserResponse.json();
+      setButtonLoading(false);
+      showNotifyMessage("success", updateUserData?.message, messageHandler);
+    } catch (error) {
+      console.log("Error updating user details:", error);
+      if (error?.response?.status == 500 || error?.response?.status == "500") {
+        navigate("/customerSupport");
+      }
+      setButtonLoading(false);
+    } finally {
+      setIsSubmitting(false);
     }
 
-    const messageHandler = () => {
-        setIsReset(false)
-        hideNotifyMessage()
-    }
-
-    const submitHandler = async (values) => {
-        setButtonLoading(true)
-        if (isSubmitting) {
-            return
-        }
-        setIsSubmitting(true)
-        if (values === undefined) {
-        } else if (
-            userData?.firstName === values?.firstName &&
-            userData?.lastName === values?.lastName
-        ) {
-            setButtonLoading(false)
-            setIsSubmitting(false)
-            showNotifyMessage('success', 'Already updated!', messageHandler)
-        } else {
-            try {
-                const updateUserResponse = await fetch(
-                    `${constants.BASE_API_URL}/user/${userId}`,
-                    {
-                        method: 'PUT',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            Authorization: `Bearer ${jwt}`,
-                        },
-                        body: JSON.stringify({
-                            firstName: values['firstName'],
-                            lastName: values['lastName'],
-                        }),
-                    }
-                )
-                if (!updateUserResponse.ok) {
-                    throw new Error(
-                        `HTTP error! status: ${updateUserResponse.status}`
-                    )
-                }
-                setIsReset(true)
-                const updateUserData = await updateUserResponse.json()
-                setButtonLoading(false)
-                setIsReset(true)
-                showNotifyMessage(
-                    'success',
-                    updateUserData?.message,
-                    messageHandler
-                )
-            } catch (error) {
-                console.log('Error updating user details:', error)
-                if (
-                    error?.response?.status == 500 ||
-                    error?.response?.status == '500'
-                ) {
-                    navigate('/customerSupport')
-                }
-                setButtonLoading(false)
-            } finally {
-                console.log('SBH 17')
-                setIsSubmitting(false)
-                fetchUserData()
-            }
-        }
-    }
-
-    useEffect(() => {
-        fetchUserData()
-    }, [])
-
-    const cancelHandler = () => {
-        navigate('/users')
-    }
-
-    return (
-        <Layout
-            componentName={`Update user: ${userData.firstName} ${userData.lastName}`}
-        >
-            <EditForm
-                formData={userData}
-                setFormsData={setUserData}
-                submitHandler={submitHandler}
-                isEdit={true}
-                buttonLoading={buttonLoading}
-                cancelHandler={cancelHandler}
-                permittedScopes={permittedScopes}
-            />
-        </Layout>
-    )
+  const cancelHandler = () => {
+    navigate("/users");
+  };
+  console.log("submit hadler is working ");
+  return (
+    <Layout componentName="Update user">
+      <UserForm
+        formData={userData}
+        submitHandler={submitHandler}
+        buttonLoading={buttonLoading}
+        cancelHandler={cancelHandler}
+        permittedScopes={permittedScopes}
+        editableFields={["firstName", "lastName"]}
+      />
+    </Layout>
+  );
+};
 }
-
 export default EditUsers
