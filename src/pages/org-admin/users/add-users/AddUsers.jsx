@@ -1,18 +1,23 @@
 import React, { useState } from "react";
 import Layout from "../../../../Layout";
 import { useSelector } from "react-redux";
-import styles from "./AddUsers.module.css";
 import { useNavigate } from "react-router-dom";
 import { selectUser } from "../../../../store/authSlice";
 import * as constants from "../../../../constants/Constant";
-import EditForm from "../../../../components/EditForms/EditForms";
+import UserForm from "../../../../components/EditForms/UserForm";
 import { useMessageState } from "../../../../hooks/useapp-message";
 import { tokenDecodeJWT } from "../../../../utils/authUtils";
+
 const AddUsers = () => {
-  let {
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+  });
+
+  const {
     buttonLoading,
     setButtonLoading,
-    isReset,
     setIsReset,
     showNotifyMessage,
     hideNotifyMessage,
@@ -30,71 +35,67 @@ const AddUsers = () => {
   };
 
   const cancelHandler = () => {
-    console.log("calling cancelHandler");
     navigate("/users");
   };
 
   const submitHandler = async (values) => {
-    console.log("values---->567", values);
-    if (values === undefined) {
-      console.log("values are undefined");
-    } else {
-      if (isSubmitting) {
-        console.log("AI USER 3");
-        return;
-      }
-      setIsSubmitting(true);
-      setButtonLoading(true);
-      try {
-        const responseUser = await fetch(`${constants.BASE_ORG_API_URL}/user`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${jwt}`,
-          },
-          body: JSON.stringify(values),
-        });
-        const data = await responseUser.json();
-        setButtonLoading(false);
-        if (responseUser?.ok) {
-          setIsReset(true);
-          showNotifyMessage("success", data.message, messageHandler);
-          navigate("/users");
-        } else {
-          showNotifyMessage("error", data.message, messageHandler);
-          return;
-        }
-      } catch (error) {
-        if (
-          error?.response?.status == 500 ||
-          error?.response?.status == "500"
-        ) {
-          navigate("/customerSupport");
-        }
-        setButtonLoading(false);
-        showNotifyMessage(
-          "error",
-          error?.response?.data?.message || "An error occurred",
-          messageHandler
-        );
-      } finally {
-        setIsSubmitting(false);
-      }
+    if (isSubmitting) {
+      return;
     }
+    setIsSubmitting(true);
+    setButtonLoading(true);
+
+    try {
+      const responseUser = await fetch(`${constants.BASE_ORG_API_URL}/user`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${jwt}`,
+        },
+        body: JSON.stringify(values),
+      });
+
+      const data = await responseUser.json();
+
+      if (responseUser.ok) {
+        setIsReset(true);
+        showNotifyMessage("success", data.message, messageHandler);
+        navigate("/users");
+      } else {
+        showNotifyMessage("error", data.message, messageHandler);
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 500) {
+        navigate("/customerSupport");
+      }
+      showNotifyMessage(
+        "error",
+        error.response?.data?.message || "An error occurred",
+        messageHandler
+      );
+    } finally {
+      setButtonLoading(false);
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
   };
 
   return (
     <Layout componentName="Add user">
-        <EditForm
-        formData={{
-          firstName: user?.userData?.firstName || "",
-          lastName: user?.userData?.lastName || "",
-          email: user?.userData?.email || "",
-        }}
+      <UserForm
+        formData={formData}
         submitHandler={submitHandler}
         buttonLoading={buttonLoading}
         cancelHandler={cancelHandler}
         permittedScopes={permittedScopes}
+        onChange={handleChange}
         editableFields={["firstName", "lastName", "email"]}
       />
     </Layout>

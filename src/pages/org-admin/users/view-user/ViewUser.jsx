@@ -1,24 +1,36 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../../../../Layout";
-import { Box, Tab, Typography, useMediaQuery } from "@mui/material";
+import { Box, useMediaQuery } from "@mui/material";
 import UserStatistic from "./UserStatistic";
 import { TabContext, TabPanel } from "@mui/lab";
 import { selectUserDetails } from "../../../../store/authSlice";
-import { useSelector } from "react-redux";
-import EditForm from "../../../../components/EditForms/EditForms";
+import { useDispatch, useSelector } from "react-redux";
+import UserForm from "../../../../components/EditForms/UserForm";
 import CustomTabList from "../../../../components/TabList/CustomTabList";
 
 function ViewUser() {
   const isMobile = useMediaQuery("(max-width:600px)");
   const user = useSelector(selectUserDetails);
+  // const dispatch = useDispatch();
   const [selectedTab, setSelectedTab] = useState("userinfo");
   const pageTitle = `${user?.userData.firstName} ${user?.userData.lastName}`;
+  const tabList = [
+    {
+      label: "User Info",
+      value: "userinfo",
+    },
+    {
+      label: "User Statistic",
+      value: "userstatistic",
+    },
+  ];
 
   const [userData, setUserData] = useState({
     firstName: user?.userData.firstName || "",
     lastName: user?.userData.lastName || "",
     email: user?.userData.email || "",
   });
+
 
   const handleTabChange = (event, newValue) => {
     setSelectedTab(newValue);
@@ -38,26 +50,16 @@ function ViewUser() {
             }}
           >
             <CustomTabList
+              tabs={tabList}
               onChange={handleTabChange}
               tabSx={{
                 marginLeft: "15px",
               }}
-            >
-              <Tab
-                label={<Typography fontWeight="bold">User Info</Typography>}
-                value="userinfo"
-              />
-              <Tab
-                label={
-                  <Typography fontWeight="bold">User Statistic</Typography>
-                }
-                value="userstatistic"
-              />
-            </CustomTabList>
+            />
           </Box>
           <Box>
             <TabPanel value="userinfo">
-              <EditForm
+              <UserForm
                 formData={userData}
                 setFormsData={setUserData}
                 isEdit={true}

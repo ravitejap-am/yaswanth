@@ -1,21 +1,21 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const authSlice = createSlice({
-  name: 'auth',
+  name: "auth",
 
   initialState: {
     user: null,
-    errorMsg: '',
+    errorMsg: "",
     callback: null,
     // handleCancelVerification: null,
     handleVerification: null,
-    onOkButtonText: '',
+    onOkButtonText: "",
     organisation: {
-      organisationStatus: '',
+      organisationStatus: "",
       organisationData: null,
     },
-    organisationAdmin:{
-      organisationStatus: '',
+    organisationAdmin: {
+      organisationStatus: "",
       userData: null,
     },
     chatSessionId: null,
@@ -30,7 +30,7 @@ const authSlice = createSlice({
     setOrganisationData: (state, action) => {
       state.organisation.organisationData = action.payload;
     },
-    setUserData:(state,action)=>{
+    setUserData: (state, action) => {
       state.organisationAdmin.userData = action.payload;
     },
     setErrorMsg: (state, action) => {
@@ -53,7 +53,8 @@ export const {
   setOrganisationData,
   setErrorMsg,
   setChatSessionId,
-  setUserData
+  setUserData,
+  setEditUserData,
 } = authSlice.actions;
 export const selectUser = (state) => state.auth.user;
 export const selectOrganisation = (state) => state.auth.organisation;

@@ -6,7 +6,7 @@ import { scopes } from "../../constants/scopes";
 import CancelButton from "../common/buttons/CancelButton";
 import { useNavigate } from "react-router-dom";
 
-const EditForm = ({
+const UserForm = ({
   formData: initialFormData,
   submitHandler,
   isEdit,
@@ -206,4 +206,4 @@ const EditForm = ({
   );
 };
 
-export default EditForm;
+export default UserForm;

@@ -1,13 +1,14 @@
 import React from "react";
 import { TabList } from "@mui/lab";
+import { Tab, Typography } from "@mui/material";
 
 const CustomTabList = ({
+  tabs,
   onChange,
   ariaLabel,
   variant,
   scrollButtons,
   allowScrollButtonsMobile,
-  children,
   tabSx,
 }) => {
   return (
@@ -23,7 +24,14 @@ const CustomTabList = ({
         ...tabSx,
       }}
     >
-      {children}
+      {tabs.map((tab) => (
+        <Tab
+          key={tab.value}
+          label={<Typography fontWeight="bold">{tab.label}</Typography>}
+          value={tab.value}
+          {...tab.props} 
+        />
+      ))}
     </TabList>
   );
 };

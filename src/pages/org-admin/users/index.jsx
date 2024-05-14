@@ -5,13 +5,7 @@ import Layout from "../../../Layout";
 import { Box, Grid, IconButton, useMediaQuery } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  selectUser,
-  setOrganisationStatus,
-  setOrganisationData,
-  setErrorMsg,
-  setUserData,
-} from "../../../store/authSlice";
+import { selectUser, setUserData } from "../../../store/authSlice";
 import styles from "./index.module.css";
 import { toast } from "react-toastify";
 import { CircularProgress } from "@mui/material";
@@ -181,16 +175,18 @@ function Users() {
   };
 
   const handleEdit = (userId) => {
+    const orgObject = responseData.find((obj) => obj.id === userId);
+    // console.log(orgObject);
     navigate(`/user/${userId}`);
+    dispatch(setUserData(orgObject));
   };
 
   const handleViewUserOrganisation = (id) => {
     const orgObject = responseData.find((obj) => obj.id === id);
-    console.log("Org Object response here org Admin", orgObject);
-    const userName = `${orgObject?.firstName}${" "}${orgObject?.lastName}`.replace(
-      /\s+/g,
-      "-"
-    );
+    // console.log("Org Object response here org Admin", orgObject);
+    const userName = `${orgObject?.firstName}${" "}${
+      orgObject?.lastName
+    }`.replace(/\s+/g, "-");
     navigate(`/userinfo/${encodeURIComponent(userName)}`);
     dispatch(setUserData("view"));
     dispatch(setUserData(orgObject));
@@ -431,6 +427,7 @@ function Users() {
     data: data,
     handleEdit: handleEdit,
     handleConfirmationPopUp: handleConfirmationPopUp,
+    handleViewUserOrganisation: handleViewUserOrganisation,
   };
 
   return (
