@@ -20,9 +20,10 @@ function UserStatistic() {
           height: "50%",
           width: "100%",
           flexDirection: "column",
+          marginTop: isMobile ? "150px" : "100px"
         }}
       >
-        <Typography variant="h5" gutterBottom>
+        <Typography variant="h4" gutterBottom >
           No Data Available
         </Typography>
         <Typography variant="body1" align="center">
@@ -36,7 +37,7 @@ function UserStatistic() {
           flexDirection: "row",
           justifyContent: isMobile ? "center" : "flex-end",
           alignItems: isMobile ? "center" : "flex-end",
-          marginTop: isMobile ? "440px" : "289px",
+          marginTop: isMobile ? "285px" : "180px",
         }}
       >
         <CancelButton
