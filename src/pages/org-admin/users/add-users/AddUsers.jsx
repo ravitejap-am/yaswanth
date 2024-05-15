@@ -1,22 +1,27 @@
-import React, { useState } from 'react'
-import Layout from '../../../../Layout'
-import { useSelector } from 'react-redux'
-import styles from './AddUsers.module.css'
-import { useNavigate } from 'react-router-dom'
-import { selectUser } from '../../../../store/authSlice'
-import * as constants from '../../../../constants/Constant'
-import EditForm from '../../../../components/EditForms/EditForms'
-import { useMessageState } from '../../../../hooks/useapp-message'
-import { tokenDecodeJWT } from '../../../../utils/authUtils'
+import React, { useState } from "react";
+import Layout from "../../../../Layout";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { selectUser } from "../../../../store/authSlice";
+import * as constants from "../../../../constants/Constant";
+import UserForm from "../../../../components/EditForms/UserForm";
+import { useMessageState } from "../../../../hooks/useapp-message";
+import { tokenDecodeJWT } from "../../../../utils/authUtils";
+
 const AddUsers = () => {
-    let {
-        buttonLoading,
-        setButtonLoading,
-        isReset,
-        setIsReset,
-        showNotifyMessage,
-        hideNotifyMessage,
-    } = useMessageState()
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+  });
+
+  const {
+    buttonLoading,
+    setButtonLoading,
+    setIsReset,
+    showNotifyMessage,
+    hideNotifyMessage,
+  } = useMessageState();
 
     const navigate = useNavigate()
     const user = useSelector(selectUser)
@@ -24,80 +29,78 @@ const AddUsers = () => {
     const permittedScopes = tokenDecodeJWT(jwt).scopes
     const [isSubmitting, setIsSubmitting] = useState(false)
 
-    const messageHandler = () => {
-        setIsReset(false)
-        hideNotifyMessage()
-    }
+  const messageHandler = () => {
+    setIsReset(false);
+    hideNotifyMessage();
+  };
 
-    const cancelHandler = () => {
-        console.log('calling cancelHandler')
-        navigate('/users')
-    }
+  const cancelHandler = () => {
+    navigate("/users");
+  };
 
-    const submitHandler = async (values) => {
-        console.log('values---->567', values)
-        if (values === undefined) {
-            console.log('values are undefined')
-        } else {
-            if (isSubmitting) {
-                console.log('AI USER 3')
-                return
-            }
-            setIsSubmitting(true)
-            setButtonLoading(true)
-            try {
-                const responseUser = await fetch(
-                    `${constants.BASE_ORG_API_URL}/user`,
-                    {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            Authorization: `Bearer ${jwt}`,
-                        },
-                        body: JSON.stringify(values),
-                    }
-                )
-                const data = await responseUser.json()
-                setButtonLoading(false)
-                if (responseUser?.ok) {
-                    setIsReset(true)
-                    showNotifyMessage('success', data.message, messageHandler)
-                    navigate('/users')
-                } else {
-                    showNotifyMessage('error', data.message, messageHandler)
-                    return
-                }
-            } catch (error) {
-                if (
-                    error?.response?.status == 500 ||
-                    error?.response?.status == '500'
-                ) {
-                    navigate('/customerSupport')
-                }
-                setButtonLoading(false)
-                showNotifyMessage(
-                    'error',
-                    error?.response?.data?.message || 'An error occurred',
-                    messageHandler
-                )
-            } finally {
-                setIsSubmitting(false)
-            }
-        }
+  const submitHandler = async (values) => {
+    if (isSubmitting) {
+      return;
     }
+    setIsSubmitting(true);
+    setButtonLoading(true);
 
-    return (
-        <Layout componentName="Add user">
-            <EditForm
-                formData={{ firstName: '', lastName: '', email: '' }}
-                submitHandler={submitHandler}
-                cancelHandler={cancelHandler}
-                isEdit={false}
-                buttonLoading={buttonLoading}
-                permittedScopes={permittedScopes}
-            />
-        </Layout>
-    )
-}
+    try {
+      const responseUser = await fetch(`${constants.BASE_ORG_API_URL}/user`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${jwt}`,
+        },
+        body: JSON.stringify(values),
+      });
+
+      const data = await responseUser.json();
+
+      if (responseUser.ok) {
+        setIsReset(true);
+        showNotifyMessage("success", data.message, messageHandler);
+        navigate("/users");
+      } else {
+        showNotifyMessage("error", data.message, messageHandler);
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 500) {
+        navigate("/customerSupport");
+      }
+      showNotifyMessage(
+        "error",
+        error.response?.data?.message || "An error occurred",
+        messageHandler
+      );
+    } finally {
+      setButtonLoading(false);
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  return (
+    <Layout componentName="Add user">
+      <UserForm
+        formData={formData}
+        submitHandler={submitHandler}
+        buttonLoading={buttonLoading}
+        cancelHandler={cancelHandler}
+        permittedScopes={permittedScopes}
+        onChange={handleChange}
+        editableFields={["firstName", "lastName", "email"]}
+      />
+    </Layout>
+  );
+};
+
 
 export default AddUsers

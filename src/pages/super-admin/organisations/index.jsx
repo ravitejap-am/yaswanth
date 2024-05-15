@@ -277,20 +277,22 @@ function Organisations() {
     }
 
     const handleEdit = (id) => {
-        console.log('editing')
-        console.log(id)
-        const orgObject = responseData.find((obj) => obj.id === id)
-        navigate('/organisation')
-        dispatch(setOrganisationStatus('edit'))
-        dispatch(setOrganisationData(orgObject))
-    }
-
-    const handleViewOrganisation = (id) => {
-        const orgObject = responseData.find((obj) => obj.id === id)
-        navigate('/organisation')
-        dispatch(setOrganisationStatus('view'))
-        dispatch(setOrganisationData(orgObject))
-    }
+        console.log("editing");
+        console.log(id);
+        const orgObject = responseData.find((obj) => obj.id === id);
+        navigate("/organisation");
+        dispatch(setOrganisationStatus("edit"));
+        dispatch(setOrganisationData(orgObject));
+      };
+    
+      const handleViewOrganisation = (id) => {
+        const orgObject = responseData.find((obj) => obj.id === id);
+        const organisationName = orgObject?.name.replace(/\s+/g, "-");
+        console.log(orgObject, "org object");
+        navigate(`/organisation/${encodeURIComponent(organisationName)}`);
+        dispatch(setOrganisationStatus("view"));
+        dispatch(setOrganisationData(orgObject));
+      };
 
     const handleNo = () => {
         setDeleteProps({})
