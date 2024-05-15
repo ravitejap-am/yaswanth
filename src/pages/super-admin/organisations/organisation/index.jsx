@@ -62,7 +62,11 @@ function Organisation() {
       : organisation?.organisationStatus === "view"
       ? organisation?.organisationData?.name
       : "Add Organisation";
-
+      const action =
+      organisation?.organisationStatus === "edit" ||
+      organisation?.organisationStatus === "view"
+        ? organisation?.organisationStatus
+        : "Add Organisation";
   console.log("organisation", organisation);
   const jwt = user.userToken;
   const navigate = useNavigate();

@@ -90,6 +90,7 @@ const EditUsers = () => {
     } finally {
       setIsSubmitting(false);
     }
+  };
 
   const cancelHandler = () => {
     navigate("/users");
@@ -108,5 +109,5 @@ const EditUsers = () => {
     </Layout>
   );
 };
-}
-export default EditUsers
+
+export default EditUsers;

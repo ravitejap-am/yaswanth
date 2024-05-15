@@ -10,6 +10,7 @@ import {
   setOrganisationStatus,
   setOrganisationData,
   setErrorMsg,
+  setUserData,
 } from "../../../store/authSlice";
 import styles from "./index.module.css";
 import { toast } from "react-toastify";
@@ -33,7 +34,7 @@ import { RiAdminFill } from "react-icons/ri";
 import { RiAdminLine } from "react-icons/ri";
 import { scopes } from "../../../constants/scopes";
 import { tokenDecodeJWT } from "../../../utils/authUtils";
-
+import eye1 from '../../../asset/eye1.png'
 const tempData = [
   "CHU",
   "CHR",
@@ -67,6 +68,8 @@ function Users() {
   const [fullName, setFullName] = useState("");
   const [tableloading, setTableLoading] = useState(false);
   const [previousSearchQuery, setPreviousSearchQuery] = useState("");
+  const dispatch = useDispatch();
+  const [responseData, setResponseData] = useState([]);
 
   const [pageInfo, setPageInfo] = useState({
     pageSize: 10,
@@ -155,6 +158,9 @@ function Users() {
       setTableLoading(false);
       if (response.status === 200) {
         const responseData = response?.data;
+        let userData = response?.data?.data?.users;
+        console.log("response of userList ------>", userData);
+        setResponseData(userData);
         setPageInfo({
           ...pageInfo,
           pageSize: responseData?.pageSize,
