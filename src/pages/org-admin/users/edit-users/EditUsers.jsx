@@ -26,7 +26,8 @@ const EditUsers = () => {
   const user = useSelector(selectUser);
   const userInfo = useSelector(selectUserDetails);
   const dispatch = useDispatch();
-
+  console.log("Edit user user info-->",userInfo)
+  const pageTitle = `Update user: ${userInfo?.userData.firstName} ${userInfo?.userData.lastName}`;
   const [userData, setUserDatas] = useState({
     firstNmae: "",
     lastName: "",
@@ -97,7 +98,7 @@ const EditUsers = () => {
   };
   console.log("submit hadler is working ");
   return (
-    <Layout componentName="Update user">
+    <Layout componentName={pageTitle}>
       <UserForm
         formData={userData}
         submitHandler={submitHandler}
