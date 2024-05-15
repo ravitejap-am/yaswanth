@@ -282,7 +282,7 @@ function MobileHeader(props) {
                     (pathname == '/chat' || pathname == '/user') &&
                     permitedScopes.includes(scopes.CHC) && (
                         <Link
-                            to="/chat"
+                            to={role == 'ORG_ADMIN' ? "/chat" : "/user"}
                             style={{ textDecoration: 'none' }}
                             className="hoverDiv"
                         >
