@@ -18,7 +18,6 @@ const AddUsers = () => {
   const {
     buttonLoading,
     setButtonLoading,
-    setIsReset,
     showNotifyMessage,
     hideNotifyMessage,
   } = useMessageState();
@@ -27,10 +26,8 @@ const AddUsers = () => {
     const user = useSelector(selectUser)
     const jwt = user.userToken
     const permittedScopes = tokenDecodeJWT(jwt).scopes
-    const [isSubmitting, setIsSubmitting] = useState(false)
 
   const messageHandler = () => {
-    setIsReset(false);
     hideNotifyMessage();
   };
 
@@ -39,12 +36,7 @@ const AddUsers = () => {
   };
 
   const submitHandler = async (values) => {
-    if (isSubmitting) {
-      return;
-    }
-    setIsSubmitting(true);
     setButtonLoading(true);
-
     try {
       const responseUser = await fetch(`${constants.BASE_ORG_API_URL}/user`, {
         method: "POST",
@@ -58,7 +50,6 @@ const AddUsers = () => {
       const data = await responseUser.json();
 
       if (responseUser.ok) {
-        setIsReset(true);
         showNotifyMessage("success", data.message, messageHandler);
         navigate("/users");
       } else {
@@ -73,9 +64,9 @@ const AddUsers = () => {
         error.response?.data?.message || "An error occurred",
         messageHandler
       );
-    } finally {
+    }
+     finally {
       setButtonLoading(false);
-      setIsSubmitting(false);
     }
   };
 

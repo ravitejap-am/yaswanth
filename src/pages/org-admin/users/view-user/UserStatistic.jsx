@@ -42,7 +42,7 @@ function UserStatistic() {
       >
         <CancelButton
           onClick={handleCancel}
-          style={{}}
+          style={{width: isMobile ? "100px" : ""}}
           text="Cancel"
           onMouseOver={(e) => {
             e.target.style.borderColor = "#5f94f5";
