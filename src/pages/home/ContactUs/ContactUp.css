@@ -138,10 +138,13 @@
     height: 50px;
     border-radius: 40px;
     border: 1px solid var(--Brand-700, #4338ca);
+    border-color:  1px solid var(--Brand-700, #4338ca);
     background: transparent !important;
     color: #fff !important;
 }
-
+.contact_input_css:focus {
+    border: 0px solid var(--Brand-700, #4338ca);
+}
 .custom_input .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
     color: white !important;
 }
