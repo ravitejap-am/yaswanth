@@ -51,7 +51,6 @@ function AddOrgDocuments() {
             const formData = new FormData()
             formData.append('file', file)
             formData.append('name', file?.name)
-
             const response = await axios.post(
                 `${constants.BASE_DOC_API_URL}`,
                 formData,
@@ -62,7 +61,6 @@ function AddOrgDocuments() {
                     },
                 }
             )
-
             setButtonLoading(false)
             setIsReset(true)
             setErrors('')
@@ -74,8 +72,8 @@ function AddOrgDocuments() {
             navigate('/documents')
         } catch (error) {
             setButtonLoading(false)
-            if (error?.code === 'ERR_NETWORK') {
-                console.log('timed out error')
+            //status 408 will work only in server
+            if (error?.response?.status === 408) {
                 showNotifyMessage(
                     'error',
                     'Looks like request has timed out. Please retry',
