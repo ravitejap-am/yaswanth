@@ -28,6 +28,7 @@ import {
 } from '../../../components/super-admin/validation'
 import { LoadingButton } from '@mui/lab'
 import Submit from '../../../components/common/buttons/Submit'
+import { ArrowDropDownIcon } from '@mui/x-date-pickers'
 
 const { TextArea } = Input
 
@@ -283,13 +284,13 @@ const ContactUp = (props) => {
                             style: { color: 'white' },
                         }}
                     />
-                    <FormControl
+                   <FormControl
                         size="large"
                         margin="normal"
-                        required
+                        required 
                         error={!validations['plan'].isValid}
                     >
-                        <InputLabel id="Select-plan" style={{ color: 'white' }}>
+                        <InputLabel id="Select-plan" style={{ color: 'white' }} >
                             Select Plan
                         </InputLabel>
                         <Select
@@ -300,6 +301,7 @@ const ContactUp = (props) => {
                             className="contact_input_css custom_input"
                             onChange={handleChange}
                             value={values?.plan}
+                            IconComponent={() => <ArrowDropDownIcon style={{ color: 'white' }} />} 
                         >
                             {selectOptions?.length > 0 &&
                                 selectOptions.map((item) => {

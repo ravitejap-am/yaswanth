@@ -42,6 +42,7 @@ import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import { Country, State, City } from "country-state-city";
 import OrganisationLayout from "./organisationLayout";
+import CustomTabList from "../../../../components/TabList/CustomTabList";
 
 function Organisation() {
   const isAndroid = /Android/.test(navigator.userAgent);
@@ -632,6 +633,24 @@ function Organisation() {
     return uniqueValues.size !== arr.length;
   }
 
+  const tabList = [
+    {
+      label: "Organisation Info",
+      value: "personalinformation",
+    },
+    {
+      label: "Organisation Domains",
+      value: "organizationdomains",
+    },
+    {
+      label: "Organisation Admin",
+      value: "organizationadmin",
+    },
+    {
+      label:"Subscription Plan",
+      value:"subscriptionplan"
+    }
+  ];
   return (
     <OrganisationLayout componentName={pageTitle} action={action}>
       {backDropLoading && <PageLoader loadingStatus={backDropLoading} />}
@@ -642,7 +661,8 @@ function Organisation() {
               marginBottom: "1rem",
             }}
           >
-            <TabList
+            <CustomTabList
+             tabs={tabList}
               onChange={handleTabChange}
               aria-label="organisation tabs"
               variant="scrollable"
@@ -655,34 +675,7 @@ function Organisation() {
                   minWidth: "auto",
                 },
               }}
-            >
-              <Tab
-                label={
-                  <Typography fontWeight="bold">Organisation Info</Typography>
-                }
-                value="personalinformation"
-              />
-              <Tab
-                label={
-                  <Typography fontWeight="bold">
-                    Organisation Domains
-                  </Typography>
-                }
-                value="organizationdomains"
-              />
-              <Tab
-                label={
-                  <Typography fontWeight="bold">Organisation Admin</Typography>
-                }
-                value="organizationadmin"
-              />
-              <Tab
-                label={
-                  <Typography fontWeight="bold">Subscription Plan</Typography>
-                }
-                value="subscriptionplan"
-              />
-            </TabList>
+            />
           </Box>
           <Box
             sx={
