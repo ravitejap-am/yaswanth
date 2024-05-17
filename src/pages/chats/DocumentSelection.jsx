@@ -10,7 +10,7 @@ import { scopes } from '../../constants/scopes'
 import CustomDialog from '../../components/Dialog/CustomDialog'
 
 
-function ChatHeader({handleSearchOptionChange,handleFileChange,handleOkWarning,searchOption,permittedScopes,showWarning,documents,selectedFile,handleCancelWarning,isMobile}) {
+function DocumentSelection({handleSearchOptionChange,handleFileChange,handleOkWarning,searchOption,permittedScopes,showWarning,documents,selectedFile,handleCancelWarning,isMobile}) {
   return (
     <Box
     sx={{
@@ -163,4 +163,4 @@ function ChatHeader({handleSearchOptionChange,handleFileChange,handleOkWarning,s
   )
 }
 
-export default ChatHeader
+export default DocumentSelection

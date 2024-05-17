@@ -24,7 +24,7 @@ import { tokenDecodeJWT } from '../../utils/authUtils'
 import { scopes } from '../../constants/scopes'
 import NoDocumentError from '../../components/errors/NoDocumentError'
 import { GrDocumentMissing } from 'react-icons/gr'
-import ChatHeader from './ChatHeader'
+import DocumentSelection from './DocumentSelection'
 
 const tempData = [
     'CHU',
@@ -455,7 +455,7 @@ function Chats() {
                         flexDirection: 'column',
                     }}
                 >
-                    <ChatHeader
+                    <DocumentSelection
                     isMobile={isMobile}
                             selectedFile={selectedFile}
                             documents={documents}
