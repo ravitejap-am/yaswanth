@@ -1,11 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react'
 import Layout from '../../Layout'
-import {
-    Box,
-    Typography,
-    Grid,
-    useMediaQuery,
-} from '@mui/material'
+import { Box, Typography, Grid, useMediaQuery } from '@mui/material'
 import { Button, Skeleton } from 'antd'
 import styles from './Chats.module.css'
 import { SendOutlined } from '@ant-design/icons'
@@ -26,18 +21,6 @@ import NoDocumentError from '../../components/errors/NoDocumentError'
 import { GrDocumentMissing } from 'react-icons/gr'
 import DocumentSelection from './DocumentSelection'
 
-const tempData = [
-    'CHU',
-    'CHR',
-    'CHD',
-    // 'CHC',
-    'UU',
-    'UR',
-    'UD',
-    'UC',
-    'DCQR',
-    'DCR',
-]
 
 function Chats() {
     const {
@@ -69,7 +52,6 @@ function Chats() {
     const user = useSelector(selectUser)
     const jwt = user.userToken
     const permittedScopes = tokenDecodeJWT(jwt).scopes
-    // const permittedScopes = tempData;
     const [searchOption, setSearchOption] = useState(
         permittedScopes?.includes(scopes.DCR)
             ? 'specificFileText'
@@ -118,7 +100,6 @@ function Chats() {
             permittedScopes?.includes(scopes.DCR)
         ) {
             fetchDocuments()
-
         }
     }, [])
 
@@ -456,19 +437,18 @@ function Chats() {
                     }}
                 >
                     <DocumentSelection
-                    isMobile={isMobile}
-                            selectedFile={selectedFile}
-                            documents={documents}
-                            showWarning={showWarning}
-                            searchOption={searchOption}
-                            setSearchOption={setSearchOption}
-                            permittedScopes={permittedScopes}
-                            handleSearchOptionChange={handleSearchOptionChange}
-                            selectedFile={selectedFile}
-                            handleFileChange={handleFileChange}
-                            handleOkWarning={handleOkWarning}
-                            handleCancelWarning={handleCancelWarning}
-                        />
+                        isMobile={isMobile}
+                        selectedFile={selectedFile}
+                        documents={documents}
+                        showWarning={showWarning}
+                        searchOption={searchOption}
+                        setSearchOption={setSearchOption}
+                        permittedScopes={permittedScopes}
+                        handleSearchOptionChange={handleSearchOptionChange}
+                        handleFileChange={handleFileChange}
+                        handleOkWarning={handleOkWarning}
+                        handleCancelWarning={handleCancelWarning}
+                    />
                     <Box sx={{ flex: 1, overflowY: 'auto' }}>
                         {!messageSent && (
                             <Box
