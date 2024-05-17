@@ -4,18 +4,11 @@ import {
     Box,
     Typography,
     Grid,
-    Dialog,
-    DialogTitle,
-    DialogContent,
-    DialogActions,
     useMediaQuery,
-    TextField,
-    Autocomplete,
-    Popper,
 } from '@mui/material'
 import { Button, Skeleton } from 'antd'
 import styles from './Chats.module.css'
-import { SendOutlined, WarningOutlined } from '@ant-design/icons'
+import { SendOutlined } from '@ant-design/icons'
 import { useChat } from '../../contexts/provider/ChatContext'
 import { getChatResponse, getQuestions } from '../../apiCalls/ApiCalls'
 import { useSelector } from 'react-redux'
@@ -31,6 +24,7 @@ import { tokenDecodeJWT } from '../../utils/authUtils'
 import { scopes } from '../../constants/scopes'
 import NoDocumentError from '../../components/errors/NoDocumentError'
 import { GrDocumentMissing } from 'react-icons/gr'
+import ChatHeader from './ChatHeader'
 
 const tempData = [
     'CHU',
@@ -124,6 +118,7 @@ function Chats() {
             permittedScopes?.includes(scopes.DCR)
         ) {
             fetchDocuments()
+
         }
     }, [])
 
@@ -460,189 +455,20 @@ function Chats() {
                         flexDirection: 'column',
                     }}
                 >
-                    <Box
-                        sx={{
-                            borderBottom: '1px solid lightGrey',
-                            width: '100%',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: isMobile
-                                ? 'space-around'
-                                : 'flex-start',
-                            flexDirection: 'row',
-                            gap: isMobile ? '0.6rem' : '2rem',
-                            paddingBottom: '10px',
-                            flexWrap: 'wrap',
-                            marginTop: isMobile ? '0.5em' : '0px',
-                        }}
-                    >
-                        {permittedScopes?.includes(scopes.CHC) && (
-                            <>
-                                <Box
-                                    sx={{
-                                        display: 'flex',
-                                        flexDirection: 'row',
-                                    }}
-                                >
-                                    <input
-                                        type="radio"
-                                        value="acrossFiles"
-                                        checked={searchOption === 'acrossFiles'}
-                                        onChange={() =>
-                                            handleSearchOptionChange(
-                                                'acrossFiles'
-                                            )
-                                        }
-                                    />
-                                    <Typography
-                                        variant="body1"
-                                        sx={{
-                                            fontSize: isMobile
-                                                ? '0.9rem'
-                                                : '1rem',
-                                            paddingTop: '0.19rem',
-                                        }}
-                                    >
-                                        Across
-                                    </Typography>
-                                </Box>
-                                {permittedScopes?.includes(scopes.DCR) && (
-                                    <Box
-                                        sx={{
-                                            display: 'flex',
-                                            flexDirection: 'row',
-                                        }}
-                                    >
-                                        <input
-                                            type="radio"
-                                            value="specificFileText"
-                                            checked={
-                                                searchOption ===
-                                                'specificFileText'
-                                            }
-                                            onChange={() =>
-                                                handleSearchOptionChange(
-                                                    'specificFileText'
-                                                )
-                                            }
-                                        />
-                                        <Typography
-                                            variant="body1"
-                                            sx={{
-                                                fontSize: isMobile
-                                                    ? '0.9rem'
-                                                    : '1rem',
-                                                paddingTop: '0.19rem',
-                                            }}
-                                        >
-                                            Specific
-                                        </Typography>
-                                    </Box>
-                                )}
-
-                                {searchOption === 'specificFileText' && (
-                                    <Box>
-                                        <Autocomplete
-                                            onChange={(event, newValue) =>
-                                                handleFileChange(newValue)
-                                            }
-                                            id="document"
-                                            fullWidth={true}
-                                            options={documents}
-                                            getOptionLabel={(option) =>
-                                                option?.name
-                                            }
-                                            value={selectedFile}
-                                            sx={{
-                                                '.MuiInputLabel-root': {
-                                                    transform:
-                                                        'translateY(-50%)',
-                                                    top: '50%',
-                                                    left: '5%',
-                                                    position: 'absolute',
-                                                    '&.Mui-focused': {
-                                                        transform:
-                                                            'translateY(-50%) scale(0.75)',
-                                                        top: 0,
-                                                    },
-                                                    '&.MuiInputLabel-shrink': {
-                                                        transform:
-                                                            'translate(0, -50%) scale(0.75)',
-                                                        top: 0,
-                                                    },
-                                                },
-                                                '.MuiAutocomplete-inputRoot': {
-                                                    position: 'relative',
-                                                    height: '40px',
-                                                    lineHeight: '1em',
-                                                    paddingTop: '0px',
-                                                    minWidth: '250px',
-                                                    overflow: 'visible',
-                                                    flexGrow: 1,
-                                                },
-                                            }}
-                                            PopperComponent={(props) => (
-                                                <Popper
-                                                    {...props}
-                                                    style={{ width: 'auto' }}
-                                                />
-                                            )}
-                                            renderInput={(params) => (
-                                                <TextField
-                                                    {...params}
-                                                    label="Document"
-                                                />
-                                            )}
-                                        />
-
-                                        <Dialog
-                                            open={showWarning}
-                                            onClose={handleCancelWarning}
-                                        >
-                                            <DialogTitle>
-                                                <WarningOutlined
-                                                    style={{
-                                                        color: '#faad14',
-                                                        marginRight: '8px',
-                                                    }}
-                                                />
-                                                Warning
-                                            </DialogTitle>
-                                            <DialogContent>
-                                                <Typography>
-                                                    Interacting across files is
-                                                    a costly and time-consuming
-                                                    process. Would you like to
-                                                    continue ?
-                                                </Typography>
-                                            </DialogContent>
-                                            <DialogActions>
-                                                <Button
-                                                    onClick={handleOkWarning}
-                                                    type="primary"
-                                                >
-                                                    <Typography variant="button">
-                                                        {' '}
-                                                        Ok{' '}
-                                                    </Typography>
-                                                </Button>
-                                                <Button
-                                                    onClick={
-                                                        handleCancelWarning
-                                                    }
-                                                >
-                                                    <Typography variant="button">
-                                                        {' '}
-                                                        Cancel{' '}
-                                                    </Typography>
-                                                </Button>
-                                            </DialogActions>
-                                        </Dialog>
-                                    </Box>
-                                )}
-                            </>
-                        )}
-                    </Box>
+                    <ChatHeader
+                    isMobile={isMobile}
+                            selectedFile={selectedFile}
+                            documents={documents}
+                            showWarning={showWarning}
+                            searchOption={searchOption}
+                            setSearchOption={setSearchOption}
+                            permittedScopes={permittedScopes}
+                            handleSearchOptionChange={handleSearchOptionChange}
+                            selectedFile={selectedFile}
+                            handleFileChange={handleFileChange}
+                            handleOkWarning={handleOkWarning}
+                            handleCancelWarning={handleCancelWarning}
+                        />
                     <Box sx={{ flex: 1, overflowY: 'auto' }}>
                         {!messageSent && (
                             <Box
